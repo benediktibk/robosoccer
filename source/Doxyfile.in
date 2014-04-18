@@ -1,7 +1,7 @@
 
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Marvin"
-PROJECT_NUMBER         = rev. @HG_CURRENT_REV@
+PROJECT_NUMBER         =
 PROJECT_BRIEF          =
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = documentation

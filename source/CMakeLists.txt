@@ -30,8 +30,6 @@ add_custom_target(
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-execute_process(COMMAND hg identify -n
-		OUTPUT_VARIABLE HG_CURRENT_REV)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 
