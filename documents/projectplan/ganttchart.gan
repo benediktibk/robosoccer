@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Untitled Gantt Project" company="" webLink="http://" view-date="2014-04-27" view-index="0" gantt-divider-location="466" resource-divider-location="301" version="2.0">
+    <description/>
+    <view zooming-state="default:2" id="gantt-chart"/>
+    <view id="resource-table">
+        <field id="0" name="Ressource" width="55" order="0"/>
+        <field id="1" name="Rolle" width="44" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <calendar id="1" name="default">
+                <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+                <overriden-day-types/>
+                <days/>
+            </calendar>
+        </day-types>
+    </calendars>
+    <tasks color="#8cb6ce">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="test tramework for robots" color="#8cb6ce" meeting="false" start="2014-04-23" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="1" name="create basic structure in repository" color="#8cb6ce" meeting="false" start="2014-04-23" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="2" name="implement ReadableRobot" color="#8cb6ce" meeting="false" start="2014-04-30" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="4" name="implement ControllableRobot" color="#8cb6ce" meeting="false" start="2014-05-07" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="6" name="implement AutonomousRobot" color="#8cb6ce" meeting="false" start="2014-05-14" duration="10" complete="0" priority="1" expand="true"/>
+        <task id="7" name="implement EnemyTeam" color="#8cb6ce" meeting="false" start="2014-05-14" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="8" name="imlement OwnTeam" color="#8cb6ce" meeting="false" start="2014-05-28" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="9" name="implement main state machine" color="#8cb6ce" meeting="false" start="2014-04-30" duration="10" complete="0" priority="1" expand="true"/>
+        <task id="10" name="implement strategy" color="#8cb6ce" meeting="false" start="2014-05-21" duration="25" complete="0" priority="1" expand="true"/>
+        <task id="11" name="implement penalty shooting" color="#8cb6ce" meeting="false" start="2014-04-30" duration="5" complete="0" priority="1" expand="true"/>
+        <task id="12" name="implement collision avoidance" color="#8cb6ce" meeting="false" start="2014-05-21" duration="10" complete="0" priority="1" expand="true"/>
+        <task id="13" name="write documentation" color="#8cb6ce" meeting="false" start="2014-06-04" duration="15" complete="0" priority="1" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <taskdisplaycolumns>
+        <displaycolumn property-id="tpd3" order="0" width="184"/>
+        <displaycolumn property-id="tpd4" order="1" width="28"/>
+        <displaycolumn property-id="tpd5" order="2" width="26"/>
+    </taskdisplaycolumns>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
