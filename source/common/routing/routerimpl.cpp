@@ -24,24 +24,22 @@ RouterImpl::RouterImpl(double robotWidth) :
 	m_robotWidth(robotWidth)
 { }
 
-Route RouterImpl::calculateRoute(
-		const OrientedPosition &start, const OrientedPosition &end, const FieldPositionChecker &field,
+Route RouterImpl::calculateRoute(const OrientedPosition &start, const OrientedPosition &end, const FieldPositionChecker &field,
 		const Angle &maximumRotation, double minimumStepAfterMaximumRotation, bool ignoreFinalOrientation,
-		const vector<Circle> &hardObstacles, const vector<Circle> &softObstacles) const
+		const vector<Circle> &obstacles) const
 {
 	if (!field.isPointInsideField(end.getPosition()))
 		return Route();
 
 	Circle endCircle(end.getPosition(), sqrt(2)*m_robotWidth);
-	if (	endCircle.overlapsWith(hardObstacles) ||
-			endCircle.overlapsWith(softObstacles))
+	if (endCircle.overlapsWith(obstacles))
 		return Route();
 
 	const Point &startPosition = start.getPosition();
 	const Point &endPosition = end.getPosition();
 	const Angle &startOrientation = start.getOrientation();
 	const Angle &endOrientation = end.getOrientation();
-	vector<Circle> allObstacles = filterObstacles(softObstacles, hardObstacles, startPosition);
+	vector<Circle> allObstacles = filterObstacles(obstacles, startPosition);
 
 	bool startInsideField = field.isPointInsideField(startPosition);
 	list<RoutingObstacle> consideredObstacles;
@@ -114,15 +112,14 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 }
 
 vector<Circle> RouterImpl::filterObstacles(
-		const vector<Circle> &softObstacles,
-		const vector<Circle> &hardObstacles,
+		const vector<Circle> &obstacles,
 		const Point &position) const
 {
-	vector<Circle> allObstacles;
-	allObstacles.reserve(hardObstacles.size() + softObstacles.size());
+	vector<Circle> fileredObstacles;
+	fileredObstacles.reserve(obstacles.size());
 	Circle startCircle(position, sqrt(2)*m_robotWidth);
 
-	for (vector<Circle>::const_iterator i = hardObstacles.begin(); i != hardObstacles.end(); ++i)
+	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
 	{
 		Circle obstacle = *i;
 		const Point &center = obstacle.getCenter();
@@ -137,18 +134,10 @@ vector<Circle> RouterImpl::filterObstacles(
 			obstacle.setDiameter(diameter);
 		}
 
-		allObstacles.push_back(obstacle);
+		fileredObstacles.push_back(obstacle);
 	}
 
-	for (vector<Circle>::const_iterator i = softObstacles.begin(); i != softObstacles.end(); ++i)
-	{
-		const Circle &obstacle = *i;
-
-		if (!startCircle.overlapsWith(obstacle))
-			allObstacles.push_back(obstacle);
-	}
-
-	return allObstacles;
+	return fileredObstacles;
 }
 
 vector<RoutingResult> RouterImpl::calculateStartParts(

@@ -27,10 +27,9 @@ namespace Routing
 		virtual Route calculateRoute(
 				const Geometry::OrientedPosition &start, const Geometry::OrientedPosition &end, const FieldPositionChecker &field,
 				const Geometry::Angle &maximumRotation, double minimumStepAfterMaximumRotation, bool ignoreFinalOrientation,
-				const std::vector<Geometry::Circle> &hardObstacles, const std::vector<Geometry::Circle> &softObstacles) const;
+				const std::vector<Geometry::Circle> &obstacles) const;
 		std::vector<Geometry::Point> getPointsBesideObstacle(const Geometry::Path &path, const Geometry::Circle &obstacle) const;
-		std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &softObstacles,
-				const std::vector<Geometry::Circle> &hardObstacles, const Geometry::Point &position) const;
+		std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &obstacles, const Geometry::Point &position) const;
 		bool detectLoopInConsideredObstacles(const std::list<RoutingObstacle> &obstacles) const;
 
 	private:

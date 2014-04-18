@@ -22,7 +22,7 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_emptyField_validRoute);
 		CPPUNIT_TEST(calculateRoute_emptyField_routeHasTwoPoints);
 		CPPUNIT_TEST(calculateRoute_emptyField_routeHasSameWidthAsRobot);
-		CPPUNIT_TEST(calculateRoute_softObstacleAtEndOfRoute_invalidRoute);
+		CPPUNIT_TEST(calculateRoute_obstacleAtEndOfRoute_invalidRoute);
 		CPPUNIT_TEST(calculateRoute_oneObstacleBetween_validRoute);
 		CPPUNIT_TEST(calculateRoute_oneObstacleBetween_routeIsNotTooLong);
 		CPPUNIT_TEST(calculateRoute_oneObstacleBetween_routeIsNotIntersectingWithObstacles);
@@ -40,7 +40,7 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_severalObjectsAndOneOnTheWay_calculationIsNotTooSlow);
 		CPPUNIT_TEST(calculateRoute_shortWayOutsideField_noPointOfRouteIsOutside);
 		CPPUNIT_TEST(calculateRoute_onlyPossiblePointBesideIsBlockedByAnotherObstacle_reasonableRoute);
-		CPPUNIT_TEST(calculateRoute_softObstacleAtOwnPosition_validRoute);
+		CPPUNIT_TEST(calculateRoute_obstacleAtOwnPosition_validRoute);
 		CPPUNIT_TEST(calculateRoute_completeTurnAtStartNecessaryAndMaximumRotation_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_completeTurnAtEndNecessaryAndMaximumRotation_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_sharpBendBetweenNecessary_reasonableRoute);
@@ -48,9 +48,7 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_twoSmallObstaclesVeryClose_validRoute);
 		CPPUNIT_TEST(calculateRoute_targetOutsideOfTheField_invalidRoute);
 		CPPUNIT_TEST(calculateRoute_completeTurnAtEndAndIgnoreFinalOrientation_directConnection);
-		CPPUNIT_TEST(calculateRoute_hardObstacleInsideStartPosition_directConnection);
-		CPPUNIT_TEST(calculateRoute_hardObstacleIntersectingWithStartPosition_reasonableRoute);
-		CPPUNIT_TEST(calculateRoute_targetInsideSoftObstacle_invalidRoute);
+		CPPUNIT_TEST(calculateRoute_obstacleIntersectingWithStartPosition_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheField_validRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheFieldAndAnObstacleOnTheWay_validRoute);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromLeftAndCircleCenterNotOnPath_shortPointIsCorrect);
@@ -96,7 +94,7 @@ namespace Routing
 		void calculateRoute_emptyField_validRoute();
 		void calculateRoute_emptyField_routeHasTwoPoints();
 		void calculateRoute_emptyField_routeHasSameWidthAsRobot();
-		void calculateRoute_softObstacleAtEndOfRoute_invalidRoute();
+		void calculateRoute_obstacleAtEndOfRoute_invalidRoute();
 		void calculateRoute_oneObstacleBetween_validRoute();
 		void calculateRoute_oneObstacleBetween_routeIsNotTooLong();
 		void calculateRoute_oneObstacleBetween_routeIsNotIntersectingWithObstacles();
@@ -114,7 +112,7 @@ namespace Routing
 		void calculateRoute_severalObjectsAndOneOnTheWay_calculationIsNotTooSlow();
 		void calculateRoute_shortWayOutsideField_noPointOfRouteIsOutside();
 		void calculateRoute_onlyPossiblePointBesideIsBlockedByAnotherObstacle_reasonableRoute();
-		void calculateRoute_softObstacleAtOwnPosition_validRoute();
+		void calculateRoute_obstacleAtOwnPosition_validRoute();
 		void calculateRoute_completeTurnAtStartNecessaryAndMaximumRotation_reasonableRoute();
 		void calculateRoute_completeTurnAtEndNecessaryAndMaximumRotation_reasonableRoute();
 		void calculateRoute_sharpBendBetweenNecessary_reasonableRoute();
@@ -122,8 +120,7 @@ namespace Routing
 		void calculateRoute_twoSmallObstaclesVeryClose_validRoute();
 		void calculateRoute_targetOutsideOfTheField_invalidRoute();
 		void calculateRoute_completeTurnAtEndAndIgnoreFinalOrientation_directConnection();
-		void calculateRoute_hardObstacleInsideStartPosition_directConnection();
-		void calculateRoute_hardObstacleIntersectingWithStartPosition_reasonableRoute();
+		void calculateRoute_obstacleIntersectingWithStartPosition_reasonableRoute();
 		void calculateRoute_targetInsideSoftObstacle_invalidRoute();
 		void calculateRoute_startIsOutsideTheField_validRoute();
 		void calculateRoute_startIsOutsideTheFieldAndAnObstacleOnTheWay_validRoute();
