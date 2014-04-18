@@ -7,16 +7,16 @@ namespace Common
 {
 namespace Other
 {
-class RandomDecision
-{
-public:
-	RandomDecision(double possibilityForTrue);
+	class RandomDecision
+	{
+	public:
+		RandomDecision(double possibilityForTrue);
 
-	bool decide() const;
+		bool decide() const;
 
-private:
-	double m_possibilityForTrue;
-};
+	private:
+		double m_possibilityForTrue;
+	};
 }
 }
 }

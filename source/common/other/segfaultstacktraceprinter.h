@@ -7,11 +7,11 @@ namespace Common
 {
 namespace Other
 {
-class SegFaultStackTracePrinter
-{
-public:
-	SegFaultStackTracePrinter();
-};
+	class SegFaultStackTracePrinter
+	{
+	public:
+		SegFaultStackTracePrinter();
+	};
 }
 }
 }

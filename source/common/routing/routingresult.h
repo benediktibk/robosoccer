@@ -11,21 +11,21 @@ namespace Common
 {
 namespace Routing
 {
-class RoutingResult
-{
-public:
-	RoutingResult();
-	RoutingResult(const Route &route, const std::list<RoutingObstacle> &obstacles);
+	class RoutingResult
+	{
+	public:
+		RoutingResult();
+		RoutingResult(const Route &route, const std::list<RoutingObstacle> &obstacles);
 
-	bool isValid() const;
-	const Route& getRoute() const;
-	const std::list<RoutingObstacle>& getObstacles() const;
+		bool isValid() const;
+		const Route& getRoute() const;
+		const std::list<RoutingObstacle>& getObstacles() const;
 
-private:
-	Route m_route;
-	std::list<RoutingObstacle> m_obstacles;
+	private:
+		Route m_route;
+		std::list<RoutingObstacle> m_obstacles;
 
-};
+	};
 }
 }
 }

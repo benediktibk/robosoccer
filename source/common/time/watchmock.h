@@ -9,19 +9,19 @@ namespace Common
 {
 namespace Time
 {
-class WatchMock :
-		public Watch
-{
-public:
-	WatchMock();
+	class WatchMock :
+			public Watch
+	{
+	public:
+		WatchMock();
 
-	virtual double getTime() const;
+		virtual double getTime() const;
 
-	void setTime(double time);
+		void setTime(double time);
 
-private:
-	double m_time;
-};
+	private:
+		double m_time;
+	};
 }
 }
 }

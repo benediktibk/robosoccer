@@ -10,14 +10,14 @@ namespace Common
 {
 namespace Time
 {
-class WatchTest :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(WatchTest);
-	CPPUNIT_TEST_SUITE_END();
+	class WatchTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(WatchTest);
+		CPPUNIT_TEST_SUITE_END();
 
-private:
-};
+	private:
+	};
 }
 }
 }

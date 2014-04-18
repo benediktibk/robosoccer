@@ -10,7 +10,7 @@ namespace Common
 {
 namespace Geometry
 {
-class PointDistanceCompareTest :
+	class PointDistanceCompareTest :
 		public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(PointDistanceCompareTest);

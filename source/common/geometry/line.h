@@ -10,25 +10,25 @@ namespace Common
 {
 namespace Geometry
 {
-class Circle;
+	class Circle;
 
-class Line
-{
-public:
-	Line(const Point &start, const Point &end);
+	class Line
+	{
+	public:
+		Line(const Point &start, const Point &end);
 
-	std::vector<Point> getIntersectPoints(const Circle &circle) const;
-	Point getPerpendicularPoint(Point point) const;
-	bool isTargetPointRightOfLine(const Point &target) const;
-	bool isOnePointLeftAndOneRightOfLine(const Point &one, const Point &two) const;
-	void shiftParallel(const Point &point);
-	Point getStart() const;
-	Point getEnd() const;
+		std::vector<Point> getIntersectPoints(const Circle &circle) const;
+		Point getPerpendicularPoint(Point point) const;
+		bool isTargetPointRightOfLine(const Point &target) const;
+		bool isOnePointLeftAndOneRightOfLine(const Point &one, const Point &two) const;
+		void shiftParallel(const Point &point);
+		Point getStart() const;
+		Point getEnd() const;
 
-private:
-	Point m_start;
-	Point m_end;
-};
+	private:
+		Point m_start;
+		Point m_end;
+	};
 }
 }
 }

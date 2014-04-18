@@ -7,28 +7,28 @@ namespace Common
 {
 namespace Time
 {
-class Watch;
-class StopWatch;
+	class Watch;
+	class StopWatch;
 }
 namespace Other
 {
-class PIDController
-{
-public:
-	PIDController(double Kp, double Ki, double Kd, const Time::Watch &watch);
-	~PIDController();
+	class PIDController
+	{
+	public:
+		PIDController(double Kp, double Ki, double Kd, const Time::Watch &watch);
+		~PIDController();
 
-	double evaluate(double input);
-	void resetTo(double value);
+		double evaluate(double input);
+		void resetTo(double value);
 
-private:
-	const double m_Kp;
-	const double m_Ki;
-	const double m_Kd;
-	double m_integratorState;
-	double m_lastInput;
-	Time::StopWatch *m_stopWatch;
-};
+	private:
+		const double m_Kp;
+		const double m_Ki;
+		const double m_Kd;
+		double m_integratorState;
+		double m_lastInput;
+		Time::StopWatch *m_stopWatch;
+	};
 }
 }
 }

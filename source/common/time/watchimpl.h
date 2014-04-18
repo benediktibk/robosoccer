@@ -9,20 +9,20 @@ namespace Common
 {
 namespace Time
 {
-class WatchImpl :
-		public Watch
-{
-public:
-	WatchImpl();
+	class WatchImpl :
+			public Watch
+	{
+	public:
+		WatchImpl();
 
-	virtual double getTime() const;
+		virtual double getTime() const;
 
-private:
-	double getCurrentAbsoluteTime() const;
+	private:
+		double getCurrentAbsoluteTime() const;
 
-private:
-	double m_initialTime;
-};
+	private:
+		double m_initialTime;
+	};
 }
 }
 }

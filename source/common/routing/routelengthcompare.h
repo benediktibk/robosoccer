@@ -7,15 +7,15 @@ namespace Common
 {
 namespace Routing
 {
-class Route;
+	class Route;
 
-class RouteLengthCompare
-{
-public:
-	RouteLengthCompare();
+	class RouteLengthCompare
+	{
+	public:
+		RouteLengthCompare();
 
-	bool operator() (const Route &one, const Route &two) const;
-};
+		bool operator() (const Route &one, const Route &two) const;
+	};
 }
 }
 }

@@ -9,40 +9,40 @@ namespace Common
 {
 namespace Geometry
 {
-class Point;
+	class Point;
 
-class Angle
-{
-public:
-	Angle();
-	Angle(double value);
-	Angle(const Point &source, const Point &targetOne, const Point &targetTwo);
-	Angle(const Point &start, const Point &end);
+	class Angle
+	{
+	public:
+		Angle();
+		Angle(double value);
+		Angle(const Point &source, const Point &targetOne, const Point &targetTwo);
+		Angle(const Point &start, const Point &end);
 
-	double getValueBetweenMinusPiAndPi() const;
-	double getValueBetweenZeroAndTwoPi() const;
-	void abs();
-	bool isObtuse() const;
+		double getValueBetweenMinusPiAndPi() const;
+		double getValueBetweenZeroAndTwoPi() const;
+		void abs();
+		bool isObtuse() const;
 
-	Angle operator+(const Angle &rhs) const;
-	Angle operator-(const Angle &rhs) const;
-	Angle operator*(double value) const;
-	Angle operator/(double value) const;
+		Angle operator+(const Angle &rhs) const;
+		Angle operator-(const Angle &rhs) const;
+		Angle operator*(double value) const;
+		Angle operator/(double value) const;
 
-public:
-	static Angle getHalfRotation();
-	static Angle getQuarterRotation();
-	static Angle getFullRotation();
-	static Angle getEighthRotation();
-	static Angle getThreeQuarterRotation();
-	static Angle convertFromDegreeToRadiant(double angle);
+	public:
+		static Angle getHalfRotation();
+		static Angle getQuarterRotation();
+		static Angle getFullRotation();
+		static Angle getEighthRotation();
+		static Angle getThreeQuarterRotation();
+		static Angle convertFromDegreeToRadiant(double angle);
 
-private:
-	void fixRange();
+	private:
+		void fixRange();
 
-private:
-	double m_value;
-};
+	private:
+		double m_value;
+	};
 }
 }
 }

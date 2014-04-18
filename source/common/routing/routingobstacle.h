@@ -9,23 +9,23 @@ namespace Common
 {
 namespace Routing
 {
-class RoutingObstacle
-{
-public:
-	RoutingObstacle();
-	RoutingObstacle(const Geometry::Circle &obstacle, bool wentRightBeside);
+	class RoutingObstacle
+	{
+	public:
+		RoutingObstacle();
+		RoutingObstacle(const Geometry::Circle &obstacle, bool wentRightBeside);
 
-	bool isValid() const;
-	bool wentRightBeside() const;
-	const Geometry::Circle& getObstacle() const;
+		bool isValid() const;
+		bool wentRightBeside() const;
+		const Geometry::Circle& getObstacle() const;
 
-	bool operator==(const RoutingObstacle &routingObstacle) const;
+		bool operator==(const RoutingObstacle &routingObstacle) const;
 
-private:
-	Geometry::Circle m_obstacle;
-	bool m_wentRightBeside;
-	bool m_valid;
-};
+	private:
+		Geometry::Circle m_obstacle;
+		bool m_wentRightBeside;
+		bool m_valid;
+	};
 }
 }
 }

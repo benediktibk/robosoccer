@@ -7,13 +7,13 @@ namespace Common
 {
 namespace Time
 {
-class Watch
-{
-public:
-	virtual ~Watch() { }
+	class Watch
+	{
+	public:
+		virtual ~Watch() { }
 
-	virtual double getTime() const = 0;
-};
+		virtual double getTime() const = 0;
+	};
 }
 }
 }

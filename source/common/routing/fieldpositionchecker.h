@@ -9,16 +9,15 @@ namespace Geometry
 {
 	class Point;
 }
-
 namespace Routing
 {
-class FieldPositionChecker
-{
-public:
-	virtual ~FieldPositionChecker() { }
+	class FieldPositionChecker
+	{
+	public:
+		virtual ~FieldPositionChecker() { }
 
-	virtual bool isPointInsideField(Geometry::Point const &position) const = 0;
-};
+		virtual bool isPointInsideField(Geometry::Point const &position) const = 0;
+	};
 }
 }
 }

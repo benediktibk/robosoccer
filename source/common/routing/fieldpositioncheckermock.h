@@ -9,19 +9,19 @@ namespace Common
 {
 namespace Routing
 {
-class FieldPositionCheckerMock :
-		public FieldPositionChecker
-{
-public:
-	FieldPositionCheckerMock();
+	class FieldPositionCheckerMock :
+			public FieldPositionChecker
+	{
+	public:
+		FieldPositionCheckerMock();
 
-	virtual bool isPointInsideField(Geometry::Point const &position) const;
+		virtual bool isPointInsideField(Geometry::Point const &position) const;
 
-	void setNegativeCoordinatesOutside(bool value);
+		void setNegativeCoordinatesOutside(bool value);
 
-private:
-	bool m_negativeCoordinatesOutside;
-};
+	private:
+		bool m_negativeCoordinatesOutside;
+	};
 }
 }
 }

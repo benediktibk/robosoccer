@@ -9,20 +9,20 @@ namespace Common
 {
 namespace Other
 {
-class Compare;
+	class Compare;
 
-class QuadraticEquation
-{
-public:
-	QuadraticEquation(double a, double b, double c);
+	class QuadraticEquation
+	{
+	public:
+		QuadraticEquation(double a, double b, double c);
 
-	std::vector<double> getSolutions(const Compare &compare) const;
+		std::vector<double> getSolutions(const Compare &compare) const;
 
-private:
-	double m_a;
-	double m_b;
-	double m_c;
-};
+	private:
+		double m_a;
+		double m_b;
+		double m_c;
+	};
 }
 }
 }

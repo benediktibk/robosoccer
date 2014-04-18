@@ -11,32 +11,32 @@ namespace Common
 {
 namespace Geometry
 {
-class OrientedPosition
-{
-public:
-	OrientedPosition();
-	OrientedPosition(const Point &point, const Angle &orientation);
+	class OrientedPosition
+	{
+	public:
+		OrientedPosition();
+		OrientedPosition(const Point &point, const Angle &orientation);
 
-	void setOrientation(const Angle &orientation);
-	const Angle& getOrientation() const;
-	void setPosition(const Point &position);
-	const Point& getPosition() const;
-	double distanceTo(const OrientedPosition &point) const;
-	void read(const std::string &data);
-	Angle getRelativeOrientationTo(const Point &point) const;
+		void setOrientation(const Angle &orientation);
+		const Angle& getOrientation() const;
+		void setPosition(const Point &position);
+		const Point& getPosition() const;
+		double distanceTo(const OrientedPosition &point) const;
+		void read(const std::string &data);
+		Angle getRelativeOrientationTo(const Point &point) const;
 
-	bool operator ==(const OrientedPosition &position) const;
-	OrientedPosition operator*(double value) const;
-	OrientedPosition operator/(double value) const;
-	OrientedPosition operator+(const OrientedPosition &point) const;
-	OrientedPosition operator-(const OrientedPosition &point) const;
-	void operator*=(double value);
-	operator Point() const;
+		bool operator ==(const OrientedPosition &position) const;
+		OrientedPosition operator*(double value) const;
+		OrientedPosition operator/(double value) const;
+		OrientedPosition operator+(const OrientedPosition &point) const;
+		OrientedPosition operator-(const OrientedPosition &point) const;
+		void operator*=(double value);
+		operator Point() const;
 
-private:
-	Point m_position;
-	Angle m_orientation;
-};
+	private:
+		Point m_position;
+		Angle m_orientation;
+	};
 }
 }
 }

@@ -7,14 +7,14 @@ namespace Common
 {
 namespace Other
 {
-class Console
-{
-public:
-	static char getAsynchronousInput();
+	class Console
+	{
+	public:
+		static char getAsynchronousInput();
 
-private:
-	Console();
-};
+	private:
+		Console();
+	};
 }
 }
 }
