@@ -1,0 +1,10 @@
+/usr/include
+.
+common
+layer/hardware
+/usr/local/include/player-3.0
+/usr/include/player-3.0
+/usr/include/opencv
+/usr/include/qt4
+build/layer/view
+build/debug/layer/view
