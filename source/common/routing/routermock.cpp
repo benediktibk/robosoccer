@@ -12,7 +12,7 @@ RouterMock::RouterMock() :
 
 Route RouterMock::calculateRoute(
 		const OrientedPosition &start, const OrientedPosition &end, const FieldPositionChecker &, const Angle &, double, bool,
-		const vector<Circle> &, const vector<Circle> &) const
+		const vector<Circle> &) const
 {
 	if (m_routeSet)
 		return m_route;
@@ -23,14 +23,6 @@ Route RouterMock::calculateRoute(
 		route.addPoint(Point(start.getPosition().getX(), end.getPosition().getY()));
 	route.addPoint(end.getPosition());
 	return route;
-}
-
-vector<Circle> RouterMock::filterObstacles(
-		const vector<Circle> &softObstacles, const vector<Circle> &hardObstacles, const Point &) const
-{
-	vector<Circle> result = softObstacles;
-	result.insert(result.end(), hardObstacles.begin(), hardObstacles.end());
-	return result;
 }
 
 void RouterMock::setChessMode(bool value)
