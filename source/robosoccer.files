@@ -130,3 +130,15 @@ common/states/statemock.cpp
 common/states/statemachinetest.cpp
 common/states/statemachine.cpp
 common/states/state.cpp
+layer/CMakeLists.txt
+layer/abstraction/CMakeLists.txt
+layer/abstraction/readablerobot.h
+layer/abstraction/controllablerobot.h
+layer/abstraction/readablerobotimpl.h
+layer/abstraction/readablerobotimpl.cpp
+layer/abstraction/controllablerobotimpl.h
+layer/abstraction/controllablerobotimpl.cpp
+layer/abstraction/controllablerobotmock.h
+layer/abstraction/controllablerobotmock.cpp
+layer/abstraction/readablerobotmock.h
+layer/abstraction/readablerobotmock.cpp

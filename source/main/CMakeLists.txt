@@ -11,6 +11,7 @@ set(LIBRARIES
 	commonlogging
 	commonother
 	commontime
+	layerabstraction
 )
 
 if(Boost_FOUND)

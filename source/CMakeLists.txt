@@ -49,4 +49,5 @@ add_custom_target(
 endif(DOXYGEN_FOUND)
 
 add_subdirectory(common)
+add_subdirectory(layer)
 add_subdirectory(main)
