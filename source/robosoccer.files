@@ -147,3 +147,10 @@ layer/abstraction/ballimpl.h
 layer/abstraction/ballimpl.cpp
 layer/abstraction/ballmock.h
 layer/abstraction/ballmock.cpp
+layer/abstraction/referee.h
+layer/abstraction/fieldside.h
+layer/abstraction/fieldside.cpp
+layer/abstraction/refereeimpl.h
+layer/abstraction/refereeimpl.cpp
+layer/abstraction/refereemock.h
+layer/abstraction/refereemock.cpp

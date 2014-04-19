@@ -5,6 +5,8 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	readablerobotmock.cpp
 	ballimpl.cpp
 	ballmock.cpp
+	refereeimpl.cpp
+	refereemock.cpp
 )
 
 add_library(layerabstraction ${COMMON_LAYER_ABSTRACTION_SRC})
