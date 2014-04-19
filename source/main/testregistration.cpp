@@ -20,6 +20,8 @@
 #include "common/routing/routingresulttest.h"
 #include "common/time/stopwatchtest.h"
 #include "common/time/watchtest.h"
+#include "common/states/statetest.h"
+#include "common/states/statemachinetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -44,3 +46,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Routing::RoutingObstacleTest
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Routing::RoutingResultTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Time::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Time::WatchTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateMachineTest);

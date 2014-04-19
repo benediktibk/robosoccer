@@ -119,3 +119,14 @@ common/other/comparetest.h
 common/other/compare.h
 common/other/comparetest.cpp
 common/other/compare.cpp
+common/states/CMakeLists.txt
+common/states/statetest.h
+common/states/statemock.h
+common/states/statemachinetest.h
+common/states/statemachine.h
+common/states/state.h
+common/states/statetest.cpp
+common/states/statemock.cpp
+common/states/statemachinetest.cpp
+common/states/statemachine.cpp
+common/states/state.cpp
