@@ -17,8 +17,7 @@ namespace Routing
 		RouterMock();
 
 		virtual Route calculateRoute(
-				const Geometry::Point &start, const Geometry::Point &end, const FieldPositionChecker &field,
-				const std::vector<Geometry::Circle> &obstacles) const;
+				const Geometry::Point &start, const Geometry::Point &end, const std::vector<Geometry::Circle> &obstacles) const;
 		void setChessMode(bool value);
 
 		void setRoute(const Geometry::Point &one, const Geometry::Point &two, const Geometry::Point &three);

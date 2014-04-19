@@ -19,15 +19,15 @@ using namespace std;
 using namespace RoboSoccer::Common::Routing;
 using namespace RoboSoccer::Common::Geometry;
 
-RouterImpl::RouterImpl(double robotWidth) :
+RouterImpl::RouterImpl(double robotWidth, const FieldPositionChecker &field) :
 	m_maximumSearchDepth(7),
+	m_fieldPositionChecker(field),
 	m_robotWidth(robotWidth)
 { }
 
-Route RouterImpl::calculateRoute(const Point &start, const Point &end, const FieldPositionChecker &field,
-		const vector<Circle> &obstacles) const
+Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vector<Circle> &obstacles) const
 {
-	if (!field.isPointInsideField(end))
+	if (!m_fieldPositionChecker.isPointInsideField(end))
 		return Route();
 
 	Circle endCircle(end, sqrt(2)*m_robotWidth);
@@ -36,10 +36,10 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const Fie
 
 	vector<Circle> allObstacles = filterObstacles(obstacles, start);
 
-	bool startInsideField = field.isPointInsideField(start);
+	bool startInsideField = m_fieldPositionChecker.isPointInsideField(start);
 	list<RoutingObstacle> consideredObstacles;
 	vector<RoutingResult> routingResults = calculateStartParts(
-				start, end, field, allObstacles, 0, consideredObstacles,
+				start, end, allObstacles, 0, consideredObstacles,
 				startInsideField);
 	vector<Route> routes;
 	for (vector<RoutingResult>::const_iterator i = routingResults.begin(); i != routingResults.end(); ++i)
@@ -135,7 +135,7 @@ vector<Circle> RouterImpl::filterObstacles(
 	return fileredObstacles;
 }
 
-vector<RoutingResult> RouterImpl::calculateStartParts(const Point &start, const Point &end, const FieldPositionChecker &field,
+vector<RoutingResult> RouterImpl::calculateStartParts(const Point &start, const Point &end,
 		const vector<Circle> &obstacles, unsigned int searchDepth,
 		const list<RoutingObstacle> &consideredObstacles,
 		bool startInsideField) const
@@ -148,13 +148,13 @@ vector<RoutingResult> RouterImpl::calculateStartParts(const Point &start, const 
 	bool endCovered = endCircle.overlapsWith(obstacles);
 	if (endCovered)
 		return calculateStartPartsWithCoveredEnd(
-				start, end, field, obstacles, searchDepth, consideredObstacles, startInsideField);
+				start, end, obstacles, searchDepth, consideredObstacles, startInsideField);
 	else
 		return calculateStartPartsWithFreeEnd(
-				start, end, field, obstacles, searchDepth, consideredObstacles, startInsideField);
+				start, end, obstacles, searchDepth, consideredObstacles, startInsideField);
 }
 
-vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeEnd(const Point &start, const Point &end, const FieldPositionChecker &field,
+vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeEnd(const Point &start, const Point &end,
 		const vector<Circle> &obstacles, unsigned int searchDepth,
 		const list<RoutingObstacle> &consideredObstacles,
 		bool startInsideField) const
@@ -169,14 +169,14 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeEnd(const Point &st
 	{
 		Circle closestObstacle = findClosestObstacle(realObstacles, start);
 		vector<RoutingResult> startParts = calculateRoutesToPointsBesideObstacle(
-					closestObstacle, start, end, field, obstacles,
+					closestObstacle, start, end, obstacles,
 					searchDepth, consideredObstacles, startInsideField);
 		return calculateEndParts(
-					startParts, end, field, obstacles, searchDepth);
+					startParts, end, obstacles, searchDepth);
 	}
 }
 
-vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point &start, const Point &end, const FieldPositionChecker &field, const vector<Circle> &obstacles,
+vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point &start, const Point &end, const vector<Circle> &obstacles,
 		unsigned int searchDepth, const list<RoutingObstacle> &consideredObstacles,
 		bool startInsideField) const
 {
@@ -196,7 +196,7 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point 
 		Point directionModified = direction/directionLength*desiredLength;
 		Point extendedEnd = start + directionModified;
 		return calculateRoutesToPointsBesideObstacle(
-					obstacle, start, extendedEnd, field, obstacles,
+					obstacle, start, extendedEnd, obstacles,
 					searchDepth, consideredObstacles, startInsideField);
 	}
 }
@@ -213,7 +213,7 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeDirectPath(const Po
 }
 
 vector<RoutingResult> RouterImpl::calculateEndParts(
-		const vector<RoutingResult> &startRoutes, const Point &end, const FieldPositionChecker &field,
+		const vector<RoutingResult> &startRoutes, const Point &end,
 		const vector<Circle> &obstacles, unsigned int searchDepth) const
 {
 	vector<RoutingResult> result;
@@ -226,14 +226,14 @@ vector<RoutingResult> RouterImpl::calculateEndParts(
 		const Geometry::Point &lastPoint = startRoute.getLastPoint();
 		const Geometry::Point &nextToLastPoint = startRoute.getNextToLastPoint();
 		OrientedPosition start(lastPoint, Angle(nextToLastPoint, lastPoint));
-		bool startInsideField = field.isPointInsideField(lastPoint);
+		bool startInsideField = m_fieldPositionChecker.isPointInsideField(lastPoint);
 		assert(!(lastPoint == end));
 
 		list<RoutingObstacle> reducedConsideredObstacles;
 		if (!consideredObstacles.empty())
 			reducedConsideredObstacles.push_back(consideredObstacles.back());
 		vector<RoutingResult> routes = calculateStartParts(
-					start, end, field, obstacles, searchDepth, reducedConsideredObstacles, startInsideField);
+					start, end, obstacles, searchDepth, reducedConsideredObstacles, startInsideField);
 
 		for (vector<RoutingResult>::const_iterator j = routes.begin(); j != routes.end(); ++j)
 		{
@@ -282,7 +282,7 @@ Circle RouterImpl::findClosestObstacle(const vector<Circle> &obstacles, const Po
 }
 
 vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
-		const Circle &obstacle, const Point &start, const Point &end, const FieldPositionChecker &field,
+		const Circle &obstacle, const Point &start, const Point &end,
 		const vector<Circle> &obstacles, unsigned int searchDepth,
 		const list<RoutingObstacle> &consideredObstacles, bool startIsInsideField) const
 {
@@ -309,7 +309,7 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		leftPoint = pointsBesideObstacle.front();
 	}
 
-	bool rightPointInsideField = field.isPointInsideField(rightPoint);
+	bool rightPointInsideField = m_fieldPositionChecker.isPointInsideField(rightPoint);
 	if ((rightPointInsideField && startIsInsideField) || !startIsInsideField)
 	{
 		list<RoutingObstacle> extendedConsideredObstacles = consideredObstacles;
@@ -318,12 +318,12 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		if (!detectLoopInConsideredObstacles(extendedConsideredObstacles))
 		{
 			vector<RoutingResult> startParts = calculateStartParts(
-						start, rightPoint, field, obstacles, searchDepth, extendedConsideredObstacles, rightPointInsideField);
+						start, rightPoint, obstacles, searchDepth, extendedConsideredObstacles, rightPointInsideField);
 			result.insert(result.end(), startParts.begin(), startParts.end());
 		}
 	}
 
-	bool leftPointInsideField = field.isPointInsideField(leftPoint);
+	bool leftPointInsideField = m_fieldPositionChecker.isPointInsideField(leftPoint);
 	if ((leftPointInsideField && startIsInsideField) || !startIsInsideField)
 	{
 		list<RoutingObstacle> extendedConsideredObstacles = consideredObstacles;
@@ -332,7 +332,7 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		if (!detectLoopInConsideredObstacles(extendedConsideredObstacles))
 		{
 			vector<RoutingResult> startParts = calculateStartParts(
-						start, leftPoint, field, obstacles, searchDepth, extendedConsideredObstacles, leftPointInsideField);
+						start, leftPoint, obstacles, searchDepth, extendedConsideredObstacles, leftPointInsideField);
 			result.insert(result.end(), startParts.begin(), startParts.end());
 		}
 	}

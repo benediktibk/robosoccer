@@ -25,8 +25,7 @@ namespace Routing
 		virtual ~Router() { }
 
 		virtual Route calculateRoute(
-				const Geometry::Point &start, const Geometry::Point &end, const FieldPositionChecker &field,
-				const std::vector<Geometry::Circle> &obstacles) const = 0;
+				const Geometry::Point &start, const Geometry::Point &end, const std::vector<Geometry::Circle> &obstacles) const = 0;
 	};
 }
 }

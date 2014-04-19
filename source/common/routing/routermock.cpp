@@ -11,8 +11,7 @@ RouterMock::RouterMock() :
 { }
 
 Route RouterMock::calculateRoute(
-		const Point &start, const Point &end, const FieldPositionChecker &,
-		const vector<Circle> &) const
+		const Point &start, const Point &end, const vector<Circle> &) const
 {
 	if (m_routeSet)
 		return m_route;

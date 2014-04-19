@@ -14,6 +14,7 @@ namespace Routing
 {
 	class Route;
 	class FieldPositionChecker;
+	class FieldPositionCheckerMock;
 
 	class RouterTest :
 			public CPPUNIT_NS::TestFixture
@@ -84,6 +85,10 @@ namespace Routing
 		CPPUNIT_TEST(getPointsBesideObstacle_obstacleAtStart_resultSizeIs0);
 		CPPUNIT_TEST(getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0);
 		CPPUNIT_TEST_SUITE_END();
+
+	public:
+		virtual void setUp();
+		virtual void tearDown();
 
 	private:
 		void calculateRoute_emptyField_validRoute();
@@ -156,7 +161,8 @@ namespace Routing
 		static bool routeIsInsideField(const Route &route, const FieldPositionChecker &field);
 
 	private:
-		static const std::vector<Geometry::Circle> m_noObstacles;
+		FieldPositionCheckerMock *m_field;
+		std::vector<Geometry::Circle> m_noObstacles;
 	};
 }
 }
