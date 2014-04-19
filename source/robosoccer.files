@@ -154,3 +154,8 @@ layer/abstraction/refereeimpl.h
 layer/abstraction/refereeimpl.cpp
 layer/abstraction/refereemock.h
 layer/abstraction/refereemock.cpp
+layer/abstraction/storage.h
+layer/abstraction/storageimpl.h
+layer/abstraction/storageimpl.cpp
+layer/abstraction/storagemock.h
+layer/abstraction/storagemock.cpp
