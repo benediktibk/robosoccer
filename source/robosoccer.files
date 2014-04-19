@@ -142,3 +142,8 @@ layer/abstraction/controllablerobotmock.h
 layer/abstraction/controllablerobotmock.cpp
 layer/abstraction/readablerobotmock.h
 layer/abstraction/readablerobotmock.cpp
+layer/abstraction/ball.h
+layer/abstraction/ballimpl.h
+layer/abstraction/ballimpl.cpp
+layer/abstraction/ballmock.h
+layer/abstraction/ballmock.cpp

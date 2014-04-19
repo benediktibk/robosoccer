@@ -1,6 +1,7 @@
 #include "layer/abstraction/controllablerobotimpl.h"
 #include "common/geometry/orientedposition.h"
 #include "common/geometry/circle.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -28,8 +29,10 @@ void ControllableRobotImpl::gotoPositionPrecise(const Point &/*position*/)
 
 }
 
-bool ControllableRobotImpl::kick(unsigned int /*force*/, double /*distanceToBall*/)
+bool ControllableRobotImpl::kick(unsigned int force, double distanceToBall)
 {
+	assert(force <= 100);
+	assert(distanceToBall >= 0);
 	return false;
 }
 
