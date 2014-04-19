@@ -2,12 +2,13 @@
 
 \usepackage[a4paper]{geometry}
 \usepackage[utf8]{inputenc}
-\usepackage[german]{babel}
+\usepackage[english]{babel}
 \usepackage[automark]{scrpage2}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{xcolor}
 \usepackage{caption}
+\usepackage{graphicx}
 
 \pagestyle{scrheadings}
 \clearscrheadfoot
@@ -18,15 +19,26 @@
 
 \begin{document}
 
-\textit{Should we do this in english or german?}
+\section{Project plan}
+\subsection{Definition of the project objectives}
+The main project objective is winning the "RoboSoccer Championship" at the end of this course. 
+This requires the implementation of low- and mid-level robot controls and an artificial intelligence with good tactics.
 
-\section{Projektplan}
-\subsection{Projektbeschreibung und Projektziele}
-\textit{Copy \& Paste from slides}
+In addition the programm has to obey the RoboSoccer rules during the match and has to have a penalty-shoot-out mode.
 
-\subsection{Arbeitsweise}
+\subsection{Framework and Procedure}
 \subsubsection*{Hardware}
-\textit{Copy \& Paste RCS's environment from slides}\\
+One team controlls three modded Pololu 3pi robots to shoot a golfball into the goal of the enemy.
+They are connected to a server via bluetooth and located using a firewire camera above of the playground.
+
+\subsubsection*{Team Members}
+\begin{itemize}
+	\item Markus Hofbauer
+	\item He Jiang
+	\item Kevin Meyer
+	\item Benedikt Schmidt
+	\item Florian Wirnshofer
+\end{itemize}
 
 \subsubsection*{Team Organisation}
 \begin{itemize}
@@ -36,7 +48,7 @@
 		\item Email
 	\end{itemize}
 	\item \textbf{Weekly Jour Fixe} at Laboratory or Eikon
-	\item Meetings on demand
+	\item Additional meetings on demand
 \end{itemize}
 
 \subsubsection*{Software}
@@ -47,8 +59,8 @@
 	\item \textbf{Build System:} CMake
 \end{itemize}
 
-\subsection{Meilensteine}
-\textit{Maybe add something about the "'Spiral-Modell"'}
+\subsection{Tasks}
+The project strategy is based on the spiral model with the following milestones:
 \begin{itemize}
 	\item \textbf{Deadline: \textcolor{red}{07.05.2014}}
 	\begin{itemize}
@@ -71,21 +83,54 @@
 	\textbf{Deadline: \textcolor{red}{02.07.2014}}
 \end{itemize}
 
-\subsection{Team/Arbeitsaufteilung}
-
+\subsection{Resource plan}
+In addition to the standard responsibilities, every team member is responsible for special tasks:
 \begin{itemize}
 	\item \textbf{PM:} Benedikt Schmidt
+	\begin{itemize}
+		\item Communication with the contact person and the tutor of the course
+		\item General team coordination
+		\item Monitor realization of project plan
+	\end{itemize}
+	 
 	\item \textbf{QM:} Florian Wirnshofer
+	\begin{itemize}
+		\item Ensure sufficient unit tests
+		\item Continuous testing on hardware
+		\item Balance quality aspiration and effort
+	\end{itemize}
+	
 	\item \textbf{CM:} Kevin Meyer
-	\item \textbf{SE:} 
-	\item \textbf{SA:} 
+	\begin{itemize}
+		\item Ensure self-explaining and readable code style
+		\item Supervise the documentation
+		\item Maintain repository and discussion board
+	\end{itemize}
+	
+	\item \textbf{SD:} Markus Hofbauer, He Jiang 
+	\begin{itemize}
+		\item Design and verify code structure
+		\item Ensure building code
+		\item Choose and connect external libraries
+	\end{itemize}
+	
 \end{itemize}
-\textit{Add unique and team responsibilities and tasks.}
 
-\subsection{Zeitplan}
-\textit{Insert Gantt Chart here.}
+\subsection{Time scedule}
+% Split Gantt Chart into two pieces: 
+% 21.04.14 - 25.05.14
+% 26.05.14 - 29.06.14
+\includegraphics[width=\textwidth]{../ganttchart1.png}
+\includegraphics[width=\textwidth]{../ganttchart2.png}
 
-\subsection{Kostenplan}
-\textit{Your advertisement could be here.}
+\subsection{Cost plan}
+In every Jour Fixe the team will discuss and create implementation issues, wich will be listed and managed inside bitbucket's issue tracker. 
+Each team member will try to complete his assigned issues until the next jour fixe and report about it.
+
+This will enable all team members a good knowlege of the current project status and a general insight about all project tasks. With this benefit it's easy to scale the effort needed for individual tasks, as they are hard to gauge at project start.
+
+\subsection{Implementation}
+Class diagramm: First draft\\
+\includegraphics[width=\textwidth]{../architecture.pdf}
 
 \end{document}
