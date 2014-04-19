@@ -37,17 +37,6 @@ namespace Routing
 		bool intersectsWith(const std::vector<Geometry::Circle> &objects) const;
 		void replaceFirstPoint(const Geometry::Point &point);
 		double getLength() const;
-		Geometry::Angle getMaximumBend(const Geometry::Angle &startOrientation, const Geometry::Angle &endOrientation) const;
-		void fixRotationOfFinalStep(
-				const Geometry::Angle &finalOrientation, const Geometry::Angle &maximumRotation,
-				double minimumStepAfterMaximumRotation);
-
-	public:
-		static Geometry::Angle calculateNecessaryRotation(
-				const Geometry::OrientedPosition &start, const Geometry::Point &end);
-		static Geometry::Point calculateMaximumRotatedNextPoint(
-				const Geometry::OrientedPosition &start, const Geometry::Angle &desiredRotation,
-				const Geometry::Angle &maximumRotation, double minimumStepAfterMaximumRotation);
 
 	private:
 		std::list<Geometry::Point> m_points;

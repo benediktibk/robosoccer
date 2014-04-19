@@ -14,6 +14,7 @@ namespace Routing
 {
 	class Route;
 	class FieldPositionChecker;
+	class FieldPositionCheckerMock;
 
 	class RouterTest :
 			public CPPUNIT_NS::TestFixture
@@ -41,13 +42,8 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_shortWayOutsideField_noPointOfRouteIsOutside);
 		CPPUNIT_TEST(calculateRoute_onlyPossiblePointBesideIsBlockedByAnotherObstacle_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_obstacleAtOwnPosition_validRoute);
-		CPPUNIT_TEST(calculateRoute_completeTurnAtStartNecessaryAndMaximumRotation_reasonableRoute);
-		CPPUNIT_TEST(calculateRoute_completeTurnAtEndNecessaryAndMaximumRotation_reasonableRoute);
-		CPPUNIT_TEST(calculateRoute_sharpBendBetweenNecessary_reasonableRoute);
-		CPPUNIT_TEST(calculateRoute_endRotationNotPossibleBecauseOfObstacles_invalidRoute);
 		CPPUNIT_TEST(calculateRoute_twoSmallObstaclesVeryClose_validRoute);
 		CPPUNIT_TEST(calculateRoute_targetOutsideOfTheField_invalidRoute);
-		CPPUNIT_TEST(calculateRoute_completeTurnAtEndAndIgnoreFinalOrientation_directConnection);
 		CPPUNIT_TEST(calculateRoute_obstacleIntersectingWithStartPosition_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheField_validRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheFieldAndAnObstacleOnTheWay_validRoute);
@@ -90,6 +86,10 @@ namespace Routing
 		CPPUNIT_TEST(getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0);
 		CPPUNIT_TEST_SUITE_END();
 
+	public:
+		virtual void setUp();
+		virtual void tearDown();
+
 	private:
 		void calculateRoute_emptyField_validRoute();
 		void calculateRoute_emptyField_routeHasTwoPoints();
@@ -113,13 +113,8 @@ namespace Routing
 		void calculateRoute_shortWayOutsideField_noPointOfRouteIsOutside();
 		void calculateRoute_onlyPossiblePointBesideIsBlockedByAnotherObstacle_reasonableRoute();
 		void calculateRoute_obstacleAtOwnPosition_validRoute();
-		void calculateRoute_completeTurnAtStartNecessaryAndMaximumRotation_reasonableRoute();
-		void calculateRoute_completeTurnAtEndNecessaryAndMaximumRotation_reasonableRoute();
-		void calculateRoute_sharpBendBetweenNecessary_reasonableRoute();
-		void calculateRoute_endRotationNotPossibleBecauseOfObstacles_invalidRoute();
 		void calculateRoute_twoSmallObstaclesVeryClose_validRoute();
 		void calculateRoute_targetOutsideOfTheField_invalidRoute();
-		void calculateRoute_completeTurnAtEndAndIgnoreFinalOrientation_directConnection();
 		void calculateRoute_obstacleIntersectingWithStartPosition_reasonableRoute();
 		void calculateRoute_targetInsideSoftObstacle_invalidRoute();
 		void calculateRoute_startIsOutsideTheField_validRoute();
@@ -166,7 +161,8 @@ namespace Routing
 		static bool routeIsInsideField(const Route &route, const FieldPositionChecker &field);
 
 	private:
-		static const std::vector<Geometry::Circle> m_noObstacles;
+		FieldPositionCheckerMock *m_field;
+		std::vector<Geometry::Circle> m_noObstacles;
 	};
 }
 }

@@ -7,6 +7,7 @@ find_package(Boost COMPONENTS system filesystem REQUIRED)
 set(LIBRARIES
 	commonrouting
 	commongeometry
+	commonstates
 	commonlogging
 	commonother
 	commontime
@@ -23,6 +24,7 @@ endif()
 set(LIBRARIES_TEST
 	commonroutingtest
 	commongeometrytest
+	commonstatestest
 	commonloggingtest
 	commonothertest
 	commontimetest

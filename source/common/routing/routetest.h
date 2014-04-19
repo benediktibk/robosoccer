@@ -36,23 +36,6 @@ namespace Routing
 		CPPUNIT_TEST(intersectsWith_widthTooSmallForIntersection_false);
 		CPPUNIT_TEST(getLength_from1And2To3And2To3And5_5);
 		CPPUNIT_TEST(add_validRoute_countOfPointsIsCorrect);
-		CPPUNIT_TEST(getMaximumBend_directConnection_0);
-		CPPUNIT_TEST(getMaximumBend_oneCompleteTurnAtStart_halfRotation);
-		CPPUNIT_TEST(getMaximumBend_oneCompleteTurnAtEnd_halfRotation);
-		CPPUNIT_TEST(getMaximumBend_halfTurnUpwardsInBetween_quarterRotation);
-		CPPUNIT_TEST(getMaximumBend_halfTurnDownwardsInBetween_quarterRotation);
-		CPPUNIT_TEST(getMaximumBend_turnAroundInQuarterSteps_quarterRotation);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingRightAndTargetRight_0);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingUpAndTargetRight_minusQuarterRotation);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingLeftAndTargetRight_halfRotation);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingRightAndTargetLeft_halfRotation);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingUpAndTargetEighthRotationRight_minusEighthRotation);
-		CPPUNIT_TEST(calculateNecessaryRotation_startLookingDownAndTargetEighthRotationLeftAndShifted_eighthRotation);
-		CPPUNIT_TEST(calculateMaximumRotatedNextPoint_startLookingRightAndQuarterRotationDesiredButOnlyEighthRotationAllowed_correctPoint);
-		CPPUNIT_TEST(calculateMaximumRotatedNextPoint_startLookingRightAndQuarterRotationDesiredButOnlyEighthRotationAllowedShifted_correctPoint);
-		CPPUNIT_TEST(calculateMaximumRotatedNextPoint_startLookingLeftAndMinusQuarterRotationDesiredButOnlyEighthRotationAllowedShifted_correctPoint);
-		CPPUNIT_TEST(fixRotationOfFinalStep_completeTurnAtEnd_validRoute);
-		CPPUNIT_TEST(fixRotationOfFinalStep_completeTurnAtEndAndLookingUp_validRoute);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -78,23 +61,6 @@ namespace Routing
 		void intersectsWith_widthTooSmallForIntersection_false();
 		void getLength_from1And2To3And2To3And5_5();
 		void add_validRoute_countOfPointsIsCorrect();
-		void getMaximumBend_directConnection_0();
-		void getMaximumBend_oneCompleteTurnAtStart_halfRotation();
-		void getMaximumBend_oneCompleteTurnAtEnd_halfRotation();
-		void getMaximumBend_halfTurnUpwardsInBetween_quarterRotation();
-		void getMaximumBend_halfTurnDownwardsInBetween_quarterRotation();
-		void getMaximumBend_turnAroundInQuarterSteps_quarterRotation();
-		void calculateNecessaryRotation_startLookingRightAndTargetRight_0();
-		void calculateNecessaryRotation_startLookingUpAndTargetRight_minusQuarterRotation();
-		void calculateNecessaryRotation_startLookingLeftAndTargetRight_halfRotation();
-		void calculateNecessaryRotation_startLookingRightAndTargetLeft_halfRotation();
-		void calculateNecessaryRotation_startLookingUpAndTargetEighthRotationRight_minusEighthRotation();
-		void calculateNecessaryRotation_startLookingDownAndTargetEighthRotationLeftAndShifted_eighthRotation();
-		void calculateMaximumRotatedNextPoint_startLookingRightAndQuarterRotationDesiredButOnlyEighthRotationAllowed_correctPoint();
-		void calculateMaximumRotatedNextPoint_startLookingRightAndQuarterRotationDesiredButOnlyEighthRotationAllowedShifted_correctPoint();
-		void calculateMaximumRotatedNextPoint_startLookingLeftAndMinusQuarterRotationDesiredButOnlyEighthRotationAllowedShifted_correctPoint();
-		void fixRotationOfFinalStep_completeTurnAtEnd_validRoute();
-		void fixRotationOfFinalStep_completeTurnAtEndAndLookingUp_validRoute();
 	};
 }
 }
