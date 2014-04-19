@@ -5,13 +5,14 @@ find_library(CPPUNIT_LIBRARY cppunit)
 find_package(Boost COMPONENTS system filesystem REQUIRED)
 
 set(LIBRARIES
+	layermain
+	layerabstraction
 	commonrouting
 	commongeometry
 	commonstates
 	commonlogging
 	commonother
 	commontime
-	layerabstraction
 )
 
 if(Boost_FOUND)
@@ -23,6 +24,7 @@ if(Boost_FOUND)
 endif()
 
 set(LIBRARIES_TEST
+	layermaintest
 	commonroutingtest
 	commongeometrytest
 	commonstatestest
