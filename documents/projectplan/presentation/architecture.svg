@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="48cm" height="43cm" viewBox="154 -87 958 850" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="554" y="409" width="264.1" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="554" y="409" width="264.1" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="686.05" y="428">ReadableRobot</text>
+    <rect style="fill: #ffffff" x="554" y="437" width="264.1" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="554" y="437" width="264.1" height="8"/>
+    <rect style="fill: #ffffff" x="554" y="445" width="264.1" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="554" y="445" width="264.1" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="557" y="459">+GetPosition(): OrientendPosition</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="190" y="549" width="256.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="549" width="256.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="318.2" y="568">ControllableRobot</text>
+    <rect style="fill: #ffffff" x="190" y="577" width="256.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="577" width="256.4" height="8"/>
+    <rect style="fill: #ffffff" x="190" y="585" width="256.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="585" width="256.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="599">+MoveTo(target:OrientedPosition)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="615">+Shoot()</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="190" y="309" width="256.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="309" width="256.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="318.2" y="328">AutonomousRobot</text>
+    <rect style="fill: #ffffff" x="190" y="337" width="256.4" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="337" width="256.4" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="351">+m_robot: ControllableRobot</text>
+    <rect style="fill: #ffffff" x="190" y="357" width="256.4" height="71"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="357" width="256.4" height="71"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="371">+MoveTo(target:OrientedPosition)</text>
+    <text font-size="11.2" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="193" y="385.5">avoids</text>
+    <text font-size="11.2" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:italic;font-weight:normal" x="193" y="399.5">collisions</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="422">+Shoot()</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="318.2,522.992 318.2,493 318.2,493 318.2,429.002 "/>
+    <polygon style="fill: #ffffff" points="318.2,548.164 313.4,534.164 318.2,520.164 323,534.164 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="318.2,548.164 313.4,534.164 318.2,520.164 323,534.164 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="320.2" y="490"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="329.2" y="544.164"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="322.2" y="441.002"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="190" y="690" width="256.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="690" width="256.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="318.2" y="709">ControllableRobotImpl</text>
+    <rect style="fill: #ffffff" x="190" y="718" width="256.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="718" width="256.4" height="8"/>
+    <rect style="fill: #ffffff" x="190" y="726" width="256.4" height="36"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="190" y="726" width="256.4" height="36"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="740">+MoveTo(target:OrientedPosition)</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="193" y="756">+Shoot()</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="155" y="98.0004" width="325.7" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155" y="98.0004" width="325.7" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="317.85" y="117">OwnTeam</text>
+    <rect style="fill: #ffffff" x="155" y="126" width="325.7" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155" y="126" width="325.7" height="8"/>
+    <rect style="fill: #ffffff" x="155" y="134" width="325.7" height="52"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="155" y="134" width="325.7" height="52"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="158" y="148">+GetRobotClosestToBall(): AutonomousRobot</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="158" y="164">+GetGoalKeeper(): AutonomousRobot</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="158" y="180">+GetThirdPlayer(): AutonomousRobot</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="318.2,282.821 318.2,240.499 317.85,240.499 317.85,187.006 "/>
+    <polygon style="fill: #ffffff" points="318.2,307.993 313.4,293.993 318.2,279.993 323,293.993 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="318.2,307.993 313.4,293.993 318.2,279.993 323,293.993 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="318.025" y="237.499"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="329.2" y="303.993"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="321.85" y="199.006"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="531" y="108" width="310.3" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="531" y="108" width="310.3" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="686.15" y="127">EnemyTeam</text>
+    <rect style="fill: #ffffff" x="531" y="136" width="310.3" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="531" y="136" width="310.3" height="8"/>
+    <rect style="fill: #ffffff" x="531" y="144" width="310.3" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="531" y="144" width="310.3" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="534" y="158">+GetAllObstacles(): std::vector&lt;Circle&gt;</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="686.05,382.821 686.05,279.5 686.15,279.5 686.15,165.007 "/>
+    <polygon style="fill: #ffffff" points="686.05,407.993 681.25,393.993 686.05,379.993 690.85,393.993 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="686.05,407.993 681.25,393.993 686.05,379.993 690.85,393.993 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="686.1" y="276.5"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="697.05" y="403.993"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="690.15" y="177.007"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="558.1" y="694" width="256.4" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="558.1" y="694" width="256.4" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="686.3" y="713">ReadableRobotImpl</text>
+    <rect style="fill: #ffffff" x="558.1" y="722" width="256.4" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="558.1" y="722" width="256.4" height="8"/>
+    <rect style="fill: #ffffff" x="558.1" y="730" width="256.4" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="558.1" y="730" width="256.4" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="561.1" y="744">+GetPosition(): OrientedPosition</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="716" y="-72" width="395" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="716" y="-72" width="395" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="913.5" y="-53">Strategy</text>
+    <rect style="fill: #ffffff" x="716" y="-44" width="395" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="716" y="-44" width="395" height="8"/>
+    <rect style="fill: #ffffff" x="716" y="-36" width="395" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="716" y="-36" width="395" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="719" y="-22">+SetNewOrders(ownTeam:OwnTeam,enemyTeam:EnemyTeam)</text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="438" y="-85.9996" width="241" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="438" y="-85.9996" width="241" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="558.5" y="-66.9996">Game</text>
+    <rect style="fill: #ffffff" x="438" y="-57.9996" width="241" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="438" y="-57.9996" width="241" height="8"/>
+    <rect style="fill: #ffffff" x="438" y="-49.9996" width="241" height="68"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="438" y="-49.9996" width="241" height="68"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="441" y="-35.9996">+GetOwnTeam(): OwnTeam</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="441" y="-19.9996">+GetEnemyTeam(): EnemyTeam</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="441" y="-3.9996">+IsRunning(): bool</text>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="441" y="12.0004">+GetEnemyGoalPosition(): Point</text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="317.85,71.8233 317.85,51.0009 558.5,51.0009 558.5,19.0069 "/>
+    <polygon style="fill: #ffffff" points="317.85,96.9949 313.05,82.9949 317.85,68.9949 322.65,82.9949 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="317.85,96.9949 313.05,82.9949 317.85,68.9949 322.65,82.9949 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="438.175" y="48.0009"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="328.85" y="92.9949"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="562.5" y="31.0069"/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="686.15,81.8383 686.15,51.0004 558.5,51.0004 558.5,18.9801 "/>
+    <polygon style="fill: #ffffff" points="686.15,107.01 681.35,93.0099 686.15,79.0099 690.95,93.0099 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="686.15,107.01 681.35,93.0099 686.15,79.0099 690.95,93.0099 "/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:monospace;font-style:normal;font-weight:normal" x="622.325" y="48.0004"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="697.15" y="103.01"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="562.5" y="30.9801"/>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="180" y="-67" width="148.6" height="28"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="180" y="-67" width="148.6" height="28"/>
+    <text font-size="16" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:700" x="254.3" y="-48">StateMachine</text>
+    <rect style="fill: #ffffff" x="180" y="-39" width="148.6" height="8"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="180" y="-39" width="148.6" height="8"/>
+    <rect style="fill: #ffffff" x="180" y="-31" width="148.6" height="20"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="180" y="-31" width="148.6" height="20"/>
+    <text font-size="12.8" style="fill: #000000;text-anchor:start;font-family:monospace;font-style:normal;font-weight:normal" x="183" y="-17">+ExecuteNextStep()</text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="686.275" y1="693.02" x2="686.075" y2="465.98"/>
+    <ellipse style="fill: #ffffff" cx="686.082" cy="472.98" rx="7" ry="7"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="686.082" cy="472.98" rx="7" ry="7"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="318.2" y1="689.012" x2="318.2" y2="621.988"/>
+    <ellipse style="fill: #ffffff" cx="318.2" cy="628.988" rx="7" ry="7"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="318.2" cy="628.988" rx="7" ry="7"/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="410.185" y1="547.991" x2="613.98" y2="465.997"/>
+    <ellipse style="fill: #ffffff" cx="607.486" cy="468.609" rx="7" ry="7"/>
+    <ellipse style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" cx="607.486" cy="468.609" rx="7" ry="7"/>
+  </g>
+</svg>

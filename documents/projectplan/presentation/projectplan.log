@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 16:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 16:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -932,7 +932,50 @@ Overfull \vbox (8.01424pt too high) detected at line 200
 
 [12
 
-] [13
+]
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 218.
+
+ (/usr/share/texmf/tex/latex/lm/omllmm.fd
+File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 218
+.
+
+(/usr/share/texmf/tex/latex/lm/omslmsy.fd
+File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 218
+.
+
+(/usr/share/texmf/tex/latex/lm/omxlmex.fd
+File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <17.28> on input line 218.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 218.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 218.
+LaTeX Font Info:    Try loading font information for U+msa on input line 218.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 218.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <17.28> not available
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 218.
+
+LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <12> not available
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 218.
+
+LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <10> not available
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 218.
+
+ [13
 
 ] [14
 
@@ -946,22 +989,23 @@ Overfull \vbox (8.01424pt too high) detected at line 200
 \tf@snm=\write8
 \openout8 = `projectplan.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 213.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 213.
- (./projectplan.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 213.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 213.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 226.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 226.
+
+(./projectplan.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 226.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 226.
 Package rerunfilecheck Info: File `projectplan.out' has not changed.
 (rerunfilecheck)             Checksum: F91E4731064780EA9A52FF9A96ACF834;354.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 213.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 226.
  ) 
 Here is how much of TeX's memory you used:
- 15282 strings out of 495032
- 287662 string characters out of 6181556
+ 15362 strings out of 495032
+ 289308 string characters out of 6181556
  371634 words of memory out of 5000000
- 18131 multiletter control sequences out of 15000+600000
- 34293 words of font info for 27 fonts, out of 8000000 for 9000
+ 18185 multiletter control sequences out of 15000+600000
+ 52395 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  49i,16n,53p,420b,718s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on projectplan.dvi (14 pages, 197412 bytes).
+Output written on projectplan.dvi (14 pages, 198404 bytes).
