@@ -5,9 +5,8 @@ all: latex
 latex:
 	latex $(TARGET).tex 
 	-bibtex $(TARGET)
-	latex $(TARGET).tex
-	latex $(TARGET).tex
 	dvipdf $(TARGET).dvi
+
 clean:
 	-rm $(TARGET).aux
 	-rm $(TARGET).toc
