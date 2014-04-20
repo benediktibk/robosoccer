@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 14:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 16:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -695,47 +695,57 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
 )
-(/usr/share/texmf/tex/latex/beamer/base/themes/theme/beamerthemeSzeged.sty
-Package: beamerthemeSzeged 2010/06/17  (rcs-revision d02a7cf4d8ae)
+(/usr/share/texmf/tex/latex/beamer/base/themes/theme/beamerthemeBerlin.sty
+Package: beamerthemeBerlin 2010/06/17  (rcs-revision d02a7cf4d8ae)
 
 (/usr/share/texmf/tex/latex/beamer/base/themes/outer/beamerouterthememiniframes
 .sty
 Package: beamerouterthememiniframes 2010/06/17  (rcs-revision d02a7cf4d8ae)
+)
+(/usr/share/texmf/tex/latex/beamer/base/themes/color/beamercolorthemewhale.sty
+Package: beamercolorthemewhale 2010/06/17  (rcs-revision d02a7cf4d8ae)
+)
+(/usr/share/texmf/tex/latex/beamer/base/themes/color/beamercolorthemeorchid.sty
+Package: beamercolorthemeorchid 2010/06/17  (rcs-revision d02a7cf4d8ae)
+)
+(/usr/share/texmf/tex/latex/beamer/base/themes/inner/beamerinnerthemerectangles
+.sty
+Package: beamerinnerthemerectangles 2010/06/17  (rcs-revision d02a7cf4d8ae)
 ))
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 16.
+(hyperref)                removing `\\' on input line 19.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 16.
+(hyperref)                removing `\\' on input line 19.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 16.
+(hyperref)                removing `\\' on input line 19.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
-(hyperref)                removing `\\' on input line 16.
+(hyperref)                removing `\\' on input line 19.
 
 (./projectplan.aux)
 \openout1 = `projectplan.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Try loading font information for OT1+lmss on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for OT1+lmss on input line 21.
 
  (/usr/share/texmf/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
@@ -776,7 +786,7 @@ File: ot1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring OFF on input line 18.
+Package hyperref Info: Link coloring OFF on input line 21.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -786,56 +796,56 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count153
 )
-LaTeX Info: Redefining \ref on input line 18.
-LaTeX Info: Redefining \pageref on input line 18.
-LaTeX Info: Redefining \nameref on input line 18.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
 (./projectplan.out) (./projectplan.out)
 \@outlinefile=\write5
 \openout5 = `projectplan.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 18.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 18.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/bx/n on input line 21.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmr/m/n on input line 18.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 18.
+(Font)                  OT1/cmss/m/n --> OT1/lmr/m/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> OT1/lmss/bx/n on input line 18.
+(Font)                  OT1/lmr/bx/n --> OT1/lmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/lmss/bx/n on input line 18.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 18.
+(Font)                  OT1/lmr/bx/n --> OT1/lmss/bx/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> OT1/lmss/m/n on input line 18.
+(Font)                  OT1/lmss/m/n --> OT1/lmss/m/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> OT1/lmss/m/n on input line 18.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 18.
+(Font)                  OT1/lmss/bx/n --> OT1/lmss/m/n on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> OT1/lmss/m/it on input line 18.
+(Font)                  OT1/lmr/m/it --> OT1/lmss/m/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> OT1/lmss/m/it on input line 18.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 18.
+(Font)                  OT1/lmr/bx/it --> OT1/lmss/m/it on input line 21.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> OT1/lmtt/m/n on input line 18.
+(Font)                  OT1/lmtt/m/n --> OT1/lmtt/m/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> OT1/lmtt/m/n on input line 18.
+(Font)                  OT1/lmtt/m/n --> OT1/lmtt/m/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  OT1/lmss/m/n --> OT1/lmss/bx/n on input line 18.
+(Font)                  OT1/lmss/m/n --> OT1/lmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  OT1/lmss/m/it --> OT1/lmss/bx/it on input line 18.
+(Font)                  OT1/lmss/m/it --> OT1/lmss/bx/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/cmss/bx/n --> OT1/lmr/bx/n on input line 18.
+(Font)                  OT1/cmss/bx/n --> OT1/lmr/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> OT1/lmss/bx/n on input line 18.
+(Font)                  OT1/lmss/bx/n --> OT1/lmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/m/n --> OT1/lmss/bx/n on input line 18.
+(Font)                  OT1/lmss/m/n --> OT1/lmss/bx/n on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmss/m/it --> OT1/lmss/bx/it on input line 18.
+(Font)                  OT1/lmss/m/it --> OT1/lmss/bx/it on input line 21.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> OT1/lmtt/bx/n on input line 18.
+(Font)                  OT1/lmtt/m/n --> OT1/lmtt/bx/n on input line 21.
 
 (/usr/share/texmf/tex/latex/beamer/base/translator/dicts/translator-basic-dicti
 onary/translator-basic-dictionary-English.dict
@@ -861,36 +871,50 @@ Dictionary: translator-numbers-dictionary, Language: English
 tionary/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \includegraphics on input line 18.
+LaTeX Info: Redefining \includegraphics on input line 21.
  (./projectplan.nav)
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 18.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 21.
 
 (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 
 LaTeX Font Warning: Font shape `OT1/lmss/m/sc' in size <6> not available
-(Font)              Font shape `OT1/lmr/m/sc' tried instead on input line 18.
+(Font)              Font shape `OT1/lmr/m/sc' tried instead on input line 21.
 
 
 LaTeX Font Warning: Font shape `OT1/lmss/m/sc' in size <14.4> not available
-(Font)              Font shape `OT1/lmr/m/sc' tried instead on input line 21.
+(Font)              Font shape `OT1/lmr/m/sc' tried instead on input line 24.
 
 [1
 
 ] (./projectplan.toc) [2
 
-] [3
+]
+
+LaTeX Font Warning: Font shape `OT1/lmss/m/sc' in size <10.95> not available
+(Font)              Font shape `OT1/lmr/m/sc' tried instead on input line 49.
+
+[3
 
 ] [4
 
-] [5
+]
+LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `OT1/lmss/m/sl' tried instead on input line 77.
+ [5
 
-] [6
+]
+File: 3pi.eps Graphic file (type eps)
+ <3pi.eps> [6
 
 ] [7
 
-] [8
+]
+Overfull \vbox (0.42894pt too high) detected at line 122
+ []
+
+[8
 
 ] [9
 
@@ -899,6 +923,8 @@ LaTeX Font Warning: Font shape `OT1/lmss/m/sc' in size <14.4> not available
 ] [11
 
 ] [12
+
+] [13
 
 ]
 \tf@nav=\write6
@@ -910,23 +936,22 @@ LaTeX Font Warning: Font shape `OT1/lmss/m/sc' in size <14.4> not available
 \tf@snm=\write8
 \openout8 = `projectplan.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 80.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 80.
-
-(./projectplan.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 80.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 80.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 184.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 184.
+ (./projectplan.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 184.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 184.
 Package rerunfilecheck Info: File `projectplan.out' has not changed.
 (rerunfilecheck)             Checksum: F91E4731064780EA9A52FF9A96ACF834;354.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 80.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 184.
  ) 
 Here is how much of TeX's memory you used:
- 15096 strings out of 495032
- 282305 string characters out of 6181556
- 367712 words of memory out of 5000000
- 17959 multiletter control sequences out of 15000+600000
- 23353 words of font info for 23 fonts, out of 8000000 for 9000
+ 15276 strings out of 495032
+ 287622 string characters out of 6181556
+ 371598 words of memory out of 5000000
+ 18127 multiletter control sequences out of 15000+600000
+ 34293 words of font info for 27 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 49i,16n,53p,420b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 49i,16n,53p,420b,718s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on projectplan.dvi (12 pages, 157184 bytes).
+Output written on projectplan.dvi (13 pages, 181864 bytes).

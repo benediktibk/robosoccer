@@ -2,7 +2,7 @@
 \beamer@sectionintoc {1}{Definition of Project Objectives}{3}{0}{1}
 \beamer@sectionintoc {2}{Framework and Procedure}{4}{0}{2}
 \beamer@sectionintoc {3}{Tasks}{8}{0}{3}
-\beamer@sectionintoc {4}{Resource Plan}{9}{0}{4}
-\beamer@sectionintoc {5}{Time Schedule}{10}{0}{5}
-\beamer@sectionintoc {6}{Cost Plan}{11}{0}{6}
-\beamer@sectionintoc {7}{Implementation}{12}{0}{7}
+\beamer@sectionintoc {4}{Resource Plan}{10}{0}{4}
+\beamer@sectionintoc {5}{Time Schedule}{11}{0}{5}
+\beamer@sectionintoc {6}{Cost Plan}{12}{0}{6}
+\beamer@sectionintoc {7}{Implementation}{13}{0}{7}
