@@ -164,3 +164,11 @@ layer/main/applicationtest.h
 layer/main/application.h
 layer/main/applicationtest.cpp
 layer/main/application.cpp
+layer/main/fieldpositioncheckergoalkeepertest.h
+layer/main/fieldpositioncheckergoalkeeper.h
+layer/main/fieldpositioncheckergoalkeepertest.cpp
+layer/main/fieldpositioncheckergoalkeeper.cpp
+layer/main/fieldpositioncheckerfieldplayertest.h
+layer/main/fieldpositioncheckerfieldplayer.h
+layer/main/fieldpositioncheckerfieldplayertest.cpp
+layer/main/fieldpositioncheckerfieldplayer.cpp
