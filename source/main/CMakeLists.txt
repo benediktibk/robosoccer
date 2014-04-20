@@ -35,8 +35,10 @@ set(LIBRARIES_TEST
 )
 
 add_executable(robosoccer main.cpp)
+add_executable(abstractiontest mainabstractiontest.cpp)
 add_executable(testrunner testregistration.cpp maintestrunner.cpp)
 
 target_link_libraries(robosoccer ${LIBRARIES})
+target_link_libraries(abstractiontest ${LIBRARIES})
 target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES})
 
