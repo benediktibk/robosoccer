@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 16:51
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=latex 2013.11.22)  20 APR 2014 17:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -977,7 +977,10 @@ LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <10> not available
 
  [13
 
-] [14
+]
+File: architecture.eps Graphic file (type eps)
+
+<architecture.eps> [14
 
 ]
 \tf@nav=\write6
@@ -989,23 +992,22 @@ LaTeX Font Info:    Font shape `OT1/lmss/m/it' in size <10> not available
 \tf@snm=\write8
 \openout8 = `projectplan.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 226.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 226.
-
-(./projectplan.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 226.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 226.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
+ (./projectplan.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 230.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
 Package rerunfilecheck Info: File `projectplan.out' has not changed.
 (rerunfilecheck)             Checksum: F91E4731064780EA9A52FF9A96ACF834;354.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 226.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
  ) 
 Here is how much of TeX's memory you used:
- 15362 strings out of 495032
- 289308 string characters out of 6181556
+ 15364 strings out of 495032
+ 289340 string characters out of 6181556
  371634 words of memory out of 5000000
- 18185 multiletter control sequences out of 15000+600000
+ 18186 multiletter control sequences out of 15000+600000
  52395 words of font info for 48 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  49i,16n,53p,420b,718s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on projectplan.dvi (14 pages, 198404 bytes).
+Output written on projectplan.dvi (14 pages, 198520 bytes).
