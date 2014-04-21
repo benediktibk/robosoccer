@@ -14,6 +14,8 @@ list(APPEND CMAKE_MODULE_PATH /usr/local/share/cmake/Modules)
 
 include_directories(
 	.
+	external/cppunit/include
+	external/boost
 )
 
 add_custom_target(

@@ -1,8 +1,14 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
-find_library(CPPUNIT_LIBRARY cppunit)
-find_package(Boost COMPONENTS system filesystem REQUIRED)
+set(CPPUNIT_LIBRARY
+	${CMAKE_SOURCE_DIR}/external/cppunit/src/cppunit/.libs/libcppunit.a
+)
+
+set(BOOST_LIBRARIES
+	${CMAKE_SOURCE_DIR}/external/boost/build/lib/libboost_filesystem.a
+	${CMAKE_SOURCE_DIR}/external/boost/build/lib/libboost_system.a
+)
 
 set(LIBRARIES
 	layermain
@@ -13,15 +19,8 @@ set(LIBRARIES
 	commonlogging
 	commonother
 	commontime
+	${BOOST_LIBRARIES}
 )
-
-if(Boost_FOUND)
-	set(LIBRARIES
-		${LIBRARIES}
-		${Boost_SYSTEM_LIBRARY}
-		${Boost_FILESYSTEM_LIBRARY}
-	)
-endif()
 
 set(LIBRARIES_TEST
 	layermaintest
@@ -31,7 +30,7 @@ set(LIBRARIES_TEST
 	commonloggingtest
 	commonothertest
 	commontimetest
-	cppunit
+	${CPPUNIT_LIBRARY}
 )
 
 add_executable(robosoccer main.cpp)

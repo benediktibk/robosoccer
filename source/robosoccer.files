@@ -173,3 +173,4 @@ layer/main/fieldpositioncheckerfieldplayer.h
 layer/main/fieldpositioncheckerfieldplayertest.cpp
 layer/main/fieldpositioncheckerfieldplayer.cpp
 main/mainabstractiontest.cpp
+prepare.sh

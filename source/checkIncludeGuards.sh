@@ -1,10 +1,10 @@
 #!/bin/bash
 
-headerFiles=$(find . -path ./physic/Box2D -prune -o -path ./build -prune -o -iname "*.h")
+headerFiles=$(find . -path ./external -prune -o -path ./build -prune -o -iname "*.h")
 
 for headerFileWithPath in ${headerFiles}
 do
-	if	[ $headerFileWithPath != "./physic/Box2D" ] &&
+	if	[ $headerFileWithPath != "./external" ] &&
 		[ $headerFileWithPath != "./build" ]; then
 		headerFileWithoutPath=${headerFileWithPath##*/}
 		headerFile=${headerFileWithoutPath%.h}
