@@ -19,3 +19,4 @@ include/cppunit/config-auto.h
 libtool
 src/DllPlugInTester/DllPlugInTester
 src/DllPlugInTester/DllPlugInTesterTest
+autom4te.cache/
