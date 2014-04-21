@@ -1,0 +1,8 @@
+b2
+bin.v2/
+bjam
+bootstrap.log
+build/
+project-config.jam
+tools/build/v2/engine/bin.linuxx86_64/
+tools/build/v2/engine/bootstrap/
