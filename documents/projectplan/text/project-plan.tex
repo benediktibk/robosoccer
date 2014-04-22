@@ -19,17 +19,15 @@
 
 \begin{document}
 
-\section{Project plan}
-\subsection{Definition of the project objectives}
-The main project objective is winning the "RoboSoccer Championship" at the end of this course. 
-This requires the implementation of low- and mid-level robot controls and an artificial intelligence with good tactics.
+\section{Project Plan}
+\subsection{Definition of Project Objectives}
+The main project objective is winning the "\textsc{RoboSoccer} Championship" at the end of this course,
+which requires both the implementation of low- and mid-level robot controls and an artificial intelligence with good tactics.
 
-In addition the programm has to obey the RoboSoccer rules during the match and has to have a penalty-shoot-out mode.
+In addition the program has to obey the \textsc{RoboSoccer} rules during the match and has to have a penalty-shoot-out mode.
 
 \subsection{Framework and Procedure}
-\subsubsection*{Hardware}
-One team controlls three modded Pololu 3pi robots to shoot a golfball into the goal of the enemy.
-They are connected to a server via bluetooth and located using a firewire camera above of the playground.
+
 
 \subsubsection*{Team Members}
 \begin{itemize}
@@ -51,11 +49,15 @@ They are connected to a server via bluetooth and located using a firewire camera
 	\item Additional meetings on demand
 \end{itemize}
 
+\subsubsection*{Hardware}
+Each team controls three  \textsc{Pololu 3pi} robots with the purpose of shooting a golf ball into the goal of the enemy.
+The robots are connected to a real-time server via \textsc{Bluetooth} and located using a \textsc{FireWire} camera above the playground.
+
 \subsubsection*{Software}
 \begin{itemize}
 	\item \textbf{Target and Development-OS:} Linux
 	\item \textbf{IDE:} Qt Creator
-	\item \textbf{VCS:} Git (hosted on \textbf{bitbucket.org})
+	\item \textbf{VCS:} Git (hosted on \textit{bitbucket.org})
 	\item \textbf{Build System:} CMake
 \end{itemize}
 
@@ -79,11 +81,11 @@ The project strategy is based on the spiral model with the following milestones:
 	\item \textbf{Strategy and Tactics}\\
 	\textbf{Deadline: \textcolor{red}{25.06.2014}}
 	
-	\item \textbf{RoboSoccer Championship}\\
+	\item \textbf{\textsc{RoboSoccer} Championship}\\
 	\textbf{Deadline: \textcolor{red}{02.07.2014}}
 \end{itemize}
 
-\subsection{Resource plan}
+\subsection{Resource Plan}
 In addition to the standard responsibilities, every team member is responsible for special tasks:
 \begin{itemize}
 	\item \textbf{PM:} Benedikt Schmidt
@@ -116,21 +118,21 @@ In addition to the standard responsibilities, every team member is responsible f
 	
 \end{itemize}
 
-\subsection{Time scedule}
-% Split Gantt Chart into two pieces: 
-% 21.04.14 - 25.05.14
-% 26.05.14 - 29.06.14
-\includegraphics[width=\textwidth]{../ganttchart1.png}
-\includegraphics[width=\textwidth]{../ganttchart2.png}
+\subsection{Cost Plan}
+In every Jour Fixe the team will discuss and create implementation issues, which are listed and managed inside bitbucket's issue tracker. 
+Each team member will try to complete his assigned issues until the next Jour Fixe and report about it.
 
-\subsection{Cost plan}
-In every Jour Fixe the team will discuss and create implementation issues, wich will be listed and managed inside bitbucket's issue tracker. 
-Each team member will try to complete his assigned issues until the next jour fixe and report about it.
-
-This will enable all team members a good knowlege of the current project status and a general insight about all project tasks. With this benefit it's easy to scale the effort needed for individual tasks, as they are hard to gauge at project start.
+This approach will strengthen each team member's knowledge concerning the current project status and will provide a general insight on all project tasks. As a consequence of this benefit, scaling the effort needed for individual tasks will only be a small issue compared to estimating the effort of individual tasks at project start.
 
 \subsection{Implementation}
 Class diagramm: First draft\\
 \includegraphics[width=\textwidth]{../architecture.pdf}
+\subsection{Time Schedule}
+% Split Gantt Chart into two pieces: 
+% 21.04.14 - 25.05.14
+% 26.05.14 - 29.06.14
+\centering
+\includegraphics[width = 1.3\textwidth , angle = 270]{../ganttchart1.png}
+\includegraphics[width = 1.3\textwidth , angle = 270]{../ganttchart2.png}
 
 \end{document}
