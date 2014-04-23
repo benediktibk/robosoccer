@@ -322,7 +322,7 @@ class A2_Camera : public A2_Camera_T
     {
         std::ostringstream ostr;
         char cstr[100];
-        snprintf (cstr, sizeof(cstr), "0x%llX", subobj_p->euid );
+		snprintf (cstr, sizeof(cstr), "0x%llX", static_cast<long long unsigned int>(subobj_p->euid) );
         ostr << "* Camera Info:" << std::endl
              << "EUID:        " << cstr << std::endl
              << "Description: " << subobj_p->descr << std::endl;
