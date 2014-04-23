@@ -10,17 +10,19 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_COMMON} -g")
 set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_COMMON} -g -fprofile-arcs -ftest-coverage")
 
-list(APPEND CMAKE_MODULE_PATH /usr/local/share/cmake/Modules)
-
 include_directories(
 	.
+	external/cppunit/include
+	external/roso/include/roboctrl
+	external/roso/include/rtdb
+	external/roso/include/rosomath
 )
 
 add_custom_target(
-		checkIncludeGuards ALL
-		COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/checkIncludeGuards.sh
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-	)
+	checkIncludeGuards ALL
+	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/checkIncludeGuards.sh
+	WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
 
 add_custom_target(
 	testcoverage

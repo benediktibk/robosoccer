@@ -2,12 +2,12 @@
 
 using namespace RoboSoccer::Layer::Abstraction;
 
-Ball &StorageMock::getBall()
+Ball const& StorageMock::getBall() const
 {
 	return m_ball;
 }
 
-ReadableRobot &StorageMock::getEnemyRobot(unsigned int /*number*/)
+ReadableRobot const& StorageMock::getEnemyRobot(unsigned int /*number*/) const
 {
 	return m_enemyRobot;
 }

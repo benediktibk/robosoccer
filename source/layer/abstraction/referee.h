@@ -14,7 +14,7 @@ namespace Abstraction
 	public:
 		virtual ~Referee() {}
 
-		virtual FieldSide getOwnFieldSide() = 0;
+		virtual FieldSide getOwnFieldSide() const = 0;
 	};
 }
 }

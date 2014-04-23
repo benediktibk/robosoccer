@@ -5,12 +5,12 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-Point BallMock::getPosition()
+Point BallMock::getPosition() const
 {
 	return Point();
 }
 
-Circle BallMock::getObstacle()
+Circle BallMock::getObstacle() const
 {
 	return Circle();
 }

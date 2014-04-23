@@ -1,10 +1,5 @@
 /usr/include
 .
-common
-layer/hardware
-/usr/local/include/player-3.0
-/usr/include/player-3.0
-/usr/include/opencv
-/usr/include/qt4
-build/layer/view
-build/debug/layer/view
+external/roso/include/roboctrl
+external/roso/include/rosomath
+external/roso/include/rtdb

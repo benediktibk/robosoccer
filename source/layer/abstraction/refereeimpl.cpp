@@ -2,7 +2,7 @@
 
 using namespace RoboSoccer::Layer::Abstraction;
 
-FieldSide RefereeImpl::getOwnFieldSide()
+FieldSide RefereeImpl::getOwnFieldSide() const
 {
 	return FieldSideLeft;
 }

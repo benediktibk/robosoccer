@@ -1,6 +1,7 @@
 #include "layer/abstraction/ballimpl.h"
 #include "layer/abstraction/readablerobotimpl.h"
 #include "layer/abstraction/controllablerobotimpl.h"
+#include "layer/abstraction/storageimpl.h"
 #include "common/geometry/point.h"
 #include "common/geometry/orientedposition.h"
 #include <iostream>
@@ -13,9 +14,11 @@ using namespace std;
 
 int main(int, char**)
 {
-	BallImpl ball;
-	ReadableRobotImpl enemyRobot;
-	ControllableRobotImpl ownRobot;
+	cout << "creating objects from database" << endl;
+	StorageImpl storage(14, TeamColorBlue);
+	Ball const& ball = storage.getBall();
+	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
+	ControllableRobot &ownRobot = storage.getOwnRobot(0);
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;

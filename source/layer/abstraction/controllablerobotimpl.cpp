@@ -9,12 +9,12 @@ using namespace RoboSoccer::Common::Geometry;
 ControllableRobotImpl::ControllableRobotImpl()
 { }
 
-OrientedPosition ControllableRobotImpl::getPosition()
+OrientedPosition ControllableRobotImpl::getPosition() const
 {
 	return OrientedPosition();
 }
 
-Circle ControllableRobotImpl::createObstacle()
+Circle ControllableRobotImpl::createObstacle() const
 {
 	return Circle();
 }
