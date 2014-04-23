@@ -24,6 +24,5 @@ Point BallImpl::getPosition() const
 
 Circle BallImpl::getObstacle() const
 {
-	//! @todo measure and fix diameter of ball
-	return Circle(getPosition(), 0.05);
+	return Circle(getPosition(), 0.045);
 }

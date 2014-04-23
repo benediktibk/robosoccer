@@ -15,7 +15,7 @@ using namespace std;
 int main(int, char**)
 {
 	cout << "creating objects from database" << endl;
-	StorageImpl storage(14, TeamColorBlue);
+	StorageImpl storage(14, TeamColorRed);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);

@@ -10,7 +10,7 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
-StorageImpl::StorageImpl(int clientNumber, TeamColor /*teamColor*/) :
+StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor) :
 	m_dataBase(0),
 	m_ball(0),
 	m_referee(0)
@@ -22,9 +22,9 @@ StorageImpl::StorageImpl(int clientNumber, TeamColor /*teamColor*/) :
 	m_ball = new BallImpl(*m_dataBase);
 	m_referee = new RefereeImpl();
 	m_enemyRobots.reserve(3);
-	m_enemyRobots.push_back(new ReadableRobotImpl());
-	m_enemyRobots.push_back(new ReadableRobotImpl());
-	m_enemyRobots.push_back(new ReadableRobotImpl());
+	m_enemyRobots.push_back(new ReadableRobotImpl(0, *m_dataBase, teamColor));
+	m_enemyRobots.push_back(new ReadableRobotImpl(1, *m_dataBase, teamColor));
+	m_enemyRobots.push_back(new ReadableRobotImpl(2, *m_dataBase, teamColor));
 	m_ownRobots.reserve(3);
 	m_ownRobots.push_back(new ControllableRobotImpl());
 	m_ownRobots.push_back(new ControllableRobotImpl());
