@@ -34,8 +34,6 @@
  * @{ */
 
 //GLOBAL Constants ============================================================
-static const uint32_t UINT32_MAX = 4294967295U; // TODO needed?
-static const int INT32_MAX  = 2147483647; // TODO needed?
 static const double D_PI = M_PI;
 const double DEG_TO_RAD = D_PI / 180.0;
 const double RAD_TO_DEG = 180.0 / D_PI;
