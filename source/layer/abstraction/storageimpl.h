@@ -2,7 +2,13 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_STORAGEIMPL_H
 
 #include "layer/abstraction/storage.h"
+#include "layer/abstraction/teamcolor.h"
 #include <vector>
+
+namespace KogniMobil
+{
+	class RTDBConn;
+}
 
 namespace RoboSoccer
 {
@@ -14,7 +20,7 @@ namespace Abstraction
 			public Storage
 	{
 	public:
-		StorageImpl();
+		StorageImpl(int clientNumber, TeamColor teamColor);
 		virtual ~StorageImpl();
 
 		virtual Ball& getBall();
@@ -23,6 +29,7 @@ namespace Abstraction
 		virtual Referee& getReferee();
 
 	private:
+		KogniMobil::RTDBConn *m_dataBase;
 		std::vector<ReadableRobot*> m_enemyRobots;
 		std::vector<ControllableRobot*> m_ownRobots;
 		Ball *m_ball;

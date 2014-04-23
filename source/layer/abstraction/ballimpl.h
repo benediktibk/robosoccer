@@ -3,6 +3,13 @@
 
 #include "layer/abstraction/ball.h"
 
+class RawBall;
+
+namespace KogniMobil
+{
+	class RTDBConn;
+}
+
 namespace RoboSoccer
 {
 namespace Layer
@@ -13,10 +20,14 @@ namespace Abstraction
 			public Ball
 	{
 	public:
-		BallImpl();
+		BallImpl(KogniMobil::RTDBConn &dataBase);
+		virtual ~BallImpl();
 
 		virtual Common::Geometry::Point getPosition();
 		virtual Common::Geometry::Circle getObstacle();
+
+	private:
+		RawBall *m_ball;
 	};
 }
 }

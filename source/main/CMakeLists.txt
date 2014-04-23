@@ -10,6 +10,12 @@ set(BOOST_LIBRARIES
 	${CMAKE_SOURCE_DIR}/external/boost/build/lib/libboost_system.a
 )
 
+set(ROSO_LIBRARIES
+	${CMAKE_SOURCE_DIR}/external/roso/lib/libpololu_rtdb.so
+	${CMAKE_SOURCE_DIR}/external/roso/lib/librosomath.a
+	${CMAKE_SOURCE_DIR}/external/roso/lib/libkogmo_rtdb.so
+)
+
 set(LIBRARIES
 	layermain
 	layerabstraction
@@ -20,6 +26,7 @@ set(LIBRARIES
 	commonother
 	commontime
 	${BOOST_LIBRARIES}
+	${ROSO_LIBRARIES}
 )
 
 set(LIBRARIES_TEST

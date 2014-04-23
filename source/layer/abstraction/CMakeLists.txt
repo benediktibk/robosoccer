@@ -11,4 +11,11 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	storagemock.cpp
 )
 
+set(COMPILE_FLAGS_ROSO "-Wno-overflow -Wno-format")
+set_source_files_properties(ballimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
+set_source_files_properties(controllablerobotimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
+set_source_files_properties(readablerobotimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
+set_source_files_properties(refereeimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
+set_source_files_properties(storageimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
+
 add_library(layerabstraction ${COMMON_LAYER_ABSTRACTION_SRC})

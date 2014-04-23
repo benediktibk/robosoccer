@@ -3,15 +3,24 @@
 #include "layer/abstraction/refereeimpl.h"
 #include "layer/abstraction/readablerobotimpl.h"
 #include "layer/abstraction/controllablerobotimpl.h"
+#include <kogmo_rtdb.hxx>
 #include <assert.h>
+#include <sstream>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
-StorageImpl::StorageImpl() :
-	m_ball(new BallImpl()),
-	m_referee(new RefereeImpl())
+StorageImpl::StorageImpl(int clientNumber, TeamColor /*teamColor*/) :
+	m_dataBase(0),
+	m_ball(0),
+	m_referee(0)
 {
+	stringstream clientName;
+	// the construction of the name string is basically copied from the sample code
+	clientName << "pololu_client_" << static_cast<char>(clientNumber + '0');
+	m_dataBase = new KogniMobil::RTDBConn(clientName.str().c_str(), 0.1, "");
+	m_ball = new BallImpl(*m_dataBase);
+	m_referee = new RefereeImpl();
 	m_enemyRobots.reserve(3);
 	m_enemyRobots.push_back(new ReadableRobotImpl());
 	m_enemyRobots.push_back(new ReadableRobotImpl());
@@ -35,6 +44,9 @@ StorageImpl::~StorageImpl()
 	for (vector<ControllableRobot*>::iterator i = m_ownRobots.begin(); i != m_ownRobots.end(); ++i)
 		delete *i;
 	m_ownRobots.clear();
+
+	delete m_dataBase;
+	m_dataBase = 0;
 }
 
 Ball &StorageImpl::getBall()

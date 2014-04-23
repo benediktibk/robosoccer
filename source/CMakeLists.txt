@@ -14,6 +14,9 @@ include_directories(
 	.
 	external/cppunit/include
 	external/boost/build/include
+	external/roso/include/roboctrl
+	external/roso/include/rtdb
+	external/roso/include/rosomath
 )
 
 add_custom_target(

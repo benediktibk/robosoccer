@@ -11,7 +11,7 @@ using namespace RoboSoccer::Common::Time;
 
 int main(int /*argc*/, char **/*argv*/)
 {
-	StorageImpl storage;
+	StorageImpl storage(14, TeamColorBlue);
 	LoggerImpl logger;
 	WatchImpl watch;
 	Application application(storage, logger, watch);
