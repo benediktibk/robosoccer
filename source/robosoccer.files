@@ -207,6 +207,10 @@ external/roso/include/rosomath/matrix.h
 external/roso/include/rosomath/euler.h
 external/roso/include/rtdb/kogmo_rtdb.hxx
 layer/abstraction/teamcolor.h
+layer/main/targetpositionfetcher.cpp
+layer/main/targetpositionfetcher.h
+layer/main/targetpositionfetchertest.cpp
+layer/main/targetpositionfetchertest.h
 common/geometry/rectangleroundedcorners.h
 common/geometry/rectangleroundedcorners.cpp
 common/geometry/rectangleroundedcornerstest.h
