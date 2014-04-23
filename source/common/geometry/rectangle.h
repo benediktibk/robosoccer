@@ -28,7 +28,7 @@ namespace Geometry
 		bool overlapsApproximately(const Circle &circle, const Other::Compare &compare) const;
 		bool overlaps(const Rectangle &rectangle, const Other::Compare &compare) const;
 
-	private:
+	protected:
 		Point m_leftLower;
 		Point m_rightUpper;
 	};

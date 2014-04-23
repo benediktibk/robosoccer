@@ -19,6 +19,7 @@ namespace Geometry
 	public:
 		RectangleRoundedCorners(const Point &one, const Point &two, const double cornerRadius);
 
+		bool isInside(const Point &point, const Other::Compare &compare) const;
 
 	private:
 		double m_radius;
