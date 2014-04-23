@@ -12,4 +12,4 @@ make
 make check
 cd "$workingDirectory/external/boost"
 ./bootstrap.sh --prefix="$workingDirectory/external/boost/build"
-./b2 install
+./b2 threading=multi install
