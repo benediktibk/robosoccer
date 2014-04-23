@@ -20,11 +20,13 @@ namespace Geometry
 		CPPUNIT_TEST_SUITE(RectangleRoundedCornersTest);
 		CPPUNIT_TEST(isInside_isOutsideRoundedRectButInsideRect_false);
 		CPPUNIT_TEST(isInside_isInsideRect_true);
+		CPPUNIT_TEST(isInside_isInsideRoundCorner_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void isInside_isOutsideRoundedRectButInsideRect_false();
 		void isInside_isInsideRect_true();
+		void isInside_isInsideRoundCorner_true();
 
 	};
 }

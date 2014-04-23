@@ -29,10 +29,10 @@ bool RectangleRoundedCorners::isInside(const Point &point, const Compare &compar
 	Point innerUpperLeft = innerLowerLeft + Point(0, getHeight() - 2.0*m_radius);
 	Point innerLowerRight = innerUpperRight - Point(0, getHeight() - 2.0*m_radius);
 
-	Circle innerLowerLeftCircle(innerLowerLeft, 0.5*m_radius);
-	Circle innerLowerRightCircle(innerLowerRight, 0.5*m_radius);
-	Circle innerUpperLeftCircle(innerUpperLeft, 0.5*m_radius);
-	Circle innerUpperRightCircle(innerUpperRight, 0.5*m_radius);
+	Circle innerLowerLeftCircle(innerLowerLeft, 2.0*m_radius);
+	Circle innerLowerRightCircle(innerLowerRight, 2.0*m_radius);
+	Circle innerUpperLeftCircle(innerUpperLeft, 2.0*m_radius);
+	Circle innerUpperRightCircle(innerUpperRight, 2.0*m_radius);
 
 	if (innerLowerLeftCircle.isInside(point)
 			|| innerLowerRightCircle.isInside(point)

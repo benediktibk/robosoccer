@@ -20,3 +20,11 @@ void RectangleRoundedCornersTest::isInside_isInsideRect_true()
 
 	CPPUNIT_ASSERT(rect.isInside(Point(5,5), compare));
 }
+
+void RectangleRoundedCornersTest::isInside_isInsideRoundCorner_true()
+{
+	Compare compare(0.001);
+	RectangleRoundedCorners rect(Point(0,0), Point(10,10), 2.0);
+
+	CPPUNIT_ASSERT(rect.isInside(Point(1,1), compare));
+}
