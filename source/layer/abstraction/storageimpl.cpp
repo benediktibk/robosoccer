@@ -49,12 +49,12 @@ StorageImpl::~StorageImpl()
 	m_dataBase = 0;
 }
 
-Ball &StorageImpl::getBall()
+Ball const& StorageImpl::getBall() const
 {
 	return *m_ball;
 }
 
-ReadableRobot &StorageImpl::getEnemyRobot(unsigned int number)
+ReadableRobot const& StorageImpl::getEnemyRobot(unsigned int number) const
 {
 	assert(number <= 2);
 	return *(m_enemyRobots[number]);

@@ -23,8 +23,8 @@ namespace Abstraction
 		StorageImpl(int clientNumber, TeamColor teamColor);
 		virtual ~StorageImpl();
 
-		virtual Ball& getBall();
-		virtual ReadableRobot& getEnemyRobot(unsigned int number);
+		virtual Ball const& getBall() const;
+		virtual ReadableRobot const& getEnemyRobot(unsigned int number) const;
 		virtual ControllableRobot& getOwnRobot(unsigned int number);
 		virtual Referee& getReferee();
 

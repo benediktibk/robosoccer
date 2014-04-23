@@ -17,12 +17,12 @@ BallImpl::~BallImpl()
 	m_ball = 0;
 }
 
-Point BallImpl::getPosition()
+Point BallImpl::getPosition() const
 {
 	return Point(m_ball->GetX(), m_ball->GetY());
 }
 
-Circle BallImpl::getObstacle()
+Circle BallImpl::getObstacle() const
 {
 	//! @todo measure and fix diameter of ball
 	return Circle(getPosition(), 0.05);

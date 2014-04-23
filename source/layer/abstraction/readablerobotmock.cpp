@@ -5,12 +5,12 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-OrientedPosition ReadableRobotMock::getPosition()
+OrientedPosition ReadableRobotMock::getPosition() const
 {
 	return OrientedPosition();
 }
 
-Circle ReadableRobotMock::createObstacle()
+Circle ReadableRobotMock::createObstacle() const
 {
 	return Circle();
 }

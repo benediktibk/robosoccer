@@ -15,8 +15,8 @@ namespace Abstraction
 	public:
 		ControllableRobotImpl();
 
-		virtual Common::Geometry::OrientedPosition getPosition();
-		virtual Common::Geometry::Circle createObstacle();
+		virtual Common::Geometry::OrientedPosition getPosition() const;
+		virtual Common::Geometry::Circle createObstacle() const;
 		virtual void gotoPositionImprecise(Common::Geometry::Point const &position);
 		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);
 		virtual bool kick(unsigned int force, double distanceToBall);

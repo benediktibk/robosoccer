@@ -8,12 +8,12 @@ using namespace RoboSoccer::Common::Geometry;
 ReadableRobotImpl::ReadableRobotImpl()
 { }
 
-OrientedPosition ReadableRobotImpl::getPosition()
+OrientedPosition ReadableRobotImpl::getPosition() const
 {
 	return OrientedPosition();
 }
 
-Circle ReadableRobotImpl::createObstacle()
+Circle ReadableRobotImpl::createObstacle() const
 {
 	return Circle();
 }

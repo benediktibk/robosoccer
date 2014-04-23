@@ -20,8 +20,8 @@ namespace Abstraction
 	public:
 		virtual ~Ball() {}
 
-		virtual Common::Geometry::Point getPosition() = 0;
-		virtual Common::Geometry::Circle getObstacle() = 0;
+		virtual Common::Geometry::Point getPosition() const = 0;
+		virtual Common::Geometry::Circle getObstacle() const = 0;
 	};
 }
 }

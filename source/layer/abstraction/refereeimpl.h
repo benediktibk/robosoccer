@@ -13,7 +13,7 @@ namespace Abstraction
 			public Referee
 	{
 	public:
-		virtual FieldSide getOwnFieldSide();
+		virtual FieldSide getOwnFieldSide() const;
 	};
 }
 }
