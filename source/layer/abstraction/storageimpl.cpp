@@ -66,7 +66,7 @@ ControllableRobot &StorageImpl::getOwnRobot(unsigned int number)
 	return *(m_ownRobots[number]);
 }
 
-Referee &StorageImpl::getReferee()
+RefereeBase &StorageImpl::getReferee()
 {
 	return *m_referee;
 }

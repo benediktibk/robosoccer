@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_ABSTRACTION_REFEREE_H
-#define ROBOSOCCER_LAYER_ABSTRACTION_REFEREE_H
+#ifndef ROBOSOCCER_LAYER_ABSTRACTION_REFEREEBASE_H
+#define ROBOSOCCER_LAYER_ABSTRACTION_REFEREEBASE_H
 
 #include "layer/abstraction/fieldside.h"
 
@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Abstraction
 {
-	class Referee
+	class RefereeBase
 	{
 	public:
-		virtual ~Referee() {}
+		virtual ~RefereeBase() {}
 
 		virtual FieldSide getOwnFieldSide() const = 0;
 	};

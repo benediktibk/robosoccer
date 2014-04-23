@@ -17,7 +17,7 @@ ControllableRobot &StorageMock::getOwnRobot(unsigned int /*number*/)
 	return m_ownRobot;
 }
 
-Referee &StorageMock::getReferee()
+RefereeBase &StorageMock::getReferee()
 {
 	return m_referee;
 }

@@ -26,14 +26,14 @@ namespace Abstraction
 		virtual Ball const& getBall() const;
 		virtual ReadableRobot const& getEnemyRobot(unsigned int number) const;
 		virtual ControllableRobot& getOwnRobot(unsigned int number);
-		virtual Referee& getReferee();
+		virtual RefereeBase& getReferee();
 
 	private:
 		KogniMobil::RTDBConn *m_dataBase;
 		std::vector<ReadableRobot*> m_enemyRobots;
 		std::vector<ControllableRobot*> m_ownRobots;
 		Ball *m_ball;
-		Referee *m_referee;
+		RefereeBase *m_referee;
 	};
 }
 }
