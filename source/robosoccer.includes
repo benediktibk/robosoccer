@@ -3,3 +3,4 @@
 external/roso/include/roboctrl
 external/roso/include/rosomath
 external/roso/include/rtdb
+external/cppunit/include
