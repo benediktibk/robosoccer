@@ -2,6 +2,7 @@
 #include "layer/abstraction/readablerobotimpl.h"
 #include "layer/abstraction/controllablerobotimpl.h"
 #include "layer/abstraction/storageimpl.h"
+#include "layer/abstraction/refereebase.h"
 #include "common/geometry/point.h"
 #include "common/geometry/orientedposition.h"
 #include <iostream>
@@ -19,10 +20,13 @@ int main(int, char**)
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);
+	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;
 	cout << "moving own robot to position (0, 0) after next keypress" << endl;
+
+	cout << "own field side: " << referee.getOwnFieldSide() << endl;
 
 	getchar();
 	ownRobot.gotoPositionPrecise(Point());
