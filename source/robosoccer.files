@@ -207,3 +207,7 @@ external/roso/include/rosomath/matrix.h
 external/roso/include/rosomath/euler.h
 external/roso/include/rtdb/kogmo_rtdb.hxx
 layer/abstraction/teamcolor.h
+common/geometry/rectangleroundedcorners.h
+common/geometry/rectangleroundedcorners.cpp
+common/geometry/rectangleroundedcornerstest.h
+common/geometry/rectangleroundedcornerstest.cpp
