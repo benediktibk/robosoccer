@@ -1,13 +1,12 @@
 #include "common/logging/loggerimpl.h"
 #include <iostream>
 #include <ctime>
-#include <boost/filesystem.hpp>
 #include <assert.h>
 #include <iomanip>
 #include <sstream>
+#include <sys/stat.h>
 
 using namespace std;
-using namespace boost;
 using namespace RoboSoccer::Common::Logging;
 
 LoggerImpl::LoggerImpl() :
@@ -21,9 +20,8 @@ LoggerImpl::LoggerImpl() :
 		stringstream currentStringStream;
 		currentStringStream << folder << setw(3) << setfill('0') << i ;
 
-		if(!filesystem::exists(currentStringStream.str()))
+                if(mkdir(currentStringStream.str().c_str(), S_IRWXU|S_IRGRP|S_IXGRP) == 0)
 		{
-			filesystem::create_directory(currentStringStream.str());
 			folder = currentStringStream.str();
 			break;
 		}

@@ -13,7 +13,6 @@ set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_COMMON} -g -fprofile-arcs -ftest
 include_directories(
 	.
 	external/cppunit/include
-	external/boost/build/include
 	external/roso/include/roboctrl
 	external/roso/include/rtdb
 	external/roso/include/rosomath
