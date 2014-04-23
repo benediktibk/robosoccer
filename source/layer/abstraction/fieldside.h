@@ -10,7 +10,8 @@ namespace Abstraction
 	enum FieldSide
 	{
 		FieldSideLeft,
-		FieldSideRight
+		FieldSideRight,
+		FieldSideInvalid
 	};
 }
 }
