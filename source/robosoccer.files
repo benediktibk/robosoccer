@@ -211,3 +211,7 @@ layer/main/targetpositionfetcher.cpp
 layer/main/targetpositionfetcher.h
 layer/main/targetpositionfetchertest.cpp
 layer/main/targetpositionfetchertest.h
+common/geometry/rectangleroundedcorners.h
+common/geometry/rectangleroundedcorners.cpp
+common/geometry/rectangleroundedcornerstest.h
+common/geometry/rectangleroundedcornerstest.cpp
