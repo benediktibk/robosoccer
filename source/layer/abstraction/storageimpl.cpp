@@ -10,7 +10,7 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
-StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor) :
+StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging::Logger &logger) :
 	m_dataBase(0),
 	m_ball(0),
 	m_referee(0)
@@ -20,7 +20,7 @@ StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor) :
 	clientName << "pololu_client_" << static_cast<char>(clientNumber + '0');
 	m_dataBase = new KogniMobil::RTDBConn(clientName.str().c_str(), 0.1, "");
 	m_ball = new BallImpl(*m_dataBase);
-	m_referee = new RefereeImpl(*m_dataBase, teamColor);
+	m_referee = new RefereeImpl(*m_dataBase, teamColor, logger);
 	m_enemyRobots.reserve(3);
 	m_enemyRobots.push_back(new ReadableRobotImpl(0, *m_dataBase, teamColor));
 	m_enemyRobots.push_back(new ReadableRobotImpl(1, *m_dataBase, teamColor));

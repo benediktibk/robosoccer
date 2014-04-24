@@ -16,10 +16,9 @@ class Logger
 		enum LogFileType
 		{
 			LogFileTypeGlobal,
+			LogFileTypeReferee,
 			LogFileTypeStateChanges,
-			LogFileTypeField,
-			LogFileTypeFieldDetection,
-			LogFileTypeRobot
+			LogFileTypeInvalid // must be last one so that we can count from global to invalid
 		};
 
 	public:

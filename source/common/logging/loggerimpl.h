@@ -36,10 +36,8 @@ class LoggerImpl :
 		bool m_logWritingEnabled;
 
 		std::fstream m_globalLogFile;
+		std::fstream m_refereeLogFile;
 		std::fstream m_stateChangesLogFile;
-		std::fstream m_fieldLogFile;
-		std::fstream m_fieldDetectionLogFile;
-		std::fstream m_robotLogFile;
 	};
 }
 }

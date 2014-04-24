@@ -12,7 +12,7 @@ void LoggerTest::write_someText_someText()
 	logger.enableLogWriting();
 
 	logger.logToGlobalLogFile("some Text");
-	logger.logToLogFileOfType(Logger::LogFileTypeField, "some other test.");
+	logger.logToLogFileOfType(Logger::LogFileTypeReferee, "some other test.");
 
 	CPPUNIT_ASSERT(true);
 }

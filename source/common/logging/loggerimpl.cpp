@@ -31,23 +31,15 @@ LoggerImpl::LoggerImpl() :
 	string globalLogFile = folder;
 	globalLogFile.append("/0_global.txt");
 
+	string refereeLogFile = folder;
+	refereeLogFile.append("/1_referee.txt");
+
 	string stateChangesLogFile = folder;
-	stateChangesLogFile.append("/1_stateChanges.txt");
-
-	string fieldLogFile = folder;
-	fieldLogFile.append("/2_field.txt");
-
-	string fieldDetectionLogFile = folder;
-	fieldDetectionLogFile.append("/3_fieldDetection.txt");
-
-	string robotLogFile = folder;
-	robotLogFile.append("/4_robot.txt");
+	stateChangesLogFile.append("/2_stateChanges.txt");
 
 	m_globalLogFile.open(globalLogFile.c_str(), ios_base::out | ios_base::trunc);
+	m_refereeLogFile.open(refereeLogFile.c_str(), ios_base::out | ios_base::trunc);
 	m_stateChangesLogFile.open(stateChangesLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_fieldLogFile.open(fieldLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_fieldDetectionLogFile.open(fieldDetectionLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_robotLogFile.open(robotLogFile.c_str(), ios_base::out | ios_base::trunc);
 
 	initLogFiles();
 }
@@ -57,9 +49,8 @@ LoggerImpl::~LoggerImpl()
 	closeLogFiles();
 
 	m_globalLogFile.close();
+	m_refereeLogFile.close();
 	m_stateChangesLogFile.close();
-	m_fieldLogFile.close();
-	m_fieldDetectionLogFile.close();
 }
 
 void LoggerImpl::logToConsoleAndGlobalLogFile(const string &message)
@@ -84,30 +75,26 @@ void LoggerImpl::logToGlobalLogFile(const string &message)
 
 void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 {
-	if (m_logWritingEnabled)
+	if (!m_logWritingEnabled)
+		return;
+
+	switch (logType)
 	{
-		switch (logType)
-		{
-		case LogFileTypeGlobal:
-			m_globalLogFile << message << endl;
-			break;
+	case LogFileTypeGlobal:
+		m_globalLogFile << message << endl;
+		break;
 
-		case LogFileTypeStateChanges:
-			m_stateChangesLogFile << message << endl;
-			break;
+	case LogFileTypeReferee:
+		m_refereeLogFile << message << endl;
+		break;
 
-		case LogFileTypeField:
-			m_fieldLogFile << message << endl;
-			break;
+	case LogFileTypeStateChanges:
+		m_stateChangesLogFile << message << endl;
+		break;
 
-		case LogFileTypeFieldDetection:
-			m_fieldDetectionLogFile << message << endl;
-			break;
-
-		case LogFileTypeRobot:
-			m_robotLogFile << message << endl;
-			break;
-		}
+	case LogFileTypeInvalid:
+		assert(false);
+		break;
 	}
 }
 
@@ -146,14 +133,13 @@ void LoggerImpl::initLogFiles()
 	string message;
 	message += "## Starting Log: ";
 	message += timestring;
-	message += "\n## STARTING ROBOT\n##\n";
+	message += "\n## STARTING ROBOSOCCER\n##\n";
 
-	for (int i = LogFileTypeGlobal; i <= LogFileTypeRobot; i++)
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; i++)
 	{
 		LogFileType currentLogFile = static_cast<LogFileType>(i);
 		logToLogFileOfType(currentLogFile, message);
 	}
-
 }
 
 void LoggerImpl::closeLogFiles()
@@ -170,10 +156,10 @@ void LoggerImpl::closeLogFiles()
 
 	string message;
 	message += "\n## \n";
-	message += "## QUITTING ROBOT\n## Closing Log: ";
+	message += "## QUITTING ROBOSOCCER\n## Closing Log: ";
 	message += timestring;
 
-	for (int i = LogFileTypeGlobal; i <= LogFileTypeRobot; ++i)
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
 	{
 		LogFileType currentLogFile = static_cast<LogFileType>(i);
 		logToLogFileOfType(currentLogFile, message);

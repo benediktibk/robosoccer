@@ -14,6 +14,14 @@ namespace Abstraction
 	{
 	public:
 		virtual FieldSide getOwnFieldSide() const;
+		virtual bool getPrepareForKickOff() const;
+		virtual bool getPrepareForPenalty() const;
+		virtual bool hasKickOffOrPenalty() const;
+		virtual bool getExecuteKickOff() const;
+		virtual bool getExecutePenalty() const;
+		virtual bool initFinished() const;
+		virtual bool isGamePaused() const;
+		virtual void logInformation();
 	};
 }
 }

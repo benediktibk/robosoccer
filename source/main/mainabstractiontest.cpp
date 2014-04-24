@@ -5,18 +5,21 @@
 #include "layer/abstraction/refereebase.h"
 #include "common/geometry/point.h"
 #include "common/geometry/orientedposition.h"
+#include "common/logging/loggerimpl.h"
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
 int main(int, char**)
 {
 	cout << "creating objects from database" << endl;
-	StorageImpl storage(14, TeamColorRed);
+	LoggerImpl logger;
+	StorageImpl storage(14, TeamColorRed, logger);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);
@@ -26,7 +29,7 @@ int main(int, char**)
 	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;
 	cout << "moving own robot to position (0, 0) after next keypress" << endl;
 
-	cout << "own field side: " << referee.getOwnFieldSide() << endl;
+	referee.logInformation();
 
 	getchar();
 	ownRobot.gotoPositionPrecise(Point());

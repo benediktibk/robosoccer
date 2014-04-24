@@ -12,6 +12,13 @@ namespace KogniMobil
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Logging
+{
+	class Logger;
+}
+}
 namespace Layer
 {
 namespace Abstraction
@@ -20,7 +27,7 @@ namespace Abstraction
 			public Storage
 	{
 	public:
-		StorageImpl(int clientNumber, TeamColor teamColor);
+		StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging::Logger &logger);
 		virtual ~StorageImpl();
 
 		virtual Ball const& getBall() const;
