@@ -30,6 +30,7 @@ int main(int, char**)
 
 	referee.logInformation();
 	referee.setReady();
+	referee.logInformation();
 
 	cout << "moving own robot to position (0, 0) after next keypress" << endl;
 	getchar();
