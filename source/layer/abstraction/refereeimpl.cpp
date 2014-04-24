@@ -129,3 +129,16 @@ void RefereeImpl::logFieldSide(const char *message, FieldSide fieldSide)
 	stream << string(message) << ": " << fieldSide;
 	m_logger.logToLogFileOfType(Logger::LogFileTypeReferee, stream.str());
 }
+
+void RefereeImpl::setReady()
+{
+	switch(m_ownColor)
+	{
+	case TeamColorBlue:
+		m_referee->SetBlueReady();
+		break;
+	case TeamColorRed:
+		m_referee->SetRedReady();
+		break;
+	}
+}

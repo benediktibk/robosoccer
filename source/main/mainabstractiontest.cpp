@@ -27,10 +27,11 @@ int main(int, char**)
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;
-	cout << "moving own robot to position (0, 0) after next keypress" << endl;
 
 	referee.logInformation();
+	referee.setReady();
 
+	cout << "moving own robot to position (0, 0) after next keypress" << endl;
 	getchar();
 	ownRobot.gotoPositionPrecise(Point());
 

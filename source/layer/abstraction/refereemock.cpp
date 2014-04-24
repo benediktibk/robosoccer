@@ -41,3 +41,6 @@ bool RefereeMock::isGamePaused() const
 {
 	return false;
 }
+
+void RefereeMock::setReady()
+{ }
