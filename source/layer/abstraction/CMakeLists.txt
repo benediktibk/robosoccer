@@ -9,6 +9,7 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	refereemock.cpp
 	storageimpl.cpp
 	storagemock.cpp
+        fieldside.cpp
 )
 
 set(COMPILE_FLAGS_ROSO "-Wno-overflow -Wno-format")

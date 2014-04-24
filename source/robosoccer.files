@@ -215,3 +215,4 @@ layer/main/targetpositionfetchertest.h
 layer/main/targetpositionfetcher.h
 layer/main/targetpositionfetchertest.cpp
 layer/main/targetpositionfetcher.cpp
+layer/abstraction/fieldside.cpp

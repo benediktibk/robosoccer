@@ -7,7 +7,9 @@ using namespace RoboSoccer::Layer::Abstraction;
 RefereeImpl::RefereeImpl(KogniMobil::RTDBConn &dataBase, TeamColor ownColor) :
 	m_referee(new Referee(dataBase)),
 	m_ownColor(ownColor)
-{ }
+{
+	m_referee->Init();
+}
 
 RefereeImpl::~RefereeImpl()
 {
@@ -40,6 +42,5 @@ FieldSide RefereeImpl::getOwnFieldSide() const
 		}
 	}
 
-	assert(false);
-	return FieldSideLeft;
+	return FieldSideInvalid;
 }
