@@ -1,5 +1,6 @@
 #include "layer/main/targetpositionfetcher.h"
 #include "common/geometry/orientedposition.h"
+#include "layer/abstraction/ball.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Main;
@@ -39,19 +40,32 @@ vector<OrientedPosition> TargetPositionFetcher::getEnemyGoalPosition() const
 		goalposition.push_back(OrientedPosition(Point(1.45,0.2),Angle()));
 		break;
 	case FieldSideLeft:
-		goalposition.push_back(OrientedPosition(Point(1.45,0),Angle::getHalfRotation()));
-		goalposition.push_back(OrientedPosition(Point(1.45,0.2),Angle::getHalfRotation()));
-		goalposition.push_back(OrientedPosition(Point(1.45,-0.2),Angle::getHalfRotation()));
+		goalposition.push_back(OrientedPosition(Point(-1.45,0),Angle::getHalfRotation()));
+		goalposition.push_back(OrientedPosition(Point(-1.45,0.2),Angle::getHalfRotation()));
+		goalposition.push_back(OrientedPosition(Point(-1.45,-0.2),Angle::getHalfRotation()));
 		break;
 	}
 	return goalposition;
 }
 
-OrientedPosition TargetPositionFetcher::getOwnGoalPosition() const
+OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
 {
 	assert(m_fieldside != FieldSideInvalid);
 
-	return OrientedPosition();
+	OrientedPosition goalPosition;
+
+	switch (m_fieldside)
+	{
+	case FieldSideInvalid:
+	case FieldSideRight:
+		goalPosition = OrientedPosition(Point(1.3,ball.getPosition().getY()),Angle::getHalfRotation());
+		break;
+	case FieldSideLeft:
+		goalPosition = OrientedPosition(Point(-1.3,ball.getPosition().getY()),Angle());
+		break;
+	}
+
+	return goalPosition;
 }
 
 OrientedPosition TargetPositionFetcher::getPenaltyPositionKicker() const

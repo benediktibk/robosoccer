@@ -15,6 +15,10 @@ namespace Geometry
 }
 namespace Layer
 {
+namespace Abstraction
+{
+	class Ball;
+}
 namespace Main
 {
 class TargetPositionFetcher
@@ -26,7 +30,7 @@ public:
 
 	Common::Geometry::OrientedPosition getStartPosition() const;
 	std::vector<Common::Geometry::OrientedPosition> getEnemyGoalPosition() const;
-	Common::Geometry::OrientedPosition getOwnGoalPosition() const;
+	Common::Geometry::OrientedPosition getOwnGoalPosition(const Abstraction::Ball &ball) const;
 	Common::Geometry::OrientedPosition getPenaltyPositionKicker() const;
 
 private:
