@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_MAIN_TARGETPOSITIONFETCHER_H
 
 #include "layer/abstraction/fieldside.h"
+#include <vector>
 
 namespace RoboSoccer
 {
@@ -22,8 +23,11 @@ public:
 	TargetPositionFetcher();
 
 	void setFieldSide(Layer::Abstraction::FieldSide fieldside);
+
 	Common::Geometry::OrientedPosition getStartPosition() const;
-	Common::Geometry::OrientedPosition getGoalPosition() const;
+	std::vector<Common::Geometry::OrientedPosition> getEnemyGoalPosition() const;
+	Common::Geometry::OrientedPosition getOwnGoalPosition() const;
+	Common::Geometry::OrientedPosition getPenaltyPositionKicker() const;
 
 private:
 	Layer::Abstraction::FieldSide m_fieldside;

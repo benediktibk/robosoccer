@@ -12,5 +12,5 @@ void TargetPositionFetcherTest::getGoalPosition_fieldSideRight_correctPosition()
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT(OrientedPosition(Point(1.45,0),Angle()) == targetPositionFetcher.getGoalPosition());
+	CPPUNIT_ASSERT(targetPositionFetcher.getEnemyGoalPosition().front() == OrientedPosition(Point(1.45,0),Angle()));
 }
