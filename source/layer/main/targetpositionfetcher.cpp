@@ -26,14 +26,13 @@ OrientedPosition TargetPositionFetcher::getStartPosition() const
 
 vector<OrientedPosition> TargetPositionFetcher::getEnemyGoalPosition() const
 {
-	assert(m_fieldside != FieldSideInvalid);
-
 	vector<OrientedPosition> goalposition;
 	goalposition.reserve(3);
 
 	switch (m_fieldside)
 	{
 	case FieldSideInvalid:
+		assert(false);
 	case FieldSideRight:
 		goalposition.push_back(OrientedPosition(Point(1.45,0),Angle()));
 		goalposition.push_back(OrientedPosition(Point(1.45,-0.2),Angle()));
@@ -50,13 +49,12 @@ vector<OrientedPosition> TargetPositionFetcher::getEnemyGoalPosition() const
 
 OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
 {
-	assert(m_fieldside != FieldSideInvalid);
-
 	OrientedPosition goalPosition;
 
 	switch (m_fieldside)
 	{
 	case FieldSideInvalid:
+		assert(false);
 	case FieldSideRight:
 		goalPosition = OrientedPosition(Point(1.3,ball.getPosition().getY()),Angle::getHalfRotation());
 		break;
