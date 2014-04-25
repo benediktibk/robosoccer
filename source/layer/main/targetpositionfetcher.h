@@ -23,6 +23,7 @@ public:
 
 	void setFieldSide(Layer::Abstraction::FieldSide fieldside);
 	Common::Geometry::OrientedPosition getStartPosition() const;
+	Common::Geometry::OrientedPosition getGoalPosition() const;
 
 private:
 	Layer::Abstraction::FieldSide m_fieldside;
