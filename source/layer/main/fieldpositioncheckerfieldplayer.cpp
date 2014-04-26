@@ -14,8 +14,8 @@ bool FieldPositionCheckerFieldPlayer::isPointInsideField(const Point &position) 
 	if (!field.isInside(position, compare))
 		return false;
 
-	Rectangle goalieZone1(Point(1.2, -0.35), Point(1.45, 0.35));
-	Rectangle goalieZone2(Point(-1.45, -0.35), Point(-1.2, 0.35));
+	Rectangle goalZoneRight(Point(1.2, -0.35), Point(1.45, 0.35));
+	Rectangle goalZoneLeft(Point(-1.45, -0.35), Point(-1.2, 0.35));
 
-	return !goalieZone1.isInside(position, compare) && !goalieZone2.isInside(position, compare);
+	return !goalZoneRight.isInside(position, compare) && !goalZoneLeft.isInside(position, compare);
 }
