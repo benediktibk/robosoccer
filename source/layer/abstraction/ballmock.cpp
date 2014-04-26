@@ -2,13 +2,14 @@
 #include "common/geometry/point.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
+#include "common/geometry/orientedposition.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-Point BallMock::getPosition() const
+OrientedPosition BallMock::getPosition() const
 {
-	return Point();
+	return OrientedPosition();
 }
 
 Circle BallMock::getObstacle() const
@@ -16,17 +17,7 @@ Circle BallMock::getObstacle() const
 	return Circle();
 }
 
-bool BallMock::isMoving() const
+double BallMock::getVelocity() const
 {
-	return true;
-}
-
-Angle BallMock::getDirection() const
-{
-	return Angle();
-}
-
-FieldSide BallMock::getMovingDirection() const
-{
-	return FieldSide();
+	return 0;
 }

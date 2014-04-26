@@ -2,6 +2,7 @@
 #include "common/geometry/point.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
+#include "common/geometry/orientedposition.h"
 #include <kogmo_rtdb.hxx>
 #include <raw_ball.h>
 
@@ -18,9 +19,14 @@ BallImpl::~BallImpl()
 	m_ball = 0;
 }
 
-Geometry::Point BallImpl::getPosition() const
+Geometry::OrientedPosition BallImpl::getPosition() const
 {
-	return Geometry::Point(m_ball->GetX(), m_ball->GetY());
+	Geometry::Point ballPosition;
+	ballPosition.setX(m_ball->GetX());
+	ballPosition.setY(m_ball->GetY());
+	Angle angle = m_ball->GetPhi();
+	Geometry::Angle ballAngle(angle.Rad());
+	return Geometry::OrientedPosition(ballPosition,ballAngle);
 }
 
 Geometry::Circle BallImpl::getObstacle() const
@@ -28,25 +34,7 @@ Geometry::Circle BallImpl::getObstacle() const
 	return Geometry::Circle(getPosition(), 0.045);
 }
 
-bool BallImpl::isMoving() const
+double BallImpl::getVelocity() const
 {
-	return(m_ball->GetVelocity() > 0.1);
-	//TODO: find appropriate Threshold
-}
-
-Geometry::Angle BallImpl::getDirection() const
-{
-	Angle angle = m_ball->GetPhi();
-	Geometry::Angle direction(angle.Rad());
-	return direction;
-}
-
-FieldSide BallImpl::getMovingDirection() const
-{
-	Geometry::Angle direction = getDirection();
-	double angle=direction.getValueBetweenMinusPiAndPi();
-	if (angle > 0)
-		return FieldSideRight;
-	else
-		return FieldSideLeft;
+	return m_ball->GetVelocity();
 }

@@ -13,11 +13,9 @@ namespace Abstraction
 			public Ball
 	{
 	public:
-		virtual Common::Geometry::Point getPosition() const;
+		virtual Common::Geometry::OrientedPosition getPosition() const;
 		virtual Common::Geometry::Circle getObstacle() const;
-		bool isMoving() const;
-		virtual Common::Geometry::Angle getDirection() const;
-		virtual FieldSide getMovingDirection() const;
+		virtual double getVelocity() const;
 	};
 }
 }

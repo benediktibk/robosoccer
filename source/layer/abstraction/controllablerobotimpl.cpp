@@ -40,12 +40,12 @@ Geometry::Circle ControllableRobotImpl::createObstacle() const
 	return Geometry::Circle(pose.getPosition(),0.095);
 }
 
-void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point position)
+void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
 {
 	m_robot->GotoXY(position.getX(),position.getY(),160,false);
 }
 
-void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point position)
+void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
 	m_robot->GotoXY(position.getX(),position.getY(),160,true);
 }
@@ -58,7 +58,7 @@ bool ControllableRobotImpl::kick(unsigned int force, double distanceToBall)
 	return false;
 }
 
-void ControllableRobotImpl::turn(const Geometry::Angle absoluteAngle)
+void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
 	Angle angle(absoluteAngle.getValueBetweenZeroAndTwoPi());
 	m_robot->TurnAbs(angle);
