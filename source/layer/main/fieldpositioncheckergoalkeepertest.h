@@ -14,8 +14,25 @@ namespace Main
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(FieldPositionCheckerGoalkeeperTest);
+		CPPUNIT_TEST(isPointInsideField_pointInNeutralZone_true);
+		CPPUNIT_TEST(isPointInsideField_pointOutsideField_false);
+		CPPUNIT_TEST(isPointInsideField_rightSidePointInOwnGoalZone_true);
+		CPPUNIT_TEST(isPointInsideField_rightSidePointInEnemyGoalZone_false);
+		CPPUNIT_TEST(isPointInsideField_leftSidePointInOwnGoalZone_true);
+		CPPUNIT_TEST(isPointInsideField_leftSidePointInEnemyGoalZone_false);
+		CPPUNIT_TEST(isPointInsideField_invalidSidePointInGoalZone_false);
+		CPPUNIT_TEST(isPointInsideField_changingSidesInGoalZone_falseThenTrue);
 		CPPUNIT_TEST_SUITE_END();
+
 	private:
+		void isPointInsideField_pointInNeutralZone_true();
+		void isPointInsideField_pointOutsideField_false();
+		void isPointInsideField_rightSidePointInOwnGoalZone_true();
+		void isPointInsideField_rightSidePointInEnemyGoalZone_false();
+		void isPointInsideField_leftSidePointInOwnGoalZone_true();
+		void isPointInsideField_leftSidePointInEnemyGoalZone_false();
+		void isPointInsideField_invalidSidePointInGoalZone_false();
+		void isPointInsideField_changingSidesInGoalZone_falseThenTrue();
 
 	};
 }

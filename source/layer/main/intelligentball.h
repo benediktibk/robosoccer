@@ -25,7 +25,7 @@ namespace Main
 	{
 	public:
 		IntelligentBall();
-		Common::Geometry::OrientedPosition getPosition() const;
+		Common::Geometry::OrientedPosition getOrientatedPosition() const;
 		Common::Geometry::Circle getObstacle() const;
 		double getVelocity() const;
 		bool isMoving(double velocity) const;

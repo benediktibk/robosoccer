@@ -12,9 +12,9 @@ IntelligentBall::IntelligentBall()
 
 }
 
-Geometry::OrientedPosition IntelligentBall::getPosition() const
+Geometry::OrientedPosition IntelligentBall::getOrientatedPosition() const
 {
-	return m_ball->getPosition();
+	return m_ball->getOrientatedPosition();
 }
 
 Geometry::Circle IntelligentBall::getObstacle() const

@@ -19,7 +19,7 @@ BallImpl::~BallImpl()
 	m_ball = 0;
 }
 
-Geometry::OrientedPosition BallImpl::getPosition() const
+Geometry::OrientedPosition BallImpl::getOrientatedPosition() const
 {
 	Geometry::Point ballPosition;
 	ballPosition.setX(m_ball->GetX());
@@ -27,6 +27,11 @@ Geometry::OrientedPosition BallImpl::getPosition() const
 	Angle angle = m_ball->GetPhi();
 	Geometry::Angle ballAngle(angle.Rad());
 	return Geometry::OrientedPosition(ballPosition,ballAngle);
+}
+
+Geometry::Point BallImpl::getPosition() const
+{
+	return getOrientatedPosition().getPosition();
 }
 
 Geometry::Circle BallImpl::getObstacle() const

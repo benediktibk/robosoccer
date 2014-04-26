@@ -7,9 +7,14 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-OrientedPosition BallMock::getPosition() const
+OrientedPosition BallMock::getOrientatedPosition() const
 {
 	return OrientedPosition();
+}
+
+Point BallMock::getPosition() const
+{
+	return m_position;
 }
 
 Circle BallMock::getObstacle() const
@@ -21,3 +26,9 @@ double BallMock::getVelocity() const
 {
 	return 0;
 }
+
+void BallMock::setBallPosition(Point position)
+{
+	m_position = position;
+}
+
