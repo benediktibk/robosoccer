@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPER_H
 
 #include "common/routing/fieldpositionchecker.h"
+#include "layer/abstraction/fieldside.h"
 
 namespace RoboSoccer
 {
@@ -13,7 +14,12 @@ namespace Main
 			public Common::Routing::FieldPositionChecker
 	{
 	public:
+		FieldPositionCheckerGoalkeeper(Abstraction::FieldSide fieldSide);
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
+		void setTeamSide(Abstraction::FieldSide fieldSide);
+
+	private:
+		Abstraction::FieldSide m_fieldSide;
 	};
 }
 }
