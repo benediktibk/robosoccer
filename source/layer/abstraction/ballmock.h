@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_BALLMOCK_H
 
 #include "layer/abstraction/ball.h"
+#include "common/geometry/point.h"
 
 namespace RoboSoccer
 {
@@ -15,6 +16,11 @@ namespace Abstraction
 	public:
 		virtual Common::Geometry::Point getPosition() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+
+		void setBallPosition(Common::Geometry::Point position);
+
+	private:
+		Common::Geometry::Point m_position;
 	};
 }
 }

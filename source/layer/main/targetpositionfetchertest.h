@@ -14,11 +14,15 @@ class TargetPositionFetcherTest :
 		public CPPUNIT_NS::TestFixture
 {
 	CPPUNIT_TEST_SUITE(TargetPositionFetcherTest);
-	CPPUNIT_TEST(getGoalPosition_fieldSideRight_correctPosition);
+	CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_middlePosotionIsCorrect);
+	CPPUNIT_TEST(getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition);
+	CPPUNIT_TEST(getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalCornerPosition);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
-	void getGoalPosition_fieldSideRight_correctPosition();
+	void getEnemyGoalPosition_fieldSideRight_middlePosotionIsCorrect();
+	void getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition();
+	void getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalCornerPosition();
 
 };
 }
