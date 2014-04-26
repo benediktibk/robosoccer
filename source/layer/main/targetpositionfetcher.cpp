@@ -56,10 +56,10 @@ OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) con
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		goalPosition = OrientedPosition(Point(1.3,ball.getPosition().getY()),Angle::getHalfRotation());
+		goalPosition = OrientedPosition(Point(1.3,ball.getPosition().getPosition().getY()),Angle::getHalfRotation());
 		break;
 	case FieldSideLeft:
-		goalPosition = OrientedPosition(Point(-1.3,ball.getPosition().getY()),Angle());
+		goalPosition = OrientedPosition(Point(-1.3,ball.getPosition().getPosition().getY()),Angle());
 		break;
 	}
 
