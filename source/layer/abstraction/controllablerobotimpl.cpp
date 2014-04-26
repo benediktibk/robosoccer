@@ -10,8 +10,13 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
 
-ControllableRobotImpl::ControllableRobotImpl()
-{ }
+ControllableRobotImpl::ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color)
+{
+	if (color == TeamColorRed)
+		deviceId += 3;
+	assert(deviceId <= 5);
+	m_robot = new RoboControl(dataBase,deviceId);
+}
 
 Geometry::OrientedPosition ControllableRobotImpl::getPosition() const
 {

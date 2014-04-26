@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_CONTROLLABLEROBOTIMPL_H
 
 #include "layer/abstraction/controllablerobot.h"
+#include "teamcolor.h"
 
 namespace KogniMobil
 {
@@ -20,7 +21,7 @@ namespace Abstraction
 			public ControllableRobot
 	{
 	public:
-		ControllableRobotImpl();
+		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
 
 		virtual Common::Geometry::OrientedPosition getPosition() const;
 		virtual Common::Geometry::Circle createObstacle() const;
