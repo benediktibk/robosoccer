@@ -40,3 +40,13 @@ Geometry::Angle BallImpl::getDirection() const
 	Geometry::Angle direction(angle.Rad());
 	return direction;
 }
+
+FieldSide BallImpl::getMovingDirection() const
+{
+	Geometry::Angle direction = getDirection();
+	double angle=direction.getValueBetweenMinusPiAndPi();
+	if (angle > 0)
+		return FieldSideRight;
+	else
+		return FieldSideLeft;
+}

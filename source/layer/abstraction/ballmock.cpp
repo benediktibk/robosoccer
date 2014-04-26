@@ -25,3 +25,8 @@ Angle BallMock::getDirection() const
 {
 	return Angle();
 }
+
+FieldSide BallMock::getMovingDirection() const
+{
+	return FieldSide();
+}

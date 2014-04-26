@@ -3,6 +3,7 @@
 
 #include "layer/abstraction/ball.h"
 
+
 class RawBall;
 
 namespace KogniMobil
@@ -27,6 +28,7 @@ namespace Abstraction
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual bool isMoving() const;
 		virtual Common::Geometry::Angle getDirection() const;
+		virtual FieldSide getMovingDirection() const;
 	private:
 		RawBall *m_ball;
 	};

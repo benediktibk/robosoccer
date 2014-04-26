@@ -17,6 +17,7 @@ namespace Abstraction
 		virtual Common::Geometry::Circle getObstacle() const;
 		bool isMoving() const;
 		virtual Common::Geometry::Angle getDirection() const;
+		virtual FieldSide getMovingDirection() const;
 	};
 }
 }
