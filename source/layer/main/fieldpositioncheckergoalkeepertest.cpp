@@ -55,3 +55,16 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_invalidSidePointInGo
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
 }
+
+void FieldPositionCheckerGoalkeeperTest::isPointInsideField_changingSidesInGoalZone_falseThenTrue()
+{
+	FieldPositionCheckerGoalkeeper fieldPositionChecker(FieldSideRight);
+
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
+
+	fieldPositionChecker.setTeamSide(FieldSideLeft);
+
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
+}

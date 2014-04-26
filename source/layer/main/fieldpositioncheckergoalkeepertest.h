@@ -21,9 +21,10 @@ namespace Main
 		CPPUNIT_TEST(isPointInsideField_leftSidePointInOwnGoalZone_true);
 		CPPUNIT_TEST(isPointInsideField_leftSidePointInEnemyGoalZone_false);
 		CPPUNIT_TEST(isPointInsideField_invalidSidePointInGoalZone_false);
+		CPPUNIT_TEST(isPointInsideField_changingSidesInGoalZone_falseThenTrue);
 		CPPUNIT_TEST_SUITE_END();
-	private:
 
+	private:
 		void isPointInsideField_pointInNeutralZone_true();
 		void isPointInsideField_pointOutsideField_false();
 		void isPointInsideField_rightSidePointInOwnGoalZone_true();
@@ -31,6 +32,7 @@ namespace Main
 		void isPointInsideField_leftSidePointInOwnGoalZone_true();
 		void isPointInsideField_leftSidePointInEnemyGoalZone_false();
 		void isPointInsideField_invalidSidePointInGoalZone_false();
+		void isPointInsideField_changingSidesInGoalZone_falseThenTrue();
 
 	};
 }
