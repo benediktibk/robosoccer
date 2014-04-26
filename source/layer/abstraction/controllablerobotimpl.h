@@ -3,6 +3,13 @@
 
 #include "layer/abstraction/controllablerobot.h"
 
+namespace KogniMobil
+{
+	class RTDBConn;
+}
+
+class RoboControl;
+
 namespace RoboSoccer
 {
 namespace Layer
@@ -23,6 +30,7 @@ namespace Abstraction
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
 
 	private:
+		RoboControl *m_robot;
 	};
 }
 }
