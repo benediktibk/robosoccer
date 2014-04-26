@@ -25,7 +25,8 @@ namespace Abstraction
 
 		virtual Common::Geometry::Point getPosition() const;
 		virtual Common::Geometry::Circle getObstacle() const;
-
+		virtual bool isMoving() const;
+		virtual Common::Geometry::Angle getDirection() const;
 	private:
 		RawBall *m_ball;
 	};

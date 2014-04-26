@@ -18,6 +18,12 @@ ControllableRobotImpl::ControllableRobotImpl(unsigned int deviceId, KogniMobil::
 	m_robot = new RoboControl(dataBase,deviceId);
 }
 
+ControllableRobotImpl::~ControllableRobotImpl()
+{
+	delete m_robot;
+	m_robot = 0;
+}
+
 Geometry::OrientedPosition ControllableRobotImpl::getPosition() const
 {
 	Geometry::Point robotPosition;
@@ -34,25 +40,27 @@ Geometry::Circle ControllableRobotImpl::createObstacle() const
 	return Geometry::Circle(pose.getPosition(),0.095);
 }
 
-void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &/*position*/)
+void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point position)
 {
-
+	m_robot->GotoXY(position.getX(),position.getY(),160,false);
 }
 
-void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &/*position*/)
+void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point position)
 {
-
+	m_robot->GotoXY(position.getX(),position.getY(),160,true);
 }
 
 bool ControllableRobotImpl::kick(unsigned int force, double distanceToBall)
 {
 	assert(force <= 100);
 	assert(distanceToBall >= 0);
+	m_robot->Kick(force,distanceToBall);
 	return false;
 }
 
-void ControllableRobotImpl::turn(const Geometry::Angle &/*absoluteAngle*/)
+void ControllableRobotImpl::turn(const Geometry::Angle absoluteAngle)
 {
-
+	Angle angle(absoluteAngle.getValueBetweenZeroAndTwoPi());
+	m_robot->TurnAbs(angle);
 }
 

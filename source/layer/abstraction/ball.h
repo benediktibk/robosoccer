@@ -9,6 +9,7 @@ namespace Geometry
 {
 	class Point;
 	class Circle;
+	class Angle;
 }
 }
 namespace Layer
@@ -22,6 +23,8 @@ namespace Abstraction
 
 		virtual Common::Geometry::Point getPosition() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
+		virtual bool isMoving() const = 0;
+		virtual Common::Geometry::Angle getDirection() const = 0;
 	};
 }
 }

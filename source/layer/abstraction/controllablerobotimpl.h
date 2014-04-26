@@ -4,12 +4,12 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "teamcolor.h"
 
+class RoboControl;
+
 namespace KogniMobil
 {
 	class RTDBConn;
 }
-
-class RoboControl;
 
 namespace RoboSoccer
 {
@@ -22,13 +22,13 @@ namespace Abstraction
 	{
 	public:
 		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
-
+		~ControllableRobotImpl();
 		virtual Common::Geometry::OrientedPosition getPosition() const;
 		virtual Common::Geometry::Circle createObstacle() const;
-		virtual void gotoPositionImprecise(Common::Geometry::Point const &position);
-		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);
+		virtual void gotoPositionImprecise(const Common::Geometry::Point position);
+		virtual void gotoPositionPrecise(const Common::Geometry::Point position);
 		virtual bool kick(unsigned int force, double distanceToBall);
-		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
+		virtual void turn(const Common::Geometry::Angle absoluteAngle);
 
 	private:
 		RoboControl *m_robot;
