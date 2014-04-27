@@ -216,3 +216,5 @@ layer/main/targetpositionfetcher.h
 layer/main/targetpositionfetchertest.cpp
 layer/main/targetpositionfetcher.cpp
 layer/abstraction/fieldside.cpp
+layer/main/intelligentball.cpp
+layer/main/intelligentball.h
