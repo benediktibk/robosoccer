@@ -257,3 +257,7 @@ layer/control/preparepenaltyoffensivetest.h
 layer/control/preparepenaltyoffensive.h
 layer/control/preparepenaltyoffensivetest.cpp
 layer/control/preparepenaltyoffensive.cpp
+layer/control/preparepenaltydefensivetest.h
+layer/control/preparepenaltydefensive.h
+layer/control/preparepenaltydefensivetest.cpp
+layer/control/preparepenaltydefensive.cpp
