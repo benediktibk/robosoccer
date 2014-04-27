@@ -1,7 +1,7 @@
 #include "layer/control/preparepenalty.h"
 #include "layer/control/preparepenaltyoffensive.h"
 #include "layer/control/preparepenaltydefensive.h"
-#include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/refereebase.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
