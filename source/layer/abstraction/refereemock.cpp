@@ -8,6 +8,8 @@ RefereeMock::RefereeMock() :
 	m_hasKickOffOrPenalty(false),
 	m_executeKickOff(false),
 	m_executePenalty(false),
+	m_gamePaused(false),
+	m_continuePlaying(false),
 	m_callsToSetReady(0)
 { }
 
@@ -51,6 +53,11 @@ bool RefereeMock::isGamePaused() const
 	return m_gamePaused;
 }
 
+bool RefereeMock::getContinuePlaying() const
+{
+	return m_continuePlaying;
+}
+
 void RefereeMock::setReady()
 {
 	++m_callsToSetReady;
@@ -87,6 +94,11 @@ void RefereeMock::setExecutePenalty(bool value)
 void RefereeMock::setGamePaused(bool value)
 {
 	m_gamePaused = value;
+}
+
+void RefereeMock::setContinuePlaying(bool value)
+{
+	m_continuePlaying = value;
 }
 
 unsigned int RefereeMock::getCallsToSetReady() const

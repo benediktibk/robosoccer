@@ -22,6 +22,7 @@ namespace Abstraction
 		virtual bool getExecutePenalty() const = 0;
 		virtual bool initFinished() const = 0;
 		virtual bool isGamePaused() const = 0;
+		virtual bool getContinuePlaying() const = 0;
 		virtual void setReady() = 0;
 		virtual void logInformation() = 0;
 	};

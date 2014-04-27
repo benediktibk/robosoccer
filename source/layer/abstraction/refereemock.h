@@ -23,6 +23,7 @@ namespace Abstraction
 		virtual bool getExecutePenalty() const;
 		virtual bool initFinished() const;
 		virtual bool isGamePaused() const;
+		virtual bool getContinuePlaying() const;
 		virtual void setReady();
 		virtual void logInformation();
 
@@ -32,6 +33,7 @@ namespace Abstraction
 		void setExecuteKickOff(bool value);
 		void setExecutePenalty(bool value);
 		void setGamePaused(bool value);
+		void setContinuePlaying(bool value);
 		unsigned int getCallsToSetReady() const;
 
 	private:
@@ -41,6 +43,7 @@ namespace Abstraction
 		bool m_executeKickOff;
 		bool m_executePenalty;
 		bool m_gamePaused;
+		bool m_continuePlaying;
 		unsigned int m_callsToSetReady;
 	};
 }
