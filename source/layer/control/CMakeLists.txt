@@ -10,6 +10,7 @@ set(COMMON_LAYER_CONTROL_SRC
 	kickoffdefensive.cpp
 	preparepenaltyoffensive.cpp
 	preparepenaltydefensive.cpp
+	penaltyoffensive.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC
@@ -24,6 +25,7 @@ set(COMMON_LAYER_CONTROL_TEST_SRC
 	kickoffdefensivetest.cpp
 	preparepenaltyoffensivetest.cpp
 	preparepenaltydefensivetest.cpp
+	penaltyoffensivetest.cpp
 )
 
 add_library(layercontrol ${COMMON_LAYER_CONTROL_SRC})
