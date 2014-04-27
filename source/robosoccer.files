@@ -237,3 +237,7 @@ layer/control/preparepenaltytest.h
 layer/control/preparepenalty.h
 layer/control/preparepenaltytest.cpp
 layer/control/preparepenalty.cpp
+layer/control/preparekickoffoffensivetest.h
+layer/control/preparekickoffoffensive.h
+layer/control/preparekickoffoffensivetest.cpp
+layer/control/preparekickoffoffensive.cpp
