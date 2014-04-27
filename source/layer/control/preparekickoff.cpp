@@ -1,4 +1,7 @@
 #include "layer/control/preparekickoff.h"
+#include "layer/control/preparekickoffoffensive.h"
+#include "layer/control/preparekickoffdefensive.h"
+#include "layer/abstraction/refereemock.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
@@ -12,7 +15,10 @@ PrepareKickOff::PrepareKickOff(Logger &logger, RefereeBase &referee) :
 
 State *PrepareKickOff::nextState()
 {
-	return 0;
+	if (m_referee.hasKickOffOrPenalty())
+		return new PrepareKickOffOffensive(m_logger, m_referee);
+	else
+		return new PrepareKickOffDefensive(m_logger, m_referee);
 }
 
 string PrepareKickOff::getName()
@@ -21,7 +27,4 @@ string PrepareKickOff::getName()
 }
 
 void PrepareKickOff::updateInternal()
-{
-
-}
-
+{ }
