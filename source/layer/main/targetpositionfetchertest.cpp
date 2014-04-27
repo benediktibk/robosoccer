@@ -13,7 +13,7 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_middlePosoti
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT(targetPositionFetcher.getEnemyGoalPosition().front() == OrientedPosition(Point(1.45,0),Angle()));
+	CPPUNIT_ASSERT_EQUAL(targetPositionFetcher.getEnemyGoalPosition().front(),OrientedPosition(Point(1.45,0),Angle()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition()
@@ -34,4 +34,14 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalC
 	ball.setBallPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.25,0.0001);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	BallMock ball;
+	ball.setBallPosition(Point(0,0));
+
+	CPPUNIT_ASSERT_EQUAL(OrientedPosition(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
 }

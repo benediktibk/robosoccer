@@ -151,3 +151,24 @@ void LineTest::shiftParallel_shiftLine_resultIsCorrect()
 	CPPUNIT_ASSERT_EQUAL(Point(2,2), line.getStart());
 	CPPUNIT_ASSERT_EQUAL(Point(5,3), line.getEnd());
 }
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart()
+{
+	Line line(Point(1,1), Point(3,1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(1,1),line.getPointOnDirectionOfLine(0));
+}
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd()
+{
+	Line line(Point(1,1), Point(3,1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3,1),line.getPointOnDirectionOfLine(1));
+}
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect()
+{
+	Line line(Point(1,1), Point(2,2));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3,3),line.getPointOnDirectionOfLine(2));
+}
