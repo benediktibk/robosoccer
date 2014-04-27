@@ -1,4 +1,6 @@
 #include "layer/control/kickoffdefensive.h"
+#include "layer/control/play.h"
+#include "layer/abstraction/refereemock.h"
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
@@ -12,6 +14,9 @@ KickOffDefensive::KickOffDefensive(Logger &logger, RefereeBase &referee) :
 
 State *KickOffDefensive::nextState()
 {
+	if (m_referee.getContinuePlaying())
+		return new Play(m_logger, m_referee);
+
 	return 0;
 }
 
