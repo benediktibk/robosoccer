@@ -33,6 +33,9 @@ namespace Geometry
 		 CPPUNIT_TEST(getPerpendicularPoint_pointIs1p5And2_resultIsCorrect);
 		 CPPUNIT_TEST(isOnePointLeftAndOneRightOfLine_strangeExample_resultIsTrue);
 		 CPPUNIT_TEST(shiftParallel_shiftLine_resultIsCorrect);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -55,6 +58,9 @@ namespace Geometry
 		 void getPerpendicularPoint_pointIs1p5And2_resultIsCorrect();
 		 void isOnePointLeftAndOneRightOfLine_strangeExample_resultIsTrue();
 		 void shiftParallel_shiftLine_resultIsCorrect();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect();
 	};
 }
 }

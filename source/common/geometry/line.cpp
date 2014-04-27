@@ -97,6 +97,13 @@ Point Line::getPerpendicularPoint(Point point) const
 	return perpendicularPoint;
 }
 
+Point Line::getPointOnDirectionOfLine(double percentOfLenghtOfLine) const
+{
+	Point direction(m_end - m_start);
+
+	return m_start + direction * percentOfLenghtOfLine;
+}
+
 bool Line::isTargetPointRightOfLine(const Point &target) const
 {
 	Angle angleBetweenPoints(m_start, m_end);
