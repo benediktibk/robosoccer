@@ -216,3 +216,16 @@ layer/main/targetpositionfetcher.h
 layer/main/targetpositionfetchertest.cpp
 layer/main/targetpositionfetcher.cpp
 layer/abstraction/fieldside.cpp
+layer/control/CMakeLists.txt
+layer/control/pausetest.h
+layer/control/pause.h
+layer/control/pausetest.cpp
+layer/control/pause.cpp
+layer/control/robosoccerstate.h
+layer/control/robosoccerstate.cpp
+layer/control/preparekickofftest.h
+layer/control/preparekickoff.h
+layer/control/preparekickofftest.cpp
+layer/control/preparekickoff.cpp
+layer/control/robosoccerstatetest.h
+layer/control/robosoccerstatetest.cpp

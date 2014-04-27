@@ -27,6 +27,8 @@
 #include "layer/main/fieldpositioncheckerfieldplayertest.h"
 #include "layer/main/fieldpositioncheckergoalkeepertest.h"
 #include "layer/main/targetpositionfetchertest.h"
+#include "layer/control/pausetest.h"
+#include "layer/control/preparekickofftest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -58,3 +60,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerGoalkeeperTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::TargetPositionFetcherTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PauseTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffTest);
