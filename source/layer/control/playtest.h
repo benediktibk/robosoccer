@@ -13,12 +13,16 @@ namespace Control
 			public RoboSoccerStateTest
 	{
 		CPPUNIT_TEST_SUITE(PlayTest);
+		CPPUNIT_TEST(nextState_everythingSet_0);
+		CPPUNIT_TEST(nextState_notContinuePlaying_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
 		virtual RoboSoccerState* createInstance();
 
 	private:
+		void nextState_everythingSet_0();
+		void nextState_notContinuePlaying_pause();
 	};
 }
 }
