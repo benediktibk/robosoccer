@@ -1,4 +1,7 @@
 #include "layer/control/preparepenalty.h"
+#include "layer/control/preparepenaltyoffensive.h"
+#include "layer/control/preparepenaltydefensive.h"
+#include "layer/abstraction/refereemock.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
@@ -12,7 +15,10 @@ PreparePenalty::PreparePenalty(Logger &logger, RefereeBase &referee) :
 
 State *PreparePenalty::nextState()
 {
-	return 0;
+	if (m_referee.hasKickOffOrPenalty())
+		return new PreparePenaltyOffensive(m_logger, m_referee);
+	else
+		return new PreparePenaltyDefensive(m_logger, m_referee);
 }
 
 string PreparePenalty::getName()
@@ -21,6 +27,4 @@ string PreparePenalty::getName()
 }
 
 void PreparePenalty::updateInternal()
-{
-
-}
+{ }
