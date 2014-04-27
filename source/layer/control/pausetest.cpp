@@ -1,6 +1,8 @@
 #include "layer/control/pausetest.h"
 #include "layer/control/pause.h"
 #include "layer/control/preparekickoff.h"
+#include "layer/control/preparepenalty.h"
+#include "layer/control/play.h"
 #include "layer/abstraction/refereemock.h"
 #include "common/logging/loggermock.h"
 
@@ -29,4 +31,24 @@ void PauseTest::nextState_gamePaused_0()
 	State *state = m_state->nextState();
 
 	CPPUNIT_ASSERT(state == 0);
+}
+
+void PauseTest::nextState_preparePenaltySet_preparePenalty()
+{
+	m_referee->setPrepareForPenalty(true);
+
+	State *state = m_state->nextState();
+
+	PreparePenalty *stateCasted = dynamic_cast<PreparePenalty*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+}
+
+void PauseTest::nextState_continuePlayingSet_play()
+{
+	m_referee->setContinuePlaying(true);
+
+	State *state = m_state->nextState();
+
+	Play *stateCasted = dynamic_cast<Play*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
 }

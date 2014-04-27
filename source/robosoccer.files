@@ -229,3 +229,11 @@ layer/control/preparekickofftest.cpp
 layer/control/preparekickoff.cpp
 layer/control/robosoccerstatetest.h
 layer/control/robosoccerstatetest.cpp
+layer/control/playtest.h
+layer/control/play.h
+layer/control/playtest.cpp
+layer/control/play.cpp
+layer/control/preparepenaltytest.h
+layer/control/preparepenalty.h
+layer/control/preparepenaltytest.cpp
+layer/control/preparepenalty.cpp

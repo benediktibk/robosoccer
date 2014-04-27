@@ -2,12 +2,16 @@ set(COMMON_LAYER_CONTROL_SRC
 	robosoccerstate.cpp
 	pause.cpp
 	preparekickoff.cpp
+	play.cpp
+	preparepenalty.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC
 	robosoccerstatetest.cpp
 	pausetest.cpp
 	preparekickofftest.cpp
+	playtest.cpp
+	preparepenaltytest.cpp
 )
 
 add_library(layercontrol ${COMMON_LAYER_CONTROL_SRC})
