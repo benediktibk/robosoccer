@@ -28,7 +28,7 @@ State* Pause::nextState()
 
 string Pause::getName()
 {
-	return string("pause/init");
+	return string("pause");
 }
 
 void Pause::updateInternal()

@@ -17,7 +17,7 @@ State *KickOffOffensive::nextState()
 
 string KickOffOffensive::getName()
 {
-	return string("play");
+	return string("kick off offensive");
 }
 
 void KickOffOffensive::updateInternal()
