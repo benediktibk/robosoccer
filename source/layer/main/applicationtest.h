@@ -15,8 +15,8 @@ namespace Main
 	{
 		CPPUNIT_TEST_SUITE(ApplicationTest);
 		CPPUNIT_TEST_SUITE_END();
-	private:
 
+	private:
 	};
 }
 }
