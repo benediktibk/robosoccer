@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_PLAYTEST_H
-#define ROBOSOCCER_LAYER_CONTROL_PLAYTEST_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_KICKOFFOFFENSIVETEST_H
+#define ROBOSOCCER_LAYER_CONTROL_KICKOFFOFFENSIVETEST_H
 
 #include "layer/control/robosoccerstatetest.h"
 
@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Control
 {
-	class PlayTest :
+	class KickOffOffensiveTest :
 			public RoboSoccerStateTest
 	{
-		CPPUNIT_TEST_SUITE(PlayTest);
+		CPPUNIT_TEST_SUITE(KickOffOffensiveTest);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,3 +25,5 @@ namespace Control
 }
 
 #endif
+
+
