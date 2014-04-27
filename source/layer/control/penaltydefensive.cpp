@@ -1,4 +1,6 @@
 #include "layer/control/penaltydefensive.h"
+#include "layer/control/play.h"
+#include "layer/abstraction/refereebase.h"
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
@@ -12,6 +14,9 @@ PenaltyDefensive::PenaltyDefensive(Logger &logger, RefereeBase &referee) :
 
 State *PenaltyDefensive::nextState()
 {
+	if (m_referee.getContinuePlaying())
+		return new Play(m_logger, m_referee);
+
 	return 0;
 }
 
