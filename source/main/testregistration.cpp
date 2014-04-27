@@ -35,6 +35,7 @@
 #include "layer/control/preparekickoffdefensivetest.h"
 #include "layer/control/kickoffdefensivetest.h"
 #include "layer/control/kickoffoffensivetest.h"
+#include "layer/control/preparepenaltyoffensivetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -74,3 +75,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffOffens
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffDefensiveTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::KickOffDefensiveTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::KickOffOffensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PreparePenaltyOffensiveTest);
