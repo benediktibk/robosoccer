@@ -27,8 +27,9 @@ double IntelligentBall::getVelocity() const
 	return m_ball->getVelocity();
 }
 
-bool IntelligentBall::isMoving(double velocity) const
+bool IntelligentBall::isMoving() const
 {
+	double velocity = m_ball->getVelocity();
 	return(velocity > 0.1);
 	//TODO: find appropriate Threshold
 }
