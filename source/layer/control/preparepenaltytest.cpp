@@ -22,6 +22,7 @@ void PreparePenaltyTest::nextState_executePenalty_prepareState()
 	PreparePenaltyDefensive *stateDefensive = dynamic_cast<PreparePenaltyDefensive*>(state);
 	PreparePenaltyOffensive *stateOffensive = dynamic_cast<PreparePenaltyOffensive*>(state);
 	CPPUNIT_ASSERT(stateDefensive != 0 || stateOffensive != 0);
+	delete state;
 }
 
 void PreparePenaltyTest::nextState_hasPenalty_preparePenaltyOffensive()
@@ -32,6 +33,7 @@ void PreparePenaltyTest::nextState_hasPenalty_preparePenaltyOffensive()
 
 	PreparePenaltyOffensive *stateCasted = dynamic_cast<PreparePenaltyOffensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
 
 void PreparePenaltyTest::nextState_hasNotPenalty_preparePenaltyDefensive()
@@ -42,4 +44,5 @@ void PreparePenaltyTest::nextState_hasNotPenalty_preparePenaltyDefensive()
 
 	PreparePenaltyDefensive *stateCasted = dynamic_cast<PreparePenaltyDefensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }

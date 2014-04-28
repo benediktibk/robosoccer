@@ -37,4 +37,5 @@ void PlayTest::nextState_notContinuePlaying_pause()
 
 	Pause *stateCasted = dynamic_cast<Pause*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }

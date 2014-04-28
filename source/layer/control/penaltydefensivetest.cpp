@@ -29,4 +29,5 @@ void PenaltyDefensiveTest::nextState_continuePlaying_play()
 
 	Play *stateCasted = dynamic_cast<Play*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }

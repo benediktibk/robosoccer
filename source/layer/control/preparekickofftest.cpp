@@ -22,6 +22,7 @@ void PrepareKickOffTest::nextState_executeKickOff_prepareState()
 	PrepareKickOffOffensive *stateOffensive = dynamic_cast<PrepareKickOffOffensive*>(state);
 	PrepareKickOffDefensive *stateDefensive = dynamic_cast<PrepareKickOffDefensive*>(state);
 	CPPUNIT_ASSERT(stateOffensive != 0 || stateDefensive != 0);
+	delete state;
 }
 
 void PrepareKickOffTest::nextState_hasKickOff_prepareKickOffOffensive()
@@ -33,6 +34,7 @@ void PrepareKickOffTest::nextState_hasKickOff_prepareKickOffOffensive()
 
 	PrepareKickOffOffensive *stateCasted = dynamic_cast<PrepareKickOffOffensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
 
 void PrepareKickOffTest::nextState_hasNotKickOff_prepareKickOffDefensive()
@@ -44,4 +46,5 @@ void PrepareKickOffTest::nextState_hasNotKickOff_prepareKickOffDefensive()
 
 	PrepareKickOffDefensive *stateCasted = dynamic_cast<PrepareKickOffDefensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }

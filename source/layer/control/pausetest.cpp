@@ -22,6 +22,7 @@ void PauseTest::nextState_prepareKickOffSet_prepareKickOff()
 
 	PrepareKickOff *stateCasted = dynamic_cast<PrepareKickOff*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
 
 void PauseTest::nextState_gamePaused_0()
@@ -41,6 +42,7 @@ void PauseTest::nextState_preparePenaltySet_preparePenalty()
 
 	PreparePenalty *stateCasted = dynamic_cast<PreparePenalty*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
 
 void PauseTest::nextState_continuePlayingSet_play()
@@ -51,4 +53,5 @@ void PauseTest::nextState_continuePlayingSet_play()
 
 	Play *stateCasted = dynamic_cast<Play*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
