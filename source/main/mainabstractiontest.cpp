@@ -26,6 +26,7 @@ int main(int, char**)
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
+	cout << "current ball orientation is " << ball.getRotation() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;
 
 	referee.logInformation();

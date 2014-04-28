@@ -14,8 +14,8 @@ namespace Abstraction
 			public Ball
 	{
 	public:
-		virtual Common::Geometry::OrientedPosition getOrientatedPosition() const;
 		virtual Common::Geometry::Point getPosition() const;
+		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual double getVelocity() const;
 		void setBallPosition(Common::Geometry::Point position);
