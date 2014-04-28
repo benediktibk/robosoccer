@@ -9,7 +9,7 @@ namespace Common
 {
 namespace Geometry
 {
-	class OrientedPosition;
+	class Angle;
 	class Circle;
 }
 }
@@ -25,11 +25,11 @@ namespace Main
 	{
 	public:
 		IntelligentBall();
-		Common::Geometry::OrientedPosition getOrientatedPosition() const;
+		Common::Geometry::Angle getRotation() const;
 		Common::Geometry::Circle getObstacle() const;
 		double getVelocity() const;
 		bool isMoving(double velocity) const;
-		Abstraction::FieldSide getMovingDirection(Common::Geometry::OrientedPosition position) const;
+		Abstraction::FieldSide getMovingDirection() const;
 	private:
 		Abstraction::Ball *m_ball;
 	};
