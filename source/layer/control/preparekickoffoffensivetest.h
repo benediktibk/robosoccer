@@ -17,6 +17,7 @@ namespace Control
 		CPPUNIT_TEST(nextState_movementFinishedAndExecuteKickOff_kickOffOffensive);
 		CPPUNIT_TEST(nextState_movementFinishedButNotExecuteKickOff_0);
 		CPPUNIT_TEST(nextState_prepareKickOff_0);
+		CPPUNIT_TEST(nextState_notPrepareKickOffAndNotExecuteKickOff_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -27,6 +28,7 @@ namespace Control
 		void nextState_movementFinishedAndExecuteKickOff_kickOffOffensive();
 		void nextState_movementFinishedButNotExecuteKickOff_0();
 		void nextState_prepareKickOff_0();
+		void nextState_notPrepareKickOffAndNotExecuteKickOff_pause();
 	};
 }
 }

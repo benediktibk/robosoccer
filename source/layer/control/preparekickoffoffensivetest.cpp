@@ -1,6 +1,7 @@
 #include "layer/control/preparekickoffoffensivetest.h"
 #include "layer/control/preparekickoffoffensive.h"
 #include "layer/control/kickoffoffensive.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
 #include "common/logging/loggermock.h"
 
@@ -50,4 +51,16 @@ void PrepareKickOffOffensiveTest::nextState_prepareKickOff_0()
 	State *state = m_state->nextState();
 
 	CPPUNIT_ASSERT(state == 0);
+}
+
+void PrepareKickOffOffensiveTest::nextState_notPrepareKickOffAndNotExecuteKickOff_pause()
+{
+	m_referee->setPrepareForKickOff(false);
+	m_referee->setExecuteKickOff(false);
+
+	State *state = m_state->nextState();
+
+	Pause *stateCasted = dynamic_cast<Pause*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
