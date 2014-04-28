@@ -9,62 +9,62 @@ using namespace std;
 
 void PoseTest::constructor_empty_positionIs0And0()
 {
-	Pose position;
+	Pose pose;
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(0, 0), position.getPosition()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(0, 0), pose.getPosition()));
 }
 
 void PoseTest::constructor_4And3_positionIs4And3()
 {
-	Pose position(Point(4, 3), 0);
+	Pose pose(Point(4, 3), 0);
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(4, 3), position.getPosition()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(4, 3), pose.getPosition()));
 }
 
 void PoseTest::setPosition_5And6_positionIs5And6()
 {
-	Pose position;
+	Pose pose;
 
-	position.setPosition(Point(5, 6));
+	pose.setPosition(Point(5, 6));
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 6), position.getPosition()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 6), pose.getPosition()));
 }
 
 void PoseTest::streamOperator_3And2_32()
 {
-	Pose position(Point(3, 2), 1);
+	Pose pose(Point(3, 2), 1);
 	stringstream stream;
 
-	stream << position;
+	stream << pose;
 
 	CPPUNIT_ASSERT_EQUAL(string("(3, 2, 1)"), stream.str());
 }
 
 void PoseTest::operatorMultiply_3And6With2_6And12()
 {
-	Pose position(Point(3, 6), Angle(-2));
+	Pose pose(Point(3, 6), Angle(-2));
 
 	Compare compare(0.00001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(6, 12), Angle(-2)), position*2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(6, 12), Angle(-2)), pose*2));
 }
 
 void PoseTest::operatorDivide_3And6With3_1And2()
 {
-	Pose position(Point(3, 6), Angle(1));
+	Pose pose(Point(3, 6), Angle(1));
 
 	Compare compare(0.00001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(1, 2), Angle(1)), position/3));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(1, 2), Angle(1)), pose/3));
 }
 
 void PoseTest::operatorAdd_4And3To5And1_9And4()
 {
-	Pose positionOne(Point(4, 3), -2);
-	Pose positionTwo(Point(5, 1), 1);
+	Pose poseOne(Point(4, 3), -2);
+	Pose poseTwo(Point(5, 1), 1);
 
-	Pose result = positionOne + positionTwo;
+	Pose result = poseOne + poseTwo;
 
 	Compare compare(0.00001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(9, 4), 0), result));
@@ -72,10 +72,10 @@ void PoseTest::operatorAdd_4And3To5And1_9And4()
 
 void PoseTest::operatorMinus_5And3From9And4_4And1()
 {
-	Pose positionOne(Point(9, 4), Angle(1));
-	Pose positionTwo(Point(5, 3), Angle(-2));
+	Pose poseOne(Point(9, 4), Angle(1));
+	Pose poseTwo(Point(5, 3), Angle(-2));
 
-	Pose result = positionOne - positionTwo;
+	Pose result = poseOne - poseTwo;
 
 	Compare compare(0.00001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(4, 1), 0), result));
@@ -83,12 +83,12 @@ void PoseTest::operatorMinus_5And3From9And4_4And1()
 
 void PoseTest::operatorMultpliyAndAssign_3And5With2_6And10()
 {
-	Pose position(Point(3, 5), 2);
+	Pose pose(Point(3, 5), 2);
 
-	position *= 2;
+	pose *= 2;
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(6, 10), 2), position));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Pose(Point(6, 10), 2), pose));
 }
 
 void PoseTest::distanceTo_from4And5To8And2_5()
@@ -101,21 +101,21 @@ void PoseTest::distanceTo_from4And5To8And2_5()
 
 void PoseTest::constructor_empty_orientationIs0()
 {
-	Pose position;
+	Pose pose;
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(0), position.getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(0), pose.getOrientation()));
 }
 
 
 void PoseTest::setOrientation_3_orientationIs3()
 {
-	Pose position;
+	Pose pose;
 
-	position.setOrientation(Angle(3));
+	pose.setOrientation(Angle(3));
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(3), position.getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(3), pose.getOrientation()));
 }
 
 void PoseTest::read_validString_correctValues()
@@ -146,8 +146,8 @@ void PoseTest::getRelativeOrientationTo_lookingUpAndTargetInFourthQuarter_correc
 
 void PoseTest::constructor_orientationIsPi_orientationIsPi()
 {
-	Pose position(Point(10, 23), Angle(M_PI));
+	Pose pose(Point(10, 23), Angle(M_PI));
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(M_PI), position.getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(M_PI), pose.getOrientation()));
 }
