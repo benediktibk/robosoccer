@@ -35,7 +35,7 @@ public:
 	Common::Geometry::Pose getStartPositionPlayerOneDefensive() const;
 	Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
 
-	std::vector<Common::Geometry::Pose> getEnemyGoalPosition() const;
+	std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
 	Common::Geometry::Pose getOwnGoalPosition(const Abstraction::Ball &ball) const;
 	Common::Geometry::Pose getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
 

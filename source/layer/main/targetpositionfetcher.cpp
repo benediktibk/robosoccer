@@ -43,26 +43,15 @@ Pose TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
 	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.2,-0.1));
 }
 
-vector<Pose> TargetPositionFetcher::getEnemyGoalPosition() const
+std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 {
-	vector<Pose> goalposition;
+	vector<Point> goalposition;
 	goalposition.reserve(3);
 
-	switch (m_fieldside)
-	{
-	case FieldSideInvalid:
-		assert(false);
-	case FieldSideRight:
-		goalposition.push_back(Pose(Point(1.45,0),Angle()));
-		goalposition.push_back(Pose(Point(1.45,-0.2),Angle()));
-		goalposition.push_back(Pose(Point(1.45,0.2),Angle()));
-		break;
-	case FieldSideLeft:
-		goalposition.push_back(Pose(Point(-1.45,0),Angle::getHalfRotation()));
-		goalposition.push_back(Pose(Point(-1.45,0.2),Angle::getHalfRotation()));
-		goalposition.push_back(Pose(Point(-1.45,-0.2),Angle::getHalfRotation()));
-		break;
-	}
+	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,0)).getPosition());
+	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,-0.2)).getPosition());
+	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,0.2)).getPosition());
+
 	return goalposition;
 }
 
@@ -94,7 +83,7 @@ Pose TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
 Pose TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
 {
 	Pose penaltyPosition;
-	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front().getPosition());
+	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front());
 	double percentOfLineLength = -0.05/lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
 
 	switch (m_fieldside)

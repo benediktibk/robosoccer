@@ -8,12 +8,14 @@ using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
 
-void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_middlePosotionIsCorrect()
+void TargetPositionFetcherTest::getEnemyGoalPosition_bothSides_middlePosotionIsCorrect()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
+	Point rightSide(targetPositionFetcher.getEnemyGoalPosition().front());
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
 
-	CPPUNIT_ASSERT_EQUAL(targetPositionFetcher.getEnemyGoalPosition().front(),Pose(Point(1.45,0),Angle()));
+	CPPUNIT_ASSERT_EQUAL(targetPositionFetcher.getEnemyGoalPosition().front(),rightSide*(-1));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition()
