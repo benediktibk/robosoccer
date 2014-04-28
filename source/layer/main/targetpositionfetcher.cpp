@@ -18,11 +18,29 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldside)
 	m_fieldside = fieldside;
 }
 
-Pose TargetPositionFetcher::getStartPosition() const
+Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
 {
-	assert(m_fieldside != FieldSideInvalid);
+	return getFieldSideDependentPositionIfSymeticToOrigin(Point(1.35,0));
+}
 
-	return Pose();
+Pose TargetPositionFetcher::getStartPositionPlayerOneOffensive() const
+{
+	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.1,0));
+}
+
+Pose TargetPositionFetcher::getStartPositionPlayerTwoOffensive() const
+{
+	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0,-0.5));
+}
+
+Pose TargetPositionFetcher::getStartPositionPlayerOneDefensive() const
+{
+	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.2,0.1));
+}
+
+Pose TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
+{
+	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.2,-0.1));
 }
 
 vector<Pose> TargetPositionFetcher::getEnemyGoalPosition() const
@@ -92,5 +110,24 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
 	}
 
 	return penaltyPosition;
+}
+
+Pose TargetPositionFetcher::getFieldSideDependentPositionIfSymeticToOrigin(Point pointRightSide) const
+{
+	Pose pose;
+
+	switch (m_fieldside)
+	{
+	case FieldSideInvalid:
+		assert(false);
+	case FieldSideRight:
+		pose = Pose(pointRightSide,Angle::getHalfRotation());
+		break;
+	case FieldSideLeft:
+		pose = Pose(pointRightSide*(-1),Angle());
+		break;
+	}
+
+	return pose;
 }
 

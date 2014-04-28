@@ -11,6 +11,7 @@ namespace Common
 namespace Geometry
 {
 	class Pose;
+	class Point;
 }
 }
 namespace Layer
@@ -28,10 +29,18 @@ public:
 
 	void setFieldSide(Abstraction::FieldSide fieldside);
 
-	Common::Geometry::Pose getStartPosition() const;
+	Common::Geometry::Pose getStartPositionGoalkeeper() const;
+	Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
+	Common::Geometry::Pose getStartPositionPlayerTwoOffensive() const;
+	Common::Geometry::Pose getStartPositionPlayerOneDefensive() const;
+	Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
+
 	std::vector<Common::Geometry::Pose> getEnemyGoalPosition() const;
 	Common::Geometry::Pose getOwnGoalPosition(const Abstraction::Ball &ball) const;
 	Common::Geometry::Pose getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
+
+private:
+	Common::Geometry::Pose getFieldSideDependentPositionIfSymeticToOrigin(Common::Geometry::Point pointRightSide) const;
 
 private:
 	Abstraction::FieldSide m_fieldside;
