@@ -20,6 +20,9 @@ namespace Control
 
 	private:
 		virtual void updateInternal();
+
+	private:
+		bool m_movementFinished;
 	};
 }
 }
