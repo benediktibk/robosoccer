@@ -1,6 +1,7 @@
 #include "layer/control/penaltyoffensivetest.h"
 #include "layer/control/penaltyoffensive.h"
 #include "layer/control/play.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
 #include "common/logging/loggermock.h"
 
@@ -28,6 +29,18 @@ void PenaltyOffensiveTest::nextState_continuePlaying_play()
 	State *state = m_state->nextState();
 
 	Play *stateCasted = dynamic_cast<Play*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
+}
+
+void PenaltyOffensiveTest::nextState_notExecutePenaltyAndNotContinuePlaying_pause()
+{
+	m_referee->setContinuePlaying(false);
+	m_referee->setExecutePenalty(false);
+
+	State *state = m_state->nextState();
+
+	Pause *stateCasted = dynamic_cast<Pause*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
 }
