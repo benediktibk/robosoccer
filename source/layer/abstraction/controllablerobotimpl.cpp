@@ -24,7 +24,7 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_robot = 0;
 }
 
-Geometry::Pose ControllableRobotImpl::getPosition() const
+Geometry::Pose ControllableRobotImpl::getPose() const
 {
 	Geometry::Point robotPosition;
 	robotPosition.setX(m_robot->GetX());
@@ -36,7 +36,7 @@ Geometry::Pose ControllableRobotImpl::getPosition() const
 
 Geometry::Circle ControllableRobotImpl::createObstacle() const
 {
-	Geometry::Pose pose = getPosition();
+	Geometry::Pose pose = getPose();
 	return Geometry::Circle(pose.getPosition(),0.095);
 }
 

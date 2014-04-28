@@ -24,7 +24,7 @@ ReadableRobotImpl::~ReadableRobotImpl()
 	m_robot = 0;
 }
 
-Geometry::Pose ReadableRobotImpl::getPosition() const
+Geometry::Pose ReadableRobotImpl::getPose() const
 {
 	Geometry::Point robotPosition;
 	robotPosition.setX(m_robot->GetX());
@@ -36,7 +36,7 @@ Geometry::Pose ReadableRobotImpl::getPosition() const
 
 Geometry::Circle ReadableRobotImpl::createObstacle() const
 {
-	Geometry::Pose pose = getPosition();
+	Geometry::Pose pose = getPose();
 	return Geometry::Circle(pose.getPosition(),0.095);
 }
 

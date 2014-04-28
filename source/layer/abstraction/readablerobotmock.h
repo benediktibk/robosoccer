@@ -13,7 +13,7 @@ namespace Abstraction
 			public ReadableRobot
 	{
 	public:
-		virtual Common::Geometry::Pose getPosition() const;
+		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle createObstacle() const;
 	};
 }

@@ -20,7 +20,7 @@ namespace Abstraction
 	public:
 		virtual ~ReadableRobot() {}
 
-		virtual Common::Geometry::Pose getPosition() const = 0;
+		virtual Common::Geometry::Pose getPose() const = 0;
 		virtual Common::Geometry::Circle createObstacle() const = 0;
 
 	};

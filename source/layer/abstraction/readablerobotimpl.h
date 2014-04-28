@@ -24,7 +24,7 @@ namespace Abstraction
 		ReadableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
 		~ReadableRobotImpl();
 
-		virtual Common::Geometry::Pose getPosition() const;
+		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle createObstacle() const;
 
 	private:
