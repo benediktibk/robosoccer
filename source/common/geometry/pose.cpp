@@ -1,4 +1,4 @@
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/compare.h"
 #include <math.h>
 #include <sstream>
@@ -6,76 +6,76 @@
 using namespace RoboSoccer::Common::Geometry;
 using namespace std;
 
-OrientedPosition::OrientedPosition()
+Pose::Pose()
 { }
 
-OrientedPosition::OrientedPosition(const Point &point, const Angle &orientation):
+Pose::Pose(const Point &point, const Angle &orientation):
 	m_position(point),
 	m_orientation(orientation)
 { }
 
-void OrientedPosition::setOrientation(const Angle &orientation)
+void Pose::setOrientation(const Angle &orientation)
 {
 	m_orientation = orientation;
 }
 
-const Angle& OrientedPosition::getOrientation() const
+const Angle& Pose::getOrientation() const
 {
 	return m_orientation;
 }
 
-void OrientedPosition::setPosition(const Point &position)
+void Pose::setPosition(const Point &position)
 {
 	m_position = position;
 }
 
-const Point &OrientedPosition::getPosition() const
+const Point &Pose::getPosition() const
 {
 	return m_position;
 }
 
-bool OrientedPosition::operator ==(const OrientedPosition &position) const
+bool Pose::operator ==(const Pose &position) const
 {
 	Compare compare(0.00001);
 	return compare.isFuzzyEqual(*this, position);
 }
 
-OrientedPosition OrientedPosition::operator*(double value) const
+Pose Pose::operator*(double value) const
 {
-	return OrientedPosition(m_position*value, m_orientation);
+	return Pose(m_position*value, m_orientation);
 }
 
-OrientedPosition OrientedPosition::operator/(double value) const
+Pose Pose::operator/(double value) const
 {
-	return OrientedPosition(m_position/value, m_orientation);
+	return Pose(m_position/value, m_orientation);
 }
 
-OrientedPosition OrientedPosition::operator+(const OrientedPosition &point) const
+Pose Pose::operator+(const Pose &point) const
 {
-	return OrientedPosition(m_position + point.getPosition(), 0);
+	return Pose(m_position + point.getPosition(), 0);
 }
 
-OrientedPosition OrientedPosition::operator-(const OrientedPosition &point) const
+Pose Pose::operator-(const Pose &point) const
 {
-	return OrientedPosition(m_position - point.getPosition(), 0);
+	return Pose(m_position - point.getPosition(), 0);
 }
 
-void OrientedPosition::operator *=(double value)
+void Pose::operator *=(double value)
 {
 	m_position *= value;
 }
 
-OrientedPosition::operator Point() const
+Pose::operator Point() const
 {
 	return m_position;
 }
 
-double OrientedPosition::distanceTo(const OrientedPosition &point) const
+double Pose::distanceTo(const Pose &point) const
 {
 	return m_position.distanceTo(point.getPosition());
 }
 
-void OrientedPosition::read(const string &data)
+void Pose::read(const string &data)
 {
 	size_t openingBracket = data.find_first_of('(');
 	size_t firstComma = data.find_first_of(',', openingBracket);
@@ -97,12 +97,12 @@ void OrientedPosition::read(const string &data)
 	m_orientation = Angle(angle);
 }
 
-Angle OrientedPosition::getRelativeOrientationTo(const Point &point) const
+Angle Pose::getRelativeOrientationTo(const Point &point) const
 {
 	return Angle(m_position, point) - m_orientation;
 }
 
-ostream &operator<<(ostream &stream, const OrientedPosition &point)
+ostream &operator<<(ostream &stream, const Pose &point)
 {
 	const Point &position = point.getPosition();
 	stream << "(" << position.getX() << ", " << position.getY() << ", " << point.getOrientation() << ")";

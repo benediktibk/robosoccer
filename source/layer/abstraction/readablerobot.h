@@ -7,7 +7,7 @@ namespace Common
 {
 namespace Geometry
 {
-	class OrientedPosition;
+	class Pose;
 	class Circle;
 }
 }
@@ -20,7 +20,7 @@ namespace Abstraction
 	public:
 		virtual ~ReadableRobot() {}
 
-		virtual Common::Geometry::OrientedPosition getPosition() const = 0;
+		virtual Common::Geometry::Pose getPose() const = 0;
 		virtual Common::Geometry::Circle createObstacle() const = 0;
 
 	};

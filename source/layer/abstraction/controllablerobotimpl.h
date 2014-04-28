@@ -23,7 +23,7 @@ namespace Abstraction
 	public:
 		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
 		~ControllableRobotImpl();
-		virtual Common::Geometry::OrientedPosition getPosition() const;
+		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle createObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);

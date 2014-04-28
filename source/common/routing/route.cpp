@@ -1,7 +1,7 @@
 #include "common/routing/route.h"
 #include "common/geometry/path.h"
 #include "common/geometry/angle.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/other/signum.h"
 #include <assert.h>
 #include <math.h>

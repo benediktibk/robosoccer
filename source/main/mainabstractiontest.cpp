@@ -5,7 +5,7 @@
 #include "layer/abstraction/refereebase.h"
 #include "layer/control/pause.h"
 #include "common/geometry/point.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/logging/loggerimpl.h"
 #include "common/states/statemachine.h"
 #include "common/other/console.h"
@@ -33,18 +33,16 @@ int main(int, char**)
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current ball orientation is " << ball.getRotation() << endl;
-	cout << "current position of enemy robot is " << enemyRobot.getPosition() << endl;
+	cout << "current position of enemy robot is " << enemyRobot.getPose() << endl;
 
 	cout << "moving own robot to position (0, 0) after next keypress" << endl;
 	getchar();
 	ownRobot.gotoPositionPrecise(Point());
 
-	cout << "waiting a little bit" << endl;
-	sleep(5);
-
 	Pause *initialState = new Pause(logger, referee);
 	StateMachine stateMachine(initialState);
 
+	cout << "starting to log state changes" << endl;
 	cout << "exit with q" << endl;
 	while(Console::getAsynchronousInput() != 'q')
 		stateMachine.update();

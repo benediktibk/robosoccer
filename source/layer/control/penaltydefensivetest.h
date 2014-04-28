@@ -15,6 +15,7 @@ namespace Control
 		CPPUNIT_TEST_SUITE(PenaltyDefensiveTest);
 		CPPUNIT_TEST(nextState_executePenalty_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
+		CPPUNIT_TEST(nextState_notExecutePenaltyAndNotContinuePlaying_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -23,6 +24,7 @@ namespace Control
 	private:
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
+		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
 	};
 }
 }

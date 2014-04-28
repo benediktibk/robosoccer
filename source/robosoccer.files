@@ -104,10 +104,10 @@ testCoverage.sh
 Doxyfile.in
 CMakeLists.txt
 checkIncludeGuards.sh
-common/geometry/orientedpositiontest.h
-common/geometry/orientedposition.h
-common/geometry/orientedpositiontest.cpp
-common/geometry/orientedposition.cpp
+common/geometry/posetest.h
+common/geometry/pose.h
+common/geometry/posetest.cpp
+common/geometry/pose.cpp
 main/CMakeLists.txt
 main/testregistration.cpp
 main/maintestrunner.cpp
