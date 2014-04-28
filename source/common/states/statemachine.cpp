@@ -1,12 +1,15 @@
 #include "common/states/statemachine.h"
 #include "common/states/state.h"
+#include "common/logging/logger.h"
+#include <sstream>
 #include <assert.h>
 
 using namespace std;
 using namespace RoboSoccer::Common::States;
 
 StateMachine::StateMachine(State *initialState) :
-	m_currentState(initialState)
+	m_currentState(initialState),
+	m_logger(initialState->getLogger())
 {
 	assert(m_currentState != 0);
 }
@@ -23,6 +26,7 @@ void StateMachine::update()
 
 	if (nextState != 0)
 	{
+		logStateChange(nextState->getName());
 		delete m_currentState;
 		m_currentState = nextState;
 	}
@@ -43,4 +47,11 @@ string StateMachine::getNameOfCurrentState() const
 bool StateMachine::allowLogMessages() const
 {
 	return m_currentState->allowLogMessages();
+}
+
+void StateMachine::logStateChange(const string &stateName)
+{
+	stringstream stream;
+	stream << "switching into state " << stateName;
+	m_logger.logToLogFileOfType(Logging::Logger::LogFileTypeStateChanges, stream.str());
 }

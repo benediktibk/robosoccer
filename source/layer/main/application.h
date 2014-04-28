@@ -13,6 +13,10 @@ namespace Time
 {
 	class Watch;
 }
+namespace States
+{
+	class StateMachine;
+}
 }
 namespace Layer
 {
@@ -26,6 +30,7 @@ namespace Main
 	{
 	public:
 		Application(Abstraction::Storage &storage, Common::Logging::Logger &logger, Common::Time::Watch const &watch);
+		~Application();
 
 		void run();
 
@@ -33,6 +38,7 @@ namespace Main
 		Abstraction::Storage &m_storage;
 		Common::Logging::Logger &m_logger;
 		Common::Time::Watch const &m_watch;
+		Common::States::StateMachine *m_stateMachine;
 	};
 }
 }

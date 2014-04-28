@@ -26,15 +26,15 @@ class TargetPositionFetcher
 public:
 	TargetPositionFetcher();
 
-	void setFieldSide(Layer::Abstraction::FieldSide fieldside);
+	void setFieldSide(Abstraction::FieldSide fieldside);
 
 	Common::Geometry::OrientedPosition getStartPosition() const;
 	std::vector<Common::Geometry::OrientedPosition> getEnemyGoalPosition() const;
 	Common::Geometry::OrientedPosition getOwnGoalPosition(const Abstraction::Ball &ball) const;
-	Common::Geometry::OrientedPosition getPenaltyPositionKicker() const;
+	Common::Geometry::OrientedPosition getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
 
 private:
-	Layer::Abstraction::FieldSide m_fieldside;
+	Abstraction::FieldSide m_fieldside;
 
 };
 }

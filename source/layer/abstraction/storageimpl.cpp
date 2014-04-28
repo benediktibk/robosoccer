@@ -31,9 +31,9 @@ StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging:
 	m_enemyRobots.push_back(new ReadableRobotImpl(1, *m_dataBase, enemyColor));
 	m_enemyRobots.push_back(new ReadableRobotImpl(2, *m_dataBase, enemyColor));
 	m_ownRobots.reserve(3);
-	m_ownRobots.push_back(new ControllableRobotImpl(3, *m_dataBase, teamColor));
-	m_ownRobots.push_back(new ControllableRobotImpl(4, *m_dataBase, teamColor));
-	m_ownRobots.push_back(new ControllableRobotImpl(5, *m_dataBase, teamColor));
+	m_ownRobots.push_back(new ControllableRobotImpl(0, *m_dataBase, teamColor));
+	m_ownRobots.push_back(new ControllableRobotImpl(1, *m_dataBase, teamColor));
+	m_ownRobots.push_back(new ControllableRobotImpl(2, *m_dataBase, teamColor));
 }
 
 StorageImpl::~StorageImpl()

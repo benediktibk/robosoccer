@@ -1,6 +1,7 @@
 #include "layer/main/targetpositionfetcher.h"
 #include "common/geometry/orientedposition.h"
 #include "layer/abstraction/ball.h"
+#include "common/geometry/line.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Main;
@@ -72,10 +73,24 @@ OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) con
 	return goalPosition;
 }
 
-OrientedPosition TargetPositionFetcher::getPenaltyPositionKicker() const
+OrientedPosition TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
 {
-	assert(m_fieldside != FieldSideInvalid);
+	OrientedPosition penaltyPosition;
+	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front().getPosition());
+	double percentOfLineLength = -0.05/lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
 
-	return OrientedPosition();
+	switch (m_fieldside)
+	{
+	case FieldSideInvalid:
+		assert(false);
+	case FieldSideRight:
+		penaltyPosition = OrientedPosition(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle());
+		break;
+	case FieldSideLeft:
+		penaltyPosition = OrientedPosition(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle::getHalfRotation());
+		break;
+	}
+
+	return penaltyPosition;
 }
 

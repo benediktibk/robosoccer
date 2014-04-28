@@ -1,6 +1,6 @@
 #include "layer/main/intelligentball.h"
 #include "layer/abstraction/ball.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Main;
@@ -12,9 +12,9 @@ IntelligentBall::IntelligentBall()
 
 }
 
-Geometry::OrientedPosition IntelligentBall::getOrientatedPosition() const
+Geometry::Angle IntelligentBall::getRotation() const
 {
-	return m_ball->getOrientatedPosition();
+	return m_ball->getRotation();
 }
 
 Geometry::Circle IntelligentBall::getObstacle() const
@@ -33,9 +33,9 @@ bool IntelligentBall::isMoving(double velocity) const
 	//TODO: find appropriate Threshold
 }
 
-FieldSide IntelligentBall::getMovingDirection(Geometry::OrientedPosition position) const
+FieldSide IntelligentBall::getMovingDirection() const
 {
-	Geometry::Angle direction = position.getOrientation();
+	Geometry::Angle direction = m_ball->getRotation();
 	double angle=direction.getValueBetweenMinusPiAndPi();
 	if (angle > 0)
 		return FieldSideRight;

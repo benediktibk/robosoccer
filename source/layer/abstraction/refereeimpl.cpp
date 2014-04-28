@@ -98,6 +98,12 @@ bool RefereeImpl::isGamePaused() const
 	return playMode == PAUSE || playMode == TIME_OVER;
 }
 
+bool RefereeImpl::getContinuePlaying() const
+{
+	ePlayMode playMode = m_referee->GetPlayMode();
+	return playMode == PLAY_ON;
+}
+
 void RefereeImpl::logInformation()
 {
 	logBool("prepare for kick off", getPrepareForKickOff());
@@ -107,6 +113,7 @@ void RefereeImpl::logInformation()
 	logBool("execute penalty", getExecutePenalty());
 	logBool("init finished", initFinished());
 	logBool("game paused", isGamePaused());
+	logBool("continue playing", getContinuePlaying());
 	logFieldSide("own field side", getOwnFieldSide());
 }
 

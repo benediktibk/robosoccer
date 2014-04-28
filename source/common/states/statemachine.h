@@ -7,6 +7,10 @@ namespace RoboSoccer
 {
 namespace Common
 {
+namespace Logging
+{
+	class Logger;
+}
 namespace States
 {
 	class State;
@@ -23,7 +27,11 @@ namespace States
 		bool allowLogMessages() const;
 
 	private:
+		void logStateChange(std::string const &stateName);
+
+	private:
 		State *m_currentState;
+		Logging::Logger &m_logger;
 	};
 }
 }

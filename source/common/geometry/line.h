@@ -19,6 +19,7 @@ namespace Geometry
 
 		std::vector<Point> getIntersectPoints(const Circle &circle) const;
 		Point getPerpendicularPoint(Point point) const;
+		Point getPointOnDirectionOfLine(double percentOfLenghtOfLine) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
 		bool isOnePointLeftAndOneRightOfLine(const Point &one, const Point &two) const;
 		void shiftParallel(const Point &point);

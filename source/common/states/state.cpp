@@ -16,10 +16,7 @@ State::~State()
 void State::update()
 {
 	if (!(m_updateAlreadyCalled && m_callUpdateOnlyOnce))
-	{
-		m_logger.logToLogFileOfType(Logger::LogFileTypeStateChanges, "Updating State: " + getName());
 		updateInternal();
-	}
 
 	m_updateAlreadyCalled = true;
 }
@@ -32,4 +29,9 @@ bool State::allowLogMessages()
 bool State::updateAlreadyCalled() const
 {
 	return m_updateAlreadyCalled;
+}
+
+Logger& RoboSoccer::Common::States::State::getLogger()
+{
+	return m_logger;
 }

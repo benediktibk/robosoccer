@@ -23,8 +23,8 @@ namespace Abstraction
 	public:
 		BallImpl(KogniMobil::RTDBConn &dataBase);
 		virtual ~BallImpl();
-		virtual Common::Geometry::OrientedPosition getOrientatedPosition() const;
 		virtual Common::Geometry::Point getPosition() const;
+		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual double getVelocity() const;
 	private:

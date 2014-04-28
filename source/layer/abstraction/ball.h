@@ -22,9 +22,8 @@ namespace Abstraction
 	{
 	public:
 		virtual ~Ball() {}
-
-		virtual Common::Geometry::OrientedPosition getOrientatedPosition() const = 0;
 		virtual Common::Geometry::Point getPosition() const = 0;
+		virtual Common::Geometry::Angle getRotation() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
 		virtual double getVelocity() const = 0;
 	};

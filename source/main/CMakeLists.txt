@@ -13,6 +13,7 @@ set(ROSO_LIBRARIES
 
 set(LIBRARIES
 	layermain
+	layercontrol
 	layerabstraction
 	commonrouting
 	commongeometry
@@ -25,6 +26,7 @@ set(LIBRARIES
 
 set(LIBRARIES_TEST
 	layermaintest
+	layercontroltest
 	commonroutingtest
 	commongeometrytest
 	commonstatestest
