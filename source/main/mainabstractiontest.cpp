@@ -39,12 +39,10 @@ int main(int, char**)
 	getchar();
 	ownRobot.gotoPositionPrecise(Point());
 
-	cout << "waiting a little bit" << endl;
-	sleep(5);
-
 	Pause *initialState = new Pause(logger, referee);
 	StateMachine stateMachine(initialState);
 
+	cout << "starting to log state changes" << endl;
 	cout << "exit with q" << endl;
 	while(Console::getAsynchronousInput() != 'q')
 		stateMachine.update();
