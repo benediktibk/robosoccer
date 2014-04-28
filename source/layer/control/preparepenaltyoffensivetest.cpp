@@ -19,9 +19,10 @@ void PreparePenaltyOffensiveTest::update_movementFinished_refereeGotCallToSetRea
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_referee->getCallsToSetReady());
 }
 
-void PreparePenaltyOffensiveTest::nextState_movementFinished_penaltyOffensive()
+void PreparePenaltyOffensiveTest::nextState_movementFinishedAndExecutePenalty_penaltyOffensive()
 {
-	m_referee->setPrepareForPenalty(true);
+	m_referee->setPrepareForPenalty(false);
+	m_referee->setExecutePenalty(true);
 	m_state->update();
 
 	State *state = m_state->nextState();
@@ -29,6 +30,17 @@ void PreparePenaltyOffensiveTest::nextState_movementFinished_penaltyOffensive()
 	PenaltyOffensive *stateCasted = dynamic_cast<PenaltyOffensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void PreparePenaltyOffensiveTest::nextState_movementFinishedButNotExecutePenalty_0()
+{
+	m_referee->setPrepareForPenalty(true);
+	m_referee->setExecutePenalty(false);
+	m_state->update();
+
+	State *state = m_state->nextState();
+
+	CPPUNIT_ASSERT(state == 0);
 }
 
 void PreparePenaltyOffensiveTest::nextState_preparePenalty_0()

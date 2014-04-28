@@ -32,7 +32,7 @@ void PreparePenaltyDefensiveTest::nextState_movementFinishedAndExecutePenalty_pe
 	delete state;
 }
 
-void PreparePenaltyDefensiveTest::nextState_movementFinishedButNotExecutePenalty_penaltyDefensive()
+void PreparePenaltyDefensiveTest::nextState_movementFinishedButNotExecutePenalty_0()
 {
 	m_referee->setPrepareForPenalty(true);
 	m_referee->setExecutePenalty(false);

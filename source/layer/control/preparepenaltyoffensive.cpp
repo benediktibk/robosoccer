@@ -15,7 +15,7 @@ PreparePenaltyOffensive::PreparePenaltyOffensive(Logger &logger, RefereeBase &re
 
 State *PreparePenaltyOffensive::nextState()
 {
-	if (m_movementFinished)
+	if (m_movementFinished && m_referee.getExecutePenalty())
 		return new PenaltyOffensive(m_logger, m_referee);
 
 	return 0;
