@@ -17,6 +17,7 @@ namespace Control
 		CPPUNIT_TEST(nextState_movementFinishedAndExecutePenalty_penaltyDefensive);
 		CPPUNIT_TEST(nextState_movementFinishedButNotExecutePenalty_0);
 		CPPUNIT_TEST(nextState_preparePenalty_0);
+		CPPUNIT_TEST(nextState_notPreparePenaltyAndNotExecutePenalty_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -27,6 +28,7 @@ namespace Control
 		void nextState_movementFinishedAndExecutePenalty_penaltyDefensive();
 		void nextState_movementFinishedButNotExecutePenalty_0();
 		void nextState_preparePenalty_0();
+		void nextState_notPreparePenaltyAndNotExecutePenalty_pause();
 	};
 }
 }

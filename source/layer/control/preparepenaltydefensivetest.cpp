@@ -1,6 +1,7 @@
 #include "layer/control/preparepenaltydefensivetest.h"
 #include "layer/control/preparepenaltydefensive.h"
 #include "layer/control/penaltydefensive.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
 #include "common/logging/loggermock.h"
 
@@ -50,4 +51,16 @@ void PreparePenaltyDefensiveTest::nextState_preparePenalty_0()
 	State *state = m_state->nextState();
 
 	CPPUNIT_ASSERT(state == 0);
+}
+
+void PreparePenaltyDefensiveTest::nextState_notPreparePenaltyAndNotExecutePenalty_pause()
+{
+	m_referee->setPrepareForPenalty(false);
+	m_referee->setExecutePenalty(false);
+
+	State *state = m_state->nextState();
+
+	Pause *stateCasted = dynamic_cast<Pause*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
