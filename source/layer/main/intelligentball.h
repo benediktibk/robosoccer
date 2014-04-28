@@ -28,7 +28,7 @@ namespace Main
 		Common::Geometry::Angle getRotation() const;
 		Common::Geometry::Circle getObstacle() const;
 		double getVelocity() const;
-		bool isMoving(double velocity) const;
+		bool isMoving() const;
 		Abstraction::FieldSide getMovingDirection() const;
 	private:
 		Abstraction::Ball *m_ball;
