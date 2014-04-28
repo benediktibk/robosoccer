@@ -15,6 +15,7 @@ namespace Control
 		CPPUNIT_TEST_SUITE(KickOffDefensiveTest);
 		CPPUNIT_TEST(nextState_executeKickOff_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
+		CPPUNIT_TEST(nextState_notExecuteKickOffAndNotContinuePlaying_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -23,6 +24,7 @@ namespace Control
 	private:
 		void nextState_executeKickOff_0();
 		void nextState_continuePlaying_play();
+		void nextState_notExecuteKickOffAndNotContinuePlaying_pause();
 	};
 }
 }

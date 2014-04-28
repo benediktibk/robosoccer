@@ -1,5 +1,6 @@
 #include "layer/control/kickoffdefensive.h"
 #include "layer/control/play.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
 
 using namespace std;
@@ -16,6 +17,8 @@ State *KickOffDefensive::nextState()
 {
 	if (m_referee.getContinuePlaying())
 		return new Play(m_logger, m_referee);
+	else if (!m_referee.getExecuteKickOff())
+		return new Pause(m_logger, m_referee);
 
 	return 0;
 }
