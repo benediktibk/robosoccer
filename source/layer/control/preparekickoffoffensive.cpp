@@ -15,7 +15,7 @@ PrepareKickOffOffensive::PrepareKickOffOffensive(Logger &logger, RefereeBase &re
 
 State *PrepareKickOffOffensive::nextState()
 {
-	if (m_movementFinished)
+	if (m_movementFinished && m_referee.getExecuteKickOff())
 		return new KickOffOffensive(m_logger, m_referee);
 
 	return 0;

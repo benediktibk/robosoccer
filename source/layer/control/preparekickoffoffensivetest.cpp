@@ -19,9 +19,10 @@ void PrepareKickOffOffensiveTest::update_movementFinished_refereeGotCallToSetRea
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_referee->getCallsToSetReady());
 }
 
-void PrepareKickOffOffensiveTest::nextState_movementFinished_kickOffOffensive()
+void PrepareKickOffOffensiveTest::nextState_movementFinishedAndExecuteKickOff_kickOffOffensive()
 {
-	m_referee->setPrepareForKickOff(true);
+	m_referee->setPrepareForKickOff(false);
+	m_referee->setExecuteKickOff(true);
 	m_state->update();
 
 	State *state = m_state->nextState();
@@ -29,6 +30,17 @@ void PrepareKickOffOffensiveTest::nextState_movementFinished_kickOffOffensive()
 	KickOffOffensive *stateCasted = dynamic_cast<KickOffOffensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void PrepareKickOffOffensiveTest::nextState_movementFinishedButNotExecuteKickOff_0()
+{
+	m_referee->setPrepareForKickOff(true);
+	m_referee->setExecuteKickOff(false);
+	m_state->update();
+
+	State *state = m_state->nextState();
+
+	CPPUNIT_ASSERT(state == 0);
 }
 
 void PrepareKickOffOffensiveTest::nextState_prepareKickOff_0()
