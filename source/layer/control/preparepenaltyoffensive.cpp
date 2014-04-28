@@ -1,5 +1,6 @@
 #include "layer/control/preparepenaltyoffensive.h"
 #include "layer/control/penaltyoffensive.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
 
 using namespace std;
@@ -15,7 +16,9 @@ PreparePenaltyOffensive::PreparePenaltyOffensive(Logger &logger, RefereeBase &re
 
 State *PreparePenaltyOffensive::nextState()
 {
-	if (m_movementFinished && m_referee.getExecutePenalty())
+	if (!m_referee.getPrepareForPenalty() && !m_referee.getExecutePenalty())
+		return new Pause(m_logger, m_referee);
+	else if (m_movementFinished && m_referee.getExecutePenalty())
 		return new PenaltyOffensive(m_logger, m_referee);
 
 	return 0;
