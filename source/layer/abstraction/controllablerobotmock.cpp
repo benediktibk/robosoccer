@@ -5,7 +5,7 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-Pose ControllableRobotMock::getPosition() const
+Pose ControllableRobotMock::getPose() const
 {
 	return Pose();
 }
