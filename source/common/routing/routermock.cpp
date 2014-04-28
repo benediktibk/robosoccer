@@ -1,5 +1,5 @@
 #include "common/routing/routermock.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 
 using namespace std;
 using namespace RoboSoccer::Common::Routing;

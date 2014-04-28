@@ -5,7 +5,7 @@
 #include "layer/abstraction/refereebase.h"
 #include "layer/control/pause.h"
 #include "common/geometry/point.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/logging/loggerimpl.h"
 #include "common/states/statemachine.h"
 #include "common/other/console.h"

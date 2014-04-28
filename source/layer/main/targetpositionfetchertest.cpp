@@ -1,6 +1,6 @@
 #include "layer/main/targetpositionfetchertest.h"
 #include "layer/main/targetpositionfetcher.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "layer/abstraction/fieldside.h"
 #include "layer/abstraction/ballmock.h"
 
@@ -13,7 +13,7 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_middlePosoti
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT_EQUAL(targetPositionFetcher.getEnemyGoalPosition().front(),OrientedPosition(Point(1.45,0),Angle()));
+	CPPUNIT_ASSERT_EQUAL(targetPositionFetcher.getEnemyGoalPosition().front(),Pose(Point(1.45,0),Angle()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition()
@@ -43,5 +43,5 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 	BallMock ball;
 	ball.setBallPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_EQUAL(OrientedPosition(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
+	CPPUNIT_ASSERT_EQUAL(Pose(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
 }

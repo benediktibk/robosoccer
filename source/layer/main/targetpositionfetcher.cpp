@@ -1,5 +1,5 @@
 #include "layer/main/targetpositionfetcher.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "layer/abstraction/ball.h"
 #include "common/geometry/line.h"
 #include <assert.h>
@@ -18,16 +18,16 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldside)
 	m_fieldside = fieldside;
 }
 
-OrientedPosition TargetPositionFetcher::getStartPosition() const
+Pose TargetPositionFetcher::getStartPosition() const
 {
 	assert(m_fieldside != FieldSideInvalid);
 
-	return OrientedPosition();
+	return Pose();
 }
 
-vector<OrientedPosition> TargetPositionFetcher::getEnemyGoalPosition() const
+vector<Pose> TargetPositionFetcher::getEnemyGoalPosition() const
 {
-	vector<OrientedPosition> goalposition;
+	vector<Pose> goalposition;
 	goalposition.reserve(3);
 
 	switch (m_fieldside)
@@ -35,22 +35,22 @@ vector<OrientedPosition> TargetPositionFetcher::getEnemyGoalPosition() const
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		goalposition.push_back(OrientedPosition(Point(1.45,0),Angle()));
-		goalposition.push_back(OrientedPosition(Point(1.45,-0.2),Angle()));
-		goalposition.push_back(OrientedPosition(Point(1.45,0.2),Angle()));
+		goalposition.push_back(Pose(Point(1.45,0),Angle()));
+		goalposition.push_back(Pose(Point(1.45,-0.2),Angle()));
+		goalposition.push_back(Pose(Point(1.45,0.2),Angle()));
 		break;
 	case FieldSideLeft:
-		goalposition.push_back(OrientedPosition(Point(-1.45,0),Angle::getHalfRotation()));
-		goalposition.push_back(OrientedPosition(Point(-1.45,0.2),Angle::getHalfRotation()));
-		goalposition.push_back(OrientedPosition(Point(-1.45,-0.2),Angle::getHalfRotation()));
+		goalposition.push_back(Pose(Point(-1.45,0),Angle::getHalfRotation()));
+		goalposition.push_back(Pose(Point(-1.45,0.2),Angle::getHalfRotation()));
+		goalposition.push_back(Pose(Point(-1.45,-0.2),Angle::getHalfRotation()));
 		break;
 	}
 	return goalposition;
 }
 
-OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
+Pose TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
 {
-	OrientedPosition goalPosition;
+	Pose goalPosition;
 	double yPosition = ball.getPosition().getY();
 
 	if(yPosition > 0.25)
@@ -63,19 +63,19 @@ OrientedPosition TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) con
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		goalPosition = OrientedPosition(Point(1.35,yPosition),Angle::getHalfRotation());
+		goalPosition = Pose(Point(1.35,yPosition),Angle::getHalfRotation());
 		break;
 	case FieldSideLeft:
-		goalPosition = OrientedPosition(Point(-1.35,yPosition),Angle());
+		goalPosition = Pose(Point(-1.35,yPosition),Angle());
 		break;
 	}
 
 	return goalPosition;
 }
 
-OrientedPosition TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
+Pose TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
 {
-	OrientedPosition penaltyPosition;
+	Pose penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front().getPosition());
 	double percentOfLineLength = -0.05/lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
 
@@ -84,10 +84,10 @@ OrientedPosition TargetPositionFetcher::getPenaltyPositionKicker(const Ball &bal
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		penaltyPosition = OrientedPosition(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle());
+		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle());
 		break;
 	case FieldSideLeft:
-		penaltyPosition = OrientedPosition(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle::getHalfRotation());
+		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength),Angle::getHalfRotation());
 		break;
 	}
 

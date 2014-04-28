@@ -9,7 +9,7 @@ namespace Common
 {
 namespace Geometry
 {
-	class OrientedPosition;
+	class Pose;
 	class Circle;
 	class Point;
 	class Angle;

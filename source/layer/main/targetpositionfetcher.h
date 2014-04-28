@@ -10,7 +10,7 @@ namespace Common
 {
 namespace Geometry
 {
-	class OrientedPosition;
+	class Pose;
 }
 }
 namespace Layer
@@ -28,10 +28,10 @@ public:
 
 	void setFieldSide(Abstraction::FieldSide fieldside);
 
-	Common::Geometry::OrientedPosition getStartPosition() const;
-	std::vector<Common::Geometry::OrientedPosition> getEnemyGoalPosition() const;
-	Common::Geometry::OrientedPosition getOwnGoalPosition(const Abstraction::Ball &ball) const;
-	Common::Geometry::OrientedPosition getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
+	Common::Geometry::Pose getStartPosition() const;
+	std::vector<Common::Geometry::Pose> getEnemyGoalPosition() const;
+	Common::Geometry::Pose getOwnGoalPosition(const Abstraction::Ball &ball) const;
+	Common::Geometry::Pose getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
 
 private:
 	Abstraction::FieldSide m_fieldside;

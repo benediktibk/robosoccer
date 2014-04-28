@@ -1,5 +1,5 @@
 #include "layer/abstraction/controllablerobotimpl.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
@@ -24,19 +24,19 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_robot = 0;
 }
 
-Geometry::OrientedPosition ControllableRobotImpl::getPosition() const
+Geometry::Pose ControllableRobotImpl::getPosition() const
 {
 	Geometry::Point robotPosition;
 	robotPosition.setX(m_robot->GetX());
 	robotPosition.setY(m_robot->GetY());
 	Angle angle = m_robot->GetPhi();
 	Geometry::Angle robotAngle(angle.Rad());
-	return Geometry::OrientedPosition(robotPosition,robotAngle);
+	return Geometry::Pose(robotPosition,robotAngle);
 }
 
 Geometry::Circle ControllableRobotImpl::createObstacle() const
 {
-	Geometry::OrientedPosition pose = getPosition();
+	Geometry::Pose pose = getPosition();
 	return Geometry::Circle(pose.getPosition(),0.095);
 }
 

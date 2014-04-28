@@ -11,7 +11,7 @@ namespace Geometry
 	class Point;
 	class Circle;
 	class Angle;
-	class OrientedPosition;
+	class Pose;
 }
 }
 namespace Layer

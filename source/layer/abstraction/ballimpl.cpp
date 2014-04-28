@@ -2,7 +2,7 @@
 #include "common/geometry/point.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include <kogmo_rtdb.hxx>
 #include <raw_ball.h>
 

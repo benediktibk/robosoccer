@@ -13,7 +13,7 @@ namespace Abstraction
 			public ControllableRobot
 	{
 	public:
-		virtual Common::Geometry::OrientedPosition getPosition() const;
+		virtual Common::Geometry::Pose getPosition() const;
 		virtual Common::Geometry::Circle createObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);

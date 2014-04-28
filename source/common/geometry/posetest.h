@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_COMMON_GEOMETRY_ORIENTEDPOSITIONTEST_H
-#define ROBOSOCCER_COMMON_GEOMETRY_ORIENTEDPOSITIONTEST_H
+#ifndef ROBOSOCCER_COMMON_GEOMETRY_POSETEST_H
+#define ROBOSOCCER_COMMON_GEOMETRY_POSETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -10,10 +10,10 @@ namespace Common
 {
 namespace Geometry
 {
-	class OrientedPositionTest:
+	class PoseTest:
 			public CPPUNIT_NS::TestFixture
 	{
-		CPPUNIT_TEST_SUITE(OrientedPositionTest);
+		CPPUNIT_TEST_SUITE(PoseTest);
 		CPPUNIT_TEST(constructor_empty_positionIs0And0);
 		CPPUNIT_TEST(constructor_4And3_positionIs4And3);
 		CPPUNIT_TEST(setPosition_5And6_positionIs5And6);

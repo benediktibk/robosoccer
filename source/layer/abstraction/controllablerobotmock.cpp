@@ -1,13 +1,13 @@
 #include "layer/abstraction/controllablerobotmock.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-OrientedPosition ControllableRobotMock::getPosition() const
+Pose ControllableRobotMock::getPosition() const
 {
-	return OrientedPosition();
+	return Pose();
 }
 
 Circle ControllableRobotMock::createObstacle() const
