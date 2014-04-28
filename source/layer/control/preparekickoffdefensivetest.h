@@ -16,6 +16,7 @@ namespace Control
 		CPPUNIT_TEST(update_movementFinished_refereeGotCallToSetReady);
 		CPPUNIT_TEST(nextState_movementFinished_kickOffDefensive);
 		CPPUNIT_TEST(nextState_prepareKickOff_0);
+		CPPUNIT_TEST(nextState_notPrepareKickOffAndNotExecuteKickOff_pause);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,6 +26,7 @@ namespace Control
 		void update_movementFinished_refereeGotCallToSetReady();
 		void nextState_movementFinished_kickOffDefensive();
 		void nextState_prepareKickOff_0();
+		void nextState_notPrepareKickOffAndNotExecuteKickOff_pause();
 	};
 }
 }

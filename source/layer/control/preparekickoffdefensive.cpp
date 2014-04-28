@@ -1,5 +1,6 @@
 #include "layer/control/preparekickoffdefensive.h"
 #include "layer/control/kickoffdefensive.h"
+#include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
 
 using namespace std;
@@ -15,7 +16,9 @@ PrepareKickOffDefensive::PrepareKickOffDefensive(Logger &logger, RefereeBase &re
 
 State *PrepareKickOffDefensive::nextState()
 {
-	if (m_movementFinished)
+	if (!m_referee.getPrepareForKickOff() && !m_referee.getExecuteKickOff())
+		return new Pause(m_logger, m_referee);
+	else if (m_movementFinished)
 		return new KickOffDefensive(m_logger, m_referee);
 
 	return 0;
