@@ -18,7 +18,7 @@ State *PrepareKickOffDefensive::nextState()
 {
 	if (!m_referee.getPrepareForKickOff() && !m_referee.getExecuteKickOff())
 		return new Pause(m_logger, m_referee);
-	else if (m_movementFinished)
+	else if (m_movementFinished && m_referee.getExecuteKickOff())
 		return new KickOffDefensive(m_logger, m_referee);
 
 	return 0;
