@@ -23,6 +23,11 @@ Pose RoboSoccer::Layer::Autonomous::RobotImpl::getCurrentPose() const
 	return m_robot.getPose();
 }
 
+bool RobotImpl::targetReached() const
+{
+	return false;
+}
+
 void RobotImpl::stop()
 {
 	m_robot.stop();

@@ -23,6 +23,7 @@ namespace Autonomous
 		virtual void goTo(Common::Geometry::Point const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;
+		virtual bool targetReached() const = 0;
 	};
 }
 }

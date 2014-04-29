@@ -17,5 +17,10 @@ Pose RoboSoccer::Layer::Autonomous::RobotMock::getCurrentPose() const
 	return Pose();
 }
 
+bool RobotMock::targetReached() const
+{
+	return false;
+}
+
 void RobotMock::stop()
 { }
