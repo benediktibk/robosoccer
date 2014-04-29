@@ -18,19 +18,19 @@ void RoboSoccerStateTest::setUp()
 	m_logger = new LoggerMock();
 	m_storage = new StorageMock();
 	m_enemyTeam = new EnemyTeam();
-	m_ownTeam = new Team();
+	m_ownTeam = new Team(*m_storage);
 	m_ball = new IntelligentBall();
 	m_state = createInstance();
 }
 
 void RoboSoccerStateTest::tearDown()
 {
-	delete m_storage;
-	m_storage = 0;
 	delete m_enemyTeam;
 	m_enemyTeam = 0;
 	delete m_ownTeam;
 	m_ownTeam = 0;
+	delete m_storage;
+	m_storage = 0;
 	delete m_ball;
 	m_ball = 0;
 	delete m_state;

@@ -8,6 +8,7 @@ namespace Common
 namespace Geometry
 {
 	class Point;
+	class Pose;
 }
 }
 namespace Layer
@@ -21,6 +22,7 @@ namespace Autonomous
 
 		virtual void goTo(Common::Geometry::Point const &position) = 0;
 		virtual void stop() = 0;
+		virtual Common::Geometry::Pose getCurrentPose() const = 0;
 	};
 }
 }

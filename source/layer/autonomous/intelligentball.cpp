@@ -2,20 +2,24 @@
 #include "layer/abstraction/ball.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
+#include "common/geometry/point.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
-using namespace RoboSoccer::Common;
+using namespace RoboSoccer::Common::Geometry;
 
 IntelligentBall::IntelligentBall()
 { }
 
-Geometry::Angle IntelligentBall::getRotation() const
+IntelligentBall::~IntelligentBall()
+{ }
+
+Angle IntelligentBall::getRotation() const
 {
 	return m_ball->getRotation();
 }
 
-Geometry::Circle IntelligentBall::getObstacle() const
+Circle IntelligentBall::getObstacle() const
 {
 	return m_ball->getObstacle();
 }
@@ -34,10 +38,15 @@ bool IntelligentBall::isMoving() const
 
 FieldSide IntelligentBall::getMovingDirection() const
 {
-	Geometry::Angle direction = m_ball->getRotation();
+	Angle direction = m_ball->getRotation();
 	double angle=direction.getValueBetweenMinusPiAndPi();
 	if (angle > 0)
 		return FieldSideRight;
 	else
 		return FieldSideLeft;
+}
+
+Point IntelligentBall::getPosition() const
+{
+	return m_ball->getPosition();
 }
