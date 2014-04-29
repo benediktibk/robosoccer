@@ -32,5 +32,5 @@ string PenaltyDefensive::getName()
 
 void PenaltyDefensive::updateInternal()
 {
-
+	//! @todo move goalie according to the ball
 }
