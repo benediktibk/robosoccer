@@ -2,10 +2,15 @@
 #include "layer/control/kickoffdefensive.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/targetpositionfetcher.h"
+#include "common/geometry/pose.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
@@ -33,7 +38,15 @@ string PrepareKickOffDefensive::getName()
 
 void PrepareKickOffDefensive::updateInternal()
 {
-	//! @todo start and movement and wait for it
+	Robot &goalie = m_ownTeam.getGoalie();
+	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
+	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
+
+	goalie.goTo(m_targetPositionFetcher.getStartPositionGoalkeeper());
+	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionPlayerOneDefensive());
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionPlayerTwoDefensive());
+
+	//! @todo wait till the movement is finished
 	m_movementFinished = true;
 	m_referee.setReady();
 }

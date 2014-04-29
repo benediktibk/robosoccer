@@ -9,18 +9,28 @@ using namespace RoboSoccer::Layer::Abstraction;
 
 Team::Team(Storage &storage) :
 	m_goalie(new RobotImpl(storage.getOwnRobot(0))),
-	m_player1(new RobotImpl(storage.getOwnRobot(1))),
-	m_player2(new RobotImpl(storage.getOwnRobot(2)))
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1))),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2)))
 { }
 
-Robot& Team::getGoalie() const
+Robot& Team::getGoalie()
 {
 	return *m_goalie;
 }
 
-Robot& Team::getPlayerCloseToBall(const IntelligentBall &/*ball*/) const
+Robot& Team::getPlayerCloseToBall(const IntelligentBall &/*ball*/)
 {
-	return *m_player1;
+	return *m_fieldPlayerOne;
+}
+
+Robot &Team::getFirstFieldPlayer()
+{
+	return *m_fieldPlayerOne;
+}
+
+Robot &Team::getSecondFieldPlayer()
+{
+	return *m_fieldPlayerTwo;
 }
 
 Robot &Team::getRobotByNumber(unsigned int i)
@@ -30,9 +40,9 @@ Robot &Team::getRobotByNumber(unsigned int i)
 	case 0:
 		return *m_goalie;
 	case 1:
-		return *m_player1;
+		return *m_fieldPlayerOne;
 	case 2:
-		return *m_player2;
+		return *m_fieldPlayerTwo;
 	default:
 		assert(false);
 	}

@@ -20,14 +20,17 @@ namespace Autonomous
 	public:
 		Team(Abstraction::Storage &storage);
 
-		Robot& getGoalie() const;
-		Robot& getPlayerCloseToBall(const IntelligentBall &ball) const;
+		Robot& getGoalie();
+		Robot& getPlayerCloseToBall(const IntelligentBall &ball);
+		Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball);
+		Robot& getFirstFieldPlayer();
+		Robot& getSecondFieldPlayer();
 		Robot& getRobotByNumber(unsigned int i);
 
 	private:
 		Robot *m_goalie;
-		Robot *m_player1;
-		Robot *m_player2;
+		Robot *m_fieldPlayerOne;
+		Robot *m_fieldPlayerTwo;
 	};
 }
 }
