@@ -4,12 +4,14 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotmock.cpp
 	team.cpp
 	enemyteam.cpp
+	targetpositionfetcher.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	robottest.cpp
 	teamtest.cpp
 	enemyteamtest.cpp
+	targetpositionfetchertest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})

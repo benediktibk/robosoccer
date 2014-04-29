@@ -211,10 +211,10 @@ common/geometry/rectangleroundedcorners.h
 common/geometry/rectangleroundedcorners.cpp
 common/geometry/rectangleroundedcornerstest.h
 common/geometry/rectangleroundedcornerstest.cpp
-layer/main/targetpositionfetchertest.h
-layer/main/targetpositionfetcher.h
-layer/main/targetpositionfetchertest.cpp
-layer/main/targetpositionfetcher.cpp
+layer/autonomous/targetpositionfetchertest.h
+layer/autonomous/targetpositionfetcher.h
+layer/autonomous/targetpositionfetchertest.cpp
+layer/autonomous/targetpositionfetcher.cpp
 layer/abstraction/fieldside.cpp
 layer/control/CMakeLists.txt
 layer/control/pausetest.h

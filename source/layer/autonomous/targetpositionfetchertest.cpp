@@ -1,10 +1,10 @@
-#include "layer/main/targetpositionfetchertest.h"
-#include "layer/main/targetpositionfetcher.h"
+#include "layer/autonomous/targetpositionfetchertest.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 #include "layer/abstraction/fieldside.h"
 #include "layer/abstraction/ballmock.h"
 
-using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
 
