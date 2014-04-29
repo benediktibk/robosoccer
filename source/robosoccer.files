@@ -272,3 +272,4 @@ layer/control/penaltydefensive.cpp
 layer/autonomous/intelligentball.cpp
 layer/autonomous/intelligentball.h
 layer/autonomous/CMakeLists.txt
+layer/autonomous/robot.h
