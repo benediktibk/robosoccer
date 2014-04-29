@@ -18,7 +18,7 @@ Robot& Team::getGoalie()
 	return *m_goalie;
 }
 
-Robot& Team::getPlayerCloseToBall(const IntelligentBall &/*ball*/)
+Robot& Team::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
 {
 	return *m_fieldPlayerOne;
 }

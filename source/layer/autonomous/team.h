@@ -21,7 +21,7 @@ namespace Autonomous
 		Team(Abstraction::Storage &storage);
 
 		Robot& getGoalie();
-		Robot& getPlayerCloseToBall(const IntelligentBall &ball);
+		Robot& getPlayerCloserToBall(const IntelligentBall &ball);
 		Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball);
 		Robot& getFirstFieldPlayer();
 		Robot& getSecondFieldPlayer();
