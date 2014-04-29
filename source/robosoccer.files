@@ -279,3 +279,7 @@ layer/autonomous/robottest.cpp
 layer/autonomous/robottest.h
 layer/autonomous/robotmock.cpp
 layer/autonomous/robotmock.h
+layer/autonomous/team.cpp
+layer/autonomous/team.h
+layer/autonomous/teamtest.cpp
+layer/autonomous/teamtest.h
