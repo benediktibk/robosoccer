@@ -22,6 +22,12 @@ namespace Abstraction
 {
 	class Storage;
 }
+namespace Autonomous
+{
+	class EnemyTeam;
+	class Team;
+	class IntelligentBall;
+}
 namespace Main
 {
 	class Application
@@ -36,6 +42,9 @@ namespace Main
 		Common::Logging::Logger *m_logger;
 		Abstraction::Storage *m_storage;
 		Common::Time::Watch *m_watch;
+		Autonomous::EnemyTeam *m_enemyTeam;
+		Autonomous::Team *m_ownTeam;
+		Autonomous::IntelligentBall *m_ball;
 	};
 }
 }

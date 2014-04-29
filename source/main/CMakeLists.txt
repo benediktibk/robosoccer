@@ -14,6 +14,7 @@ set(ROSO_LIBRARIES
 set(LIBRARIES
 	layermain
 	layercontrol
+	layerautonomous
 	layerabstraction
 	commonrouting
 	commongeometry
