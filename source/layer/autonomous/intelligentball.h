@@ -19,7 +19,7 @@ namespace Abstraction
 {
 	class Ball;
 }
-namespace Main
+namespace Autonomous
 {
 	class IntelligentBall
 	{
@@ -30,6 +30,7 @@ namespace Main
 		double getVelocity() const;
 		bool isMoving() const;
 		Abstraction::FieldSide getMovingDirection() const;
+
 	private:
 		Abstraction::Ball *m_ball;
 	};

@@ -3,14 +3,12 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 
-using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
 
 IntelligentBall::IntelligentBall()
-{
-
-}
+{ }
 
 Geometry::Angle IntelligentBall::getRotation() const
 {
