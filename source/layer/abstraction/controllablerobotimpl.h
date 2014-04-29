@@ -29,6 +29,7 @@ namespace Abstraction
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
 		virtual bool kick(unsigned int force, double distanceToBall);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
+		virtual void stop();
 
 	private:
 		RoboControl *m_robot;
