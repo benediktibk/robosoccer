@@ -9,6 +9,9 @@ RobotImpl::RobotImpl(ControllableRobot &robot) :
 	m_robot(robot)
 { }
 
+RobotImpl::~RobotImpl()
+{ }
+
 void RobotImpl::goTo(const Point &/*position*/)
 {
 

@@ -7,6 +7,10 @@ namespace RoboSoccer
 {
 namespace Layer
 {
+namespace Abstraction
+{
+	class Storage;
+}
 namespace Autonomous
 {
 	class IntelligentBall;
@@ -14,15 +18,15 @@ namespace Autonomous
 	class Team
 	{
 	public:
-		Team(Robot &goalie, Robot &player1, Robot &player2);
+		Team(Abstraction::Storage &storage);
 
 		Robot& getGoalie() const;
 		Robot& getPlayerCloseToBall(const IntelligentBall &ball) const;
 
 	private:
-		Robot &m_goalie;
-		Robot &m_player1;
-		Robot &m_player2;
+		Robot *m_goalie;
+		Robot *m_player1;
+		Robot *m_player2;
 	};
 }
 }
