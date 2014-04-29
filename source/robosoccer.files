@@ -283,3 +283,7 @@ layer/autonomous/team.cpp
 layer/autonomous/team.h
 layer/autonomous/teamtest.cpp
 layer/autonomous/teamtest.h
+layer/autonomous/enemyteam.cpp
+layer/autonomous/enemyteam.h
+layer/autonomous/enemyteamtest.cpp
+layer/autonomous/enemyteamtest.h
