@@ -11,7 +11,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PauseTest::createInstance()
 {
-	return new Pause(*m_logger, *m_referee);
+	return new Pause(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
 }
 
 void PauseTest::nextState_prepareKickOffSet_prepareKickOff()

@@ -9,16 +9,18 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PreparePenalty::PreparePenalty(Logger &logger, RefereeBase &referee) :
-	RoboSoccerState(logger, referee, false)
+PreparePenalty::PreparePenalty(
+		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball) :
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, false)
 { }
 
 State *PreparePenalty::nextState()
 {
 	if (m_referee.hasKickOffOrPenalty())
-		return new PreparePenaltyOffensive(m_logger, m_referee);
+		return new PreparePenaltyOffensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 	else
-		return new PreparePenaltyDefensive(m_logger, m_referee);
+		return new PreparePenaltyDefensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 }
 
 string PreparePenalty::getName()

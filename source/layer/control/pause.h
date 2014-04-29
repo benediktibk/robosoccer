@@ -12,7 +12,8 @@ namespace Control
 	class Pause : public RoboSoccerState
 	{
 	public:
-		Pause(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee);
+		Pause(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
+			  Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();

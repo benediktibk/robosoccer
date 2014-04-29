@@ -13,7 +13,9 @@ namespace Control
 			public RoboSoccerState
 	{
 	public:
-		PreparePenaltyDefensive(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee);
+		PreparePenaltyDefensive(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
+								Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+								Autonomous::IntelligentBall const &ball);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();

@@ -18,6 +18,13 @@ namespace Layer
 namespace Abstraction
 {
 	class RefereeMock;
+	class StorageMock;
+}
+namespace Autonomous
+{
+	class EnemyTeam;
+	class Team;
+	class IntelligentBall;
 }
 
 namespace Control
@@ -38,6 +45,10 @@ namespace Control
 		RoboSoccerState *m_state;
 		Abstraction::RefereeMock *m_referee;
 		Common::Logging::LoggerMock *m_logger;
+		Abstraction::StorageMock *m_storage;
+		Autonomous::Team *m_ownTeam;
+		Autonomous::EnemyTeam *m_enemyTeam;
+		Autonomous::IntelligentBall *m_ball;
 	};
 }
 }

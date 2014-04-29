@@ -9,7 +9,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PlayTest::createInstance()
 {
-	return new Play(*m_logger, *m_referee);
+	return new Play(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
 }
 
 void PlayTest::nextState_everythingSet_0()

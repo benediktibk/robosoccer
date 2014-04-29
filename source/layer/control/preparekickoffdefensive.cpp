@@ -9,17 +9,19 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PrepareKickOffDefensive::PrepareKickOffDefensive(Logger &logger, RefereeBase &referee) :
-	RoboSoccerState(logger, referee, false),
+PrepareKickOffDefensive::PrepareKickOffDefensive(
+		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball) :
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, false),
 	m_movementFinished(false)
 { }
 
 State *PrepareKickOffDefensive::nextState()
 {
 	if (!m_referee.getPrepareForKickOff() && !m_referee.getExecuteKickOff())
-		return new Pause(m_logger, m_referee);
+		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 	else if (m_movementFinished && m_referee.getExecuteKickOff())
-		return new KickOffDefensive(m_logger, m_referee);
+		return new KickOffDefensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 
 	return 0;
 }

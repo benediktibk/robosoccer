@@ -52,7 +52,7 @@ void Application::run()
 	const double maximumLoopTime = 0.1;
 
 	RefereeBase &referee = m_storage->getReferee();
-	Pause *initialState = new Pause(*m_logger, referee);
+	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball);
 	StateMachine stateMachine(initialState);
 
 	while (!stop)

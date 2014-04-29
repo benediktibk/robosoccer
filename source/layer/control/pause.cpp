@@ -10,18 +10,20 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-Pause::Pause(Logger &logger, RefereeBase &referee) :
-	RoboSoccerState(logger, referee, true)
+Pause::Pause(Logger &logger, RefereeBase &referee,
+			 Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+			 Autonomous::IntelligentBall const &ball) :
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, true)
 { }
 
 State* Pause::nextState()
 {
 	if (m_referee.getPrepareForKickOff())
-		return new PrepareKickOff(m_logger, m_referee);
+		return new PrepareKickOff(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 	else if (m_referee.getPrepareForPenalty())
-		return new PreparePenalty(m_logger, m_referee);
+		return new PreparePenalty(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 	else if (m_referee.getContinuePlaying())
-		return new Play(m_logger, m_referee);
+		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
 
 	return 0;
 }
