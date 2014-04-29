@@ -17,6 +17,4 @@ public:
 }
 }
 
-#endif // ROBOSOCCER_LAYER_AUTONOMOUS_ENEMYTEAM_H
-
-
+#endif

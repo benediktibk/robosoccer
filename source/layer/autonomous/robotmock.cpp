@@ -10,3 +10,5 @@ void RobotMock::goTo(const RoboSoccer::Common::Geometry::Point &/*position*/)
 
 }
 
+void RobotMock::stop()
+{ }

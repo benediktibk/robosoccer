@@ -4,9 +4,11 @@
 #include "layer/control/preparepenalty.h"
 #include "layer/control/play.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/storagemock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;
+using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PauseTest::createInstance()
@@ -54,4 +56,12 @@ void PauseTest::nextState_continuePlayingSet_play()
 	Play *stateCasted = dynamic_cast<Play*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void PauseTest::update_mockRobots_allRobotsGotOneCallToStop()
+{
+	m_state->update();
+
+	ControllableRobotMock const &robot = m_storage->getOwnRobotMock();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToStop());
 }

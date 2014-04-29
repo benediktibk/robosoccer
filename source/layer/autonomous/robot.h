@@ -20,9 +20,7 @@ namespace Autonomous
 		virtual ~Robot() { }
 
 		virtual void goTo(Common::Geometry::Point const &position) = 0;
-
-	private:
-
+		virtual void stop() = 0;
 	};
 }
 }

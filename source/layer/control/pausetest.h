@@ -17,6 +17,7 @@ namespace Control
 		CPPUNIT_TEST(nextState_gamePaused_0);
 		CPPUNIT_TEST(nextState_preparePenaltySet_preparePenalty);
 		CPPUNIT_TEST(nextState_continuePlayingSet_play);
+		CPPUNIT_TEST(update_mockRobots_allRobotsGotOneCallToStop);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -27,6 +28,7 @@ namespace Control
 		void nextState_gamePaused_0();
 		void nextState_preparePenaltySet_preparePenalty();
 		void nextState_continuePlayingSet_play();
+		void update_mockRobots_allRobotsGotOneCallToStop();
 	};
 }
 }

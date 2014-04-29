@@ -21,3 +21,8 @@ RefereeBase &StorageMock::getReferee()
 {
 	return m_referee;
 }
+
+const ControllableRobotMock &StorageMock::getOwnRobotMock() const
+{
+	return m_ownRobot;
+}

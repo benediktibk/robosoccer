@@ -17,12 +17,12 @@ namespace Autonomous
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Point const &position);
-
+		virtual void stop();
 	};
 }
 }
 }
 
-#endif // ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
+#endif
 
 

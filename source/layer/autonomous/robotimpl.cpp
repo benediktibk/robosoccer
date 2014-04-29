@@ -10,3 +10,7 @@ void RobotImpl::goTo(const RoboSoccer::Common::Geometry::Point &/*position*/)
 
 }
 
+void RobotImpl::stop()
+{
+
+}

@@ -17,7 +17,7 @@ namespace Autonomous
 		virtual ~RobotMock();
 
 		virtual void goTo(Common::Geometry::Point const &position);
-
+		virtual void stop();
 	};
 }
 }
