@@ -10,14 +10,15 @@ using namespace RoboSoccer::Layer::Control;
 
 Play::Play(
 		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, false)
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false)
 { }
 
 State *Play::nextState()
 {
 	if (!m_referee.getContinuePlaying())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
+		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 
 	return 0;
 }

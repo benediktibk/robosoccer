@@ -23,6 +23,7 @@ namespace Autonomous
 	class EnemyTeam;
 	class Team;
 	class IntelligentBall;
+	class TargetPositionFetcher;
 }
 namespace Control
 {
@@ -32,13 +33,15 @@ namespace Control
 		RoboSoccerState(
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
-				Autonomous::IntelligentBall const &ball, bool callUpdateOnlyOnce);
+				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+				bool callUpdateOnlyOnce);
 
 	protected:
 		Abstraction::RefereeBase &m_referee;
 		Autonomous::Team &m_ownTeam;
 		const Autonomous::EnemyTeam &m_enemyTeam;
 		const Autonomous::IntelligentBall &m_ball;
+		const Autonomous::TargetPositionFetcher &m_targetPositionFetcher;
 
 	};
 }

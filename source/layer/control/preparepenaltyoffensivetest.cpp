@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PreparePenaltyOffensiveTest::createInstance()
 {
-	return new PreparePenaltyOffensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
+	return new PreparePenaltyOffensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }
 
 void PreparePenaltyOffensiveTest::update_movementFinished_refereeGotCallToSetReady()

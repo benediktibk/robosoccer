@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PrepareKickOffOffensiveTest::createInstance()
 {
-	return new PrepareKickOffOffensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
+	return new PrepareKickOffOffensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }
 
 void PrepareKickOffOffensiveTest::update_movementFinished_refereeGotCallToSetReady()

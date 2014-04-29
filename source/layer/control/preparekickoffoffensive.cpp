@@ -11,17 +11,17 @@ using namespace RoboSoccer::Common::States;
 
 PrepareKickOffOffensive::PrepareKickOffOffensive(
 		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, false),
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
 	m_movementFinished(false)
 { }
 
 State *PrepareKickOffOffensive::nextState()
 {
 	if (!m_referee.getPrepareForKickOff() && !m_referee.getExecuteKickOff())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
+		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	else if (m_movementFinished && m_referee.getExecuteKickOff())
-		return new KickOffOffensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball);
+		return new KickOffOffensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 
 	return 0;
 }

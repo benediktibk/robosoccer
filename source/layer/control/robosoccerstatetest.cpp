@@ -6,6 +6,7 @@
 #include "layer/autonomous/enemyteam.h"
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -20,6 +21,8 @@ void RoboSoccerStateTest::setUp()
 	m_enemyTeam = new EnemyTeam();
 	m_ownTeam = new Team(*m_storage);
 	m_ball = new IntelligentBall();
+	m_targetPositionFetcher = new TargetPositionFetcher();
+	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_state = createInstance();
 }
 

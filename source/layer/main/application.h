@@ -27,6 +27,7 @@ namespace Autonomous
 	class EnemyTeam;
 	class Team;
 	class IntelligentBall;
+	class TargetPositionFetcher;
 }
 namespace Main
 {
@@ -45,6 +46,7 @@ namespace Main
 		Autonomous::EnemyTeam *m_enemyTeam;
 		Autonomous::Team *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
+		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 	};
 }
 }

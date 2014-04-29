@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *KickOffDefensiveTest::createInstance()
 {
-	return new KickOffDefensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
+	return new KickOffDefensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }
 
 void KickOffDefensiveTest::nextState_executeKickOff_0()

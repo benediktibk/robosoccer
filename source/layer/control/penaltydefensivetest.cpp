@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PenaltyDefensiveTest::createInstance()
 {
-	return new PenaltyDefensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball);
+	return new PenaltyDefensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }
 
 void PenaltyDefensiveTest::nextState_executePenalty_0()

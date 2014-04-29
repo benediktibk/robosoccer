@@ -4,6 +4,7 @@
 #include "layer/autonomous/enemyteam.h"
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"
 #include "common/time/watchimpl.h"
@@ -25,7 +26,8 @@ Application::Application(TeamColor ownTeamColor) :
 	m_watch(new WatchImpl()),
 	m_enemyTeam(new EnemyTeam()),
 	m_ownTeam(new Team(*m_storage)),
-	m_ball(new IntelligentBall())
+	m_ball(new IntelligentBall()),
+	m_targetPositionFetcher(new TargetPositionFetcher())
 { }
 
 Application::~Application()
@@ -42,6 +44,8 @@ Application::~Application()
 	m_storage = 0;
 	delete m_logger;
 	m_logger = 0;
+	delete m_targetPositionFetcher;
+	m_targetPositionFetcher = 0;
 }
 
 void Application::run()
@@ -52,11 +56,13 @@ void Application::run()
 	const double maximumLoopTime = 0.1;
 
 	RefereeBase &referee = m_storage->getReferee();
-	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball);
+	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 	StateMachine stateMachine(initialState);
 
 	while (!stop)
 	{
+		FieldSide ownSide = referee.getOwnFieldSide();
+		m_targetPositionFetcher->setFieldSide(ownSide);
 		stateMachine.update();
 
 		double loopTime = stopWatch.getTimeAndRestart();

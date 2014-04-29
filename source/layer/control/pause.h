@@ -13,7 +13,8 @@ namespace Control
 	{
 	public:
 		Pause(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-			  Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball);
+			  Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+			  const Autonomous::TargetPositionFetcher &targetPositionFetcher);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();
