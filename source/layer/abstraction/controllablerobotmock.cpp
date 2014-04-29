@@ -5,6 +5,10 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
+ControllableRobotMock::ControllableRobotMock() :
+	m_callsToStop(0)
+{ }
+
 Pose ControllableRobotMock::getPose() const
 {
 	return Pose();
@@ -35,3 +39,12 @@ void ControllableRobotMock::turn(const Angle &/*absoluteAngle*/)
 
 }
 
+void ControllableRobotMock::stop()
+{
+	++m_callsToStop;
+}
+
+unsigned int ControllableRobotMock::getCallsToStop() const
+{
+	return m_callsToStop;
+}

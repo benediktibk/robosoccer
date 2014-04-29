@@ -64,3 +64,8 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 	m_robot->TurnAbs(angle);
 }
 
+void ControllableRobotImpl::stop()
+{
+	m_robot->StopAction();
+}
+
