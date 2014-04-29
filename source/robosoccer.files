@@ -273,3 +273,9 @@ layer/autonomous/intelligentball.cpp
 layer/autonomous/intelligentball.h
 layer/autonomous/CMakeLists.txt
 layer/autonomous/robot.h
+layer/autonomous/robotimpl.cpp
+layer/autonomous/robotimpl.h
+layer/autonomous/robottest.cpp
+layer/autonomous/robottest.h
+layer/autonomous/robotmock.cpp
+layer/autonomous/robotmock.h

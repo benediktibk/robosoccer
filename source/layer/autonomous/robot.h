@@ -3,6 +3,13 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Geometry
+{
+	class Point;
+}
+}
 namespace Layer
 {
 namespace Autonomous
@@ -11,6 +18,8 @@ namespace Autonomous
 	{
 	public:
 		virtual ~Robot() { }
+
+		virtual void goTo(Common::Geometry::Point const &position) = 0;
 
 	private:
 

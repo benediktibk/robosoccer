@@ -1,0 +1,28 @@
+#ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
+#define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
+
+#include "layer/autonomous/robot.h"
+
+namespace RoboSoccer
+{
+namespace Layer
+{
+namespace Autonomous
+{
+	class RobotImpl :
+			public Robot
+	{
+	public:
+		RobotImpl();
+		virtual ~RobotImpl();
+
+		virtual void goTo(Common::Geometry::Point const &position);
+
+	};
+}
+}
+}
+
+#endif // ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
+
+
