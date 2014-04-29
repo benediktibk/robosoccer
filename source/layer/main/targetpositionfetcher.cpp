@@ -20,27 +20,27 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldside)
 
 Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
 {
-	return getFieldSideDependentPositionIfSymeticToOrigin(Point(1.35,0));
+	return mirrorPointDependentOnFieldSide(Point(1.35,0));
 }
 
 Pose TargetPositionFetcher::getStartPositionPlayerOneOffensive() const
 {
-	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.1,0));
+	return mirrorPointDependentOnFieldSide(Point(0.1,0));
 }
 
 Pose TargetPositionFetcher::getStartPositionPlayerTwoOffensive() const
 {
-	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0,-0.5));
+	return mirrorPointDependentOnFieldSide(Point(0,-0.5));
 }
 
 Pose TargetPositionFetcher::getStartPositionPlayerOneDefensive() const
 {
-	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.2,0.1));
+	return mirrorPointDependentOnFieldSide(Point(0.2,0.1));
 }
 
 Pose TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
 {
-	return getFieldSideDependentPositionIfSymeticToOrigin(Point(0.2,-0.1));
+	return mirrorPointDependentOnFieldSide(Point(0.2,-0.1));
 }
 
 std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
@@ -48,9 +48,9 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 	vector<Point> goalposition;
 	goalposition.reserve(3);
 
-	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,0)).getPosition());
-	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,-0.2)).getPosition());
-	goalposition.push_back(getFieldSideDependentPositionIfSymeticToOrigin(Point(1.45,0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(Point(1.45,0)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(Point(1.45,-0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(Point(1.45,0.2)).getPosition());
 
 	return goalposition;
 }
@@ -101,7 +101,7 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
 	return penaltyPosition;
 }
 
-Pose TargetPositionFetcher::getFieldSideDependentPositionIfSymeticToOrigin(Point pointRightSide) const
+Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide) const
 {
 	Pose pose;
 
@@ -119,4 +119,3 @@ Pose TargetPositionFetcher::getFieldSideDependentPositionIfSymeticToOrigin(Point
 
 	return pose;
 }
-

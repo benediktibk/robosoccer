@@ -40,7 +40,7 @@ public:
 	Common::Geometry::Pose getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
 
 private:
-	Common::Geometry::Pose getFieldSideDependentPositionIfSymeticToOrigin(Common::Geometry::Point pointRightSide) const;
+	Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointRightSide) const;
 
 private:
 	Abstraction::FieldSide m_fieldside;
@@ -50,6 +50,4 @@ private:
 }
 }
 
-#endif // ROBOSOCCER_LAYER_MAIN_TARGETPOSITIONFETCHER_H
-
-
+#endif
