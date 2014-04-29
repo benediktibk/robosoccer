@@ -11,6 +11,7 @@ namespace Geometry
 {
 	class Angle;
 	class Circle;
+	class Point;
 }
 }
 namespace Layer
@@ -27,6 +28,7 @@ namespace Autonomous
 		IntelligentBall();
 		Common::Geometry::Angle getRotation() const;
 		Common::Geometry::Circle getObstacle() const;
+		virtual Common::Geometry::Point getPosition() const;
 		double getVelocity() const;
 		bool isMoving() const;
 		Abstraction::FieldSide getMovingDirection() const;
