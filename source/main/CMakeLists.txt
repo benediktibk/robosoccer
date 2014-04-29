@@ -27,6 +27,7 @@ set(LIBRARIES
 set(LIBRARIES_TEST
 	layermaintest
 	layercontroltest
+#	layerautonomoustest
 	commonroutingtest
 	commongeometrytest
 	commonstatestest
