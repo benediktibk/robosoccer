@@ -55,7 +55,7 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 	return goalposition;
 }
 
-Pose TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
+Pose TargetPositionFetcher::getOwnGoalPosition(const Abstraction::Ball &ball) const
 {
 	Pose goalPosition;
 	double yPosition = ball.getPosition().getY();
@@ -80,7 +80,7 @@ Pose TargetPositionFetcher::getOwnGoalPosition(const Ball &ball) const
 	return goalPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionKicker(const Ball &ball) const
+Pose TargetPositionFetcher::getPenaltyPositionKicker(const Abstraction::Ball &ball) const
 {
 	Pose penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front());

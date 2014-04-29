@@ -33,7 +33,9 @@ string PreparePenaltyOffensive::getName()
 
 void PreparePenaltyOffensive::updateInternal()
 {
-	//! @todo start and movement and wait for it
+	//! @todo move one robot to the ball
+
+	//! @todo wait till the movement is finished
 	m_movementFinished = true;
 	m_referee.setReady();
 }
