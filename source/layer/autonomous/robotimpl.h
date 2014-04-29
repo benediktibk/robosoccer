@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
 
 #include "layer/autonomous/robot.h"
+#include "layer/abstraction/controllablerobot.h"
 
 namespace RoboSoccer
 {
@@ -13,10 +14,14 @@ namespace Autonomous
 			public Robot
 	{
 	public:
-		RobotImpl();
+		RobotImpl(Abstraction::ControllableRobot &robot);
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Point const &position);
+		virtual Common::Geometry::Pose getCurrentPose() const;
+
+	private:
+		Abstraction::ControllableRobot &m_robot;
 
 	};
 }

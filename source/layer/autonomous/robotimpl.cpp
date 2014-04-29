@@ -1,12 +1,21 @@
 #include "layer/autonomous/robotimpl.h"
+#include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Geometry;
 
-RobotImpl::RobotImpl()
+RobotImpl::RobotImpl(ControllableRobot &robot) :
+	m_robot(robot)
 { }
 
-void RobotImpl::goTo(const RoboSoccer::Common::Geometry::Point &/*position*/)
+void RobotImpl::goTo(const Point &/*position*/)
 {
 
+}
+
+Pose RoboSoccer::Layer::Autonomous::RobotImpl::getCurrentPose() const
+{
+	return m_robot.getPose();
 }
 
