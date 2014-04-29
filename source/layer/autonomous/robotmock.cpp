@@ -22,5 +22,10 @@ bool RobotMock::targetReached() const
 	return false;
 }
 
+bool RobotMock::kick(unsigned int /*force*/)
+{
+	return false;
+}
+
 void RobotMock::stop()
 { }

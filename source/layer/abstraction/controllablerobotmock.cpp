@@ -29,7 +29,7 @@ void ControllableRobotMock::gotoPositionPrecise(const Point &/*position*/)
 
 }
 
-bool ControllableRobotMock::kick(unsigned int /*force*/, double /*distanceToBall*/)
+bool ControllableRobotMock::kick(unsigned int /*force*/)
 {
 	return false;
 }

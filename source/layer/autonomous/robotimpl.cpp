@@ -13,12 +13,13 @@ RobotImpl::RobotImpl(ControllableRobot &robot) :
 RobotImpl::~RobotImpl()
 { }
 
-void RobotImpl::goTo(const Point &/*position*/)
+void RobotImpl::goTo(const Point &position)
 {
-
+	//! @todo should consider obstacles
+	m_robot.gotoPositionPrecise(position);
 }
 
-Pose RoboSoccer::Layer::Autonomous::RobotImpl::getCurrentPose() const
+Pose RobotImpl::getCurrentPose() const
 {
 	return m_robot.getPose();
 }
@@ -26,6 +27,11 @@ Pose RoboSoccer::Layer::Autonomous::RobotImpl::getCurrentPose() const
 bool RobotImpl::targetReached() const
 {
 	return false;
+}
+
+bool RobotImpl::kick(unsigned int force)
+{
+	return m_robot.kick(force);
 }
 
 void RobotImpl::stop()

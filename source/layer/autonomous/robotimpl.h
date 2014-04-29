@@ -25,6 +25,7 @@ namespace Autonomous
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual bool targetReached() const;
+		virtual bool kick(unsigned int force);
 
 	private:
 		Abstraction::ControllableRobot &m_robot;

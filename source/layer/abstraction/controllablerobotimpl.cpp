@@ -50,11 +50,10 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 	m_robot->GotoXY(position.getX(),position.getY(),160,true);
 }
 
-bool ControllableRobotImpl::kick(unsigned int force, double distanceToBall)
+bool ControllableRobotImpl::kick(unsigned int force)
 {
 	assert(force <= 100);
-	assert(distanceToBall >= 0);
-	m_robot->Kick(force,distanceToBall);
+	m_robot->Kick(force);
 	return false;
 }
 
