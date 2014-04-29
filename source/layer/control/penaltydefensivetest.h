@@ -25,6 +25,8 @@ namespace Control
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
+		//! test that the field players get no call to move
+		//! test that the goalie is moved according to the ball
 	};
 }
 }

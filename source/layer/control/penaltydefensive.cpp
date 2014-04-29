@@ -31,6 +31,4 @@ string PenaltyDefensive::getName()
 }
 
 void PenaltyDefensive::updateInternal()
-{
-
-}
+{ }

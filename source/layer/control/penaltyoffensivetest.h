@@ -25,6 +25,8 @@ namespace Control
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
+		//! test that one field player got a call to kick
+		//! test that no player got a call to move
 	};
 }
 }

@@ -29,6 +29,8 @@ namespace Control
 		void nextState_movementFinishedButNotExecutePenalty_0();
 		void nextState_preparePenalty_0();
 		void nextState_notPreparePenaltyAndNotExecutePenalty_pause();
+		//! @todo test that all robots got calls to move
+		//! @todo test that the state waits till all movements are finished
 	};
 }
 }
