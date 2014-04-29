@@ -2,11 +2,14 @@
 #include "layer/control/preparekickoff.h"
 #include "layer/control/preparepenalty.h"
 #include "layer/control/play.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/robot.h"
 #include "layer/abstraction/refereebase.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
@@ -35,5 +38,9 @@ string Pause::getName()
 
 void Pause::updateInternal()
 {
-	//! @TODO stop all movements
+	for (unsigned int i = 0; i < 3; ++i)
+	{
+		Robot &robot = m_ownTeam.getRobotByNumber(i);
+		robot.stop();
+	}
 }

@@ -1,4 +1,5 @@
 #include "layer/autonomous/robotimpl.h"
+#include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -24,5 +25,5 @@ Pose RoboSoccer::Layer::Autonomous::RobotImpl::getCurrentPose() const
 
 void RobotImpl::stop()
 {
-
+	m_robot.stop();
 }

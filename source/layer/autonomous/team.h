@@ -22,6 +22,7 @@ namespace Autonomous
 
 		Robot& getGoalie() const;
 		Robot& getPlayerCloseToBall(const IntelligentBall &ball) const;
+		Robot& getRobotByNumber(unsigned int i);
 
 	private:
 		Robot *m_goalie;
@@ -32,6 +33,4 @@ namespace Autonomous
 }
 }
 
-#endif // ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
-
-
+#endif

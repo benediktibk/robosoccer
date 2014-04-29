@@ -2,12 +2,16 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
 
 #include "layer/autonomous/robot.h"
-#include "layer/abstraction/controllablerobot.h"
 
 namespace RoboSoccer
 {
 namespace Layer
 {
+namespace Abstraction
+{
+	class ControllableRobot;
+}
+
 namespace Autonomous
 {
 	class RobotImpl :

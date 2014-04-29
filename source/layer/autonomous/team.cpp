@@ -2,6 +2,7 @@
 #include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/storage.h"
 #include "layer/autonomous/robotimpl.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -22,3 +23,20 @@ Robot& Team::getPlayerCloseToBall(const IntelligentBall &/*ball*/) const
 	return *m_player1;
 }
 
+Robot &Team::getRobotByNumber(unsigned int i)
+{
+	switch(i)
+	{
+	case 0:
+		return *m_goalie;
+	case 1:
+		return *m_player1;
+	case 2:
+		return *m_player2;
+	default:
+		assert(false);
+	}
+
+	// avoid errors from the compiler
+	return *m_goalie;
+}
