@@ -216,8 +216,8 @@ layer/main/targetpositionfetcher.h
 layer/main/targetpositionfetchertest.cpp
 layer/main/targetpositionfetcher.cpp
 layer/abstraction/fieldside.cpp
-layer/main/intelligentball.cpp
-layer/main/intelligentball.h
+layer/autonomus/intelligentball.cpp
+layer/autonomus/intelligentball.h
 layer/control/CMakeLists.txt
 layer/control/pausetest.h
 layer/control/pause.h
