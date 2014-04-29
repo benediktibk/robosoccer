@@ -34,5 +34,5 @@ string KickOffOffensive::getName()
 void KickOffOffensive::updateInternal()
 {
 	Robot &robot = m_ownTeam.getPlayerCloserToBall(m_ball);
-	robot.kick(5); //! @todo improve the force
+	robot.kick(5, m_ball); //! @todo improve the force
 }

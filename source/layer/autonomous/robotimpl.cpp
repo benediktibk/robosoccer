@@ -1,4 +1,5 @@
 #include "layer/autonomous/robotimpl.h"
+#include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
 
@@ -29,8 +30,18 @@ bool RobotImpl::targetReached() const
 	return false;
 }
 
-bool RobotImpl::kick(unsigned int force)
+bool RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
+	Point ballPosition = ball.getPosition();
+	Pose ownPose = getCurrentPose();
+	Point const &ownPosition = ownPose.getPosition();
+	double distanceToBall = ownPosition.distanceTo(ballPosition);
+
+	//! there is a maximum distance to the ball specified in the documentation
+	if (distanceToBall >= 0.25)
+		return false;
+
+	//! first turn towards the ball
 	return m_robot.kick(force);
 }
 

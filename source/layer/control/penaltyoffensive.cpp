@@ -37,5 +37,5 @@ string PenaltyOffensive::getName()
 void PenaltyOffensive::updateInternal()
 {
 	Robot &robot = m_ownTeam.getPlayerCloserToBall(m_ball);
-	robot.kick(100);
+	robot.kick(100, m_ball);
 }

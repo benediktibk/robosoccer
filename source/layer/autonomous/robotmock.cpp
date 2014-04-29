@@ -22,7 +22,7 @@ bool RobotMock::targetReached() const
 	return false;
 }
 
-bool RobotMock::kick(unsigned int /*force*/)
+bool RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
 {
 	return false;
 }
