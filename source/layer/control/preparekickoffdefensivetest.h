@@ -29,6 +29,8 @@ namespace Control
 		void nextState_movementFinishedButNotExecuteKickOff_0();
 		void nextState_prepareKickOff_0();
 		void nextState_notPrepareKickOffAndNotExecuteKickOff_pause();
+		//! @todo test that all robots got calls to move
+		//! @todo test that the state waits till all movements are finished
 	};
 }
 }

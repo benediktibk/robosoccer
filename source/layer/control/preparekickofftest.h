@@ -25,6 +25,7 @@ namespace Control
 		void nextState_executeKickOff_prepareState();
 		void nextState_hasKickOff_prepareKickOffOffensive();
 		void nextState_hasNotKickOff_prepareKickOffDefensive();
+		//! test that no robot got a call to move or kick
 	};
 }
 }

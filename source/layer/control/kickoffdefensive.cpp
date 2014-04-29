@@ -9,7 +9,10 @@ using namespace RoboSoccer::Common::States;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Control;
 
-KickOffDefensive::KickOffDefensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+KickOffDefensive::KickOffDefensive(
+		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false)
 { }
 
@@ -29,6 +32,4 @@ string KickOffDefensive::getName()
 }
 
 void KickOffDefensive::updateInternal()
-{
-
-}
+{ }
