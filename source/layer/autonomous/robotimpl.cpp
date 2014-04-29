@@ -45,6 +45,11 @@ bool RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 	return m_robot.kick(force);
 }
 
+void RobotImpl::update()
+{
+
+}
+
 void RobotImpl::stop()
 {
 	m_robot.stop();

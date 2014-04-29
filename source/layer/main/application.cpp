@@ -65,6 +65,12 @@ void Application::run()
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		stateMachine.update();
 
+		for (unsigned int i = 0; i < 3; ++i)
+		{
+			Robot &robot = m_ownTeam->getRobotByNumber(i);
+			robot.update();
+		}
+
 		double loopTime = stopWatch.getTimeAndRestart();
 		if (loopTime > maximumLoopTime)
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");

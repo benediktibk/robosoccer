@@ -7,12 +7,10 @@ using namespace RoboSoccer::Common::Geometry;
 RobotMock::RobotMock()
 { }
 
-void RobotMock::goTo(const RoboSoccer::Common::Geometry::Point &/*position*/)
-{
+void RobotMock::goTo(const Point &/*position*/)
+{ }
 
-}
-
-Pose RoboSoccer::Layer::Autonomous::RobotMock::getCurrentPose() const
+Pose RobotMock::getCurrentPose() const
 {
 	return Pose();
 }
@@ -26,6 +24,9 @@ bool RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
 {
 	return false;
 }
+
+void RobotMock::update()
+{ }
 
 void RobotMock::stop()
 { }
