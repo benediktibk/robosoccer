@@ -18,7 +18,7 @@ void RoboSoccerStateTest::setUp()
 	m_referee = new RefereeMock();
 	m_logger = new LoggerMock();
 	m_storage = new StorageMock();
-	m_enemyTeam = new EnemyTeamImpl();
+	m_enemyTeam = new EnemyTeamImpl(*m_storage);
 	m_ownTeam = new TeamImpl(*m_storage);
 	m_ball = new IntelligentBall();
 	m_targetPositionFetcher = new TargetPositionFetcher();
