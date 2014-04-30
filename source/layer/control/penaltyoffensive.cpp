@@ -12,9 +12,8 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Control;
 
-PenaltyOffensive::PenaltyOffensive(
-		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
-		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball,
+PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
+		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
 { }

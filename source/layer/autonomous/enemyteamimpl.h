@@ -15,7 +15,6 @@ namespace Autonomous
 	public:
 		EnemyTeamImpl();
 		virtual ~EnemyTeamImpl();
-
 	};
 }
 }

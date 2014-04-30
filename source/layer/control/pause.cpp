@@ -14,7 +14,7 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
 Pause::Pause(Logger &logger, RefereeBase &referee,
-			 Autonomous::TeamImpl &ownTeam, Autonomous::EnemyTeamImpl const &enemyTeam,
+			 Team &ownTeam, const EnemyTeam &enemyTeam,
 			 Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
 { }

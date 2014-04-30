@@ -4,14 +4,19 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
-RobotMock::RobotMock()
+RobotMock::RobotMock() :
+	m_callsToStop(0),
+	m_callsToGoTo(0),
+	m_callsToKick(0)
 { }
 
 RobotMock::~RobotMock()
 { }
 
 void RobotMock::goTo(const Point &/*position*/)
-{ }
+{
+	++m_callsToGoTo;
+}
 
 Pose RobotMock::getCurrentPose() const
 {
@@ -23,13 +28,30 @@ bool RobotMock::targetReached() const
 	return false;
 }
 
-bool RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
+void RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
 {
-	return false;
+	++m_callsToKick;
 }
 
 void RobotMock::update()
 { }
 
+unsigned int RobotMock::getCallsToStop() const
+{
+	return m_callsToStop;
+}
+
+unsigned int RobotMock::getCallsToGoTo() const
+{
+	return m_callsToGoTo;
+}
+
+unsigned int RobotMock::getCallsToKick() const
+{
+	return m_callsToKick;
+}
+
 void RobotMock::stop()
-{ }
+{
+	++m_callsToStop;
+}

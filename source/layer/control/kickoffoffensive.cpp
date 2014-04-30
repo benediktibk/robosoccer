@@ -2,7 +2,7 @@
 #include "layer/control/play.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
-#include "layer/autonomous/teamimpl.h"
+#include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 
 using namespace std;
@@ -12,7 +12,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Control;
 
-KickOffOffensive::KickOffOffensive(Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam, const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+KickOffOffensive::KickOffOffensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
 { }
 

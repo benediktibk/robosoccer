@@ -25,18 +25,14 @@ namespace Autonomous
 	class IntelligentBall
 	{
 	public:
-		IntelligentBall();
-		virtual ~IntelligentBall();
+		virtual ~IntelligentBall() { }
 
-		Common::Geometry::Angle getRotation() const;
-		Common::Geometry::Circle getObstacle() const;
-		virtual Common::Geometry::Point getPosition() const;
-		double getVelocity() const;
-		bool isMoving() const;
-		Abstraction::FieldSide getMovingDirection() const;
-
-	private:
-		Abstraction::Ball *m_ball;
+		virtual Common::Geometry::Angle getRotation() const = 0;
+		virtual Common::Geometry::Circle getObstacle() const = 0;
+		virtual Common::Geometry::Point getPosition() const = 0;
+		virtual double getVelocity() const = 0;
+		virtual bool isMoving() const = 0;
+		virtual Abstraction::FieldSide getMovingDirection() const = 0;
 	};
 }
 }

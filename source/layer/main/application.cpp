@@ -3,7 +3,7 @@
 #include "layer/control/pause.h"
 #include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/teamimpl.h"
-#include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"
@@ -25,8 +25,8 @@ Application::Application(TeamColor ownTeamColor) :
 	m_storage(new StorageImpl(14, ownTeamColor, *m_logger)),
 	m_watch(new WatchImpl()),
 	m_enemyTeam(new EnemyTeamImpl()),
-	m_ownTeam(new TeamImpl(*m_storage)),
-	m_ball(new IntelligentBall()),
+	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger)),
+	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher())
 { }
 

@@ -2,6 +2,9 @@
 #include "layer/control/play.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/autonomous/enemyteammock.h"
+#include "layer/autonomous/teammock.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;

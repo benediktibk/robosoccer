@@ -5,6 +5,14 @@ namespace RoboSoccer
 {
 namespace Common
 {
+namespace Time
+{
+	class Watch;
+}
+namespace Logging
+{
+	class Logger;
+}
 namespace Geometry
 {
 	class Point;
