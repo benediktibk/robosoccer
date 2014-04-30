@@ -1,6 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_TEAMIMPL_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_TEAMIMPL_H
 
+#include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 
 namespace RoboSoccer

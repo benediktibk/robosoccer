@@ -3,6 +3,7 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotimpl.cpp
 	robotmock.cpp
 	teamimpl.cpp
+	teammock.cpp
 	enemyteamimpl.cpp
 	targetpositionfetcher.cpp
 )
