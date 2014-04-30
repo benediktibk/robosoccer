@@ -3,6 +3,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/point.h"
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -37,7 +38,7 @@ FieldSide IntelligentBallImpl::getMovingDirection() const
 {
 	Angle direction = m_ball.getRotation();
 	double angle=direction.getValueBetweenMinusPiAndPi();
-	if (angle > 0)
+	if (angle >= -M_PI/2.0 && angle < M_PI/2.0)
 		return FieldSideRight;
 	else
 		return FieldSideLeft;
