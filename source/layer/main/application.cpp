@@ -10,6 +10,7 @@
 #include "common/time/watchimpl.h"
 #include "common/states/statemachine.h"
 #include "common/other/console.h"
+#include "layer/autonomous/robot.h"
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
