@@ -6,8 +6,9 @@
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
 #include "layer/autonomous/robot.h"
-#include "layer/autonomous/teamimpl.h"
-#include "layer/autonomous/enemyteamimpl.h"
+#include "layer/autonomous/teammock.h"
+#include "layer/autonomous/enemyteammock.h"
+#include "layer/autonomous/robotmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;
@@ -72,6 +73,6 @@ void PauseTest::update_mockRobots_allRobotsGotOneCallToStop()
 		robot.update();
 	}
 
-	ControllableRobotMock const &robot = m_storage->getOwnRobotMock();
+	RobotMock const &robot = m_ownTeam->getRobotMock();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToStop());
 }

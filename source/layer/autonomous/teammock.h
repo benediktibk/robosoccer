@@ -24,6 +24,8 @@ namespace Autonomous
 		virtual Robot& getSecondFieldPlayer();
 		virtual Robot& getRobotByNumber(unsigned int i);
 
+		RobotMock const& getRobotMock() const;
+
 	private:
 		RobotMock m_robot;
 	};
