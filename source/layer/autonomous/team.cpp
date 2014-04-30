@@ -6,11 +6,13 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 
-Team::Team(Storage &storage) :
-	m_goalie(new RobotImpl(storage.getOwnRobot(0))),
-	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1))),
-	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2)))
+Team::Team(Storage &storage, const Watch &watch, Logger &logger) :
+	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), watch, logger)),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), watch, logger))
 { }
 
 Robot& Team::getGoalie()

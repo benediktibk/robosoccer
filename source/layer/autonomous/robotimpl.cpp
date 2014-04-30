@@ -1,15 +1,23 @@
 #include "layer/autonomous/robotimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
+#include "layer/autonomous/robotstatedriveto.h"
+#include "layer/autonomous/robotstatekick.h"
+#include "layer/autonomous/robotstateturnto.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
+#include "common/logging/logger.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 
-RobotImpl::RobotImpl(ControllableRobot &robot) :
+RobotImpl::RobotImpl(ControllableRobot &robot, const Watch &watch, Logger &logger) :
 	m_robot(robot),
+	m_watch(watch),
+	m_logger(logger),
 	m_currentState(new RobotStateReachedTarget(robot))
 { }
 
@@ -22,7 +30,7 @@ RobotImpl::~RobotImpl()
 void RobotImpl::goTo(const Point &position)
 {
 	//! @todo should consider obstacles
-	m_robot.gotoPositionPrecise(position);
+	switchIntoState(new RobotStateDriveTo(m_robot, position, true));
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -35,7 +43,7 @@ bool RobotImpl::targetReached() const
 	return false;
 }
 
-bool RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
+void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
 	Pose ownPose = getCurrentPose();
@@ -44,10 +52,13 @@ bool RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 
 	//! there is a maximum distance to the ball specified in the documentation
 	if (distanceToBall >= 0.25)
-		return false;
+	{
+		m_logger.logErrorToConsoleAndWriteToGlobalLogFile("distance to ball is too big, can not kick it");
+		//! replace with cant reach target
+		switchIntoState(new RobotStateReachedTarget(m_robot));
+	}
 
-	//! first turn towards the ball
-	return m_robot.kick(force);
+	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch)));
 }
 
 void RobotImpl::update()
@@ -55,7 +66,13 @@ void RobotImpl::update()
 	m_currentState->update();
 }
 
+void RobotImpl::switchIntoState(RobotState *state)
+{
+	delete m_currentState;
+	m_currentState = state;
+}
+
 void RobotImpl::stop()
 {
-	m_robot.stop();
+	switchIntoState(new RobotStateReachedTarget(m_robot));
 }

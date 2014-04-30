@@ -15,9 +15,9 @@ namespace Autonomous
 	{
 	public:
 		RobotStateDriveTo(
-				Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target,
-				RobotState *followingState, bool precise);
-		virtual ~RobotStateDriveTo();
+				Abstraction::ControllableRobot &robot,
+				Common::Geometry::Point const &target,
+				bool precise);
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;
@@ -26,7 +26,6 @@ namespace Autonomous
 
 	private:
 		Common::Geometry::Point const &m_target;
-		RobotState *m_followingState;
 		bool m_precise;
 	};
 }

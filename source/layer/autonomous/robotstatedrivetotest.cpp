@@ -8,7 +8,7 @@ using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2), new RobotStateReachedTarget(*m_controllableRobot), true);
+	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2), true);
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()
@@ -54,7 +54,7 @@ void RobotStateDriveToTest::update_precise_callToGoToPrecise()
 void RobotStateDriveToTest::update_imprecise_callToGoToPrecise()
 {
 	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
-	RobotStateDriveTo robotState(*m_controllableRobot, Point(3, 2), new RobotStateReachedTarget(*m_controllableRobot), false);
+	RobotStateDriveTo robotState(*m_controllableRobot, Point(3, 2), false);
 
 	robotState.update();
 

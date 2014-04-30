@@ -5,6 +5,17 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Time
+{
+	class Watch;
+}
+namespace Logging
+{
+	class Logger;
+}
+}
 namespace Layer
 {
 namespace Abstraction
@@ -18,7 +29,7 @@ namespace Autonomous
 	class Team
 	{
 	public:
-		Team(Abstraction::Storage &storage);
+		Team(Abstraction::Storage &storage, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
 
 		Robot& getGoalie();
 		Robot& getPlayerCloserToBall(const IntelligentBall &ball);

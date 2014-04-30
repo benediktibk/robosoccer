@@ -20,10 +20,8 @@ bool RobotMock::targetReached() const
 	return false;
 }
 
-bool RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
-{
-	return false;
-}
+void RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
+{ }
 
 void RobotMock::update()
 { }

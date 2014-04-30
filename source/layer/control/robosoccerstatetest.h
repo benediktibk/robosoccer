@@ -12,6 +12,10 @@ namespace Logging
 {
 	class LoggerMock;
 }
+namespace Time
+{
+	class WatchMock;
+}
 }
 namespace Layer
 {
@@ -46,6 +50,7 @@ namespace Control
 		RoboSoccerState *m_state;
 		Abstraction::RefereeMock *m_referee;
 		Common::Logging::LoggerMock *m_logger;
+		Common::Time::WatchMock *m_watch;
 		Abstraction::StorageMock *m_storage;
 		Autonomous::Team *m_ownTeam;
 		Autonomous::EnemyTeam *m_enemyTeam;
