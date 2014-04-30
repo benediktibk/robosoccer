@@ -38,6 +38,9 @@ namespace Autonomous
 
 		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
+		//! @todo improve these positions
+		Common::Geometry::Pose getPenaltyPositionUnusedPlayerOne() const;
+		Common::Geometry::Pose getPenaltyPositionUnusedPlayerTwo() const;
 
 	private:
 		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointRightSide) const;

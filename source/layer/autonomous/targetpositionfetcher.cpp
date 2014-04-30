@@ -86,6 +86,16 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 	return getGoaliePositionUsingStandardTactic(ball, 1.25);
 }
 
+Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerOne() const
+{
+	return Pose(Point(-0.1, 0.5), Angle());
+}
+
+Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerTwo() const
+{
+	return Pose(Point(0.1, 0.5), Angle());
+}
+
 Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide) const
 {
 	Pose pose;

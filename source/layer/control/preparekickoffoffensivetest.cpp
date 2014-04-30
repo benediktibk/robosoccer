@@ -61,7 +61,6 @@ void PrepareKickOffOffensiveTest::nextState_movementFinishedAndExecuteKickOff_ki
 {
 	RobotMock &robot = m_ownTeam->getRobotMock();
 	robot.setTargetReached(true);
-
 	m_referee->setPrepareForKickOff(false);
 	m_referee->setExecuteKickOff(true);
 	m_state->update();

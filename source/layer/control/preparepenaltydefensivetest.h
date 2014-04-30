@@ -14,6 +14,9 @@ namespace Control
 	{
 		CPPUNIT_TEST_SUITE(PreparePenaltyDefensiveTest);
 		CPPUNIT_TEST(update_movementFinished_refereeGotCallToSetReady);
+		CPPUNIT_TEST(update_movementNotYetStarted_allRobotsGotCallToMove);
+		CPPUNIT_TEST(update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove);
+		CPPUNIT_TEST(update_movementNotYetFinished_refereeGotNoCallToSetReady);
 		CPPUNIT_TEST(nextState_movementFinishedAndExecutePenalty_penaltyDefensive);
 		CPPUNIT_TEST(nextState_movementFinishedButNotExecutePenalty_0);
 		CPPUNIT_TEST(nextState_preparePenalty_0);
@@ -25,12 +28,14 @@ namespace Control
 
 	private:
 		void update_movementFinished_refereeGotCallToSetReady();
+		void update_movementNotYetStarted_allRobotsGotCallToMove();
+		void update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove();
+		void update_movementNotYetFinished_refereeGotNoCallToSetReady();
 		void nextState_movementFinishedAndExecutePenalty_penaltyDefensive();
 		void nextState_movementFinishedButNotExecutePenalty_0();
 		void nextState_preparePenalty_0();
 		void nextState_notPreparePenaltyAndNotExecutePenalty_pause();
-		//! @todo test that all robots got calls to move
-		//! @todo test that the state waits till all movements are finished
+		void nextState_movementOfOneRobotNotYetFinished_0();
 	};
 }
 }
