@@ -3,6 +3,7 @@
 #include "common/geometry/pose.h"
 #include "layer/abstraction/fieldside.h"
 #include "layer/abstraction/ballmock.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -20,22 +21,36 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_bothSides_middlePosotionIsC
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition()
 {
+	Compare compare(0.001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 	BallMock ball;
 	ball.setBallPosition(Point(0,0));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0,0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
-void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalCornerPosition()
+void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_goaliePositionIsCorrect()
+{
+	Compare compare(0.001);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	BallMock ball;
+	ball.setBallPosition(Point(0,0.5));
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.04,0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+}
+
+void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 	BallMock ball;
 	ball.setBallPosition(Point(0,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.25,0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.04,0.0001);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()
