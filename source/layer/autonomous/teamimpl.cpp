@@ -33,6 +33,11 @@ Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
 	return *m_fieldPlayerOne;
 }
 
+Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &/*ball*/)
+{
+	return *m_fieldPlayerOne;
+}
+
 Robot &TeamImpl::getFirstFieldPlayer()
 {
 	return *m_fieldPlayerOne;

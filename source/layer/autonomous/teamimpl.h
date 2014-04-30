@@ -16,18 +16,19 @@ namespace Autonomous
 {
 	class IntelligentBall;
 
-	class TeamImpl
+	class TeamImpl :
+			public Team
 	{
 	public:
 		TeamImpl(Abstraction::Storage &storage);
-		~TeamImpl();
+		virtual ~TeamImpl();
 
-		Robot& getGoalie();
-		Robot& getPlayerCloserToBall(const IntelligentBall &ball);
-		Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball);
-		Robot& getFirstFieldPlayer();
-		Robot& getSecondFieldPlayer();
-		Robot& getRobotByNumber(unsigned int i);
+		virtual Robot& getGoalie();
+		virtual Robot& getPlayerCloserToBall(const IntelligentBall &ball);
+		virtual Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball);
+		virtual Robot& getFirstFieldPlayer();
+		virtual Robot& getSecondFieldPlayer();
+		virtual Robot& getRobotByNumber(unsigned int i);
 
 	private:
 		Robot *m_goalie;
