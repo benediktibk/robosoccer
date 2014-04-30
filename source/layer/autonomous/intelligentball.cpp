@@ -32,8 +32,7 @@ double IntelligentBall::getVelocity() const
 bool IntelligentBall::isMoving() const
 {
 	double velocity = m_ball->getVelocity();
-	return(velocity > 0.1);
-	//TODO: find appropriate Threshold
+	return(velocity > 0.2);
 }
 
 FieldSide IntelligentBall::getMovingDirection() const
