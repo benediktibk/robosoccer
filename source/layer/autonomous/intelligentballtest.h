@@ -8,15 +8,24 @@ namespace RoboSoccer
 {
 namespace Layer
 {
+	namespace Abstraction
+	{
+		class BallMock;
+	}
 namespace Autonomous
 {
+	class IntelligentBall;
 class IntelligentBallTest :
 		public CPPUNIT_NS::TestFixture
 {
 	CPPUNIT_TEST_SUITE(IntelligentBallTest);
 	CPPUNIT_TEST_SUITE_END();
+public:
+	virtual void setUp();
+	virtual void tearDown();
 private:
-
+	Abstraction::BallMock *m_ballMock;
+	Autonomous::IntelligentBall *m_intelligentBall;
 };
 }
 }
