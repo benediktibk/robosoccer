@@ -3,8 +3,8 @@
 #include "common/logging/loggermock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
-#include "layer/autonomous/enemyteam.h"
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/enemyteamimpl.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 
@@ -18,8 +18,8 @@ void RoboSoccerStateTest::setUp()
 	m_referee = new RefereeMock();
 	m_logger = new LoggerMock();
 	m_storage = new StorageMock();
-	m_enemyTeam = new EnemyTeam();
-	m_ownTeam = new Team(*m_storage);
+	m_enemyTeam = new EnemyTeamImpl();
+	m_ownTeam = new TeamImpl(*m_storage);
 	m_ball = new IntelligentBall();
 	m_targetPositionFetcher = new TargetPositionFetcher();
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);

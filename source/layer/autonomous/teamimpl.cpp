@@ -1,4 +1,4 @@
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/storage.h"
 #include "layer/autonomous/robotimpl.h"
@@ -7,13 +7,13 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 
-Team::Team(Storage &storage) :
+TeamImpl::TeamImpl(Storage &storage) :
 	m_goalie(new RobotImpl(storage.getOwnRobot(0))),
 	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1))),
 	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2)))
 { }
 
-Team::~Team()
+TeamImpl::~TeamImpl()
 {
 	delete m_goalie;
 	m_goalie = 0;
@@ -23,27 +23,27 @@ Team::~Team()
 	m_fieldPlayerTwo = 0;
 }
 
-Robot& Team::getGoalie()
+Robot& TeamImpl::getGoalie()
 {
 	return *m_goalie;
 }
 
-Robot& Team::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
+Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
 {
 	return *m_fieldPlayerOne;
 }
 
-Robot &Team::getFirstFieldPlayer()
+Robot &TeamImpl::getFirstFieldPlayer()
 {
 	return *m_fieldPlayerOne;
 }
 
-Robot &Team::getSecondFieldPlayer()
+Robot &TeamImpl::getSecondFieldPlayer()
 {
 	return *m_fieldPlayerTwo;
 }
 
-Robot &Team::getRobotByNumber(unsigned int i)
+Robot &TeamImpl::getRobotByNumber(unsigned int i)
 {
 	switch(i)
 	{

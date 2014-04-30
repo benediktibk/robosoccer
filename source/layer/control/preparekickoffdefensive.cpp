@@ -3,7 +3,7 @@
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
 #include "layer/autonomous/robot.h"
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 
@@ -15,8 +15,8 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
 PrepareKickOffDefensive::PrepareKickOffDefensive(
-		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
+		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
 	m_movementFinished(false)
 { }

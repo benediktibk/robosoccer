@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
-#define ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
+#ifndef ROBOSOCCER_LAYER_AUTONOMOUS_TEAMIMPL_H
+#define ROBOSOCCER_LAYER_AUTONOMOUS_TEAMIMPL_H
 
 #include "layer/autonomous/robot.h"
 
@@ -15,11 +15,11 @@ namespace Autonomous
 {
 	class IntelligentBall;
 
-	class Team
+	class TeamImpl
 	{
 	public:
-		Team(Abstraction::Storage &storage);
-		~Team();
+		TeamImpl(Abstraction::Storage &storage);
+		~TeamImpl();
 
 		Robot& getGoalie();
 		Robot& getPlayerCloserToBall(const IntelligentBall &ball);

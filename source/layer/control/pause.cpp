@@ -2,7 +2,7 @@
 #include "layer/control/preparekickoff.h"
 #include "layer/control/preparepenalty.h"
 #include "layer/control/play.h"
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/robot.h"
 #include "layer/abstraction/refereebase.h"
 
@@ -14,7 +14,7 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
 Pause::Pause(Logger &logger, RefereeBase &referee,
-			 Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+			 Autonomous::TeamImpl &ownTeam, Autonomous::EnemyTeamImpl const &enemyTeam,
 			 Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
 { }
