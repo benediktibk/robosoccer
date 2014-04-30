@@ -42,4 +42,6 @@ void RoboSoccerStateTest::tearDown()
 	m_referee = 0;
 	delete m_logger;
 	m_logger = 0;
+	delete m_targetPositionFetcher;
+	m_targetPositionFetcher = 0;
 }

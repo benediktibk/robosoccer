@@ -1,6 +1,6 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
-#include "layer/abstraction/ball.h"
+#include "layer/autonomous/intelligentball.h"
 #include "common/geometry/line.h"
 #include <assert.h>
 
@@ -55,12 +55,16 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 	return goalposition;
 }
 
-Pose TargetPositionFetcher::getOwnGoalPosition(const Abstraction::Ball &ball) const
+Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
 {
+	if (ball.isMoving() && ball.getMovingDirection() == m_fieldside && ball.getCurrentFieldSide() == m_fieldside)
+	{
+		return Pose();
+	}
 	return getGoaliePositionUsingStandardTactic(ball, 1.45-0.07);
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionKicker(const Abstraction::Ball &ball) const
+Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	Pose penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front());
@@ -81,7 +85,7 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const Abstraction::Ball &ba
 	return penaltyPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionGoalie(const Ball &ball) const
+Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball) const
 {
 	return getGoaliePositionUsingStandardTactic(ball, 1.25);
 }
@@ -105,7 +109,7 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide
 	return pose;
 }
 
-Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(const Ball &ball, double xPositionGoalKeeperRightSide) const
+Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
 	double xPositionBehindGoalCenter = 1.5;
 	Angle angle;

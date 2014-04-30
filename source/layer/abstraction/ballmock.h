@@ -21,8 +21,8 @@ namespace Abstraction
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual double getVelocity() const;
-		void setBallPosition(Common::Geometry::Point position);
 		void setRotation(Common::Geometry::Angle value);
+		void setPosition(Common::Geometry::Point position);
 		void setVelocity(double value);
 
 	private:

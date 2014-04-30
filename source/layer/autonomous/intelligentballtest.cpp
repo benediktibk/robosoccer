@@ -39,7 +39,7 @@ void IntelligentBallTest::isMoving_notMoving_false()
 void IntelligentBallTest::getPosition_shouldbe_5_5()
 {
 	Point shouldbe(5,5);
-	m_ballMock->setBallPosition(shouldbe);
+	m_ballMock->setPosition(shouldbe);
 
 	Point is = m_intelligentBall->getPosition();
 	double x = is.getX();
@@ -63,6 +63,7 @@ void IntelligentBallTest::getMovingDirection_isLeft_Fieldsideleft()
 {
 	Angle shouldbe(2.0);
 	m_ballMock->setRotation(shouldbe);
+	m_ballMock->setVelocity(5);
 
 	FieldSide is = m_intelligentBall->getMovingDirection();
 	CPPUNIT_ASSERT(is == FieldSideLeft);
@@ -72,6 +73,7 @@ void IntelligentBallTest::getMovingDirection_isRight_FielsideRight()
 {
 	Angle shouldbe(0.0);
 	m_ballMock->setRotation(shouldbe);
+	m_ballMock->setVelocity(5);
 
 	FieldSide is = m_intelligentBall->getMovingDirection();
 	CPPUNIT_ASSERT(is == FieldSideRight);

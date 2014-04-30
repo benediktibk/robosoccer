@@ -26,6 +26,11 @@ namespace Autonomous
 		Abstraction::ControllableRobot const& getRobot() const;
 
 	private:
+		//forbid copies
+		RobotState(RobotState const &rhs) : m_robot(rhs.m_robot) { }
+		void operator=(RobotState const&) { }
+
+	private:
 		Abstraction::ControllableRobot &m_robot;
 	};
 }

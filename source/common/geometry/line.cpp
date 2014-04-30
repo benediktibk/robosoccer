@@ -12,6 +12,11 @@ Line::Line(const Point &start, const Point &end) :
 	m_end(end)
 { }
 
+Line::Line(const Point &start, const Angle &angle, double distance) :
+	m_start(start),
+	m_end(start + Point(distance, angle))
+{ }
+
 vector<Point> Line::getIntersectPoints(const Circle &circle) const
 {
 	Point start(m_start - circle.getCenter());
