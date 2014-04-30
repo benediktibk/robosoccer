@@ -1,5 +1,6 @@
 #include "layer/autonomous/robotimpl.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
 
@@ -8,11 +9,15 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotImpl::RobotImpl(ControllableRobot &robot) :
-	m_robot(robot)
+	m_robot(robot),
+	m_currentState(new RobotStateReachedTarget(robot))
 { }
 
 RobotImpl::~RobotImpl()
-{ }
+{
+	delete m_currentState;
+	m_currentState = 0;
+}
 
 void RobotImpl::goTo(const Point &position)
 {
@@ -47,7 +52,7 @@ bool RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 
 void RobotImpl::update()
 {
-
+	m_currentState->update();
 }
 
 void RobotImpl::stop()

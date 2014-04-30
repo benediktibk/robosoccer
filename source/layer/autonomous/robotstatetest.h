@@ -6,6 +6,13 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Time
+{
+	class WatchMock;
+}
+}
 namespace Layer
 {
 namespace Abstraction
@@ -28,6 +35,7 @@ namespace Autonomous
 
 	protected:
 		Abstraction::ControllableRobotMock *m_controllableRobot;
+		Common::Time::WatchMock *m_watch;
 		RobotState *m_robotState;
 	};
 }

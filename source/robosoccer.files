@@ -303,3 +303,7 @@ layer/autonomous/robotstateturntotest.h
 layer/autonomous/robotstateturnto.h
 layer/autonomous/robotstateturntotest.cpp
 layer/autonomous/robotstateturnto.cpp
+layer/autonomous/robotstatekicktest.h
+layer/autonomous/robotstatekick.h
+layer/autonomous/robotstatekicktest.cpp
+layer/autonomous/robotstatekick.cpp

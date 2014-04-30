@@ -14,6 +14,8 @@ namespace Abstraction
 
 namespace Autonomous
 {
+	class RobotState;
+
 	class RobotImpl :
 			public Robot
 	{
@@ -29,7 +31,11 @@ namespace Autonomous
 		virtual void update();
 
 	private:
+		void switchIntoState(RobotState *state);
+
+	private:
 		Abstraction::ControllableRobot &m_robot;
+		RobotState *m_currentState;
 	};
 }
 }
