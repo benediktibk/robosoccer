@@ -26,7 +26,7 @@ Application::Application(TeamColor ownTeamColor) :
 	m_watch(new WatchImpl()),
 	m_enemyTeam(new EnemyTeamImpl()),
 	m_ownTeam(new TeamImpl(*m_storage)),
-	m_ball(new IntelligentBall()),
+	m_ball(new IntelligentBall(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher())
 { }
 

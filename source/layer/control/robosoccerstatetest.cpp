@@ -20,7 +20,7 @@ void RoboSoccerStateTest::setUp()
 	m_storage = new StorageMock();
 	m_enemyTeam = new EnemyTeamImpl();
 	m_ownTeam = new TeamImpl(*m_storage);
-	m_ball = new IntelligentBall();
+	m_ball = new IntelligentBall(m_storage->getBall());
 	m_targetPositionFetcher = new TargetPositionFetcher();
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_state = createInstance();

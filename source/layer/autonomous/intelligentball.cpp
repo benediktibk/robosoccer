@@ -8,36 +8,38 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
-IntelligentBall::IntelligentBall()
-{ }
+IntelligentBall::IntelligentBall(Abstraction::Ball const &ball):
+	m_ball(ball)
+{
+}
 
 IntelligentBall::~IntelligentBall()
 { }
 
 Angle IntelligentBall::getRotation() const
 {
-	return m_ball->getRotation();
+	return m_ball.getRotation();
 }
 
 Circle IntelligentBall::getObstacle() const
 {
-	return m_ball->getObstacle();
+	return m_ball.getObstacle();
 }
 
 double IntelligentBall::getVelocity() const
 {
-	return m_ball->getVelocity();
+	return m_ball.getVelocity();
 }
 
 bool IntelligentBall::isMoving() const
 {
-	double velocity = m_ball->getVelocity();
+	double velocity = m_ball.getVelocity();
 	return(velocity > 0.2);
 }
 
 FieldSide IntelligentBall::getMovingDirection() const
 {
-	Angle direction = m_ball->getRotation();
+	Angle direction = m_ball.getRotation();
 	double angle=direction.getValueBetweenMinusPiAndPi();
 	if (angle > 0)
 		return FieldSideRight;
@@ -47,5 +49,5 @@ FieldSide IntelligentBall::getMovingDirection() const
 
 Point IntelligentBall::getPosition() const
 {
-	return m_ball->getPosition();
+	return m_ball.getPosition();
 }
