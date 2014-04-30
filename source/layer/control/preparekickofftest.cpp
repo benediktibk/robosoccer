@@ -3,6 +3,8 @@
 #include "layer/control/preparekickoffoffensive.h"
 #include "layer/control/preparekickoffdefensive.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/autonomous/enemyteammock.h"
+#include "layer/autonomous/teammock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;

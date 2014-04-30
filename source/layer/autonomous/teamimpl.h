@@ -20,7 +20,7 @@ namespace Autonomous
 			public Team
 	{
 	public:
-		TeamImpl(Abstraction::Storage &storage);
+		TeamImpl(Abstraction::Storage &storage, const Common::Time::Watch &watch, Common::Logging::Logger &logger);
 		virtual ~TeamImpl();
 
 		virtual Robot& getGoalie();

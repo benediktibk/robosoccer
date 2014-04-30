@@ -14,8 +14,9 @@ namespace Control
 	{
 	public:
 		PrepareKickOffOffensive(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-								Autonomous::TeamImpl &ownTeam, Autonomous::EnemyTeamImpl const &enemyTeam,
-								Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+								Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+								Autonomous::IntelligentBall const &ball,
+								Autonomous::TargetPositionFetcher const &targetPositionFetcher);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();

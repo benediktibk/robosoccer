@@ -26,7 +26,7 @@ namespace Autonomous
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;
 		virtual bool targetReached() const = 0;
-		virtual bool kick(unsigned int force, IntelligentBall const &ball) = 0;
+		virtual void kick(unsigned int force, IntelligentBall const &ball) = 0;
 		virtual void update() = 0;
 	};
 }

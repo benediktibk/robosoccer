@@ -12,18 +12,22 @@ namespace Logging
 {
 	class LoggerMock;
 }
+namespace Time
+{
+	class WatchMock;
+}
 }
 namespace Layer
 {
 namespace Abstraction
 {
 	class RefereeMock;
-	class StorageMock;
+	class BallMock;
 }
 namespace Autonomous
 {
-	class EnemyTeamImpl;
-	class TeamImpl;
+	class EnemyTeamMock;
+	class TeamMock;
 	class IntelligentBall;
 	class TargetPositionFetcher;
 }
@@ -46,11 +50,11 @@ namespace Control
 		RoboSoccerState *m_state;
 		Abstraction::RefereeMock *m_referee;
 		Common::Logging::LoggerMock *m_logger;
-		Abstraction::StorageMock *m_storage;
-		Autonomous::TeamImpl *m_ownTeam;
-		Autonomous::EnemyTeamImpl *m_enemyTeam;
+		Autonomous::TeamMock *m_ownTeam;
+		Autonomous::EnemyTeamMock *m_enemyTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
+		Layer::Abstraction::BallMock *m_ballMock;
 	};
 }
 }

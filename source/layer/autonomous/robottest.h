@@ -10,14 +10,14 @@ namespace Layer
 {
 namespace Autonomous
 {
-class RobotTest :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(RobotTest);
-	CPPUNIT_TEST_SUITE_END();
-private:
+	class RobotTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(RobotTest);
+		CPPUNIT_TEST_SUITE_END();
 
-};
+	private:
+	};
 }
 }
 }
