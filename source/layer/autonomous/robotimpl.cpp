@@ -57,8 +57,8 @@ void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 		//! replace with cant reach target
 		switchIntoState(new RobotStateReachedTarget(m_robot));
 	}
-
-	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch)));
+	else
+		switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch)));
 }
 
 void RobotImpl::update()
