@@ -25,6 +25,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getRotation_shouldbe_1);
 		CPPUNIT_TEST(getMovingDirection_isLeft_Fieldsideleft);
 		CPPUNIT_TEST(getMovingDirection_isRight_FielsideRight);
+		CPPUNIT_TEST(getCurrentFieldSide_isLeft_FieldsideLeft);
+		CPPUNIT_TEST(getCurrentFieldSide_isRight_FieldsideRight);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -38,6 +40,8 @@ namespace Autonomous
 		void getRotation_shouldbe_1();
 		void getMovingDirection_isLeft_Fieldsideleft();
 		void getMovingDirection_isRight_FielsideRight();
+		void getCurrentFieldSide_isLeft_FieldsideLeft();
+		void getCurrentFieldSide_isRight_FieldsideRight();
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;

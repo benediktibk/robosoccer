@@ -78,3 +78,21 @@ void IntelligentBallTest::getMovingDirection_isRight_FielsideRight()
 	FieldSide is = m_intelligentBall->getMovingDirection();
 	CPPUNIT_ASSERT(is == FieldSideRight);
 }
+
+void IntelligentBallTest::getCurrentFieldSide_isRight_FieldsideRight()
+{
+	Point position(5.0,0.0);
+	m_ballMock->setPosition(position);
+
+	FieldSide is = m_intelligentBall->getCurrentFieldSide();
+	CPPUNIT_ASSERT(is == FieldSideRight);
+}
+
+void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()
+{
+	Point position(-5.0,0.0);
+	m_ballMock->setPosition(position);
+
+	FieldSide is = m_intelligentBall->getCurrentFieldSide();
+	CPPUNIT_ASSERT(is == FieldSideLeft);
+}
