@@ -6,8 +6,9 @@
 #include "layer/abstraction/storagemock.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
-#include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/abstraction/ballmock.h"
 
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -19,16 +20,14 @@ void RoboSoccerStateTest::setUp()
 {
 	m_referee = new RefereeMock();
 	m_logger = new LoggerMock();
-<<<<<<< HEAD
-	m_storage = new StorageMock();
-	m_enemyTeam = new EnemyTeamImpl();
-	m_ownTeam = new TeamImpl(*m_storage);
-	m_ball = new IntelligentBall(m_storage->getBall());
-=======
 	m_enemyTeam = new EnemyTeamMock();
 	m_ownTeam = new TeamMock();
-	m_ball = new IntelligentBall();
->>>>>>> 880e72a17603d8b6cc8f29832efac7a1a304defe
+<<<<<<< HEAD
+	m_ballMock = new BallMock();
+	m_ball = new IntelligentBall(*m_ballMock);
+=======
+	m_ball = new IntelligentBallMock();
+>>>>>>> ced9fef2142392f7a6f8fb28809afdb053ea4a69
 	m_targetPositionFetcher = new TargetPositionFetcher();
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_state = createInstance();

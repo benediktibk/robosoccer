@@ -312,9 +312,12 @@ layer/autonomous/robotstatekicktest.h
 layer/autonomous/robotstatekick.h
 layer/autonomous/robotstatekicktest.cpp
 layer/autonomous/robotstatekick.cpp
+<<<<<<< HEAD
 layer/autonomous/intelligentballtest.cpp
 layer/autonomous/intelligentballtest.h
+=======
 layer/autonomous/intelligentballimpl.h
 layer/autonomous/intelligentballimpl.cpp
 layer/autonomous/intelligentballmock.h
 layer/autonomous/intelligentballmock.cpp
+>>>>>>> ced9fef2142392f7a6f8fb28809afdb053ea4a69
