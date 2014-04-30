@@ -3,6 +3,7 @@
 #include "layer/abstraction/ballmock.h"
 #include "common/geometry/point.h"
 #include "common/geometry/angle.h"
+#include "layer/abstraction/fieldside.h"
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -57,3 +58,14 @@ void IntelligentBallTest::getRotation_shouldbe_1()
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, angle, 0.00001);
 }
+
+void IntelligentBallTest::getMovingDirection_shouldbe_Left()
+{
+	Angle shouldbe(2.0);
+	m_ballMock->setRotation(shouldbe);
+
+	FieldSide is = m_intelligentBall->getMovingDirection();
+	CPPUNIT_ASSERT(is == FieldSideLeft);
+}
+
+
