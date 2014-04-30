@@ -19,6 +19,7 @@ namespace Autonomous
 	{
 	public:
 		Team(Abstraction::Storage &storage);
+		~Team();
 
 		Robot& getGoalie();
 		Robot& getPlayerCloserToBall(const IntelligentBall &ball);

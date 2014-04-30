@@ -13,6 +13,16 @@ Team::Team(Storage &storage) :
 	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2)))
 { }
 
+Team::~Team()
+{
+	delete m_goalie;
+	m_goalie = 0;
+	delete m_fieldPlayerOne;
+	m_fieldPlayerOne = 0;
+	delete m_fieldPlayerTwo;
+	m_fieldPlayerTwo = 0;
+}
+
 Robot& Team::getGoalie()
 {
 	return *m_goalie;
