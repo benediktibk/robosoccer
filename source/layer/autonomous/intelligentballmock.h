@@ -22,6 +22,7 @@ namespace Autonomous
 		virtual double getVelocity() const;
 		virtual bool isMoving() const;
 		virtual Abstraction::FieldSide getMovingDirection() const;
+		virtual Abstraction::FieldSide getCurrentFieldSide() const;
 
 		void setPosition(Common::Geometry::Point position);
 

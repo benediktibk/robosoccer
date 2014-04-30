@@ -33,6 +33,7 @@ namespace Autonomous
 		virtual double getVelocity() const = 0;
 		virtual bool isMoving() const = 0;
 		virtual Abstraction::FieldSide getMovingDirection() const = 0;
+		virtual Abstraction::FieldSide getCurrentFieldSide() const = 0;
 	};
 }
 }

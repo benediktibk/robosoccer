@@ -35,9 +35,15 @@ bool IntelligentBallImpl::isMoving() const
 
 FieldSide IntelligentBallImpl::getMovingDirection() const
 {
-	Angle direction = m_ball.getRotation();
-	double angle=direction.getValueBetweenMinusPiAndPi();
-	if (angle > 0)
+	if (m_ball.getRotation().getValueBetweenMinusPiAndPi() > 0)
+		return FieldSideRight;
+	else
+		return FieldSideLeft;
+}
+
+FieldSide IntelligentBallImpl::getCurrentFieldSide() const
+{
+	if (m_ball.getPosition().getX() > 0)
 		return FieldSideRight;
 	else
 		return FieldSideLeft;

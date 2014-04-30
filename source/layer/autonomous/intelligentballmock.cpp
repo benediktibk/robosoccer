@@ -40,6 +40,11 @@ FieldSide IntelligentBallMock::getMovingDirection() const
 	return FieldSideInvalid;
 }
 
+FieldSide IntelligentBallMock::getCurrentFieldSide() const
+{
+	return FieldSideInvalid;
+}
+
 void IntelligentBallMock::setPosition(Point position)
 {
 	m_ball.setPosition(position);
