@@ -313,3 +313,5 @@ layer/autonomous/robotstatekicktest.h
 layer/autonomous/robotstatekick.h
 layer/autonomous/robotstatekicktest.cpp
 layer/autonomous/robotstatekick.cpp
+layer/autonomous/intelligentballtest.cpp
+layer/autonomous/intelligentballtest.h

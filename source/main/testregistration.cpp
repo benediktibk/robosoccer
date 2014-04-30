@@ -46,6 +46,7 @@
 #include "layer/autonomous/robotstatedrivetotest.h"
 #include "layer/autonomous/robotstateturntotest.h"
 #include "layer/autonomous/robotstatekicktest.h"
+#include "layer/autonomous/intelligentballtest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -96,3 +97,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateReached
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateDriveToTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateTurnToTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateKickTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::IntelligentBallTest);

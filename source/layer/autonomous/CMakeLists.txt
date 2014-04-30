@@ -24,6 +24,7 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	robotstatedrivetotest.cpp
 	robotstateturntotest.cpp
 	robotstatekicktest.cpp
+	intelligentballtest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})
