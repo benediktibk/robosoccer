@@ -19,10 +19,18 @@ namespace Autonomous
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(IntelligentBallTest);
+		CPPUNIT_TEST(isMoving_movingFast_true);
+		CPPUNIT_TEST(isMoving_notMoving_false);
 		CPPUNIT_TEST_SUITE_END();
+
 	public:
 		virtual void setUp();
 		virtual void tearDown();
+
+	private:
+		void isMoving_movingFast_true();
+		void isMoving_notMoving_false();
+
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;

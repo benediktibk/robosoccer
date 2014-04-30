@@ -14,13 +14,19 @@ namespace Abstraction
 			public Ball
 	{
 	public:
+		BallMock();
+
 		virtual Common::Geometry::Point getPosition() const;
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual double getVelocity() const;
 		void setBallPosition(Common::Geometry::Point position);
+
+		void setVelocity(double value);
+
 	private:
 		Common::Geometry::Point m_position;
+		double m_velocity;
 	};
 }
 }

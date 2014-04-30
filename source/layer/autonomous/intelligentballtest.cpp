@@ -18,3 +18,17 @@ void IntelligentBallTest::tearDown()
 	delete m_ballMock;
 	m_ballMock = 0;
 }
+
+void IntelligentBallTest::isMoving_movingFast_true()
+{
+	m_ballMock->setVelocity(5);
+
+	CPPUNIT_ASSERT(m_intelligentBall->isMoving());
+}
+
+void IntelligentBallTest::isMoving_notMoving_false()
+{
+	m_ballMock->setVelocity(0);
+
+	CPPUNIT_ASSERT(!m_intelligentBall->isMoving());
+}
