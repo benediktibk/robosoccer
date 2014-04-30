@@ -2,7 +2,7 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 #include "layer/abstraction/fieldside.h"
-#include "layer/abstraction/ballmock.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -24,8 +24,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBa
 	Compare compare(0.001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
-	BallMock ball;
-	ball.setBallPosition(Point(0,0));
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0,0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
@@ -36,8 +36,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_g
 	Compare compare(0.001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	BallMock ball;
-	ball.setBallPosition(Point(0,0.5));
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.04,0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
@@ -48,8 +48,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_go
 	Compare compare(0.001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
-	BallMock ball;
-	ball.setBallPosition(Point(0,0.5));
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.04,0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
@@ -59,8 +59,8 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
-	BallMock ball;
-	ball.setBallPosition(Point(0,0));
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0));
 
 	CPPUNIT_ASSERT_EQUAL(Pose(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
 }
@@ -70,8 +70,8 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSideFieldSideR
 	Compare compare(0.001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
-	BallMock ball;
-	ball.setBallPosition(Point(0,0.5));
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.25/3,0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
