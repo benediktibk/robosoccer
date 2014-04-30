@@ -26,7 +26,6 @@ namespace Autonomous
 
 	private:
 		RobotMock m_robot;
-
 	};
 }
 }
