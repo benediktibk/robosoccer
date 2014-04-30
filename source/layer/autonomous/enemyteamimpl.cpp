@@ -5,3 +5,6 @@ using namespace RoboSoccer::Layer::Autonomous;
 EnemyTeamImpl::EnemyTeamImpl()
 { }
 
+EnemyTeamImpl::~EnemyTeamImpl()
+{ }
+

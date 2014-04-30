@@ -290,3 +290,6 @@ layer/autonomous/enemyteamtest.h
 layer/autonomous/team.h
 layer/autonomous/teammock.cpp
 layer/autonomous/teammock.h
+layer/autonomous/enemyteam.h
+layer/autonomous/enemyteammock.cpp
+layer/autonomous/enemyteammock.h
