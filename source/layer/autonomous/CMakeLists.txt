@@ -5,6 +5,8 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	team.cpp
 	enemyteam.cpp
 	targetpositionfetcher.cpp
+	robotstate.cpp
+	robotstatereachedtarget.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
@@ -12,6 +14,8 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	teamtest.cpp
 	enemyteamtest.cpp
 	targetpositionfetchertest.cpp
+	robotstatetest.cpp
+	robotstatereachedtargettest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})

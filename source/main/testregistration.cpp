@@ -42,6 +42,7 @@
 #include "layer/autonomous/teamtest.h"
 #include "layer/autonomous/enemyteamtest.h"
 #include "layer/autonomous/targetpositionfetchertest.h"
+#include "layer/autonomous/robotstatereachedtargettest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -88,3 +89,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TargetPositionFetcherTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateReachedTargetTest);

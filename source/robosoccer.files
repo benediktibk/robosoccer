@@ -287,3 +287,11 @@ layer/autonomous/enemyteam.cpp
 layer/autonomous/enemyteam.h
 layer/autonomous/enemyteamtest.cpp
 layer/autonomous/enemyteamtest.h
+layer/autonomous/robotstate.h
+layer/autonomous/robotstate.cpp
+layer/autonomous/robotstatereachedtargettest.h
+layer/autonomous/robotstatereachedtarget.h
+layer/autonomous/robotstatereachedtargettest.cpp
+layer/autonomous/robotstatereachedtarget.cpp
+layer/autonomous/robotstatetest.h
+layer/autonomous/robotstatetest.cpp
