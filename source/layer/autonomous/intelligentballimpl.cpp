@@ -3,6 +3,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/point.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -35,6 +36,7 @@ bool IntelligentBallImpl::isMoving() const
 
 FieldSide IntelligentBallImpl::getMovingDirection() const
 {
+	assert(isMoving());
 	if (m_ball.getRotation().getValueBetweenMinusPiAndPi() > 0)
 		return FieldSideRight;
 	else

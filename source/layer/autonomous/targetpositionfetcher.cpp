@@ -57,6 +57,10 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 
 Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
 {
+	if (ball.isMoving() && ball.getMovingDirection() == m_fieldside && ball.getCurrentFieldSide() == m_fieldside)
+	{
+		return Pose();
+	}
 	return getGoaliePositionUsingStandardTactic(ball, 1.45-0.07);
 }
 
