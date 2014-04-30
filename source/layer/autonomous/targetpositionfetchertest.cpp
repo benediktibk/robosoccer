@@ -62,3 +62,15 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 
 	CPPUNIT_ASSERT_EQUAL(Pose(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
 }
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect()
+{
+	Compare compare(0.001);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	BallMock ball;
+	ball.setBallPosition(Point(0,0.5));
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.25/3,0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+}
