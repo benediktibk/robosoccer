@@ -40,12 +40,12 @@ bool IntelligentBallMock::isMoving() const
 
 FieldSide IntelligentBallMock::getMovingDirection() const
 {
-	return FieldSideInvalid;
+	return m_movingDirection;
 }
 
 FieldSide IntelligentBallMock::getCurrentFieldSide() const
 {
-	return FieldSideInvalid;
+	return m_currentFieldSide;
 }
 
 void IntelligentBallMock::setPosition(Point position)
