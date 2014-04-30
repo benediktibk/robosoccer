@@ -31,7 +31,7 @@ double BallMock::getVelocity() const
 	return m_velocity;
 }
 
-void BallMock::setBallPosition(Point position)
+void BallMock::setPosition(Point position)
 {
 	m_position = position;
 }

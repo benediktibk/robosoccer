@@ -22,7 +22,7 @@ Circle IntelligentBallMock::getObstacle() const
 
 Point IntelligentBallMock::getPosition() const
 {
-	return Point();
+	return m_ball.getPosition();
 }
 
 double IntelligentBallMock::getVelocity() const
@@ -38,4 +38,9 @@ bool IntelligentBallMock::isMoving() const
 FieldSide IntelligentBallMock::getMovingDirection() const
 {
 	return FieldSideInvalid;
+}
+
+void IntelligentBallMock::setPosition(Point position)
+{
+	m_ball.setPosition(position);
 }
