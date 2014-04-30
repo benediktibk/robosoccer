@@ -269,7 +269,6 @@ layer/control/penaltydefensivetest.h
 layer/control/penaltydefensive.h
 layer/control/penaltydefensivetest.cpp
 layer/control/penaltydefensive.cpp
-layer/autonomous/intelligentball.cpp
 layer/autonomous/intelligentball.h
 layer/autonomous/CMakeLists.txt
 layer/autonomous/robot.h
@@ -313,3 +312,7 @@ layer/autonomous/robotstatekicktest.h
 layer/autonomous/robotstatekick.h
 layer/autonomous/robotstatekicktest.cpp
 layer/autonomous/robotstatekick.cpp
+layer/autonomous/intelligentballimpl.h
+layer/autonomous/intelligentballimpl.cpp
+layer/autonomous/intelligentballmock.h
+layer/autonomous/intelligentballmock.cpp

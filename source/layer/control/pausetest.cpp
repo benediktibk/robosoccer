@@ -9,6 +9,7 @@
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/robotmock.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;

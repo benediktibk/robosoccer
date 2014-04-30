@@ -1,5 +1,4 @@
 set(COMMON_LAYER_AUTONOMOUS_SRC
-	intelligentball.cpp
 	robotimpl.cpp
 	robotmock.cpp
 	teamimpl.cpp
@@ -12,6 +11,8 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotstatedriveto.cpp
 	robotstateturnto.cpp
 	robotstatekick.cpp
+	intelligentballimpl.cpp
+	intelligentballmock.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC

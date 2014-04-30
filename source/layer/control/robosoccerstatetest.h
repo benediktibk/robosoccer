@@ -28,7 +28,7 @@ namespace Autonomous
 {
 	class EnemyTeamMock;
 	class TeamMock;
-	class IntelligentBall;
+	class IntelligentBallMock;
 	class TargetPositionFetcher;
 }
 
@@ -52,7 +52,7 @@ namespace Control
 		Common::Logging::LoggerMock *m_logger;
 		Autonomous::TeamMock *m_ownTeam;
 		Autonomous::EnemyTeamMock *m_enemyTeam;
-		Autonomous::IntelligentBall *m_ball;
+		Autonomous::IntelligentBallMock *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 	};
 }
