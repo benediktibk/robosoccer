@@ -15,7 +15,7 @@ namespace Control
 		CPPUNIT_TEST_SUITE(PrepareKickOffDefensiveTest);
 		CPPUNIT_TEST(update_movementFinished_refereeGotCallToSetReady);
 		CPPUNIT_TEST(update_movementNotYetStarted_allRobotsGotCallToMove);
-		CPPUNIT_TEST(update_movementAlreadyStarted_allRobotsGotCallToMove);
+		CPPUNIT_TEST(update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove);
 		CPPUNIT_TEST(update_movementNotYetFinished_refereeGotNoCallToSetReady);
 		CPPUNIT_TEST(nextState_movementFinishedAndExecuteKickOff_kickOffDefensive);
 		CPPUNIT_TEST(nextState_movementFinishedButNotExecuteKickOff_0);
@@ -29,7 +29,7 @@ namespace Control
 	private:
 		void update_movementFinished_refereeGotCallToSetReady();
 		void update_movementNotYetStarted_allRobotsGotCallToMove();
-		void update_movementAlreadyStarted_allRobotsGotCallToMove();
+		void update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove();
 		void update_movementNotYetFinished_refereeGotNoCallToSetReady();
 		void nextState_movementFinishedAndExecuteKickOff_kickOffDefensive();
 		void nextState_movementFinishedButNotExecuteKickOff_0();

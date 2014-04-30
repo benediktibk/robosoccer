@@ -37,6 +37,9 @@ string PrepareKickOffDefensive::getName()
 
 void PrepareKickOffDefensive::updateInternal()
 {
+	if (m_movementFinished)
+		return;
+
 	Robot &goalie = m_ownTeam.getGoalie();
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();

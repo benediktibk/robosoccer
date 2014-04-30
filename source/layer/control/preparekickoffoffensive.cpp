@@ -37,6 +37,9 @@ string PrepareKickOffOffensive::getName()
 
 void PrepareKickOffOffensive::updateInternal()
 {
+	if (m_movementFinished)
+		return;
+
 	Robot &goalie = m_ownTeam.getGoalie();
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
@@ -45,7 +48,9 @@ void PrepareKickOffOffensive::updateInternal()
 	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionPlayerOneOffensive());
 	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionPlayerTwoOffensive());
 
-	//! @todo wait till the movement is finished
-	m_movementFinished = true;
-	m_referee.setReady();
+	if (movementsFinished())
+	{
+		m_movementFinished = true;
+		m_referee.setReady();
+	}
 }

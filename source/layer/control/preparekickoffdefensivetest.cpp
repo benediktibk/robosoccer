@@ -36,7 +36,7 @@ void PrepareKickOffDefensiveTest::update_movementNotYetStarted_allRobotsGotCallT
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
 }
 
-void PrepareKickOffDefensiveTest::update_movementAlreadyStarted_allRobotsGotCallToMove()
+void PrepareKickOffDefensiveTest::update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove()
 {
 	RobotMock &robot = m_ownTeam->getRobotMock();
 	robot.setTargetReached(true);
@@ -44,7 +44,7 @@ void PrepareKickOffDefensiveTest::update_movementAlreadyStarted_allRobotsGotCall
 	m_state->update();
 	m_state->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)6, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
 }
 
 void PrepareKickOffDefensiveTest::update_movementNotYetFinished_refereeGotNoCallToSetReady()
