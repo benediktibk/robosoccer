@@ -36,6 +36,11 @@ namespace Geometry
 		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart);
 		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd);
 		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreParralel_noIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreVerticalButNotToutching_noIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreIntersecting_oneIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreToutching_oneIntersect);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -61,6 +66,12 @@ namespace Geometry
 		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart();
 		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd();
 		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect();
+		 void getIntersectPoint_linesAreParralel_noIntersect();
+		 void getIntersectPoint_linesAreVerticalButNotToutching_noIntersect();
+		 void getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect();
+		 void getIntersectPoint_linesAreIntersecting_oneIntersect();
+		 void getIntersectPoint_linesAreToutching_oneIntersect();
+
 	};
 }
 }

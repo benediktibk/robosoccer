@@ -16,15 +16,19 @@ namespace Autonomous
 		CPPUNIT_TEST_SUITE(TargetPositionFetcherTest);
 		CPPUNIT_TEST(getEnemyGoalPosition_bothSides_middlePosotionIsCorrect);
 		CPPUNIT_TEST(getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition);
-		CPPUNIT_TEST(getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalCornerPosition);
+		CPPUNIT_TEST(getOwnGoalPosition_ballOnTheSideFieldSideRight_goaliePositionIsCorrect);
+		CPPUNIT_TEST(getOwnGoalPosition_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballAtCenter_robotIsCorrect);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void getEnemyGoalPosition_bothSides_middlePosotionIsCorrect();
 		void getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBallPosition();
-		void getOwnGoalPosition_ballOnTheSide_goalieIsAtGoalCornerPosition();
+		void getOwnGoalPosition_ballOnTheSideFieldSideRight_goaliePositionIsCorrect();
+		void getOwnGoalPosition_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect();
 		void getPenaltyPositionKicker_ballAtCenter_robotIsCorrect();
+		void getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect();
 	};
 }
 }

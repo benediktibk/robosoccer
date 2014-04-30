@@ -17,6 +17,7 @@ vector<Point> Line::getIntersectPoints(const Circle &circle) const
 	Point start(m_start - circle.getCenter());
 	Point end(m_end - circle.getCenter());
 	vector<Point> intersectPoints;
+	intersectPoints.reserve(2);
 	Angle angleForVerticalLines;
 	double gradient;
 	Other::Compare compare(0.001);
@@ -81,6 +82,29 @@ vector<Point> Line::getIntersectPoints(const Circle &circle) const
 		}
 	}
 	return intersectPoints;
+}
+
+vector<Point> Line::getIntersectPoint(const Line &line) const
+{
+	vector<Point> intersectPoint;
+	intersectPoint.reserve(1);
+	Point vectorOne = m_end - m_start;
+	Point vectorTwo = line.getEnd() - line.getStart();
+	double determinantSolutionMatrix = vectorTwo.getX()*(-vectorOne.getY()) + vectorTwo.getY()*vectorOne.getX();
+
+	if (determinantSolutionMatrix != 0)
+	{
+		double percentOfLineOne = (-vectorTwo.getY()*(m_start.getX()-line.getStart().getX()) +
+								   vectorTwo.getX()*(m_start.getY()-line.getStart().getY())) / determinantSolutionMatrix;
+
+		double percentOfLineTwo = (-vectorOne.getY()*(m_start.getX()-line.getStart().getX()) +
+								   vectorOne.getX()*(m_start.getY()-line.getStart().getY())) / determinantSolutionMatrix;
+
+		if (percentOfLineOne >= 0 && percentOfLineOne <= 1 && percentOfLineTwo >= 0 && percentOfLineTwo <= 1)
+			intersectPoint.push_back(m_start + vectorOne*percentOfLineOne);
+	}
+
+	return intersectPoint;
 }
 
 Point Line::getPerpendicularPoint(Point point) const

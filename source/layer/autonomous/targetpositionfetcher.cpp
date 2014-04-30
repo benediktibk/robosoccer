@@ -57,27 +57,7 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 
 Pose TargetPositionFetcher::getOwnGoalPosition(const Abstraction::Ball &ball) const
 {
-	Pose goalPosition;
-	double yPosition = ball.getPosition().getY();
-
-	if(yPosition > 0.25)
-		yPosition = 0.25;
-	else if(yPosition < -0.25)
-		yPosition = -0.25;
-
-	switch (m_fieldside)
-	{
-	case FieldSideInvalid:
-		assert(false);
-	case FieldSideRight:
-		goalPosition = Pose(Point(1.35,yPosition),Angle::getHalfRotation());
-		break;
-	case FieldSideLeft:
-		goalPosition = Pose(Point(-1.35,yPosition),Angle());
-		break;
-	}
-
-	return goalPosition;
+	return getGoaliePositionUsingStandardTactic(ball, 1.45-0.07);
 }
 
 Pose TargetPositionFetcher::getPenaltyPositionKicker(const Abstraction::Ball &ball) const
@@ -101,6 +81,11 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const Abstraction::Ball &ba
 	return penaltyPosition;
 }
 
+Pose TargetPositionFetcher::getPenaltyPositionGoalie(const Ball &ball) const
+{
+	return getGoaliePositionUsingStandardTactic(ball, 1.25);
+}
+
 Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide) const
 {
 	Pose pose;
@@ -118,4 +103,28 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide
 	}
 
 	return pose;
+}
+
+Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(const Ball &ball, double xPositionGoalKeeperRightSide) const
+{
+	double xPositionBehindGoalCenter = 1.5;
+	Angle angle;
+
+	switch (m_fieldside)
+	{
+	case FieldSideInvalid:
+		assert(false);
+	case FieldSideRight:
+		angle = Angle::getHalfRotation();
+		break;
+	case FieldSideLeft:
+		xPositionBehindGoalCenter *= -1;
+		xPositionGoalKeeperRightSide *= -1;
+		break;
+	}
+
+	Line ballToGoalCenterLine(ball.getPosition(),Point(xPositionBehindGoalCenter,0));
+	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+
+	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
 }

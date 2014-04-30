@@ -18,6 +18,7 @@ namespace Geometry
 		Line(const Point &start, const Point &end);
 
 		std::vector<Point> getIntersectPoints(const Circle &circle) const;
+		std::vector<Point> getIntersectPoint(const Line &line) const;
 		Point getPerpendicularPoint(Point point) const;
 		Point getPointOnDirectionOfLine(double percentOfLenghtOfLine) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
