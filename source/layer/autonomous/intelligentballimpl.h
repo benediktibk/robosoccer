@@ -13,7 +13,7 @@ namespace Autonomous
 			public IntelligentBall
 	{
 	public:
-		IntelligentBallImpl();
+		IntelligentBallImpl(Abstraction::Ball const &ball);
 
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
@@ -23,7 +23,7 @@ namespace Autonomous
 		virtual Abstraction::FieldSide getMovingDirection() const;
 
 	private:
-		Abstraction::Ball *m_ball;
+		Abstraction::Ball const &m_ball;
 	};
 }
 }
