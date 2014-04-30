@@ -43,3 +43,8 @@ const RobotMock &TeamMock::getRobotMock() const
 	return m_robot;
 }
 
+RobotMock &TeamMock::getRobotMock()
+{
+	return m_robot;
+}
+

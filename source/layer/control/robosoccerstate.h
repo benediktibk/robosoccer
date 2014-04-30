@@ -37,6 +37,9 @@ namespace Control
 				bool callUpdateOnlyOnce);
 
 	protected:
+		bool movementsFinished() const;
+
+	protected:
 		Abstraction::RefereeBase &m_referee;
 		Autonomous::Team &m_ownTeam;
 		const Autonomous::EnemyTeam &m_enemyTeam;

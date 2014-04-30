@@ -27,11 +27,13 @@ namespace Autonomous
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoTo() const;
 		unsigned int getCallsToKick() const;
+		void setTargetReached(bool value);
 
 	private:
 		unsigned int m_callsToStop;
 		unsigned int m_callsToGoTo;
 		unsigned int m_callsToKick;
+		bool m_targetReached;
 	};
 }
 }
