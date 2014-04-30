@@ -3,6 +3,7 @@
 
 #include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/ballmock.h"
+#include "layer/abstraction/fieldside.h"
 
 namespace RoboSoccer
 {
@@ -25,9 +26,17 @@ namespace Autonomous
 		virtual Abstraction::FieldSide getCurrentFieldSide() const;
 
 		void setPosition(Common::Geometry::Point position);
+		void setRotation(Common::Geometry::Angle angle);
+		void setIsMoving(bool value);
+		void setCurrentFieldSide(Layer::Abstraction::FieldSide fieldSide);
+		void setMovingDirection(Layer::Abstraction::FieldSide fieldSide);
 
 	private:
 		Abstraction::BallMock m_ball;
+		bool m_isMoving;
+		Abstraction::FieldSide m_currentFieldSide;
+		Abstraction::FieldSide m_movingDirection;
+
 	};
 }
 }
