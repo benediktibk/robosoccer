@@ -18,6 +18,7 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_followingState);
 		CPPUNIT_TEST(update_empty_robotGotCallToTurnTo);
+		CPPUNIT_TEST(isEquivalentToDriveTo_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -29,6 +30,7 @@ namespace Autonomous
 		void nextState_targetNotReached_0();
 		void nextState_targetReached_followingState();
 		void update_empty_robotGotCallToTurnTo();
+		void isEquivalentToDriveTo_empty_false();
 	};
 }
 }

@@ -61,3 +61,13 @@ void RobotStateDriveToTest::update_imprecise_callToGoToPrecise()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
+
+void RobotStateDriveToTest::isEquivalentToDriveTo_sameTarget_true()
+{
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Point(3, 2)));
+}
+
+void RobotStateDriveToTest::isEquivalentToDriveTo_differentTarget_true()
+{
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(5, 2)));
+}

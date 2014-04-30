@@ -3,6 +3,13 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Geometry
+{
+	class Point;
+}
+}
 namespace Layer
 {
 namespace Abstraction
@@ -21,7 +28,7 @@ namespace Autonomous
 		virtual bool cantReachTarget() const = 0;
 		virtual RobotState* nextState() = 0;
 		virtual void update() = 0;
-
+		virtual bool isEquivalentToDriveTo(Common::Geometry::Point const &target) const = 0;
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
 

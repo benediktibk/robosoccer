@@ -3,6 +3,7 @@
 #include "layer/abstraction/controllablerobotmock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateReachedTargetTest::createInstance()
 {
@@ -29,4 +30,9 @@ void RobotStateReachedTargetTest::update_empty_callToStop()
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToStop());
+}
+
+void RobotStateReachedTargetTest::isEquivalentToDriveTo_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
 }

@@ -5,6 +5,7 @@
 #include "common/time/watchmock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateKickTest::createInstance()
 {
@@ -50,4 +51,9 @@ void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToKick());
+}
+
+void RobotStateKickTest::isEquivalentToDriveTo_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
 }

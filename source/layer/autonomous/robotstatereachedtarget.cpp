@@ -2,6 +2,7 @@
 #include "layer/abstraction/controllablerobot.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Common::Geometry;
 
 RobotStateReachedTarget::RobotStateReachedTarget(Abstraction::ControllableRobot &robot) :
 	RobotState(robot)
@@ -20,6 +21,11 @@ bool RobotStateReachedTarget::cantReachTarget() const
 RobotState *RobotStateReachedTarget::nextState()
 {
 	return 0;
+}
+
+bool RobotStateReachedTarget::isEquivalentToDriveTo(const Point &) const
+{
+	return false;
 }
 
 void RobotStateReachedTarget::update()

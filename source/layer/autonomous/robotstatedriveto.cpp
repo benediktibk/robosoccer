@@ -35,6 +35,12 @@ RobotState *RobotStateDriveTo::nextState()
 	return 0;
 }
 
+bool RobotStateDriveTo::isEquivalentToDriveTo(const Point &target) const
+{
+	Compare compare(0.02);
+	return compare.isFuzzyEqual(m_target, target);
+}
+
 void RobotStateDriveTo::update()
 {
 	if (m_precise)

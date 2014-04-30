@@ -5,6 +5,7 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Geometry;
 
 RobotStateKick::RobotStateKick(Abstraction::ControllableRobot &robot, unsigned int force, Watch const &watch) :
 	RobotState(robot),
@@ -35,6 +36,11 @@ RobotState *RobotStateKick::nextState()
 		return 0;
 
 	return new RobotStateReachedTarget(getRobot());
+}
+
+bool RobotStateKick::isEquivalentToDriveTo(const Point &) const
+{
+	return false;
 }
 
 void RobotStateKick::update()

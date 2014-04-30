@@ -46,6 +46,11 @@ RobotState *RobotStateTurnTo::nextState()
 	return result;
 }
 
+bool RobotStateTurnTo::isEquivalentToDriveTo(const Point &) const
+{
+	return false;
+}
+
 void RobotStateTurnTo::update()
 {
 	Angle targetOrientation = calculateTargetOrientation();

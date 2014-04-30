@@ -47,3 +47,8 @@ void RobotStateTurnToTest::update_empty_robotGotCallToTurnTo()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
+
+void RobotStateTurnToTest::isEquivalentToDriveTo_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
+}
