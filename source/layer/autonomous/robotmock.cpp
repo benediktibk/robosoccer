@@ -28,6 +28,11 @@ bool RobotMock::targetReached() const
 	return false;
 }
 
+bool RobotMock::cantReachTarget() const
+{
+	return false;
+}
+
 void RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
 {
 	++m_callsToKick;

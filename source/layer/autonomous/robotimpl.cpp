@@ -43,6 +43,11 @@ bool RobotImpl::targetReached() const
 	return false;
 }
 
+bool RobotImpl::cantReachTarget() const
+{
+	return m_currentState->cantReachTarget();
+}
+
 void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
