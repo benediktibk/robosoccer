@@ -8,7 +8,8 @@ using namespace RoboSoccer::Common::Geometry;
 ControllableRobotMock::ControllableRobotMock() :
 	m_callsToStop(0),
 	m_callsToGoToPositionImprecise(0),
-	m_callsToGoToPositionPrecise(0)
+	m_callsToGoToPositionPrecise(0),
+	m_callsToTurn(0)
 { }
 
 Pose ControllableRobotMock::getPose() const
@@ -38,7 +39,7 @@ bool ControllableRobotMock::kick(unsigned int /*force*/)
 
 void ControllableRobotMock::turn(const Angle &/*absoluteAngle*/)
 {
-
+	++m_callsToTurn;
 }
 
 void ControllableRobotMock::stop()
@@ -59,6 +60,11 @@ unsigned int ControllableRobotMock::getCallsToGoToPositionImprecise() const
 unsigned int ControllableRobotMock::getCallsToGoToPositionPrecise() const
 {
 	return m_callsToGoToPositionPrecise;
+}
+
+unsigned int ControllableRobotMock::getCallsToTurn() const
+{
+	return m_callsToTurn;
 }
 
 void ControllableRobotMock::setPose(const Pose &pose)

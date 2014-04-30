@@ -27,12 +27,14 @@ namespace Abstraction
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoToPositionImprecise() const;
 		unsigned int getCallsToGoToPositionPrecise() const;
+		unsigned int getCallsToTurn() const;
 		void setPose(Common::Geometry::Pose const &pose);
 
 	private:
 		unsigned int m_callsToStop;
 		unsigned int m_callsToGoToPositionImprecise;
 		unsigned int m_callsToGoToPositionPrecise;
+		unsigned int m_callsToTurn;
 		Common::Geometry::Pose m_pose;
 	};
 }

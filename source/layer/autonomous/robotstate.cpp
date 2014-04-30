@@ -14,3 +14,8 @@ ControllableRobot &RobotState::getRobot()
 {
 	return m_robot;
 }
+
+ControllableRobot const &RobotState::getRobot() const
+{
+	return m_robot;
+}

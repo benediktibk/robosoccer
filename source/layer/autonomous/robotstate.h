@@ -23,6 +23,7 @@ namespace Autonomous
 		virtual void update() = 0;
 
 		Abstraction::ControllableRobot& getRobot();
+		Abstraction::ControllableRobot const& getRobot() const;
 
 	private:
 		Abstraction::ControllableRobot &m_robot;

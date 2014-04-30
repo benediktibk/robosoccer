@@ -299,3 +299,7 @@ layer/autonomous/robotstatedrivetotest.h
 layer/autonomous/robotstatedriveto.h
 layer/autonomous/robotstatedrivetotest.cpp
 layer/autonomous/robotstatedriveto.cpp
+layer/autonomous/robotstateturntotest.h
+layer/autonomous/robotstateturnto.h
+layer/autonomous/robotstateturntotest.cpp
+layer/autonomous/robotstateturnto.cpp
