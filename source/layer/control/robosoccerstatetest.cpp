@@ -4,8 +4,8 @@
 #include "common/time/watchmock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
-#include "layer/autonomous/enemyteam.h"
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/enemyteamimpl.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 
@@ -21,8 +21,8 @@ void RoboSoccerStateTest::setUp()
 	m_logger = new LoggerMock();
 	m_watch = new WatchMock();
 	m_storage = new StorageMock();
-	m_enemyTeam = new EnemyTeam();
-	m_ownTeam = new Team(*m_storage, *m_watch, *m_logger);
+	m_enemyTeam = new EnemyTeamImpl();
+	m_ownTeam = new TeamImpl(*m_storage, *m_watch, *m_logger);
 	m_ball = new IntelligentBall();
 	m_targetPositionFetcher = new TargetPositionFetcher();
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);

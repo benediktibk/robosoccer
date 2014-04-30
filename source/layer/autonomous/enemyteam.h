@@ -7,14 +7,12 @@ namespace Layer
 {
 namespace Autonomous
 {
-class EnemyTeam
-{
-public:
-	EnemyTeam();
-
-};
+	class EnemyTeam
+	{
+	public:
+		virtual ~EnemyTeam() { }
+	};
 }
 }
 }
-
 #endif

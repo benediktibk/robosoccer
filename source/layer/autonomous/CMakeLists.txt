@@ -2,8 +2,10 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	intelligentball.cpp
 	robotimpl.cpp
 	robotmock.cpp
-	team.cpp
-	enemyteam.cpp
+	teamimpl.cpp
+	teammock.cpp
+	enemyteamimpl.cpp
+	enemyteammock.cpp
 	targetpositionfetcher.cpp
 	robotstate.cpp
 	robotstatereachedtarget.cpp

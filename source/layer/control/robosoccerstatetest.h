@@ -26,8 +26,8 @@ namespace Abstraction
 }
 namespace Autonomous
 {
-	class EnemyTeam;
-	class Team;
+	class EnemyTeamImpl;
+	class TeamImpl;
 	class IntelligentBall;
 	class TargetPositionFetcher;
 }
@@ -52,8 +52,8 @@ namespace Control
 		Common::Logging::LoggerMock *m_logger;
 		Common::Time::WatchMock *m_watch;
 		Abstraction::StorageMock *m_storage;
-		Autonomous::Team *m_ownTeam;
-		Autonomous::EnemyTeam *m_enemyTeam;
+		Autonomous::TeamImpl *m_ownTeam;
+		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 	};

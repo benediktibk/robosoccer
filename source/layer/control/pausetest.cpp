@@ -6,7 +6,7 @@
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
 #include "layer/autonomous/robot.h"
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/teamimpl.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;

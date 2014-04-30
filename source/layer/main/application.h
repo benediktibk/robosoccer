@@ -24,8 +24,8 @@ namespace Abstraction
 }
 namespace Autonomous
 {
-	class EnemyTeam;
-	class Team;
+	class EnemyTeamImpl;
+	class TeamImpl;
 	class IntelligentBall;
 	class TargetPositionFetcher;
 }
@@ -43,8 +43,8 @@ namespace Main
 		Common::Logging::Logger *m_logger;
 		Abstraction::Storage *m_storage;
 		Common::Time::Watch *m_watch;
-		Autonomous::EnemyTeam *m_enemyTeam;
-		Autonomous::Team *m_ownTeam;
+		Autonomous::EnemyTeamImpl *m_enemyTeam;
+		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 	};

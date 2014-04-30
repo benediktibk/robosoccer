@@ -10,8 +10,8 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
 PreparePenalty::PreparePenalty(
-		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
+		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false)
 { }
 

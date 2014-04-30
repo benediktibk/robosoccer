@@ -14,7 +14,7 @@ namespace Control
 	{
 	public:
 		PreparePenalty(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-					   Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+					   Autonomous::TeamImpl &ownTeam, Autonomous::EnemyTeamImpl const &enemyTeam,
 					   Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
 
 		virtual Common::States::State* nextState();

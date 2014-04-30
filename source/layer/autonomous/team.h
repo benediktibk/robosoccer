@@ -1,8 +1,6 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
 
-#include "layer/autonomous/robot.h"
-
 namespace RoboSoccer
 {
 namespace Common
@@ -15,36 +13,32 @@ namespace Logging
 {
 	class Logger;
 }
+namespace Geometry
+{
+	class Point;
+	class Pose;
+}
 }
 namespace Layer
 {
-namespace Abstraction
-{
-	class Storage;
-}
 namespace Autonomous
 {
 	class IntelligentBall;
+	class Robot;
 
 	class Team
 	{
 	public:
-		Team(Abstraction::Storage &storage, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
+		virtual ~Team() { }
 
-		Robot& getGoalie();
-		Robot& getPlayerCloserToBall(const IntelligentBall &ball);
-		Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball);
-		Robot& getFirstFieldPlayer();
-		Robot& getSecondFieldPlayer();
-		Robot& getRobotByNumber(unsigned int i);
-
-	private:
-		Robot *m_goalie;
-		Robot *m_fieldPlayerOne;
-		Robot *m_fieldPlayerTwo;
+		virtual Robot& getGoalie() = 0;
+		virtual Robot& getPlayerCloserToBall(const IntelligentBall &ball) = 0;
+		virtual Robot& getPlayerFartherAwayFromBall(const IntelligentBall &ball) = 0;
+		virtual Robot& getFirstFieldPlayer() = 0;
+		virtual Robot& getSecondFieldPlayer() = 0;
+		virtual Robot& getRobotByNumber(unsigned int i) = 0;
 	};
 }
 }
 }
-
 #endif

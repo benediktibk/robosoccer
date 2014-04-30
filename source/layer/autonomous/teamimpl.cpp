@@ -1,4 +1,4 @@
-#include "layer/autonomous/team.h"
+#include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/storage.h"
 #include "layer/autonomous/robotimpl.h"
@@ -9,33 +9,48 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-Team::Team(Storage &storage, const Watch &watch, Logger &logger) :
+TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger) :
 	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
 	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), watch, logger)),
 	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), watch, logger))
 { }
 
-Robot& Team::getGoalie()
+TeamImpl::~TeamImpl()
+{
+	delete m_goalie;
+	m_goalie = 0;
+	delete m_fieldPlayerOne;
+	m_fieldPlayerOne = 0;
+	delete m_fieldPlayerTwo;
+	m_fieldPlayerTwo = 0;
+}
+
+Robot& TeamImpl::getGoalie()
 {
 	return *m_goalie;
 }
 
-Robot& Team::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
+Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
 {
 	return *m_fieldPlayerOne;
 }
 
-Robot &Team::getFirstFieldPlayer()
+Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &/*ball*/)
 {
 	return *m_fieldPlayerOne;
 }
 
-Robot &Team::getSecondFieldPlayer()
+Robot &TeamImpl::getFirstFieldPlayer()
+{
+	return *m_fieldPlayerOne;
+}
+
+Robot &TeamImpl::getSecondFieldPlayer()
 {
 	return *m_fieldPlayerTwo;
 }
 
-Robot &Team::getRobotByNumber(unsigned int i)
+Robot &TeamImpl::getRobotByNumber(unsigned int i)
 {
 	switch(i)
 	{

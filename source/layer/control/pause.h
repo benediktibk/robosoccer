@@ -13,7 +13,7 @@ namespace Control
 	{
 	public:
 		Pause(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-			  Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+			  Autonomous::TeamImpl &ownTeam, const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball,
 			  const Autonomous::TargetPositionFetcher &targetPositionFetcher);
 
 		virtual Common::States::State* nextState();

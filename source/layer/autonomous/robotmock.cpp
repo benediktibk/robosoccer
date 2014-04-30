@@ -7,6 +7,9 @@ using namespace RoboSoccer::Common::Geometry;
 RobotMock::RobotMock()
 { }
 
+RobotMock::~RobotMock()
+{ }
+
 void RobotMock::goTo(const Point &/*position*/)
 { }
 
