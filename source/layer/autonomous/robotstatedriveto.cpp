@@ -7,11 +7,9 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
-RobotStateDriveTo::RobotStateDriveTo(
-		Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target, bool precise) :
+RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target) :
 	RobotState(robot),
-	m_target(target),
-	m_precise(precise)
+	m_target(target)
 { }
 
 bool RobotStateDriveTo::reachedTarget() const
@@ -43,8 +41,5 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Point &target) const
 
 void RobotStateDriveTo::update()
 {
-	if (m_precise)
-		getRobot().gotoPositionPrecise(m_target);
-	else
-		getRobot().gotoPositionImprecise(m_target);
+	getRobot().gotoPositionPrecise(m_target);
 }

@@ -8,7 +8,7 @@ using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2), true);
+	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2));
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()
@@ -41,7 +41,7 @@ void RobotStateDriveToTest::nextState_targetReached_targetReachedState()
 	delete nextState;
 }
 
-void RobotStateDriveToTest::update_precise_callToGoToPrecise()
+void RobotStateDriveToTest::update_noObstacles_callToGoToPrecise()
 {
 	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
 
@@ -49,17 +49,6 @@ void RobotStateDriveToTest::update_precise_callToGoToPrecise()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
-}
-
-void RobotStateDriveToTest::update_imprecise_callToGoToPrecise()
-{
-	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
-	RobotStateDriveTo robotState(*m_controllableRobot, Point(3, 2), false);
-
-	robotState.update();
-
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_sameTarget_true()
