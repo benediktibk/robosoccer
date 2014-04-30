@@ -4,6 +4,8 @@
 #include "common/geometry/point.h"
 #include "common/geometry/angle.h"
 #include "layer/abstraction/fieldside.h"
+#include "common/geometry/compare.h"
+
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -38,61 +40,45 @@ void IntelligentBallTest::isMoving_notMoving_false()
 
 void IntelligentBallTest::getPosition_shouldbe_5_5()
 {
-	Point shouldbe(5,5);
-	m_ballMock->setPosition(shouldbe);
+	m_ballMock->setPosition(Point(5,5));
 
-	Point is = m_intelligentBall->getPosition();
-	double x = is.getX();
-	double y = is.getY();
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, x, 0.00001);
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, y, 0.00001);
+	CPPUNIT_ASSERT_EQUAL(Point(5,5), m_intelligentBall->getPosition());
 }
 
 void IntelligentBallTest::getRotation_shouldbe_1()
 {
-	Angle shouldbe(1.0);
-	m_ballMock->setRotation(shouldbe);
+	Compare compare(0.001);
+	m_ballMock->setRotation(Angle(1.0));
 
-	Angle is = m_intelligentBall->getRotation();
-	double angle = is.getValueBetweenMinusPiAndPi();
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, angle, 0.00001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(1.0, m_intelligentBall->getRotation()));
 }
 
 void IntelligentBallTest::getMovingDirection_isLeft_Fieldsideleft()
 {
-	Angle shouldbe(2.0);
-	m_ballMock->setRotation(shouldbe);
+	m_ballMock->setRotation(Angle(2.0));
 	m_ballMock->setVelocity(5);
 
-	FieldSide is = m_intelligentBall->getMovingDirection();
-	CPPUNIT_ASSERT(is == FieldSideLeft);
+	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getMovingDirection(),FieldSideLeft);
 }
 
 void IntelligentBallTest::getMovingDirection_isRight_FielsideRight()
 {
-	Angle shouldbe(0.0);
-	m_ballMock->setRotation(shouldbe);
+	m_ballMock->setRotation(Angle(0.0));
 	m_ballMock->setVelocity(5);
 
-	FieldSide is = m_intelligentBall->getMovingDirection();
-	CPPUNIT_ASSERT(is == FieldSideRight);
+	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getMovingDirection(),FieldSideRight);
 }
 
 void IntelligentBallTest::getCurrentFieldSide_isRight_FieldsideRight()
 {
-	Point position(5.0,0.0);
-	m_ballMock->setPosition(position);
+	m_ballMock->setPosition(Point(5.0,0.0));
 
-	FieldSide is = m_intelligentBall->getCurrentFieldSide();
-	CPPUNIT_ASSERT(is == FieldSideRight);
+	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getCurrentFieldSide(),FieldSideRight);
 }
 
 void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()
 {
-	Point position(-5.0,0.0);
-	m_ballMock->setPosition(position);
+	m_ballMock->setPosition(Point(-5.0,0.0));
 
-	FieldSide is = m_intelligentBall->getCurrentFieldSide();
-	CPPUNIT_ASSERT(is == FieldSideLeft);
+	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getCurrentFieldSide(),FieldSideLeft);
 }
