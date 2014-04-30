@@ -6,12 +6,14 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
 ControllableRobotMock::ControllableRobotMock() :
-	m_callsToStop(0)
+	m_callsToStop(0),
+	m_callsToGoToPositionImprecise(0),
+	m_callsToGoToPositionPrecise(0)
 { }
 
 Pose ControllableRobotMock::getPose() const
 {
-	return Pose();
+	return m_pose;
 }
 
 Circle ControllableRobotMock::createObstacle() const
@@ -21,12 +23,12 @@ Circle ControllableRobotMock::createObstacle() const
 
 void ControllableRobotMock::gotoPositionImprecise(const Point &/*position*/)
 {
-
+	++m_callsToGoToPositionImprecise;
 }
 
 void ControllableRobotMock::gotoPositionPrecise(const Point &/*position*/)
 {
-
+	++m_callsToGoToPositionPrecise;
 }
 
 bool ControllableRobotMock::kick(unsigned int /*force*/)
@@ -47,4 +49,19 @@ void ControllableRobotMock::stop()
 unsigned int ControllableRobotMock::getCallsToStop() const
 {
 	return m_callsToStop;
+}
+
+unsigned int ControllableRobotMock::getCallsToGoToPositionImprecise() const
+{
+	return m_callsToGoToPositionImprecise;
+}
+
+unsigned int ControllableRobotMock::getCallsToGoToPositionPrecise() const
+{
+	return m_callsToGoToPositionPrecise;
+}
+
+void ControllableRobotMock::setPose(const Pose &pose)
+{
+	m_pose = pose;
 }

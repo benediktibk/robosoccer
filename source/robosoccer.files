@@ -295,3 +295,7 @@ layer/autonomous/robotstatereachedtargettest.cpp
 layer/autonomous/robotstatereachedtarget.cpp
 layer/autonomous/robotstatetest.h
 layer/autonomous/robotstatetest.cpp
+layer/autonomous/robotstatedrivetotest.h
+layer/autonomous/robotstatedriveto.h
+layer/autonomous/robotstatedrivetotest.cpp
+layer/autonomous/robotstatedriveto.cpp

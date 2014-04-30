@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_CONTROLLABLEROBOTMOCK_H
 
 #include "layer/abstraction/controllablerobot.h"
+#include "common/geometry/pose.h"
 
 namespace RoboSoccer
 {
@@ -24,9 +25,15 @@ namespace Abstraction
 		virtual void stop();
 
 		unsigned int getCallsToStop() const;
+		unsigned int getCallsToGoToPositionImprecise() const;
+		unsigned int getCallsToGoToPositionPrecise() const;
+		void setPose(Common::Geometry::Pose const &pose);
 
 	private:
 		unsigned int m_callsToStop;
+		unsigned int m_callsToGoToPositionImprecise;
+		unsigned int m_callsToGoToPositionPrecise;
+		Common::Geometry::Pose m_pose;
 	};
 }
 }

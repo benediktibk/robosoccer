@@ -7,6 +7,7 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	targetpositionfetcher.cpp
 	robotstate.cpp
 	robotstatereachedtarget.cpp
+	robotstatedriveto.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
@@ -16,6 +17,7 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	targetpositionfetchertest.cpp
 	robotstatetest.cpp
 	robotstatereachedtargettest.cpp
+	robotstatedrivetotest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})
