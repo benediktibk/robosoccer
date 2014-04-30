@@ -21,6 +21,8 @@ namespace Autonomous
 		CPPUNIT_TEST_SUITE(IntelligentBallTest);
 		CPPUNIT_TEST(isMoving_movingFast_true);
 		CPPUNIT_TEST(isMoving_notMoving_false);
+		CPPUNIT_TEST(getPosition_shouldbe_5_5);
+		CPPUNIT_TEST(getRotation_shouldbe_1);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -30,7 +32,8 @@ namespace Autonomous
 	private:
 		void isMoving_movingFast_true();
 		void isMoving_notMoving_false();
-
+		void getPosition_shouldbe_5_5();
+		void getRotation_shouldbe_1();
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;
