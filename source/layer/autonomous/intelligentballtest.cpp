@@ -59,7 +59,7 @@ void IntelligentBallTest::getRotation_shouldbe_1()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0, angle, 0.00001);
 }
 
-void IntelligentBallTest::getMovingDirection_shouldbe_Left()
+void IntelligentBallTest::getMovingDirection_isLeft_Fieldsideleft()
 {
 	Angle shouldbe(2.0);
 	m_ballMock->setRotation(shouldbe);
@@ -68,4 +68,11 @@ void IntelligentBallTest::getMovingDirection_shouldbe_Left()
 	CPPUNIT_ASSERT(is == FieldSideLeft);
 }
 
+void IntelligentBallTest::getMovingDirection_isRight_FielsideRight()
+{
+	Angle shouldbe(0.0);
+	m_ballMock->setRotation(shouldbe);
 
+	FieldSide is = m_intelligentBall->getMovingDirection();
+	CPPUNIT_ASSERT(is == FieldSideRight);
+}
