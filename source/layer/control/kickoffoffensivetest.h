@@ -16,6 +16,8 @@ namespace Control
 		CPPUNIT_TEST(nextState_executeKickOff_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
 		CPPUNIT_TEST(nextState_notExecuteKickOffAndNotContinuePlaying_pause);
+		CPPUNIT_TEST(update_empty_oneRobotGotCallToKick);
+		CPPUNIT_TEST(update_twiceCalled_onlyOneCallToKick);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,7 +27,8 @@ namespace Control
 		void nextState_executeKickOff_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecuteKickOffAndNotContinuePlaying_pause();
-		//! @todo test that one robot got a call to kick the ball
+		void update_empty_oneRobotGotCallToKick();
+		void update_twiceCalled_onlyOneCallToKick();
 	};
 }
 }

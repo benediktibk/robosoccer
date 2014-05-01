@@ -25,7 +25,6 @@ namespace Control
 		void nextState_executeKickOff_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecuteKickOffAndNotContinuePlaying_pause();
-		//! @todo check that the robots get no movement order in this state
 	};
 }
 }
