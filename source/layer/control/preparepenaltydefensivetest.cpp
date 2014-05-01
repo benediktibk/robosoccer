@@ -29,23 +29,13 @@ void PreparePenaltyDefensiveTest::update_movementFinished_refereeGotCallToSetRea
 
 void PreparePenaltyDefensiveTest::update_movementNotYetStarted_allRobotsGotCallToMove()
 {
-	RobotMock &robot = m_ownTeam->getRobotMock();
-	robot.setTargetReached(true);
-
-	m_state->update();
-
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_referee->getCallsToSetReady());
-}
-
-void PreparePenaltyDefensiveTest::update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove()
-{
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
 }
 
-void PreparePenaltyDefensiveTest::update_movementNotYetFinished_refereeGotNoCallToSetReady()
+void PreparePenaltyDefensiveTest::update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove()
 {
 	RobotMock &robot = m_ownTeam->getRobotMock();
 	robot.setTargetReached(true);
@@ -54,6 +44,16 @@ void PreparePenaltyDefensiveTest::update_movementNotYetFinished_refereeGotNoCall
 	m_state->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
+}
+
+void PreparePenaltyDefensiveTest::update_movementNotYetFinished_refereeGotNoCallToSetReady()
+{
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(false);
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_referee->getCallsToSetReady());
 }
 
 void PreparePenaltyDefensiveTest::nextState_movementFinishedAndExecutePenalty_penaltyDefensive()

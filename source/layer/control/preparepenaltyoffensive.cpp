@@ -2,10 +2,15 @@
 #include "layer/control/penaltyoffensive.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/targetpositionfetcher.h"
+#include "common/geometry/pose.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
@@ -32,9 +37,20 @@ string PreparePenaltyOffensive::getName()
 
 void PreparePenaltyOffensive::updateInternal()
 {
-	//! @todo move one robot to the ball
+	if (m_movementFinished)
+		return;
 
-	//! @todo wait till the movement is finished
-	m_movementFinished = true;
-	m_referee.setReady();
+	Robot &playerOne = m_ownTeam.getFirstFieldPlayer();
+	Robot &playerTwo = m_ownTeam.getSecondFieldPlayer();
+	Robot &goalie = m_ownTeam.getGoalie();
+
+	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball));
+	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionUnusedPlayerOne());
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionUnusedPlayerTwo());
+
+	if (movementsFinished())
+	{
+		m_movementFinished = true;
+		m_referee.setReady();
+	}
 }
