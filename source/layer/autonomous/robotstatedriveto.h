@@ -25,7 +25,7 @@ namespace Autonomous
 		virtual void update();
 
 	private:
-		Common::Geometry::Point const &m_target;
+		Common::Geometry::Point m_target;
 	};
 }
 }

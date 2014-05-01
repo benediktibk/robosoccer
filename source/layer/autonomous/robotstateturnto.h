@@ -29,7 +29,7 @@ namespace Autonomous
 		Common::Geometry::Angle calculateTargetOrientation() const;
 
 	private:
-		Common::Geometry::Point const &m_target;
+		Common::Geometry::Point m_target;
 		RobotState *m_followingState;
 	};
 }
