@@ -2,7 +2,6 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_TEAMIMPL_H
 
 #include "layer/autonomous/team.h"
-#include "layer/autonomous/robot.h"
 
 namespace RoboSoccer
 {
@@ -15,6 +14,7 @@ namespace Abstraction
 namespace Autonomous
 {
 	class IntelligentBall;
+	class Robot;
 
 	class TeamImpl :
 			public Team

@@ -41,6 +41,7 @@ namespace Geometry
 		 CPPUNIT_TEST(getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect);
 		 CPPUNIT_TEST(getIntersectPoint_linesAreIntersecting_oneIntersect);
 		 CPPUNIT_TEST(getIntersectPoint_linesAreToutching_oneIntersect);
+		 CPPUNIT_TEST(constructor_startAndAngle_correct);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -71,6 +72,7 @@ namespace Geometry
 		 void getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect();
 		 void getIntersectPoint_linesAreIntersecting_oneIntersect();
 		 void getIntersectPoint_linesAreToutching_oneIntersect();
+		 void constructor_startAndAngle_correct();
 
 	};
 }
