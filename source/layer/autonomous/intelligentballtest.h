@@ -15,6 +15,7 @@ namespace Abstraction
 namespace Autonomous
 {
 	class IntelligentBallImpl;
+
 	class IntelligentBallTest :
 			public CPPUNIT_NS::TestFixture
 	{
@@ -42,6 +43,7 @@ namespace Autonomous
 		void getMovingDirection_isRight_FielsideRight();
 		void getCurrentFieldSide_isLeft_FieldsideLeft();
 		void getCurrentFieldSide_isRight_FieldsideRight();
+
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;
