@@ -4,6 +4,7 @@
 #include "common/geometry/circle.h"
 #include "common/geometry/point.h"
 #include <assert.h>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -40,7 +41,7 @@ FieldSide IntelligentBallImpl::getMovingDirection() const
 	double angle = m_ball.getRotation().getValueBetweenMinusPiAndPi();
 	double piHalf = Angle::getQuarterRotation().getValueBetweenMinusPiAndPi();
 
-	if (angle >= -piHalf && angle < piHalf)
+	if (fabs(angle) < piHalf)
 		return FieldSideRight;
 	else
 		return FieldSideLeft;
