@@ -16,6 +16,8 @@ namespace Control
 		CPPUNIT_TEST(nextState_executePenalty_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
 		CPPUNIT_TEST(nextState_notExecutePenaltyAndNotContinuePlaying_pause);
+		CPPUNIT_TEST(update_empty_oneRobotGotCallToMove);
+		CPPUNIT_TEST(update_twiceCalled_twoCallsToMove);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,8 +27,8 @@ namespace Control
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
-		//! test that the field players get no call to move
-		//! test that the goalie is moved according to the ball
+		void update_empty_oneRobotGotCallToMove();
+		void update_twiceCalled_twoCallsToMove();
 	};
 }
 }
