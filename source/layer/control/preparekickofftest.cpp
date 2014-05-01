@@ -6,9 +6,11 @@
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
+#include "layer/autonomous/robotmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PrepareKickOffTest::createInstance()
@@ -50,4 +52,20 @@ void PrepareKickOffTest::nextState_hasNotKickOff_prepareKickOffDefensive()
 	PrepareKickOffDefensive *stateCasted = dynamic_cast<PrepareKickOffDefensive*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void PrepareKickOffTest::update_onceCalled_noCallToKick()
+{
+	m_state->update();
+
+	RobotMock const &robot = m_ownTeam->getRobotMock();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToKick());
+}
+
+void PrepareKickOffTest::update_onceCalled_noCallToMove()
+{
+	m_state->update();
+
+	RobotMock const &robot = m_ownTeam->getRobotMock();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoTo());
 }
