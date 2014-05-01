@@ -25,7 +25,7 @@ namespace Autonomous
 	public:
 		TargetPositionFetcher();
 
-		void setFieldSide(Abstraction::FieldSide fieldside);
+		void setFieldSide(Abstraction::FieldSide fieldSide);
 
 		Common::Geometry::Pose getStartPositionGoalkeeper() const;
 		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
@@ -38,16 +38,15 @@ namespace Autonomous
 
 		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
-		//! @todo improve these positions
 		Common::Geometry::Pose getPenaltyPositionUnusedPlayerOne() const;
 		Common::Geometry::Pose getPenaltyPositionUnusedPlayerTwo() const;
 
 	private:
-		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointRightSide) const;
+		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointFieldSideRight) const;
 		Common::Geometry::Pose getGoaliePositionUsingStandardTactic(const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
 
 	private:
-		Abstraction::FieldSide m_fieldside;
+		Abstraction::FieldSide m_fieldSide;
 
 	};
 }

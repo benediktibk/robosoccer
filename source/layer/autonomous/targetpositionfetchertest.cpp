@@ -138,3 +138,19 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0,0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
+
+void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRight_robotIsCorrect()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionUnusedPlayerOne().getPosition().getX() < 0);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeft_robotIsCorrect()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionUnusedPlayerOne().getPosition().getX() > 0);
+}

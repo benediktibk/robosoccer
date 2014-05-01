@@ -10,12 +10,12 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace std;
 
 TargetPositionFetcher::TargetPositionFetcher() :
-	m_fieldside(FieldSideInvalid)
+	m_fieldSide(FieldSideInvalid)
 { }
 
-void TargetPositionFetcher::setFieldSide(FieldSide fieldside)
+void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 {
-	m_fieldside = fieldside;
+	m_fieldSide = fieldSide;
 }
 
 Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
@@ -60,9 +60,9 @@ Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) cons
 	double xPositionGoalKeeperRightSide = 1.45-0.07;
 	Angle angle;
 
-	if (ball.isMoving() && ball.getMovingDirection() == m_fieldside && ball.getCurrentFieldSide() == m_fieldside)
+	if (ball.isMoving() && ball.getMovingDirection() == m_fieldSide && ball.getCurrentFieldSide() == m_fieldSide)
 	{
-		switch (m_fieldside)
+		switch (m_fieldSide)
 		{
 		case FieldSideInvalid:
 			assert(false);
@@ -90,7 +90,7 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition().front());
 	double percentOfLineLength = -0.05/lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
 
-	switch (m_fieldside)
+	switch (m_fieldSide)
 	{
 	case FieldSideInvalid:
 		assert(false);
@@ -112,27 +112,27 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 
 Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerOne() const
 {
-	return Pose(Point(-0.1, 0.5), Angle());
+	return mirrorPointDependentOnFieldSide(Point(-1.35, 0.8));
 }
 
 Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerTwo() const
 {
-	return Pose(Point(0.1, 0.5), Angle());
+	return mirrorPointDependentOnFieldSide(Point(-1.35, -0.8));
 }
 
-Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointRightSide) const
+Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointFieldSideRight) const
 {
 	Pose pose;
 
-	switch (m_fieldside)
+	switch (m_fieldSide)
 	{
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		pose = Pose(pointRightSide,Angle::getHalfRotation());
+		pose = Pose(pointFieldSideRight,Angle::getHalfRotation());
 		break;
 	case FieldSideLeft:
-		pose = Pose(pointRightSide*(-1),Angle());
+		pose = Pose(pointFieldSideRight*(-1),Angle());
 		break;
 	}
 
@@ -144,7 +144,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(const Intellige
 	double xPositionBehindGoalCenter = 1.5;
 	Angle angle;
 
-	switch (m_fieldside)
+	switch (m_fieldSide)
 	{
 	case FieldSideInvalid:
 		assert(false);
