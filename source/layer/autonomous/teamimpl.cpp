@@ -43,15 +43,8 @@ Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &ball)
 
 Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &ball)
 {
-	Pose fieldPlayerOnePose = m_fieldPlayerOne->getCurrentPose();
-	Pose fieldPlayerTwoPose = m_fieldPlayerTwo->getCurrentPose();
-	Point const &fieldPlayerOnePosition = fieldPlayerOnePose.getPosition();
-	Point const &fieldPlayerTwoPosition = fieldPlayerTwoPose.getPosition();
-	Point ballPosition = ball.getPosition();
-	double fieldPlayerOneDistance = fieldPlayerOnePosition.distanceTo(ballPosition);
-	double fieldPlayerTwoDistance = fieldPlayerTwoPosition.distanceTo(ballPosition);
-
-	if(fieldPlayerOneDistance < fieldPlayerTwoDistance)
+	if(m_fieldPlayerOne->getCurrentPose().getPosition().distanceTo(ball.getPosition()) <
+			m_fieldPlayerTwo->getCurrentPose().getPosition().distanceTo(ball.getPosition()))
 		return *m_fieldPlayerTwo;
 	else
 		return *m_fieldPlayerOne;

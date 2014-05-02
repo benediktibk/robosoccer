@@ -65,9 +65,5 @@ void TeamTest::getPlayerFartherAwayFromBall_playerOneCloser_correct()
 	m_controllableRobotMockPlayer1->setPose(Pose(Point(0,0),Angle()));
 	m_controllableRobotMockPlayer2->setPose(Pose(Point(1,1),Angle()));
 
-	Robot const &playerFartherAway = m_teamImpl->getPlayerFartherAwayFromBall(ball);
-
-	Pose firstPose = m_controllableRobotMockPlayer2->getPose();
-	Pose secondPose = playerFartherAway.getCurrentPose();
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(firstPose, secondPose));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_controllableRobotMockPlayer2->getPose(),m_teamImpl->getPlayerFartherAwayFromBall(ball).getCurrentPose()));
 }
