@@ -25,9 +25,9 @@ void TeamTest::setUp()
 	m_controllableRobotMockPlayer1 = new ControllableRobotMock;
 	m_controllableRobotMockPlayer2 = new ControllableRobotMock;
 	m_storageMock = new StorageMock;
-	m_storageMock->addControllableRobot(*m_controllableRobotMockGoalie);
-	m_storageMock->addControllableRobot(*m_controllableRobotMockPlayer1);
-	m_storageMock->addControllableRobot(*m_controllableRobotMockPlayer2);
+	m_controllableRobotMockGoalie = &(m_storageMock->getOwnRobotMock(0));
+	m_controllableRobotMockPlayer1 = &(m_storageMock->getOwnRobotMock(1));
+	m_controllableRobotMockPlayer2 = &(m_storageMock->getOwnRobotMock(2));
 	m_teamImpl = new TeamImpl(*m_storageMock, *m_watchMock, *m_loggerMock);
 }
 
@@ -37,11 +37,8 @@ void TeamTest::tearDown()
 	m_teamImpl = 0;
 	delete m_storageMock;
 	m_storageMock = 0;
-	delete m_controllableRobotMockGoalie;
 	m_controllableRobotMockGoalie = 0;
-	delete m_controllableRobotMockPlayer1;
 	m_controllableRobotMockPlayer1 = 0;
-	delete m_controllableRobotMockPlayer2;
 	m_controllableRobotMockPlayer2 = 0;
 	delete m_watchMock;
 	m_watchMock = 0;
@@ -68,5 +65,9 @@ void TeamTest::getPlayerFartherAwayFromBall_playerOneCloser_correct()
 	m_controllableRobotMockPlayer1->setPose(Pose(Point(0,0),Angle()));
 	m_controllableRobotMockPlayer2->setPose(Pose(Point(1,1),Angle()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_controllableRobotMockPlayer2->getPose(),m_teamImpl->getPlayerFartherAwayFromBall(ball).getCurrentPose()));
+	Robot const &playerFartherAway = m_teamImpl->getPlayerFartherAwayFromBall(ball);
+
+	Pose firstPose = m_controllableRobotMockPlayer2->getPose();
+	Pose secondPose = playerFartherAway.getCurrentPose();
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(firstPose, secondPose));
 }

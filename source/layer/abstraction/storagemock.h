@@ -18,18 +18,21 @@ namespace Abstraction
 			public Storage
 	{
 	public:
+		StorageMock();
+		virtual ~StorageMock();
+
 		virtual Ball const& getBall() const;
 		virtual ReadableRobot  const& getEnemyRobot(unsigned int number) const;
 		virtual ControllableRobot& getOwnRobot(unsigned int number);
 		virtual RefereeBase& getReferee();
 
-		void addControllableRobot(ControllableRobotMock ownRobot);
+		ControllableRobotMock& getOwnRobotMock(unsigned int number);
 
 	private:
 		BallMock m_ball;
 		RefereeMock m_referee;
-		std::vector<ReadableRobotMock> m_enemyRobot;
-		std::vector<ControllableRobotMock> m_ownRobot;
+		std::vector<ReadableRobotMock*> m_enemyRobot;
+		std::vector<ControllableRobotMock*> m_ownRobot;
 	};
 }
 }

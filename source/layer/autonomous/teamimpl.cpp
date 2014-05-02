@@ -9,6 +9,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Geometry;
 
 TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger) :
 	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
@@ -42,8 +43,15 @@ Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &ball)
 
 Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &ball)
 {
-	if(m_fieldPlayerOne->getCurrentPose().getPosition().distanceTo(ball.getPosition()) <
-			m_fieldPlayerTwo->getCurrentPose().getPosition().distanceTo(ball.getPosition()))
+	Pose fieldPlayerOnePose = m_fieldPlayerOne->getCurrentPose();
+	Pose fieldPlayerTwoPose = m_fieldPlayerTwo->getCurrentPose();
+	Point const &fieldPlayerOnePosition = fieldPlayerOnePose.getPosition();
+	Point const &fieldPlayerTwoPosition = fieldPlayerTwoPose.getPosition();
+	Point ballPosition = ball.getPosition();
+	double fieldPlayerOneDistance = fieldPlayerOnePosition.distanceTo(ballPosition);
+	double fieldPlayerTwoDistance = fieldPlayerTwoPosition.distanceTo(ballPosition);
+
+	if(fieldPlayerOneDistance < fieldPlayerTwoDistance)
 		return *m_fieldPlayerTwo;
 	else
 		return *m_fieldPlayerOne;
