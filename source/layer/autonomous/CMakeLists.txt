@@ -13,6 +13,7 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotstatekick.cpp
 	intelligentballimpl.cpp
 	intelligentballmock.cpp
+	obstaclefetcher.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
@@ -26,6 +27,7 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	robotstateturntotest.cpp
 	robotstatekicktest.cpp
 	intelligentballtest.cpp
+	obstaclefetchertest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})
