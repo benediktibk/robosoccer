@@ -1,5 +1,6 @@
 #include "layer/autonomous/robotmock.h"
 #include "common/geometry/pose.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -22,6 +23,11 @@ void RobotMock::goTo(const Point &/*position*/)
 Pose RobotMock::getCurrentPose() const
 {
 	return Pose();
+}
+
+Circle RobotMock::getObstacle() const
+{
+	return Circle();
 }
 
 bool RobotMock::targetReached() const

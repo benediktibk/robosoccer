@@ -7,6 +7,7 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
 #include "common/logging/logger.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -36,6 +37,11 @@ void RobotImpl::goTo(const Point &position)
 Pose RobotImpl::getCurrentPose() const
 {
 	return m_robot.getPose();
+}
+
+Circle RobotImpl::getObstacle() const
+{
+	return m_robot.createObstacle();
 }
 
 bool RobotImpl::targetReached() const
