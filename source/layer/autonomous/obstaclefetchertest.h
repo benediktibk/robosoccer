@@ -10,14 +10,15 @@ namespace Layer
 {
 namespace Autonomous
 {
-class ObstacleFetcherTest :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
-	CPPUNIT_TEST_SUITE_END();
-private:
+	class ObstacleFetcherTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
+		CPPUNIT_TEST_SUITE_END();
 
-};
+	private:
+
+	};
 }
 }
 }

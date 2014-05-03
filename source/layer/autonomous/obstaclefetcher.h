@@ -25,6 +25,8 @@ namespace Autonomous
 	public:
 		ObstacleFetcher(Team &team, EnemyTeam const& enemyTeam, IntelligentBall &ball);
 
+		const std::vector<Common::Geometry::Circle> getAllObstacles() const;
+
 	private:
 		Team &m_team;
 		EnemyTeam const& m_enemyTeam;
