@@ -29,6 +29,7 @@ set(LIBRARIES_TEST
 	layermaintest
 	layercontroltest
 	layerautonomoustest
+	layerabstractiontest
 	commonroutingtest
 	commongeometrytest
 	commonstatestest
@@ -47,4 +48,3 @@ target_link_libraries(robosoccer ${LIBRARIES})
 target_link_libraries(abstractiontest ${LIBRARIES})
 target_link_libraries(autonomoustest ${LIBRARIES})
 target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES})
-

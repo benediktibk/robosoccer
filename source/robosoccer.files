@@ -323,3 +323,7 @@ layer/autonomous/obstaclefetcher.h
 layer/autonomous/obstaclefetchertest.cpp
 layer/autonomous/obstaclefetchertest.h
 main/mainautonomoustest.cpp
+layer/abstraction/robotturncontroltest.h
+layer/abstraction/robotturncontrol.h
+layer/abstraction/robotturncontroltest.cpp
+layer/abstraction/robotturncontrol.cpp
