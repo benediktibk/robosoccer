@@ -11,7 +11,8 @@ RobotStateTurnTo::RobotStateTurnTo(
 		RobotState *followingState) :
 	RobotState(robot),
 	m_target(target),
-	m_followingState(followingState)
+	m_followingState(followingState),
+	m_targetAlreadySet(false)
 { }
 
 RobotStateTurnTo::~RobotStateTurnTo()
@@ -53,8 +54,12 @@ bool RobotStateTurnTo::isEquivalentToDriveTo(const Point &) const
 
 void RobotStateTurnTo::update()
 {
+	if (m_targetAlreadySet)
+		return;
+
 	Angle targetOrientation = calculateTargetOrientation();
 	getRobot().turn(targetOrientation);
+	m_targetAlreadySet = true;
 }
 
 Angle RobotStateTurnTo::calculateTargetOrientation() const

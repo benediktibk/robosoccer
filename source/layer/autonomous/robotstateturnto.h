@@ -31,6 +31,7 @@ namespace Autonomous
 	private:
 		Common::Geometry::Point m_target;
 		RobotState *m_followingState;
+		bool m_targetAlreadySet;
 	};
 }
 }

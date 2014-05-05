@@ -1,6 +1,7 @@
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -39,8 +40,9 @@ bool ControllableRobotMock::kick(unsigned int /*force*/)
 	return false;
 }
 
-void ControllableRobotMock::turn(const Angle &/*absoluteAngle*/)
+void ControllableRobotMock::turn(const Angle &absoluteAngle)
 {
+	m_lastAngleToTurnTo = absoluteAngle;
 	++m_callsToTurn;
 }
 
@@ -77,4 +79,10 @@ unsigned int ControllableRobotMock::getCallsToKick() const
 void ControllableRobotMock::setPose(const Pose &pose)
 {
 	m_pose = pose;
+}
+
+const Angle & ControllableRobotMock::getLastAngleToTurnTo() const
+{
+	assert(getCallsToTurn() > 0);
+	return m_lastAngleToTurnTo;
 }

@@ -59,8 +59,8 @@ bool ControllableRobotImpl::kick(unsigned int force)
 
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	Angle angle(absoluteAngle.getValueBetweenZeroAndTwoPi());
-	m_robot->TurnAbs(angle);
+	double value = absoluteAngle.getValueBetweenZeroAndTwoPi();
+	m_robot->TurnAbs(value);
 }
 
 void ControllableRobotImpl::stop()

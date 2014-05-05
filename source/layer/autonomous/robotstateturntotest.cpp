@@ -2,6 +2,7 @@
 #include "layer/autonomous/robotstateturnto.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -43,6 +44,36 @@ void RobotStateTurnToTest::nextState_targetReached_followingState()
 
 void RobotStateTurnToTest::update_empty_robotGotCallToTurnTo()
 {
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateTurnToTest::update_targetOnTheAbove_robotGotCorrectAngleToTurnTo()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 1), Angle()));
+
+	m_robotState->update();
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), m_controllableRobot->getLastAngleToTurnTo()));
+}
+
+void RobotStateTurnToTest::update_targetOnTheLeft_robotGotCorrectAngleToTurnTo()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
+
+	m_robotState->update();
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
+}
+
+void RobotStateTurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
+
+	m_robotState->update();
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());

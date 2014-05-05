@@ -322,3 +322,4 @@ layer/autonomous/obstaclefetcher.cpp
 layer/autonomous/obstaclefetcher.h
 layer/autonomous/obstaclefetchertest.cpp
 layer/autonomous/obstaclefetchertest.h
+main/mainautonomoustest.cpp

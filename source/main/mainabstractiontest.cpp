@@ -32,6 +32,7 @@ int main(int, char**)
 	cout << "current pose of enemy robot is " << enemyRobot.getPose() << endl;
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
+	ownRobot.turn(Angle(0));
 
 	while(true)
 	{
