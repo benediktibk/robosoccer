@@ -3,6 +3,7 @@
 #include "common/geometry/pose.h"
 #include "common/geometry/compare.h"
 
+using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
@@ -67,4 +68,9 @@ Angle RobotStateTurnTo::calculateTargetOrientation() const
 	Pose currentPose = getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
 	return Angle(currentPosition, m_target);
+}
+
+string RobotStateTurnTo::getName() const
+{
+	return string("turn to");
 }

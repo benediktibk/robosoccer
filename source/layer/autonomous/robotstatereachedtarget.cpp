@@ -3,6 +3,7 @@
 #include "common/geometry/compare.h"
 #include "common/geometry/pose.h"
 
+using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
@@ -35,4 +36,9 @@ bool RobotStateReachedTarget::isEquivalentToDriveTo(const Point &target) const
 void RobotStateReachedTarget::update()
 {
 	getRobot().stop();
+}
+
+string RobotStateReachedTarget::getName() const
+{
+	return string("reached target");
 }

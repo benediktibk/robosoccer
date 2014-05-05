@@ -1,6 +1,8 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATE_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATE_H
 
+#include <string>
+
 namespace RoboSoccer
 {
 namespace Common
@@ -29,6 +31,8 @@ namespace Autonomous
 		virtual RobotState* nextState() = 0;
 		virtual void update() = 0;
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Point const &target) const = 0;
+		virtual std::string getName() const = 0;
+
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
 

@@ -4,6 +4,7 @@
 #include "common/geometry/compare.h"
 #include "common/geometry/pose.h"
 
+using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
@@ -47,4 +48,9 @@ void RobotStateDriveTo::update()
 		getRobot().gotoPositionPrecise(m_target);
 		m_currentTargetValid = true;
 	}
+}
+
+string RobotStateDriveTo::getName() const
+{
+	return string("drive to");
 }

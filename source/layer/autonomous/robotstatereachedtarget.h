@@ -20,6 +20,7 @@ namespace Autonomous
 		virtual RobotState* nextState();
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Point const &target) const;
 		virtual void update();
+		virtual std::string getName() const;
 	};
 }
 }

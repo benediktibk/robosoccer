@@ -8,7 +8,9 @@
 #include "common/geometry/pose.h"
 #include "common/logging/logger.h"
 #include "common/geometry/circle.h"
+#include <sstream>
 
+using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -83,6 +85,9 @@ void RobotImpl::update()
 
 void RobotImpl::switchIntoState(RobotState *state)
 {
+	stringstream stream;
+	stream << "switching into " << state->getName();
+	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, stream.str());
 	delete m_currentState;
 	m_currentState = state;
 }

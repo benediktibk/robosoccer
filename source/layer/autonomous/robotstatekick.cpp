@@ -3,6 +3,7 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "common/time/stopwatch.h"
 
+using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
@@ -51,4 +52,9 @@ void RobotStateKick::update()
 	getRobot().kick(m_force);
 	m_alreadyKicked = true;
 	m_stopWatch->getTimeAndRestart();
+}
+
+string RobotStateKick::getName() const
+{
+	return string("kick");
 }
