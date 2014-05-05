@@ -34,7 +34,7 @@ bool RobotStateTurnTo::cantReachTarget() const
 
 RobotState *RobotStateTurnTo::nextState()
 {
-	Compare compare(0.01);
+	Compare compare(0.1); //! @todo set a higher precision if possible
 	Pose currentPose = getRobot().getPose();
 	Angle targetOrientation = calculateTargetOrientation();
 	RobotState *result = 0;

@@ -26,6 +26,7 @@ namespace Abstraction
 namespace Autonomous
 {
 	class RobotImpl;
+	class IntelligentBallMock;
 
 	class RobotTest :
 			public CPPUNIT_NS::TestFixture
@@ -34,6 +35,7 @@ namespace Autonomous
 		CPPUNIT_TEST(goTo_alreadyAtPosition_noCallToMoveRobot);
 		CPPUNIT_TEST(goTo_notYetAtPosition_oneCallToMoveRobot);
 		CPPUNIT_TEST(goTo_twiceWithSameTarget_oneCallToMoveRobot);
+		CPPUNIT_TEST(update_kickAndTurnToReachedTarget_oneCallToKick);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -44,12 +46,14 @@ namespace Autonomous
 		void goTo_alreadyAtPosition_noCallToMoveRobot();
 		void goTo_notYetAtPosition_oneCallToMoveRobot();
 		void goTo_twiceWithSameTarget_oneCallToMoveRobot();
+		void update_kickAndTurnToReachedTarget_oneCallToKick();
 
 	private:
 		Abstraction::ControllableRobotMock *m_hardwareRobot;
 		Common::Time::WatchMock *m_watch;
 		Common::Logging::LoggerMock *m_logger;
 		RobotImpl *m_robot;
+		IntelligentBallMock *m_ball;
 	};
 }
 }

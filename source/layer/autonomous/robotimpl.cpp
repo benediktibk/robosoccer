@@ -80,6 +80,11 @@ void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 
 void RobotImpl::update()
 {
+	RobotState *nextState = m_currentState->nextState();
+
+	if (nextState != 0)
+		switchIntoState(nextState);
+
 	m_currentState->update();
 }
 

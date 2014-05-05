@@ -1,5 +1,6 @@
 #include "layer/autonomous/robottest.h"
 #include "layer/autonomous/robotimpl.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
@@ -17,6 +18,7 @@ void RobotTest::setUp()
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
 	m_robot = new RobotImpl(*m_hardwareRobot, *m_watch, *m_logger);
+	m_ball = new IntelligentBallMock();
 }
 
 void RobotTest::tearDown()
@@ -29,6 +31,8 @@ void RobotTest::tearDown()
 	m_watch = 0;
 	delete m_logger;
 	m_logger = 0;
+	delete m_ball;
+	m_ball = 0;
 }
 
 void RobotTest::goTo_alreadyAtPosition_noCallToMoveRobot()
@@ -62,4 +66,16 @@ void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise() + m_hardwareRobot->getCallsToGoToPositionPrecise());
+}
+
+void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()
+{
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle()));
+	m_ball->setPosition(Point(0.2, 0));
+
+	m_robot->kick(100, *m_ball);
+	m_robot->update();
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToKick());
 }
