@@ -21,7 +21,7 @@ int main(int, char**)
 {
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
-	StorageImpl storage(14, TeamColorRed, logger);
+	StorageImpl storage(14, TeamColorBlue, logger);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);
@@ -30,10 +30,14 @@ int main(int, char**)
 	cout << "current ball orientation is " << ball.getRotation() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPose() << endl;
 
-	cout << "moving own robot to position (0, 0) after next keypress" << endl;
-	getchar();
-	ownRobot.gotoPositionPrecise(Point());
+	while(true)
+	{	Point target(0, 0.8);
+		ownRobot.gotoPositionPrecise(target);
+		getchar();
+		cout << "error: " << ownRobot.getPose().getPosition().distanceTo(target) << endl;
+		ownRobot.gotoPositionPrecise(Point(-0.5, 0.2));
+		getchar();
+	}
 
-	cout << "job should be done, closing the application" << endl;
 	return 0;
 }
