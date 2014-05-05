@@ -20,3 +20,17 @@ Written by:
 Find this project [on bitbucket](https://bitbucket.org/robosoccer/robosoccer), our [discussion board](https://forum.kevin-meyer.de/).
 
 ---
+
+**Nicely Quotes:**
+
+> **Charging:**  
+> - Connect always the robots to the charging station after user.  
+> - Careful handling, all WITHOUT violence connected!  
+> - In case of doubt, always consult with us!<!--
+Collection:
+
+... you can relies...
+C++: Metod overread
+plagiarism
+
+ -->
