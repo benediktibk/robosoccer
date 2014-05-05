@@ -62,7 +62,41 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_EQUAL(Pose(Point(-0.05,0),Angle()),targetPositionFetcher.getPenaltyPositionKicker(ball));
+	CPPUNIT_ASSERT_EQUAL(Pose(Point(-0.08, 0),Angle()), targetPositionFetcher.getPenaltyPositionKicker(ball));
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	Point ballPosition(0.5, -0.2);
+	ball.setPosition(ballPosition);
+
+	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball);
+
+	Point const &targetPosition = targetPose.getPosition();
+	double distanceToBall = targetPosition.distanceTo(ballPosition);
+	double radiusRobot = 0.05;
+	double radiusBall = 0.025;
+	CPPUNIT_ASSERT(distanceToBall >= radiusRobot + radiusBall);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsNotTooBig()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	Point ballPosition(0.5, -0.2);
+	ball.setPosition(ballPosition);
+
+	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball);
+
+	Point const &targetPosition = targetPose.getPosition();
+	double distanceToBall = targetPosition.distanceTo(ballPosition);
+	double radiusRobot = 0.05;
+	double radiusBall = 0.025;
+	CPPUNIT_ASSERT(distanceToBall <= radiusRobot + radiusBall + 0.05);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect()
