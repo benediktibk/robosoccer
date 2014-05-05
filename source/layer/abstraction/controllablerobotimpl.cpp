@@ -26,12 +26,9 @@ ControllableRobotImpl::~ControllableRobotImpl()
 
 Geometry::Pose ControllableRobotImpl::getPose() const
 {
-	Geometry::Point robotPosition;
-	robotPosition.setX(m_robot->GetX());
-	robotPosition.setY(m_robot->GetY());
-	Angle angle = m_robot->GetPhi();
-	Geometry::Angle robotAngle(angle.Rad());
-	return Geometry::Pose(robotPosition,robotAngle);
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientation();
+	return Geometry::Pose(position, orientation);
 }
 
 Geometry::Circle ControllableRobotImpl::createObstacle() const
@@ -58,6 +55,7 @@ bool ControllableRobotImpl::kick(unsigned int force)
 	return false;
 }
 
+//! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
 	double value = absoluteAngle.getValueBetweenZeroAndTwoPi();
@@ -69,3 +67,13 @@ void ControllableRobotImpl::stop()
 	m_robot->StopAction();
 }
 
+Geometry::Angle ControllableRobotImpl::getOrientation() const
+{
+	Angle angle = m_robot->GetPhi();
+	return Geometry::Angle(angle.Rad());
+}
+
+Geometry::Point ControllableRobotImpl::getPosition() const
+{
+	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
+}

@@ -32,12 +32,16 @@ int main(int, char**)
 	cout << "current pose of enemy robot is " << enemyRobot.getPose() << endl;
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
-	ownRobot.turn(Angle(0));
 
 	while(true)
 	{
-		if (referee.playModeChangedSinceLastCall())
-			cout << "paused: " << referee.isGamePaused() << ",\tprepare penalty: " << referee.getPrepareForPenalty() << ",\texecute penalty: " << referee.getExecutePenalty() << endl;
+		ownRobot.turn(Angle::getQuarterRotation());
+		sleep(2);
+
+		ownRobot.turn(Angle(0));
+		sleep(2);
+
+		cout << "error: " << ownRobot.getPose().getOrientation().getValueBetweenMinusPiAndPi() << endl;
 	}
 
 	return 0;

@@ -31,6 +31,9 @@ namespace Abstraction
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 
+		Common::Geometry::Angle getOrientation() const;
+		Common::Geometry::Point getPosition() const;
+
 	private:
 		RoboControl *m_robot;
 	};
