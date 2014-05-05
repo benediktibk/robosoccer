@@ -53,6 +53,7 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 bool ControllableRobotImpl::kick(unsigned int force)
 {
 	assert(force <= 100);
+	// the second param should not be set 0, despite the documentation says something different
 	m_robot->Kick(force, 0.24);
 	return false;
 }
