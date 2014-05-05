@@ -1,6 +1,7 @@
 #include "layer/autonomous/robotstatereachedtargettest.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -32,7 +33,16 @@ void RobotStateReachedTargetTest::update_empty_callToStop()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToStop());
 }
 
-void RobotStateReachedTargetTest::isEquivalentToDriveTo_empty_false()
+void RobotStateReachedTargetTest::isEquivalentToDriveTo_differentPosition_false()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
+	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
+
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(3, 7)));
+}
+
+void RobotStateReachedTargetTest::isEquivalentToDriveTo_samePosition_true()
+{
+	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
+
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Point(4, 5)));
 }

@@ -31,6 +31,10 @@ RobotImpl::~RobotImpl()
 void RobotImpl::goTo(const Point &position)
 {
 	//! @todo should consider obstacles
+
+	if (m_currentState->isEquivalentToDriveTo(Point(position)))
+		return;
+
 	switchIntoState(new RobotStateDriveTo(m_robot, position));
 }
 

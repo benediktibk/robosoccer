@@ -6,17 +6,50 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Time
+{
+	class WatchMock;
+}
+namespace Logging
+{
+	class LoggerMock;
+}
+}
 namespace Layer
 {
+namespace Abstraction
+{
+	class ControllableRobotMock;
+}
 namespace Autonomous
 {
+	class RobotImpl;
+
 	class RobotTest :
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(RobotTest);
+		CPPUNIT_TEST(goTo_alreadyAtPosition_noCallToMoveRobot);
+		CPPUNIT_TEST(goTo_notYetAtPosition_oneCallToMoveRobot);
+		CPPUNIT_TEST(goTo_twiceWithSameTarget_oneCallToMoveRobot);
 		CPPUNIT_TEST_SUITE_END();
 
+	public:
+		virtual void setUp();
+		virtual void tearDown();
+
 	private:
+		void goTo_alreadyAtPosition_noCallToMoveRobot();
+		void goTo_notYetAtPosition_oneCallToMoveRobot();
+		void goTo_twiceWithSameTarget_oneCallToMoveRobot();
+
+	private:
+		Abstraction::ControllableRobotMock *m_hardwareRobot;
+		Common::Time::WatchMock *m_watch;
+		Common::Logging::LoggerMock *m_logger;
+		RobotImpl *m_robot;
 	};
 }
 }

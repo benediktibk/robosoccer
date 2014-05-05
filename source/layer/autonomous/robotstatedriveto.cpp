@@ -9,6 +9,7 @@ using namespace RoboSoccer::Common::Geometry;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target) :
 	RobotState(robot),
+	m_currentTargetValid(false),
 	m_target(target)
 { }
 
@@ -41,5 +42,9 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Point &target) const
 
 void RobotStateDriveTo::update()
 {
-	getRobot().gotoPositionPrecise(m_target);
+	if (!m_currentTargetValid)
+	{
+		getRobot().gotoPositionPrecise(m_target);
+		m_currentTargetValid = true;
+	}
 }

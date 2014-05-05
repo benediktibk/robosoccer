@@ -1,5 +1,7 @@
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobot.h"
+#include "common/geometry/compare.h"
+#include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -23,9 +25,11 @@ RobotState *RobotStateReachedTarget::nextState()
 	return 0;
 }
 
-bool RobotStateReachedTarget::isEquivalentToDriveTo(const Point &) const
+bool RobotStateReachedTarget::isEquivalentToDriveTo(const Point &target) const
 {
-	return false;
+	Compare compare(0.02);
+	Pose currentPose = getRobot().getPose();
+	return compare.isFuzzyEqual(currentPose.getPosition(), target);
 }
 
 void RobotStateReachedTarget::update()
