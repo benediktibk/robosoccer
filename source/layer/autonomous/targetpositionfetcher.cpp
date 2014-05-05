@@ -110,14 +110,28 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 	return getGoaliePositionUsingStandardTactic(ball, 1.25);
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerOne() const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 {
-	return mirrorPointDependentOnFieldSide(Point(-1.35, 0.8));
+	vector<Pose> positions;
+	positions.reserve(3);
+
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.25, 0.7)));
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.15, 0.7)));
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.25, 0.6)));
+
+	return positions;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionUnusedPlayerTwo() const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 {
-	return mirrorPointDependentOnFieldSide(Point(-1.35, -0.8));
+	vector<Pose> positions;
+	positions.reserve(3);
+
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.25, -0.7)));
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.15, -0.7)));
+	positions.push_back(mirrorPointDependentOnFieldSide(Point(-1.25, -0.6)));
+
+	return positions;
 }
 
 Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(Point pointFieldSideRight) const

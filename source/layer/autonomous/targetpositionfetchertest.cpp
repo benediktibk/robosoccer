@@ -144,7 +144,7 @@ void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRight_robot
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionUnusedPlayerOne().getPosition().getX() < 0);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() < 0);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeft_robotIsCorrect()
@@ -152,5 +152,5 @@ void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeft_robotI
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 
-	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionUnusedPlayerOne().getPosition().getX() > 0);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() > 0);
 }

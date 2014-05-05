@@ -45,8 +45,8 @@ void PreparePenaltyOffensive::updateInternal()
 	Robot &goalie = m_ownTeam.getGoalie();
 
 	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball));
-	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionUnusedPlayerOne());
-	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionUnusedPlayerTwo());
+	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front());
 
 	if (movementsFinished())
 	{
