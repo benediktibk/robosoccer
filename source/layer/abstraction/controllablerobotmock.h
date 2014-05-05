@@ -23,12 +23,14 @@ namespace Abstraction
 		virtual bool kick(unsigned int force);
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
 		virtual void stop();
+		virtual void update();
 
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoToPositionImprecise() const;
 		unsigned int getCallsToGoToPositionPrecise() const;
 		unsigned int getCallsToTurn() const;
 		unsigned int getCallsToKick() const;
+		unsigned int getCallsToUpdate() const;
 		Common::Geometry::Angle const& getLastAngleToTurnTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
 
@@ -38,6 +40,7 @@ namespace Abstraction
 		unsigned int m_callsToGoToPositionPrecise;
 		unsigned int m_callsToTurn;
 		unsigned int m_callsToKick;
+		unsigned int m_callsToUpdate;
 		Common::Geometry::Pose m_pose;
 		Common::Geometry::Angle m_lastAngleToTurnTo;
 	};

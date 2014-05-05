@@ -79,3 +79,10 @@ void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToKick());
 }
+
+void RobotTest::update_empty_robotGotCallToUpdate()
+{
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdate());
+}

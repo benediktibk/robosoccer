@@ -11,7 +11,8 @@ ControllableRobotMock::ControllableRobotMock() :
 	m_callsToGoToPositionImprecise(0),
 	m_callsToGoToPositionPrecise(0),
 	m_callsToTurn(0),
-	m_callsToKick(0)
+	m_callsToKick(0),
+	m_callsToUpdate(0)
 { }
 
 Pose ControllableRobotMock::getPose() const
@@ -51,6 +52,11 @@ void ControllableRobotMock::stop()
 	++m_callsToStop;
 }
 
+void ControllableRobotMock::update()
+{
+	++m_callsToUpdate;
+}
+
 unsigned int ControllableRobotMock::getCallsToStop() const
 {
 	return m_callsToStop;
@@ -74,6 +80,11 @@ unsigned int ControllableRobotMock::getCallsToTurn() const
 unsigned int ControllableRobotMock::getCallsToKick() const
 {
 	return m_callsToKick;
+}
+
+unsigned int ControllableRobotMock::getCallsToUpdate() const
+{
+	return m_callsToUpdate;
 }
 
 void ControllableRobotMock::setPose(const Pose &pose)

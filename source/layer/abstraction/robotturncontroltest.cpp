@@ -26,10 +26,10 @@ void RobotTurnControlTest::tearDown()
 void RobotTurnControlTest::evaluate_mustTurnRight_negtiveResult()
 {
 	Angle target(Angle::getEighthRotation());
-	Pose currentPose(Point(0, 0), Angle::getQuarterRotation());
+	Angle current(Angle::getQuarterRotation());
 	m_control->reset();
 
-	double result = m_control->evaluate(currentPose, target);
+	double result = m_control->evaluate(current, target);
 
 	CPPUNIT_ASSERT(result < 0);
 }
@@ -37,10 +37,10 @@ void RobotTurnControlTest::evaluate_mustTurnRight_negtiveResult()
 void RobotTurnControlTest::evaluate_mustTurnLeft_positiveResult()
 {
 	Angle target(Angle::getHalfRotation());
-	Pose currentPose(Point(0, 0), Angle::getQuarterRotation());
+	Angle current(Angle::getQuarterRotation());
 	m_control->reset();
 
-	double result = m_control->evaluate(currentPose, target);
+	double result = m_control->evaluate(current, target);
 
 	CPPUNIT_ASSERT(result > 0);
 }

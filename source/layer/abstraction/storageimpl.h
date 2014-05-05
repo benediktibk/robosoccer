@@ -18,6 +18,10 @@ namespace Logging
 {
 	class Logger;
 }
+namespace Time
+{
+	class Watch;
+}
 }
 namespace Layer
 {
@@ -27,7 +31,7 @@ namespace Abstraction
 			public Storage
 	{
 	public:
-		StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging::Logger &logger);
+		StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging::Logger &logger, Common::Time::Watch const &watch);
 		virtual ~StorageImpl();
 
 		virtual Ball const& getBall() const;

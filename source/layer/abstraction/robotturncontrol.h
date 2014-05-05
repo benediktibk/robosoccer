@@ -11,7 +11,6 @@ namespace Other
 }
 namespace Geometry
 {
-	class Pose;
 	class Angle;
 }
 namespace Time
@@ -29,7 +28,7 @@ namespace Abstraction
 		RobotTurnControl(Common::Time::Watch const &watch);
 		~RobotTurnControl();
 
-		double evaluate(Common::Geometry::Pose const &currentPose, Common::Geometry::Angle const &targetOrientation);
+		double evaluate(Common::Geometry::Angle const &currentOrientation, Common::Geometry::Angle const &targetOrientation);
 		void reset();
 
 	private:

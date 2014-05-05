@@ -41,8 +41,8 @@ namespace Main
 
 	private:
 		Common::Logging::Logger *m_logger;
-		Abstraction::Storage *m_storage;
 		Common::Time::Watch *m_watch;
+		Abstraction::Storage *m_storage;
 		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;

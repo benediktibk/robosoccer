@@ -21,8 +21,8 @@ int main(int, char**)
 {
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
-	StorageImpl storage(14, TeamColorBlue, logger);
 	WatchImpl watch;
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	TeamImpl team(storage, watch, logger);
 	IntelligentBallImpl ball(storage.getBall());
 	Robot &robot = team.getFirstFieldPlayer();
@@ -33,8 +33,8 @@ int main(int, char**)
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	Pose targetPosition = targetPositionFetcher.getPenaltyPositionKicker(ball);
 	robot.goTo(targetPosition.getPosition());
-//	robot.update();
-//	sleep(2);
+	robot.update();
+	sleep(2);
 
 	cout << "kicking the ball" << endl;
 	cout << "current robot position: " << robot.getCurrentPose().getPosition() << endl;

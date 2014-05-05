@@ -24,8 +24,8 @@ using namespace std;
 
 Application::Application(TeamColor ownTeamColor) :
 	m_logger(new LoggerImpl()),
-	m_storage(new StorageImpl(14, ownTeamColor, *m_logger)),
 	m_watch(new WatchImpl()),
+	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
 	m_enemyTeam(new EnemyTeamImpl()),
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
@@ -40,10 +40,10 @@ Application::~Application()
 	m_ownTeam = 0;
 	delete m_ball;
 	m_ball = 0;
-	delete m_watch;
-	m_watch = 0;
 	delete m_storage;
 	m_storage = 0;
+	delete m_watch;
+	m_watch = 0;
 	delete m_logger;
 	m_logger = 0;
 	delete m_targetPositionFetcher;

@@ -8,9 +8,11 @@
 #include <sstream>
 
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Time;
 using namespace std;
 
-StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging::Logger &logger) :
+StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor, Logger &logger, Watch const &watch) :
 	m_dataBase(0),
 	m_ball(0),
 	m_referee(0)
@@ -31,9 +33,9 @@ StorageImpl::StorageImpl(int clientNumber, TeamColor teamColor, Common::Logging:
 	m_enemyRobots.push_back(new ReadableRobotImpl(1, *m_dataBase, enemyColor));
 	m_enemyRobots.push_back(new ReadableRobotImpl(2, *m_dataBase, enemyColor));
 	m_ownRobots.reserve(3);
-	m_ownRobots.push_back(new ControllableRobotImpl(0, *m_dataBase, teamColor));
-	m_ownRobots.push_back(new ControllableRobotImpl(1, *m_dataBase, teamColor));
-	m_ownRobots.push_back(new ControllableRobotImpl(2, *m_dataBase, teamColor));
+	m_ownRobots.push_back(new ControllableRobotImpl(0, *m_dataBase, teamColor, watch));
+	m_ownRobots.push_back(new ControllableRobotImpl(1, *m_dataBase, teamColor, watch));
+	m_ownRobots.push_back(new ControllableRobotImpl(2, *m_dataBase, teamColor, watch));
 }
 
 StorageImpl::~StorageImpl()

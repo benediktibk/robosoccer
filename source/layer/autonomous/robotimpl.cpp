@@ -86,6 +86,7 @@ void RobotImpl::update()
 		switchIntoState(nextState);
 
 	m_currentState->update();
+	m_robot.update();
 }
 
 void RobotImpl::switchIntoState(RobotState *state)

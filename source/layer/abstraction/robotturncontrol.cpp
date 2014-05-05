@@ -18,9 +18,8 @@ RobotTurnControl::~RobotTurnControl()
 	m_controller = 0;
 }
 
-double RobotTurnControl::evaluate(const Pose &currentPose, const Angle &targetOrientation)
+double RobotTurnControl::evaluate(const Angle &currentOrientation, const Angle &targetOrientation)
 {
-	Angle const &currentOrientation = currentPose.getOrientation();
 	Angle orientationDifference = targetOrientation - currentOrientation;
 	double inputValue = orientationDifference.getValueBetweenMinusPiAndPi();
 	return m_controller->evaluate(inputValue);
