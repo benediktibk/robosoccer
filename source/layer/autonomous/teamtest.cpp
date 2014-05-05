@@ -67,3 +67,27 @@ void TeamTest::getPlayerFartherAwayFromBall_playerOneCloser_correct()
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_controllableRobotMockPlayer2->getPose(),m_teamImpl->getPlayerFartherAwayFromBall(ball).getCurrentPose()));
 }
+
+void TeamTest::getFirstFieldPlayer_empty_notTheGoalie()
+{
+	Robot &goalie = m_teamImpl->getGoalie();
+	Robot &fieldPlayer = m_teamImpl->getFirstFieldPlayer();
+
+	CPPUNIT_ASSERT(&goalie != &fieldPlayer);
+}
+
+void TeamTest::getSecondFieldPlayer_empty_notTheGoalie()
+{
+	Robot &goalie = m_teamImpl->getGoalie();
+	Robot &fieldPlayer = m_teamImpl->getSecondFieldPlayer();
+
+	CPPUNIT_ASSERT(&goalie != &fieldPlayer);
+}
+
+void TeamTest::getSecondFieldPlayer_empty_notTheFirstFieldPlayer()
+{
+	Robot &firstFieldPlayer = m_teamImpl->getFirstFieldPlayer();
+	Robot &secondFieldPlayer = m_teamImpl->getSecondFieldPlayer();
+
+	CPPUNIT_ASSERT(&firstFieldPlayer != &secondFieldPlayer);
+}

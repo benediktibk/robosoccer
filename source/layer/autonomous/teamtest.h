@@ -34,6 +34,9 @@ namespace Autonomous
 		CPPUNIT_TEST_SUITE(TeamTest);
 		CPPUNIT_TEST(getPlayerCloserToBall_playerOneCloser_correct);
 		CPPUNIT_TEST(getPlayerFartherAwayFromBall_playerOneCloser_correct);
+		CPPUNIT_TEST(getFirstFieldPlayer_empty_notTheGoalie);
+		CPPUNIT_TEST(getSecondFieldPlayer_empty_notTheGoalie);
+		CPPUNIT_TEST(getSecondFieldPlayer_empty_notTheFirstFieldPlayer);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -43,6 +46,9 @@ namespace Autonomous
 	private:
 		void getPlayerCloserToBall_playerOneCloser_correct();
 		void getPlayerFartherAwayFromBall_playerOneCloser_correct();
+		void getFirstFieldPlayer_empty_notTheGoalie();
+		void getSecondFieldPlayer_empty_notTheGoalie();
+		void getSecondFieldPlayer_empty_notTheFirstFieldPlayer();
 
 	private:
 		TeamImpl *m_teamImpl;
