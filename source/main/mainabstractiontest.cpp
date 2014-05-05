@@ -25,10 +25,13 @@ int main(int, char**)
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);
+	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current ball orientation is " << ball.getRotation() << endl;
 	cout << "current position of enemy robot is " << enemyRobot.getPose() << endl;
+	referee.logInformation();
+	getchar();
 
 	while(true)
 	{	Point target(0, 0.8);

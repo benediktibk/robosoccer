@@ -20,6 +20,7 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
 using namespace RoboSoccer::Common::Other;
+using namespace std;
 
 Application::Application(TeamColor ownTeamColor) :
 	m_logger(new LoggerImpl()),
@@ -64,7 +65,12 @@ void Application::run()
 	{
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
+		string previousState = stateMachine.getNameOfCurrentState();
 		stateMachine.update();
+		string currentState = stateMachine.getNameOfCurrentState();
+
+		if (previousState != currentState)
+			referee.logInformation();
 
 		for (unsigned int i = 0; i < 3; ++i)
 		{
