@@ -3,6 +3,7 @@
 
 #include "layer/abstraction/refereebase.h"
 #include "layer/abstraction/teamcolor.h"
+#include <share.h>
 #include <string>
 
 class Referee;
@@ -43,6 +44,7 @@ namespace Abstraction
 		virtual bool getContinuePlaying() const;
 		virtual void setReady();
 		virtual void logInformation();
+		virtual bool playModeChangedSinceLastCall();
 
 	private:
 		void logBool(const char *message, bool value);
@@ -53,6 +55,7 @@ namespace Abstraction
 		Common::Logging::Logger &m_logger;
 		Referee *m_referee;
 		TeamColor m_ownColor;
+		ePlayMode m_lastPlayMode;
 	};
 }
 }

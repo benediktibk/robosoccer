@@ -29,17 +29,14 @@ int main(int, char**)
 
 	cout << "current ball position is " << ball.getPosition() << endl;
 	cout << "current ball orientation is " << ball.getRotation() << endl;
-	cout << "current position of enemy robot is " << enemyRobot.getPose() << endl;
+	cout << "current pose of enemy robot is " << enemyRobot.getPose() << endl;
+	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
-	getchar();
 
 	while(true)
-	{	Point target(0, 0.8);
-		ownRobot.gotoPositionPrecise(target);
-		getchar();
-		cout << "error: " << ownRobot.getPose().getPosition().distanceTo(target) << endl;
-		ownRobot.gotoPositionPrecise(Point(-0.5, 0.2));
-		getchar();
+	{
+		if (referee.playModeChangedSinceLastCall())
+			cout << "paused: " << referee.isGamePaused() << ",\tprepare penalty: " << referee.getPrepareForPenalty() << ",\texecute penalty: " << referee.getExecutePenalty() << endl;
 	}
 
 	return 0;

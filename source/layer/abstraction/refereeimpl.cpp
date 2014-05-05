@@ -11,7 +11,8 @@ using namespace RoboSoccer::Common::Logging;
 RefereeImpl::RefereeImpl(KogniMobil::RTDBConn &dataBase, TeamColor ownColor, Logger &logger) :
 	m_logger(logger),
 	m_referee(new Referee(dataBase)),
-	m_ownColor(ownColor)
+	m_ownColor(ownColor),
+	m_lastPlayMode(REFEREE_INIT)
 {
 	m_referee->Init();
 }
@@ -148,4 +149,12 @@ void RefereeImpl::setReady()
 		m_referee->SetRedReady();
 		break;
 	}
+}
+
+bool RefereeImpl::playModeChangedSinceLastCall()
+{
+	ePlayMode currentMode = m_referee->GetPlayMode();
+	bool result = currentMode != m_lastPlayMode;
+	m_lastPlayMode = currentMode;
+	return result;
 }

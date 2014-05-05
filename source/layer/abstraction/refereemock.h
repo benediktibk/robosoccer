@@ -26,6 +26,7 @@ namespace Abstraction
 		virtual bool getContinuePlaying() const;
 		virtual void setReady();
 		virtual void logInformation();
+		virtual bool playModeChangedSinceLastCall();
 
 		void setPrepareForKickOff(bool value);
 		void setPrepareForPenalty(bool value);
