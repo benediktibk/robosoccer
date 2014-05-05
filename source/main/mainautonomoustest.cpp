@@ -33,9 +33,8 @@ int main(int, char**)
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	Pose targetPosition = targetPositionFetcher.getPenaltyPositionKicker(ball);
 	robot.goTo(targetPosition.getPosition());
-	//robot.update();
-	cout << "press any key to continue" << endl;
-	getchar();
+//	robot.update();
+//	sleep(2);
 
 	cout << "kicking the ball" << endl;
 	cout << "current robot position: " << robot.getCurrentPose().getPosition() << endl;

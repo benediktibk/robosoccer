@@ -53,7 +53,7 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 bool ControllableRobotImpl::kick(unsigned int force)
 {
 	assert(force <= 100);
-	m_robot->Kick(force);
+	m_robot->Kick(force, 0.24);
 	return false;
 }
 
