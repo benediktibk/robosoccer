@@ -4,6 +4,7 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "layer/abstraction/teamcolor.h"
 #include "common/geometry/angle.h"
+#include "common/geometry/point.h"
 
 class RoboControl;
 
@@ -26,6 +27,7 @@ namespace Layer
 namespace Abstraction
 {
 	class RobotTurnControl;
+	class RobotDriveControl;
 
 	class ControllableRobotImpl :
 			public ControllableRobot
@@ -33,8 +35,9 @@ namespace Abstraction
 	private:
 		enum State
 		{
-			StateOther,
-			StateTurning
+			StateStop,
+			StateTurning,
+			StateDriving
 		};
 
 	public:
@@ -59,8 +62,10 @@ namespace Abstraction
 	private:
 		RoboControl *m_robot;
 		RobotTurnControl *m_turnControl;
+		RobotDriveControl *m_driveControl;
 		State m_state;
 		Common::Geometry::Angle m_turnTarget;
+		Common::Geometry::Point m_driveTarget;
 	};
 }
 }

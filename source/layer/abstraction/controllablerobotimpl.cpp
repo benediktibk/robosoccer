@@ -1,5 +1,6 @@
 #include "layer/abstraction/controllablerobotimpl.h"
 #include "layer/abstraction/robotturncontrol.h"
+#include "layer/abstraction/robotdrivecontrol.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
@@ -14,7 +15,8 @@ using namespace RoboSoccer::Common::Time;
 
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
-	m_turnControl(new RobotTurnControl(watch))
+	m_turnControl(new RobotTurnControl(watch)),
+	m_driveControl(new RobotDriveControl(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -28,6 +30,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_robot = 0;
 	delete m_turnControl;
 	m_turnControl = 0;
+	delete m_driveControl;
+	m_driveControl = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -45,12 +49,14 @@ Geometry::Circle ControllableRobotImpl::createObstacle() const
 
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
 {
-	m_robot->GotoXY(position.getX(),position.getY(),160,false);
+	m_driveTarget = position;
+	switchInto(StateDriving);
 }
 
 void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
-	m_robot->GotoXY(position.getX(),position.getY(),160,true);
+	m_driveTarget = position;
+	switchInto(StateDriving);
 }
 
 bool ControllableRobotImpl::kick(unsigned int force)
@@ -70,20 +76,28 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 
 void ControllableRobotImpl::stop()
 {
-	m_robot->StopAction();
+	switchInto(StateStop);
 }
 
 void ControllableRobotImpl::update()
 {
+	double translationSpeed = 0;
+	double rotationSpeed = 0;
+
 	switch(m_state)
 	{
-	case StateOther:
+	case StateStop:
+		m_robot->StopAction();
 		return;
 	case StateTurning:
-		double rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
-		m_robot->setSpeed(0, rotationSpeed, RoboControl::FORWARD);
-		return;
+		rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		break;
+	case StateDriving:
+		m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		break;
 	}
+
+	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
 }
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
