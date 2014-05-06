@@ -21,11 +21,6 @@ EnemyTeamImpl::~EnemyTeamImpl()
 	m_robots.clear();
 }
 
-const ReadableRobot &EnemyTeamImpl::getGoalkeeper()
-{
-	return *m_robots.front();
-}
-
 const ReadableRobot &EnemyTeamImpl::getPlayerNextToBall(const IntelligentBall &ball)
 {
 	ball.isMoving();
