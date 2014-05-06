@@ -1,9 +1,11 @@
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/abstraction/readablerobotmock.h"
+#include "common/geometry/circle.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Geometry;
 
 EnemyTeamMock::EnemyTeamMock()
 {
@@ -24,9 +26,15 @@ EnemyTeamMock::~EnemyTeamMock()
 	m_robots.clear();
 }
 
-void EnemyTeamMock::getObstacles()
+const vector<Circle> EnemyTeamMock::getObstacles()
 {
+	vector<Circle> obstacles;
+	obstacles.reserve(3);
 
+	for(unsigned int i=0;i<3;i++)
+		obstacles.push_back(m_robots[i]->createObstacle());
+
+	return obstacles;
 }
 
 const ReadableRobot &EnemyTeamMock::getPlayerNextToBall(const IntelligentBall &)
