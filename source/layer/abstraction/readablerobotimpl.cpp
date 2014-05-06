@@ -26,17 +26,11 @@ ReadableRobotImpl::~ReadableRobotImpl()
 
 Geometry::Pose ReadableRobotImpl::getPose() const
 {
-	Geometry::Point robotPosition;
-	robotPosition.setX(m_robot->GetX());
-	robotPosition.setY(m_robot->GetY());
-	Angle angle = m_robot->GetPhi();
-	Geometry::Angle robotAngle(angle.Rad());
-	return Geometry::Pose(robotPosition,robotAngle);
+	return Geometry::Pose(Geometry::Point(m_robot->GetX(),m_robot->GetY()),m_robot->GetPhi().Rad());
 }
 
 Geometry::Circle ReadableRobotImpl::getObstacle() const
 {
-	Geometry::Pose pose = getPose();
-	return Geometry::Circle(pose.getPosition(),0.095);
+	return Geometry::Circle(getPose().getPosition(),0.095);
 }
 
