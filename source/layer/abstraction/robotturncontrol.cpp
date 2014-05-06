@@ -9,7 +9,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotTurnControl::RobotTurnControl(const Watch &watch) :
-	m_controller(new PIDController(0.25, 0, 0, watch))
+	m_controller(new PIDController(0.25, 0.05, 0, watch))
 { }
 
 RobotTurnControl::~RobotTurnControl()

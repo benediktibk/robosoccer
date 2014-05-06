@@ -11,6 +11,7 @@
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -36,26 +37,49 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	while(true)
+	Point target(-0.5,0.2);
+
+	Point currentPosition = ownRobot.getPose().getPosition();
+	Angle targetOrientation(atan2(target.getY() - currentPosition.getY(), target.getX() - currentPosition.getX()));
+
+	ownRobot.turn(targetOrientation);
+	for (unsigned int i = 0; i < 500; ++i)
 	{
-		ownRobot.turn(Angle::getQuarterRotation());
-
-		for (unsigned int i = 0; i < 500; ++i)
-		{
-			ownRobot.update();
-			usleep(10000);
-		}
-
-		ownRobot.turn(Angle(0));
-
-		for (unsigned int i = 0; i < 500; ++i)
-		{
-			ownRobot.update();
-			usleep(10000);
-		}
-
-		cout << "error: " << ownRobot.getPose().getOrientation().getValueBetweenMinusPiAndPi() << endl;
+		ownRobot.update();
+		usleep(10000);
+		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	}
+
+	ownRobot.drive(target);
+	for (unsigned int i = 0; i < 500; ++i)
+	{
+		ownRobot.update();
+		usleep(10000);
+		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+	}
+
+
+	Point target2(1.0,0.5);
+
+	Point currentPosition2 = ownRobot.getPose().getPosition();
+	Angle targetOrientation2(atan2(target.getY() - currentPosition2.getY(), target.getX() - currentPosition2.getX()));
+
+	ownRobot.turn(targetOrientation2);
+	for (unsigned int i = 0; i < 500; ++i)
+	{
+		ownRobot.update();
+		usleep(10000);
+		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+	}
+
+	ownRobot.drive(target2);
+	for (unsigned int i = 0; i < 500; ++i)
+	{
+		ownRobot.update();
+		usleep(10000);
+		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+	}
+
 
 	return 0;
 }

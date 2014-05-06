@@ -74,6 +74,12 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 	switchInto(StateTurning);
 }
 
+void ControllableRobotImpl::drive(const Geometry::Point &targetPoint)
+{
+	m_driveTarget = targetPoint;
+	switchInto(StateDriving);
+}
+
 void ControllableRobotImpl::stop()
 {
 	switchInto(StateStop);
@@ -93,6 +99,8 @@ void ControllableRobotImpl::update()
 		rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
 		break;
 	case StateDriving:
+		if(getPosition().distanceTo(m_driveTarget) < 0.1)
+			switchInto( StateStop);
 		m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		break;
 	}

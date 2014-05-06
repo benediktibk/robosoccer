@@ -47,6 +47,12 @@ void ControllableRobotMock::turn(const Angle &absoluteAngle)
 	++m_callsToTurn;
 }
 
+void ControllableRobotMock::drive(const Point &targetPoint)
+{
+	m_lastPointToDriveTo = targetPoint;
+	++m_callsToDrive;
+}
+
 void ControllableRobotMock::stop()
 {
 	++m_callsToStop;
@@ -96,4 +102,9 @@ const Angle & ControllableRobotMock::getLastAngleToTurnTo() const
 {
 	assert(getCallsToTurn() > 0);
 	return m_lastAngleToTurnTo;
+}
+
+unsigned int ControllableRobotMock::getCallsToDrive() const
+{
+	return m_callsToDrive;
 }
