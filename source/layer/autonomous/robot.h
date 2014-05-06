@@ -7,7 +7,6 @@ namespace Common
 {
 namespace Geometry
 {
-	class Point;
 	class Pose;
 	class Circle;
 }
@@ -23,7 +22,7 @@ namespace Autonomous
 	public:
 		virtual ~Robot() { }
 
-		virtual void goTo(Common::Geometry::Point const &position) = 0;
+		virtual void goTo(Common::Geometry::Pose const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;

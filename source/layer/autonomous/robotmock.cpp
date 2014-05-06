@@ -15,7 +15,7 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const Point &/*position*/)
+void RobotMock::goTo(const Pose &/*position*/)
 {
 	++m_callsToGoTo;
 }

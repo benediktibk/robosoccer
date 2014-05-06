@@ -24,7 +24,7 @@ int main(int, char**)
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(0);
@@ -39,10 +39,20 @@ int main(int, char**)
 	while(true)
 	{
 		ownRobot.turn(Angle::getQuarterRotation());
-		sleep(2);
+
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.update();
+			usleep(10000);
+		}
 
 		ownRobot.turn(Angle(0));
-		sleep(2);
+
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.update();
+			usleep(10000);
+		}
 
 		cout << "error: " << ownRobot.getPose().getOrientation().getValueBetweenMinusPiAndPi() << endl;
 	}

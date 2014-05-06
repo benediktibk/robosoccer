@@ -34,7 +34,7 @@ namespace Autonomous
 		RobotImpl(Abstraction::ControllableRobot &robot, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
 		virtual ~RobotImpl();
 
-		virtual void goTo(Common::Geometry::Point const &position);
+		virtual void goTo(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
