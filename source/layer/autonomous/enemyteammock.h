@@ -2,11 +2,16 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ENEMYTEAMMOCK_H
 
 #include "layer/autonomous/enemyteam.h"
+#include <vector>
 
 namespace RoboSoccer
 {
 namespace Layer
 {
+namespace Abstraction
+{
+	class ReadableRobotMock;
+}
 namespace Autonomous
 {
 	class EnemyTeamMock :
@@ -15,6 +20,14 @@ namespace Autonomous
 	public:
 		EnemyTeamMock();
 		virtual ~EnemyTeamMock();
+
+		virtual const Abstraction::ReadableRobot& getGoalkeeper();
+		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
+		virtual void getObstacles();
+
+	private:
+		std::vector<Abstraction::ReadableRobotMock*> m_robots;
+
 
 	};
 }
