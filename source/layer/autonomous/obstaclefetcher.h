@@ -23,14 +23,14 @@ namespace Autonomous
 	class ObstacleFetcher
 	{
 	public:
-		ObstacleFetcher(Team &team, EnemyTeam const& enemyTeam, IntelligentBall &ball);
+		ObstacleFetcher(std::vector<Common::Geometry::Circle> &obstaclesTeam,
+						std::vector<Common::Geometry::Circle> const &obstaclesEnemyTeam,
+						Common::Geometry::Circle &obstacleBall);
 
 		const std::vector<Common::Geometry::Circle> getAllObstacles() const;
 
 	private:
-		Team &m_team;
-		EnemyTeam const& m_enemyTeam;
-		IntelligentBall &m_ball;
+		std::vector<Common::Geometry::Circle> m_obstacles;
 	};
 }
 }
