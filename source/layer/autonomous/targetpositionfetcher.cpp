@@ -95,10 +95,10 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle());
+		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
 		break;
 	case FieldSideLeft:
-		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
+		penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle());
 		break;
 	}
 
