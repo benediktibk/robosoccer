@@ -1,6 +1,9 @@
 #include "layer/autonomous/teammock.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 TeamMock::TeamMock()
 { }
@@ -36,6 +39,11 @@ Robot &TeamMock::getSecondFieldPlayer()
 Robot &TeamMock::getRobotByNumber(unsigned int /*i*/)
 {
 	return m_robot;
+}
+
+std::vector<Circle> TeamMock::getObstacles()
+{
+	return vector<Circle>();
 }
 
 const RobotMock &TeamMock::getRobotMock() const
