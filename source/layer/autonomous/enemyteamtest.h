@@ -21,6 +21,7 @@ namespace Autonomous
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(EnemyTeamTest);
+		CPPUNIT_TEST(getObstacles_construct_3ObjectsInVector);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -28,6 +29,7 @@ namespace Autonomous
 		virtual void tearDown();
 
 	private:
+		void getObstacles_construct_3ObjectsInVector();
 
 	private:
 		EnemyTeamImpl *m_enemyTeam;
