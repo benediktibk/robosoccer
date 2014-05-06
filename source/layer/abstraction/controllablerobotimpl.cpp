@@ -122,5 +122,6 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
 	m_turnControl->reset();
+	m_driveControl->reset();
 	m_state = state;
 }
