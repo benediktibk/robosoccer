@@ -27,6 +27,7 @@ namespace Abstraction
 		virtual RefereeBase& getReferee();
 
 		ControllableRobotMock& getOwnRobotMock(unsigned int number);
+		ReadableRobotMock& getEnemyRobotMock(unsigned int number);
 
 	private:
 		BallMock m_ball;
