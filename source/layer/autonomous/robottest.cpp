@@ -39,7 +39,7 @@ void RobotTest::goTo_alreadyAtPosition_noCallToMoveRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 
-	m_robot->goTo(Point(1, 3));
+	m_robot->goTo(Pose(Point(1, 3), Angle()));
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToPositionImprecise());
@@ -50,7 +50,7 @@ void RobotTest::goTo_notYetAtPosition_oneCallToMoveRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 
-	m_robot->goTo(Point(2, 3));
+	m_robot->goTo(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise() + m_hardwareRobot->getCallsToGoToPositionPrecise());
@@ -60,9 +60,9 @@ void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 
-	m_robot->goTo(Point(2, 3));
+	m_robot->goTo(Pose(Point(2, 3), Angle()));
 	m_robot->update();
-	m_robot->goTo(Point(2, 3));
+	m_robot->goTo(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise() + m_hardwareRobot->getCallsToGoToPositionPrecise());

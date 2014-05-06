@@ -31,8 +31,7 @@ int main(int, char**)
 
 	cout << "moving to the ball" << endl;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	Pose targetPosition = targetPositionFetcher.getPenaltyPositionKicker(ball);
-	robot.goTo(targetPosition.getPosition());
+	robot.goTo(targetPositionFetcher.getPenaltyPositionKicker(ball));
 	robot.update();
 	sleep(2);
 

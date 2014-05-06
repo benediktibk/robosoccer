@@ -30,7 +30,7 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Point &position)
+void RobotImpl::goTo(const Pose &position)
 {
 	//! @todo should consider obstacles
 
