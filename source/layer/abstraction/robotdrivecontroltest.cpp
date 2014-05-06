@@ -23,7 +23,7 @@ void RobotDriveControlTest::tearDown()
 	m_watch = 0;
 }
 
-void RobotDriveControlTest::evaluate_atTarget_bothValuesCloseToZero()
+void RobotDriveControlTest::evaluate_atTarget_bothValuesSmall()
 {
 	Pose current(Point(3, 4), Angle(0));
 	Point target(3, 4);
@@ -32,7 +32,7 @@ void RobotDriveControlTest::evaluate_atTarget_bothValuesCloseToZero()
 
 	m_control->evaluate(current, target, translation, rotation);
 
-	CPPUNIT_ASSERT(translation < 0.1);
+	CPPUNIT_ASSERT(translation < 40);
 	CPPUNIT_ASSERT(rotation < 0.1);
 }
 
@@ -45,5 +45,5 @@ void RobotDriveControlTest::evaluate_farAwayFromTarget_bigSpeed()
 
 	m_control->evaluate(current, target, translation, rotation);
 
-	CPPUNIT_ASSERT(translation > 1);
+	CPPUNIT_ASSERT(translation > 100);
 }

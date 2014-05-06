@@ -23,7 +23,7 @@ namespace Abstraction
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(RobotDriveControlTest);
-		CPPUNIT_TEST(evaluate_atTarget_bothValuesCloseToZero);
+		CPPUNIT_TEST(evaluate_atTarget_bothValuesSmall);
 		CPPUNIT_TEST(evaluate_farAwayFromTarget_bigSpeed);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -32,7 +32,7 @@ namespace Abstraction
 		virtual void tearDown();
 
 	private:
-		void evaluate_atTarget_bothValuesCloseToZero();
+		void evaluate_atTarget_bothValuesSmall();
 		void evaluate_farAwayFromTarget_bigSpeed();
 
 	private:

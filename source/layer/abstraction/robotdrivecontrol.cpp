@@ -21,9 +21,9 @@ RobotDriveControl::~RobotDriveControl()
 	m_translationController = 0;
 }
 
-void RobotDriveControl::evaluate(const Pose &/*current*/, const Point &/*target*/, double &translationSpeed, double &rotationSpeed)
+void RobotDriveControl::evaluate(const Pose &current, const Point &target, double &translationSpeed, double &rotationSpeed)
 {
-	translationSpeed = 0;
+	translationSpeed = 10*target.distanceTo(current.getPosition());
 	rotationSpeed = 0;
 }
 
