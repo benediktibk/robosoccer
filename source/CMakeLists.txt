@@ -13,10 +13,21 @@ set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_COMMON} -g -fprofile-arcs -ftest
 include_directories(
 	.
 	external/cppunit/include
-	external/roso/include/roboctrl
-	external/roso/include/rtdb
-	external/roso/include/rosomath
 )
+
+if(NOT USE_SIM_LIBRARIES)
+	include_directories(
+		external/roso/include/roboctrl
+		external/roso/include/rtdb
+		external/roso/include/rosomath
+	)
+else()
+	include_directories(
+		external/roso/include-sim/roboctrl
+		external/roso/include-sim/rtdb
+		external/roso/include-sim/rosomath
+	)
+endif()
 
 add_custom_target(
 	checkIncludeGuards ALL

@@ -5,11 +5,19 @@ set(CPPUNIT_LIBRARY
 	${CMAKE_SOURCE_DIR}/external/cppunit/src/cppunit/.libs/libcppunit.a
 )
 
-set(ROSO_LIBRARIES
-	${CMAKE_SOURCE_DIR}/external/roso/lib/libpololu_rtdb.so
-	${CMAKE_SOURCE_DIR}/external/roso/lib/librosomath.a
-	${CMAKE_SOURCE_DIR}/external/roso/lib/libkogmo_rtdb.so
-)
+if(NOT USE_SIM_LIBRARIES)
+	set(ROSO_LIBRARIES
+		${CMAKE_SOURCE_DIR}/external/roso/lib/libpololu_rtdb.so
+		${CMAKE_SOURCE_DIR}/external/roso/lib/librosomath.a
+		${CMAKE_SOURCE_DIR}/external/roso/lib/libkogmo_rtdb.so
+	)
+else()
+	set(ROSO_LIBRARIES
+		${CMAKE_SOURCE_DIR}/external/roso/lib-sim/libpololu_rtdb.so
+		${CMAKE_SOURCE_DIR}/external/roso/lib-sim/librosomath.a
+		${CMAKE_SOURCE_DIR}/external/roso/lib-sim/libkogmo_rtdb.so
+	)
+endif()
 
 set(LIBRARIES
 	layermain
