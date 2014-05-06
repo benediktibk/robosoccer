@@ -327,3 +327,7 @@ layer/abstraction/robotturncontroltest.h
 layer/abstraction/robotturncontrol.h
 layer/abstraction/robotturncontroltest.cpp
 layer/abstraction/robotturncontrol.cpp
+layer/abstraction/robotdrivecontroltest.h
+layer/abstraction/robotdrivecontrol.h
+layer/abstraction/robotdrivecontroltest.cpp
+layer/abstraction/robotdrivecontrol.cpp

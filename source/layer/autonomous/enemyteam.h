@@ -1,8 +1,17 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ENEMYTEAM_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ENEMYTEAM_H
 
+#include <vector>
+
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Geometry
+{
+	class Circle;
+}
+}
 namespace Layer
 {
 namespace Abstraction
@@ -18,9 +27,8 @@ namespace Autonomous
 	public:
 		virtual ~EnemyTeam() { }
 
-		virtual const Abstraction::ReadableRobot& getGoalkeeper() = 0;
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball) = 0;
-		virtual void getObstacles() = 0;
+		virtual const std::vector<Common::Geometry::Circle> getObstacles() = 0;
 
 	};
 }
