@@ -27,8 +27,7 @@ void RobotDriveControl::evaluate(const Pose& current, const Point& target, doubl
 {
   Angle currentOrientation = current.getOrientation();
   Point currentPosition = current.getPosition();
-
-  Angle targetOrientation(atan2(target.getY() - currentPosition.getY(), target.getX() - currentPosition.getX()));
+  Angle targetOrientation(currentPosition, target);
   Angle orientationDifference = targetOrientation - currentOrientation;
 
   double inputRotation = orientationDifference.getValueBetweenMinusPiAndPi();
