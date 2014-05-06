@@ -37,6 +37,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getFirstFieldPlayer_empty_notTheGoalie);
 		CPPUNIT_TEST(getSecondFieldPlayer_empty_notTheGoalie);
 		CPPUNIT_TEST(getSecondFieldPlayer_empty_notTheFirstFieldPlayer);
+		CPPUNIT_TEST(getObstacles_empty_obstacleSizeIs3);
+		CPPUNIT_TEST(getObstacles_firstAtOrigin_obstacleCorrect);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -49,6 +51,8 @@ namespace Autonomous
 		void getFirstFieldPlayer_empty_notTheGoalie();
 		void getSecondFieldPlayer_empty_notTheGoalie();
 		void getSecondFieldPlayer_empty_notTheFirstFieldPlayer();
+		void getObstacles_empty_obstacleSizeIs3();
+		void getObstacles_firstAtOrigin_obstacleCorrect();
 
 	private:
 		TeamImpl *m_teamImpl;

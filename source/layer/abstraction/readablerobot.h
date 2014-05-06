@@ -21,7 +21,7 @@ namespace Abstraction
 		virtual ~ReadableRobot() {}
 
 		virtual Common::Geometry::Pose getPose() const = 0;
-		virtual Common::Geometry::Circle createObstacle() const = 0;
+		virtual Common::Geometry::Circle getObstacle() const = 0;
 
 	};
 }

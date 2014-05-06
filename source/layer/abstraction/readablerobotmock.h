@@ -14,7 +14,7 @@ namespace Abstraction
 	{
 	public:
 		virtual Common::Geometry::Pose getPose() const;
-		virtual Common::Geometry::Circle createObstacle() const;
+		virtual Common::Geometry::Circle getObstacle() const;
 	};
 }
 }

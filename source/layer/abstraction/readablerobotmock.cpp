@@ -10,7 +10,7 @@ Pose ReadableRobotMock::getPose() const
 	return Pose();
 }
 
-Circle ReadableRobotMock::createObstacle() const
+Circle ReadableRobotMock::getObstacle() const
 {
 	return Circle();
 }

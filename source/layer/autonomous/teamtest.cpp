@@ -9,6 +9,7 @@
 #include "layer/autonomous/intelligentballmock.h"
 #include "common/geometry/compare.h"
 #include "layer/autonomous/robot.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -87,4 +88,17 @@ void TeamTest::getSecondFieldPlayer_empty_notTheFirstFieldPlayer()
 	Robot &secondFieldPlayer = m_teamImpl->getSecondFieldPlayer();
 
 	CPPUNIT_ASSERT(&firstFieldPlayer != &secondFieldPlayer);
+}
+
+void TeamTest::getObstacles_empty_obstacleSizeIs3()
+{
+	CPPUNIT_ASSERT_EQUAL((size_t)3, m_teamImpl->getObstacles().size());
+}
+
+void TeamTest::getObstacles_firstAtOrigin_obstacleCorrect()
+{
+	Compare compare(0.001);
+	m_controllableRobotMockPlayer1->setPose(Pose(Point(0,0),Angle()));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_teamImpl->getObstacles().front(),Circle(Point(0,0),0.095)));
 }

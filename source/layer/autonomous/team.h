@@ -1,6 +1,8 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_TEAM_H
 
+#include <vector>
+
 namespace RoboSoccer
 {
 namespace Common
@@ -17,6 +19,7 @@ namespace Geometry
 {
 	class Point;
 	class Pose;
+	class Circle;
 }
 }
 namespace Layer
@@ -37,6 +40,7 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer() = 0;
 		virtual Robot& getSecondFieldPlayer() = 0;
 		virtual Robot& getRobotByNumber(unsigned int i) = 0;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() = 0;
 	};
 }
 }

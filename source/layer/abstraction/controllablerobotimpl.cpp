@@ -41,7 +41,7 @@ Geometry::Pose ControllableRobotImpl::getPose() const
 	return Geometry::Pose(position, orientation);
 }
 
-Geometry::Circle ControllableRobotImpl::createObstacle() const
+Geometry::Circle ControllableRobotImpl::getObstacle() const
 {
 	Geometry::Pose pose = getPose();
 	return Geometry::Circle(pose.getPosition(),0.095);
