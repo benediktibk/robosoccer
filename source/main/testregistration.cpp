@@ -24,6 +24,7 @@
 #include "common/states/statetest.h"
 #include "common/states/statemachinetest.h"
 #include "layer/abstraction/robotturncontroltest.h"
+#include "layer/abstraction/robotdrivecontroltest.h"
 #include "layer/main/applicationtest.h"
 #include "layer/main/fieldpositioncheckerfieldplayertest.h"
 #include "layer/main/fieldpositioncheckergoalkeepertest.h"
@@ -77,6 +78,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Time::WatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateMachineTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotTurnControlTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotDriveControlTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerGoalkeeperTest);
