@@ -48,3 +48,8 @@ ControllableRobotMock &StorageMock::getOwnRobotMock(unsigned int number)
 {
 	return *m_ownRobot[number];
 }
+
+ReadableRobotMock &StorageMock::getEnemyRobotMock(unsigned int number)
+{
+	return *m_enemyRobot[number];
+}

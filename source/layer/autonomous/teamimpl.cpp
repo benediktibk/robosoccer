@@ -4,12 +4,14 @@
 #include "layer/autonomous/robotimpl.h"
 #include "common/geometry/pose.h"
 #include <assert.h>
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger) :
 	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
@@ -76,4 +78,15 @@ Robot &TeamImpl::getRobotByNumber(unsigned int i)
 
 	// avoid errors from the compiler
 	return *m_goalie;
+}
+
+std::vector<Circle> TeamImpl::getObstacles()
+{
+	vector<Circle> obstacles;
+	obstacles.reserve(3);
+
+	for(unsigned int i=0;i<3;i++)
+		obstacles.push_back(getRobotByNumber(i).getObstacle());
+
+	return obstacles;
 }

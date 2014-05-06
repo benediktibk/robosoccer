@@ -8,16 +8,38 @@ namespace RoboSoccer
 {
 namespace Layer
 {
+namespace Abstraction
+{
+	class ReadableRobotMock;
+	class StorageMock;
+}
 namespace Autonomous
 {
-class EnemyTeamTest :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(EnemyTeamTest);
-	CPPUNIT_TEST_SUITE_END();
-private:
+	class EnemyTeamImpl;
 
-};
+	class EnemyTeamTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(EnemyTeamTest);
+		CPPUNIT_TEST(getObstacles_construct_3ObjectsInVector);
+		CPPUNIT_TEST_SUITE_END();
+
+	public:
+		virtual void setUp();
+		virtual void tearDown();
+
+	private:
+		void getObstacles_construct_3ObjectsInVector();
+
+	private:
+		EnemyTeamImpl *m_enemyTeam;
+		Abstraction::StorageMock *m_storageMock;
+		Abstraction::ReadableRobotMock *m_readableRobotMockPlayer1;
+		Abstraction::ReadableRobotMock *m_readableRobotMockPlayer2;
+		Abstraction::ReadableRobotMock *m_readableRobotMockPlayer3;
+
+
+	};
 }
 }
 }

@@ -2,9 +2,12 @@
 #include "layer/abstraction/storage.h"
 #include "layer/abstraction/readablerobot.h"
 #include "layer/autonomous/intelligentball.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 EnemyTeamImpl::EnemyTeamImpl(Abstraction::Storage &storage)
 {
@@ -18,19 +21,20 @@ EnemyTeamImpl::~EnemyTeamImpl()
 	m_robots.clear();
 }
 
-const ReadableRobot &EnemyTeamImpl::getGoalkeeper()
-{
-	return *m_robots.front();
-}
-
 const ReadableRobot &EnemyTeamImpl::getPlayerNextToBall(const IntelligentBall &ball)
 {
 	ball.isMoving();
 	return *m_robots.front();
 }
 
-void EnemyTeamImpl::getObstacles()
+const vector<Circle> EnemyTeamImpl::getObstacles()
 {
+	vector<Circle> obstacles;
+	obstacles.reserve(3);
 
+	for(unsigned int i=0;i<3;i++)
+		obstacles.push_back(m_robots[i]->getObstacle());
+
+	return obstacles;
 }
 

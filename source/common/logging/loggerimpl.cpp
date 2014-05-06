@@ -20,7 +20,7 @@ LoggerImpl::LoggerImpl() :
 		stringstream currentStringStream;
 		currentStringStream << folder << setw(3) << setfill('0') << i ;
 
-                if(mkdir(currentStringStream.str().c_str(), S_IRWXU|S_IRGRP|S_IXGRP) == 0)
+		if(mkdir(currentStringStream.str().c_str(), S_IRWXU|S_IRGRP|S_IXGRP) == 0)
 		{
 			folder = currentStringStream.str();
 			break;

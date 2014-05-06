@@ -30,7 +30,7 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Point &position)
+void RobotImpl::goTo(const Pose &position)
 {
 	//! @todo should consider obstacles
 
@@ -47,7 +47,7 @@ Pose RobotImpl::getCurrentPose() const
 
 Circle RobotImpl::getObstacle() const
 {
-	return m_robot.createObstacle();
+	return m_robot.getObstacle();
 }
 
 bool RobotImpl::targetReached() const

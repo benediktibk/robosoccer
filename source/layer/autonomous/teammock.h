@@ -23,6 +23,7 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer();
 		virtual Robot& getSecondFieldPlayer();
 		virtual Robot& getRobotByNumber(unsigned int i);
+		virtual std::vector<Common::Geometry::Circle> getObstacles();
 
 		RobotMock const& getRobotMock() const;
 		RobotMock& getRobotMock();
