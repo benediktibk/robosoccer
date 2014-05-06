@@ -3,13 +3,14 @@
 #include "layer/control/pause.h"
 #include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/teamimpl.h"
-#include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"
 #include "common/time/watchimpl.h"
 #include "common/states/statemachine.h"
 #include "common/other/console.h"
+#include "layer/autonomous/robot.h"
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -19,14 +20,15 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
 using namespace RoboSoccer::Common::Other;
+using namespace std;
 
 Application::Application(TeamColor ownTeamColor) :
 	m_logger(new LoggerImpl()),
-	m_storage(new StorageImpl(14, ownTeamColor, *m_logger)),
 	m_watch(new WatchImpl()),
+	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
-	m_ownTeam(new TeamImpl(*m_storage)),
-	m_ball(new IntelligentBall()),
+	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger)),
+	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher())
 { }
 
@@ -38,10 +40,10 @@ Application::~Application()
 	m_ownTeam = 0;
 	delete m_ball;
 	m_ball = 0;
-	delete m_watch;
-	m_watch = 0;
 	delete m_storage;
 	m_storage = 0;
+	delete m_watch;
+	m_watch = 0;
 	delete m_logger;
 	m_logger = 0;
 	delete m_targetPositionFetcher;
@@ -63,7 +65,12 @@ void Application::run()
 	{
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
+		string previousState = stateMachine.getNameOfCurrentState();
 		stateMachine.update();
+		string currentState = stateMachine.getNameOfCurrentState();
+
+		if (previousState != currentState)
+			referee.logInformation();
 
 		for (unsigned int i = 0; i < 3; ++i)
 		{

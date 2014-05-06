@@ -2,7 +2,8 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_CONTROLLABLEROBOTIMPL_H
 
 #include "layer/abstraction/controllablerobot.h"
-#include "teamcolor.h"
+#include "layer/abstraction/teamcolor.h"
+#include "common/geometry/angle.h"
 
 class RoboControl;
 
@@ -13,16 +14,33 @@ namespace KogniMobil
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Time
+{
+	class Watch;
+}
+}
 namespace Layer
 {
 namespace Abstraction
 {
+	class RobotTurnControl;
+
 	class ControllableRobotImpl :
 			public ControllableRobot
 	{
+	private:
+		enum State
+		{
+			StateOther,
+			StateTurning
+		};
+
 	public:
-		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
+		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Common::Time::Watch const &watch);
 		~ControllableRobotImpl();
+
 		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle createObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
@@ -30,9 +48,19 @@ namespace Abstraction
 		virtual bool kick(unsigned int force);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
+		virtual void update();
+
+		Common::Geometry::Angle getOrientation() const;
+		Common::Geometry::Point getPosition() const;
+
+	private:
+		void switchInto(State state);
 
 	private:
 		RoboControl *m_robot;
+		RobotTurnControl *m_turnControl;
+		State m_state;
+		Common::Geometry::Angle m_turnTarget;
 	};
 }
 }

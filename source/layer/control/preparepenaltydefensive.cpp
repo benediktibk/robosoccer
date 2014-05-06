@@ -14,9 +14,8 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PreparePenaltyDefensive::PreparePenaltyDefensive(
-		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
-		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+PreparePenaltyDefensive::PreparePenaltyDefensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
+		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
 	m_movementFinished(false)
 { }
@@ -38,9 +37,20 @@ string PreparePenaltyDefensive::getName()
 
 void PreparePenaltyDefensive::updateInternal()
 {
-	//! @todo move goalie to a better position
+	if (m_movementFinished)
+		return;
 
-	//! @todo wait till the movement is finished
-	m_movementFinished = true;
-	m_referee.setReady();
+	Robot &goalie = m_ownTeam.getGoalie();
+	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
+	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
+
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball));
+	fieldPlayerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
+
+	if (movementsFinished())
+	{
+		m_movementFinished = true;
+		m_referee.setReady();
+	}
 }

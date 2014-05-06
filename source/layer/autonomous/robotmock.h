@@ -19,9 +19,22 @@ namespace Autonomous
 		virtual void goTo(Common::Geometry::Point const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
+		virtual Common::Geometry::Circle getObstacle() const;
 		virtual bool targetReached() const;
-		virtual bool kick(unsigned int force, IntelligentBall const &ball);
+		virtual bool cantReachTarget() const;
+		virtual void kick(unsigned int force, IntelligentBall const &ball);
 		virtual void update();
+
+		unsigned int getCallsToStop() const;
+		unsigned int getCallsToGoTo() const;
+		unsigned int getCallsToKick() const;
+		void setTargetReached(bool value);
+
+	private:
+		unsigned int m_callsToStop;
+		unsigned int m_callsToGoTo;
+		unsigned int m_callsToKick;
+		bool m_targetReached;
 	};
 }
 }

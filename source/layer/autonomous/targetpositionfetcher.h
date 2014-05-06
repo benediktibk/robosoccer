@@ -16,18 +16,16 @@ namespace Geometry
 }
 namespace Layer
 {
-namespace Abstraction
-{
-	class Ball;
-}
 namespace Autonomous
 {
+	class IntelligentBall;
+
 	class TargetPositionFetcher
 	{
 	public:
 		TargetPositionFetcher();
 
-		void setFieldSide(Abstraction::FieldSide fieldside);
+		void setFieldSide(Abstraction::FieldSide fieldSide);
 
 		Common::Geometry::Pose getStartPositionGoalkeeper() const;
 		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
@@ -36,14 +34,19 @@ namespace Autonomous
 		Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
-		Common::Geometry::Pose getOwnGoalPosition(const Abstraction::Ball &ball) const;
-		Common::Geometry::Pose getPenaltyPositionKicker(const Abstraction::Ball &ball) const;
+		Common::Geometry::Pose getOwnGoalPosition(const IntelligentBall &ball) const;
+
+		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
+		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
 	private:
-		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointRightSide) const;
+		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Common::Geometry::Point pointFieldSideRight) const;
+		Common::Geometry::Pose getGoaliePositionUsingStandardTactic(const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
 
 	private:
-		Abstraction::FieldSide m_fieldside;
+		Abstraction::FieldSide m_fieldSide;
 
 	};
 }

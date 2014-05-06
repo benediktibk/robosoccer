@@ -105,3 +105,8 @@ unsigned int RefereeMock::getCallsToSetReady() const
 {
 	return m_callsToSetReady;
 }
+
+bool RoboSoccer::Layer::Abstraction::RefereeMock::playModeChangedSinceLastCall()
+{
+	return false;
+}

@@ -38,3 +38,13 @@ Robot &TeamMock::getRobotByNumber(unsigned int /*i*/)
 	return m_robot;
 }
 
+const RobotMock &TeamMock::getRobotMock() const
+{
+	return m_robot;
+}
+
+RobotMock &TeamMock::getRobotMock()
+{
+	return m_robot;
+}
+

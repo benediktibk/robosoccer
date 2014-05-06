@@ -2,15 +2,19 @@
 #include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/storage.h"
 #include "layer/autonomous/robotimpl.h"
+#include "common/geometry/pose.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Geometry;
 
-TeamImpl::TeamImpl(Storage &storage) :
-	m_goalie(new RobotImpl(storage.getOwnRobot(0))),
-	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1))),
-	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2)))
+TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger) :
+	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), watch, logger)),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), watch, logger))
 { }
 
 TeamImpl::~TeamImpl()
@@ -28,14 +32,22 @@ Robot& TeamImpl::getGoalie()
 	return *m_goalie;
 }
 
-Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &/*ball*/)
+Robot& TeamImpl::getPlayerCloserToBall(const IntelligentBall &ball)
 {
-	return *m_fieldPlayerOne;
+	if(m_fieldPlayerOne->getCurrentPose().getPosition().distanceTo(ball.getPosition()) <
+			m_fieldPlayerTwo->getCurrentPose().getPosition().distanceTo(ball.getPosition()))
+		return *m_fieldPlayerOne;
+	else
+		return *m_fieldPlayerTwo;
 }
 
-Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &/*ball*/)
+Robot &TeamImpl::getPlayerFartherAwayFromBall(const IntelligentBall &ball)
 {
-	return *m_fieldPlayerOne;
+	if(m_fieldPlayerOne->getCurrentPose().getPosition().distanceTo(ball.getPosition()) <
+			m_fieldPlayerTwo->getCurrentPose().getPosition().distanceTo(ball.getPosition()))
+		return *m_fieldPlayerTwo;
+	else
+		return *m_fieldPlayerOne;
 }
 
 Robot &TeamImpl::getFirstFieldPlayer()

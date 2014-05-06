@@ -14,9 +14,8 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PrepareKickOffDefensive::PrepareKickOffDefensive(
-		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
-		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+PrepareKickOffDefensive::PrepareKickOffDefensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
+		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
 	m_movementFinished(false)
 { }
@@ -38,6 +37,9 @@ string PrepareKickOffDefensive::getName()
 
 void PrepareKickOffDefensive::updateInternal()
 {
+	if (m_movementFinished)
+		return;
+
 	Robot &goalie = m_ownTeam.getGoalie();
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
@@ -46,7 +48,9 @@ void PrepareKickOffDefensive::updateInternal()
 	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionPlayerOneDefensive());
 	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionPlayerTwoDefensive());
 
-	//! @todo wait till the movement is finished
-	m_movementFinished = true;
-	m_referee.setReady();
+	if (movementsFinished())
+	{
+		m_movementFinished = true;
+		m_referee.setReady();
+	}
 }

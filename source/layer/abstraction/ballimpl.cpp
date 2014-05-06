@@ -40,5 +40,5 @@ Geometry::Circle BallImpl::getObstacle() const
 
 double BallImpl::getVelocity() const
 {
-	return m_ball->GetVelocity();
+	return m_ball->GetVelocity()*871.3072;
 }

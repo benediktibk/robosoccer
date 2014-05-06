@@ -2,16 +2,20 @@
 #include "layer/control/penaltyoffensive.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereebase.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/targetpositionfetcher.h"
+#include "common/geometry/pose.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PreparePenaltyOffensive::PreparePenaltyOffensive(
-		Logger &logger, RefereeBase &referee, Autonomous::TeamImpl &ownTeam,
-		const Autonomous::EnemyTeamImpl &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+PreparePenaltyOffensive::PreparePenaltyOffensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
 	m_movementFinished(false)
 { }
@@ -33,9 +37,20 @@ string PreparePenaltyOffensive::getName()
 
 void PreparePenaltyOffensive::updateInternal()
 {
-	//! @todo move one robot to the ball
+	if (m_movementFinished)
+		return;
 
-	//! @todo wait till the movement is finished
-	m_movementFinished = true;
-	m_referee.setReady();
+	Robot &playerOne = m_ownTeam.getFirstFieldPlayer();
+	Robot &playerTwo = m_ownTeam.getSecondFieldPlayer();
+	Robot &goalie = m_ownTeam.getGoalie();
+
+	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball));
+	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front());
+
+	if (movementsFinished())
+	{
+		m_movementFinished = true;
+		m_referee.setReady();
+	}
 }

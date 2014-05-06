@@ -16,6 +16,8 @@ namespace Control
 		CPPUNIT_TEST(nextState_executeKickOff_prepareState);
 		CPPUNIT_TEST(nextState_hasKickOff_prepareKickOffOffensive);
 		CPPUNIT_TEST(nextState_hasNotKickOff_prepareKickOffDefensive);
+		CPPUNIT_TEST(update_onceCalled_noCallToKick);
+		CPPUNIT_TEST(update_onceCalled_noCallToMove);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,7 +27,8 @@ namespace Control
 		void nextState_executeKickOff_prepareState();
 		void nextState_hasKickOff_prepareKickOffOffensive();
 		void nextState_hasNotKickOff_prepareKickOffDefensive();
-		//! test that no robot got a call to move or kick
+		void update_onceCalled_noCallToKick();
+		void update_onceCalled_noCallToMove();
 	};
 }
 }

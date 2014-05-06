@@ -28,6 +28,7 @@ namespace Abstraction
 		virtual bool kick(unsigned int force) = 0;
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle) = 0;
 		virtual void stop() = 0;
+		virtual void update() = 0;
 	};
 }
 }

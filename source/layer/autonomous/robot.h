@@ -9,6 +9,7 @@ namespace Geometry
 {
 	class Point;
 	class Pose;
+	class Circle;
 }
 }
 namespace Layer
@@ -25,8 +26,10 @@ namespace Autonomous
 		virtual void goTo(Common::Geometry::Point const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;
+		virtual Common::Geometry::Circle getObstacle() const = 0;
 		virtual bool targetReached() const = 0;
-		virtual bool kick(unsigned int force, IntelligentBall const &ball) = 0;
+		virtual bool cantReachTarget() const = 0;
+		virtual void kick(unsigned int force, IntelligentBall const &ball) = 0;
 		virtual void update() = 0;
 	};
 }

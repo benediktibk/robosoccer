@@ -5,10 +5,16 @@
 #include "layer/control/play.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/teammock.h"
+#include "layer/autonomous/enemyteammock.h"
+#include "layer/autonomous/robotmock.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PauseTest::createInstance()
@@ -62,6 +68,12 @@ void PauseTest::update_mockRobots_allRobotsGotOneCallToStop()
 {
 	m_state->update();
 
-	ControllableRobotMock const &robot = m_storage->getOwnRobotMock();
+	for (unsigned int i = 0; i < 3; ++i)
+	{
+		Robot &robot = m_ownTeam->getRobotByNumber(i);
+		robot.update();
+	}
+
+	RobotMock const &robot = m_ownTeam->getRobotMock();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToStop());
 }

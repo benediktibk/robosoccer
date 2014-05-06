@@ -37,9 +37,13 @@ LoggerImpl::LoggerImpl() :
 	string stateChangesLogFile = folder;
 	stateChangesLogFile.append("/2_stateChanges.txt");
 
+	string robotLogFile = folder;
+	robotLogFile.append("/3_robot.txt");
+
 	m_globalLogFile.open(globalLogFile.c_str(), ios_base::out | ios_base::trunc);
 	m_refereeLogFile.open(refereeLogFile.c_str(), ios_base::out | ios_base::trunc);
 	m_stateChangesLogFile.open(stateChangesLogFile.c_str(), ios_base::out | ios_base::trunc);
+	m_robotLogFile.open(robotLogFile.c_str(), ios_base::out | ios_base::trunc);
 
 	initLogFiles();
 }
@@ -51,6 +55,7 @@ LoggerImpl::~LoggerImpl()
 	m_globalLogFile.close();
 	m_refereeLogFile.close();
 	m_stateChangesLogFile.close();
+	m_robotLogFile.close();
 }
 
 void LoggerImpl::logToConsoleAndGlobalLogFile(const string &message)
@@ -90,6 +95,10 @@ void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 
 	case LogFileTypeStateChanges:
 		m_stateChangesLogFile << message << endl;
+		break;
+
+	case LogFileTypeRobot:
+		m_robotLogFile << message << endl;
 		break;
 
 	case LogFileTypeInvalid:

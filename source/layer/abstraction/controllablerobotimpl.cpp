@@ -1,16 +1,20 @@
 #include "layer/abstraction/controllablerobotimpl.h"
+#include "layer/abstraction/robotturncontrol.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
+#include "common/geometry/angle.h"
+#include "common/geometry/point.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
-#include "common/geometry/angle.h"
-#include "common/geometry/point.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
+using namespace RoboSoccer::Common::Time;
 
-ControllableRobotImpl::ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color)
+ControllableRobotImpl::ControllableRobotImpl(
+		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
+	m_turnControl(new RobotTurnControl(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -22,16 +26,15 @@ ControllableRobotImpl::~ControllableRobotImpl()
 {
 	delete m_robot;
 	m_robot = 0;
+	delete m_turnControl;
+	m_turnControl = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
 {
-	Geometry::Point robotPosition;
-	robotPosition.setX(m_robot->GetX());
-	robotPosition.setY(m_robot->GetY());
-	Angle angle = m_robot->GetPhi();
-	Geometry::Angle robotAngle(angle.Rad());
-	return Geometry::Pose(robotPosition,robotAngle);
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientation();
+	return Geometry::Pose(position, orientation);
 }
 
 Geometry::Circle ControllableRobotImpl::createObstacle() const
@@ -53,14 +56,16 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 bool ControllableRobotImpl::kick(unsigned int force)
 {
 	assert(force <= 100);
-	m_robot->Kick(force);
+	// the second param should not be set 0, despite the documentation says something different
+	m_robot->Kick(force, 0.24);
 	return false;
 }
 
+//! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	Angle angle(absoluteAngle.getValueBetweenZeroAndTwoPi());
-	m_robot->TurnAbs(angle);
+	m_turnTarget = absoluteAngle;
+	switchInto(StateTurning);
 }
 
 void ControllableRobotImpl::stop()
@@ -68,3 +73,32 @@ void ControllableRobotImpl::stop()
 	m_robot->StopAction();
 }
 
+void ControllableRobotImpl::update()
+{
+	switch(m_state)
+	{
+	case StateOther:
+		return;
+	case StateTurning:
+		double rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		m_robot->setSpeed(0, rotationSpeed, RoboControl::FORWARD);
+		return;
+	}
+}
+
+Geometry::Angle ControllableRobotImpl::getOrientation() const
+{
+	Angle angle = m_robot->GetPhi();
+	return Geometry::Angle(angle.Rad());
+}
+
+Geometry::Point ControllableRobotImpl::getPosition() const
+{
+	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
+}
+
+void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
+{
+	m_turnControl->reset();
+	m_state = state;
+}

@@ -3,9 +3,14 @@
 #include "layer/control/kickoffoffensive.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/autonomous/enemyteammock.h"
+#include "layer/autonomous/teammock.h"
+#include "layer/autonomous/intelligentballmock.h"
+#include "layer/autonomous/robotmock.h"
 #include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Control;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PrepareKickOffOffensiveTest::createInstance()
@@ -15,13 +20,47 @@ RoboSoccerState *PrepareKickOffOffensiveTest::createInstance()
 
 void PrepareKickOffOffensiveTest::update_movementFinished_refereeGotCallToSetReady()
 {
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(true);
+
 	m_state->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_referee->getCallsToSetReady());
 }
 
+void PrepareKickOffOffensiveTest::update_movementNotYetStarted_allRobotsGotCallToMove()
+{
+	m_state->update();
+
+	RobotMock const &robot = m_ownTeam->getRobotMock();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
+}
+
+void PrepareKickOffOffensiveTest::update_movementAlreadyStarted_allRobotsGotNoAdditonalCallToMove()
+{
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(true);
+
+	m_state->update();
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
+}
+
+void PrepareKickOffOffensiveTest::update_movementNotYetFinished_refereeGotNoCallToSetReady()
+{
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(false);
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_referee->getCallsToSetReady());
+}
+
 void PrepareKickOffOffensiveTest::nextState_movementFinishedAndExecuteKickOff_kickOffOffensive()
 {
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(true);
 	m_referee->setPrepareForKickOff(false);
 	m_referee->setExecuteKickOff(true);
 	m_state->update();
@@ -35,18 +74,11 @@ void PrepareKickOffOffensiveTest::nextState_movementFinishedAndExecuteKickOff_ki
 
 void PrepareKickOffOffensiveTest::nextState_movementFinishedButNotExecuteKickOff_0()
 {
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(true);
 	m_referee->setPrepareForKickOff(true);
 	m_referee->setExecuteKickOff(false);
 	m_state->update();
-
-	State *state = m_state->nextState();
-
-	CPPUNIT_ASSERT(state == 0);
-}
-
-void PrepareKickOffOffensiveTest::nextState_prepareKickOff_0()
-{
-	m_referee->setPrepareForKickOff(true);
 
 	State *state = m_state->nextState();
 
@@ -63,4 +95,15 @@ void PrepareKickOffOffensiveTest::nextState_notPrepareKickOffAndNotExecuteKickOf
 	Pause *stateCasted = dynamic_cast<Pause*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void PrepareKickOffOffensiveTest::nextState_movementOfOneRobotNotYetFinished_0()
+{
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setTargetReached(false);
+	m_referee->setPrepareForKickOff(true);
+
+	State *state = m_state->nextState();
+
+	CPPUNIT_ASSERT(state == 0);
 }

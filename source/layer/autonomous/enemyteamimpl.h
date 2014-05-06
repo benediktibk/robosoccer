@@ -20,7 +20,6 @@ namespace Autonomous
 	public:
 		EnemyTeamImpl(Abstraction::Storage &storage);
 		virtual ~EnemyTeamImpl();
-
 		virtual const Abstraction::ReadableRobot& getGoalkeeper();
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
 		virtual void getObstacles();
