@@ -26,7 +26,7 @@ namespace Autonomous
 		virtual void getObstacles();
 
 	private:
-		const Abstraction::ReadableRobot &m_robot;
+		std::vector<const Abstraction::ReadableRobot*> m_robots;
 	};
 }
 }
