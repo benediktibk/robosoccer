@@ -1,5 +1,7 @@
 #include "layer/abstraction/robotdrivecontrol.h"
 #include "common/other/pidcontroller.h"
+#include "common/geometry/pose.h"
+#include "common/geometry/point.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
@@ -19,7 +21,7 @@ RobotDriveControl::~RobotDriveControl()
 	m_translationController = 0;
 }
 
-void RobotDriveControl::evaluate(const Pose &/*current*/, const Pose &/*target*/, double &translationSpeed, double &rotationSpeed)
+void RobotDriveControl::evaluate(const Pose &/*current*/, const Point &/*target*/, double &translationSpeed, double &rotationSpeed)
 {
 	translationSpeed = 0;
 	rotationSpeed = 0;

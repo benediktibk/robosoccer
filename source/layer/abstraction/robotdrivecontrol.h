@@ -16,6 +16,7 @@ namespace Other
 namespace Geometry
 {
 	class Pose;
+	class Point;
 }
 }
 namespace Layer
@@ -28,7 +29,7 @@ namespace Abstraction
 		RobotDriveControl(Common::Time::Watch const &watch);
 		~RobotDriveControl();
 
-		void evaluate(Common::Geometry::Pose const &current, Common::Geometry::Pose const &target, double &translationSpeed, double &rotationSpeed);
+		void evaluate(Common::Geometry::Pose const &current, Common::Geometry::Point const &target, double &translationSpeed, double &rotationSpeed);
 		void reset(Common::Geometry::Pose const &start);
 
 	private:

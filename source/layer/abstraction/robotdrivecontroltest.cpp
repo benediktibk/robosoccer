@@ -26,7 +26,7 @@ void RobotDriveControlTest::tearDown()
 void RobotDriveControlTest::evaluate_atTarget_bothValuesCloseToZero()
 {
 	Pose current(Point(3, 4), Angle(0));
-	Pose target(Point(3, 4), Angle(0));
+	Point target(3, 4);
 	double translation;
 	double rotation;
 
@@ -39,7 +39,7 @@ void RobotDriveControlTest::evaluate_atTarget_bothValuesCloseToZero()
 void RobotDriveControlTest::evaluate_farAwayFromTarget_bigSpeed()
 {
 	Pose current(Point(3, 4), Angle(0));
-	Pose target(Point(100, 100), Angle(0));
+	Point target(100, 100);
 	double translation;
 	double rotation;
 
