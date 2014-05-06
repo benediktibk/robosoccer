@@ -34,7 +34,7 @@ Geometry::Pose ReadableRobotImpl::getPose() const
 	return Geometry::Pose(robotPosition,robotAngle);
 }
 
-Geometry::Circle ReadableRobotImpl::createObstacle() const
+Geometry::Circle ReadableRobotImpl::getObstacle() const
 {
 	Geometry::Pose pose = getPose();
 	return Geometry::Circle(pose.getPosition(),0.095);

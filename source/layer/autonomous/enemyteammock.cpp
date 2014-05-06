@@ -32,7 +32,7 @@ const vector<Circle> EnemyTeamMock::getObstacles()
 	obstacles.reserve(3);
 
 	for(unsigned int i=0;i<3;i++)
-		obstacles.push_back(m_robots[i]->createObstacle());
+		obstacles.push_back(m_robots[i]->getObstacle());
 
 	return obstacles;
 }

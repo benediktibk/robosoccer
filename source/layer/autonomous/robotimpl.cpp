@@ -47,7 +47,7 @@ Pose RobotImpl::getCurrentPose() const
 
 Circle RobotImpl::getObstacle() const
 {
-	return m_robot.createObstacle();
+	return m_robot.getObstacle();
 }
 
 bool RobotImpl::targetReached() const
