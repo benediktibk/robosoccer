@@ -41,9 +41,3 @@ const ReadableRobot &EnemyTeamMock::getPlayerNextToBall(const IntelligentBall &)
 {
 	return *m_robots.front();
 }
-
-const ReadableRobot &EnemyTeamMock::getGoalkeeper()
-{
-	return *m_robots.front();
-}
-
