@@ -21,9 +21,9 @@ namespace Autonomous
 		EnemyTeamMock();
 		virtual ~EnemyTeamMock();
 
-		virtual const Abstraction::ReadableRobot& getGoalkeeper() = 0;
-		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball) = 0;
-		virtual void getObstacles() = 0;
+		virtual const Abstraction::ReadableRobot& getGoalkeeper();
+		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
+		virtual void getObstacles();
 
 	private:
 		std::vector<Abstraction::ReadableRobotMock*> m_robots;
