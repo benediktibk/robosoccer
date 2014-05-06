@@ -21,9 +21,6 @@ void TeamTest::setUp()
 {
 	m_loggerMock = new LoggerMock;
 	m_watchMock = new WatchMock;
-	m_controllableRobotMockGoalie = new ControllableRobotMock;
-	m_controllableRobotMockPlayer1 = new ControllableRobotMock;
-	m_controllableRobotMockPlayer2 = new ControllableRobotMock;
 	m_storageMock = new StorageMock;
 	m_controllableRobotMockGoalie = &(m_storageMock->getOwnRobotMock(0));
 	m_controllableRobotMockPlayer1 = &(m_storageMock->getOwnRobotMock(1));
