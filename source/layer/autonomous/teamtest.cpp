@@ -103,5 +103,5 @@ void TeamTest::getObstacles_firstAtOrigin_obstacleCorrect()
 	Compare compare(0.001);
 	m_controllableRobotMockPlayer1->setPose(Pose(Point(0,0),Angle()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_teamImpl->getObstacles().front(),Circle(Point(0,0),0)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(m_teamImpl->getObstacles().front(),Circle(Point(0,0),0.095)));
 }

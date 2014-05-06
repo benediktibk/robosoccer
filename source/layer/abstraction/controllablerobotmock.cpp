@@ -22,7 +22,7 @@ Pose ControllableRobotMock::getPose() const
 
 Circle ControllableRobotMock::createObstacle() const
 {
-	return Circle();
+	return Circle(m_pose.getPosition(),0.095);
 }
 
 void ControllableRobotMock::gotoPositionImprecise(const Point &/*position*/)
