@@ -15,6 +15,11 @@ namespace Logging
 {
 	class Logger;
 }
+namespace Routing
+{
+	class Router;
+	class Route;
+}
 }
 namespace Layer
 {
@@ -31,7 +36,8 @@ namespace Autonomous
 			public Robot
 	{
 	public:
-		RobotImpl(Abstraction::ControllableRobot &robot, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
+		RobotImpl(Abstraction::ControllableRobot &robot, const Common::Routing::Router &router,
+				  Common::Time::Watch const &watch, Common::Logging::Logger &logger);
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Pose const &position);
@@ -48,8 +54,10 @@ namespace Autonomous
 
 	private:
 		Abstraction::ControllableRobot &m_robot;
+		Common::Routing::Router const &m_router;
 		Common::Time::Watch const &m_watch;
 		Common::Logging::Logger &m_logger;
+		Common::Routing::Route *m_currentRoute;
 		RobotState *m_currentState;
 	};
 }

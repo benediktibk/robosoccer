@@ -31,6 +31,9 @@ namespace Autonomous
 }
 namespace Main
 {
+	class FieldPositionCheckerGoalkeeper;
+	class FieldPositionCheckerFieldPlayer;
+
 	class Application
 	{
 	public:
@@ -43,6 +46,8 @@ namespace Main
 		Common::Logging::Logger *m_logger;
 		Common::Time::Watch *m_watch;
 		Abstraction::Storage *m_storage;
+		FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
+		FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
 		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;

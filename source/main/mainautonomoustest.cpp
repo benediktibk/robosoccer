@@ -2,6 +2,8 @@
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robot.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/watchimpl.h"
@@ -15,6 +17,8 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
 int main(int, char**)
@@ -23,7 +27,9 @@ int main(int, char**)
 	LoggerImpl logger;
 	WatchImpl watch;
 	StorageImpl storage(14, TeamColorBlue, logger, watch);
-	TeamImpl team(storage, watch, logger);
+	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper(FieldSideLeft);
+	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
+	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
 	IntelligentBallImpl ball(storage.getBall());
 	Robot &robot = team.getFirstFieldPlayer();
 	TargetPositionFetcher targetPositionFetcher;

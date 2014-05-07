@@ -16,6 +16,10 @@ namespace Logging
 {
 	class LoggerMock;
 }
+namespace Routing
+{
+	class RouterMock;
+}
 }
 namespace Layer
 {
@@ -54,6 +58,7 @@ namespace Autonomous
 		Abstraction::ControllableRobotMock *m_hardwareRobot;
 		Common::Time::WatchMock *m_watch;
 		Common::Logging::LoggerMock *m_logger;
+		Common::Routing::RouterMock *m_routerMock;
 		RobotImpl *m_robot;
 		IntelligentBallMock *m_ball;
 	};
