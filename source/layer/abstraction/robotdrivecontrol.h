@@ -27,7 +27,10 @@ namespace Abstraction
 	class RobotDriveControl
 	{
 	public:
-		RobotDriveControl(Common::Time::Watch const &watch);
+		RobotDriveControl(
+				Common::Time::Watch const &watch,
+				double rotationP, double rotationI,
+				double forwardP, double forwardI);
 		~RobotDriveControl();
 
 		void evaluate(Common::Geometry::Pose const &current, Common::Geometry::Point const &target, double &translationSpeed, double &rotationSpeed);

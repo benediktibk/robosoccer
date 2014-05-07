@@ -18,7 +18,7 @@ using namespace RoboSoccer::Common::Time;
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
 	m_turnControl(new RobotTurnControl(watch)),
-	m_driveControl(new RobotDriveControl(watch)),
+	m_driveControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch))
