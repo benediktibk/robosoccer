@@ -28,7 +28,7 @@ int main(int, char**)
 	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
-	ControllableRobot &ownRobot = storage.getOwnRobot(1);
+	ControllableRobot &ownRobot = storage.getOwnRobot(2);
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
@@ -37,34 +37,29 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	for (int i = 1; i<=3; i++)
+	while(true)
 	{
 		Point target(-1,0);
-
 		Angle rot(ownRobot.getPose().getPosition(),target);
 
 		ownRobot.turn(rot);
-
 		for (unsigned int i = 0; i < 500; ++i)
 		{
 			ownRobot.measure();
 			ownRobot.update();
 			usleep(10000);
-			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 		}
 
 		ownRobot.drive(target);
-		for (unsigned int i = 0; i < 500; ++i)
+		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();
 			ownRobot.update();
 			usleep(10000);
-			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 		}
+		cout << "error: " << target - ownRobot.getPose().getPosition() << endl;
 
-
-		Point target2(1.0,0);
-
+		Point target2(1,0);
 		Angle rot2(ownRobot.getPose().getPosition(),target2);
 
 		ownRobot.turn(rot2);
@@ -73,17 +68,16 @@ int main(int, char**)
 			ownRobot.measure();
 			ownRobot.update();
 			usleep(10000);
-			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 		}
 
 		ownRobot.drive(target2);
-		for (unsigned int i = 0; i < 500; ++i)
+		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();
 			ownRobot.update();
 			usleep(10000);
-			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 		}
+		cout << "error: " << ownRobot.getPose().getPosition() - target2 << endl;
 	}
 
 	return 0;

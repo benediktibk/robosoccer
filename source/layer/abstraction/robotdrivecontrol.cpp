@@ -3,16 +3,17 @@
 #include "common/geometry/pose.h"
 #include "common/geometry/point.h"
 #include <math.h>
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
-using namespace RoboSoccer::Common::Other;
+using namespace RoboSoccer::Common;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotDriveControl::RobotDriveControl(const Watch& watch) :
-  m_rotationController(new PIDController(0.11, 0.01, 0.00, watch)),
-  //m_translationController(new PIDController(30, 50, 0, watch))
-  m_translationController(new PIDController(150, 60, 0, watch))
+  m_rotationController(new Other::PIDController(0.2, 0.2, 0.00, watch)),
+  //m_rotationController(new Other::PIDController(0.1, 0.09, 0.00, watch)),
+  m_translationController(new Other::PIDController(50, 40, 0, watch))
 { }
 
 RobotDriveControl::~RobotDriveControl()
@@ -25,26 +26,47 @@ RobotDriveControl::~RobotDriveControl()
 
 void RobotDriveControl::evaluate(const Pose& current, const Point& target, double& translationSpeed, double& rotationSpeed)
 {
-  Angle currentOrientation = current.getOrientation();
-  Point currentPosition = current.getPosition();
-  Angle targetOrientation(currentPosition, target);
-  Angle orientationDifference = targetOrientation - currentOrientation;
+	Compare positionCompare(0.01);
+	const Point &currentPosition = current.getPosition();
+	Angle alpha = Angle(target, currentPosition, m_startPosition);
+	Angle ownOrientation = current.getOrientation();
+	Angle targetOrientation(currentPosition, target);
+	Angle orientationDifference = targetOrientation - ownOrientation;
+	double distanceToTarget = currentPosition.distanceTo(target);
+	double orthogonalError = distanceToTarget*sin(orientationDifference.getValueBetweenMinusPiAndPi());
+	double forwardError = std::max(0.0, distanceToTarget*cos(alpha.getValueBetweenMinusPiAndPi()));
 
-  double inputRotation = orientationDifference.getValueBetweenMinusPiAndPi();
-  double inputTranslation = target.distanceTo(currentPosition);
+	if (positionCompare.isFuzzyEqual(forwardError, 0) || alpha.isObtuse())
+	{
+		rotationSpeed = 0;
+		translationSpeed = 0;
+		return;
+	}
 
-  rotationSpeed = m_rotationController->evaluate(inputRotation);
+  rotationSpeed = m_rotationController->evaluate(orthogonalError);
 
-  translationSpeed = m_translationController->evaluate(inputTranslation);
+  translationSpeed = m_translationController->evaluate(forwardError);
 
-  if (translationSpeed > 100)
-	  translationSpeed = 100;
-  else if (translationSpeed < -100)
-	  translationSpeed = -100;
+  double magnitudeModification = 1 - fabs(rotationSpeed*2);
+  if (magnitudeModification > 1)
+	  magnitudeModification = 1;
+  else if (magnitudeModification < 0)
+	  magnitudeModification = 0;
+  translationSpeed *= magnitudeModification;
+
+  if (translationSpeed > 200)
+	  translationSpeed = 200;
+  else if (translationSpeed < -200)
+	  translationSpeed = -200;
+  if (translationSpeed > 0)
+	  translationSpeed = std::max<double>(translationSpeed, 40);
+  else if (translationSpeed < 0)
+	  translationSpeed = std::min<double>(translationSpeed, -40);
 }
 
-void RobotDriveControl::reset(/*const Pose &start*/)
+void RobotDriveControl::reset(const Pose &start)
 {
+  m_startPosition = start.getPosition();
   m_translationController->resetTo(0);
   m_rotationController->resetTo(0);
 }

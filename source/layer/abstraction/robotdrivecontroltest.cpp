@@ -32,18 +32,6 @@ void RobotDriveControlTest::evaluate_atTarget_bothValuesSmall()
 
 	m_control->evaluate(current, target, translation, rotation);
 
-	CPPUNIT_ASSERT(translation < 40);
+	CPPUNIT_ASSERT(translation < 10);
 	CPPUNIT_ASSERT(rotation < 0.1);
-}
-
-void RobotDriveControlTest::evaluate_farAwayFromTarget_bigSpeed()
-{
-	Pose current(Point(3, 4), Angle(0));
-	Point target(100, 100);
-	double translation;
-	double rotation;
-
-	m_control->evaluate(current, target, translation, rotation);
-
-	CPPUNIT_ASSERT(translation > 100);
 }

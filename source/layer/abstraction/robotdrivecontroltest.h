@@ -24,7 +24,6 @@ namespace Abstraction
 	{
 		CPPUNIT_TEST_SUITE(RobotDriveControlTest);
 		CPPUNIT_TEST(evaluate_atTarget_bothValuesSmall);
-		CPPUNIT_TEST(evaluate_farAwayFromTarget_bigSpeed);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -33,7 +32,6 @@ namespace Abstraction
 
 	private:
 		void evaluate_atTarget_bothValuesSmall();
-		void evaluate_farAwayFromTarget_bigSpeed();
 
 	private:
 		RobotDriveControl *m_control;
