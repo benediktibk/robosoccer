@@ -59,6 +59,7 @@ namespace Abstraction
 
 	private:
 		void switchInto(State state);
+		void setSpeed(double translationSpeed, double rotationSpeed);
 
 	private:
 		RoboControl *m_robot;
@@ -67,6 +68,8 @@ namespace Abstraction
 		State m_state;
 		Common::Geometry::Angle m_turnTarget;
 		Common::Geometry::Point m_driveTarget;
+		double m_translationSpeed;
+		double m_rotationSpeed;
 	};
 }
 }

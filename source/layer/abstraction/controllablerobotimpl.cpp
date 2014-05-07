@@ -16,7 +16,9 @@ using namespace RoboSoccer::Common::Time;
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
 	m_turnControl(new RobotTurnControl(watch)),
-	m_driveControl(new RobotDriveControl(watch))
+	m_driveControl(new RobotDriveControl(watch)),
+	m_translationSpeed(0),
+	m_rotationSpeed(0)
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -105,7 +107,7 @@ void ControllableRobotImpl::update()
 		break;
 	}
 
-	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	setSpeed(translationSpeed, rotationSpeed);
 }
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
@@ -124,4 +126,11 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 	m_turnControl->reset();
 	m_driveControl->reset();
 	m_state = state;
+}
+
+void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpeed)
+{
+	m_translationSpeed = translationSpeed;
+	m_rotationSpeed = rotationSpeed;
+	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
 }
