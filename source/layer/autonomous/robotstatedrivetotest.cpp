@@ -2,13 +2,14 @@
 #include "layer/autonomous/robotstatedriveto.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "common/time/watchmock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2));
+	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2), *m_watch);
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()
@@ -33,6 +34,17 @@ void RobotStateDriveToTest::nextState_targetNotYetReached_0()
 void RobotStateDriveToTest::nextState_targetReached_targetReachedState()
 {
 	m_controllableRobot->setPose(Pose(Point(3, 2), Angle()));
+
+	RobotState *nextState = m_robotState->nextState();
+
+	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	CPPUNIT_ASSERT(0 != nextStateCasted);
+	delete nextState;
+}
+
+void RobotStateDriveToTest::nextState_took10s_targetReachedState()
+{
+	m_watch->setTime(10);
 
 	RobotState *nextState = m_robotState->nextState();
 

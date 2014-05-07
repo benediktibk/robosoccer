@@ -17,6 +17,7 @@ namespace Autonomous
 		CPPUNIT_TEST(cantReachTarget_noObstacles_false);
 		CPPUNIT_TEST(nextState_targetNotYetReached_0);
 		CPPUNIT_TEST(nextState_targetReached_targetReachedState);
+		CPPUNIT_TEST(nextState_took10s_targetReachedState);
 		CPPUNIT_TEST(update_noObstacles_callToGoToPrecise);
 		CPPUNIT_TEST(update_noChangesInTarget_onlyOneCallToGoToPrecise);
 		CPPUNIT_TEST(isEquivalentToDriveTo_sameTarget_true);
@@ -31,6 +32,7 @@ namespace Autonomous
 		void cantReachTarget_noObstacles_false();
 		void nextState_targetNotYetReached_0();
 		void nextState_targetReached_targetReachedState();
+		void nextState_took10s_targetReachedState();
 		void update_noObstacles_callToGoToPrecise();
 		void update_noChangesInTarget_onlyOneCallToGoToPrecise();
 		void isEquivalentToDriveTo_sameTarget_true();
