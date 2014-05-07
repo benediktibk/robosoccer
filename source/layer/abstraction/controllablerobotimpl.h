@@ -39,7 +39,8 @@ namespace Abstraction
 		{
 			StateStop,
 			StateTurning,
-			StateDriving
+			StateDrivingShort,
+			StateDrivingLong
 		};
 
 	public:

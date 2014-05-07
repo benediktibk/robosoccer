@@ -60,13 +60,13 @@ Geometry::Circle ControllableRobotImpl::getObstacle() const
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
 {
 	m_driveTarget = position;
-	switchInto(StateDriving);
+	switchInto(StateDrivingLong);
 }
 
 void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
 	m_driveTarget = position;
-	switchInto(StateDriving);
+	switchInto(StateDrivingShort);
 }
 
 bool ControllableRobotImpl::kick(unsigned int force)
@@ -87,7 +87,7 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 void ControllableRobotImpl::drive(const Geometry::Point &targetPoint)
 {
 	m_driveTarget = targetPoint;
-	switchInto(StateDriving);
+	switchInto(StateDrivingShort);
 }
 
 void ControllableRobotImpl::stop()
@@ -122,8 +122,14 @@ void ControllableRobotImpl::update()
 		else
 			switchInto(StateStop);
 		break;
-	case StateDriving:
+	case StateDrivingShort:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
+			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		else
+			switchInto(StateStop);
+		break;
+	case StateDrivingLong:
+		if(getPosition().distanceTo(m_driveTarget) > 0.1)
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);
@@ -173,6 +179,7 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
 	m_turnControl->reset();
 	m_driveShortControl->reset(getPose());
+	m_driveLongControl->reset(getPose());
 	m_state = state;
 }
 
