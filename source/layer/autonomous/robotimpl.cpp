@@ -39,7 +39,7 @@ void RobotImpl::goTo(const Pose &position)
 	if (m_currentState->isEquivalentToDriveTo(Point(position)))
 		return;
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch));
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -77,7 +77,7 @@ void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 		switchIntoState(new RobotStateReachedTarget(m_robot));
 	}
 	else
-		switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch)));
+		switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch)));
 }
 
 void RobotImpl::update()
@@ -89,6 +89,11 @@ void RobotImpl::update()
 
 	m_currentState->update();
 	m_robot.update();
+}
+
+void RobotImpl::measure()
+{
+	m_robot.measure();
 }
 
 void RobotImpl::switchIntoState(RobotState *state)

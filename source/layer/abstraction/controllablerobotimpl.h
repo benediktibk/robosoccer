@@ -5,6 +5,7 @@
 #include "layer/abstraction/teamcolor.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
+#include "common/geometry/pose.h"
 
 class RoboControl;
 
@@ -20,6 +21,7 @@ namespace Common
 namespace Time
 {
 	class Watch;
+	class StopWatch;
 }
 }
 namespace Layer
@@ -53,12 +55,14 @@ namespace Abstraction
 		virtual void drive(const Common::Geometry::Point &targetPoint);
 		virtual void stop();
 		virtual void update();
+		virtual void measure();
 
 		Common::Geometry::Angle getOrientation() const;
 		Common::Geometry::Point getPosition() const;
 
 	private:
 		void switchInto(State state);
+		void setSpeed(double translationSpeed, double rotationSpeed);
 
 	private:
 		RoboControl *m_robot;
@@ -67,6 +71,11 @@ namespace Abstraction
 		State m_state;
 		Common::Geometry::Angle m_turnTarget;
 		Common::Geometry::Point m_driveTarget;
+		double m_translationSpeed;
+		double m_rotationSpeed;
+		Common::Geometry::Pose m_currentPose;
+		Common::Geometry::Pose m_lastPoseReceived;
+		Common::Time::StopWatch *m_loopTimeWatch;
 	};
 }
 }

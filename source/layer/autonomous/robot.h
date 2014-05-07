@@ -30,6 +30,7 @@ namespace Autonomous
 		virtual bool cantReachTarget() const = 0;
 		virtual void kick(unsigned int force, IntelligentBall const &ball) = 0;
 		virtual void update() = 0;
+		virtual void measure() = 0;
 	};
 }
 }

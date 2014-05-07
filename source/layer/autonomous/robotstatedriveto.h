@@ -6,6 +6,14 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Time
+{
+	class Watch;
+	class StopWatch;
+}
+}
 namespace Layer
 {
 namespace Autonomous
@@ -16,7 +24,9 @@ namespace Autonomous
 	public:
 		RobotStateDriveTo(
 				Abstraction::ControllableRobot &robot,
-				Common::Geometry::Point const &target);
+				Common::Geometry::Point const &target,
+				Common::Time::Watch const &watch);
+		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;
@@ -28,6 +38,7 @@ namespace Autonomous
 	private:
 		bool m_currentTargetValid;
 		Common::Geometry::Point m_target;
+		Common::Time::StopWatch *m_watchDog;
 	};
 }
 }

@@ -5,6 +5,8 @@
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
+#include "common/geometry/compare.h"
+#include "common/time/stopwatch.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
@@ -16,7 +18,10 @@ using namespace RoboSoccer::Common::Time;
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
 	m_turnControl(new RobotTurnControl(watch)),
-	m_driveControl(new RobotDriveControl(watch))
+	m_driveControl(new RobotDriveControl(watch)),
+	m_translationSpeed(0),
+	m_rotationSpeed(0),
+	m_loopTimeWatch(new StopWatch(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -32,6 +37,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_turnControl = 0;
 	delete m_driveControl;
 	m_driveControl = 0;
+	delete m_loopTimeWatch;
+	m_loopTimeWatch = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -89,6 +96,7 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
+	Geometry::Compare compare(0.1);
 
 	switch(m_state)
 	{
@@ -96,27 +104,66 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		if (!compare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		{
+			double rotationSpeedFromController = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+			double minimumSpeed = 0.1;
+
+			if (rotationSpeedFromController < 0)
+				rotationSpeed = std::min<double>(rotationSpeedFromController, -minimumSpeed);
+			else if (rotationSpeedFromController > 0)
+				rotationSpeed = std::max<double>(rotationSpeedFromController, minimumSpeed);
+			else
+				rotationSpeed = 0;
+		}
+		else
+			switchInto(StateStop);
 		break;
 	case StateDriving:
-		if(getPosition().distanceTo(m_driveTarget) < 0.1)
-			switchInto( StateStop);
-		m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		if(getPosition().distanceTo(m_driveTarget) > 0.1)
+			m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		else
+			switchInto(StateStop);
 		break;
 	}
 
-	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	setSpeed(translationSpeed, rotationSpeed);
+}
+
+void ControllableRobotImpl::measure()
+{
+	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
+	Geometry::Angle orientation(m_robot->GetPhi().Rad());
+	double loopTime = m_loopTimeWatch->getTimeAndRestart();
+
+	/*!
+	 * If the new values are exactly the same like the ones we have received
+	 * last, it is very likely that no new frame arrived. In this case we will
+	 * extrapolate the position and orientation.
+	 */
+	if (	position == m_lastPoseReceived.getPosition() &&
+			orientation == m_lastPoseReceived.getOrientation())
+	{
+		//! @todo extrapolate position
+		double rotationSpeedTransformed = m_rotationSpeed*6.8;
+		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
+		m_currentPose.setOrientation(getOrientation() + rotationChange);
+	}
+	else
+	{
+		m_currentPose = Geometry::Pose(position, orientation);
+		m_lastPoseReceived = m_currentPose;
+	}
 }
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
-	Angle angle = m_robot->GetPhi();
-	return Geometry::Angle(angle.Rad());
+	return m_currentPose.getOrientation();
 }
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
+	return m_currentPose.getPosition();
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
@@ -124,4 +171,11 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 	m_turnControl->reset();
 	m_driveControl->reset();
 	m_state = state;
+}
+
+void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpeed)
+{
+	m_translationSpeed = translationSpeed;
+	m_rotationSpeed = rotationSpeed;
+	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
 }

@@ -24,6 +24,7 @@ namespace Autonomous
 		virtual bool cantReachTarget() const;
 		virtual void kick(unsigned int force, IntelligentBall const &ball);
 		virtual void update();
+		virtual void measure();
 
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoTo() const;

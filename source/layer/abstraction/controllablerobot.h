@@ -30,6 +30,7 @@ namespace Abstraction
 		virtual void drive(Common::Geometry::Point const &targetPoint) = 0;
 		virtual void stop() = 0;
 		virtual void update() = 0;
+		virtual void measure() = 0;
 	};
 }
 }
