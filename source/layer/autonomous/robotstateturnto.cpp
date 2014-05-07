@@ -2,19 +2,24 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/compare.h"
+#include "common/time/stopwatch.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Time;
 
 RobotStateTurnTo::RobotStateTurnTo(
-		Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target,
+		Abstraction::ControllableRobot &robot, Point const &target, Watch const &watch,
 		RobotState *followingState) :
 	RobotState(robot),
 	m_target(target),
 	m_followingState(followingState),
-	m_targetAlreadySet(false)
-{ }
+	m_targetAlreadySet(false),
+	m_watchDog(new StopWatch(watch))
+{
+	m_watchDog->getTimeAndRestart();
+}
 
 RobotStateTurnTo::~RobotStateTurnTo()
 {
@@ -34,12 +39,12 @@ bool RobotStateTurnTo::cantReachTarget() const
 
 RobotState *RobotStateTurnTo::nextState()
 {
-	Compare compare(0.1); //! @todo set a higher precision if possible
+	Compare compare(0.1);
 	Pose currentPose = getRobot().getPose();
 	Angle targetOrientation = calculateTargetOrientation();
 	RobotState *result = 0;
 
-	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation))
+	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || m_watchDog->getTime() > 2)
 	{
 		result = m_followingState;
 		m_followingState = 0;

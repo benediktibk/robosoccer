@@ -53,6 +53,24 @@ void RobotStateDriveToTest::nextState_took10s_targetReachedState()
 	delete nextState;
 }
 
+void RobotStateDriveToTest::nextState_took10sWithSeveralCalls_targetReachedState()
+{
+	RobotState *nextState = 0;
+
+	for (unsigned int i = 0; i < 100; ++i)
+	{
+		m_watch->setTime(i*10.0/100);
+		nextState = m_robotState->nextState();
+
+		if (nextState != 0)
+			break;
+	}
+
+	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	CPPUNIT_ASSERT(0 != nextStateCasted);
+	delete nextState;
+}
+
 void RobotStateDriveToTest::update_noObstacles_callToGoToPrecise()
 {
 	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
