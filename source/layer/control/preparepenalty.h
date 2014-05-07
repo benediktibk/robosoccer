@@ -9,6 +9,8 @@ namespace Layer
 {
 namespace Control
 {
+	class UserInputFetcher;
+
 	class PreparePenalty :
 			public RoboSoccerState
 	{
@@ -16,7 +18,9 @@ namespace Control
 		PreparePenalty(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
 					   Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 					   Autonomous::IntelligentBall const &ball,
-					   Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+					   Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+					   UserInputFetcher *userInputFetcher);
+		virtual ~PreparePenalty();
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();
@@ -24,6 +28,8 @@ namespace Control
 	private:
 		virtual void updateInternal();
 
+	private:
+		UserInputFetcher *m_userInputFetcher;
 	};
 }
 }

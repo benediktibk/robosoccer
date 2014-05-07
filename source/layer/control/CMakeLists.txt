@@ -12,6 +12,8 @@ set(COMMON_LAYER_CONTROL_SRC
 	preparepenaltydefensive.cpp
 	penaltyoffensive.cpp
 	penaltydefensive.cpp
+	userinputfetcherimpl.cpp
+	userinputfetchermock.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC

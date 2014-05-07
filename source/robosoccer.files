@@ -331,3 +331,8 @@ layer/abstraction/robotdrivecontroltest.h
 layer/abstraction/robotdrivecontrol.h
 layer/abstraction/robotdrivecontroltest.cpp
 layer/abstraction/robotdrivecontrol.cpp
+layer/control/userinputfetcher.h
+layer/control/userinputfetcherimpl.h
+layer/control/userinputfetcherimpl.cpp
+layer/control/userinputfetchermock.h
+layer/control/userinputfetchermock.cpp
