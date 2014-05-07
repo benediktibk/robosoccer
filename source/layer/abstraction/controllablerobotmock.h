@@ -25,6 +25,7 @@ namespace Abstraction
 		virtual void drive(Common::Geometry::Point const &targetPoint);
 		virtual void stop();
 		virtual void update();
+		virtual void measure();
 
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoToPositionImprecise() const;
@@ -33,6 +34,7 @@ namespace Abstraction
 		unsigned int getCallsToDrive() const;
 		unsigned int getCallsToKick() const;
 		unsigned int getCallsToUpdate() const;
+		unsigned int getCallsToMeasure() const;
 		Common::Geometry::Angle const& getLastAngleToTurnTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
 
@@ -44,6 +46,7 @@ namespace Abstraction
 		unsigned int m_callsToKick;
 		unsigned int m_callsToUpdate;
 		unsigned int m_callsToDrive;
+		unsigned int m_callsToMeasure;
 		Common::Geometry::Pose m_pose;
 		Common::Geometry::Angle m_lastAngleToTurnTo;
 		Common::Geometry::Point m_lastPointToDriveTo;

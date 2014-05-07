@@ -37,6 +37,7 @@ namespace Autonomous
 		CPPUNIT_TEST(goTo_twiceWithSameTarget_oneCallToMoveRobot);
 		CPPUNIT_TEST(update_kickAndTurnToReachedTarget_oneCallToKick);
 		CPPUNIT_TEST(update_empty_robotGotCallToUpdate);
+		CPPUNIT_TEST(measure_empty_robotGotCallToMeasure);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -49,6 +50,7 @@ namespace Autonomous
 		void goTo_twiceWithSameTarget_oneCallToMoveRobot();
 		void update_kickAndTurnToReachedTarget_oneCallToKick();
 		void update_empty_robotGotCallToUpdate();
+		void measure_empty_robotGotCallToMeasure();
 
 	private:
 		Abstraction::ControllableRobotMock *m_hardwareRobot;

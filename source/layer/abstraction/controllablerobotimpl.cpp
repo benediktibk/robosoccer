@@ -5,6 +5,7 @@
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
+#include "common/time/stopwatch.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
@@ -18,7 +19,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_turnControl(new RobotTurnControl(watch)),
 	m_driveControl(new RobotDriveControl(watch)),
 	m_translationSpeed(0),
-	m_rotationSpeed(0)
+	m_rotationSpeed(0),
+	m_loopTimeWatch(new StopWatch(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -34,6 +36,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_turnControl = 0;
 	delete m_driveControl;
 	m_driveControl = 0;
+	delete m_loopTimeWatch;
+	m_loopTimeWatch = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -111,15 +115,40 @@ void ControllableRobotImpl::update()
 	setSpeed(translationSpeed, rotationSpeed);
 }
 
+void ControllableRobotImpl::measure()
+{
+	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
+	Geometry::Angle orientation(m_robot->GetPhi().Rad());
+	double loopTime = m_loopTimeWatch->getTimeAndRestart();
+
+	/*!
+	 * If the new values are exactly the same like the ones we have received
+	 * last, it is very likely that no new frame arrived. In this case we will
+	 * extrapolate the position and orientation.
+	 */
+	if (	position == m_lastPoseReceived.getPosition() &&
+			orientation == m_lastPoseReceived.getOrientation())
+	{
+		//! @todo extrapolate position
+		double rotationSpeedTransformed = m_rotationSpeed*6.8;
+		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
+		m_currentPose.setOrientation(getOrientation() + rotationChange);
+	}
+	else
+	{
+		m_currentPose = Geometry::Pose(position, orientation);
+		m_lastPoseReceived = m_currentPose;
+	}
+}
+
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
-	Angle angle = m_robot->GetPhi();
-	return Geometry::Angle(angle.Rad());
+	return m_currentPose.getOrientation();
 }
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
+	return m_currentPose.getPosition();
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)

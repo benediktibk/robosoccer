@@ -90,6 +90,11 @@ Angle Angle::operator/(double value) const
 	return Angle(m_value/value);
 }
 
+bool Angle::operator==(const Angle &rhs) const
+{
+	return m_value == rhs.m_value;
+}
+
 Angle Angle::getHalfRotation()
 {
 	return Angle(M_PI);
