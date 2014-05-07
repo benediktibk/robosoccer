@@ -28,7 +28,7 @@ int main(int, char**)
 	StorageImpl storage(14, TeamColorRed, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
-	ControllableRobot &ownRobot = storage.getOwnRobot(0);
+	ControllableRobot &ownRobot = storage.getOwnRobot(1);
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
@@ -37,25 +37,25 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	Point target(-0.5,0.2);
-
-	ownRobot.drive(target);
-	for (unsigned int i = 0; i < 500; ++i)
+	while(true)
 	{
-		ownRobot.update();
-		usleep(10000);
-		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
-	}
+		ownRobot.turn(Angle::getQuarterRotation());
+		for (unsigned int i = 0; i < 300; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+		}
 
+		ownRobot.turn(Angle(0));
+		for (unsigned int i = 0; i < 300; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+		}
 
-	Point target2(1.0,0.5);
-
-	ownRobot.drive(target2);
-	for (unsigned int i = 0; i < 500; ++i)
-	{
-		ownRobot.update();
-		usleep(10000);
-		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		cout << ownRobot.getPose().getOrientation().getValueBetweenMinusPiAndPi() << endl;
 	}
 
 

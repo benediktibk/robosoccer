@@ -96,7 +96,7 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
-	Geometry::Compare compare(0.05);
+	Geometry::Compare compare(0.1);
 
 	switch(m_state)
 	{
@@ -105,7 +105,17 @@ void ControllableRobotImpl::update()
 		return;
 	case StateTurning:
 		if (!compare.isFuzzyEqual(getOrientation(), m_turnTarget))
-			rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		{
+			double rotationSpeedFromController = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+			double minimumSpeed = 0.1;
+
+			if (rotationSpeedFromController < 0)
+				rotationSpeed = std::min<double>(rotationSpeedFromController, -minimumSpeed);
+			else if (rotationSpeedFromController > 0)
+				rotationSpeed = std::max<double>(rotationSpeedFromController, minimumSpeed);
+			else
+				rotationSpeed = 0;
+		}
 		else
 			switchInto(StateStop);
 		break;
