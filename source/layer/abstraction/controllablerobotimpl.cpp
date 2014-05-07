@@ -5,6 +5,7 @@
 #include "common/geometry/circle.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
+#include "common/geometry/compare.h"
 #include "common/time/stopwatch.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
@@ -95,6 +96,7 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
+	Geometry::Compare compare(0.05);
 
 	switch(m_state)
 	{
@@ -102,7 +104,10 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		if (!compare.isFuzzyEqual(getOrientation(), m_turnTarget))
+			rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
+		else
+			switchInto(StateStop);
 		break;
 	case StateDriving:
 		if(getPosition().distanceTo(m_driveTarget) > 0.1)
