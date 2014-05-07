@@ -101,9 +101,10 @@ void ControllableRobotImpl::update()
 		rotationSpeed = m_turnControl->evaluate(getOrientation(), m_turnTarget);
 		break;
 	case StateDriving:
-		if(getPosition().distanceTo(m_driveTarget) < 0.1)
-			switchInto( StateStop);
-		m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		if(getPosition().distanceTo(m_driveTarget) > 0.1)
+			m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+		else
+			switchInto(StateStop);
 		break;
 	}
 
