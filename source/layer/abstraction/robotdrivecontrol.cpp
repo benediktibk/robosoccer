@@ -10,9 +10,9 @@ using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotDriveControl::RobotDriveControl(const Watch& watch) :
-  m_rotationController(new PIDController(0.1, 0.01, 0, watch)),
+  m_rotationController(new PIDController(0.11, 0.01, 0.00, watch)),
   //m_translationController(new PIDController(30, 50, 0, watch))
-  m_translationController(new PIDController(30, 25, 0, watch))
+  m_translationController(new PIDController(150, 60, 0, watch))
 { }
 
 RobotDriveControl::~RobotDriveControl()
@@ -36,6 +36,11 @@ void RobotDriveControl::evaluate(const Pose& current, const Point& target, doubl
   rotationSpeed = m_rotationController->evaluate(inputRotation);
 
   translationSpeed = m_translationController->evaluate(inputTranslation);
+
+  if (translationSpeed > 100)
+	  translationSpeed = 100;
+  else if (translationSpeed < -100)
+	  translationSpeed = -100;
 }
 
 void RobotDriveControl::reset(/*const Pose &start*/)

@@ -25,10 +25,10 @@ int main(int, char**)
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
-	ControllableRobot &ownRobot = storage.getOwnRobot(0);
+	ControllableRobot &ownRobot = storage.getOwnRobot(1);
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
@@ -37,27 +37,54 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	Point target(-0.5,0.2);
-
-	ownRobot.drive(target);
-	for (unsigned int i = 0; i < 500; ++i)
+	for (int i = 1; i<=3; i++)
 	{
-		ownRobot.update();
-		usleep(10000);
-		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		Point target(-1,0);
+
+		Angle rot(ownRobot.getPose().getPosition(),target);
+
+		ownRobot.turn(rot);
+
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		}
+
+		ownRobot.drive(target);
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		}
+
+
+		Point target2(1.0,0);
+
+		Angle rot2(ownRobot.getPose().getPosition(),target2);
+
+		ownRobot.turn(rot2);
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		}
+
+		ownRobot.drive(target2);
+		for (unsigned int i = 0; i < 500; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+			cout << "current pose of own robot is " << ownRobot.getPose() << endl;
+		}
 	}
-
-
-	Point target2(1.0,0.5);
-
-	ownRobot.drive(target2);
-	for (unsigned int i = 0; i < 500; ++i)
-	{
-		ownRobot.update();
-		usleep(10000);
-		cout << "current pose of own robot is " << ownRobot.getPose() << endl;
-	}
-
 
 	return 0;
 }
