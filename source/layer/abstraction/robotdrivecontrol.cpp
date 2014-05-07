@@ -15,7 +15,6 @@ RobotDriveControl::RobotDriveControl(
 		double rotationP, double rotationI,
 		double forwardP, double forwardI) :
   m_rotationController(new Other::PIDController(rotationP, rotationI, 0, watch)),
-  //m_rotationController(new Other::PIDController(0.1, 0.09, 0.00, watch)),
   m_translationController(new Other::PIDController(forwardP, forwardI, 0, watch))
 { }
 

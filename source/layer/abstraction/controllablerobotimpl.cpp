@@ -18,7 +18,8 @@ using namespace RoboSoccer::Common::Time;
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
 	m_turnControl(new RobotTurnControl(watch)),
-	m_driveControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
+	m_driveShortControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
+	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.09, 50, 40)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch))
@@ -35,8 +36,10 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_robot = 0;
 	delete m_turnControl;
 	m_turnControl = 0;
-	delete m_driveControl;
-	m_driveControl = 0;
+	delete m_driveShortControl;
+	m_driveShortControl = 0;
+	delete m_driveLongControl;
+	m_driveLongControl = 0;
 	delete m_loopTimeWatch;
 	m_loopTimeWatch = 0;
 }
@@ -121,7 +124,7 @@ void ControllableRobotImpl::update()
 		break;
 	case StateDriving:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
-			m_driveControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
+			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);
 		break;
@@ -169,7 +172,7 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
 	m_turnControl->reset();
-	m_driveControl->reset(getPose());
+	m_driveShortControl->reset(getPose());
 	m_state = state;
 }
 

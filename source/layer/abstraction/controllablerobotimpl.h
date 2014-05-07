@@ -67,7 +67,8 @@ namespace Abstraction
 	private:
 		RoboControl *m_robot;
 		RobotTurnControl *m_turnControl;
-		RobotDriveControl *m_driveControl;
+		RobotDriveControl *m_driveShortControl;
+		RobotDriveControl *m_driveLongControl;
 		State m_state;
 		Common::Geometry::Angle m_turnTarget;
 		Common::Geometry::Point m_driveTarget;
