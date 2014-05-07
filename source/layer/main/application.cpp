@@ -11,6 +11,8 @@
 #include "common/states/statemachine.h"
 #include "common/other/console.h"
 #include "layer/autonomous/robot.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -26,8 +28,10 @@ Application::Application(TeamColor ownTeamColor) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
 	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
+	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
+	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
-	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger)),
+	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher())
 { }
@@ -38,6 +42,10 @@ Application::~Application()
 	m_enemyTeam = 0;
 	delete m_ownTeam;
 	m_ownTeam = 0;
+	delete m_fieldPositionCheckerGoalKeeper;
+	m_fieldPositionCheckerGoalKeeper = 0;
+	delete m_fieldPositionCheckerFieldPlayer;
+	m_fieldPositionCheckerFieldPlayer = 0;
 	delete m_ball;
 	m_ball = 0;
 	delete m_storage;
@@ -71,6 +79,7 @@ void Application::run()
 
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
+		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);
 		string previousState = stateMachine.getNameOfCurrentState();
 		stateMachine.update();
 		string currentState = stateMachine.getNameOfCurrentState();

@@ -17,10 +17,12 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-RobotImpl::RobotImpl(ControllableRobot &robot, const Watch &watch, Logger &logger) :
+RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &router, const Watch &watch, Logger &logger) :
 	m_robot(robot),
+	m_router(router),
 	m_watch(watch),
 	m_logger(logger),
+	m_currentRoute(0),
 	m_currentState(new RobotStateReachedTarget(robot))
 { }
 

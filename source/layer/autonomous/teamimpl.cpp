@@ -5,18 +5,27 @@
 #include "common/geometry/pose.h"
 #include <assert.h>
 #include "common/geometry/circle.h"
+#include "common/routing/routerimpl.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
-TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger) :
-	m_goalie(new RobotImpl(storage.getOwnRobot(0), watch, logger)),
-	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), watch, logger)),
-	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), watch, logger))
+TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger,
+				   FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalkeeper,
+				   FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer) :
+	m_routerGoalie(new RouterImpl(0.095, fieldPositionCheckerGoalkeeper)),
+	m_routerFieldPlayer(new RouterImpl(0.095, fieldPositionCheckerFieldPlayer)),
+	m_goalie(new RobotImpl(storage.getOwnRobot(0), *m_routerGoalie, watch, logger)),
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), *m_routerFieldPlayer, watch, logger)),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), *m_routerFieldPlayer, watch, logger))
 { }
 
 TeamImpl::~TeamImpl()
@@ -27,6 +36,8 @@ TeamImpl::~TeamImpl()
 	m_fieldPlayerOne = 0;
 	delete m_fieldPlayerTwo;
 	m_fieldPlayerTwo = 0;
+	delete m_routerGoalie;
+	m_routerGoalie = 0;
 }
 
 Robot& TeamImpl::getGoalie()

@@ -10,12 +10,15 @@
 #include "common/geometry/compare.h"
 #include "layer/autonomous/robot.h"
 #include "common/geometry/circle.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
 void TeamTest::setUp()
@@ -26,7 +29,7 @@ void TeamTest::setUp()
 	m_controllableRobotMockGoalie = &(m_storageMock->getOwnRobotMock(0));
 	m_controllableRobotMockPlayer1 = &(m_storageMock->getOwnRobotMock(1));
 	m_controllableRobotMockPlayer2 = &(m_storageMock->getOwnRobotMock(2));
-	m_teamImpl = new TeamImpl(*m_storageMock, *m_watchMock, *m_loggerMock);
+	m_teamImpl = new TeamImpl(*m_storageMock, *m_watchMock, *m_loggerMock, *m_fieldPositionCheckerGoalkeeper, *m_fieldPositionCheckerFieldPlayer);
 }
 
 void TeamTest::tearDown()
@@ -42,6 +45,10 @@ void TeamTest::tearDown()
 	m_watchMock = 0;
 	delete m_loggerMock;
 	m_loggerMock = 0;
+	delete m_fieldPositionCheckerGoalkeeper;
+	m_fieldPositionCheckerGoalkeeper = 0;
+	delete m_fieldPositionCheckerFieldPlayer;
+	m_fieldPositionCheckerFieldPlayer = 0;
 }
 
 void TeamTest::getPlayerCloserToBall_playerOneCloser_correct()

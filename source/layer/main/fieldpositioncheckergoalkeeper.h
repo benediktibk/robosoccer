@@ -14,8 +14,10 @@ namespace Main
 			public Common::Routing::FieldPositionChecker
 	{
 	public:
-		FieldPositionCheckerGoalkeeper(Abstraction::FieldSide fieldSide);
+		FieldPositionCheckerGoalkeeper();
+
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
+
 		void setTeamSide(Abstraction::FieldSide fieldSide);
 
 	private:

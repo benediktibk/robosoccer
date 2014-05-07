@@ -5,19 +5,22 @@
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
 #include "common/geometry/pose.h"
+#include "common/routing/routermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Routing;
 
 void RobotTest::setUp()
 {
 	m_hardwareRobot = new ControllableRobotMock();
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
-	m_robot = new RobotImpl(*m_hardwareRobot, *m_watch, *m_logger);
+	m_routerMock = new RouterMock();
+	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger);
 	m_ball = new IntelligentBallMock();
 }
 
@@ -27,6 +30,8 @@ void RobotTest::tearDown()
 	m_robot = 0;
 	delete m_hardwareRobot;
 	m_hardwareRobot = 0;
+	delete m_routerMock;
+	m_routerMock = 0;
 	delete m_watch;
 	m_watch = 0;
 	delete m_logger;
