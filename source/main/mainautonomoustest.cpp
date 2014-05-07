@@ -27,7 +27,7 @@ int main(int, char**)
 	LoggerImpl logger;
 	WatchImpl watch;
 	StorageImpl storage(14, TeamColorBlue, logger, watch);
-	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper(FieldSideLeft);
+	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
 	IntelligentBallImpl ball(storage.getBall());
