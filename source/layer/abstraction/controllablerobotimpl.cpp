@@ -16,8 +16,8 @@ using namespace RoboSoccer::Common::Time;
 
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
-	m_driveShortControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
-	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 50, 40)),
+	m_driveShortControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 0)),
+	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch))
@@ -104,7 +104,7 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.1)
+		if(getPosition().distanceTo(m_driveTarget) > 0.05)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);

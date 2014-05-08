@@ -46,8 +46,18 @@ void RobotDriveControl::evaluate(const Pose& current, const Point& target, doubl
 	}
 
   rotationSpeed = m_rotationController->evaluate(orthogonalError);
-
   translationSpeed = m_translationController->evaluate(forwardError);
+
+  if (translationSpeed > 0)
+  {
+	  translationSpeed = std::max<double>(translationSpeed, 40);
+	  translationSpeed = std::min<double>(translationSpeed, 200);
+  }
+  else if (translationSpeed < 0)
+  {
+	  translationSpeed = std::max<double>(translationSpeed, -200);
+	  translationSpeed = std::min<double>(translationSpeed, -40);
+  }
 
   double magnitudeModification = 1 - fabs(rotationSpeed*2);
   if (magnitudeModification > 1)
@@ -55,15 +65,6 @@ void RobotDriveControl::evaluate(const Pose& current, const Point& target, doubl
   else if (magnitudeModification < 0)
 	  magnitudeModification = 0;
   translationSpeed *= magnitudeModification;
-
-  if (translationSpeed > 200)
-	  translationSpeed = 200;
-  else if (translationSpeed < -200)
-	  translationSpeed = -200;
-  if (translationSpeed > 0)
-	  translationSpeed = std::max<double>(translationSpeed, 40);
-  else if (translationSpeed < 0)
-	  translationSpeed = std::min<double>(translationSpeed, -40);
 }
 
 void RobotDriveControl::reset(const Pose &start)
