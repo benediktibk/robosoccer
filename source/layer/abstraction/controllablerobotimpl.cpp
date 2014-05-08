@@ -1,5 +1,4 @@
 #include "layer/abstraction/controllablerobotimpl.h"
-#include "layer/abstraction/robotturncontrol.h"
 #include "layer/abstraction/robotdrivecontrol.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
@@ -17,7 +16,6 @@ using namespace RoboSoccer::Common::Time;
 
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
-	m_turnControl(new RobotTurnControl(watch)),
 	m_driveShortControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
 	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 50, 40)),
 	m_translationSpeed(0),
@@ -34,8 +32,6 @@ ControllableRobotImpl::~ControllableRobotImpl()
 {
 	delete m_robot;
 	m_robot = 0;
-	delete m_turnControl;
-	m_turnControl = 0;
 	delete m_driveShortControl;
 	m_driveShortControl = 0;
 	delete m_driveLongControl;
@@ -80,7 +76,7 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_turnTarget = absoluteAngle;
+	m_robot->TurnAbs(Angle(absoluteAngle.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
 }
 
@@ -99,7 +95,6 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
-	Geometry::Compare compare(0.1);
 
 	switch(m_state)
 	{
@@ -107,21 +102,7 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (!compare.isFuzzyEqual(getOrientation(), m_turnTarget))
-		{
-			double rotationSpeedFromController = m_turnControl->evaluate(getOrientation(), m_turnTarget);
-			double minimumSpeed = 0.1;
-
-			if (rotationSpeedFromController < 0)
-				rotationSpeed = std::min<double>(rotationSpeedFromController, -minimumSpeed);
-			else if (rotationSpeedFromController > 0)
-				rotationSpeed = std::max<double>(rotationSpeedFromController, minimumSpeed);
-			else
-				rotationSpeed = 0;
-		}
-		else
-			switchInto(StateStop);
-		break;
+		return;
 	case StateDrivingShort:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
@@ -177,7 +158,6 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
-	m_turnControl->reset();
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;
