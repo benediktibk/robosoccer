@@ -50,7 +50,7 @@ int main(int, char**)
 			usleep(10000);
 		}
 
-		ownRobot.drive(target);
+		ownRobot.gotoPositionImprecise(target);
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();
@@ -70,7 +70,7 @@ int main(int, char**)
 			usleep(10000);
 		}
 
-		ownRobot.drive(target2);
+		ownRobot.gotoPositionImprecise(target2);
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();

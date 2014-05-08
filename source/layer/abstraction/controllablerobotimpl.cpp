@@ -80,12 +80,6 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 	switchInto(StateTurning);
 }
 
-void ControllableRobotImpl::drive(const Geometry::Point &targetPoint)
-{
-	m_driveTarget = targetPoint;
-	switchInto(StateDrivingShort);
-}
-
 void ControllableRobotImpl::stop()
 {
 	switchInto(StateStop);

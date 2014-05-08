@@ -52,7 +52,6 @@ namespace Abstraction
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
 		virtual bool kick(unsigned int force);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
-		virtual void drive(const Common::Geometry::Point &targetPoint);
 		virtual void stop();
 		virtual void update();
 		virtual void measure();
@@ -81,5 +80,3 @@ namespace Abstraction
 }
 
 #endif
-
-
