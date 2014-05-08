@@ -130,8 +130,14 @@ void ControllableRobotImpl::measure()
 	{
 		//! @todo extrapolate position
 		double rotationSpeedTransformed = m_rotationSpeed*6.8;
+		double translationSpeedTransformed = m_translationSpeed*0.00296961;
+		double drivenDistance = translationSpeedTransformed*loopTime;
 		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
+		Geometry::Point positionChange(drivenDistance, 0);
+		//! This rotation is definitely not an accurate calculation, but it is useful as rough esstimation.
+		positionChange.rotate(getOrientation() + rotationChange/2);
 		m_currentPose.setOrientation(getOrientation() + rotationChange);
+		m_currentPose.setPosition(getPosition() + positionChange);
 	}
 	else
 	{
