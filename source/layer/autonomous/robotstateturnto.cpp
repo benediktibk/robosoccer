@@ -25,6 +25,8 @@ RobotStateTurnTo::~RobotStateTurnTo()
 {
 	delete m_followingState;
 	m_followingState = 0;
+	delete m_watchDog;
+	m_watchDog = 0;
 }
 
 bool RobotStateTurnTo::reachedTarget() const

@@ -38,6 +38,8 @@ TeamImpl::~TeamImpl()
 	m_fieldPlayerTwo = 0;
 	delete m_routerGoalie;
 	m_routerGoalie = 0;
+	delete m_routerFieldPlayer;
+	m_routerFieldPlayer = 0;
 }
 
 Robot& TeamImpl::getGoalie()
