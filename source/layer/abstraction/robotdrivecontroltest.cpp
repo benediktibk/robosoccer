@@ -12,7 +12,7 @@ using namespace RoboSoccer::Common::Geometry;
 void RobotDriveControlTest::setUp()
 {
 	m_watch = new WatchMock();
-	m_control = new RobotDriveControl(*m_watch, 0.2, 0.2, 50, 40);
+	m_control = new RobotDriveControl(*m_watch, 0.2, 0.2, 50, 40, 40);
 }
 
 void RobotDriveControlTest::tearDown()

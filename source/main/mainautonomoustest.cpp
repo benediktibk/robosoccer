@@ -26,7 +26,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
@@ -46,11 +46,18 @@ int main(int, char**)
 	cout << "current ball position: " << ball.getPosition() << endl;
 	robot.kick(100, ball);
 
-	for (unsigned int i = 0; i < 1000; ++i)
+	while(true)
 	{
+		Point target(ball.getPosition().getX()+0.1,ball.getPosition().getY());
+		Angle rot(0);
+		Pose targetPose(target,rot);
+		//ownRobot.turn(rot);
+		robot.goTo(targetPose);
+		robot.measure();
 		robot.update();
 		usleep(10000);
+		cout << "Target: " <<target << endl;
+		//cout << "error: " << ownRobot.getPose().getPosition() - target << endl;
 	}
-
 	return 0;
 }

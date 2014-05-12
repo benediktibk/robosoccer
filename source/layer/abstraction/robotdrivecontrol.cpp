@@ -13,9 +13,11 @@ using namespace RoboSoccer::Common::Geometry;
 RobotDriveControl::RobotDriveControl(
 		const Watch& watch,
 		double rotationP, double rotationI,
-		double forwardP, double forwardI) :
+		double forwardP, double forwardI,
+		double minSpeed) :
   m_rotationController(new Other::PIDController(rotationP, rotationI, 0, watch)),
-  m_translationController(new Other::PIDController(forwardP, forwardI, 0, watch))
+  m_translationController(new Other::PIDController(forwardP, forwardI, 0, watch)),
+  m_minSpeed(minSpeed)
 { }
 
 RobotDriveControl::~RobotDriveControl()
@@ -50,13 +52,13 @@ void RobotDriveControl::evaluate(const Pose& current, const Point& target, doubl
 
   if (translationSpeed > 0)
   {
-	  translationSpeed = std::max<double>(translationSpeed, 40);
+	  translationSpeed = std::max<double>(translationSpeed, getMinSpeed());
 	  translationSpeed = std::min<double>(translationSpeed, 200);
   }
   else if (translationSpeed < 0)
   {
 	  translationSpeed = std::max<double>(translationSpeed, -200);
-	  translationSpeed = std::min<double>(translationSpeed, -40);
+	  translationSpeed = std::min<double>(translationSpeed, -getMinSpeed());
   }
 
   double magnitudeModification = 1 - fabs(rotationSpeed*2);
@@ -72,4 +74,9 @@ void RobotDriveControl::reset(const Pose &start)
   m_startPosition = start.getPosition();
   m_translationController->resetTo(0);
   m_rotationController->resetTo(0);
+}
+
+double RoboSoccer::Layer::Abstraction::RobotDriveControl::getMinSpeed() const
+{
+	return m_minSpeed;
 }

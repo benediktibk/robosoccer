@@ -30,16 +30,19 @@ namespace Abstraction
 		RobotDriveControl(
 				Common::Time::Watch const &watch,
 				double rotationP, double rotationI,
-				double forwardP, double forwardI);
+				double forwardP, double forwardI,
+				double minSpeed);
 		~RobotDriveControl();
 
 		void evaluate(Common::Geometry::Pose const &current, Common::Geometry::Point const &target, double &translationSpeed, double &rotationSpeed);
 		void reset(Common::Geometry::Pose const &start);
-
+	private:
+		double getMinSpeed() const;
 	private:
 		Common::Other::PIDController *m_rotationController;
 		Common::Other::PIDController *m_translationController;
 		Common::Geometry::Point m_startPosition;
+		double m_minSpeed;
 	};
 }
 }
