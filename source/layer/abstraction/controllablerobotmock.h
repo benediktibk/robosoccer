@@ -22,7 +22,6 @@ namespace Abstraction
 		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);
 		virtual bool kick(unsigned int force);
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
-		virtual void drive(Common::Geometry::Point const &targetPoint);
 		virtual void stop();
 		virtual void update();
 		virtual void measure();
@@ -31,7 +30,6 @@ namespace Abstraction
 		unsigned int getCallsToGoToPositionImprecise() const;
 		unsigned int getCallsToGoToPositionPrecise() const;
 		unsigned int getCallsToTurn() const;
-		unsigned int getCallsToDrive() const;
 		unsigned int getCallsToKick() const;
 		unsigned int getCallsToUpdate() const;
 		unsigned int getCallsToMeasure() const;
@@ -45,7 +43,6 @@ namespace Abstraction
 		unsigned int m_callsToTurn;
 		unsigned int m_callsToKick;
 		unsigned int m_callsToUpdate;
-		unsigned int m_callsToDrive;
 		unsigned int m_callsToMeasure;
 		Common::Geometry::Pose m_pose;
 		Common::Geometry::Angle m_lastAngleToTurnTo;

@@ -28,7 +28,6 @@ namespace Layer
 {
 namespace Abstraction
 {
-	class RobotTurnControl;
 	class RobotDriveControl;
 
 	class ControllableRobotImpl :
@@ -53,7 +52,6 @@ namespace Abstraction
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
 		virtual bool kick(unsigned int force);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
-		virtual void drive(const Common::Geometry::Point &targetPoint);
 		virtual void stop();
 		virtual void update();
 		virtual void measure();
@@ -67,11 +65,9 @@ namespace Abstraction
 
 	private:
 		RoboControl *m_robot;
-		RobotTurnControl *m_turnControl;
 		RobotDriveControl *m_driveShortControl;
 		RobotDriveControl *m_driveLongControl;
 		State m_state;
-		Common::Geometry::Angle m_turnTarget;
 		Common::Geometry::Point m_driveTarget;
 		double m_translationSpeed;
 		double m_rotationSpeed;
@@ -84,5 +80,3 @@ namespace Abstraction
 }
 
 #endif
-
-

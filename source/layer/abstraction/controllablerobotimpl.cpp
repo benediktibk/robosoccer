@@ -1,5 +1,4 @@
 #include "layer/abstraction/controllablerobotimpl.h"
-#include "layer/abstraction/robotturncontrol.h"
 #include "layer/abstraction/robotdrivecontrol.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
@@ -17,9 +16,8 @@ using namespace RoboSoccer::Common::Time;
 
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
-	m_turnControl(new RobotTurnControl(watch)),
-	m_driveShortControl(new RobotDriveControl(watch, 0.2, 0.2, 50, 40)),
-	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 50, 40)),
+	m_driveShortControl(new RobotDriveControl(watch, 1, 0.5, 50, 0)),
+	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch))
@@ -34,8 +32,6 @@ ControllableRobotImpl::~ControllableRobotImpl()
 {
 	delete m_robot;
 	m_robot = 0;
-	delete m_turnControl;
-	m_turnControl = 0;
 	delete m_driveShortControl;
 	m_driveShortControl = 0;
 	delete m_driveLongControl;
@@ -80,14 +76,8 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_turnTarget = absoluteAngle;
+	m_robot->TurnAbs(Angle(absoluteAngle.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
-}
-
-void ControllableRobotImpl::drive(const Geometry::Point &targetPoint)
-{
-	m_driveTarget = targetPoint;
-	switchInto(StateDrivingShort);
 }
 
 void ControllableRobotImpl::stop()
@@ -99,7 +89,6 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
-	Geometry::Compare compare(0.1);
 
 	switch(m_state)
 	{
@@ -107,21 +96,7 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (!compare.isFuzzyEqual(getOrientation(), m_turnTarget))
-		{
-			double rotationSpeedFromController = m_turnControl->evaluate(getOrientation(), m_turnTarget);
-			double minimumSpeed = 0.1;
-
-			if (rotationSpeedFromController < 0)
-				rotationSpeed = std::min<double>(rotationSpeedFromController, -minimumSpeed);
-			else if (rotationSpeedFromController > 0)
-				rotationSpeed = std::max<double>(rotationSpeedFromController, minimumSpeed);
-			else
-				rotationSpeed = 0;
-		}
-		else
-			switchInto(StateStop);
-		break;
+		return;
 	case StateDrivingShort:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
@@ -129,7 +104,7 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.1)
+		if(getPosition().distanceTo(m_driveTarget) > 0.05)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);
@@ -155,8 +130,14 @@ void ControllableRobotImpl::measure()
 	{
 		//! @todo extrapolate position
 		double rotationSpeedTransformed = m_rotationSpeed*6.8;
+		double translationSpeedTransformed = m_translationSpeed*0.00296961;
+		double drivenDistance = translationSpeedTransformed*loopTime;
 		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
+		Geometry::Point positionChange(drivenDistance, 0);
+		//! This rotation is definitely not an accurate calculation, but it is useful as rough esstimation.
+		positionChange.rotate(getOrientation() + rotationChange/2);
 		m_currentPose.setOrientation(getOrientation() + rotationChange);
+		m_currentPose.setPosition(getPosition() + positionChange);
 	}
 	else
 	{
@@ -177,7 +158,6 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
-	m_turnControl->reset();
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;

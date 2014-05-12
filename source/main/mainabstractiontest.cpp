@@ -39,7 +39,7 @@ int main(int, char**)
 
 	while(true)
 	{
-		Point target(-1,0);
+		Point target(-0.1, 0);
 		Angle rot(ownRobot.getPose().getPosition(),target);
 
 		ownRobot.turn(rot);
@@ -50,7 +50,7 @@ int main(int, char**)
 			usleep(10000);
 		}
 
-		ownRobot.drive(target);
+		ownRobot.gotoPositionPrecise(target);
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();
@@ -59,7 +59,7 @@ int main(int, char**)
 		}
 		cout << "error: " << target - ownRobot.getPose().getPosition() << endl;
 
-		Point target2(1,0);
+		Point target2(0.1, 0);
 		Angle rot2(ownRobot.getPose().getPosition(),target2);
 
 		ownRobot.turn(rot2);
@@ -70,7 +70,7 @@ int main(int, char**)
 			usleep(10000);
 		}
 
-		ownRobot.drive(target2);
+		ownRobot.gotoPositionPrecise(target2);
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			ownRobot.measure();
