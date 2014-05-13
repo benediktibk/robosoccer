@@ -84,6 +84,13 @@ Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) cons
 	return getGoaliePositionUsingStandardTactic(ball, xPositionGoalKeeperRightSide);
 }
 
+Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
+{
+	Pose preparePenaltyPosition(Point::zero(), Angle::getHalfRotation());
+
+	return preparePenaltyPosition;
+}
+
 Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	Pose penaltyPosition;
