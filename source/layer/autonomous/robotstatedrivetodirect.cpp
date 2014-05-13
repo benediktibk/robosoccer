@@ -12,7 +12,7 @@ using namespace std;
 
 RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch) :
 	RobotState(robot),
-	m_precisionPosition(0.02),
+	m_precisionPosition(0.01),
 	m_precisionOrientation(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),

@@ -108,7 +108,7 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.05)
+		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);
