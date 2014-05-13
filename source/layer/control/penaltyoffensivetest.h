@@ -16,9 +16,11 @@ namespace Control
 		CPPUNIT_TEST(nextState_executePenalty_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
 		CPPUNIT_TEST(nextState_notExecutePenaltyAndNotContinuePlaying_pause);
-		CPPUNIT_TEST(update_onceCalled_oneCallToKick);
-		CPPUNIT_TEST(update_twiceCalled_oneCallToKick);
-		CPPUNIT_TEST(update_onceCalled_noCallToMove);
+		CPPUNIT_TEST(update_onceCalled_noCallToKick);
+		CPPUNIT_TEST(update_twiceCalled_noCallToKick);
+		CPPUNIT_TEST(update_onceCalled_oneCallToMove);
+		CPPUNIT_TEST(update_twiceCalled_oneCallToMove);
+		CPPUNIT_TEST(update_twiceCalled_firstMoveThenKick);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -28,9 +30,11 @@ namespace Control
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
-		void update_onceCalled_oneCallToKick();
-		void update_twiceCalled_oneCallToKick();
-		void update_onceCalled_noCallToMove();
+		void update_onceCalled_noCallToKick();
+		void update_twiceCalled_noCallToKick();
+		void update_onceCalled_oneCallToMove();
+		void update_twiceCalled_oneCallToMove();
+		void update_twiceCalled_firstMoveThenKick();
 	};
 }
 }

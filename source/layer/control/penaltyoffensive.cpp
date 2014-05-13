@@ -4,6 +4,8 @@
 #include "layer/abstraction/refereebase.h"
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/robot.h"
+#include "layer/autonomous/targetpositionfetcher.h"
+#include "common/geometry/pose.h"
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
@@ -15,7 +17,8 @@ using namespace RoboSoccer::Layer::Control;
 PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
 		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
+	m_calledGoTo(false)
 { }
 
 State *PenaltyOffensive::nextState()
@@ -35,6 +38,17 @@ string PenaltyOffensive::getName()
 
 void PenaltyOffensive::updateInternal()
 {
-	Robot &robot = m_ownTeam.getPlayerCloserToBall(m_ball);
-	robot.kick(100, m_ball);
+	Robot &robot = m_ownTeam.getGoalie();
+
+	if(!m_calledGoTo)
+	{
+		robot.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball));
+		m_calledGoTo = true;
+	}
+
+	if(movementsFinished())
+	{
+		Robot &robot = m_ownTeam.getPlayerCloserToBall(m_ball);
+		robot.kick(100, m_ball);
+	}
 }
