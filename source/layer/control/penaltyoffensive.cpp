@@ -23,9 +23,7 @@ PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &o
 
 State *PenaltyOffensive::nextState()
 {
-	if (!m_reachedBall)
-		return 0;
-	else if (m_referee.getContinuePlaying())
+	if (m_referee.getContinuePlaying())
 		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	else if (!m_referee.getExecutePenalty())
 		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
