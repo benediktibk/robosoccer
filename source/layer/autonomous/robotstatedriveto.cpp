@@ -2,7 +2,6 @@
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/compare.h"
-#include "common/geometry/pose.h"
 #include "common/time/stopwatch.h"
 
 using namespace std;
@@ -10,9 +9,16 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 
-RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Point const &target, Watch const &watch) :
+RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, Watch const &watch) :
 	RobotState(robot),
-	m_currentTargetValid(false),
+	m_precisionPosition(0.02),
+	m_precisionOrientation(0.1),
+	m_initialRotationReached(false),
+	m_initialRotationStarted(false),
+	m_positionReached(false),
+	m_driveStarted(false),
+	m_finalRotationReached(false),
+	m_finalRotationStarted(false),
 	m_target(target),
 	m_watchDog(new StopWatch(watch))
 {
@@ -46,7 +52,7 @@ RobotState *RobotStateDriveTo::nextState()
 	return 0;
 }
 
-bool RobotStateDriveTo::isEquivalentToDriveTo(const Point &target) const
+bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 {
 	Compare compare(0.02);
 	return compare.isFuzzyEqual(m_target, target);
@@ -54,10 +60,51 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Point &target) const
 
 void RobotStateDriveTo::update()
 {
-	if (!m_currentTargetValid)
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientation);
+	Pose pose = getRobot().getPose();
+
+	if (!m_initialRotationReached)
 	{
-		getRobot().gotoPositionPrecise(m_target);
-		m_currentTargetValid = true;
+		Angle targetAngle(pose.getPosition(), m_target.getPosition());
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+			m_initialRotationReached = true;
+		else
+		{
+			if (!m_initialRotationStarted)
+				getRobot().turn(targetAngle);
+
+			m_initialRotationStarted = true;
+			return;
+		}
+	}
+
+	if (!m_positionReached)
+	{
+		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) && !getRobot().isMoving())
+			m_positionReached = true;
+		else
+		{
+			if (!m_driveStarted)
+				getRobot().gotoPositionPrecise(m_target.getPosition());
+
+			m_driveStarted = true;
+			return;
+		}
+	}
+
+	if (!m_finalRotationReached)
+	{
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+			m_finalRotationReached = true;
+		else
+		{
+			if (!m_finalRotationStarted)
+				getRobot().turn(m_target.getOrientation());
+
+			m_finalRotationStarted = true;
+			return;
+		}
 	}
 }
 
