@@ -220,3 +220,10 @@ void LineTest::constructor_startAndAngle_correct()
 
 	CPPUNIT_ASSERT_EQUAL(Point(0,1),line.getEnd());
 }
+
+void LineTest::getLength_lengthIs1_correct()
+{
+	Line line(Point(0,1), Point(0,0));
+
+	CPPUNIT_ASSERT_EQUAL(1.0,line.getLength());
+}
