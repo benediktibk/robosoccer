@@ -55,5 +55,5 @@ void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
 
 void RobotStateKickTest::isEquivalentToDriveTo_empty_false()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose()));
 }

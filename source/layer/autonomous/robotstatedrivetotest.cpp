@@ -3,13 +3,14 @@
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Point(3, 2), *m_watch);
+	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch);
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()
@@ -33,7 +34,7 @@ void RobotStateDriveToTest::nextState_targetNotYetReached_0()
 
 void RobotStateDriveToTest::nextState_targetReached_targetReachedState()
 {
-	m_controllableRobot->setPose(Pose(Point(3, 2), Angle()));
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
 	RobotState *nextState = m_robotState->nextState();
 
@@ -71,33 +72,146 @@ void RobotStateDriveToTest::nextState_took10sWithSeveralCalls_targetReachedState
 	delete nextState;
 }
 
-void RobotStateDriveToTest::update_noObstacles_callToGoToPrecise()
+void RobotStateDriveToTest::update_initialRotationNotReached_robotGotCallToTurnTowardsTarget()
 {
-	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
+	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
+	m_robotState->update();
+
+	Compare compare(0.0001);
+	Angle targetShouldBe(Point(1, 2), Point(5, 4));
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(targetShouldBe, m_controllableRobot->getLastAngleToTurnTo()));
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReached_robotGotNoCallToDrive()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
+
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
+
+	m_robotState->update();
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToTest::update_positionNotReached_robotGotCallToDriveToTargetPrecise()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
+
+	m_robotState->update();
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_controllableRobot->getLastPointToDriveTo()));
+}
+
+void RobotStateDriveToTest::update_positionNotReached_robotGotNoCallToTurnTowardsTarget()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
+
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToTest::update_positionNotReachedTwiceCalled_robotGotNoAdditionalCallToDriveToTargetPrecise()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
+
+	m_robotState->update();
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
-void RobotStateDriveToTest::update_noChangesInTarget_onlyOneCallToGoToPrecise()
+void RobotStateDriveToTest::update_finalRotationNotReached_robotGotCallToTurn()
 {
-	m_controllableRobot->setPose(Pose(Point(-1, -3), Angle()));
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
+
+	m_robotState->update();
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
+}
+
+void RobotStateDriveToTest::update_finalRotationNotReached_robotGotNoCallToDrive()
+{
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
+
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
+}
+
+void RobotStateDriveToTest::update_finalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
+{
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
 	m_robotState->update();
 	m_robotState->update();
 
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
+
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
+}
+
+void RobotStateDriveToTest::update_positionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
+
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
+}
+
+void RobotStateDriveToTest::update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+{
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
+
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_sameTarget_true()
 {
-	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Point(3, 2)));
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(5, 4),Angle::getQuarterRotation())));
 }
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_differentTarget_true()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(5, 2)));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(5, 2),Angle())));
 }

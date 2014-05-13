@@ -21,7 +21,7 @@ ControllableRobot const &RobotState::getRobot() const
 	return m_robot;
 }
 
-bool RobotState::isEquivalentToDriveTo(const Point &) const
+bool RobotState::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;
 }

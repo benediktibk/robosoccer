@@ -35,7 +35,7 @@ RobotImpl::~RobotImpl()
 
 void RobotImpl::goTo(const Pose &position)
 {
-	if (m_currentState->isEquivalentToDriveTo(Point(position)))
+	if (m_currentState->isEquivalentToDriveTo(position))
 		return;
 
 	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch));

@@ -111,5 +111,5 @@ void RobotStateTurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
 
 void RobotStateTurnToTest::isEquivalentToDriveTo_empty_false()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point()));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose()));
 }
