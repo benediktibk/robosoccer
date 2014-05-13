@@ -99,6 +99,6 @@ void Application::run()
 
 		if (Console::getAsynchronousInput() == 'q')
 			stop = true;
+		usleep(10000);
 	}
 }
-
