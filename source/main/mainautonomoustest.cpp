@@ -38,7 +38,6 @@ int main(int, char**)
 
 	do
 	{
-		robot.measure();
 		robot.goToDirect(Pose(ball.getPosition(), Angle(robot.getCurrentPose().getPosition(), ball.getPosition())));
 		robot.update();
 		usleep(10000);

@@ -55,7 +55,6 @@ namespace Abstraction
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 		virtual void update();
-		virtual void measure();
 		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
@@ -74,7 +73,6 @@ namespace Abstraction
 		Common::Geometry::Angle m_turnTarget;
 		double m_translationSpeed;
 		double m_rotationSpeed;
-		Common::Geometry::Pose m_currentPose;
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
 		bool m_isDrivingFoward;

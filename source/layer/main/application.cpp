@@ -71,12 +71,6 @@ void Application::run()
 
 	while (!stop)
 	{
-		for (unsigned int i = 0; i < 3; ++i)
-		{
-			Robot &robot = m_ownTeam->getRobotByNumber(i);
-			robot.measure();
-		}
-
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);

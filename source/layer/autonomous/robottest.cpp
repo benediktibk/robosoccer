@@ -124,10 +124,3 @@ void RobotTest::update_empty_robotGotCallToUpdate()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdate());
 }
-
-void RobotTest::measure_empty_robotGotCallToMeasure()
-{
-	m_robot->measure();
-
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToMeasure());
-}

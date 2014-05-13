@@ -90,10 +90,6 @@ void RobotImpl::update()
 	m_robot.update();
 }
 
-void RobotImpl::measure()
-{
-	m_robot.measure();
-}
 
 void RobotImpl::switchIntoState(RobotState *state)
 {

@@ -141,38 +141,6 @@ void ControllableRobotImpl::update()
 	setSpeed(translationSpeed, rotationSpeed);
 }
 
-void ControllableRobotImpl::measure()
-{
-	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
-	Geometry::Angle orientation(m_robot->GetPhi().Rad());
-	double loopTime = m_loopTimeWatch->getTimeAndRestart();
-
-	/*!
-	 * If the new values are exactly the same like the ones we have received
-	 * last, it is very likely that no new frame arrived. In this case we will
-	 * extrapolate the position and orientation.
-	 */
-	if (	position == m_lastPoseReceived.getPosition() &&
-			orientation == m_lastPoseReceived.getOrientation())
-	{
-		//! @todo extrapolate position
-		double rotationSpeedTransformed = m_rotationSpeed*6.8;
-		double translationSpeedTransformed = m_translationSpeed*0.00296961;
-		double drivenDistance = translationSpeedTransformed*loopTime;
-		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
-		Geometry::Point positionChange(drivenDistance, 0);
-		//! This rotation is definitely not an accurate calculation, but it is useful as rough esstimation.
-		positionChange.rotate(getOrientation() + rotationChange/2);
-		m_currentPose.setOrientation(getOrientation() + rotationChange);
-		m_currentPose.setPosition(getPosition() + positionChange);
-	}
-	else
-	{
-		m_currentPose = Geometry::Pose(position, orientation);
-		m_lastPoseReceived = m_currentPose;
-	}
-}
-
 bool ControllableRobotImpl::isMoving() const
 {
 	switch(m_state)
@@ -192,12 +160,12 @@ bool ControllableRobotImpl::isMoving() const
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
-	return m_currentPose.getOrientation();
+	return Geometry::Angle(m_robot->GetPhi().Rad());
 }
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return m_currentPose.getPosition();
+	return Geometry::Point(m_robot->GetX(),m_robot->GetY());
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)

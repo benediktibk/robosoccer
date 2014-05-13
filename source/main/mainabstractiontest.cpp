@@ -44,7 +44,6 @@ int main(int, char**)
 
 		//ownRobot.turn(rot);
 		ownRobot.gotoPositionImprecise(target);
-		ownRobot.measure();
 		ownRobot.update();
 		usleep(10000);
 		cout << "Target: " << target << endl;
