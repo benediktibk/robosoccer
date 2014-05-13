@@ -31,18 +31,18 @@ int main(int, char**)
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
 	IntelligentBallImpl ball(storage.getBall());
-	Robot &robot = team.getSecondFieldPlayer();
+	Robot &robot = team.getFirstFieldPlayer();
 	cout << "objects created" << endl;
 
 	cout << "moving robot to ball" << endl;
 
 	do
 	{
-		robot.goToDirect(Pose(ball.getPosition(), Angle(0)));
 		robot.measure();
+		robot.goToDirect(Pose(ball.getPosition(), Angle(robot.getCurrentPose().getPosition(), ball.getPosition())));
 		robot.update();
 		usleep(10000);
-	} while (!robot.targetReached());
+	} while (true);
 
 	cout << "reached target" << endl;
 	return 0;

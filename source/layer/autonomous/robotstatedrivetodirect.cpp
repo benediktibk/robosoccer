@@ -112,7 +112,9 @@ string RobotStateDriveToDirect::getName() const
 
 bool RobotStateDriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
 {
-	Compare compare(0.02);
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientation);
 
-	return compare.isFuzzyEqual(m_target, target);
+	return	comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
+			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }

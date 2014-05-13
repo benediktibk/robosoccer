@@ -70,6 +70,7 @@ namespace Abstraction
 		RobotDriveControl *m_driveLongControl;
 		State m_state;
 		Common::Geometry::Point m_driveTarget;
+		Common::Geometry::Angle m_turnTarget;
 		double m_translationSpeed;
 		double m_rotationSpeed;
 		Common::Geometry::Pose m_currentPose;

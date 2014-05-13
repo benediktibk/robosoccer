@@ -50,17 +50,17 @@ void PenaltyOffensiveTest::nextState_notExecutePenaltyAndNotContinuePlaying_paus
 	delete state;
 }
 
-void PenaltyOffensiveTest::update_onceCalled_oneCallToKick()
+void PenaltyOffensiveTest::update_onceCalled_noCallToKick()
 {
 	m_referee->setExecutePenalty(true);
 
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToKick());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToKick());
 }
 
-void PenaltyOffensiveTest::update_twiceCalled_oneCallToKick()
+void PenaltyOffensiveTest::update_twiceCalled_noCallToKick()
 {
 	m_referee->setExecutePenalty(true);
 
@@ -68,15 +68,41 @@ void PenaltyOffensiveTest::update_twiceCalled_oneCallToKick()
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToKick());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToKick());
 }
 
-void PenaltyOffensiveTest::update_onceCalled_noCallToMove()
+void PenaltyOffensiveTest::update_onceCalled_oneCallToMove()
 {
 	m_referee->setExecutePenalty(true);
 
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+}
+
+void PenaltyOffensiveTest::update_twiceCalled_oneCallToMove()
+{
+	m_referee->setExecutePenalty(true);
+
+	m_state->update();
+	m_state->update();
+
+	RobotMock const &robot = m_ownTeam->getRobotMock();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+}
+
+void PenaltyOffensiveTest::update_twiceCalled_firstMoveThenKick()
+{
+	m_referee->setExecutePenalty(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+
+	m_state->update();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToKick());
+
+	robot.setTargetReached(true);
+	m_state->update();
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToKick());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
 }

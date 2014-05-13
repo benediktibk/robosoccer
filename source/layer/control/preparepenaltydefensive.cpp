@@ -46,7 +46,7 @@ void PreparePenaltyDefensive::updateInternal()
 
 	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball));
 	fieldPlayerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
-	fieldPlayerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front());
 
 	if (movementsFinished())
 	{
