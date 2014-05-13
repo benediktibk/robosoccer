@@ -13,6 +13,7 @@
 #include "layer/autonomous/robot.h"
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include <unistd.h>
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
