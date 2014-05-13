@@ -50,7 +50,31 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 
 Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
 {
-	return getOwnGoalPosition(m_fieldSide, ball);
+	double xPositionGoalKeeperRightSide = 1.45-0.07;
+	Angle angle;
+
+	if (ball.isMoving() && ball.getMovingDirection() == m_fieldSide && ball.getCurrentFieldSide() == m_fieldSide)
+	{
+		switch (m_fieldSide)
+		{
+		case FieldSideInvalid:
+			assert(false);
+		case FieldSideRight:
+			angle = Angle::getHalfRotation();
+			break;
+		case FieldSideLeft:
+			xPositionGoalKeeperRightSide *= -1;
+			break;
+		}
+
+		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
+		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+
+		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
+			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
+	}
+
+	return getGoaliePositionUsingStandardTactic(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
 Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
@@ -104,36 +128,6 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	positions.push_back(Pose(Point(1.25, -0.6), Angle::getThreeQuarterRotation()));
 
 	return positions;
-}
-
-Pose TargetPositionFetcher::getOwnGoalPosition(FieldSide fieldSide, const IntelligentBall &ball) const
-{
-	double xPositionGoalKeeperRightSide = 1.45-0.07;
-	Angle angle;
-
-	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
-	{
-		switch (fieldSide)
-		{
-		case FieldSideInvalid:
-			assert(false);
-		case FieldSideRight:
-			angle = Angle::getHalfRotation();
-			break;
-		case FieldSideLeft:
-			xPositionGoalKeeperRightSide *= -1;
-			break;
-		}
-
-		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
-
-		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
-			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
-	}
-
-	return getGoaliePositionUsingStandardTactic(fieldSide, ball, xPositionGoalKeeperRightSide);
-
 }
 
 std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
@@ -190,9 +184,4 @@ Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(FieldSide field
 
 	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
 
-}
-
-Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
-{
-	return getGoaliePositionUsingStandardTactic(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
