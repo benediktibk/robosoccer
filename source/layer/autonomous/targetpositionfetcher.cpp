@@ -4,6 +4,7 @@
 #include "common/geometry/line.h"
 #include <assert.h>
 #include <iostream>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -52,30 +53,8 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
 {
 	double xPositionGoalKeeperRightSide = 1.45-0.07;
-	Angle angle;
 
-	if (ball.isMoving() && ball.getMovingDirection() == m_fieldSide && ball.getCurrentFieldSide() == m_fieldSide)
-	{
-		switch (m_fieldSide)
-		{
-		case FieldSideInvalid:
-			assert(false);
-		case FieldSideRight:
-			angle = Angle::getHalfRotation();
-			break;
-		case FieldSideLeft:
-			xPositionGoalKeeperRightSide *= -1;
-			break;
-		}
-
-		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
-
-		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
-			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
-	}
-
-	return getGoaliePositionUsingStandardTactic(m_fieldSide, ball, xPositionGoalKeeperRightSide);
+	return getGoaliePositionUsingEstimatedIntersectPoint(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
 Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
@@ -108,7 +87,7 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 	//! Penalty Goal is fixed on the left side.
 	FieldSide fieldSide = FieldSideLeft;
 
-	return getGoaliePositionUsingStandardTactic(fieldSide, ball, 1.25);
+	return getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25);
 }
 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
@@ -166,7 +145,35 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(FieldSide fieldSide,
 	return pose;
 }
 
-Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
+Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
+{
+	Angle angle;
+
+	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
+	{
+		switch (fieldSide)
+		{
+		case FieldSideInvalid:
+			assert(false);
+		case FieldSideRight:
+			angle = Angle::getHalfRotation();
+			break;
+		case FieldSideLeft:
+			xPositionGoalKeeperRightSide *= -1;
+			break;
+		}
+
+		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
+		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+
+		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
+			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
+	}
+
+	return getGoaliePositionUsingIntersectWithGoalCenter(fieldSide, ball, xPositionGoalKeeperRightSide);
+}
+
+Pose TargetPositionFetcher::getGoaliePositionUsingIntersectWithGoalCenter(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
 	double xPositionBehindGoalCenter = 1.5;
 	Angle angle;
@@ -188,8 +195,20 @@ Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(FieldSide field
 	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
 
 	if(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).empty())
-		return Pose(Point(xPositionGoalKeeperRightSide,0),angle);
+		return getGoaliePositionUsingYCoordinateFollowing(ball,xPositionGoalKeeperRightSide,angle);
 
 	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
 
+}
+
+Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper, const Common::Geometry::Angle &angle) const
+{
+	double yBall = ball.getPosition().getY();
+	if(fabs(yBall) < 0.2)
+		return Pose(Point(xPositionGoalKeeper,yBall),angle);
+
+	if(yBall > 0.2)
+		return Pose(Point(xPositionGoalKeeper,0.2),angle);
+	else
+		return Pose(Point(xPositionGoalKeeper,-0.2),angle);
 }
