@@ -182,6 +182,9 @@ Pose TargetPositionFetcher::getGoaliePositionUsingStandardTactic(FieldSide field
 	Line ballToGoalCenterLine(ball.getPosition(),Point(xPositionBehindGoalCenter,0));
 	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
 
+	if(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).empty())
+		return Pose(Point(xPositionGoalKeeperRightSide,0),angle);
+
 	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
 
 }
