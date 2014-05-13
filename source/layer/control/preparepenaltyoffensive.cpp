@@ -48,6 +48,9 @@ void PreparePenaltyOffensive::updateInternal()
 	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front());
 	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionPrepareKicker());
 
+	//! @todo remove workaround
+	m_movementFinished = true;
+
 	if (movementsFinished())
 	{
 		m_movementFinished = true;
