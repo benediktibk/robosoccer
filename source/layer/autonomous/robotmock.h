@@ -17,6 +17,7 @@ namespace Autonomous
 		virtual ~RobotMock();
 
 		virtual void goTo(Common::Geometry::Pose const &position);
+		virtual void goToDirect(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
@@ -28,12 +29,14 @@ namespace Autonomous
 
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoTo() const;
+		unsigned int getCallsToGoToDirect() const;
 		unsigned int getCallsToKick() const;
 		void setTargetReached(bool value);
 
 	private:
 		unsigned int m_callsToStop;
 		unsigned int m_callsToGoTo;
+		unsigned int m_callsToGoToDirect;
 		unsigned int m_callsToKick;
 		bool m_targetReached;
 	};

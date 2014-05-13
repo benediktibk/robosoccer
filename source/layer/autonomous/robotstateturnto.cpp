@@ -55,11 +55,6 @@ RobotState *RobotStateTurnTo::nextState()
 	return result;
 }
 
-bool RobotStateTurnTo::isEquivalentToDriveTo(const Point &) const
-{
-	return false;
-}
-
 void RobotStateTurnTo::update()
 {
 	if (m_targetAlreadySet)

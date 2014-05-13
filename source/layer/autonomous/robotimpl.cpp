@@ -2,6 +2,7 @@
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/autonomous/robotstatedriveto.h"
+#include "layer/autonomous/robotstatedrivetodirect.h"
 #include "layer/autonomous/robotstatekick.h"
 #include "layer/autonomous/robotstateturnto.h"
 #include "layer/abstraction/controllablerobot.h"
@@ -34,8 +35,6 @@ RobotImpl::~RobotImpl()
 
 void RobotImpl::goTo(const Pose &position)
 {
-	//! @todo should consider obstacles
-
 	if (m_currentState->isEquivalentToDriveTo(Point(position)))
 		return;
 
@@ -54,7 +53,7 @@ Circle RobotImpl::getObstacle() const
 
 bool RobotImpl::targetReached() const
 {
-	return false;
+	return m_currentState->reachedTarget();
 }
 
 bool RobotImpl::cantReachTarget() const
@@ -108,4 +107,12 @@ void RobotImpl::switchIntoState(RobotState *state)
 void RobotImpl::stop()
 {
 	switchIntoState(new RobotStateReachedTarget(m_robot));
+}
+
+void RobotImpl::goToDirect(const Pose &position)
+{
+	if (m_currentState->isEquivalentToDriveToDirect(position))
+		return;
+
+	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch));
 }

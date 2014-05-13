@@ -34,6 +34,7 @@ namespace Abstraction
 		unsigned int getCallsToUpdate() const;
 		unsigned int getCallsToMeasure() const;
 		Common::Geometry::Angle const& getLastAngleToTurnTo() const;
+		Common::Geometry::Point const& getLastPointToDriveTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
 
 	private:

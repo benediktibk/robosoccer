@@ -58,7 +58,7 @@ void RobotTest::goTo_notYetAtPosition_oneCallToMoveRobot()
 	m_robot->goTo(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise() + m_hardwareRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
 }
 
 void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
@@ -70,7 +70,40 @@ void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
 	m_robot->goTo(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise() + m_hardwareRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
+}
+
+void RobotTest::goToDirect_alreadyAtPosition_noCallToMoveRobot()
+{
+	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
+
+	m_robot->goToDirect(Pose(Point(1, 3), Angle()));
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToPositionPrecise());
+}
+
+void RobotTest::goToDirect_notYetAtPosition_oneCallToMoveRobot()
+{
+	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
+
+	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
+}
+
+void RobotTest::goToDirect_twiceWithSameTarget_oneCallToMoveRobot()
+{
+	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
+
+	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
+	m_robot->update();
+	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
 }
 
 void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()

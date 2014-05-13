@@ -39,11 +39,6 @@ RobotState *RobotStateKick::nextState()
 	return new RobotStateReachedTarget(getRobot());
 }
 
-bool RobotStateKick::isEquivalentToDriveTo(const Point &) const
-{
-	return false;
-}
-
 void RobotStateKick::update()
 {
 	if (m_alreadyKicked)

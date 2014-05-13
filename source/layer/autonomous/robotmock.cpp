@@ -8,6 +8,7 @@ using namespace RoboSoccer::Common::Geometry;
 RobotMock::RobotMock() :
 	m_callsToStop(0),
 	m_callsToGoTo(0),
+	m_callsToGoToDirect(0),
 	m_callsToKick(0),
 	m_targetReached(false)
 { }
@@ -76,4 +77,14 @@ void RobotMock::setTargetReached(bool value)
 void RobotMock::stop()
 {
 	++m_callsToStop;
+}
+
+void RobotMock::goToDirect(const Pose &)
+{
+	++m_callsToGoToDirect;
+}
+
+unsigned int RobotMock::getCallsToGoToDirect() const
+{
+	return m_callsToGoToDirect;
 }

@@ -26,14 +26,16 @@ Circle ControllableRobotMock::getObstacle() const
 	return Circle(m_pose.getPosition(),0.095);
 }
 
-void ControllableRobotMock::gotoPositionImprecise(const Point &/*position*/)
+void ControllableRobotMock::gotoPositionImprecise(const Point &position)
 {
 	++m_callsToGoToPositionImprecise;
+	m_lastPointToDriveTo = position;
 }
 
-void ControllableRobotMock::gotoPositionPrecise(const Point &/*position*/)
+void ControllableRobotMock::gotoPositionPrecise(const Point &position)
 {
 	++m_callsToGoToPositionPrecise;
+	m_lastPointToDriveTo = position;
 }
 
 bool ControllableRobotMock::kick(unsigned int /*force*/)
@@ -107,4 +109,10 @@ const Angle & ControllableRobotMock::getLastAngleToTurnTo() const
 {
 	assert(getCallsToTurn() > 0);
 	return m_lastAngleToTurnTo;
+}
+
+const Point & ControllableRobotMock::getLastPointToDriveTo() const
+{
+	assert(getCallsToGoToPositionImprecise() + getCallsToGoToPositionPrecise() > 0);
+	return m_lastPointToDriveTo;
 }

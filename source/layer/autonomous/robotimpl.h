@@ -41,6 +41,7 @@ namespace Autonomous
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Pose const &position);
+		virtual void goToDirect(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
