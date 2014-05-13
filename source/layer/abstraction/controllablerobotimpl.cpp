@@ -9,6 +9,8 @@
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
+#include <iostream>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
@@ -44,6 +46,16 @@ Geometry::Pose ControllableRobotImpl::getPose() const
 {
 	Geometry::Point position = getPosition();
 	Geometry::Angle orientation = getOrientation();
+	if(m_isDrivingFoward)
+		return Geometry::Pose(position, orientation);
+	else
+		return Geometry::Pose(position, orientation + Geometry::Angle::getHalfRotation());
+}
+
+Geometry::Pose ControllableRobotImpl::getPoseRaw() const
+{
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientation();
 	return Geometry::Pose(position, orientation);
 }
 
@@ -76,7 +88,18 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_turnTarget = absoluteAngle;
+	Geometry::Angle relativeAngle = absoluteAngle - getPoseRaw().getOrientation();
+	if (fabs(relativeAngle.getValueBetweenMinusPiAndPi()) > Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi())
+	{
+		m_isDrivingFoward = false;
+		m_turnTarget = absoluteAngle + Geometry::Angle::getHalfRotation().getValueBetweenMinusPiAndPi();
+	}
+	else
+	{
+		m_isDrivingFoward = true;
+		m_turnTarget = absoluteAngle;
+	}
+	cout << "relative angle"<< m_isDrivingFoward << endl;
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
 }
@@ -188,5 +211,8 @@ void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpe
 {
 	m_translationSpeed = translationSpeed;
 	m_rotationSpeed = rotationSpeed;
-	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	if(m_isDrivingFoward)
+		m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	else
+		m_robot->setSpeed(translationSpeed, -rotationSpeed, RoboControl::BACKWARD);
 }

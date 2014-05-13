@@ -47,6 +47,7 @@ namespace Abstraction
 		~ControllableRobotImpl();
 
 		virtual Common::Geometry::Pose getPose() const;
+		virtual Common::Geometry::Pose getPoseRaw() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
@@ -76,6 +77,7 @@ namespace Abstraction
 		Common::Geometry::Pose m_currentPose;
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
+		bool m_isDrivingFoward;
 	};
 }
 }

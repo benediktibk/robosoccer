@@ -17,6 +17,7 @@ namespace Abstraction
 		ControllableRobotMock();
 
 		virtual Common::Geometry::Pose getPose() const;
+		virtual Common::Geometry::Pose getPoseRaw() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);

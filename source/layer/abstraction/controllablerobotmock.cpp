@@ -22,6 +22,11 @@ Pose ControllableRobotMock::getPose() const
 	return m_pose;
 }
 
+Pose ControllableRobotMock::getPoseRaw() const
+{
+	return m_pose;
+}
+
 Circle ControllableRobotMock::getObstacle() const
 {
 	return Circle(m_pose.getPosition(),0.095);
