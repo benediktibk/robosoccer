@@ -91,6 +91,7 @@ void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 
 	case LogFileTypeReferee:
 		m_refereeLogFile << message << endl;
+		m_refereeLogFile.flush();
 		break;
 
 	case LogFileTypeStateChanges:

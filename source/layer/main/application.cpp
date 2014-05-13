@@ -81,11 +81,9 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);
-		string previousState = stateMachine.getNameOfCurrentState();
 		stateMachine.update();
-		string currentState = stateMachine.getNameOfCurrentState();
 
-		if (previousState != currentState)
+		if (referee.playModeChangedSinceLastCall())
 			referee.logInformation();
 
 		for (unsigned int i = 0; i < 3; ++i)

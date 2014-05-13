@@ -156,5 +156,44 @@ bool RefereeImpl::playModeChangedSinceLastCall()
 	ePlayMode currentMode = m_referee->GetPlayMode();
 	bool result = currentMode != m_lastPlayMode;
 	m_lastPlayMode = currentMode;
+
+	if (result)
+		logPlayMode(currentMode);
+
 	return result;
+}
+
+void RefereeImpl::logPlayMode(ePlayMode playMode)
+{
+	stringstream stream;
+	stream << "play mode: ";
+	switch(playMode)
+	{
+	case REFEREE_INIT:
+		stream << "REFEREE_INIT";
+		break;
+	case BEFORE_KICK_OFF:
+		stream << "BEFORE_KICK_OFF";
+		break;
+	case KICK_OFF:
+		stream << "KICK_OFF";
+		break;
+	case BEFORE_PENALTY:
+		stream << "BEFORE_PENALTY";
+		break;
+	case PENALTY:
+		stream << "PENALTY";
+		break;
+	case PAUSE:
+		stream << "PAUSE";
+		break;
+	case TIME_OVER:
+		stream << "TIME_OVER";
+		break;
+	case PLAY_ON:
+		stream << "PLAY_ON";
+		break;
+	}
+
+	m_logger.logToLogFileOfType(Logger::LogFileTypeReferee, stream.str());
 }
