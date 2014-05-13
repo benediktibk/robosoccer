@@ -175,20 +175,26 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
-void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRight_robotIsCorrect()
+void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRightOrLeft_robotIsOnRightSide()
 {
 	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() < 0);
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() > 0);
+
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() > 0);
 }
 
-void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeft_robotIsCorrect()
+void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeftOrRight_robotIsCorrect()
 {
 	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
 
-	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() > 0);
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front().getPosition().getX() > 0);
+
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front().getPosition().getX() > 0);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_positionInCorrectArea()
