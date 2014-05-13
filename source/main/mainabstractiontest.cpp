@@ -39,16 +39,36 @@ int main(int, char**)
 
 	while(true)
 	{
-		Point target(ball.getPosition().getX()+0.1,ball.getPosition().getY());
-		//Angle rot(ownRobot.getPose().getPosition(),target);
+		Point targetOne(0.5, 0);
+		Point targetTwo(-0.5, 0);
 
-		//ownRobot.turn(rot);
-		ownRobot.gotoPositionImprecise(target);
-		ownRobot.measure();
-		ownRobot.update();
-		usleep(10000);
-		cout << "Target: " << target << endl;
-		//cout << "error: " << ownRobot.getPose().getPosition() - target << endl;
+		ownRobot.gotoPositionImprecise(targetOne);
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+		}
+
+		cout << "error: " << targetOne.distanceTo(ownRobot.getPose().getPosition()) << endl;
+		if (ownRobot.isMoving())
+			cout << "not moving anymore" << endl;
+		else
+			cout << "still moving " << endl;
+
+		ownRobot.gotoPositionImprecise(targetTwo);
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			ownRobot.measure();
+			ownRobot.update();
+			usleep(10000);
+		}
+
+		cout << "error: " << targetTwo.distanceTo(ownRobot.getPose().getPosition()) << endl;
+		if (ownRobot.isMoving())
+			cout << "not moving anymore" << endl;
+		else
+			cout << "still moving " << endl;
 	}
 
 	return 0;
