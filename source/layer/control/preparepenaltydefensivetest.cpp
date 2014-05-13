@@ -32,7 +32,7 @@ void PreparePenaltyDefensiveTest::update_movementNotYetStarted_allRobotsGotCallT
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoToDirect());
 }
 
 void PreparePenaltyDefensiveTest::update_movementAlreadyStarted_allRobotsGotNoAdditionalCallToMove()
@@ -43,7 +43,7 @@ void PreparePenaltyDefensiveTest::update_movementAlreadyStarted_allRobotsGotNoAd
 	m_state->update();
 	m_state->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, robot.getCallsToGoToDirect());
 }
 
 void PreparePenaltyDefensiveTest::update_movementNotYetFinished_refereeGotNoCallToSetReady()
