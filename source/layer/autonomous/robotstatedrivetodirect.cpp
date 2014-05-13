@@ -12,6 +12,8 @@ using namespace std;
 
 RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch) :
 	RobotState(robot),
+	m_precisionPosition(0.02),
+	m_precisionOrientation(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
 	m_positionReached(false),
@@ -40,8 +42,8 @@ bool RobotStateDriveToDirect::cantReachTarget() const
 
 RobotState* RobotStateDriveToDirect::nextState()
 {
-	Compare comparePosition(0.1);
-	Compare compareAngle(0.2);
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
 
 	if (	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
@@ -55,8 +57,8 @@ RobotState* RobotStateDriveToDirect::nextState()
 
 void RobotStateDriveToDirect::update()
 {
-	Compare comparePosition(0.02);
-	Compare compareAngle(0.1);
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
 
 	if (!m_initialRotationReached)

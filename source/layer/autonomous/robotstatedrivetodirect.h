@@ -36,6 +36,8 @@ namespace Autonomous
 		virtual std::string getName() const;
 
 	private:
+		const double m_precisionPosition;
+		const double m_precisionOrientation;
 		bool m_initialRotationReached;
 		bool m_initialRotationStarted;
 		bool m_positionReached;

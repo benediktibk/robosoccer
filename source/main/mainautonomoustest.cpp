@@ -35,10 +35,10 @@ int main(int, char**)
 	cout << "objects created" << endl;
 
 	cout << "moving robot to ball" << endl;
-	robot.goToDirect(Pose(ball.getPosition(), Angle(0)));
 
 	do
 	{
+		robot.goToDirect(Pose(ball.getPosition(), Angle(0)));
 		robot.measure();
 		robot.update();
 		usleep(10000);
