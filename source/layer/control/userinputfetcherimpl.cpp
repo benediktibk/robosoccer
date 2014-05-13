@@ -1,11 +1,10 @@
 #include "layer/control/userinputfetcherimpl.h"
-#include "common/other/console.h"
 #include <assert.h>
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Control;
-using namespace RoboSoccer::Common::Other;
 
 UserInputFetcherImpl::UserInputFetcherImpl() :
 	m_selectionMade(false)
@@ -26,7 +25,7 @@ bool UserInputFetcherImpl::playOffensive() const
 
 void UserInputFetcherImpl::update()
 {
-	char key = Console::getAsynchronousInput();
+	char key = getchar();
 
 	if (key == 'o')
 	{
