@@ -208,10 +208,10 @@ void RobotStateDriveToTest::update_finalRotationReachedButRobotStillMoving_robot
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_sameTarget_true()
 {
-	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Point(3, 2)));
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(5, 4),Angle())));
 }
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_differentTarget_true()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(5, 2)));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(5, 2),Angle())));
 }

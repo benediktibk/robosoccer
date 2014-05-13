@@ -185,7 +185,7 @@ void RobotStateDriveToDirectTest::update_finalRotationReachedButRobotStillMoving
 
 void RobotStateDriveToDirectTest::isEquivalentToDriveTo_empty_false()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(5, 4)));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(5, 4),Angle())));
 }
 
 void RobotStateDriveToDirectTest::isEquivalentToDriveToDirect_sameTarget_true()

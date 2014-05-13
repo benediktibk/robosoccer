@@ -37,12 +37,12 @@ void RobotStateReachedTargetTest::isEquivalentToDriveTo_differentPosition_false(
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
 
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Point(3, 7)));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(3, 7),Angle())));
 }
 
 void RobotStateReachedTargetTest::isEquivalentToDriveTo_samePosition_true()
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
 
-	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Point(4, 5)));
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(4, 5),Angle())));
 }
