@@ -11,7 +11,7 @@ using namespace RoboSoccer::Common::Time;
 
 int main(int /*argc*/, char **/*argv*/)
 {
-	Application application(TeamColorRed);
+	Application application(TeamColorBlue);
 	application.run();
 	return 0;
 }

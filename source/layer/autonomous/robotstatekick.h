@@ -34,6 +34,7 @@ namespace Autonomous
 		Common::Time::StopWatch *m_stopWatch;
 		unsigned int m_force;
 		bool m_alreadyKicked;
+		bool m_stopWatchRestarted;
 	};
 }
 }

@@ -12,7 +12,8 @@ RobotStateKick::RobotStateKick(Abstraction::ControllableRobot &robot, unsigned i
 	RobotState(robot),
 	m_stopWatch(new StopWatch(watch)),
 	m_force(force),
-	m_alreadyKicked(false)
+	m_alreadyKicked(false),
+	m_stopWatchRestarted(false)
 { }
 
 RobotStateKick::~RobotStateKick()
@@ -33,6 +34,12 @@ bool RobotStateKick::cantReachTarget() const
 
 RobotState *RobotStateKick::nextState()
 {
+	if (!m_stopWatchRestarted)
+	{
+		m_stopWatchRestarted = true;
+		m_stopWatch->getTimeAndRestart();
+	}
+
 	if (m_stopWatch->getTime() < 0.5)
 		return 0;
 
