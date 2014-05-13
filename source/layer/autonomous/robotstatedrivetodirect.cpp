@@ -64,7 +64,7 @@ void RobotStateDriveToDirect::update()
 	if (!m_initialRotationReached)
 	{
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) /*&& !getRobot().isMoving()*/)
 			m_initialRotationReached = true;
 		else
 		{
@@ -78,7 +78,7 @@ void RobotStateDriveToDirect::update()
 
 	if (!m_positionReached)
 	{
-		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) && !getRobot().isMoving())
+		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) /*&& !getRobot().isMoving()*/)
 			m_positionReached = true;
 		else
 		{
@@ -92,7 +92,7 @@ void RobotStateDriveToDirect::update()
 
 	if (!m_finalRotationReached)
 	{
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) /*&& !getRobot().isMoving()*/)
 			m_finalRotationReached = true;
 		else
 		{
@@ -112,7 +112,9 @@ string RobotStateDriveToDirect::getName() const
 
 bool RobotStateDriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
 {
-	Compare compare(0.02);
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientation);
 
-	return compare.isFuzzyEqual(m_target, target);
+	return	comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
+			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }

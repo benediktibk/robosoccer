@@ -47,7 +47,7 @@ int main(int, char**)
 		ownRobot.measure();
 		ownRobot.update();
 		usleep(10000);
-		cout << "Target: " <<target << endl;
+		cout << "Target: " << target << endl;
 		//cout << "error: " << ownRobot.getPose().getPosition() - target << endl;
 	}
 

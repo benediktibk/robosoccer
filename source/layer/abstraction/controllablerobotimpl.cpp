@@ -76,7 +76,8 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_robot->TurnAbs(Angle(absoluteAngle.getValueBetweenMinusPiAndPi()));
+	m_turnTarget = absoluteAngle;
+	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
 }
 
@@ -89,6 +90,7 @@ void ControllableRobotImpl::update()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
+	Geometry::Compare orientationCompare(0.1);
 
 	switch(m_state)
 	{
@@ -96,6 +98,8 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
+		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+			switchInto(StateStop);
 		return;
 	case StateDrivingShort:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
