@@ -3,6 +3,7 @@
 #include "layer/autonomous/intelligentball.h"
 #include "common/geometry/line.h"
 #include <assert.h>
+#include <iostream>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -87,13 +88,17 @@ Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
 Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
-	FieldSide fieldSide = FieldSideRight;
+//	FieldSide fieldSide = FieldSideRight;
 
 	Pose penaltyPosition;
-	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
-	double percentOfLineLength = -0.08/lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
+//	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
 
-	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
+//	double lineLength = lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
+//	double percentOfLineLength = -0.5/lineLength;
+
+//	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
+
+	penaltyPosition.setPosition(ball.getPosition() + Point(0.03,0));
 
 	return penaltyPosition;
 }
