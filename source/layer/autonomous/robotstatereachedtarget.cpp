@@ -26,7 +26,7 @@ RobotState *RobotStateReachedTarget::nextState()
 	return 0;
 }
 
-bool RobotStateReachedTarget::isEquivalentToDriveTo(const Point &target) const
+bool RobotStateReachedTarget::isEquivalentToDriveTo(const Pose &target) const
 {
 	Compare compare(0.02);
 	Pose currentPose = getRobot().getPose();
