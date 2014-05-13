@@ -37,39 +37,47 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	while(true)
+	ownRobot.kick(100);
+	for (unsigned int i = 0; i < 1000; ++i)
 	{
-		Point targetOne(0.5, 0);
-		Point targetTwo(-0.5, 0);
-
-		ownRobot.gotoPositionImprecise(targetOne);
-		for (unsigned int i = 0; i < 1000; ++i)
-		{
-			ownRobot.measure();
-			ownRobot.update();
-			usleep(10000);
-		}
-
-		cout << "error: " << targetOne.distanceTo(ownRobot.getPose().getPosition()) << endl;
-		if (ownRobot.isMoving())
-			cout << "not moving anymore" << endl;
-		else
-			cout << "still moving " << endl;
-
-		ownRobot.gotoPositionImprecise(targetTwo);
-		for (unsigned int i = 0; i < 1000; ++i)
-		{
-			ownRobot.measure();
-			ownRobot.update();
-			usleep(10000);
-		}
-
-		cout << "error: " << targetTwo.distanceTo(ownRobot.getPose().getPosition()) << endl;
-		if (ownRobot.isMoving())
-			cout << "not moving anymore" << endl;
-		else
-			cout << "still moving " << endl;
+		ownRobot.measure();
+		ownRobot.update();
+		usleep(10000);
 	}
+
+//	while(true)
+//	{
+//		Point targetOne(0.5, 0);
+//		Point targetTwo(-0.5, 0);
+
+//		ownRobot.gotoPositionImprecise(targetOne);
+//		for (unsigned int i = 0; i < 1000; ++i)
+//		{
+//			ownRobot.measure();
+//			ownRobot.update();
+//			usleep(10000);
+//		}
+
+//		cout << "error: " << targetOne.distanceTo(ownRobot.getPose().getPosition()) << endl;
+//		if (ownRobot.isMoving())
+//			cout << "not moving anymore" << endl;
+//		else
+//			cout << "still moving " << endl;
+
+//		ownRobot.gotoPositionImprecise(targetTwo);
+//		for (unsigned int i = 0; i < 1000; ++i)
+//		{
+//			ownRobot.measure();
+//			ownRobot.update();
+//			usleep(10000);
+//		}
+
+//		cout << "error: " << targetTwo.distanceTo(ownRobot.getPose().getPosition()) << endl;
+//		if (ownRobot.isMoving())
+//			cout << "not moving anymore" << endl;
+//		else
+//			cout << "still moving " << endl;
+//	}
 
 	return 0;
 }

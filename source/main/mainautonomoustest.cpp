@@ -30,43 +30,19 @@ int main(int, char**)
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
+	IntelligentBallImpl ball(storage.getBall());
 	Robot &robot = team.getSecondFieldPlayer();
 	cout << "objects created" << endl;
+	robot.measure();
+	cout << "robot pose: " << robot.getCurrentPose();
 
-	do
+	robot.kick(100, ball);
+	for (unsigned int i = 0; i < 1000; ++i)
 	{
-		Point targetOne(0.5, 0);
-		Point targetTwo(-0.5, 0);
+		robot.measure();
+		robot.update();
+		usleep(10000);
+	}
 
-		robot.goToDirect(Pose(targetOne, Angle(0)));
-		for (unsigned int i = 0; i < 500; ++i)
-		{
-			robot.measure();
-			robot.update();
-			usleep(10000);
-		}
-
-		cout << "error: " << targetOne.distanceTo(robot.getCurrentPose().getPosition()) << endl;
-		if (robot.targetReached())
-			cout << "target reached" << endl;
-		else
-			cout << "target not reached" << endl;
-
-		robot.goToDirect(Pose(targetTwo, Angle(0)));
-		for (unsigned int i = 0; i < 500; ++i)
-		{
-			robot.measure();
-			robot.update();
-			usleep(10000);
-		}
-
-		cout << "error: " << targetTwo.distanceTo(robot.getCurrentPose().getPosition()) << endl;
-		if (robot.targetReached())
-			cout << "target reached" << endl;
-		else
-			cout << "target not reached" << endl;
-	} while (true);
-
-	cout << "reached target" << endl;
 	return 0;
 }
