@@ -1,9 +1,11 @@
 #include "layer/autonomous/targetpositionfetchertest.h"
 #include "layer/autonomous/targetpositionfetcher.h"
-#include "common/geometry/pose.h"
 #include "layer/abstraction/fieldside.h"
 #include "layer/autonomous/intelligentballmock.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/compare.h"
+#include "common/geometry/rectangle.h"
+#include "common/other/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -187,4 +189,19 @@ void TargetPositionFetcherTest::getPenaltyPositionUnusedTwo_fieldSideLeft_robotI
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 
 	CPPUNIT_ASSERT(targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front().getPosition().getX() > 0);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_positionInCorrectArea()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Rectangle targetArea(Point(-0.3, -0.3), Point(0.3, 0.3));
+
+	CPPUNIT_ASSERT(targetArea.isInside(targetPositionFetcher.getPenaltyPositionPrepareKicker().getPosition(), Common::Other::Compare(0.1)));
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_angleIsCorrect()
+{
+	CPPUNIT_ASSERT(false);
 }

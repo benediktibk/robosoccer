@@ -28,6 +28,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyNotOnGoal_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionUnusedOne_fieldSideRight_robotIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionUnusedTwo_fieldSideLeft_robotIsCorrect);
+		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_positionInCorrectArea);
+		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_angleIsCorrect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -45,6 +47,8 @@ namespace Autonomous
 		void getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyNotOnGoal_goaliePositionIsCorrect();
 		void getPenaltyPositionUnusedOne_fieldSideRight_robotIsCorrect();
 		void getPenaltyPositionUnusedTwo_fieldSideLeft_robotIsCorrect();
+		void getPenaltyPositionPrepareKicker_ball_positionInCorrectArea();
+		void getPenaltyPositionPrepareKicker_ball_angleIsCorrect();
 	};
 }
 }
