@@ -55,14 +55,14 @@ RobotState* RobotStateDriveToDirect::nextState()
 
 void RobotStateDriveToDirect::update()
 {
-	Compare comparePosition(0.1);
-	Compare compareAngle(0.2);
+	Compare comparePosition(0.02);
+	Compare compareAngle(0.1);
 	Pose pose = getRobot().getPose();
 
 	if (!m_initialRotationReached)
 	{
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle))
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
 			m_initialRotationReached = true;
 		else
 		{
@@ -76,7 +76,7 @@ void RobotStateDriveToDirect::update()
 
 	if (!m_positionReached)
 	{
-		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()))
+		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) && !getRobot().isMoving())
 			m_positionReached = true;
 		else
 		{
@@ -90,7 +90,7 @@ void RobotStateDriveToDirect::update()
 
 	if (!m_finalRotationReached)
 	{
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()))
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
 			m_finalRotationReached = true;
 		else
 		{

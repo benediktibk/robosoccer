@@ -25,6 +25,9 @@ namespace Autonomous
 		CPPUNIT_TEST(update_finalRotationNotReached_robotGotCallToTurn);
 		CPPUNIT_TEST(update_finalRotationNotReached_robotGotNoCallToDrive);
 		CPPUNIT_TEST(update_finalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn);
+		CPPUNIT_TEST(update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
+		CPPUNIT_TEST(update_positionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
+		CPPUNIT_TEST(update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
 		CPPUNIT_TEST(isEquivalentToDriveTo_empty_false);
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_sameTarget_true);
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
@@ -48,6 +51,9 @@ namespace Autonomous
 		void update_finalRotationNotReached_robotGotCallToTurn();
 		void update_finalRotationNotReached_robotGotNoCallToDrive();
 		void update_finalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn();
+		void update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
+		void update_positionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
+		void update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
 		void isEquivalentToDriveTo_empty_false();
 		void isEquivalentToDriveToDirect_sameTarget_true();
 		void isEquivalentToDriveToDirect_differentTarget_false();
