@@ -58,11 +58,13 @@ namespace Abstraction
 		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
+		Common::Geometry::Angle getOrientationRaw() const;
 		Common::Geometry::Point getPosition() const;
 
 	private:
 		void switchInto(State state);
 		void setSpeed(double translationSpeed, double rotationSpeed);
+		void determineIsDrivingForward(Common::Geometry::Point const &target);
 
 	private:
 		RoboControl *m_robot;

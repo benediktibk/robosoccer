@@ -22,7 +22,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0, 120)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
-	m_loopTimeWatch(new StopWatch(watch))
+	m_loopTimeWatch(new StopWatch(watch)),
+	m_isDrivingFoward(true)
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -46,16 +47,13 @@ Geometry::Pose ControllableRobotImpl::getPose() const
 {
 	Geometry::Point position = getPosition();
 	Geometry::Angle orientation = getOrientation();
-	if(m_isDrivingFoward)
-		return Geometry::Pose(position, orientation);
-	else
-		return Geometry::Pose(position, orientation + Geometry::Angle::getHalfRotation());
+	return Geometry::Pose(position, orientation);
 }
 
 Geometry::Pose ControllableRobotImpl::getPoseRaw() const
 {
 	Geometry::Point position = getPosition();
-	Geometry::Angle orientation = getOrientation();
+	Geometry::Angle orientation = getOrientationRaw();
 	return Geometry::Pose(position, orientation);
 }
 
@@ -67,12 +65,14 @@ Geometry::Circle ControllableRobotImpl::getObstacle() const
 
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
 {
+	determineIsDrivingForward(position);
 	m_driveTarget = position;
 	switchInto(StateDrivingLong);
 }
 
 void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
+	determineIsDrivingForward(position);
 	m_driveTarget = position;
 	switchInto(StateDrivingShort);
 }
@@ -88,7 +88,8 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	Geometry::Angle relativeAngle = absoluteAngle - getPoseRaw().getOrientation();
+	Geometry::Angle relativeAngle = absoluteAngle - getOrientationRaw();
+
 	if (fabs(relativeAngle.getValueBetweenMinusPiAndPi()) > Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi())
 	{
 		m_isDrivingFoward = false;
@@ -99,6 +100,7 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 		m_isDrivingFoward = true;
 		m_turnTarget = absoluteAngle;
 	}
+
 	cout << "relative angle"<< m_isDrivingFoward << endl;
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
@@ -160,12 +162,15 @@ bool ControllableRobotImpl::isMoving() const
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
-	return Geometry::Angle(m_robot->GetPhi().Rad());
+	if(m_isDrivingFoward)
+		return getOrientationRaw();
+	else
+		return getOrientationRaw() + Geometry::Angle::getHalfRotation();
 }
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return Geometry::Point(m_robot->GetX(),m_robot->GetY());
+	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
@@ -182,5 +187,16 @@ void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpe
 	if(m_isDrivingFoward)
 		m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
 	else
-		m_robot->setSpeed(translationSpeed, -rotationSpeed, RoboControl::BACKWARD);
+		m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::BACKWARD);
+}
+
+void ControllableRobotImpl::determineIsDrivingForward(const Geometry::Point &target)
+{
+	Geometry::Angle relativeAngleToTarget(getPosition(), target);
+	m_isDrivingFoward = fabs(relativeAngleToTarget.getValueBetweenMinusPiAndPi()) < Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi();
+}
+
+Geometry::Angle ControllableRobotImpl::getOrientationRaw() const
+{
+	return Geometry::Angle(m_robot->GetPhi().Rad());
 }

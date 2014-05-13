@@ -25,10 +25,10 @@ int main(int, char**)
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
-	ControllableRobot &ownRobot = storage.getOwnRobot(0);
+	ControllableRobot &ownRobot = storage.getOwnRobot(1);
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
@@ -39,15 +39,26 @@ int main(int, char**)
 
 	while(true)
 	{
-		Point target(ball.getPosition().getX()+0.1,ball.getPosition().getY());
+		Point target(0.30,0.5);
 		//Angle rot(ownRobot.getPose().getPosition(),target);
-
+		ownRobot.gotoPositionPrecise(target);
 		//ownRobot.turn(rot);
-		ownRobot.gotoPositionImprecise(target);
-		ownRobot.update();
-		usleep(10000);
-		cout << "Target: " << target << endl;
-		//cout << "error: " << ownRobot.getPose().getPosition() - target << endl;
+		for(int i = 1;i<1000;i++)
+		{
+			ownRobot.update();
+			usleep(10000);
+		}
+		cout << "error: " << ownRobot.getPose().getPosition() - target << endl;
+		Point target2(-0.30,0.5);
+		//Angle rot(ownRobot.getPose().getPosition(),target);
+		ownRobot.gotoPositionPrecise(target2);
+		//ownRobot.turn(rot);
+		for(int i = 1;i<1000;i++)
+		{
+			ownRobot.update();
+			usleep(10000);
+		}
+		cout << "error: " << ownRobot.getPose().getPosition() - target2 << endl;
 	}
 
 	return 0;
