@@ -203,5 +203,10 @@ void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_positionInC
 
 void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_angleIsCorrect()
 {
-	CPPUNIT_ASSERT(false);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Compare compare(0.1);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), targetPositionFetcher.getPenaltyPositionPrepareKicker().getOrientation()));
 }
