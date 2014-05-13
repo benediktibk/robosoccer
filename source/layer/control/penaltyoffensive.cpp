@@ -18,7 +18,8 @@ PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &o
 		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
-	m_calledGoTo(false)
+	m_calledGoTo(false),
+	m_ballKicked(false)
 { }
 
 State *PenaltyOffensive::nextState()
@@ -46,8 +47,9 @@ void PenaltyOffensive::updateInternal()
 		m_calledGoTo = true;
 	}
 
-	if(movementsFinished())
+	if(movementsFinished() && !m_ballKicked)
 	{
 		robot.kick(100, m_ball);
+		m_ballKicked = true;
 	}
 }
