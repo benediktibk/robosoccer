@@ -37,5 +37,5 @@ string PenaltyDefensive::getName()
 void PenaltyDefensive::updateInternal()
 {
 	Robot &goalie = m_ownTeam.getGoalie();
-	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball));
+	goalie.goToDirect(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball));
 }

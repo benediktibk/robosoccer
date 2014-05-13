@@ -57,7 +57,7 @@ void PenaltyDefensiveTest::update_empty_oneRobotGotCallToMove()
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoToDirect());
 }
 
 void PenaltyDefensiveTest::update_twiceCalled_twoCallsToMove()
@@ -68,5 +68,5 @@ void PenaltyDefensiveTest::update_twiceCalled_twoCallsToMove()
 	m_state->update();
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();
-	CPPUNIT_ASSERT_EQUAL((unsigned int)2, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, robot.getCallsToGoToDirect());
 }

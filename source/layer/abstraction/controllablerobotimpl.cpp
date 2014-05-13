@@ -108,7 +108,7 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.05)
+		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);
@@ -132,13 +132,12 @@ void ControllableRobotImpl::measure()
 	if (	position == m_lastPoseReceived.getPosition() &&
 			orientation == m_lastPoseReceived.getOrientation())
 	{
-		//! @todo extrapolate position
 		double rotationSpeedTransformed = m_rotationSpeed*6.8;
 		double translationSpeedTransformed = m_translationSpeed*0.00296961;
 		double drivenDistance = translationSpeedTransformed*loopTime;
 		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
 		Geometry::Point positionChange(drivenDistance, 0);
-		//! This rotation is definitely not an accurate calculation, but it is useful as rough esstimation.
+		//! This rotation is definitely not very accurate, but it is useful as a rough estimation.
 		positionChange.rotate(getOrientation() + rotationChange/2);
 		m_currentPose.setOrientation(getOrientation() + rotationChange);
 		m_currentPose.setPosition(getPosition() + positionChange);

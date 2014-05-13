@@ -64,6 +64,7 @@ void Application::run()
 	StopWatch stopWatch(*m_watch);
 	stopWatch.getTimeAndRestart();
 	const double maximumLoopTime = 0.1;
+	const double minimumLoopTime = 0.005;
 
 	RefereeBase &referee = m_storage->getReferee();
 	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
@@ -80,11 +81,9 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);
-		string previousState = stateMachine.getNameOfCurrentState();
 		stateMachine.update();
-		string currentState = stateMachine.getNameOfCurrentState();
 
-		if (previousState != currentState)
+		if (referee.playModeChangedSinceLastCall())
 			referee.logInformation();
 
 		for (unsigned int i = 0; i < 3; ++i)
@@ -94,6 +93,13 @@ void Application::run()
 		}
 
 		double loopTime = stopWatch.getTimeAndRestart();
+
+		if (loopTime < minimumLoopTime)
+		{
+			usleep((minimumLoopTime - loopTime)*1000000);
+			loopTime += stopWatch.getTimeAndRestart();
+		}
+
 		if (loopTime > maximumLoopTime)
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
 
@@ -101,4 +107,3 @@ void Application::run()
 			stop = true;
 	}
 }
-

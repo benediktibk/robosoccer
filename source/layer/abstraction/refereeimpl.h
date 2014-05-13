@@ -50,6 +50,7 @@ namespace Abstraction
 		void logBool(const char *message, bool value);
 		void logBool(std::string const &message, bool value);
 		void logFieldSide(const char *message, FieldSide fieldSide);
+		void logPlayMode(ePlayMode playMode);
 
 	private:
 		Common::Logging::Logger &m_logger;
