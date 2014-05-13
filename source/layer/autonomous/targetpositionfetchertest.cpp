@@ -53,7 +53,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_go
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.04,0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
@@ -223,6 +223,6 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goalie
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-1.45,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0,0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
 }
