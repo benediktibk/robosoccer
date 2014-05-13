@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle()), *m_watch);
+	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch);
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()
@@ -208,7 +208,7 @@ void RobotStateDriveToTest::update_finalRotationReachedButRobotStillMoving_robot
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_sameTarget_true()
 {
-	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(5, 4),Angle())));
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(5, 4),Angle::getQuarterRotation())));
 }
 
 void RobotStateDriveToTest::isEquivalentToDriveTo_differentTarget_true()
