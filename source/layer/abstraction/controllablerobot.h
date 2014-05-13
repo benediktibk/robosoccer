@@ -30,6 +30,7 @@ namespace Abstraction
 		virtual void stop() = 0;
 		virtual void update() = 0;
 		virtual void measure() = 0;
+		virtual bool isMoving() const = 0;
 	};
 }
 }

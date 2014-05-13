@@ -13,7 +13,8 @@ ControllableRobotMock::ControllableRobotMock() :
 	m_callsToTurn(0),
 	m_callsToKick(0),
 	m_callsToUpdate(0),
-	m_callsToMeasure(0)
+	m_callsToMeasure(0),
+	m_isMoving(false)
 { }
 
 Pose ControllableRobotMock::getPose() const
@@ -65,6 +66,11 @@ void ControllableRobotMock::measure()
 	++m_callsToMeasure;
 }
 
+bool ControllableRobotMock::isMoving() const
+{
+	return m_isMoving;
+}
+
 unsigned int ControllableRobotMock::getCallsToStop() const
 {
 	return m_callsToStop;
@@ -103,6 +109,11 @@ unsigned int ControllableRobotMock::getCallsToMeasure() const
 void ControllableRobotMock::setPose(const Pose &pose)
 {
 	m_pose = pose;
+}
+
+void ControllableRobotMock::setIsMoving(bool value)
+{
+	m_isMoving = value;
 }
 
 const Angle & ControllableRobotMock::getLastAngleToTurnTo() const

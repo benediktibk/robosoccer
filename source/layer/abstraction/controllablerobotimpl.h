@@ -55,6 +55,7 @@ namespace Abstraction
 		virtual void stop();
 		virtual void update();
 		virtual void measure();
+		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
 		Common::Geometry::Point getPosition() const;

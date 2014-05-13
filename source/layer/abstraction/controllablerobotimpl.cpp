@@ -146,6 +146,23 @@ void ControllableRobotImpl::measure()
 	}
 }
 
+bool ControllableRobotImpl::isMoving() const
+{
+	switch(m_state)
+	{
+	case StateStop:
+		return false;
+	case StateTurning:
+	case StateDrivingShort:
+	case StateDrivingLong:
+		return true;
+	}
+
+	// make the compiler happy
+	assert(false);
+	return true;
+}
+
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
 	return m_currentPose.getOrientation();
