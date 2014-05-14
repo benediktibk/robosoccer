@@ -5,6 +5,7 @@
 #include <iomanip>
 #include <sstream>
 #include <sys/stat.h>
+#include <unistd.h>
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
