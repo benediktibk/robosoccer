@@ -58,7 +58,7 @@ Geometry::Pose ControllableRobotImpl::getPose() const
 Geometry::Circle ControllableRobotImpl::getObstacle() const
 {
 	Geometry::Pose pose = getPose();
-	return Geometry::Circle(pose.getPosition(),0.095);
+	return Geometry::Circle(pose.getPosition(), 0.095);
 }
 
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
@@ -102,6 +102,8 @@ void ControllableRobotImpl::update()
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
 	Geometry::Compare orientationCompare(0.1);
+	bool watchDogTurning = m_watchDog->getTime() > 2;
+	bool watchDogKicking = m_watchDog->getTime() > 2;
 
 	switch(m_state)
 	{
@@ -109,9 +111,13 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (	orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) ||
-				m_watchDog->getTime() > 2)
+		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
 			switchInto(StateStop);
+		else if (watchDogTurning)
+		{
+			log("watch dog for turning");
+			switchInto(StateStop);
+		}
 		return;
 	case StateDrivingShort:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
@@ -126,8 +132,11 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateKick:
-		if (m_watchDog->getTime() > 2)
+		if (watchDogKicking)
+		{
+			log("watch dog for kicking");
 			switchInto(StateStop);
+		}
 		return;
 	}
 
