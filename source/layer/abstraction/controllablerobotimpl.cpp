@@ -220,7 +220,7 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
 	if (m_state != state)
-		logState();
+		logState(state);
 
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
@@ -235,12 +235,12 @@ void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpe
 	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
 }
 
-void ControllableRobotImpl::logState()
+void ControllableRobotImpl::logState(State state)
 {
 	stringstream stream;
 	stream << "switching into state ";
 
-	switch(m_state)
+	switch(state)
 	{
 	case StateStop:
 		stream << "stop";

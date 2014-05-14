@@ -68,7 +68,7 @@ namespace Abstraction
 	private:
 		void switchInto(State state);
 		void setSpeed(double translationSpeed, double rotationSpeed);
-		void logState();
+		void logState(State state);
 		void logPosition(std::string const &message, Common::Geometry::Point const &position);
 		void logOrientation(std::string const &message, Common::Geometry::Angle const &orientation);
 		void log(std::string const &message);
