@@ -30,3 +30,8 @@ bool RobotState::isEquivalentToDriveToDirect(const Pose &) const
 {
 	return false;
 }
+
+void RobotState::update()
+{
+	updateInternal();
+}

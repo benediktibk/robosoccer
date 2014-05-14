@@ -55,7 +55,7 @@ RobotState* RobotStateDriveToDirect::nextState()
 		return 0;
 }
 
-void RobotStateDriveToDirect::update()
+void RobotStateDriveToDirect::updateInternal()
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientation);

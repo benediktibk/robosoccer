@@ -27,8 +27,10 @@ namespace Autonomous
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;
 		virtual RobotState* nextState();
-		virtual void update();
 		virtual std::string getName() const;
+
+	protected:
+		virtual void updateInternal();
 
 	private:
 		Common::Time::StopWatch *m_stopWatch;

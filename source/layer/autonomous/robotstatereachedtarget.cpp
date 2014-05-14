@@ -33,7 +33,7 @@ bool RobotStateReachedTarget::isEquivalentToDriveTo(const Pose &target) const
 	return compare.isFuzzyEqual(currentPose.getPosition(), target);
 }
 
-void RobotStateReachedTarget::update()
+void RobotStateReachedTarget::updateInternal()
 {
 	getRobot().stop();
 }
