@@ -47,6 +47,10 @@ int main(int, char**)
 	robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoOffensive());
 	robotGoalie.goToDirect(targetPositionFetcher.getStartPositionGoalkeeper());
 
+//	robot1.goToDirect(targetPositionFetcher.getStartPositionPlayerOneDefensive());
+//	robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoDefensive());
+//	robotGoalie.goToDirect(targetPositionFetcher.getStartPositionGoalkeeper());
+
 	while(true)
 	{
 		robot1.measure();
