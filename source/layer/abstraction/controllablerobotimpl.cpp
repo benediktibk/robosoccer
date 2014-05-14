@@ -204,6 +204,9 @@ Geometry::Point ControllableRobotImpl::getPosition() const
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 {
+	if (m_state != state)
+		logState();
+
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;

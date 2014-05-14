@@ -60,8 +60,9 @@ void RobotState::updateMovementStopped()
 	}
 	else if (m_currentMovementState)
 	{
+		if (m_movementStopped)
+			m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, "movement not stopped anymore");
 		m_movementStopped = false;
-		m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, "movement not stopped anymore");
 	}
 }
 

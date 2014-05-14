@@ -35,11 +35,11 @@ int main(int, char**)
 	Robot &robotTwo = team.getSecondFieldPlayer();
 	Robot &robotThree = team.getGoalie();
 
-	while(true)
+//	while(true)
 	{
 		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
 //		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
+//		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			robotOne.measure();
@@ -53,7 +53,7 @@ int main(int, char**)
 
 		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
 //		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
+//		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
 			robotOne.measure();
