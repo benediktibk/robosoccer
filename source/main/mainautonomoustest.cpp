@@ -27,7 +27,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerMock logger;
 	WatchImpl watch;
-	StorageImpl storage(15, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
@@ -38,7 +38,7 @@ int main(int, char**)
 	while(true)
 	{
 		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
+//		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
 		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
 		for (unsigned int i = 0; i < 1000; ++i)
 		{
@@ -52,7 +52,7 @@ int main(int, char**)
 		}
 
 		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
+//		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
 		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
 		for (unsigned int i = 0; i < 1000; ++i)
 		{

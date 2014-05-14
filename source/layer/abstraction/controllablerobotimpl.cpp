@@ -103,7 +103,7 @@ void ControllableRobotImpl::update()
 		return;
 	case StateTurning:
 		if (	orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) ||
-				m_turnWatchDog->getTime() > 0.5)
+				m_turnWatchDog->getTime() > 2)
 			switchInto(StateStop);
 		return;
 	case StateDrivingShort:
