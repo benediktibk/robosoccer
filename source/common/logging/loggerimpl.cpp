@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <sstream>
 #include <sys/stat.h>
+#include <unistd.h>
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
@@ -14,20 +15,20 @@ using namespace RoboSoccer::Common::Time;
 LoggerImpl::LoggerImpl() :
 	m_consoleOutputEnabled(true),
 	m_logWritingEnabled(true),
+	m_deleteAfterFinish(false),
 	m_watch(new WatchImpl())
 {
 	m_logFiles.reserve(7);
-
-	string folder = "log";
+	m_folder = "log";
 
 	for (int i = 0; i <= 999; ++i)
 	{
 		stringstream currentStringStream;
-		currentStringStream << folder << setw(3) << setfill('0') << i ;
+		currentStringStream << m_folder << setw(3) << setfill('0') << i ;
 
 		if(mkdir(currentStringStream.str().c_str(), S_IRWXU|S_IRGRP|S_IXGRP) == 0)
 		{
-			folder = currentStringStream.str();
+			m_folder = currentStringStream.str();
 			break;
 		}
 
@@ -35,14 +36,9 @@ LoggerImpl::LoggerImpl() :
 
 	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
 	{
-		string filename = folder;
-		filename.append("/");
-		filename.append(getNameForLogFileType(static_cast<LogFileType>(i)));
-
 		m_logFiles.push_back(new fstream());
-		m_logFiles.back()->open(filename.c_str(), ios_base::out | ios_base::trunc);
+		m_logFiles.back()->open(buildPathForLogFileTypeAndFolder(static_cast<LogFileType>(i), m_folder).c_str(), ios_base::out | ios_base::trunc);
 	}
-
 	initLogFiles();
 }
 
@@ -56,6 +52,9 @@ LoggerImpl::~LoggerImpl()
 		delete m_logFiles.back();
 		m_logFiles.pop_back();
 	}
+
+	if (m_deleteAfterFinish)
+		deleteLogFiles();
 
 	delete m_watch;
 	m_watch = 0;
@@ -177,3 +176,28 @@ string LoggerImpl::getTimeRelative() const
 	stream << m_watch->getTime();
 	return stream.str();
 }
+
+void LoggerImpl::deleteLogFiles()
+{
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
+	{
+		remove(buildPathForLogFileTypeAndFolder(static_cast<LogFileType>(i), m_folder).c_str());
+	}
+
+	rmdir(m_folder.c_str());
+}
+
+string LoggerImpl::buildPathForLogFileTypeAndFolder(LogFileType logType, string &folder) const
+{
+	string filename = folder;
+	filename.append("/");
+	filename.append(getNameForLogFileType(logType));
+
+	return filename;
+}
+
+void LoggerImpl::deleteLogFolderAfterFinish()
+{
+	m_deleteAfterFinish = true;
+}
+

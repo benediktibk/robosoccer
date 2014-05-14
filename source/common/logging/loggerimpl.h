@@ -32,16 +32,22 @@ class LoggerImpl :
 		virtual void enableLogWriting();
 		virtual void disableLogWriting();
 
+		void deleteLogFolderAfterFinish();
+
 	private:
 		std::string getNameForLogFileType(LogFileType logType) const;
 		void initLogFiles();
 		void closeLogFiles();
+		void deleteLogFiles();
+		std::string buildPathForLogFileTypeAndFolder(LogFileType logType, std::string &folder) const;
 		std::string getTimeAbsolute() const;
 		std::string getTimeRelative() const;
 
 	private:
 		bool m_consoleOutputEnabled;
 		bool m_logWritingEnabled;
+		bool m_deleteAfterFinish;
+		std::string m_folder;
 		Time::Watch *m_watch;
 
 		std::vector<std::fstream*> m_logFiles;
