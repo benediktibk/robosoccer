@@ -17,7 +17,9 @@
 	\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2cm, minimum height=2em]
 	
 	\tikzstyle{line} = [draw, ->, >=stealth', ultra thick]
-	
+	\tikzstyle{dline} = [draw, <->, >=stealth', ultra thick]
+	\tikzstyle{separator} = [draw, -, dashed, very thick]
+		
     % Layers
 	\node [block-active] (control) {\huge \textbf{Control}};
     \node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
@@ -34,7 +36,16 @@
 	
 	\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
 	\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
-		
+	
+	\path [dline] (referee) -- (abstraction);
+	\path [dline] (robots) -- (abstraction);
+	
+	% Background Box
+	\begin{pgfonlayer}{background}
+		\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+		\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+	\end{pgfonlayer}
+	
 	
 \end{tikzpicture}
 %!tikz source end
