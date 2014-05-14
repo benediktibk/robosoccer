@@ -35,13 +35,15 @@ void RobotStateKickTest::nextState_oneSecondWaited_followingState()
 {
 	m_watch->setTime(4);
 	m_robotState->update();
+
+	RobotState *nextStateOne = m_robotState->nextState();
 	m_watch->setTime(5);
+	RobotState *nextStateTwo = m_robotState->nextState();
 
-	RobotState *nextState = m_robotState->nextState();
-
-	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	CPPUNIT_ASSERT(nextStateOne == 0);
+	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextStateTwo);
 	CPPUNIT_ASSERT(nextStateCasted != 0);
-	delete nextState;
+	delete nextStateTwo;
 }
 
 void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
