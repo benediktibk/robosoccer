@@ -30,18 +30,39 @@ int main(int, char**)
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	IntelligentBallImpl ball(storage.getBall());
-	Robot &robot = team.getSecondFieldPlayer();
-	cout << "objects created" << endl;
-	robot.measure();
-	cout << "robot pose: " << robot.getCurrentPose();
+	Robot &robotOne = team.getFirstFieldPlayer();
+	Robot &robotTwo = team.getSecondFieldPlayer();
+	Robot &robotThree = team.getGoalie();
 
-	robot.kick(100, ball);
-	for (unsigned int i = 0; i < 1000; ++i)
+	while(true)
 	{
-		robot.measure();
-		robot.update();
-		usleep(10000);
+		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
+		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
+		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			robotOne.measure();
+			robotOne.update();
+			robotTwo.measure();
+			robotTwo.update();
+			robotThree.measure();
+			robotThree.update();
+			usleep(5000);
+		}
+
+		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
+		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
+		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			robotOne.measure();
+			robotOne.update();
+			robotTwo.measure();
+			robotTwo.update();
+			robotThree.measure();
+			robotThree.update();
+			usleep(5000);
+		}
 	}
 
 	return 0;
