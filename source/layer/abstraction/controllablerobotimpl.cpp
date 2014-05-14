@@ -65,6 +65,7 @@ void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &positio
 {
 	m_driveTarget = position;
 	switchInto(StateDrivingLong);
+	logPosition("current position", getPosition());
 	logPosition("target for drive long", position);
 }
 
@@ -72,6 +73,7 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
 	m_driveTarget = position;
 	switchInto(StateDrivingShort);
+	logPosition("current position", getPosition());
 	logPosition("target for drive short", position);
 }
 
@@ -89,6 +91,7 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 	m_turnTarget = absoluteAngle;
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
+	logOrientation("current orientation", getOrientation());
 	logOrientation("target for turning", absoluteAngle);
 }
 
@@ -112,7 +115,10 @@ void ControllableRobotImpl::update()
 		return;
 	case StateTurning:
 		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		{
+			log("reached target orientation");
 			switchInto(StateStop);
+		}
 		else if (watchDogTurning)
 		{
 			log("watch dog for turning");
@@ -123,13 +129,19 @@ void ControllableRobotImpl::update()
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
+		{
+			log("reachted target position");
 			switchInto(StateStop);
+		}
 		break;
 	case StateDrivingLong:
 		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
+		{
+			log("reachted target position");
 			switchInto(StateStop);
+		}
 		break;
 	case StateKick:
 		if (watchDogKicking)
