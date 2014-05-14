@@ -43,6 +43,9 @@ namespace Autonomous
 		virtual void updateInternal() = 0;
 
 	private:
+		void updateMovementStopped();
+
+	private:
 		//forbid copies
 		RobotState(RobotState const &rhs) : m_robot(rhs.m_robot) { }
 		void operator=(RobotState const&) { }

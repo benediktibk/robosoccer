@@ -20,7 +20,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0, 120)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
-	m_loopTimeWatch(new StopWatch(watch))
+	m_loopTimeWatch(new StopWatch(watch)),
+	m_turnWatchDog(new StopWatch(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -38,6 +39,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_driveLongControl = 0;
 	delete m_loopTimeWatch;
 	m_loopTimeWatch = 0;
+	delete m_turnWatchDog;
+	m_turnWatchDog = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -76,6 +79,7 @@ bool ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
+	m_turnWatchDog->getTimeAndRestart();
 	m_turnTarget = absoluteAngle;
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
@@ -98,7 +102,8 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		if (	orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) ||
+				m_turnWatchDog->getTime() > 0.5)
 			switchInto(StateStop);
 		return;
 	case StateDrivingShort:
