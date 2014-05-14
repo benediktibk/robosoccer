@@ -119,9 +119,9 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSi
 	vector<Point> goalposition;
 	goalposition.reserve(3);
 
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,0)).getPosition());
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,-0.2)).getPosition());
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,0)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,-0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,0.2)).getPosition());
 
 	return goalposition;
 }
