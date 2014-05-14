@@ -6,22 +6,27 @@
 #include "common/geometry/point.h"
 #include "common/geometry/compare.h"
 #include "common/time/stopwatch.h"
+#include "common/logging/logger.h"
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
+#include <sstream>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 
 ControllableRobotImpl::ControllableRobotImpl(
-		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch) :
+		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch, Common::Logging::Logger &logger) :
 	m_driveShortControl(new RobotDriveControl(watch, 0.3, 0.2, 50, 0, 40)),
 	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0, 120)),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch)),
-	m_turnWatchDog(new StopWatch(watch))
+	m_watchDog(new StopWatch(watch)),
+	m_logger(logger),
+	m_deviceId(deviceId)
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -39,8 +44,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_driveLongControl = 0;
 	delete m_loopTimeWatch;
 	m_loopTimeWatch = 0;
-	delete m_turnWatchDog;
-	m_turnWatchDog = 0;
+	delete m_watchDog;
+	m_watchDog = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -60,29 +65,31 @@ void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &positio
 {
 	m_driveTarget = position;
 	switchInto(StateDrivingLong);
+	logPosition("target for drive long", position);
 }
 
 void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
 	m_driveTarget = position;
 	switchInto(StateDrivingShort);
+	logPosition("target for drive short", position);
 }
 
-bool ControllableRobotImpl::kick(unsigned int force)
+void ControllableRobotImpl::kick(unsigned int force)
 {
 	assert(force <= 100);
 	// the second param should not be set 0, despite the documentation says something different
 	m_robot->Kick(force, 0.24);
-	return false;
+	switchInto(StateKick);
 }
 
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_turnWatchDog->getTimeAndRestart();
 	m_turnTarget = absoluteAngle;
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
+	logOrientation("target for turning", absoluteAngle);
 }
 
 void ControllableRobotImpl::stop()
@@ -103,7 +110,7 @@ void ControllableRobotImpl::update()
 		return;
 	case StateTurning:
 		if (	orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) ||
-				m_turnWatchDog->getTime() > 2)
+				m_watchDog->getTime() > 2)
 			switchInto(StateStop);
 		return;
 	case StateDrivingShort:
@@ -118,6 +125,10 @@ void ControllableRobotImpl::update()
 		else
 			switchInto(StateStop);
 		break;
+	case StateKick:
+		if (m_watchDog->getTime() > 2)
+			switchInto(StateStop);
+		return;
 	}
 
 	setSpeed(translationSpeed, rotationSpeed);
@@ -163,6 +174,7 @@ bool ControllableRobotImpl::isMoving() const
 	case StateTurning:
 	case StateDrivingShort:
 	case StateDrivingLong:
+	case StateKick:
 		return true;
 	}
 
@@ -186,6 +198,7 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;
+	m_watchDog->getTimeAndRestart();
 }
 
 void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpeed)
@@ -193,4 +206,67 @@ void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpe
 	m_translationSpeed = translationSpeed;
 	m_rotationSpeed = rotationSpeed;
 	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+}
+
+void ControllableRobotImpl::logState()
+{
+	stringstream stream;
+	stream << "switching into state ";
+
+	switch(m_state)
+	{
+	case StateStop:
+		stream << "stop";
+		break;
+	case StateTurning:
+		stream << "turning";
+		break;
+	case StateDrivingShort:
+		stream << "driving short";
+		break;
+	case StateDrivingLong:
+		stream << "driving long";
+		break;
+	case StateKick:
+		stream << "kicking";
+		break;
+	}
+
+	log(stream.str());
+}
+
+void ControllableRobotImpl::log(const string &message)
+{
+	Logger::LogFileType fileType = Logger::LogFileTypeInvalid;
+
+	switch(m_deviceId)
+	{
+	case 0:
+		fileType = Logger::LogFileTypeRobotGoalkeeperPositions;
+		break;
+	case 1:
+		fileType = Logger::LogFileTypeRobot1Positions;
+		break;
+	case 2:
+		fileType = Logger::LogFileTypeRobot2Positions;
+		break;
+	default:
+		assert(false);
+	}
+
+	m_logger.logToLogFileOfType(fileType, message);
+}
+
+void ControllableRobotImpl::logPosition(string const &message, const Geometry::Point &position)
+{
+	stringstream stream;
+	stream << message << ": " << position;
+	log(stream.str());
+}
+
+void ControllableRobotImpl::logOrientation(string const &message, const Geometry::Angle &orientation)
+{
+	stringstream stream;
+	stream << message << ": " << orientation;
+	log(stream.str());
 }
