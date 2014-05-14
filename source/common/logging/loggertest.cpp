@@ -17,4 +17,14 @@ void LoggerTest::write_someText_someText()
 	CPPUNIT_ASSERT(true);
 }
 
+void LoggerTest::write_testAllLogTypes_someText()
+{
+	LoggerImpl logger;
 
+	logger.enableConsoleOutput();
+	logger.enableLogWriting();
+
+	logger.logToLogFileOfType(Logger::LogFileTypeRobot2Positions, "some text");
+
+	CPPUNIT_ASSERT(true);
+}

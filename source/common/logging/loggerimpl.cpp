@@ -13,6 +13,8 @@ LoggerImpl::LoggerImpl() :
 	m_consoleOutputEnabled(true),
 	m_logWritingEnabled(true)
 {
+	m_logFiles.reserve(7);
+
 	string folder = "log";
 
 	for (int i = 0; i <= 999; ++i)
@@ -28,22 +30,15 @@ LoggerImpl::LoggerImpl() :
 
 	}
 
-	string globalLogFile = folder;
-	globalLogFile.append("/0_global.txt");
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
+	{
+		string filename = folder;
+		filename.append("/");
+		filename.append(getNameForLogFileType(static_cast<LogFileType>(i)));
 
-	string refereeLogFile = folder;
-	refereeLogFile.append("/1_referee.txt");
-
-	string stateChangesLogFile = folder;
-	stateChangesLogFile.append("/2_stateChanges.txt");
-
-	string robotLogFile = folder;
-	robotLogFile.append("/3_robot.txt");
-
-	m_globalLogFile.open(globalLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_refereeLogFile.open(refereeLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_stateChangesLogFile.open(stateChangesLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_robotLogFile.open(robotLogFile.c_str(), ios_base::out | ios_base::trunc);
+		m_logFiles.push_back(new fstream());
+		m_logFiles.back()->open(filename.c_str(), ios_base::out | ios_base::trunc);
+	}
 
 	initLogFiles();
 }
@@ -52,10 +47,12 @@ LoggerImpl::~LoggerImpl()
 {
 	closeLogFiles();
 
-	m_globalLogFile.close();
-	m_refereeLogFile.close();
-	m_stateChangesLogFile.close();
-	m_robotLogFile.close();
+	while(m_logFiles.size() > 0)
+	{
+		m_logFiles.back()->close();
+		delete m_logFiles.back();
+		m_logFiles.pop_back();
+	}
 }
 
 void LoggerImpl::logToConsoleAndGlobalLogFile(const string &message)
@@ -74,8 +71,7 @@ void LoggerImpl::logErrorToConsoleAndWriteToGlobalLogFile(const string &message)
 
 void LoggerImpl::logToGlobalLogFile(const string &message)
 {
-	if (m_logWritingEnabled)
-		m_globalLogFile << message << endl;
+	logToLogFileOfType(LogFileTypeGlobal, message);
 }
 
 void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
@@ -83,28 +79,12 @@ void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 	if (!m_logWritingEnabled)
 		return;
 
-	switch (logType)
-	{
-	case LogFileTypeGlobal:
-		m_globalLogFile << message << endl;
-		break;
-
-	case LogFileTypeReferee:
-		m_refereeLogFile << message << endl;
-		break;
-
-	case LogFileTypeStateChanges:
-		m_stateChangesLogFile << message << endl;
-		break;
-
-	case LogFileTypeRobot:
-		m_robotLogFile << message << endl;
-		break;
-
-	case LogFileTypeInvalid:
+	if (logType == LogFileTypeInvalid)
 		assert(false);
-		break;
-	}
+
+	int choice = static_cast<int>(logType);
+
+	*m_logFiles[choice] << message << endl;
 }
 
 void LoggerImpl::enableConsoleOutput()
@@ -173,5 +153,22 @@ void LoggerImpl::closeLogFiles()
 		LogFileType currentLogFile = static_cast<LogFileType>(i);
 		logToLogFileOfType(currentLogFile, message);
 	}
+}
+
+string LoggerImpl::getNameForLogFileType(LogFileType logType) const
+{
+	vector<string> names;
+	names.reserve(LogFileTypeInvalid);
+	unsigned int choice = static_cast<unsigned int>(logType);
+
+	names.push_back("0_global.txt");
+	names.push_back("1_referee.txt");
+	names.push_back("2_stateChanges.txt");
+	names.push_back("3_robot.txt");
+	names.push_back("4_robot1Positions.txt");
+	names.push_back("4_robot2Positions.txt");
+	names.push_back("4_robotGPositions.txt");
+
+	return names[choice];
 }
 

@@ -1,6 +1,7 @@
 #ifndef ROBOSOCCER_COMMON_LOGGING_LOGGERIMPL_H
 #define ROBOSOCCER_COMMON_LOGGING_LOGGERIMPL_H
 
+#include <vector>
 #include "common/logging/logger.h"
 
 namespace RoboSoccer
@@ -28,6 +29,7 @@ class LoggerImpl :
 		virtual void disableLogWriting();
 
 	private:
+		std::string getNameForLogFileType(LogFileType logType) const;
 		void initLogFiles();
 		void closeLogFiles();
 
@@ -35,10 +37,8 @@ class LoggerImpl :
 		bool m_consoleOutputEnabled;
 		bool m_logWritingEnabled;
 
-		std::fstream m_globalLogFile;
-		std::fstream m_refereeLogFile;
-		std::fstream m_stateChangesLogFile;
-		std::fstream m_robotLogFile;
+		std::vector<std::fstream*> m_logFiles;
+
 	};
 }
 }
