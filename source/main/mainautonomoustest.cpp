@@ -27,7 +27,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerMock logger;
 	WatchImpl watch;
-	StorageImpl storage(15, TeamColorBlue, logger, watch);
+	StorageImpl storage(15, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
@@ -43,10 +43,10 @@ int main(int, char**)
 	while(true)
 	{
 		robot.measure();
-		robot.goTo(targetPositionFetcher.getOwnGoalPosition(ball));
+		robot.goToDirect(targetPositionFetcher.getOwnGoalPosition(ball));
 
 		robot.update();
-		usleep(200000);
+		usleep(10000);
 	}
 
 	return 0;

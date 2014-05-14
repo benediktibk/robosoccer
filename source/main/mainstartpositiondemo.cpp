@@ -26,14 +26,14 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(15, TeamColorBlue, logger, watch);
+	StorageImpl storage(15, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
 	TargetPositionFetcher targetPositionFetcher;
 	IntelligentBallImpl ball(storage.getBall());
 
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	targetPositionFetcher.setFieldSide(FieldSideRight);
 	Robot &robot1 = team.getFirstFieldPlayer();
 	Robot &robot2 = team.getSecondFieldPlayer();
 	Robot &robotGoalie = team.getGoalie();
@@ -43,9 +43,6 @@ int main(int, char**)
 	robot2.measure();
 	robotGoalie.measure();
 
-//	robot1.goToDirect(targetPositionFetcher.getStartPositionPlayerOneDefensive());
-//	robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoDefensive());
-//	robotGoalie.goToDirect(targetPositionFetcher.getStartPositionGoalkeeper());
 
 	while(true)
 	{
@@ -53,6 +50,9 @@ int main(int, char**)
 		robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoOffensive());
 		robotGoalie.goToDirect(targetPositionFetcher.getStartPositionGoalkeeper());
 
+		//	robot1.goToDirect(targetPositionFetcher.getStartPositionPlayerOneDefensive());
+		//	robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoDefensive());
+		//	robotGoalie.goToDirect(targetPositionFetcher.getStartPositionGoalkeeper());
 
 		robot1.measure();
 		robot2.measure();
