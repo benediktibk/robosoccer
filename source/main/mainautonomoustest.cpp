@@ -5,12 +5,13 @@
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robot.h"
-#include "common/logging/loggerimpl.h"
+#include "common/logging/loggermock.h"
 #include "common/time/watchimpl.h"
 #include "common/geometry/pose.h"
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -24,24 +25,28 @@ using namespace std;
 int main(int, char**)
 {
 	cout << "creating objects" << endl;
-	LoggerImpl logger;
+	LoggerMock logger;
 	WatchImpl watch;
-	StorageImpl storage(15, TeamColorRed, logger, watch);
+	StorageImpl storage(15, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
 	IntelligentBallImpl ball(storage.getBall());
-	Robot &robot = team.getSecondFieldPlayer();
+	Robot &robot = team.getGoalie();
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
 	cout << "objects created" << endl;
 	robot.measure();
-	cout << "robot pose: " << robot.getCurrentPose();
+	robot.update();
 
-	robot.kick(100, ball);
-	for (unsigned int i = 0; i < 1000; ++i)
+	while(true)
 	{
 		robot.measure();
+		robot.goTo(targetPositionFetcher.getOwnGoalPosition(ball));
+
 		robot.update();
-		usleep(10000);
+		usleep(200000);
 	}
 
 	return 0;
