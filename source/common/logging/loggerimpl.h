@@ -8,6 +8,10 @@ namespace RoboSoccer
 {
 namespace Common
 {
+namespace Time
+{
+	class Watch;
+}
 namespace Logging
 {
 class LoggerImpl :
@@ -32,10 +36,13 @@ class LoggerImpl :
 		std::string getNameForLogFileType(LogFileType logType) const;
 		void initLogFiles();
 		void closeLogFiles();
+		std::string getTimeAbsolute() const;
+		std::string getTimeRelative() const;
 
 	private:
 		bool m_consoleOutputEnabled;
 		bool m_logWritingEnabled;
+		Time::Watch *m_watch;
 
 		std::vector<std::fstream*> m_logFiles;
 
