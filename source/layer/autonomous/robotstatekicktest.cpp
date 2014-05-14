@@ -3,13 +3,14 @@
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
+#include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateKickTest::createInstance()
 {
-	return new RobotStateKick(*m_controllableRobot, 30, *m_watch);
+	return new RobotStateKick(*m_controllableRobot, 30, *m_watch, *m_logger);
 }
 
 void RobotStateKickTest::targetReached_empty_false()

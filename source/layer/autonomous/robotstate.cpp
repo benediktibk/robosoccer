@@ -4,9 +4,11 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
-RobotState::RobotState(Abstraction::ControllableRobot &robot) :
+RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger) :
 	m_robot(robot),
+	m_logger(logger),
 	m_lastMovementState(false),
 	m_currentMovementState(false),
 	m_movementStopped(false)
@@ -54,4 +56,9 @@ void RobotState::updateMovementStopped()
 		m_movementStopped = true;
 	else if (m_currentMovementState)
 		m_movementStopped = false;
+}
+
+Logger& RobotState::getLogger()
+{
+	return m_logger;
 }

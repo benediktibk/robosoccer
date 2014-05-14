@@ -8,11 +8,12 @@ using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 
 RobotStateTurnTo::RobotStateTurnTo(
 		Abstraction::ControllableRobot &robot, Point const &target, Watch const &watch,
-		RobotState *followingState) :
-	RobotState(robot),
+		RobotState *followingState, Logger &logger) :
+	RobotState(robot, logger),
 	m_target(target),
 	m_followingState(followingState),
 	m_targetAlreadySet(false),

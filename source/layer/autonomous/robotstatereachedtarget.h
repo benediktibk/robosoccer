@@ -13,7 +13,7 @@ namespace Autonomous
 			public RobotState
 	{
 	public:
-		RobotStateReachedTarget(Abstraction::ControllableRobot &robot);
+		RobotStateReachedTarget(Abstraction::ControllableRobot &robot, Common::Logging::Logger &logger);
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;

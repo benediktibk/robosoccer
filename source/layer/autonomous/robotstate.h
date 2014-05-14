@@ -12,6 +12,10 @@ namespace Geometry
 	class Point;
 	class Pose;
 }
+namespace Logging
+{
+	class Logger;
+}
 }
 namespace Layer
 {
@@ -24,7 +28,7 @@ namespace Autonomous
 	class RobotState
 	{
 	public:
-		RobotState(Abstraction::ControllableRobot &robot);
+		RobotState(Abstraction::ControllableRobot &robot, Common::Logging::Logger &logger);
 		virtual ~RobotState();
 
 		virtual bool reachedTarget() const = 0;
@@ -37,6 +41,7 @@ namespace Autonomous
 		void update();
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
+		Common::Logging::Logger &getLogger();
 		bool hasMovementStopped() const;
 
 	protected:
@@ -47,11 +52,12 @@ namespace Autonomous
 
 	private:
 		//forbid copies
-		RobotState(RobotState const &rhs) : m_robot(rhs.m_robot) { }
+		RobotState(RobotState const &rhs) : m_robot(rhs.m_robot), m_logger(rhs.m_logger) { }
 		void operator=(RobotState const&) { }
 
 	private:
 		Abstraction::ControllableRobot &m_robot;
+		Common::Logging::Logger &m_logger;
 		bool m_lastMovementState;
 		bool m_currentMovementState;
 		bool m_movementStopped;
@@ -61,5 +67,3 @@ namespace Autonomous
 }
 
 #endif
-
-

@@ -6,9 +6,10 @@
 using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
-RobotStateReachedTarget::RobotStateReachedTarget(Abstraction::ControllableRobot &robot) :
-	RobotState(robot)
+RobotStateReachedTarget::RobotStateReachedTarget(Abstraction::ControllableRobot &robot, Logger &logger) :
+	RobotState(robot, logger)
 { }
 
 bool RobotStateReachedTarget::reachedTarget() const

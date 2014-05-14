@@ -8,10 +8,11 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch) :
-	RobotState(robot),
+RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch, Logger &logger) :
+	RobotState(robot, logger),
 	m_precisionPosition(0.01),
 	m_precisionOrientation(0.1),
 	m_initialRotationReached(false),
@@ -49,9 +50,9 @@ RobotState* RobotStateDriveToDirect::nextState()
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot());
+		return new RobotStateReachedTarget(getRobot(), getLogger());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot());
+		return new RobotStateReachedTarget(getRobot(), getLogger());
 	else
 		return 0;
 }
