@@ -30,6 +30,7 @@ namespace Autonomous
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoTo() const;
 		unsigned int getCallsToGoToDirect() const;
+		unsigned int getCallsToGoToCombined() const;
 		unsigned int getCallsToKick() const;
 		void setTargetReached(bool value);
 
