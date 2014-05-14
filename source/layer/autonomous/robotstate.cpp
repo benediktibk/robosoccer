@@ -1,12 +1,16 @@
 #include "layer/autonomous/robotstate.h"
 #include "layer/abstraction/controllablerobot.h"
+#include "common/logging/logger.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
+using namespace std;
 
-RobotState::RobotState(Abstraction::ControllableRobot &robot) :
+RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger) :
 	m_robot(robot),
+	m_logger(logger),
 	m_lastMovementState(false),
 	m_currentMovementState(false),
 	m_movementStopped(false)
@@ -50,8 +54,26 @@ void RobotState::updateMovementStopped()
 {
 	m_lastMovementState = m_currentMovementState;
 	m_currentMovementState = m_robot.isMoving();
+
 	if (m_lastMovementState && !m_currentMovementState)
+	{
 		m_movementStopped = true;
+		log("movement stopped");
+	}
 	else if (m_currentMovementState)
+	{
+		if (m_movementStopped)
+			log("movement not stopped anymore");
 		m_movementStopped = false;
+	}
+}
+
+Logger& RobotState::getLogger()
+{
+	return m_logger;
+}
+
+void RobotState::log(const string &message)
+{
+	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, message);
 }

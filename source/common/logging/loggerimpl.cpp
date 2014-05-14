@@ -1,4 +1,5 @@
 #include "common/logging/loggerimpl.h"
+#include "common/time/watchimpl.h"
 #include <iostream>
 #include <ctime>
 #include <assert.h>
@@ -9,11 +10,13 @@
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Time;
 
 LoggerImpl::LoggerImpl() :
 	m_consoleOutputEnabled(true),
 	m_logWritingEnabled(true),
-	m_deleteAfterFinish(false)
+	m_deleteAfterFinish(false),
+	m_watch(new WatchImpl())
 {
 	m_logFiles.reserve(7);
 	m_folder = "log";
@@ -52,6 +55,9 @@ LoggerImpl::~LoggerImpl()
 
 	if (m_deleteAfterFinish)
 		deleteLogFiles();
+
+	delete m_watch;
+	m_watch = 0;
 }
 
 void LoggerImpl::logToConsoleAndGlobalLogFile(const string &message)
@@ -83,7 +89,7 @@ void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 
 	int choice = static_cast<int>(logType);
 
-	*m_logFiles[choice] << message << endl;
+	*m_logFiles[choice] << getTimeRelative() << " " << message << endl;
 }
 
 void LoggerImpl::enableConsoleOutput()
@@ -108,19 +114,9 @@ void LoggerImpl::disableLogWriting()
 
 void LoggerImpl::initLogFiles()
 {
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	strftime(buffer, 80, "%d-%m-%Y %I:%M:%S", timeinfo);
-	string timestring(buffer);
-
 	string message;
 	message += "## Starting Log: ";
-	message += timestring;
+	message += getTimeAbsolute();
 	message += "\n## STARTING ROBOSOCCER\n##\n";
 
 	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; i++)
@@ -132,20 +128,10 @@ void LoggerImpl::initLogFiles()
 
 void LoggerImpl::closeLogFiles()
 {
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	strftime(buffer, 80, "%d-%m-%Y %I:%M:%S", timeinfo);
-	string timestring(buffer);
-
 	string message;
 	message += "\n## \n";
 	message += "## QUITTING ROBOSOCCER\n## Closing Log: ";
-	message += timestring;
+	message += getTimeAbsolute();
 
 	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
 	{
@@ -169,6 +155,26 @@ string LoggerImpl::getNameForLogFileType(LogFileType logType) const
 	names.push_back("4_robotGPositions.txt");
 
 	return names[choice];
+}
+
+string LoggerImpl::getTimeAbsolute() const
+{
+	time_t rawtime;
+	struct tm * timeinfo;
+	char buffer[80];
+
+	time(&rawtime);
+	timeinfo = localtime(&rawtime);
+
+	strftime(buffer, 80, "%d-%m-%Y %I:%M:%S", timeinfo);
+	return string(buffer);
+}
+
+string LoggerImpl::getTimeRelative() const
+{
+	stringstream stream;
+	stream << m_watch->getTime();
+	return stream.str();
 }
 
 void LoggerImpl::deleteLogFiles()

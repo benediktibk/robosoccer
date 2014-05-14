@@ -24,7 +24,8 @@ namespace Autonomous
 	public:
 		RobotStateDriveTo(Abstraction::ControllableRobot &robot,
 				const Common::Geometry::Pose &target,
-				Common::Time::Watch const &watch);
+				Common::Time::Watch const &watch,
+				Common::Logging::Logger &logger);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;

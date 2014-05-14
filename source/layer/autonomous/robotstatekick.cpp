@@ -7,9 +7,10 @@ using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
-RobotStateKick::RobotStateKick(Abstraction::ControllableRobot &robot, unsigned int force, Watch const &watch) :
-	RobotState(robot),
+RobotStateKick::RobotStateKick(Abstraction::ControllableRobot &robot, unsigned int force, Watch const &watch, Logger &logger) :
+	RobotState(robot, logger),
 	m_stopWatch(new StopWatch(watch)),
 	m_force(force),
 	m_alreadyKicked(false),
@@ -43,7 +44,7 @@ RobotState *RobotStateKick::nextState()
 	if (m_stopWatch->getTime() < 0.5)
 		return 0;
 
-	return new RobotStateReachedTarget(getRobot());
+	return new RobotStateReachedTarget(getRobot(), getLogger());
 }
 
 void RobotStateKick::updateInternal()

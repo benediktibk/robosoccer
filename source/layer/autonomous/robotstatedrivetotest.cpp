@@ -4,13 +4,14 @@
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
 #include "common/geometry/compare.h"
+#include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch);
+	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch, *m_logger);
 }
 
 void RobotStateDriveToTest::reachedTarget_empty_false()

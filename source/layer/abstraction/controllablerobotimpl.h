@@ -23,6 +23,10 @@ namespace Time
 	class Watch;
 	class StopWatch;
 }
+namespace Logging
+{
+	class Logger;
+}
 }
 namespace Layer
 {
@@ -39,18 +43,19 @@ namespace Abstraction
 			StateStop,
 			StateTurning,
 			StateDrivingShort,
-			StateDrivingLong
+			StateDrivingLong,
+			StateKick
 		};
 
 	public:
-		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Common::Time::Watch const &watch);
+		ControllableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
 		~ControllableRobotImpl();
 
 		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
-		virtual bool kick(unsigned int force);
+		virtual void kick(unsigned int force);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 		virtual void update();
@@ -63,6 +68,10 @@ namespace Abstraction
 	private:
 		void switchInto(State state);
 		void setSpeed(double translationSpeed, double rotationSpeed);
+		void logState(State state);
+		void logPosition(std::string const &message, Common::Geometry::Point const &position);
+		void logOrientation(std::string const &message, Common::Geometry::Angle const &orientation);
+		void log(std::string const &message);
 
 	private:
 		RoboControl *m_robot;
@@ -76,7 +85,9 @@ namespace Abstraction
 		Common::Geometry::Pose m_currentPose;
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
-		Common::Time::StopWatch *m_turnWatchDog;
+		Common::Time::StopWatch *m_watchDog;
+		Common::Logging::Logger &m_logger;
+		const unsigned int m_deviceId;
 	};
 }
 }

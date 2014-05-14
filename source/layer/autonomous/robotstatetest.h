@@ -12,6 +12,10 @@ namespace Time
 {
 	class WatchMock;
 }
+namespace Logging
+{
+	class LoggerMock;
+}
 }
 namespace Layer
 {
@@ -52,6 +56,7 @@ namespace Autonomous
 		Abstraction::ControllableRobotMock *m_controllableRobot;
 		Common::Time::WatchMock *m_watch;
 		RobotState *m_robotState;
+		Common::Logging::LoggerMock *m_logger;
 	};
 }
 }
