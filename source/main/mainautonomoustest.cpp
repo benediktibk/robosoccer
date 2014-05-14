@@ -5,7 +5,7 @@
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robot.h"
-#include "common/logging/loggermock.h"
+#include "common/logging/loggerimpl.h"
 #include "common/time/watchimpl.h"
 #include "common/geometry/pose.h"
 #include <iostream>
@@ -25,7 +25,7 @@ using namespace std;
 int main(int, char**)
 {
 	cout << "creating objects" << endl;
-	LoggerMock logger;
+	LoggerImpl logger;
 	WatchImpl watch;
 	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
