@@ -27,26 +27,43 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerMock logger;
 	WatchImpl watch;
-	StorageImpl storage(15, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	IntelligentBallImpl ball(storage.getBall());
-	Robot &robot = team.getGoalie();
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-
-	cout << "objects created" << endl;
-	robot.measure();
-	robot.update();
+	Robot &robotOne = team.getFirstFieldPlayer();
+	Robot &robotTwo = team.getSecondFieldPlayer();
+	Robot &robotThree = team.getGoalie();
 
 	while(true)
 	{
-		robot.measure();
-		robot.goTo(targetPositionFetcher.getOwnGoalPosition(ball));
+		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
+		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			robotOne.measure();
+			robotOne.update();
+			robotTwo.measure();
+			robotTwo.update();
+			robotThree.measure();
+			robotThree.update();
+			usleep(5000);
+		}
 
-		robot.update();
-		usleep(200000);
+		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
+		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			robotOne.measure();
+			robotOne.update();
+			robotTwo.measure();
+			robotTwo.update();
+			robotThree.measure();
+			robotThree.update();
+			usleep(5000);
+		}
 	}
 
 	return 0;

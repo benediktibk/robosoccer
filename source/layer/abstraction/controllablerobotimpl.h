@@ -76,6 +76,7 @@ namespace Abstraction
 		Common::Geometry::Pose m_currentPose;
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
+		Common::Time::StopWatch *m_turnWatchDog;
 	};
 }
 }

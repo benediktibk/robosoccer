@@ -42,12 +42,16 @@ bool RobotState::isEquivalentToDriveToDirect(const Pose &) const
 
 void RobotState::update()
 {
+	updateMovementStopped();
+	updateInternal();
+}
+
+void RobotState::updateMovementStopped()
+{
 	m_lastMovementState = m_currentMovementState;
 	m_currentMovementState = m_robot.isMoving();
 	if (m_lastMovementState && !m_currentMovementState)
 		m_movementStopped = true;
 	else if (m_currentMovementState)
 		m_movementStopped = false;
-
-	updateInternal();
 }
