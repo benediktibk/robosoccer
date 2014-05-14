@@ -12,19 +12,22 @@ namespace Autonomous
 	class RobotStateDriveToDirectTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateDriveToDirectTest);
+		CPPUNIT_TEST_SUB_SUITE(RobotStateDriveToDirectTest, RobotStateTest);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_reachedTargetState);
 		CPPUNIT_TEST(nextState_longTimeWaited_reachedTargetState);
 		CPPUNIT_TEST(update_initialRotationNotReached_robotGotCallToTurnTowardsTarget);
 		CPPUNIT_TEST(update_initialRotationNotReached_robotGotNoCallToDrive);
 		CPPUNIT_TEST(update_initialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn);
+		CPPUNIT_TEST(update_initialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise);
 		CPPUNIT_TEST(update_positionNotReached_robotGotCallToDriveToTargetImprecise);
 		CPPUNIT_TEST(update_positionNotReached_robotGotNoCallToTurnTowardsTarget);
 		CPPUNIT_TEST(update_positionNotReachedTwiceCalled_robotGotNoAdditionalCallToDriveToTargetImprecise);
+		CPPUNIT_TEST(update_positionNotreachedButMovementStopped_robotGotCallToTurnTo);
 		CPPUNIT_TEST(update_finalRotationNotReached_robotGotCallToTurn);
 		CPPUNIT_TEST(update_finalRotationNotReached_robotGotNoCallToDrive);
 		CPPUNIT_TEST(update_finalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn);
+		CPPUNIT_TEST(update_finalRotationNotReachedButMovementStopped_nextStateWouldBeReachedTarget);
 		CPPUNIT_TEST(update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
 		CPPUNIT_TEST(update_positionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
 		CPPUNIT_TEST(update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
@@ -45,12 +48,15 @@ namespace Autonomous
 		void update_initialRotationNotReached_robotGotCallToTurnTowardsTarget();
 		void update_initialRotationNotReached_robotGotNoCallToDrive();
 		void update_initialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn();
+		void update_initialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise();
 		void update_positionNotReached_robotGotCallToDriveToTargetImprecise();
 		void update_positionNotReached_robotGotNoCallToTurnTowardsTarget();
 		void update_positionNotReachedTwiceCalled_robotGotNoAdditionalCallToDriveToTargetImprecise();
+		void update_positionNotreachedButMovementStopped_robotGotCallToTurnTo();
 		void update_finalRotationNotReached_robotGotCallToTurn();
 		void update_finalRotationNotReached_robotGotNoCallToDrive();
 		void update_finalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn();
+		void update_finalRotationNotReachedButMovementStopped_nextStateWouldBeReachedTarget();
 		void update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
 		void update_positionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
 		void update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();

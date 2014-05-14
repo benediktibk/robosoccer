@@ -23,6 +23,7 @@ namespace Control
 	private:
 		virtual void updateInternal();
 		bool m_calledGoTo;
+		bool m_ballKicked;
 	};
 }
 }

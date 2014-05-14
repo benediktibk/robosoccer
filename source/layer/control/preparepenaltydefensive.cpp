@@ -48,6 +48,9 @@ void PreparePenaltyDefensive::updateInternal()
 	fieldPlayerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front());
 	fieldPlayerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front());
 
+	//! @todo remove workaround
+	m_movementFinished = true;
+
 	if (movementsFinished())
 	{
 		m_movementFinished = true;

@@ -169,6 +169,11 @@ void Line::shiftParallel(const Point &point)
 	m_end = m_start + direction;
 }
 
+double Line::getLength() const
+{
+	return m_start.distanceTo(m_end);
+}
+
 Point Line::getStart() const
 {
 	return m_start;

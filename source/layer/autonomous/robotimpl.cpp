@@ -64,19 +64,7 @@ bool RobotImpl::cantReachTarget() const
 void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
-	Pose ownPose = getCurrentPose();
-	Point const &ownPosition = ownPose.getPosition();
-	double distanceToBall = ownPosition.distanceTo(ballPosition);
-
-	//! there is a maximum distance to the ball specified in the documentation
-	if (distanceToBall >= 0.25)
-	{
-		m_logger.logErrorToConsoleAndWriteToGlobalLogFile("distance to ball is too big, can not kick it");
-		//! replace with cant reach target
-		switchIntoState(new RobotStateReachedTarget(m_robot));
-	}
-	else
-		switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch)));
+	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch)));
 }
 
 void RobotImpl::update()

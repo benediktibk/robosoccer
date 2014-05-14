@@ -81,6 +81,21 @@ void RobotStateDriveToDirectTest::update_initialRotationNotReachedTwiceCalled_ro
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
 
+void RobotStateDriveToDirectTest::update_initialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	Compare compare(0.00001);
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_controllableRobot->getLastPointToDriveTo()));
+}
+
 void RobotStateDriveToDirectTest::update_positionNotReached_robotGotCallToDriveToTargetImprecise()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
@@ -113,6 +128,23 @@ void RobotStateDriveToDirectTest::update_positionNotReachedTwiceCalled_robotGotN
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
+void RobotStateDriveToDirectTest::update_positionNotreachedButMovementStopped_robotGotCallToTurnTo()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	Compare compare(0.00001);
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
+}
+
 void RobotStateDriveToDirectTest::update_finalRotationNotReached_robotGotCallToTurn()
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
@@ -142,6 +174,23 @@ void RobotStateDriveToDirectTest::update_finalRotationNotReachedTwiceCalled_robo
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToDirectTest::update_finalRotationNotReachedButMovementStopped_nextStateWouldBeReachedTarget()
+{
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	RobotState *state = m_robotState->nextState();
+
+	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
 }
 
 void RobotStateDriveToDirectTest::update_initialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()

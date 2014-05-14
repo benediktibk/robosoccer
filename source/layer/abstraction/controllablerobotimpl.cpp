@@ -9,7 +9,6 @@
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
-#include <iostream>
 #include <math.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
@@ -23,7 +22,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch)),
-	m_isDrivingFoward(true)
+	m_isDrivingFoward(true),
+	m_turnWatchDog(new StopWatch(watch))
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -41,6 +41,8 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_driveLongControl = 0;
 	delete m_loopTimeWatch;
 	m_loopTimeWatch = 0;
+	delete m_turnWatchDog;
+	m_turnWatchDog = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
@@ -101,7 +103,7 @@ void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 		m_turnTarget = absoluteAngle;
 	}
 
-	cout << "relative angle"<< m_isDrivingFoward << endl;
+	m_turnWatchDog->getTimeAndRestart();
 	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 	switchInto(StateTurning);
 }
@@ -123,7 +125,8 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		if (	orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) ||
+				m_turnWatchDog->getTime() > 2)
 			switchInto(StateStop);
 		return;
 	case StateDrivingShort:
@@ -133,7 +136,7 @@ void ControllableRobotImpl::update()
 			switchInto(StateStop);
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.05)
+		if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 			switchInto(StateStop);

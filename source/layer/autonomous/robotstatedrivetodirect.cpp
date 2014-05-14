@@ -12,7 +12,7 @@ using namespace std;
 
 RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch) :
 	RobotState(robot),
-	m_precisionPosition(0.02),
+	m_precisionPosition(0.01),
 	m_precisionOrientation(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
@@ -46,8 +46,9 @@ RobotState* RobotStateDriveToDirect::nextState()
 	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
 
-	if (	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
-			compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()))
+	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
+				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
+			 m_finalRotationReached)
 		return new RobotStateReachedTarget(getRobot());
 	else if (m_watchDog->getTime() > 10)
 		return new RobotStateReachedTarget(getRobot());
@@ -55,17 +56,23 @@ RobotState* RobotStateDriveToDirect::nextState()
 		return 0;
 }
 
-void RobotStateDriveToDirect::update()
+void RobotStateDriveToDirect::updateInternal()
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
+	bool movementStopUsed = false;
 
 	if (!m_initialRotationReached)
 	{
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
 			m_initialRotationReached = true;
+		else if (hasMovementStopped())
+		{
+			movementStopUsed = true;
+			m_initialRotationReached = true;
+		}
 		else
 		{
 			if (!m_initialRotationStarted)
@@ -78,8 +85,13 @@ void RobotStateDriveToDirect::update()
 
 	if (!m_positionReached)
 	{
-		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) && !getRobot().isMoving())
+		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())) && !getRobot().isMoving())
 			m_positionReached = true;
+		else if (hasMovementStopped() && !movementStopUsed)
+		{
+			movementStopUsed = true;
+			m_positionReached = true;
+		}
 		else
 		{
 			if (!m_driveStarted)
@@ -94,6 +106,11 @@ void RobotStateDriveToDirect::update()
 	{
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
 			m_finalRotationReached = true;
+		else if (hasMovementStopped() && !movementStopUsed)
+		{
+			movementStopUsed = true;
+			m_finalRotationReached = true;
+		}
 		else
 		{
 			if (!m_finalRotationStarted)

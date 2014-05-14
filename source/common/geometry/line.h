@@ -25,6 +25,7 @@ namespace Geometry
 		bool isTargetPointRightOfLine(const Point &target) const;
 		bool isOnePointLeftAndOneRightOfLine(const Point &one, const Point &two) const;
 		void shiftParallel(const Point &point);
+		double getLength() const;
 		Point getStart() const;
 		Point getEnd() const;
 

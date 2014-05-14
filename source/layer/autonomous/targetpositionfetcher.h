@@ -12,6 +12,7 @@ namespace Geometry
 {
 	class Pose;
 	class Point;
+	class Angle;
 }
 }
 namespace Layer
@@ -43,12 +44,12 @@ namespace Autonomous
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
 	private:
-		Common::Geometry::Pose getOwnGoalPosition(Abstraction::FieldSide fieldSide, const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition(Abstraction::FieldSide fieldSide) const;
 
 		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Abstraction::FieldSide fieldSide, Common::Geometry::Point pointFieldSideRight) const;
-		Common::Geometry::Pose getGoaliePositionUsingStandardTactic(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
-		Common::Geometry::Pose getGoaliePositionUsingStandardTactic(const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
+		Common::Geometry::Pose getGoaliePositionUsingEstimatedIntersectPoint(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
+		Common::Geometry::Pose getGoaliePositionUsingIntersectWithGoalCenter(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
+		Common::Geometry::Pose getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper, const Common::Geometry::Angle &angle) const;
 
 	private:
 		Abstraction::FieldSide m_fieldSide;

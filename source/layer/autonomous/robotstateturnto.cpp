@@ -55,7 +55,7 @@ RobotState *RobotStateTurnTo::nextState()
 	return result;
 }
 
-void RobotStateTurnTo::update()
+void RobotStateTurnTo::updateInternal()
 {
 	if (m_targetAlreadySet)
 		return;

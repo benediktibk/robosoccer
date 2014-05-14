@@ -21,7 +21,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballAtCenter_robotIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsNotTooBig);
-		CPPUNIT_TEST(getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballOnTheSide_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getOwnGoalPosition_ballInOwnHalfAndDirectionNotOnGoal_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getOwnGoalPosition_ballNotInOwnHalf_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyOnGoal_goaliePositionIsCorrect);
@@ -30,6 +30,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionUnusedTwo_fieldSideLeftOrRight_robotIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_positionInCorrectArea);
 		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_angleIsCorrect);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballBehindGoalie_goaliePositionIsCorrect);
+		CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_positionAreLeft);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -40,7 +42,7 @@ namespace Autonomous
 		void getPenaltyPositionKicker_ballAtCenter_robotIsCorrect();
 		void getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough();
 		void getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsNotTooBig();
-		void getPenaltyPositionGoalie_ballOnTheSideFieldSideRight_goaliePositionIsCorrect();
+		void getPenaltyPositionGoalie_ballOnTheSide_goaliePositionIsCorrect();
 		void getOwnGoalPosition_ballInOwnHalfAndDirectionNotOnGoal_goaliePositionIsCorrect();
 		void getOwnGoalPosition_ballNotInOwnHalf_goaliePositionIsCorrect();
 		void getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyOnGoal_goaliePositionIsCorrect();
@@ -49,6 +51,8 @@ namespace Autonomous
 		void getPenaltyPositionUnusedTwo_fieldSideLeftOrRight_robotIsCorrect();
 		void getPenaltyPositionPrepareKicker_ball_positionInCorrectArea();
 		void getPenaltyPositionPrepareKicker_ball_angleIsCorrect();
+		void getPenaltyPositionGoalie_ballBehindGoalie_goaliePositionIsCorrect();
+		void getEnemyGoalPosition_fieldSideRight_positionAreLeft();
 	};
 }
 }
