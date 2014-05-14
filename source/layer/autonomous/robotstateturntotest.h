@@ -12,7 +12,7 @@ namespace Autonomous
 	class RobotStateTurnToTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateTurnToTest);
+		CPPUNIT_TEST_SUB_SUITE(RobotStateTurnToTest, RobotStateTest);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_targetNotReached_0);

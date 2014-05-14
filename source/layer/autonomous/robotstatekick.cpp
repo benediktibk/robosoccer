@@ -46,7 +46,7 @@ RobotState *RobotStateKick::nextState()
 	return new RobotStateReachedTarget(getRobot());
 }
 
-void RobotStateKick::update()
+void RobotStateKick::updateInternal()
 {
 	if (m_alreadyKicked)
 		return;

@@ -58,7 +58,7 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 	return compare.isFuzzyEqual(m_target, target);
 }
 
-void RobotStateDriveTo::update()
+void RobotStateDriveTo::updateInternal()
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientation);
