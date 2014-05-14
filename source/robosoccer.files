@@ -336,3 +336,4 @@ layer/autonomous/robotstatedrivetodirect.h
 layer/autonomous/robotstatedrivetodirect.cpp
 layer/autonomous/robotstatedrivetodirecttest.h
 layer/autonomous/robotstatedrivetodirecttest.cpp
+main/mainstartpositiondemo.cpp
