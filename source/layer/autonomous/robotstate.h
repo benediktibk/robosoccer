@@ -51,6 +51,7 @@ namespace Autonomous
 		Abstraction::ControllableRobot &m_robot;
 		bool m_lastMovementState;
 		bool m_currentMovementState;
+		bool m_movementStopped;
 	};
 }
 }

@@ -8,7 +8,8 @@ using namespace RoboSoccer::Common::Geometry;
 RobotState::RobotState(Abstraction::ControllableRobot &robot) :
 	m_robot(robot),
 	m_lastMovementState(false),
-	m_currentMovementState(false)
+	m_currentMovementState(false),
+	m_movementStopped(false)
 { }
 
 RobotState::~RobotState()
@@ -26,7 +27,7 @@ ControllableRobot const &RobotState::getRobot() const
 
 bool RobotState::hasMovementStopped() const
 {
-	return m_lastMovementState && !m_currentMovementState;
+	return m_movementStopped;
 }
 
 bool RobotState::isEquivalentToDriveTo(const Pose &) const
@@ -43,5 +44,10 @@ void RobotState::update()
 {
 	m_lastMovementState = m_currentMovementState;
 	m_currentMovementState = m_robot.isMoving();
+	if (m_lastMovementState && !m_currentMovementState)
+		m_movementStopped = true;
+	else if (m_currentMovementState)
+		m_movementStopped = false;
+
 	updateInternal();
 }

@@ -66,3 +66,33 @@ void RobotStateTest::hasMovementStopped_stoppedMovement_true()
 
 	CPPUNIT_ASSERT(movementStopped);
 }
+
+void RobotStateTest::hasMovementStopped_stillStopped_true()
+{
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	bool movementStopped = m_robotState->hasMovementStopped();
+
+	CPPUNIT_ASSERT(movementStopped);
+}
+
+void RobotStateTest::hasMovementStopped_onceAgainStarted_false()
+{
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+
+	bool movementStopped = m_robotState->hasMovementStopped();
+
+	CPPUNIT_ASSERT(!movementStopped);
+}

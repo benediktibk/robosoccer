@@ -30,6 +30,8 @@ namespace Autonomous
 		CPPUNIT_TEST(hasMovementStopped_stillMoving_false);
 		CPPUNIT_TEST(hasMovementStopped_startedMovement_false);
 		CPPUNIT_TEST(hasMovementStopped_stoppedMovement_true);
+		CPPUNIT_TEST(hasMovementStopped_stillStopped_true);
+		CPPUNIT_TEST(hasMovementStopped_onceAgainStarted_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -43,6 +45,8 @@ namespace Autonomous
 		void hasMovementStopped_stillMoving_false();
 		void hasMovementStopped_startedMovement_false();
 		void hasMovementStopped_stoppedMovement_true();
+		void hasMovementStopped_stillStopped_true();
+		void hasMovementStopped_onceAgainStarted_false();
 
 	protected:
 		Abstraction::ControllableRobotMock *m_controllableRobot;
