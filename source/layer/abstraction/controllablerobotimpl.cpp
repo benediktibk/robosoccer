@@ -105,8 +105,8 @@ void ControllableRobotImpl::update()
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
 	Geometry::Compare orientationCompare(0.1);
-	bool watchDogTurning = m_watchDog->getTime() > 2;
-	bool watchDogKicking = m_watchDog->getTime() > 2;
+	bool watchDogTurning = m_watchDog->getTime() > 0.5;
+	bool watchDogKicking = m_watchDog->getTime() > 1;
 
 	switch(m_state)
 	{
