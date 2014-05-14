@@ -71,6 +71,7 @@ void RobotStateDriveToDirect::updateInternal()
 		{
 			log("inital rotation reached");
 			m_initialRotationReached = true;
+			movementStopUsed = true;
 		}
 		else if (hasMovementStopped())
 		{
@@ -94,6 +95,7 @@ void RobotStateDriveToDirect::updateInternal()
 		{
 			log("position reached");
 			m_positionReached = true;
+			movementStopUsed = true;
 		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
@@ -117,6 +119,7 @@ void RobotStateDriveToDirect::updateInternal()
 		{
 			log("final rotation reached");
 			m_finalRotationReached = true;
+			movementStopUsed = true;
 		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
