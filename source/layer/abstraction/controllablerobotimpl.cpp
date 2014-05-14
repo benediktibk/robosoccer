@@ -116,6 +116,7 @@ void ControllableRobotImpl::update()
 	case StateTurning:
 		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
 		{
+			logOrientation("current orientation", getOrientation());
 			log("reached target orientation");
 			switchInto(StateStop);
 		}
@@ -130,6 +131,7 @@ void ControllableRobotImpl::update()
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 		{
+			logPosition("current position", getPosition());
 			log("reachted target position");
 			switchInto(StateStop);
 		}
@@ -139,6 +141,7 @@ void ControllableRobotImpl::update()
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 		{
+			logPosition("current position", getPosition());
 			log("reachted target position");
 			switchInto(StateStop);
 		}
