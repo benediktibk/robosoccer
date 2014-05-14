@@ -67,17 +67,13 @@ Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
 Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
-//	FieldSide fieldSide = FieldSideRight;
+	FieldSide fieldSide = FieldSideRight;
 
 	Pose penaltyPosition;
-//	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
+	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
 
-//	double lineLength = lineToGoal.getStart().distanceTo(lineToGoal.getEnd());
-//	double percentOfLineLength = -0.5/lineLength;
-
-//	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
-
-	penaltyPosition.setPosition(ball.getPosition() + Point(0.03,0));
+	double percentOfLineLength = -0.08/lineToGoal.getLength();
+	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
 
 	return penaltyPosition;
 }
@@ -119,9 +115,9 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSi
 	vector<Point> goalposition;
 	goalposition.reserve(3);
 
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,0)).getPosition());
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,-0.2)).getPosition());
-	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(1.45,0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,0)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,-0.2)).getPosition());
+	goalposition.push_back(mirrorPointDependentOnFieldSide(fieldSide, Point(-1.45,0.2)).getPosition());
 
 	return goalposition;
 }

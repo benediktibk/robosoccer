@@ -29,3 +29,5 @@ Find this project [on bitbucket](https://bitbucket.org/robosoccer/robosoccer), o
 > - In case of doubt, always consult with us!
 
 
+> - Flo:   Bene duasd du eigentlich Klettern ?  
+> - Bene:  Naaaa, Ich extrapolier nur.
