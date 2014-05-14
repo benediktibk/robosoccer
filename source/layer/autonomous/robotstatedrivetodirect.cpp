@@ -8,10 +8,11 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch) :
-	RobotState(robot),
+RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch, Logger &logger) :
+	RobotState(robot, logger),
 	m_precisionPosition(0.01),
 	m_precisionOrientation(0.1),
 	m_initialRotationReached(false),
@@ -49,9 +50,9 @@ RobotState* RobotStateDriveToDirect::nextState()
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot());
+		return new RobotStateReachedTarget(getRobot(), getLogger());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot());
+		return new RobotStateReachedTarget(getRobot(), getLogger());
 	else
 		return 0;
 }
@@ -67,9 +68,14 @@ void RobotStateDriveToDirect::updateInternal()
 	{
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+		{
+			log("inital rotation reached");
 			m_initialRotationReached = true;
+			movementStopUsed = true;
+		}
 		else if (hasMovementStopped())
 		{
+			log("inital rotation not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_initialRotationReached = true;
 		}
@@ -86,9 +92,14 @@ void RobotStateDriveToDirect::updateInternal()
 	if (!m_positionReached)
 	{
 		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())) && !getRobot().isMoving())
+		{
+			log("position reached");
 			m_positionReached = true;
+			movementStopUsed = true;
+		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
+			log("position not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_positionReached = true;
 		}
@@ -105,9 +116,14 @@ void RobotStateDriveToDirect::updateInternal()
 	if (!m_finalRotationReached)
 	{
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+		{
+			log("final rotation reached");
 			m_finalRotationReached = true;
+			movementStopUsed = true;
+		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
+			log("final rotation not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_finalRotationReached = true;
 		}

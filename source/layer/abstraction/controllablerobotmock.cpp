@@ -43,10 +43,9 @@ void ControllableRobotMock::gotoPositionPrecise(const Point &position)
 	m_lastPointToDriveTo = position;
 }
 
-bool ControllableRobotMock::kick(unsigned int /*force*/)
+void ControllableRobotMock::kick(unsigned int /*force*/)
 {
 	++m_callsToKick;
-	return false;
 }
 
 void ControllableRobotMock::turn(const Angle &absoluteAngle)

@@ -44,9 +44,9 @@ void PrepareKickOffOffensive::updateInternal()
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
 
-	goalie.goToDirect(m_targetPositionFetcher.getStartPositionGoalkeeper());
-	fieldPlayerOne.goToDirect(m_targetPositionFetcher.getStartPositionPlayerOneOffensive());
-	fieldPlayerTwo.goToDirect(m_targetPositionFetcher.getStartPositionPlayerTwoOffensive());
+	goalie.goTo(m_targetPositionFetcher.getStartPositionGoalkeeper());
+	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionPlayerOneOffensive());
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionPlayerTwoOffensive());
 
 	if (movementsFinished())
 	{

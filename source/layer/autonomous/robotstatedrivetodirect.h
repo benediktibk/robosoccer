@@ -25,7 +25,8 @@ namespace Autonomous
 		RobotStateDriveToDirect(
 				Abstraction::ControllableRobot &robot,
 				Common::Geometry::Pose const &target,
-				Common::Time::Watch const &watch);
+				Common::Time::Watch const &watch,
+				Common::Logging::Logger &logger);
 		virtual ~RobotStateDriveToDirect();
 
 		virtual bool reachedTarget() const;

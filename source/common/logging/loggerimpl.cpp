@@ -1,50 +1,44 @@
 #include "common/logging/loggerimpl.h"
+#include "common/time/watchimpl.h"
 #include <iostream>
 #include <ctime>
 #include <assert.h>
 #include <iomanip>
 #include <sstream>
 #include <sys/stat.h>
+#include <unistd.h>
 
 using namespace std;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Time;
 
 LoggerImpl::LoggerImpl() :
 	m_consoleOutputEnabled(true),
-	m_logWritingEnabled(true)
+	m_logWritingEnabled(true),
+	m_deleteAfterFinish(false),
+	m_watch(new WatchImpl())
 {
-	string folder = "log";
+	m_logFiles.reserve(7);
+	m_folder = "log";
 
 	for (int i = 0; i <= 999; ++i)
 	{
 		stringstream currentStringStream;
-		currentStringStream << folder << setw(3) << setfill('0') << i ;
+		currentStringStream << m_folder << setw(3) << setfill('0') << i ;
 
 		if(mkdir(currentStringStream.str().c_str(), S_IRWXU|S_IRGRP|S_IXGRP) == 0)
 		{
-			folder = currentStringStream.str();
+			m_folder = currentStringStream.str();
 			break;
 		}
 
 	}
 
-	string globalLogFile = folder;
-	globalLogFile.append("/0_global.txt");
-
-	string refereeLogFile = folder;
-	refereeLogFile.append("/1_referee.txt");
-
-	string stateChangesLogFile = folder;
-	stateChangesLogFile.append("/2_stateChanges.txt");
-
-	string robotLogFile = folder;
-	robotLogFile.append("/3_robot.txt");
-
-	m_globalLogFile.open(globalLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_refereeLogFile.open(refereeLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_stateChangesLogFile.open(stateChangesLogFile.c_str(), ios_base::out | ios_base::trunc);
-	m_robotLogFile.open(robotLogFile.c_str(), ios_base::out | ios_base::trunc);
-
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
+	{
+		m_logFiles.push_back(new fstream());
+		m_logFiles.back()->open(buildPathForLogFileTypeAndFolder(static_cast<LogFileType>(i), m_folder).c_str(), ios_base::out | ios_base::trunc);
+	}
 	initLogFiles();
 }
 
@@ -52,10 +46,18 @@ LoggerImpl::~LoggerImpl()
 {
 	closeLogFiles();
 
-	m_globalLogFile.close();
-	m_refereeLogFile.close();
-	m_stateChangesLogFile.close();
-	m_robotLogFile.close();
+	while(m_logFiles.size() > 0)
+	{
+		m_logFiles.back()->close();
+		delete m_logFiles.back();
+		m_logFiles.pop_back();
+	}
+
+	if (m_deleteAfterFinish)
+		deleteLogFiles();
+
+	delete m_watch;
+	m_watch = 0;
 }
 
 void LoggerImpl::logToConsoleAndGlobalLogFile(const string &message)
@@ -74,8 +76,7 @@ void LoggerImpl::logErrorToConsoleAndWriteToGlobalLogFile(const string &message)
 
 void LoggerImpl::logToGlobalLogFile(const string &message)
 {
-	if (m_logWritingEnabled)
-		m_globalLogFile << message << endl;
+	logToLogFileOfType(LogFileTypeGlobal, message);
 }
 
 void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
@@ -83,28 +84,12 @@ void LoggerImpl::logToLogFileOfType(LogFileType logType, const string &message)
 	if (!m_logWritingEnabled)
 		return;
 
-	switch (logType)
-	{
-	case LogFileTypeGlobal:
-		m_globalLogFile << message << endl;
-		break;
-
-	case LogFileTypeReferee:
-		m_refereeLogFile << message << endl;
-		break;
-
-	case LogFileTypeStateChanges:
-		m_stateChangesLogFile << message << endl;
-		break;
-
-	case LogFileTypeRobot:
-		m_robotLogFile << message << endl;
-		break;
-
-	case LogFileTypeInvalid:
+	if (logType == LogFileTypeInvalid)
 		assert(false);
-		break;
-	}
+
+	int choice = static_cast<int>(logType);
+
+	*m_logFiles[choice] << getTimeRelative() << " " << message << endl;
 }
 
 void LoggerImpl::enableConsoleOutput()
@@ -129,19 +114,9 @@ void LoggerImpl::disableLogWriting()
 
 void LoggerImpl::initLogFiles()
 {
-	time_t rawtime;
-	struct tm * timeinfo;
-	char buffer[80];
-
-	time(&rawtime);
-	timeinfo = localtime(&rawtime);
-
-	strftime(buffer, 80, "%d-%m-%Y %I:%M:%S", timeinfo);
-	string timestring(buffer);
-
 	string message;
 	message += "## Starting Log: ";
-	message += timestring;
+	message += getTimeAbsolute();
 	message += "\n## STARTING ROBOSOCCER\n##\n";
 
 	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; i++)
@@ -153,6 +128,37 @@ void LoggerImpl::initLogFiles()
 
 void LoggerImpl::closeLogFiles()
 {
+	string message;
+	message += "\n## \n";
+	message += "## QUITTING ROBOSOCCER\n## Closing Log: ";
+	message += getTimeAbsolute();
+
+	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
+	{
+		LogFileType currentLogFile = static_cast<LogFileType>(i);
+		logToLogFileOfType(currentLogFile, message);
+	}
+}
+
+string LoggerImpl::getNameForLogFileType(LogFileType logType) const
+{
+	vector<string> names;
+	names.reserve(LogFileTypeInvalid);
+	unsigned int choice = static_cast<unsigned int>(logType);
+
+	names.push_back("0_global.txt");
+	names.push_back("1_referee.txt");
+	names.push_back("2_stateChanges.txt");
+	names.push_back("3_robot.txt");
+	names.push_back("4_robot1Positions.txt");
+	names.push_back("4_robot2Positions.txt");
+	names.push_back("4_robotGPositions.txt");
+
+	return names[choice];
+}
+
+string LoggerImpl::getTimeAbsolute() const
+{
 	time_t rawtime;
 	struct tm * timeinfo;
 	char buffer[80];
@@ -161,17 +167,37 @@ void LoggerImpl::closeLogFiles()
 	timeinfo = localtime(&rawtime);
 
 	strftime(buffer, 80, "%d-%m-%Y %I:%M:%S", timeinfo);
-	string timestring(buffer);
+	return string(buffer);
+}
 
-	string message;
-	message += "\n## \n";
-	message += "## QUITTING ROBOSOCCER\n## Closing Log: ";
-	message += timestring;
+string LoggerImpl::getTimeRelative() const
+{
+	stringstream stream;
+	stream << m_watch->getTime();
+	return stream.str();
+}
 
+void LoggerImpl::deleteLogFiles()
+{
 	for (int i = LogFileTypeGlobal; i < LogFileTypeInvalid; ++i)
 	{
-		LogFileType currentLogFile = static_cast<LogFileType>(i);
-		logToLogFileOfType(currentLogFile, message);
+		remove(buildPathForLogFileTypeAndFolder(static_cast<LogFileType>(i), m_folder).c_str());
 	}
+
+	rmdir(m_folder.c_str());
+}
+
+string LoggerImpl::buildPathForLogFileTypeAndFolder(LogFileType logType, string &folder) const
+{
+	string filename = folder;
+	filename.append("/");
+	filename.append(getNameForLogFileType(logType));
+
+	return filename;
+}
+
+void LoggerImpl::deleteLogFolderAfterFinish()
+{
+	m_deleteAfterFinish = true;
 }
 

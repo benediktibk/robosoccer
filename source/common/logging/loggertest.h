@@ -15,10 +15,12 @@ class LoggerTest :
 	{
 		CPPUNIT_TEST_SUITE(LoggerTest);
 		CPPUNIT_TEST(write_someText_someText);
+		CPPUNIT_TEST(write_testAllLogTypes_someText);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void write_someText_someText();
+		void write_testAllLogTypes_someText();
 	};
 }
 }

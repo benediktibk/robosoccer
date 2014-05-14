@@ -24,7 +24,7 @@ RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &ro
 	m_watch(watch),
 	m_logger(logger),
 	m_currentRoute(0),
-	m_currentState(new RobotStateReachedTarget(robot))
+	m_currentState(new RobotStateReachedTarget(robot, logger))
 { }
 
 RobotImpl::~RobotImpl()
@@ -38,7 +38,7 @@ void RobotImpl::goTo(const Pose &position)
 	if (m_currentState->isEquivalentToDriveTo(position))
 		return;
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch, m_logger));
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -64,7 +64,7 @@ bool RobotImpl::cantReachTarget() const
 void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
-	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch)));
+	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch, m_logger), m_logger));
 }
 
 void RobotImpl::update()
@@ -90,7 +90,7 @@ void RobotImpl::switchIntoState(RobotState *state)
 
 void RobotImpl::stop()
 {
-	switchIntoState(new RobotStateReachedTarget(m_robot));
+	switchIntoState(new RobotStateReachedTarget(m_robot, m_logger));
 }
 
 void RobotImpl::goToDirect(const Pose &position)
@@ -98,5 +98,5 @@ void RobotImpl::goToDirect(const Pose &position)
 	if (m_currentState->isEquivalentToDriveToDirect(position))
 		return;
 
-	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch));
+	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch, m_logger));
 }

@@ -83,3 +83,8 @@ unsigned int RobotMock::getCallsToGoToDirect() const
 {
 	return m_callsToGoToDirect;
 }
+
+unsigned int RobotMock::getCallsToGoToCombined() const
+{
+	return m_callsToGoTo + m_callsToGoToDirect;
+}

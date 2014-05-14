@@ -2,13 +2,14 @@
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/geometry/pose.h"
+#include "common/logging/loggermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 
 RobotState *RobotStateReachedTargetTest::createInstance()
 {
-	return new RobotStateReachedTarget(*m_controllableRobot);
+	return new RobotStateReachedTarget(*m_controllableRobot, *m_logger);
 }
 
 void RobotStateReachedTargetTest::reachedTarget_empty_true()

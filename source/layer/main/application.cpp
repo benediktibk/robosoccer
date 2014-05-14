@@ -35,7 +35,9 @@ Application::Application(TeamColor ownTeamColor) :
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher())
-{ }
+{
+	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
+}
 
 Application::~Application()
 {

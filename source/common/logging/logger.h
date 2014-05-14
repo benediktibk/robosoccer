@@ -19,6 +19,9 @@ class Logger
 			LogFileTypeReferee,
 			LogFileTypeStateChanges,
 			LogFileTypeRobot,
+			LogFileTypeRobot1Positions,
+			LogFileTypeRobot2Positions,
+			LogFileTypeRobotGoalkeeperPositions,
 			LogFileTypeInvalid // must be last one so that we can count from global to invalid
 		};
 
