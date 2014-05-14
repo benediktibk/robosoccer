@@ -28,7 +28,7 @@ using namespace std;
 Application::Application(TeamColor ownTeamColor) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
-	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
+	m_storage(new StorageImpl(13, ownTeamColor, *m_logger, *m_watch)),
 	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
 	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
@@ -104,7 +104,7 @@ void Application::run()
 		if (loopTime > maximumLoopTime)
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
 
-		if (Console::getAsynchronousInput() == 'q')
-			stop = true;
+//		if (Console::getAsynchronousInput() == 'q')
+//			stop = true;
 	}
 }

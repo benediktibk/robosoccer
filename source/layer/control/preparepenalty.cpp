@@ -15,7 +15,7 @@ PreparePenalty::PreparePenalty(
 		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher, UserInputFetcher *userInputFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
+	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true),
 	m_userInputFetcher(userInputFetcher)
 {
 	assert(userInputFetcher != 0);
@@ -29,13 +29,13 @@ PreparePenalty::~PreparePenalty()
 
 State *PreparePenalty::nextState()
 {
-	if (!m_userInputFetcher->selectionMade())
-		return 0;
+//	if (!m_userInputFetcher->selectionMade())
+//		return 0;
 
-	if (m_userInputFetcher->playOffensive())
+//	if (m_userInputFetcher->playOffensive())
 		return new PreparePenaltyOffensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
-	else
-		return new PreparePenaltyDefensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+//	else
+//		return new PreparePenaltyDefensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 }
 
 string PreparePenalty::getName()

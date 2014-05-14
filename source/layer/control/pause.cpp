@@ -3,6 +3,7 @@
 #include "layer/control/preparepenalty.h"
 #include "layer/control/play.h"
 #include "layer/control/userinputfetcherimpl.h"
+#include "layer/control/userinputfetchermock.h"
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/robot.h"
 #include "layer/abstraction/refereebase.h"
@@ -25,7 +26,7 @@ State* Pause::nextState()
 	if (m_referee.getPrepareForKickOff())
 		return new PrepareKickOff(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	else if (m_referee.getPrepareForPenalty())
-		return new PreparePenalty(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher, new UserInputFetcherImpl());
+		return new PreparePenalty(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher, new UserInputFetcherMock());
 	else if (m_referee.getContinuePlaying())
 		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 
