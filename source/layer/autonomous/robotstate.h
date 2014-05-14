@@ -37,6 +37,7 @@ namespace Autonomous
 		void update();
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
+		bool hasMovementStopped() const;
 
 	protected:
 		virtual void updateInternal() = 0;
@@ -48,6 +49,8 @@ namespace Autonomous
 
 	private:
 		Abstraction::ControllableRobot &m_robot;
+		bool m_lastMovementState;
+		bool m_currentMovementState;
 	};
 }
 }
