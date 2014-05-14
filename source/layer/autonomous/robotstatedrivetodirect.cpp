@@ -68,9 +68,13 @@ void RobotStateDriveToDirect::updateInternal()
 	{
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+		{
+			log("inital rotation reached");
 			m_initialRotationReached = true;
+		}
 		else if (hasMovementStopped())
 		{
+			log("inital rotation not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_initialRotationReached = true;
 		}
@@ -87,9 +91,13 @@ void RobotStateDriveToDirect::updateInternal()
 	if (!m_positionReached)
 	{
 		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())) && !getRobot().isMoving())
+		{
+			log("position reached");
 			m_positionReached = true;
+		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
+			log("position not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_positionReached = true;
 		}
@@ -106,9 +114,13 @@ void RobotStateDriveToDirect::updateInternal()
 	if (!m_finalRotationReached)
 	{
 		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+		{
+			log("final rotation reached");
 			m_finalRotationReached = true;
+		}
 		else if (hasMovementStopped() && !movementStopUsed)
 		{
+			log("final rotation not really reached, but movement stopped");
 			movementStopUsed = true;
 			m_finalRotationReached = true;
 		}

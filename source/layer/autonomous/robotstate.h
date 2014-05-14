@@ -46,6 +46,7 @@ namespace Autonomous
 
 	protected:
 		virtual void updateInternal() = 0;
+		void log(std::string const &message);
 
 	private:
 		void updateMovementStopped();
