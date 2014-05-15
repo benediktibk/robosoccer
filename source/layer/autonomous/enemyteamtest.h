@@ -22,6 +22,7 @@ namespace Autonomous
 	{
 		CPPUNIT_TEST_SUITE(EnemyTeamTest);
 		CPPUNIT_TEST(getObstacles_construct_3ObjectsInVector);
+		CPPUNIT_TEST(getObstacles_robotsOnPositions_correctCircles);
 		CPPUNIT_TEST(getPlayerNextToBall_ballInCenterAndRobot2IsNext_robot2);
 		CPPUNIT_TEST(getPlayerNextToBall_ballNearEnemyGoalAndRobot3IsNext_robot3);
 		CPPUNIT_TEST(getPlayerNextToBall_ballNearOwnGoalAndRobot1IsNext_robot1);
@@ -33,6 +34,7 @@ namespace Autonomous
 
 	private:
 		void getObstacles_construct_3ObjectsInVector();
+		void getObstacles_robotsOnPositions_correctCircles();
 		void getPlayerNextToBall_ballInCenterAndRobot2IsNext_robot2();
 		void getPlayerNextToBall_ballNearEnemyGoalAndRobot3IsNext_robot3();
 		void getPlayerNextToBall_ballNearOwnGoalAndRobot1IsNext_robot1();

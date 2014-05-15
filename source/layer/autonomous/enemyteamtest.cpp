@@ -70,3 +70,17 @@ void EnemyTeamTest::getPlayerNextToBall_ballNearOwnGoalAndRobot1IsNext_robot1()
 
 	CPPUNIT_ASSERT(m_readableRobotMockPlayer1 == &(m_enemyTeam->getPlayerNextToBall(ball)));
 }
+
+void EnemyTeamTest::getObstacles_robotsOnPositions_correctCircles()
+{
+	m_readableRobotMockPlayer1->setPose(Pose(Point(1.23,-0.05), Angle()));
+	m_readableRobotMockPlayer2->setPose(Pose(Point(0.15,0), Angle()));
+	m_readableRobotMockPlayer3->setPose(Pose(Point(-0.8,0.23), Angle()));
+
+	const vector<Circle> &obstacles = m_enemyTeam->getObstacles();
+
+	CPPUNIT_ASSERT_EQUAL((size_t) 3, obstacles.size());
+
+	for (int i = 0; i < 3; ++i)
+		CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1, obstacles[i].getDiameter(), 0.05);
+}
