@@ -13,7 +13,8 @@ using namespace RoboSoccer::Common::Logging;
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, Watch const &watch, Logger &logger) :
 	RobotState(robot, logger),
 	m_precisionPosition(0.02),
-	m_precisionOrientation(0.1),
+	m_precisionOrientationInitial(0.4),
+	m_precisionOrientationFinal(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
 	m_positionReached(false),
@@ -44,13 +45,18 @@ bool RobotStateDriveTo::cantReachTarget() const
 
 RobotState *RobotStateDriveTo::nextState()
 {
-	Compare compare(0.1);
-	Pose currentPose = getRobot().getPose();
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientationFinal);
+	Pose pose = getRobot().getPose();
 
-	if (compare.isFuzzyEqual(currentPose.getPosition(), m_target) || m_watchDog->getTime() > 5)
+	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
+				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
+			 m_finalRotationReached)
 		return new RobotStateReachedTarget(getRobot(), getLogger());
-
-	return 0;
+	else if (m_watchDog->getTime() > 10)
+		return new RobotStateReachedTarget(getRobot(), getLogger());
+	else
+		return 0;
 }
 
 bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
@@ -61,15 +67,25 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 
 void RobotStateDriveTo::updateInternal()
 {
-	Compare comparePosition(m_precisionPosition);
-	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
+	bool movementStopUsed = false;
 
 	if (!m_initialRotationReached)
 	{
+		Compare compareAngle(m_precisionOrientationInitial);
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle))
+		{
+			log("inital rotation reached");
 			m_initialRotationReached = true;
+			movementStopUsed = true;
+		}
+		else if (hasMovementStopped())
+		{
+			log("inital rotation not really reached, but movement stopped");
+			movementStopUsed = true;
+			m_initialRotationReached = true;
+		}
 		else
 		{
 			if (!m_initialRotationStarted)
@@ -82,8 +98,19 @@ void RobotStateDriveTo::updateInternal()
 
 	if (!m_positionReached)
 	{
-		if (comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) && !getRobot().isMoving())
+		Compare comparePosition(m_precisionPosition);
+		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())))
+		{
+			log("position reached");
 			m_positionReached = true;
+			movementStopUsed = true;
+		}
+		else if (hasMovementStopped() && !movementStopUsed)
+		{
+			log("position not really reached, but movement stopped");
+			movementStopUsed = true;
+			m_positionReached = true;
+		}
 		else
 		{
 			if (!m_driveStarted)
@@ -96,8 +123,19 @@ void RobotStateDriveTo::updateInternal()
 
 	if (!m_finalRotationReached)
 	{
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+		Compare compareAngle(m_precisionOrientationFinal);
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()))
+		{
+			log("final rotation reached");
 			m_finalRotationReached = true;
+			movementStopUsed = true;
+		}
+		else if (hasMovementStopped() && !movementStopUsed)
+		{
+			log("final rotation not really reached, but movement stopped");
+			movementStopUsed = true;
+			m_finalRotationReached = true;
+		}
 		else
 		{
 			if (!m_finalRotationStarted)
