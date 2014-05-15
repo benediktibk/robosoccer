@@ -31,7 +31,7 @@ int main(int, char**)
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	Robot &robotOne = team.getFirstFieldPlayer();
+	Robot &robotOne = team.getSecondFieldPlayer();
 //	Robot &robotTwo = team.getSecondFieldPlayer();
 //	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
