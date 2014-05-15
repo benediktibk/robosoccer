@@ -34,12 +34,15 @@ RobotImpl::RobotImpl(
 	{
 	case 0:
 		m_logFileType = Logger::LogFileTypeAutonomousRobotGoalie;
+		log("logging autonomous goalie");
 		break;
 	case 1:
 		m_logFileType = Logger::LogFileTypeAutonomousRobotOne;
+		log("logging autonomous robot one");
 		break;
 	case 2:
 		m_logFileType = Logger::LogFileTypeAutonomousRobotTwo;
+		log("logging autonomous robot two");
 		break;
 	default:
 		assert(false);

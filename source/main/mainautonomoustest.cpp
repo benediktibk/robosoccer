@@ -31,10 +31,17 @@ int main(int, char**)
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	Robot &robotOne = team.getGoalie();
-//	Robot &robotTwo = team.getSecondFieldPlayer();
-//	Robot &robotThree = team.getGoalie();
+	Robot &robotOne = team.getFirstFieldPlayer();
+	Robot &robotTwo = team.getSecondFieldPlayer();
+	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
+
+	robotOne.goTo(Pose(Point(-1, 0), Angle(0)));
+	robotTwo.goTo(Pose(Point(0, 0), Angle(0)));
+	robotThree.goTo(Pose(Point(1, 0), Angle(0)));
+	robotOne.update();
+	robotTwo.update();
+	robotThree.update();
 
 //	while(true)
 //	{
@@ -69,25 +76,25 @@ int main(int, char**)
 //		usleep(5000);
 //	}
 
-	IntelligentBallImpl ball(storage.getBall());
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	fstream ballPositions;
-	fstream goaliePositions;
-	ballPositions.open("ball.dat", ios_base::out | ios_base::trunc);
-	goaliePositions.open("goalie.dat", ios_base::out | ios_base::trunc);
-	while(true)
-	{
-		Point ballPosition = ball.getPosition();
-		Pose targetPose = targetPositionFetcher.getPenaltyPositionGoalie(ball);
-		ballPositions << ballPosition.getX() << " " << ballPosition.getY() << endl;
-		goaliePositions << targetPose.getPosition().getX() << " " << targetPose.getPosition().getY() << endl;
-		robotOne.goToDirect(targetPose);
-		robotOne.update();
-		usleep(30000);
-		ballPositions.flush();
-		goaliePositions.flush();
-	}
+//	IntelligentBallImpl ball(storage.getBall());
+//	TargetPositionFetcher targetPositionFetcher;
+//	targetPositionFetcher.setFieldSide(FieldSideLeft);
+//	fstream ballPositions;
+//	fstream goaliePositions;
+//	ballPositions.open("ball.dat", ios_base::out | ios_base::trunc);
+//	goaliePositions.open("goalie.dat", ios_base::out | ios_base::trunc);
+//	while(true)
+//	{
+//		Point ballPosition = ball.getPosition();
+//		Pose targetPose = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+//		ballPositions << ballPosition.getX() << " " << ballPosition.getY() << endl;
+//		goaliePositions << targetPose.getPosition().getX() << " " << targetPose.getPosition().getY() << endl;
+//		robotOne.goToDirect(targetPose);
+//		robotOne.update();
+//		usleep(30000);
+//		ballPositions.flush();
+//		goaliePositions.flush();
+//	}
 
 	return 0;
 }

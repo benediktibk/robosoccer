@@ -22,6 +22,7 @@ ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch, Common::Logging::Logger &logger) :
 	m_driveShortControl(new RobotDriveControl(watch, 0.3, 0.2, 50, 0, 40)),
 	m_driveLongControl(new RobotDriveControl(watch, 0.1, 0.05, 200, 0, 120)),
+	m_state(StateStop),
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch)),
@@ -29,13 +30,31 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_watchDogEnd(new StopWatch(watch)),
 	m_watchDogRestart(new StopWatch(watch)),
 	m_logger(logger),
-	m_deviceId(deviceId),
+	m_logFileType(Logger::LogFileTypeInvalid),
 	m_turnStarted(false)
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
 	assert(deviceId <= 5);
 	m_robot = new RoboControl(dataBase,deviceId);
+
+	switch(deviceId)
+	{
+	case 0:
+		m_logFileType = Logger::LogFileTypeControllableRobotGoalkeeper;
+		log("logging controllable goalie");
+		break;
+	case 1:
+		m_logFileType = Logger::LogFileTypeControllableRobotOne;
+		log("logging controllable robot one");
+		break;
+	case 2:
+		m_logFileType = Logger::LogFileTypeControllableRobotTwo;
+		log("logging controllable robot two");
+		break;
+	default:
+		assert(false);
+	}
 }
 
 ControllableRobotImpl::~ControllableRobotImpl()
@@ -285,24 +304,7 @@ void ControllableRobotImpl::logState(State state)
 
 void ControllableRobotImpl::log(const string &message)
 {
-	Logger::LogFileType fileType = Logger::LogFileTypeInvalid;
-
-	switch(m_deviceId)
-	{
-	case 0:
-		fileType = Logger::LogFileTypeControllableRobotGoalkeeper;
-		break;
-	case 1:
-		fileType = Logger::LogFileTypeControllableRobotOne;
-		break;
-	case 2:
-		fileType = Logger::LogFileTypeControllableRobotTwo;
-		break;
-	default:
-		assert(false);
-	}
-
-	m_logger.logToLogFileOfType(fileType, message);
+	m_logger.logToLogFileOfType(m_logFileType, message);
 }
 
 void ControllableRobotImpl::logPosition(string const &message, const Geometry::Point &position)

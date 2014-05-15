@@ -6,6 +6,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
 #include "common/geometry/pose.h"
+#include "common/logging/logger.h"
 
 class RoboControl;
 
@@ -22,10 +23,6 @@ namespace Time
 {
 	class Watch;
 	class StopWatch;
-}
-namespace Logging
-{
-	class Logger;
 }
 }
 namespace Layer
@@ -92,7 +89,7 @@ namespace Abstraction
 		Common::Time::StopWatch *m_watchDogEnd;
 		Common::Time::StopWatch *m_watchDogRestart;
 		Common::Logging::Logger &m_logger;
-		const unsigned int m_deviceId;
+		Common::Logging::Logger::LogFileType m_logFileType;
 		bool m_turnStarted;
 	};
 }
