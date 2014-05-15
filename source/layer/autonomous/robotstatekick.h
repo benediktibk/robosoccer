@@ -21,7 +21,10 @@ namespace Autonomous
 			public RobotState
 	{
 	public:
-		RobotStateKick(Abstraction::ControllableRobot &robot, unsigned int force, Common::Time::Watch const &watch, Common::Logging::Logger &logger);
+		RobotStateKick(
+				Abstraction::ControllableRobot &robot, unsigned int force,
+				Common::Time::Watch const &watch, Common::Logging::Logger &logger,
+				Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateKick();
 
 		virtual bool reachedTarget() const;

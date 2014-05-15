@@ -10,8 +10,10 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, Watch const &watch, Logger &logger) :
-	RobotState(robot, logger),
+RobotStateDriveTo::RobotStateDriveTo(
+		Abstraction::ControllableRobot &robot, Pose const &target,
+		Watch const &watch, Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
 	m_precisionOrientationFinal(0.1),
@@ -52,9 +54,9 @@ RobotState *RobotStateDriveTo::nextState()
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else
 		return 0;
 }

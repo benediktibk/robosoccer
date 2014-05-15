@@ -30,7 +30,7 @@ void LoggerTest::write_testAllLogTypes_someText()
 	//! deletes the generated files, in order to reduce the amout of log folders
 	logger.deleteLogFolderAfterFinish();
 
-	logger.logToLogFileOfType(Logger::LogFileTypeRobot2Positions, "some text");
+	logger.logToLogFileOfType(Logger::LogFileTypeControllableRobotTwo, "some text");
 
 	CPPUNIT_ASSERT(true);
 }

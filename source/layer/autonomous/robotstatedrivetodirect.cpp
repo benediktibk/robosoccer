@@ -11,8 +11,10 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch, Logger &logger) :
-	RobotState(robot, logger),
+RobotStateDriveToDirect::RobotStateDriveToDirect(
+		ControllableRobot &robot, const Pose &target, const Watch &watch,
+		Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.01),
 	m_precisionOrientationInitial(0.4),
 	m_precisionOrientationFinal(0.1),
@@ -51,9 +53,9 @@ RobotState* RobotStateDriveToDirect::nextState()
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else
 		return 0;
 }

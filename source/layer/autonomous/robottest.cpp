@@ -20,7 +20,7 @@ void RobotTest::setUp()
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
 	m_routerMock = new RouterMock();
-	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger);
+	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger, 0);
 	m_ball = new IntelligentBallMock();
 }
 

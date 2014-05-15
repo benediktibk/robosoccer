@@ -7,10 +7,11 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
 RobotState *RobotStateKickTest::createInstance()
 {
-	return new RobotStateKick(*m_controllableRobot, 30, *m_watch, *m_logger);
+	return new RobotStateKick(*m_controllableRobot, 30, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
 void RobotStateKickTest::targetReached_empty_false()

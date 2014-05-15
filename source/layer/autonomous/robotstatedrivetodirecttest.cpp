@@ -12,10 +12,11 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
 RobotState* RobotStateDriveToDirectTest::createInstance()
 {
-	return new RobotStateDriveToDirect(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch, *m_logger);
+	return new RobotStateDriveToDirect(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
 void RobotStateDriveToDirectTest::nextState_targetNotReached_0()

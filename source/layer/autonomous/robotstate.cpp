@@ -8,12 +8,13 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger) :
+RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger, Logger::LogFileType logFileType) :
 	m_robot(robot),
 	m_logger(logger),
 	m_lastMovementState(false),
 	m_currentMovementState(false),
-	m_movementStopped(false)
+	m_movementStopped(false),
+	m_logFileType(logFileType)
 { }
 
 RobotState::~RobotState()
@@ -75,5 +76,10 @@ Logger& RobotState::getLogger()
 
 void RobotState::log(const string &message)
 {
-	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, message);
+	m_logger.logToLogFileOfType(Logger::LogFileTypeAutonomousRobotOne, message);
+}
+
+Logger::LogFileType RobotState::getLogFileType() const
+{
+	return m_logFileType;
 }

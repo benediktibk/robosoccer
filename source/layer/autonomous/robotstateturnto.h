@@ -24,7 +24,8 @@ namespace Autonomous
 	public:
 		RobotStateTurnTo(
 				Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target,
-				RobotState *followingState, Common::Logging::Logger &logger);
+				RobotState *followingState, Common::Logging::Logger &logger,
+				Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateTurnTo();
 
 		virtual bool reachedTarget() const;
