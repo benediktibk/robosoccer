@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
 
 #include "layer/autonomous/robot.h"
+#include <string>
 
 namespace RoboSoccer
 {
@@ -19,6 +20,10 @@ namespace Routing
 {
 	class Router;
 	class Route;
+}
+namespace Geometry
+{
+	class Point;
 }
 }
 namespace Layer
@@ -52,6 +57,8 @@ namespace Autonomous
 
 	private:
 		void switchIntoState(RobotState *state);
+		void log(std::string const &message);
+		void logPosition(std::string const &message, Common::Geometry::Point const &position);
 
 	private:
 		Abstraction::ControllableRobot &m_robot;

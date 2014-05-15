@@ -30,7 +30,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBa
 	ball.setPosition(Point(0,0));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_goaliePositionIsCorrect()
@@ -42,7 +42,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_g
 	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect()
@@ -54,7 +54,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_go
 	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()
@@ -106,7 +106,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSide_goaliePos
 	ball.setPosition(Point(0,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.25/3,targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionNotOnGoal_goaliePositionIsCorrect()
@@ -121,7 +121,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionNotO
 	ball.setCurrentFieldSide(FieldSideRight);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.06,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballNotInOwnHalf_goaliePositionIsCorrect()
@@ -136,7 +136,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballNotInOwnHalf_goaliePositi
 	ball.setCurrentFieldSide(FieldSideLeft);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.03,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyOnGoal_goaliePositionIsCorrect()
@@ -152,7 +152,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	ball.setRotation(Angle(0.1));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyNotOnGoal_goaliePositionIsCorrect()
@@ -168,7 +168,7 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	ball.setRotation(Angle::getEighthRotation());
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRightOrLeft_robotIsOnRightSide()
@@ -221,7 +221,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goalie
 	ball.setPosition(Point(-1.45,0.5));
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreLeft()

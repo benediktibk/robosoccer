@@ -11,23 +11,18 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
 RobotStateTurnTo::RobotStateTurnTo(
-		Abstraction::ControllableRobot &robot, Point const &target, Watch const &watch,
+		Abstraction::ControllableRobot &robot, Point const &target,
 		RobotState *followingState, Logger &logger) :
 	RobotState(robot, logger),
 	m_target(target),
 	m_followingState(followingState),
-	m_targetAlreadySet(false),
-	m_watchDog(new StopWatch(watch))
-{
-	m_watchDog->getTimeAndRestart();
-}
+	m_targetAlreadySet(false)
+{ }
 
 RobotStateTurnTo::~RobotStateTurnTo()
 {
 	delete m_followingState;
 	m_followingState = 0;
-	delete m_watchDog;
-	m_watchDog = 0;
 }
 
 bool RobotStateTurnTo::reachedTarget() const
@@ -47,7 +42,7 @@ RobotState *RobotStateTurnTo::nextState()
 	Angle targetOrientation = calculateTargetOrientation();
 	RobotState *result = 0;
 
-	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || m_watchDog->getTime() > 2)
+	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || hasMovementStopped())
 	{
 		result = m_followingState;
 		m_followingState = 0;

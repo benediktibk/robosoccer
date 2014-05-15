@@ -27,46 +27,47 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	Robot &robotOne = team.getFirstFieldPlayer();
-	Robot &robotTwo = team.getSecondFieldPlayer();
-	Robot &robotThree = team.getGoalie();
+	Robot &robotOne = team.getSecondFieldPlayer();
+//	Robot &robotTwo = team.getSecondFieldPlayer();
+//	Robot &robotThree = team.getGoalie();
+	cout << "initialization finished" << endl;
 
-	while(true)
-	{
-		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
-		for (unsigned int i = 0; i < 1200; ++i)
-		{
-			robotOne.update();
-			robotTwo.update();
-			robotThree.update();
-			usleep(5000);
-		}
-
-		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
-		for (unsigned int i = 0; i < 1200; ++i)
-		{
-			robotOne.update();
-			robotTwo.update();
-			robotThree.update();
-			usleep(5000);
-		}
-	}
-
-//	IntelligentBallImpl ball(storage.getBall());
 //	while(true)
 //	{
-//		robotOne.goToDirect(Pose(ball.getPosition(), Angle(robotOne.getCurrentPose().getPosition(), ball.getPosition())));
-//		robotOne.update();
-//		usleep(5000);
+//		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
+//		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
+//		for (unsigned int i = 0; i < 1200; ++i)
+//		{
+//			robotOne.update();
+//			robotTwo.update();
+//			robotThree.update();
+//			usleep(5000);
+//		}
+
+//		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
+//		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
+//		for (unsigned int i = 0; i < 1200; ++i)
+//		{
+//			robotOne.update();
+//			robotTwo.update();
+//			robotThree.update();
+//			usleep(5000);
+//		}
 //	}
+
+	IntelligentBallImpl ball(storage.getBall());
+	while(true)
+	{
+		robotOne.goToDirect(Pose(ball.getPosition(), Angle(robotOne.getCurrentPose().getPosition(), ball.getPosition())));
+		robotOne.update();
+		usleep(5000);
+	}
 
 	return 0;
 }

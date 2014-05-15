@@ -39,7 +39,8 @@ namespace Autonomous
 
 	private:
 		const double m_precisionPosition;
-		const double m_precisionOrientation;
+		const double m_precisionOrientationInitial;
+		const double m_precisionOrientationFinal;
 		bool m_initialRotationReached;
 		bool m_initialRotationStarted;
 		bool m_positionReached;

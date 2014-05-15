@@ -89,9 +89,11 @@ namespace Abstraction
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
 		bool m_isDrivingFoward;
-		Common::Time::StopWatch *m_watchDog;
+		Common::Time::StopWatch *m_watchDogEnd;
+		Common::Time::StopWatch *m_watchDogRestart;
 		Common::Logging::Logger &m_logger;
 		const unsigned int m_deviceId;
+		bool m_turnStarted;
 	};
 }
 }
