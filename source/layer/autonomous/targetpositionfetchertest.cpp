@@ -303,6 +303,35 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFiel
 	isInUsefulRange(target, 0.2, true);
 }
 
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange()
+{
+
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0));
+	ball.setIsMoving(true);
+	ball.setCurrentFieldSide(FieldSideLeft);
+	ball.setMovingDirection(FieldSideRight);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0));
+	ball.setIsMoving(true);
+	ball.setCurrentFieldSide(FieldSideLeft);
+	ball.setMovingDirection(FieldSideLeft);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
 void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreLeft()
 {
 	TargetPositionFetcher targetPositionFetcher;

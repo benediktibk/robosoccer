@@ -39,6 +39,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtLowerSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtUpperSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtLowerSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_positionAreLeft);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -66,6 +68,8 @@ namespace Autonomous
 		void getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtLowerSide_goaliePositionIsInUsefulRange();
 		void getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtUpperSide_goaliePositionIsInUsefulRange();
 		void getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtLowerSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange();
 		void getEnemyGoalPosition_fieldSideRight_positionAreLeft();
 
 	private:
