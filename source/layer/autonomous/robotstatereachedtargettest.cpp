@@ -6,10 +6,11 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
 RobotState *RobotStateReachedTargetTest::createInstance()
 {
-	return new RobotStateReachedTarget(*m_controllableRobot, *m_logger);
+	return new RobotStateReachedTarget(*m_controllableRobot, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
 void RobotStateReachedTargetTest::reachedTarget_empty_true()

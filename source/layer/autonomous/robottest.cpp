@@ -20,7 +20,7 @@ void RobotTest::setUp()
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
 	m_routerMock = new RouterMock();
-	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger);
+	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger, 0);
 	m_ball = new IntelligentBallMock();
 }
 
@@ -91,7 +91,7 @@ void RobotTest::goToDirect_notYetAtPosition_oneCallToMoveRobot()
 	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
 }
 
 void RobotTest::goToDirect_twiceWithSameTarget_oneCallToMoveRobot()
@@ -103,7 +103,7 @@ void RobotTest::goToDirect_twiceWithSameTarget_oneCallToMoveRobot()
 	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
 }
 
 void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()

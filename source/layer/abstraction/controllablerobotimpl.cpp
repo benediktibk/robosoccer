@@ -290,13 +290,13 @@ void ControllableRobotImpl::log(const string &message)
 	switch(m_deviceId)
 	{
 	case 0:
-		fileType = Logger::LogFileTypeRobotGoalkeeperPositions;
+		fileType = Logger::LogFileTypeControllableRobotGoalkeeper;
 		break;
 	case 1:
-		fileType = Logger::LogFileTypeRobot1Positions;
+		fileType = Logger::LogFileTypeControllableRobotOne;
 		break;
 	case 2:
-		fileType = Logger::LogFileTypeRobot2Positions;
+		fileType = Logger::LogFileTypeControllableRobotTwo;
 		break;
 	default:
 		assert(false);

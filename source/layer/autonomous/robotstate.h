@@ -1,6 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATE_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATE_H
 
+#include "common/logging/logger.h"
 #include <string>
 
 namespace RoboSoccer
@@ -11,10 +12,6 @@ namespace Geometry
 {
 	class Point;
 	class Pose;
-}
-namespace Logging
-{
-	class Logger;
 }
 }
 namespace Layer
@@ -28,7 +25,8 @@ namespace Autonomous
 	class RobotState
 	{
 	public:
-		RobotState(Abstraction::ControllableRobot &robot, Common::Logging::Logger &logger);
+		RobotState(Abstraction::ControllableRobot &robot, Common::Logging::Logger &logger,
+				   Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotState();
 
 		virtual bool reachedTarget() const = 0;
@@ -42,6 +40,7 @@ namespace Autonomous
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
 		Common::Logging::Logger &getLogger();
+		Common::Logging::Logger::LogFileType getLogFileType() const;
 		bool hasMovementStopped() const;
 
 	protected:
@@ -62,6 +61,7 @@ namespace Autonomous
 		bool m_lastMovementState;
 		bool m_currentMovementState;
 		bool m_movementStopped;
+		Common::Logging::Logger::LogFileType m_logFileType;
 	};
 }
 }

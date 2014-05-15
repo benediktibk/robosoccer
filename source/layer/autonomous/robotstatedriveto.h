@@ -31,7 +31,7 @@ namespace Autonomous
 				const Common::Geometry::Pose &target,
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
-				Common::Logging::Logger &logger);
+				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;

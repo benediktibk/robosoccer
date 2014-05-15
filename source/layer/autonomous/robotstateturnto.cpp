@@ -12,8 +12,8 @@ using namespace RoboSoccer::Common::Logging;
 
 RobotStateTurnTo::RobotStateTurnTo(
 		Abstraction::ControllableRobot &robot, Point const &target,
-		RobotState *followingState, Logger &logger) :
-	RobotState(robot, logger),
+		RobotState *followingState, Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType),
 	m_target(target),
 	m_followingState(followingState),
 	m_targetAlreadySet(false)
