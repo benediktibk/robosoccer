@@ -100,7 +100,7 @@ void Application::run()
 		if (loopTime > maximumLoopTime)
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
 
-		if (Console::getAsynchronousInput() == 'q')
-			stop = true;
+//		if (Console::getAsynchronousInput() == 'q')
+//			stop = true;
 	}
 }
