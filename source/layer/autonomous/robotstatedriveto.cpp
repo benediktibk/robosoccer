@@ -61,8 +61,11 @@ RobotState *RobotStateDriveTo::nextState()
 
 bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 {
-	Compare compare(0.02);
-	return compare.isFuzzyEqual(m_target, target);
+	Compare comparePosition(m_precisionPosition);
+	Compare compareAngle(m_precisionOrientationInitial);
+
+	return	comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
+			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }
 
 void RobotStateDriveTo::updateInternal()
