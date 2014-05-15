@@ -14,6 +14,9 @@ set(COMMON_LAYER_CONTROL_SRC
 	penaltydefensive.cpp
 	userinputfetcherimpl.cpp
 	userinputfetchermock.cpp
+	treenode.cpp
+	treenodedecider.cpp
+	treenoderesult.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC
