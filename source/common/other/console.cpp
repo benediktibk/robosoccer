@@ -8,30 +8,19 @@ using namespace RoboSoccer::Common::Other;
 
 char Console::getAsynchronousInput()
 {
-	struct termios oldt, newt;
-	int key;
-	int oldf;
+	char key = -1;
+	int input = 0;
+	termios newTermIOSettings;
+	termios oldTermIOSSettings;
 
-	//! just copied from stackoverflow, got no idea what it actually does - Benedikt
-	tcgetattr(STDIN_FILENO, &oldt);
-	newt = oldt;
-	newt.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(STDIN_FILENO, TCSANOW, &newt);
-	oldf = fcntl(STDIN_FILENO, F_GETFL, 0);
-	fcntl(STDIN_FILENO, F_SETFL, oldf | O_NONBLOCK);
-
+	input = fileno(stdin);
+	tcgetattr(input, &oldTermIOSSettings);
+	newTermIOSettings = oldTermIOSSettings;
+	newTermIOSettings.c_lflag &= ~(ICANON|ECHO);
+	tcsetattr(input, TCSANOW, &newTermIOSettings);
 	key = getchar();
-
-	tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
-	fcntl(STDIN_FILENO, F_SETFL, oldf);
-
-	if(key != EOF)
-	{
-	  ungetc(key, stdin);
-	  return key;
-	}
-
-	return 0;
+	tcsetattr(input, TCSANOW, &oldTermIOSSettings);
+	return key;
 }
 
 Console::Console()
