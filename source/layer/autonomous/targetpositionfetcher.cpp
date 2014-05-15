@@ -91,9 +91,9 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 	vector<Pose> positions;
 	positions.reserve(3);
 
-	positions.push_back(Pose(Point(1.25, 0.7), Angle::getThreeQuarterRotation()));
-	positions.push_back(Pose(Point(1.15, 0.7), Angle::getThreeQuarterRotation()));
-	positions.push_back(Pose(Point(1.25, 0.6), Angle::getThreeQuarterRotation()));
+	positions.push_back(Pose(Point(1.1, 0.5), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.15, 0.6), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.05, 0.5), Angle::getHalfRotation()));
 
 	return positions;
 }
@@ -103,9 +103,9 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	vector<Pose> positions;
 	positions.reserve(3);
 
-	positions.push_back(Pose(Point(1.25, -0.7), Angle::getThreeQuarterRotation()));
-	positions.push_back(Pose(Point(1.15, -0.7), Angle::getThreeQuarterRotation()));
-	positions.push_back(Pose(Point(1.25, -0.6), Angle::getThreeQuarterRotation()));
+	positions.push_back(Pose(Point(1.1, 0.2), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.15, 0.1), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.05, 0.2), Angle::getHalfRotation()));
 
 	return positions;
 }

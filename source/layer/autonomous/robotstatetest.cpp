@@ -3,18 +3,21 @@
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
+#include "common/routing/routermock.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Routing;
 
 void RobotStateTest::setUp()
 {
 	m_controllableRobot = new ControllableRobotMock();
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
+	m_router = new RouterMock();
 	m_robotState = createInstance();
 	assert(m_robotState != 0);
 }
@@ -29,6 +32,8 @@ void RobotStateTest::tearDown()
 	m_watch = 0;
 	delete m_logger;
 	m_logger = 0;
+	delete m_router;
+	m_router = 0;
 }
 
 RobotState *RobotStateTest::createInstance()

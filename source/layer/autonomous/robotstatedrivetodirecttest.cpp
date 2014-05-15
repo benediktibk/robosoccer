@@ -12,10 +12,11 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Logging;
 
 RobotState* RobotStateDriveToDirectTest::createInstance()
 {
-	return new RobotStateDriveToDirect(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch, *m_logger);
+	return new RobotStateDriveToDirect(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()), *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
 void RobotStateDriveToDirectTest::nextState_targetNotReached_0()
@@ -93,7 +94,7 @@ void RobotStateDriveToDirectTest::update_initialRotationNotReachedButMovementSto
 	m_robotState->update();
 
 	Compare compare(0.00001);
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_controllableRobot->getLastPointToDriveTo()));
 }
 
@@ -104,8 +105,8 @@ void RobotStateDriveToDirectTest::update_positionNotReached_robotGotCallToDriveT
 	m_robotState->update();
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_controllableRobot->getLastPointToDriveTo()));
 }
 
@@ -125,8 +126,8 @@ void RobotStateDriveToDirectTest::update_positionNotReachedTwiceCalled_robotGotN
 	m_robotState->update();
 	m_robotState->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
 void RobotStateDriveToDirectTest::update_positionNotreachedButMovementStopped_robotGotCallToTurnTo()
@@ -140,8 +141,8 @@ void RobotStateDriveToDirectTest::update_positionNotreachedButMovementStopped_ro
 	m_robotState->update();
 
 	Compare compare(0.00001);
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
 }
@@ -216,8 +217,8 @@ void RobotStateDriveToDirectTest::update_positionReachedButRobotStillMoving_robo
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 }
 
 void RobotStateDriveToDirectTest::update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
@@ -246,8 +247,8 @@ void RobotStateDriveToDirectTest::update_initalRotationReachedAndMovementStopped
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_controllableRobot->getLastPointToDriveTo()));
 }
 
@@ -264,8 +265,8 @@ void RobotStateDriveToDirectTest::update_positionReachedAndMovementStopped_robot
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
 }
 

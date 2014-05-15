@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTIMPL_H
 
 #include "layer/autonomous/robot.h"
+#include "common/logging/logger.h"
 #include <string>
 
 namespace RoboSoccer
@@ -12,14 +13,9 @@ namespace Time
 {
 	class Watch;
 }
-namespace Logging
-{
-	class Logger;
-}
 namespace Routing
 {
 	class Router;
-	class Route;
 }
 namespace Geometry
 {
@@ -42,7 +38,7 @@ namespace Autonomous
 	{
 	public:
 		RobotImpl(Abstraction::ControllableRobot &robot, const Common::Routing::Router &router,
-				  Common::Time::Watch const &watch, Common::Logging::Logger &logger);
+				  Common::Time::Watch const &watch, Common::Logging::Logger &logger, unsigned int robotIndex);
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Pose const &position);
@@ -65,8 +61,8 @@ namespace Autonomous
 		Common::Routing::Router const &m_router;
 		Common::Time::Watch const &m_watch;
 		Common::Logging::Logger &m_logger;
-		Common::Routing::Route *m_currentRoute;
 		RobotState *m_currentState;
+		Common::Logging::Logger::LogFileType m_logFileType;
 	};
 }
 }
