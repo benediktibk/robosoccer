@@ -106,8 +106,11 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSide_goaliePos
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.25/3,targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
+	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.25/3, target.getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), target.getOrientation()));
+	isInUsefulRange(target, 0.2, true);
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionNotOnGoal_goaliePositionIsCorrect()
@@ -198,20 +201,22 @@ void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_positionInC
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
-
 	Rectangle targetArea(Point(-0.3, -0.3), Point(0.3, 0.3));
 
-	CPPUNIT_ASSERT(targetArea.isInside(targetPositionFetcher.getPenaltyPositionPrepareKicker().getPosition(), Common::Other::Compare(0.1)));
+	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker();
+
+	CPPUNIT_ASSERT(targetArea.isInside(target.getPosition(), Common::Other::Compare(0.1)));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_angleIsCorrect()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
-
 	Compare compare(0.1);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), targetPositionFetcher.getPenaltyPositionPrepareKicker().getOrientation()));
+	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker();
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), target.getOrientation()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goaliePositionIsCorrect()
@@ -221,8 +226,10 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goalie
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-1.45,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,targetPositionFetcher.getPenaltyPositionGoalie(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
+	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), target.getOrientation()));
+	isInUsefulRange(target, 0.2, true);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFieldSide_goaliePositionIsInUsefulRange()
