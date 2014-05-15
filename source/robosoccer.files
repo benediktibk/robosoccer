@@ -49,7 +49,6 @@ common/other/quadraticequationtest.h
 common/other/quadraticequation.h
 common/other/pidcontrollertest.h
 common/other/pidcontroller.h
-common/other/console.h
 common/geometry/comparetest.h
 common/geometry/compare.h
 common/other/signumtest.cpp
@@ -60,7 +59,6 @@ common/other/quadraticequationtest.cpp
 common/other/quadraticequation.cpp
 common/other/pidcontrollertest.cpp
 common/other/pidcontroller.cpp
-common/other/console.cpp
 common/geometry/comparetest.cpp
 common/geometry/compare.cpp
 common/routing/CMakeLists.txt

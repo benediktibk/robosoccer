@@ -6,7 +6,6 @@
 #include "common/geometry/point.h"
 #include "common/geometry/pose.h"
 #include "common/logging/loggerimpl.h"
-#include "common/other/console.h"
 #include "common/time/watchimpl.h"
 #include <iostream>
 #include <unistd.h>
@@ -16,7 +15,6 @@
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
-using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Common::Time;
 using namespace std;
 
