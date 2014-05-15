@@ -37,7 +37,7 @@ void UserInputFetcherImpl::update()
 		m_selectionMade = true;
 		m_playOffensive = false;
 	}
-	else if (key != 0)
+	else if (key != '\n')
 		printOutMessage();
 }
 
