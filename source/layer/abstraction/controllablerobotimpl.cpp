@@ -134,7 +134,7 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget) && watchDogTurning)
 		{
 			logOrientation("current orientation", getOrientation());
 			log("reached target orientation");

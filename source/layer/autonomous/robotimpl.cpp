@@ -36,9 +36,13 @@ RobotImpl::~RobotImpl()
 void RobotImpl::goTo(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveTo(position))
+	{
+		log("new target for go to is equal to the current one");
 		return;
+	}
 
 	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch, m_logger));
+	logPosition("target is", position);
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -81,9 +85,7 @@ void RobotImpl::update()
 
 void RobotImpl::switchIntoState(RobotState *state)
 {
-	stringstream stream;
-	stream << "switching into " << state->getName();
-	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, stream.str());
+	log(string("switching into ") + state->getName());
 	delete m_currentState;
 	m_currentState = state;
 }
@@ -96,7 +98,23 @@ void RobotImpl::stop()
 void RobotImpl::goToDirect(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveToDirect(position))
+	{
+		log("new target for go to direct is equal to the current one");
 		return;
+	}
 
 	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch, m_logger));
+	logPosition("target is", position);
+}
+
+void RobotImpl::log(const string &message)
+{
+	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, message);
+}
+
+void RobotImpl::logPosition(const string &message, const Point &position)
+{
+	stringstream stream;
+	stream << message << ": " << position;
+	log(stream.str());
 }
