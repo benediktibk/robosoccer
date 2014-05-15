@@ -2,7 +2,10 @@
 #include "layer/abstraction/storage.h"
 #include "layer/abstraction/readablerobot.h"
 #include "layer/autonomous/intelligentball.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
+#include <algorithm>
+#include <iostream>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -23,8 +26,15 @@ EnemyTeamImpl::~EnemyTeamImpl()
 
 const ReadableRobot &EnemyTeamImpl::getPlayerNextToBall(const IntelligentBall &ball)
 {
-	ball.isMoving();
-	return *m_robots.front();
+	vector<double> distances;
+	distances.reserve(m_robots.size());
+
+	for(unsigned int i=0; i<3; i++)
+		distances.push_back(m_robots[i]->getPose().getPosition().distanceTo(ball.getPosition()));
+
+	unsigned int index =  min_element(distances.begin(), distances.end()) - distances.begin();
+
+	return *m_robots[index];
 }
 
 const vector<Circle> EnemyTeamImpl::getObstacles()
@@ -32,7 +42,7 @@ const vector<Circle> EnemyTeamImpl::getObstacles()
 	vector<Circle> obstacles;
 	obstacles.reserve(3);
 
-	for(unsigned int i=0;i<3;i++)
+	for(unsigned int i=0; i<3; i++)
 		obstacles.push_back(m_robots[i]->getObstacle());
 
 	return obstacles;
