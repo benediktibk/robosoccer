@@ -24,7 +24,8 @@ namespace Autonomous
 	public:
 		RobotStateTurnTo(
 				Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target,
-				Common::Time::Watch const &watch, RobotState *followingState, Common::Logging::Logger &logger);
+				RobotState *followingState, Common::Logging::Logger &logger,
+				Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateTurnTo();
 
 		virtual bool reachedTarget() const;
@@ -42,7 +43,6 @@ namespace Autonomous
 		Common::Geometry::Point m_target;
 		RobotState *m_followingState;
 		bool m_targetAlreadySet;
-		Common::Time::StopWatch *m_watchDog;
 	};
 }
 }

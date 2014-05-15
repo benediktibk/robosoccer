@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <kogmo_rtdb.hxx>
 #include <robo_control.h>
+#include <math.h>
 #include <sstream>
 
 using namespace RoboSoccer::Layer::Abstraction;
@@ -24,9 +25,12 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_translationSpeed(0),
 	m_rotationSpeed(0),
 	m_loopTimeWatch(new StopWatch(watch)),
-	m_watchDog(new StopWatch(watch)),
+	m_isDrivingFoward(true),
+	m_watchDogEnd(new StopWatch(watch)),
+	m_watchDogRestart(new StopWatch(watch)),
 	m_logger(logger),
-	m_deviceId(deviceId)
+	m_deviceId(deviceId),
+	m_turnStarted(false)
 {
 	if (color == TeamColorRed)
 		deviceId += 3;
@@ -44,14 +48,23 @@ ControllableRobotImpl::~ControllableRobotImpl()
 	m_driveLongControl = 0;
 	delete m_loopTimeWatch;
 	m_loopTimeWatch = 0;
-	delete m_watchDog;
-	m_watchDog = 0;
+	delete m_watchDogEnd;
+	m_watchDogEnd = 0;
+	delete m_watchDogRestart;
+	m_watchDogRestart = 0;
 }
 
 Geometry::Pose ControllableRobotImpl::getPose() const
 {
 	Geometry::Point position = getPosition();
 	Geometry::Angle orientation = getOrientation();
+	return Geometry::Pose(position, orientation);
+}
+
+Geometry::Pose ControllableRobotImpl::getPoseRaw() const
+{
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientationRaw();
 	return Geometry::Pose(position, orientation);
 }
 
@@ -63,18 +76,22 @@ Geometry::Circle ControllableRobotImpl::getObstacle() const
 
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)
 {
-	m_driveTarget = position;
-	switchInto(StateDrivingLong);
 	logPosition("current position", getPosition());
 	logPosition("target for drive long", position);
+
+	determineIsDrivingForwardForGoTo(position);
+	m_driveTarget = position;
+	switchInto(StateDrivingLong);
 }
 
 void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 {
-	m_driveTarget = position;
-	switchInto(StateDrivingShort);
 	logPosition("current position", getPosition());
 	logPosition("target for drive short", position);
+
+	determineIsDrivingForwardForGoTo(position);
+	m_driveTarget = position;
+	switchInto(StateDrivingShort);
 }
 
 void ControllableRobotImpl::kick(unsigned int force)
@@ -88,11 +105,17 @@ void ControllableRobotImpl::kick(unsigned int force)
 //! turns to an absolute angle
 void ControllableRobotImpl::turn(const Geometry::Angle &absoluteAngle)
 {
-	m_turnTarget = absoluteAngle;
-	m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
-	switchInto(StateTurning);
 	logOrientation("current orientation", getOrientation());
 	logOrientation("target for turning", absoluteAngle);
+
+	determineIsDrivingForwardForTurning(absoluteAngle);
+
+	if (m_isDrivingFoward)
+		m_turnTarget = absoluteAngle;
+	else
+		m_turnTarget = absoluteAngle + Geometry::Angle::getHalfRotation().getValueBetweenMinusPiAndPi();
+
+	switchInto(StateTurning);
 }
 
 void ControllableRobotImpl::stop()
@@ -105,8 +128,9 @@ void ControllableRobotImpl::update()
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
 	Geometry::Compare orientationCompare(0.1);
-	bool watchDogTurning = m_watchDog->getTime() > 0.5;
-	bool watchDogKicking = m_watchDog->getTime() > 1;
+	bool watchDogTurningEnd = m_watchDogEnd->getTime() > 0.5;
+	bool watchDogKickingEnd = m_watchDogEnd->getTime() > 1;
+	bool watchDogRestart = m_watchDogRestart->getTime() > 0.5;
 
 	switch(m_state)
 	{
@@ -114,13 +138,18 @@ void ControllableRobotImpl::update()
 		m_robot->StopAction();
 		return;
 	case StateTurning:
-		if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
+		if (watchDogRestart && !m_turnStarted)
+		{
+			m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
+			m_watchDogRestart->getTimeAndRestart();
+		}
+		else if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
 		{
 			logOrientation("current orientation", getOrientation());
 			log("reached target orientation");
 			switchInto(StateStop);
 		}
-		else if (watchDogTurning)
+		else if (watchDogTurningEnd)
 		{
 			log("watch dog for turning");
 			switchInto(StateStop);
@@ -147,7 +176,7 @@ void ControllableRobotImpl::update()
 		}
 		break;
 	case StateKick:
-		if (watchDogKicking)
+		if (watchDogKickingEnd)
 		{
 			log("watch dog for kicking");
 			switchInto(StateStop);
@@ -156,37 +185,6 @@ void ControllableRobotImpl::update()
 	}
 
 	setSpeed(translationSpeed, rotationSpeed);
-}
-
-void ControllableRobotImpl::measure()
-{
-	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
-	Geometry::Angle orientation(m_robot->GetPhi().Rad());
-	double loopTime = m_loopTimeWatch->getTimeAndRestart();
-
-	/*!
-	 * If the new values are exactly the same like the ones we have received
-	 * last, it is very likely that no new frame arrived. In this case we will
-	 * extrapolate the position and orientation.
-	 */
-	if (	position == m_lastPoseReceived.getPosition() &&
-			orientation == m_lastPoseReceived.getOrientation())
-	{
-		double rotationSpeedTransformed = m_rotationSpeed*6.8;
-		double translationSpeedTransformed = m_translationSpeed*0.00296961;
-		double drivenDistance = translationSpeedTransformed*loopTime;
-		Geometry::Angle rotationChange(rotationSpeedTransformed*loopTime);
-		Geometry::Point positionChange(drivenDistance, 0);
-		//! This rotation is definitely not very accurate, but it is useful as a rough estimation.
-		positionChange.rotate(getOrientation() + rotationChange/2);
-		m_currentPose.setOrientation(getOrientation() + rotationChange);
-		m_currentPose.setPosition(getPosition() + positionChange);
-	}
-	else
-	{
-		m_currentPose = Geometry::Pose(position, orientation);
-		m_lastPoseReceived = m_currentPose;
-	}
 }
 
 bool ControllableRobotImpl::isMoving() const
@@ -209,12 +207,15 @@ bool ControllableRobotImpl::isMoving() const
 
 Geometry::Angle ControllableRobotImpl::getOrientation() const
 {
-	return m_currentPose.getOrientation();
+	if(m_isDrivingFoward)
+		return getOrientationRaw();
+	else
+		return getOrientationRaw() + Geometry::Angle::getHalfRotation();
 }
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return m_currentPose.getPosition();
+	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
@@ -225,14 +226,34 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;
-	m_watchDog->getTimeAndRestart();
+	m_watchDogEnd->getTimeAndRestart();
+	m_turnStarted = false;
 }
 
 void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpeed)
 {
 	m_translationSpeed = translationSpeed;
 	m_rotationSpeed = rotationSpeed;
-	m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	if(m_isDrivingFoward)
+		m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::FORWARD);
+	else
+		m_robot->setSpeed(translationSpeed, rotationSpeed, RoboControl::BACKWARD);
+}
+
+void ControllableRobotImpl::determineIsDrivingForwardForGoTo(const Geometry::Point &target)
+{
+	Geometry::Angle absoluteAngleToTarget(getPosition(), target);
+	Geometry::Angle relativeAngleToTarget = absoluteAngleToTarget - getOrientationRaw();
+	bool previousIsDrivingForward = m_isDrivingFoward;
+	m_isDrivingFoward = fabs(relativeAngleToTarget.getValueBetweenMinusPiAndPi()) < Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi();
+
+	if (previousIsDrivingForward != m_isDrivingFoward)
+		logIsDrivingForward();
+}
+
+Geometry::Angle ControllableRobotImpl::getOrientationRaw() const
+{
+	return Geometry::Angle(m_robot->GetPhi().Rad());
 }
 
 void ControllableRobotImpl::logState(State state)
@@ -269,13 +290,13 @@ void ControllableRobotImpl::log(const string &message)
 	switch(m_deviceId)
 	{
 	case 0:
-		fileType = Logger::LogFileTypeRobotGoalkeeperPositions;
+		fileType = Logger::LogFileTypeControllableRobotGoalkeeper;
 		break;
 	case 1:
-		fileType = Logger::LogFileTypeRobot1Positions;
+		fileType = Logger::LogFileTypeControllableRobotOne;
 		break;
 	case 2:
-		fileType = Logger::LogFileTypeRobot2Positions;
+		fileType = Logger::LogFileTypeControllableRobotTwo;
 		break;
 	default:
 		assert(false);
@@ -296,4 +317,22 @@ void ControllableRobotImpl::logOrientation(string const &message, const Geometry
 	stringstream stream;
 	stream << message << ": " << orientation;
 	log(stream.str());
+}
+
+void ControllableRobotImpl::determineIsDrivingForwardForTurning(const Geometry::Angle &target)
+{
+	Geometry::Angle relativeAngle = target - getOrientationRaw();
+	bool previousIsDrivingForward = m_isDrivingFoward;
+	m_isDrivingFoward = fabs(relativeAngle.getValueBetweenMinusPiAndPi()) < Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi();
+
+	if (previousIsDrivingForward != m_isDrivingFoward)
+		logIsDrivingForward();
+}
+
+void ControllableRobotImpl::logIsDrivingForward()
+{
+	if (m_isDrivingFoward)
+		log("switching to drive forward");
+	else
+		log("switching to drive backward");
 }

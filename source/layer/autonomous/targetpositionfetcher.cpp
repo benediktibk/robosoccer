@@ -143,27 +143,25 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(FieldSide fieldSide,
 
 Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
-	Angle angle;
-
 	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
 	{
+		double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
 		switch (fieldSide)
 		{
 		case FieldSideInvalid:
 			assert(false);
 		case FieldSideRight:
-			angle = Angle::getHalfRotation();
 			break;
 		case FieldSideLeft:
-			xPositionGoalKeeperRightSide *= -1;
+			xPositionGoalKeeperRightSideModified *= -1;
 			break;
 		}
 
 		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
 
 		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
-			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
+			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 	}
 
 	return getGoaliePositionUsingIntersectWithGoalCenter(fieldSide, ball, xPositionGoalKeeperRightSide);
@@ -172,14 +170,12 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 Pose TargetPositionFetcher::getGoaliePositionUsingIntersectWithGoalCenter(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
 	double xPositionBehindGoalCenter = 1.5;
-	Angle angle;
 
 	switch (fieldSide)
 	{
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		angle = Angle::getHalfRotation();
 		break;
 	case FieldSideLeft:
 		xPositionBehindGoalCenter *= -1;
@@ -191,20 +187,20 @@ Pose TargetPositionFetcher::getGoaliePositionUsingIntersectWithGoalCenter(FieldS
 	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
 
 	if(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).empty())
-		return getGoaliePositionUsingYCoordinateFollowing(ball,xPositionGoalKeeperRightSide,angle);
+		return getGoaliePositionUsingYCoordinateFollowing(ball,xPositionGoalKeeperRightSide);
 
-	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),angle);
+	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 
 }
 
-Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper, const Common::Geometry::Angle &angle) const
+Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper) const
 {
 	double yBall = ball.getPosition().getY();
 	if(fabs(yBall) < 0.2)
-		return Pose(Point(xPositionGoalKeeper,yBall),angle);
+		return Pose(Point(xPositionGoalKeeper,yBall),Angle::getQuarterRotation());
 
 	if(yBall > 0.2)
-		return Pose(Point(xPositionGoalKeeper,0.2),angle);
+		return Pose(Point(xPositionGoalKeeper,0.2),Angle::getQuarterRotation());
 	else
-		return Pose(Point(xPositionGoalKeeper,-0.2),angle);
+		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
 }

@@ -10,6 +10,7 @@
 #include "common/logging/logger.h"
 #include "common/geometry/circle.h"
 #include <sstream>
+#include <assert.h>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
@@ -18,14 +19,34 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &router, const Watch &watch, Logger &logger) :
+RobotImpl::RobotImpl(
+		ControllableRobot &robot, const Common::Routing::Router &router,
+		const Watch &watch, Logger &logger, unsigned int robotIndex) :
 	m_robot(robot),
 	m_router(router),
 	m_watch(watch),
 	m_logger(logger),
-	m_currentRoute(0),
-	m_currentState(new RobotStateReachedTarget(robot, logger))
-{ }
+	m_currentState(0),
+	m_logFileType(Logger::LogFileTypeInvalid)
+{
+	switch(robotIndex)
+	{
+	case 0:
+		m_logFileType = Logger::LogFileTypeAutonomousRobotGoalie;
+		break;
+	case 1:
+		m_logFileType = Logger::LogFileTypeAutonomousRobotOne;
+		break;
+	case 2:
+		m_logFileType = Logger::LogFileTypeAutonomousRobotTwo;
+		break;
+	default:
+		assert(false);
+		break;
+	}
+
+	m_currentState = new RobotStateReachedTarget(robot, logger, m_logFileType);
+}
 
 RobotImpl::~RobotImpl()
 {
@@ -36,9 +57,13 @@ RobotImpl::~RobotImpl()
 void RobotImpl::goTo(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveTo(position))
+	{
+		log("new target for go to is equal to the current one");
 		return;
+	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch, m_logger));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType));
+	logPosition("target is", position);
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -64,7 +89,7 @@ bool RobotImpl::cantReachTarget() const
 void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
-	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, m_watch, new RobotStateKick(m_robot, force, m_watch, m_logger), m_logger));
+	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
 }
 
 void RobotImpl::update()
@@ -78,29 +103,39 @@ void RobotImpl::update()
 	m_robot.update();
 }
 
-void RobotImpl::measure()
-{
-	m_robot.measure();
-}
 
 void RobotImpl::switchIntoState(RobotState *state)
 {
-	stringstream stream;
-	stream << "switching into " << state->getName();
-	m_logger.logToLogFileOfType(Logger::LogFileTypeRobot, stream.str());
+	log(string("switching into ") + state->getName());
 	delete m_currentState;
 	m_currentState = state;
 }
 
 void RobotImpl::stop()
 {
-	switchIntoState(new RobotStateReachedTarget(m_robot, m_logger));
+	switchIntoState(new RobotStateReachedTarget(m_robot, m_logger, m_logFileType));
 }
 
 void RobotImpl::goToDirect(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveToDirect(position))
+	{
+		log("new target for go to direct is equal to the current one");
 		return;
+	}
 
-	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch, m_logger));
+	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch, m_logger, m_logFileType));
+	logPosition("target is", position);
+}
+
+void RobotImpl::log(const string &message)
+{
+	m_logger.logToLogFileOfType(m_logFileType, message);
+}
+
+void RobotImpl::logPosition(const string &message, const Point &position)
+{
+	stringstream stream;
+	stream << message << ": " << position;
+	log(stream.str());
 }

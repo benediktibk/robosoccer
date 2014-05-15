@@ -41,6 +41,7 @@ namespace Main
 		~Application();
 
 		void run();
+		void stop();
 
 	private:
 		Common::Logging::Logger *m_logger;
@@ -52,6 +53,7 @@ namespace Main
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
+		bool m_stop;
 	};
 }
 }

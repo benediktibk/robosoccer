@@ -16,6 +16,10 @@ namespace Logging
 {
 	class LoggerMock;
 }
+namespace Routing
+{
+	class Router;
+}
 }
 namespace Layer
 {
@@ -57,6 +61,7 @@ namespace Autonomous
 		Common::Time::WatchMock *m_watch;
 		RobotState *m_robotState;
 		Common::Logging::LoggerMock *m_logger;
+		Common::Routing::Router *m_router;
 	};
 }
 }

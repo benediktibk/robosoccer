@@ -115,7 +115,7 @@ void LoggerImpl::disableLogWriting()
 void LoggerImpl::initLogFiles()
 {
 	string message;
-	message += "## Starting Log: ";
+	message += "\n## Starting Log: ";
 	message += getTimeAbsolute();
 	message += "\n## STARTING ROBOSOCCER\n##\n";
 
@@ -142,19 +142,32 @@ void LoggerImpl::closeLogFiles()
 
 string LoggerImpl::getNameForLogFileType(LogFileType logType) const
 {
-	vector<string> names;
-	names.reserve(LogFileTypeInvalid);
-	unsigned int choice = static_cast<unsigned int>(logType);
+	switch(logType)
+	{
+	case LogFileTypeGlobal:
+		return string("0_global.txt");
+	case LogFileTypeReferee:
+		return string("1_referee.txt");
+	case LogFileTypeStateChanges:
+		return string("2_stateChanges.txt");
+	case LogFileTypeAutonomousRobotOne:
+		return string("3_autonomousRobotOne.txt");
+	case LogFileTypeAutonomousRobotTwo:
+		return string("3_autonomousRobotTwo.txt");
+	case LogFileTypeAutonomousRobotGoalie:
+		return string("3_autonomousRobotGoalie.txt");
+	case LogFileTypeControllableRobotOne:
+		return string("4_controllableRobotOne.txt");
+	case LogFileTypeControllableRobotTwo:
+		return string("4_controllableRobotTwo.txt");
+	case LogFileTypeControllableRobotGoalkeeper:
+		return string("4_controllableRobotGoalie.txt");
+	case LogFileTypeInvalid:
+		break;
+	}
 
-	names.push_back("0_global.txt");
-	names.push_back("1_referee.txt");
-	names.push_back("2_stateChanges.txt");
-	names.push_back("3_robot.txt");
-	names.push_back("4_robot1Positions.txt");
-	names.push_back("4_robot2Positions.txt");
-	names.push_back("4_robotGPositions.txt");
-
-	return names[choice];
+	assert(false);
+	return string(); // make the compiler happy
 }
 
 string LoggerImpl::getTimeAbsolute() const

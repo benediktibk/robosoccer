@@ -1,5 +1,4 @@
 set(COMMON_OTHER_SRC
-	console.cpp
 	pidcontroller.cpp
 	quadraticequation.cpp
 	randomdecision.cpp

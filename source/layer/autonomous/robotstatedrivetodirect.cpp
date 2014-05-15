@@ -11,10 +11,13 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirect::RobotStateDriveToDirect(ControllableRobot &robot, const Pose &target, const Watch &watch, Logger &logger) :
-	RobotState(robot, logger),
+RobotStateDriveToDirect::RobotStateDriveToDirect(
+		ControllableRobot &robot, const Pose &target, const Watch &watch,
+		Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.01),
-	m_precisionOrientation(0.1),
+	m_precisionOrientationInitial(0.4),
+	m_precisionOrientationFinal(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
 	m_positionReached(false),
@@ -44,30 +47,29 @@ bool RobotStateDriveToDirect::cantReachTarget() const
 RobotState* RobotStateDriveToDirect::nextState()
 {
 	Compare comparePosition(m_precisionPosition);
-	Compare compareAngle(m_precisionOrientation);
+	Compare compareAngle(m_precisionOrientationFinal);
 	Pose pose = getRobot().getPose();
 
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot(), getLogger());
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else
 		return 0;
 }
 
 void RobotStateDriveToDirect::updateInternal()
 {
-	Compare comparePosition(m_precisionPosition);
-	Compare compareAngle(m_precisionOrientation);
 	Pose pose = getRobot().getPose();
 	bool movementStopUsed = false;
 
 	if (!m_initialRotationReached)
 	{
+		Compare compareAngle(m_precisionOrientationInitial);
 		Angle targetAngle(pose.getPosition(), m_target.getPosition());
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle) && !getRobot().isMoving())
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle))
 		{
 			log("inital rotation reached");
 			m_initialRotationReached = true;
@@ -91,7 +93,8 @@ void RobotStateDriveToDirect::updateInternal()
 
 	if (!m_positionReached)
 	{
-		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())) && !getRobot().isMoving())
+		Compare comparePosition(m_precisionPosition);
+		if ((comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition())))
 		{
 			log("position reached");
 			m_positionReached = true;
@@ -106,7 +109,7 @@ void RobotStateDriveToDirect::updateInternal()
 		else
 		{
 			if (!m_driveStarted)
-				getRobot().gotoPositionImprecise(m_target.getPosition());
+				getRobot().gotoPositionPrecise(m_target.getPosition());
 
 			m_driveStarted = true;
 			return;
@@ -115,7 +118,8 @@ void RobotStateDriveToDirect::updateInternal()
 
 	if (!m_finalRotationReached)
 	{
-		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()) && !getRobot().isMoving())
+		Compare compareAngle(m_precisionOrientationFinal);
+		if (compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()))
 		{
 			log("final rotation reached");
 			m_finalRotationReached = true;
@@ -146,7 +150,7 @@ string RobotStateDriveToDirect::getName() const
 bool RobotStateDriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
 {
 	Compare comparePosition(m_precisionPosition);
-	Compare compareAngle(m_precisionOrientation);
+	Compare compareAngle(m_precisionOrientationInitial);
 
 	return	comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
 			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());

@@ -9,8 +9,10 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotStateKick::RobotStateKick(Abstraction::ControllableRobot &robot, unsigned int force, Watch const &watch, Logger &logger) :
-	RobotState(robot, logger),
+RobotStateKick::RobotStateKick(
+		Abstraction::ControllableRobot &robot, unsigned int force,
+		Watch const &watch, Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType),
 	m_stopWatch(new StopWatch(watch)),
 	m_force(force),
 	m_alreadyKicked(false),
@@ -44,7 +46,7 @@ RobotState *RobotStateKick::nextState()
 	if (m_stopWatch->getTime() < 0.5)
 		return 0;
 
-	return new RobotStateReachedTarget(getRobot(), getLogger());
+	return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 }
 
 void RobotStateKick::updateInternal()

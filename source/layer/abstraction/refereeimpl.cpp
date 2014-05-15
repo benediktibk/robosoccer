@@ -116,6 +116,7 @@ void RefereeImpl::logInformation()
 	logBool("game paused", isGamePaused());
 	logBool("continue playing", getContinuePlaying());
 	logFieldSide("own field side", getOwnFieldSide());
+	logPlayMode(m_referee->GetPlayMode());
 }
 
 void RefereeImpl::logBool(const char *message, bool value)
@@ -156,10 +157,6 @@ bool RefereeImpl::playModeChangedSinceLastCall()
 	ePlayMode currentMode = m_referee->GetPlayMode();
 	bool result = currentMode != m_lastPlayMode;
 	m_lastPlayMode = currentMode;
-
-	if (result)
-		logPlayMode(currentMode);
-
 	return result;
 }
 

@@ -49,7 +49,7 @@ namespace Autonomous
 		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Abstraction::FieldSide fieldSide, Common::Geometry::Point pointFieldSideRight) const;
 		Common::Geometry::Pose getGoaliePositionUsingEstimatedIntersectPoint(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
 		Common::Geometry::Pose getGoaliePositionUsingIntersectWithGoalCenter(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
-		Common::Geometry::Pose getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper, const Common::Geometry::Angle &angle) const;
+		Common::Geometry::Pose getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper) const;
 
 	private:
 		Abstraction::FieldSide m_fieldSide;

@@ -8,8 +8,9 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotStateReachedTarget::RobotStateReachedTarget(Abstraction::ControllableRobot &robot, Logger &logger) :
-	RobotState(robot, logger)
+RobotStateReachedTarget::RobotStateReachedTarget(
+		Abstraction::ControllableRobot &robot, Logger &logger, Logger::LogFileType logFileType) :
+	RobotState(robot, logger, logFileType)
 { }
 
 bool RobotStateReachedTarget::reachedTarget() const

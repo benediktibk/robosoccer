@@ -49,11 +49,6 @@ void RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
 void RobotMock::update()
 { }
 
-void RobotMock::measure()
-{
-
-}
-
 unsigned int RobotMock::getCallsToStop() const
 {
 	return m_callsToStop;

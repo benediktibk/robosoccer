@@ -52,6 +52,7 @@ namespace Abstraction
 		~ControllableRobotImpl();
 
 		virtual Common::Geometry::Pose getPose() const;
+		virtual Common::Geometry::Pose getPoseRaw() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
@@ -59,16 +60,19 @@ namespace Abstraction
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 		virtual void update();
-		virtual void measure();
 		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
+		Common::Geometry::Angle getOrientationRaw() const;
 		Common::Geometry::Point getPosition() const;
 
 	private:
 		void switchInto(State state);
 		void setSpeed(double translationSpeed, double rotationSpeed);
+		void determineIsDrivingForwardForGoTo(Common::Geometry::Point const &target);
+		void determineIsDrivingForwardForTurning(Common::Geometry::Angle const &target);
 		void logState(State state);
+		void logIsDrivingForward();
 		void logPosition(std::string const &message, Common::Geometry::Point const &position);
 		void logOrientation(std::string const &message, Common::Geometry::Angle const &orientation);
 		void log(std::string const &message);
@@ -82,12 +86,14 @@ namespace Abstraction
 		Common::Geometry::Angle m_turnTarget;
 		double m_translationSpeed;
 		double m_rotationSpeed;
-		Common::Geometry::Pose m_currentPose;
 		Common::Geometry::Pose m_lastPoseReceived;
 		Common::Time::StopWatch *m_loopTimeWatch;
-		Common::Time::StopWatch *m_watchDog;
+		bool m_isDrivingFoward;
+		Common::Time::StopWatch *m_watchDogEnd;
+		Common::Time::StopWatch *m_watchDogRestart;
 		Common::Logging::Logger &m_logger;
 		const unsigned int m_deviceId;
+		bool m_turnStarted;
 	};
 }
 }

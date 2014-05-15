@@ -26,7 +26,8 @@ namespace Autonomous
 				Abstraction::ControllableRobot &robot,
 				Common::Geometry::Pose const &target,
 				Common::Time::Watch const &watch,
-				Common::Logging::Logger &logger);
+				Common::Logging::Logger &logger,
+				Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateDriveToDirect();
 
 		virtual bool reachedTarget() const;
@@ -40,7 +41,8 @@ namespace Autonomous
 
 	private:
 		const double m_precisionPosition;
-		const double m_precisionOrientation;
+		const double m_precisionOrientationInitial;
+		const double m_precisionOrientationFinal;
 		bool m_initialRotationReached;
 		bool m_initialRotationStarted;
 		bool m_positionReached;

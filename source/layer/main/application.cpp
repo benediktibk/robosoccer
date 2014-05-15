@@ -9,7 +9,6 @@
 #include "common/time/stopwatch.h"
 #include "common/time/watchimpl.h"
 #include "common/states/statemachine.h"
-#include "common/other/console.h"
 #include "layer/autonomous/robot.h"
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
@@ -22,7 +21,6 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
-using namespace RoboSoccer::Common::Other;
 using namespace std;
 
 Application::Application(TeamColor ownTeamColor) :
@@ -34,7 +32,8 @@ Application::Application(TeamColor ownTeamColor) :
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
-	m_targetPositionFetcher(new TargetPositionFetcher())
+	m_targetPositionFetcher(new TargetPositionFetcher()),
+	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 }
@@ -63,24 +62,17 @@ Application::~Application()
 
 void Application::run()
 {
-	bool stop = false;
 	StopWatch stopWatch(*m_watch);
 	stopWatch.getTimeAndRestart();
-	const double maximumLoopTime = 0.1;
+	const double maximumLoopTime = 0.033;
 	const double minimumLoopTime = 0.005;
 
 	RefereeBase &referee = m_storage->getReferee();
 	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 	StateMachine stateMachine(initialState);
 
-	while (!stop)
+	while (!m_stop)
 	{
-		for (unsigned int i = 0; i < 3; ++i)
-		{
-			Robot &robot = m_ownTeam->getRobotByNumber(i);
-			robot.measure();
-		}
-
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);
@@ -105,8 +97,13 @@ void Application::run()
 
 		if (loopTime > maximumLoopTime)
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
-
-		if (Console::getAsynchronousInput() == 'q')
-			stop = true;
 	}
+
+	m_logger->logToConsoleAndGlobalLogFile("stopped");
+}
+
+void Application::stop()
+{
+	m_stop = true;
+	m_logger->logToConsoleAndGlobalLogFile("stop requested");
 }

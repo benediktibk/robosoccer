@@ -31,39 +31,62 @@ int main(int, char**)
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
-	Robot &robotOne = team.getFirstFieldPlayer();
-	Robot &robotTwo = team.getSecondFieldPlayer();
-	Robot &robotThree = team.getGoalie();
+	Robot &robotOne = team.getGoalie();
+//	Robot &robotTwo = team.getSecondFieldPlayer();
+//	Robot &robotThree = team.getGoalie();
+	cout << "initialization finished" << endl;
 
+//	while(true)
+//	{
+//		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
+//		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
+//		for (unsigned int i = 0; i < 1200; ++i)
+//		{
+//			robotOne.update();
+//			robotTwo.update();
+//			robotThree.update();
+//			usleep(5000);
+//		}
+
+//		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
+//		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
+//		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
+//		for (unsigned int i = 0; i < 1200; ++i)
+//		{
+//			robotOne.update();
+//			robotTwo.update();
+//			robotThree.update();
+//			usleep(5000);
+//		}
+//	}
+
+//	IntelligentBallImpl ball(storage.getBall());
+//	while(true)
+//	{
+//		robotOne.goToDirect(Pose(ball.getPosition(), Angle(robotOne.getCurrentPose().getPosition(), ball.getPosition())));
+//		robotOne.update();
+//		usleep(5000);
+//	}
+
+	IntelligentBallImpl ball(storage.getBall());
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	fstream ballPositions;
+	fstream goaliePositions;
+	ballPositions.open("ball.dat", ios_base::out | ios_base::trunc);
+	goaliePositions.open("goalie.dat", ios_base::out | ios_base::trunc);
 	while(true)
 	{
-		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
-		for (unsigned int i = 0; i < 1200; ++i)
-		{
-			robotOne.measure();
-			robotOne.update();
-			robotTwo.measure();
-			robotTwo.update();
-			robotThree.measure();
-			robotThree.update();
-			usleep(5000);
-		}
-
-		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
-		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
-		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
-		for (unsigned int i = 0; i < 1200; ++i)
-		{
-			robotOne.measure();
-			robotOne.update();
-			robotTwo.measure();
-			robotTwo.update();
-			robotThree.measure();
-			robotThree.update();
-			usleep(5000);
-		}
+		Point ballPosition = ball.getPosition();
+		Pose targetPose = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+		ballPositions << ballPosition.getX() << " " << ballPosition.getY() << endl;
+		goaliePositions << targetPose.getPosition().getX() << " " << targetPose.getPosition().getY() << endl;
+		robotOne.goToDirect(targetPose);
+		robotOne.update();
+		usleep(30000);
+		ballPositions.flush();
+		goaliePositions.flush();
 	}
 
 	return 0;

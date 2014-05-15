@@ -39,9 +39,6 @@ int main(int, char**)
 	Robot &robotGoalie = team.getGoalie();
 
 	cout << "objects created" << endl;
-	robot1.measure();
-	robot2.measure();
-	robotGoalie.measure();
 
 	robot1.goToDirect(targetPositionFetcher.getStartPositionPlayerOneOffensive());
 	robot2.goToDirect(targetPositionFetcher.getStartPositionPlayerTwoOffensive());
@@ -53,9 +50,6 @@ int main(int, char**)
 
 	while(true)
 	{
-		robot1.measure();
-		robot2.measure();
-		robotGoalie.measure();
 		robot1.update();
 		robot2.update();
 		robotGoalie.update();

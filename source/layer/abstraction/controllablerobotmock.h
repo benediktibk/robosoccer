@@ -17,6 +17,7 @@ namespace Abstraction
 		ControllableRobotMock();
 
 		virtual Common::Geometry::Pose getPose() const;
+		virtual Common::Geometry::Pose getPoseRaw() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(Common::Geometry::Point const &position);
@@ -24,7 +25,6 @@ namespace Abstraction
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
 		virtual void stop();
 		virtual void update();
-		virtual void measure();
 		virtual bool isMoving() const;
 
 		unsigned int getCallsToStop() const;
@@ -33,7 +33,6 @@ namespace Abstraction
 		unsigned int getCallsToTurn() const;
 		unsigned int getCallsToKick() const;
 		unsigned int getCallsToUpdate() const;
-		unsigned int getCallsToMeasure() const;
 		Common::Geometry::Angle const& getLastAngleToTurnTo() const;
 		Common::Geometry::Point const& getLastPointToDriveTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
@@ -46,7 +45,6 @@ namespace Abstraction
 		unsigned int m_callsToTurn;
 		unsigned int m_callsToKick;
 		unsigned int m_callsToUpdate;
-		unsigned int m_callsToMeasure;
 		Common::Geometry::Pose m_pose;
 		Common::Geometry::Angle m_lastAngleToTurnTo;
 		Common::Geometry::Point m_lastPointToDriveTo;
