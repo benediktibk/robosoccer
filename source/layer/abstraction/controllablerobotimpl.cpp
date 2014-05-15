@@ -232,7 +232,8 @@ void ControllableRobotImpl::setSpeed(double translationSpeed, double rotationSpe
 
 void ControllableRobotImpl::determineIsDrivingForwardForGoTo(const Geometry::Point &target)
 {
-	Geometry::Angle relativeAngleToTarget(getPosition(), target);
+	Geometry::Angle absoluteAngleToTarget(getPosition(), target);
+	Geometry::Angle relativeAngleToTarget = absoluteAngleToTarget - getOrientationRaw();
 	bool previousIsDrivingForward = m_isDrivingFoward;
 	m_isDrivingFoward = fabs(relativeAngleToTarget.getValueBetweenMinusPiAndPi()) < Geometry::Angle::getQuarterRotation().getValueBetweenMinusPiAndPi();
 

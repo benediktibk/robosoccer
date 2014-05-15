@@ -27,7 +27,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
@@ -59,6 +59,14 @@ int main(int, char**)
 			usleep(5000);
 		}
 	}
+
+//	IntelligentBallImpl ball(storage.getBall());
+//	while(true)
+//	{
+//		robotOne.goToDirect(Pose(ball.getPosition(), Angle(robotOne.getCurrentPose().getPosition(), ball.getPosition())));
+//		robotOne.update();
+//		usleep(5000);
+//	}
 
 	return 0;
 }
