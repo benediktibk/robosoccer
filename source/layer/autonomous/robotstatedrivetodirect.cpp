@@ -107,7 +107,7 @@ void RobotStateDriveToDirect::updateInternal()
 		else
 		{
 			if (!m_driveStarted)
-				getRobot().gotoPositionImprecise(m_target.getPosition());
+				getRobot().gotoPositionPrecise(m_target.getPosition());
 
 			m_driveStarted = true;
 			return;

@@ -91,7 +91,7 @@ void RobotTest::goToDirect_notYetAtPosition_oneCallToMoveRobot()
 	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
 }
 
 void RobotTest::goToDirect_twiceWithSameTarget_oneCallToMoveRobot()
@@ -103,7 +103,7 @@ void RobotTest::goToDirect_twiceWithSameTarget_oneCallToMoveRobot()
 	m_robot->goToDirect(Pose(Point(2, 3), Angle()));
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToPositionPrecise());
 }
 
 void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()
