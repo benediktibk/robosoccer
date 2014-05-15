@@ -16,7 +16,6 @@ namespace Time
 namespace Routing
 {
 	class Router;
-	class Route;
 }
 namespace Geometry
 {
@@ -62,7 +61,6 @@ namespace Autonomous
 		Common::Routing::Router const &m_router;
 		Common::Time::Watch const &m_watch;
 		Common::Logging::Logger &m_logger;
-		Common::Routing::Route *m_currentRoute;
 		RobotState *m_currentState;
 		Common::Logging::Logger::LogFileType m_logFileType;
 	};

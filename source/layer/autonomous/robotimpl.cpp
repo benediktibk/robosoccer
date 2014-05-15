@@ -26,7 +26,6 @@ RobotImpl::RobotImpl(
 	m_router(router),
 	m_watch(watch),
 	m_logger(logger),
-	m_currentRoute(0),
 	m_currentState(0),
 	m_logFileType(Logger::LogFileTypeInvalid)
 {
@@ -66,7 +65,7 @@ void RobotImpl::goTo(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch, m_logger, m_logFileType));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType));
 	logPosition("target is", position);
 }
 

@@ -3,15 +3,17 @@
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/compare.h"
 #include "common/time/stopwatch.h"
+#include "common/routing/route.h"
 
 using namespace std;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(
-		Abstraction::ControllableRobot &robot, Pose const &target,
+		Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
@@ -24,7 +26,9 @@ RobotStateDriveTo::RobotStateDriveTo(
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
 	m_target(target),
-	m_watchDog(new StopWatch(watch))
+	m_router(router),
+	m_watchDog(new StopWatch(watch)),
+	m_currentRoute(0)
 {
 	m_watchDog->getTimeAndRestart();
 }
@@ -33,6 +37,7 @@ RobotStateDriveTo::~RobotStateDriveTo()
 {
 	delete m_watchDog;
 	m_watchDog = 0;
+	clearRoute();
 }
 
 bool RobotStateDriveTo::reachedTarget() const
@@ -150,6 +155,12 @@ void RobotStateDriveTo::updateInternal()
 			return;
 		}
 	}
+}
+
+void RobotStateDriveTo::clearRoute()
+{
+	delete m_currentRoute;
+	m_currentRoute = 0;
 }
 
 string RobotStateDriveTo::getName() const
