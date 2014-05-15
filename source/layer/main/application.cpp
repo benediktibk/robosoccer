@@ -66,7 +66,7 @@ void Application::run()
 	bool stop = false;
 	StopWatch stopWatch(*m_watch);
 	stopWatch.getTimeAndRestart();
-	const double maximumLoopTime = 0.1;
+	const double maximumLoopTime = 0.033;
 	const double minimumLoopTime = 0.005;
 
 	RefereeBase &referee = m_storage->getReferee();
