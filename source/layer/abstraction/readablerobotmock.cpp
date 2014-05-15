@@ -7,11 +7,16 @@ using namespace RoboSoccer::Common::Geometry;
 
 Pose ReadableRobotMock::getPose() const
 {
-	return Pose();
+	return m_pose;
 }
 
 Circle ReadableRobotMock::getObstacle() const
 {
-	return Circle();
+	return Circle(m_pose.getPosition(),0.095);
+}
+
+void ReadableRobotMock::setPose(const Pose &pose)
+{
+	m_pose = pose;
 }
 
