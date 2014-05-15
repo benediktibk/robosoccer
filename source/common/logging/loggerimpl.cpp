@@ -115,7 +115,7 @@ void LoggerImpl::disableLogWriting()
 void LoggerImpl::initLogFiles()
 {
 	string message;
-	message += "## Starting Log: ";
+	message += "\n## Starting Log: ";
 	message += getTimeAbsolute();
 	message += "\n## STARTING ROBOSOCCER\n##\n";
 
