@@ -10,6 +10,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace std;
 
 void TargetPositionFetcherTest::getEnemyGoalPosition_bothSides_middlePosotionIsCorrect()
 {
@@ -224,6 +225,84 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goalie
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getPenaltyPositionGoalie(ball).getOrientation()));
 }
 
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFieldSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5, 0));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideRight);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideLeft);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtUpperSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5, 0.5));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideRight);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtLowerSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5, -0.5));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideRight);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtUpperSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0.5));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideLeft);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
+void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtLowerSide_goaliePositionIsInUsefulRange()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, -0.5));
+	ball.setIsMoving(false);
+	ball.setCurrentFieldSide(FieldSideLeft);
+
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+
+	isInUsefulRange(target, 0.2, true);
+}
+
 void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreLeft()
 {
 	TargetPositionFetcher targetPositionFetcher;
@@ -231,4 +310,35 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreL
 
 	for(unsigned int i = 0; i<targetPositionFetcher.getEnemyGoalPosition().size(); i++)
 		CPPUNIT_ASSERT(targetPositionFetcher.getEnemyGoalPosition()[i].getX() < 0);
+}
+
+void TargetPositionFetcherTest::isInUsefulRange(const Pose &pose, double distanceToGoal, bool left)
+{
+	Point const &position = pose.getPosition();
+	Angle const &orientation = pose.getOrientation();
+
+	Compare compare(0.00001);
+	isInUsefulRange(position, distanceToGoal, left);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(orientation, Angle::getQuarterRotation()) || compare.isFuzzyEqual(orientation, Angle::getQuarterRotation()*(-1)));
+}
+
+void TargetPositionFetcherTest::isInUsefulRange(const Point &position, double distanceToGoal, bool left)
+{
+	if (left)
+		CPPUNIT_ASSERT(position.getX() < 0);
+	else
+		CPPUNIT_ASSERT(position.getX() > 0);
+
+	double xModified = position.getX() * (left ? -1 : 1);
+	double realDistanceToGoal = 1.45 - xModified;
+	Compare compare(0.00001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(realDistanceToGoal, distanceToGoal));
+	CPPUNIT_ASSERT(position.getY() < 0.36);
+	CPPUNIT_ASSERT(position.getY() > -0.36);
+}
+
+void TargetPositionFetcherTest::isInUsefulRange(const vector<Pose> &poses, double distanceToGoal, bool left)
+{
+	for (vector<Pose>::const_iterator i = poses.begin(); i != poses.end(); ++i)
+		isInUsefulRange(*i, distanceToGoal, left);
 }

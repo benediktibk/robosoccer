@@ -3,6 +3,8 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include <vector>
+#include "common/geometry/pose.h"
 
 namespace RoboSoccer
 {
@@ -31,6 +33,12 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_positionInCorrectArea);
 		CPPUNIT_TEST(getPenaltyPositionPrepareKicker_ball_angleIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballBehindGoalie_goaliePositionIsCorrect);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtRightFieldSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtUpperSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtLowerSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtUpperSide_goaliePositionIsInUsefulRange);
+		CPPUNIT_TEST(getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtLowerSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_positionAreLeft);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -52,7 +60,18 @@ namespace Autonomous
 		void getPenaltyPositionPrepareKicker_ball_positionInCorrectArea();
 		void getPenaltyPositionPrepareKicker_ball_angleIsCorrect();
 		void getPenaltyPositionGoalie_ballBehindGoalie_goaliePositionIsCorrect();
+		void getPenaltyPositionGoalie_ballNotMovingAtRightFieldSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtUpperSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballNotMovingAtRightFieldSideAtLowerSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtUpperSide_goaliePositionIsInUsefulRange();
+		void getPenaltyPositionGoalie_ballNotMovingAtLeftFieldSideAtLowerSide_goaliePositionIsInUsefulRange();
 		void getEnemyGoalPosition_fieldSideRight_positionAreLeft();
+
+	private:
+		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
+		void isInUsefulRange(Common::Geometry::Point const &position, double distanceToGoal, bool left);
+		void isInUsefulRange(std::vector<Common::Geometry::Pose> const &poses, double distanceToGoal, bool left);
 	};
 }
 }
