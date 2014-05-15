@@ -13,6 +13,11 @@ namespace Time
 	class Watch;
 	class StopWatch;
 }
+namespace Routing
+{
+	class Router;
+	class Route;
+}
 }
 namespace Layer
 {
@@ -24,6 +29,7 @@ namespace Autonomous
 	public:
 		RobotStateDriveTo(Abstraction::ControllableRobot &robot,
 				const Common::Geometry::Pose &target,
+				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger);
 		virtual ~RobotStateDriveTo();
@@ -38,6 +44,9 @@ namespace Autonomous
 		virtual void updateInternal();
 
 	private:
+		void clearRoute();
+
+	private:
 		const double m_precisionPosition;
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
@@ -48,7 +57,9 @@ namespace Autonomous
 		bool m_finalRotationReached;
 		bool m_finalRotationStarted;
 		Common::Geometry::Pose m_target;
+		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;
+		Common::Routing::Route *m_currentRoute;
 	};
 }
 }

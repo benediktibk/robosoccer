@@ -23,7 +23,6 @@ RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &ro
 	m_router(router),
 	m_watch(watch),
 	m_logger(logger),
-	m_currentRoute(0),
 	m_currentState(new RobotStateReachedTarget(robot, logger))
 { }
 
@@ -41,7 +40,7 @@ void RobotImpl::goTo(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_watch, m_logger));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger));
 	logPosition("target is", position);
 }
 
