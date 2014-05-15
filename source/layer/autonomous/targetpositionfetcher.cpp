@@ -145,6 +145,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 {
 	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
 	{
+		double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
 		switch (fieldSide)
 		{
 		case FieldSideInvalid:
@@ -152,12 +153,12 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 		case FieldSideRight:
 			break;
 		case FieldSideLeft:
-			xPositionGoalKeeperRightSide *= -1;
+			xPositionGoalKeeperRightSideModified *= -1;
 			break;
 		}
 
 		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
 
 		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
 			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
