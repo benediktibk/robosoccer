@@ -48,19 +48,53 @@ void ObstacleFetcherTest::tearDown()
 	m_ball = 0;
 }
 
-void ObstacleFetcherTest::getAllObstacles_empty_countIs6()
+void ObstacleFetcherTest::getAllObstacles_6obstaclesInTotal_countIs6()
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstacles();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)6, obstacles.size());
 }
 
-void ObstacleFetcherTest::getAllObstacles_empty_allObstaclesContained()
+void ObstacleFetcherTest::getAllObstacles_6obstaclesInTotal_allObstaclesContained()
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstacles();
 
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(1, 1), 1)));
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(2, 2), 2)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 4)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 6)));
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_countIs5()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_firstRobot);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_firstRobot);
+
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(2, 2), 2)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 4)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 6)));
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMe_secondRobot_countIs5()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_secondRobot);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_secondRobot);
+
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(1, 1), 1)));
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 4)));
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 5)));
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 6)));

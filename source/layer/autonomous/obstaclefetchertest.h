@@ -17,8 +17,12 @@ namespace Autonomous
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
-		CPPUNIT_TEST(getAllObstacles_empty_countIs6);
-		CPPUNIT_TEST(getAllObstacles_empty_allObstaclesContained);
+		CPPUNIT_TEST(getAllObstacles_6obstaclesInTotal_countIs6);
+		CPPUNIT_TEST(getAllObstacles_6obstaclesInTotal_allObstaclesContained);
+		CPPUNIT_TEST(getAllObstaclesButMe_firstRobot_countIs5);
+		CPPUNIT_TEST(getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained);
+		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_countIs5);
+		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -26,8 +30,12 @@ namespace Autonomous
 		virtual void tearDown();
 
 	private:
-		void getAllObstacles_empty_countIs6();
-		void getAllObstacles_empty_allObstaclesContained();
+		void getAllObstacles_6obstaclesInTotal_countIs6();
+		void getAllObstacles_6obstaclesInTotal_allObstaclesContained();
+		void getAllObstaclesButMe_firstRobot_countIs5();
+		void getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained();
+		void getAllObstaclesButMe_secondRobot_countIs5();
+		void getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained();
 
 	private:
 		ObstacleFetcher *m_obstacleFetcher;
