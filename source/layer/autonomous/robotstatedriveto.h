@@ -3,11 +3,16 @@
 
 #include "layer/autonomous/robotstate.h"
 #include "common/geometry/pose.h"
+#include <vector>
 
 namespace RoboSoccer
 {
 namespace Common
 {
+namespace Geometry
+{
+	class Circle;
+}
 namespace Time
 {
 	class Watch;
@@ -23,6 +28,8 @@ namespace Layer
 {
 namespace Autonomous
 {
+	class ObstacleFetcher;
+
 	class RobotStateDriveTo :
 			public RobotState
 	{
@@ -31,7 +38,8 @@ namespace Autonomous
 				const Common::Geometry::Pose &target,
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
-				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType);
+				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType/*,
+				ObstacleFetcher &obstacleFetcher*/);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
@@ -44,6 +52,10 @@ namespace Autonomous
 		virtual void updateInternal();
 
 	private:
+		void updateRoute();
+		void updateRouteForTarget();
+		const Common::Geometry::Point &getNextTargetPoint() const;
+		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		void clearRoute();
 
 	private:
@@ -60,6 +72,7 @@ namespace Autonomous
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;
 		Common::Routing::Route *m_currentRoute;
+		//ObstacleFetcher &m_obstacleFetcher;
 	};
 }
 }
