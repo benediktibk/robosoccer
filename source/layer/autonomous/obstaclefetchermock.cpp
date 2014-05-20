@@ -8,6 +8,9 @@ using namespace std;
 ObstacleFetcherMock::ObstacleFetcherMock()
 { }
 
+void ObstacleFetcherMock::addSource(const ObstacleSource &)
+{ }
+
 vector<Circle> ObstacleFetcherMock::getAllObstacles() const
 {
 	return m_allObstacles;

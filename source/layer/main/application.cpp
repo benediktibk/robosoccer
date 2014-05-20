@@ -38,6 +38,14 @@ Application::Application(TeamColor ownTeamColor) :
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
+	m_obstacleFetcher->addSource(*m_enemyTeam);
+	m_obstacleFetcher->addSource(*m_ball);
+
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		Robot const &robot = m_ownTeam->getRobotByNumber(i);
+		m_obstacleFetcher->addSource(robot);
+	}
 }
 
 Application::~Application()

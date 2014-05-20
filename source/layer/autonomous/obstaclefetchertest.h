@@ -10,16 +10,15 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class ObstacleFetcherImpl;
-	class TeamMock;
-	class EnemyTeamMock;
-	class IntelligentBallMock;
+	class ObstacleFetcher;
+	class ObstacleSourceMock;
 
 	class ObstacleFetcherTest :
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
-		CPPUNIT_TEST(getAllObstacles_empty_countIs7);
+		CPPUNIT_TEST(getAllObstacles_empty_countIs6);
+		CPPUNIT_TEST(getAllObstacles_empty_allObstaclesContained);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -27,13 +26,15 @@ namespace Autonomous
 		virtual void tearDown();
 
 	private:
-		void getAllObstacles_empty_countIs7();
+		void getAllObstacles_empty_countIs6();
+		void getAllObstacles_empty_allObstaclesContained();
 
 	private:
-		ObstacleFetcherImpl *m_obstacleFetcher;
-		TeamMock *m_team;
-		EnemyTeamMock *m_enemyTeam;
-		IntelligentBallMock *m_ball;
+		ObstacleFetcher *m_obstacleFetcher;
+		ObstacleSourceMock *m_firstRobot;
+		ObstacleSourceMock *m_secondRobot;
+		ObstacleSourceMock *m_enemyTeam;
+		ObstacleSourceMock *m_ball;
 	};
 }
 }
