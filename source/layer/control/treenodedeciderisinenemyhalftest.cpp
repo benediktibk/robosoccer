@@ -9,7 +9,7 @@
 
 using namespace RoboSoccer::Layer::Control;
 
-TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestObject()
+TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
 {
 	return new TreeNodeDeciderIsInEnemyHalf(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }

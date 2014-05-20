@@ -46,7 +46,7 @@ class TreeNodeDeciderTest :
 		virtual void tearDown();
 
 	protected:
-		virtual TreeNodeDecider* createTestObject() {return 0;}
+		virtual TreeNodeDecider* createTestNode() {return 0;}
 
 	private:
 
