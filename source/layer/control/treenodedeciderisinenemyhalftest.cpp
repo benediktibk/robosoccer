@@ -6,7 +6,10 @@
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/intelligentballmock.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/control/treenoderesultdefendgoal.h"
 
+using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Control;
 
 TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
@@ -16,10 +19,20 @@ TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
 
 void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
 {
-	CPPUNIT_ASSERT(m_node->getChild() != 0);
+	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
+	m_ball->setPosition(Point(-1.1, 0.3));
+
+	TreeNode *node = m_node->getChild();
+	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
+	CPPUNIT_ASSERT(defendGoal != 0);
 }
 
 void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
 {
-	CPPUNIT_ASSERT(m_node->getChild() !=0);
+	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
+	m_ball->setPosition(Point(1.1, 0.3));
+
+	TreeNode *node = m_node->getChild();
+	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
+	CPPUNIT_ASSERT(defendGoal == 0);
 }
