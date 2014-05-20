@@ -90,7 +90,7 @@ Geometry::Pose ControllableRobotImpl::getPoseRaw() const
 Geometry::Circle ControllableRobotImpl::getObstacle() const
 {
 	Geometry::Pose pose = getPose();
-	return Geometry::Circle(pose.getPosition(), 0.095);
+	return Geometry::Circle(pose.getPosition(), ReadableRobot::getWidth());
 }
 
 void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &position)

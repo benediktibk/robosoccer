@@ -26,15 +26,14 @@ EnemyTeamMock::~EnemyTeamMock()
 	m_robots.clear();
 }
 
-const vector<Circle> EnemyTeamMock::getObstacles()
+vector<Circle> EnemyTeamMock::getObstacles() const
 {
-	vector<Circle> obstacles;
-	obstacles.reserve(3);
+	return m_obstacles;
+}
 
-	for(unsigned int i=0;i<3;i++)
-		obstacles.push_back(m_robots[i]->getObstacle());
-
-	return obstacles;
+void EnemyTeamMock::setObstacles(const vector<Circle> &obstacles)
+{
+	m_obstacles = obstacles;
 }
 
 const ReadableRobot &EnemyTeamMock::getPlayerNextToBall(const IntelligentBall &)

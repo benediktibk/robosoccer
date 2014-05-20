@@ -28,6 +28,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getMovingDirection_isRight_FielsideRight);
 		CPPUNIT_TEST(getCurrentFieldSide_isLeft_FieldsideLeft);
 		CPPUNIT_TEST(getCurrentFieldSide_isRight_FieldsideRight);
+		CPPUNIT_TEST(getObstacle_empty_sameAsFromBall);
+		CPPUNIT_TEST(getObstacles_empty_oneElementWhichIsSameAsFromBall);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -43,6 +45,8 @@ namespace Autonomous
 		void getMovingDirection_isRight_FielsideRight();
 		void getCurrentFieldSide_isLeft_FieldsideLeft();
 		void getCurrentFieldSide_isRight_FieldsideRight();
+		void getObstacle_empty_sameAsFromBall();
+		void getObstacles_empty_oneElementWhichIsSameAsFromBall();
 
 	private:
 		Abstraction::BallMock *m_ballMock;

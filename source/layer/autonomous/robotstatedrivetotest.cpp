@@ -5,6 +5,7 @@
 #include "common/time/watchmock.h"
 #include "common/geometry/compare.h"
 #include "common/logging/loggermock.h"
+#include "layer/autonomous/obstaclefetchermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -12,7 +13,8 @@ using namespace RoboSoccer::Common::Logging;
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
-	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),*m_router, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
+	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),*m_router,
+								 *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher);
 }
 
 void RobotStateDriveToTest::nextState_targetNotReached_0()

@@ -19,15 +19,15 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-RobotImpl::RobotImpl(
-		ControllableRobot &robot, const Common::Routing::Router &router,
-		const Watch &watch, Logger &logger, unsigned int robotIndex) :
+RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &router,
+		const Watch &watch, Logger &logger, unsigned int robotIndex, ObstacleFetcher &obstacleFetcher) :
 	m_robot(robot),
 	m_router(router),
 	m_watch(watch),
 	m_logger(logger),
 	m_currentState(0),
-	m_logFileType(Logger::LogFileTypeInvalid)
+	m_logFileType(Logger::LogFileTypeInvalid),
+	m_obstacleFetcher(obstacleFetcher)
 {
 	switch(robotIndex)
 	{
@@ -65,7 +65,7 @@ void RobotImpl::goTo(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType, m_obstacleFetcher));
 	logPosition("target is", position);
 }
 
@@ -77,6 +77,13 @@ Pose RobotImpl::getCurrentPose() const
 Circle RobotImpl::getObstacle() const
 {
 	return m_robot.getObstacle();
+}
+
+vector<Circle> RobotImpl::getObstacles() const
+{
+	vector<Circle> result;
+	result.push_back(getObstacle());
+	return result;
 }
 
 bool RobotImpl::targetReached() const

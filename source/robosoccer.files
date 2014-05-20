@@ -316,7 +316,6 @@ layer/autonomous/intelligentballimpl.h
 layer/autonomous/intelligentballimpl.cpp
 layer/autonomous/intelligentballmock.h
 layer/autonomous/intelligentballmock.cpp
-layer/autonomous/obstaclefetcher.cpp
 layer/autonomous/obstaclefetcher.h
 layer/autonomous/obstaclefetchertest.cpp
 layer/autonomous/obstaclefetchertest.h
@@ -340,6 +339,14 @@ layer/control/treenodedecider.h
 layer/control/treenoderesult.cpp
 layer/control/treenoderesult.h
 layer/control/treenode.cpp
+layer/abstraction/readablerobot.cpp
+layer/autonomous/obstaclesource.h
+layer/autonomous/obstaclefetcherimpl.h
+layer/autonomous/obstaclefetcherimpl.cpp
+layer/autonomous/obstaclefetchermock.h
+layer/autonomous/obstaclefetchermock.cpp
+layer/autonomous/obstaclesourcemock.h
+layer/autonomous/obstaclesourcemock.cpp
 layer/control/treenodedeciderisinenemyhalf.cpp
 layer/control/treenodedeciderisinenemyhalf.h
 layer/control/treenodedeciderisinenemyhalftest.cpp

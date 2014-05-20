@@ -1,17 +1,18 @@
 #include "layer/main/application.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/abstraction/storageimpl.h"
-#include "layer/control/pause.h"
 #include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
+#include "layer/control/pause.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"
 #include "common/time/watchimpl.h"
 #include "common/states/statemachine.h"
-#include "layer/autonomous/robot.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include <unistd.h>
 
 using namespace RoboSoccer::Layer::Main;
@@ -29,17 +30,28 @@ Application::Application(TeamColor ownTeamColor) :
 	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
 	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
 	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
+	m_obstacleFetcher(new ObstacleFetcherImpl()),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
-	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
+	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
+	m_obstacleFetcher->addSource(*m_enemyTeam);
+	m_obstacleFetcher->addSource(*m_ball);
+
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		Robot const &robot = m_ownTeam->getRobotByNumber(i);
+		m_obstacleFetcher->addSource(robot);
+	}
 }
 
 Application::~Application()
 {
+	delete m_obstacleFetcher;
+	m_obstacleFetcher = 0;
 	delete m_enemyTeam;
 	m_enemyTeam = 0;
 	delete m_ownTeam;

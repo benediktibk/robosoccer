@@ -27,6 +27,7 @@ namespace Autonomous
 {
 	class IntelligentBall;
 	class Robot;
+	class ObstacleFetcher;
 
 	class TeamImpl :
 			public Team
@@ -34,7 +35,7 @@ namespace Autonomous
 	public:
 		TeamImpl(Abstraction::Storage &storage, const Common::Time::Watch &watch,
 				 Common::Logging::Logger &logger, Main::FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalkeeper,
-				 Main::FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer);
+				 Main::FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer, ObstacleFetcher &obstacleFetcher);
 		virtual ~TeamImpl();
 
 		virtual Robot& getGoalie();
@@ -43,7 +44,6 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer();
 		virtual Robot& getSecondFieldPlayer();
 		virtual Robot& getRobotByNumber(unsigned int i);
-		virtual std::vector<Common::Geometry::Circle> getObstacles();
 
 	private:
 		Common::Routing::Router const *m_routerGoalie;

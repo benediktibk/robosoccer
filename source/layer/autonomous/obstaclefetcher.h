@@ -10,32 +10,32 @@ namespace Common
 namespace Geometry
 {
 	class Circle;
+	class Point;
 }
 }
 namespace Layer
 {
 namespace Autonomous
 {
-	class IntelligentBall;
-	class Team;
-	class EnemyTeam;
+	class ObstacleSource;
 
 	class ObstacleFetcher
 	{
 	public:
-		ObstacleFetcher(std::vector<Common::Geometry::Circle> &obstaclesTeam,
-						std::vector<Common::Geometry::Circle> const &obstaclesEnemyTeam,
-						Common::Geometry::Circle &obstacleBall);
+		virtual ~ObstacleFetcher() { }
 
-		const std::vector<Common::Geometry::Circle> getAllObstacles() const;
-
-	private:
-		std::vector<Common::Geometry::Circle> m_obstacles;
+		virtual void addSource(ObstacleSource const &source) = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const = 0;
+		/*!
+		 * Returns all obstacles except the own one which are closer than the distance. The distance
+		 * is interpreted as distance to the edge of an obstacle, therefore the radius of other objects
+		 * do not have to be included in this param.
+		 */
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 	};
 }
 }
 }
 
-#endif // ROBOSOCCER_LAYER_AUTONOMOUS_OBSTACLEFETCHER_H
-
-
+#endif
