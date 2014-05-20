@@ -1,6 +1,7 @@
 #include "layer/autonomous/obstaclefetchertest.h"
 #include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/obstaclesourcemock.h"
+#include <algorithm>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -52,4 +53,15 @@ void ObstacleFetcherTest::getAllObstacles_empty_countIs6()
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstacles();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)6, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstacles_empty_allObstaclesContained()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstacles();
+
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(1, 1), 1)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(2, 2), 2)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 4)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 6)));
 }

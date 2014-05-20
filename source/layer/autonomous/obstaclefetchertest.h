@@ -18,6 +18,7 @@ namespace Autonomous
 	{
 		CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
 		CPPUNIT_TEST(getAllObstacles_empty_countIs6);
+		CPPUNIT_TEST(getAllObstacles_empty_allObstaclesContained);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -26,6 +27,7 @@ namespace Autonomous
 
 	private:
 		void getAllObstacles_empty_countIs6();
+		void getAllObstacles_empty_allObstaclesContained();
 
 	private:
 		ObstacleFetcher *m_obstacleFetcher;
