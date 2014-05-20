@@ -17,10 +17,6 @@ class TreeNodeDeciderIsInEnemyHalfTest :
 		CPPUNIT_TEST(getChild_ballInEnemyZone_attack);
 		CPPUNIT_TEST_SUITE_END();
 
-	public:
-		virtual void setUp();
-		virtual void tearDown();
-
 	protected:
 		virtual TreeNodeDecider* createTestObject();
 
