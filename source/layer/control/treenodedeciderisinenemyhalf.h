@@ -18,6 +18,9 @@ class TreeNodeDeciderIsInEnemyHalf :
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
 
+	private:
+		virtual bool calculateDecision();
+
 
 	};
 }

@@ -8,3 +8,8 @@ TreeNodeDeciderIsInEnemyHalf::TreeNodeDeciderIsInEnemyHalf(
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeDecider(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
 { }
+
+bool TreeNodeDeciderIsInEnemyHalf::calculateDecision()
+{
+	return false;
+}
