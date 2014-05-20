@@ -1,5 +1,13 @@
 #include "treenodedecidertest.h"
 
-TreeNodeDeciderTest::TreeNodeDeciderTest()
+using namespace RoboSoccer::Layer::Control;
+
+void TreeNodeDeciderTest::setUp()
 {
+
+}
+
+void TreeNodeDeciderTest::tearDown()
+{
+
 }
