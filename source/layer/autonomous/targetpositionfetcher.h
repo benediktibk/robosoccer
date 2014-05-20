@@ -28,6 +28,8 @@ namespace Autonomous
 
 		void setFieldSide(Abstraction::FieldSide fieldSide);
 
+		bool isPointInOwnFieldSide(const Common::Geometry::Point& position) const;
+
 		Common::Geometry::Pose getStartPositionGoalkeeper() const;
 		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
 		Common::Geometry::Pose getStartPositionPlayerTwoOffensive() const;
