@@ -30,6 +30,7 @@ namespace Abstraction
 namespace Autonomous
 {
 	class RobotState;
+	class ObstacleFetcherMock;
 
 	class RobotStateTest :
 			public CPPUNIT_NS::TestFixture
@@ -62,6 +63,7 @@ namespace Autonomous
 		RobotState *m_robotState;
 		Common::Logging::LoggerMock *m_logger;
 		Common::Routing::Router *m_router;
+		ObstacleFetcherMock *m_obstacleFetcher;
 	};
 }
 }

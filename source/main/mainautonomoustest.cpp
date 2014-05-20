@@ -2,6 +2,7 @@
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robot.h"
@@ -30,7 +31,8 @@ int main(int, char**)
 	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
-	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer);
+	ObstacleFetcherImpl obstacleFetcher;
+	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer, obstacleFetcher);
 	Robot &robotOne = team.getFirstFieldPlayer();
 	Robot &robotTwo = team.getSecondFieldPlayer();
 	Robot &robotThree = team.getGoalie();

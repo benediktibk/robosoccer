@@ -31,6 +31,6 @@ Geometry::Pose ReadableRobotImpl::getPose() const
 
 Geometry::Circle ReadableRobotImpl::getObstacle() const
 {
-	return Geometry::Circle(getPose().getPosition(),0.095);
+	return Geometry::Circle(getPose().getPosition(),ReadableRobot::getWidth());
 }
 

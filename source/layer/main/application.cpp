@@ -30,11 +30,11 @@ Application::Application(TeamColor ownTeamColor) :
 	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
 	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
 	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
+	m_obstacleFetcher(new ObstacleFetcherImpl()),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
-	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
+	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
-	m_obstacleFetcher(new ObstacleFetcherImpl()),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");

@@ -28,7 +28,7 @@ Pose ControllableRobotMock::getPoseRaw() const
 
 Circle ControllableRobotMock::getObstacle() const
 {
-	return Circle(m_pose.getPosition(), 0.095);
+	return Circle(m_pose.getPosition(),ReadableRobot::getWidth());
 }
 
 void ControllableRobotMock::gotoPositionImprecise(const Point &position)
