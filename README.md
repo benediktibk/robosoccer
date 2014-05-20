@@ -19,7 +19,7 @@ Find this project [on bitbucket](https://bitbucket.org/robosoccer/robosoccer), o
 
 ---
 
-**Nicely Quotes:**
+### Nicely Quotes
 
 > **Charging:**  
 >  
