@@ -22,10 +22,13 @@ namespace Autonomous
 		virtual ~EnemyTeamMock();
 
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
-		virtual const std::vector<Common::Geometry::Circle>  getObstacles();
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
+
+		void setObstacles(std::vector<Common::Geometry::Circle> const &obstacles);
 
 	private:
 		std::vector<Abstraction::ReadableRobotMock*> m_robots;
+		std::vector<Common::Geometry::Circle> m_obstacles;
 
 
 	};

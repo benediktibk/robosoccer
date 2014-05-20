@@ -9,6 +9,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 void IntelligentBallTest::setUp()
 {
@@ -74,6 +75,27 @@ void IntelligentBallTest::getCurrentFieldSide_isRight_FieldsideRight()
 	m_ballMock->setPosition(Point(5.0,0.0));
 
 	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getCurrentFieldSide(),FieldSideRight);
+}
+
+void IntelligentBallTest::getObstacle_empty_sameAsFromBall()
+{
+	Circle obstacleShouldBe(Point(3, 4), 1);
+	m_ballMock->setObstacle(obstacleShouldBe);
+
+	Circle obstacle = m_intelligentBall->getObstacle();
+
+	CPPUNIT_ASSERT_EQUAL(obstacleShouldBe, obstacle);
+}
+
+void IntelligentBallTest::getObstacles_empty_oneElementWhichIsSameAsFromBall()
+{
+	Circle obstacleShouldBe(Point(3, 4), 1);
+	m_ballMock->setObstacle(obstacleShouldBe);
+
+	vector<Circle> obstacles = m_intelligentBall->getObstacles();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL(obstacleShouldBe, obstacles.front());
 }
 
 void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()

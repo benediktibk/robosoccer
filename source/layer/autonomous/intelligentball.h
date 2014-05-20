@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_INTELLIGENTBALL_H
 
 #include "layer/abstraction/fieldside.h"
+#include "layer/autonomous/obstaclesource.h"
 
 namespace RoboSoccer
 {
@@ -22,12 +23,14 @@ namespace Abstraction
 }
 namespace Autonomous
 {
-	class IntelligentBall
+	class IntelligentBall :
+			public ObstacleSource
 	{
 	public:
 		virtual ~IntelligentBall() { }
 
 		virtual Common::Geometry::Angle getRotation() const = 0;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
 		virtual Common::Geometry::Point getPosition() const = 0;
 		virtual double getVelocity() const = 0;

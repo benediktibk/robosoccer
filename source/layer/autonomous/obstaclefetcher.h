@@ -19,23 +19,24 @@ namespace Autonomous
 	class IntelligentBall;
 	class Team;
 	class EnemyTeam;
+	class ObstacleSource;
 
 	class ObstacleFetcher
 	{
 	public:
-		ObstacleFetcher(std::vector<Common::Geometry::Circle> &obstaclesTeam,
-						std::vector<Common::Geometry::Circle> const &obstaclesEnemyTeam,
-						Common::Geometry::Circle &obstacleBall);
+		ObstacleFetcher(Team const &team,
+						EnemyTeam const &enemyTeam,
+						IntelligentBall const &ball);
+		~ObstacleFetcher();
 
-		const std::vector<Common::Geometry::Circle> getAllObstacles() const;
+		std::vector<Common::Geometry::Circle> getAllObstacles() const;
+		std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
 
 	private:
-		std::vector<Common::Geometry::Circle> m_obstacles;
+		std::vector<ObstacleSource const *> m_sources;
 	};
 }
 }
 }
 
-#endif // ROBOSOCCER_LAYER_AUTONOMOUS_OBSTACLEFETCHER_H
-
-
+#endif

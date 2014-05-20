@@ -19,6 +19,7 @@ namespace Autonomous
 
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual Common::Geometry::Point getPosition() const;
 		virtual double getVelocity() const;
 		virtual bool isMoving() const;
@@ -30,13 +31,14 @@ namespace Autonomous
 		void setIsMoving(bool value);
 		void setCurrentFieldSide(Layer::Abstraction::FieldSide fieldSide);
 		void setMovingDirection(Layer::Abstraction::FieldSide fieldSide);
+		void setObstacle(Common::Geometry::Circle const &obstacle);
 
 	private:
 		Abstraction::BallMock m_ball;
 		bool m_isMoving;
 		Abstraction::FieldSide m_currentFieldSide;
 		Abstraction::FieldSide m_movingDirection;
-
+		Common::Geometry::Circle m_obstacle;
 	};
 }
 }

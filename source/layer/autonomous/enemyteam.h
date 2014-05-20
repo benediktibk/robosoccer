@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ENEMYTEAM_H
 
 #include <vector>
+#include "layer/autonomous/obstaclesource.h"
 
 namespace RoboSoccer
 {
@@ -22,13 +23,14 @@ namespace Autonomous
 {
 	class IntelligentBall;
 
-	class EnemyTeam
+	class EnemyTeam :
+			public ObstacleSource
 	{
 	public:
 		virtual ~EnemyTeam() { }
 
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball) = 0;
-		virtual const std::vector<Common::Geometry::Circle> getObstacles() = 0;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
 
 	};
 }

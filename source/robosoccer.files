@@ -341,3 +341,4 @@ layer/control/treenoderesult.cpp
 layer/control/treenoderesult.h
 layer/control/treenode.cpp
 layer/abstraction/readablerobot.cpp
+layer/autonomous/obstaclesource.h

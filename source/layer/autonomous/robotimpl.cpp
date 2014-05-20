@@ -79,6 +79,13 @@ Circle RobotImpl::getObstacle() const
 	return m_robot.getObstacle();
 }
 
+vector<Circle> RobotImpl::getObstacles() const
+{
+	vector<Circle> result;
+	result.push_back(getObstacle());
+	return result;
+}
+
 bool RobotImpl::targetReached() const
 {
 	return m_currentState->reachedTarget();

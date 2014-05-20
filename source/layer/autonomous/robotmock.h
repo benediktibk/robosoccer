@@ -21,6 +21,7 @@ namespace Autonomous
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual bool targetReached() const;
 		virtual bool cantReachTarget() const;
 		virtual void kick(unsigned int force, IntelligentBall const &ball);
@@ -32,6 +33,7 @@ namespace Autonomous
 		unsigned int getCallsToGoToCombined() const;
 		unsigned int getCallsToKick() const;
 		void setTargetReached(bool value);
+		void setObstacle(Common::Geometry::Circle const &obstacle);
 
 	private:
 		unsigned int m_callsToStop;
@@ -39,6 +41,7 @@ namespace Autonomous
 		unsigned int m_callsToGoToDirect;
 		unsigned int m_callsToKick;
 		bool m_targetReached;
+		Common::Geometry::Circle m_obstacle;
 	};
 }
 }

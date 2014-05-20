@@ -37,6 +37,7 @@ namespace Abstraction
 		Common::Geometry::Point const& getLastPointToDriveTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
 		void setIsMoving(bool value);
+		void setObstacle(Common::Geometry::Circle const &obstacle);
 
 	private:
 		unsigned int m_callsToStop;

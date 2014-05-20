@@ -43,7 +43,7 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer();
 		virtual Robot& getSecondFieldPlayer();
 		virtual Robot& getRobotByNumber(unsigned int i);
-		virtual std::vector<Common::Geometry::Circle> getObstacles();
+		virtual Robot const& getRobotByNumber(unsigned int i) const;
 
 	private:
 		Common::Routing::Router const *m_routerGoalie;

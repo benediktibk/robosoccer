@@ -9,6 +9,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 IntelligentBallImpl::IntelligentBallImpl(const Ball &ball) :
 	m_ball(ball)
@@ -17,6 +18,13 @@ IntelligentBallImpl::IntelligentBallImpl(const Ball &ball) :
 Angle IntelligentBallImpl::getRotation() const
 {
 	return m_ball.getRotation();
+}
+
+vector<Circle> IntelligentBallImpl::getObstacles() const
+{
+	vector<Circle> result;
+	result.push_back(getObstacle());
+	return result;
 }
 
 Circle IntelligentBallImpl::getObstacle() const

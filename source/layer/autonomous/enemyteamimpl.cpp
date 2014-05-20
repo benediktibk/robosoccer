@@ -37,7 +37,7 @@ const ReadableRobot &EnemyTeamImpl::getPlayerNextToBall(const IntelligentBall &b
 	return *m_robots[index];
 }
 
-const vector<Circle> EnemyTeamImpl::getObstacles()
+std::vector<Circle> EnemyTeamImpl::getObstacles() const
 {
 	vector<Circle> obstacles;
 	obstacles.reserve(3);
