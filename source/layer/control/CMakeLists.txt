@@ -35,7 +35,7 @@ set(COMMON_LAYER_CONTROL_TEST_SRC
 	preparepenaltydefensivetest.cpp
 	penaltyoffensivetest.cpp
 	penaltydefensivetest.cpp
-	treenodedecidertest.cpp
+	treenodetest.cpp
 	treenodedeciderisinenemyhalftest.cpp
 	treenoderesultdefendgoaltest.cpp
 )

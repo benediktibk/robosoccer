@@ -344,8 +344,8 @@ layer/control/treenodedeciderisinenemyhalf.cpp
 layer/control/treenodedeciderisinenemyhalf.h
 layer/control/treenodedeciderisinenemyhalftest.cpp
 layer/control/treenodedeciderisinenemyhalftest.h
-layer/control/treenodedecidertest.h
-layer/control/treenodedecidertest.cpp
+layer/control/treenodetest.h
+layer/control/treenodetest.cpp
 layer/control/treenoderesultdefendgoal.cpp
 layer/control/treenoderesultdefendgoal.h
 layer/control/treenoderesultdefendgoaltest.cpp

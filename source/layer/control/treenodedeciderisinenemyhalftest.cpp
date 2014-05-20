@@ -12,7 +12,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Control;
 
-TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
+TreeNode *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
 {
 	return new TreeNodeDeciderIsInEnemyHalf(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }

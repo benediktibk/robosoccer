@@ -1,7 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALFTEST_H
 #define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALFTEST_H
 
-#include "layer/control/treenodedecidertest.h"
+#include "layer/control/treenodetest.h"
 
 namespace RoboSoccer
 {
@@ -10,7 +10,7 @@ namespace Layer
 namespace Control
 {
 class TreeNodeDeciderIsInEnemyHalfTest :
-		public TreeNodeDeciderTest
+		public TreeNodeTest
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeDeciderIsInEnemyHalfTest);
 		CPPUNIT_TEST(getChild_ballInOwnZone_defend);
@@ -18,7 +18,7 @@ class TreeNodeDeciderIsInEnemyHalfTest :
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
-		virtual TreeNodeDecider* createTestNode();
+		virtual TreeNode* createTestNode();
 
 	private:
 		void getChild_ballInOwnZone_defend();

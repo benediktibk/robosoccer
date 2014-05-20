@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERTEST_H
-#define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERTEST_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODETEST_H
+#define ROBOSOCCER_LAYER_CONTROL_TREENODETEST_H
 
 
 #include <cppunit/TestFixture.h>
@@ -34,11 +34,11 @@ namespace Autonomous
 }
 namespace Control
 {
-class TreeNodeDecider;
-class TreeNodeDeciderTest :
+class TreeNode;
+class TreeNodeTest :
 		public CPPUNIT_NS::TestFixture
 	{
-		CPPUNIT_TEST_SUITE(TreeNodeDeciderTest);
+		CPPUNIT_TEST_SUITE(TreeNodeTest);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -46,12 +46,12 @@ class TreeNodeDeciderTest :
 		virtual void tearDown();
 
 	protected:
-		virtual TreeNodeDecider* createTestNode() {return 0;}
+		virtual TreeNode* createTestNode() {return 0;}
 
 	private:
 
 	protected:
-		TreeNodeDecider *m_node;
+		TreeNode *m_node;
 		Abstraction::RefereeMock *m_referee;
 		Common::Logging::LoggerMock *m_logger;
 		Autonomous::TeamMock *m_ownTeam;

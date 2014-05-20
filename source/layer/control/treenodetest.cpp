@@ -1,4 +1,4 @@
-#include "treenodedecidertest.h"
+#include "layer/control/treenodetest.h"
 #include "common/logging/loggermock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
@@ -14,7 +14,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 
-void TreeNodeDeciderTest::setUp()
+void TreeNodeTest::setUp()
 {
 	m_referee = new RefereeMock();
 	m_logger = new LoggerMock();
@@ -26,7 +26,7 @@ void TreeNodeDeciderTest::setUp()
 	m_node = createTestNode();
 }
 
-void TreeNodeDeciderTest::tearDown()
+void TreeNodeTest::tearDown()
 {
 	delete m_enemyTeam;
 	m_enemyTeam = 0;
