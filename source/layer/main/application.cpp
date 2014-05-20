@@ -34,10 +34,18 @@ Application::Application(TeamColor ownTeamColor) :
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
-	m_obstacleFetcher(new ObstacleFetcherImpl(*m_ownTeam, *m_enemyTeam, *m_ball)),
+	m_obstacleFetcher(new ObstacleFetcherImpl()),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
+	m_obstacleFetcher->addSource(*m_enemyTeam);
+	m_obstacleFetcher->addSource(*m_ball);
+
+	for (unsigned int i = 0; i < 3; i++)
+	{
+		Robot const &robot = m_ownTeam->getRobotByNumber(i);
+		m_obstacleFetcher->addSource(robot);
+	}
 }
 
 Application::~Application()

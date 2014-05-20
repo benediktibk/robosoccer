@@ -344,3 +344,5 @@ layer/autonomous/obstaclefetcherimpl.h
 layer/autonomous/obstaclefetcherimpl.cpp
 layer/autonomous/obstaclefetchermock.h
 layer/autonomous/obstaclefetchermock.cpp
+layer/autonomous/obstaclesourcemock.h
+layer/autonomous/obstaclesourcemock.cpp

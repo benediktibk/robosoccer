@@ -16,6 +16,7 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	intelligentballmock.cpp
 	obstaclefetcherimpl.cpp
 	obstaclefetchermock.cpp
+	obstaclesourcemock.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC

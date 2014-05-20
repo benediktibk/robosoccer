@@ -9,19 +9,13 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class IntelligentBall;
-	class Team;
-	class EnemyTeam;
-
 	class ObstacleFetcherImpl :
 			public ObstacleFetcher
 	{
 	public:
-		ObstacleFetcherImpl(Team const &team,
-						EnemyTeam const &enemyTeam,
-						IntelligentBall const &ball);
 		~ObstacleFetcherImpl();
 
+		virtual void addSource(ObstacleSource const &source);
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
