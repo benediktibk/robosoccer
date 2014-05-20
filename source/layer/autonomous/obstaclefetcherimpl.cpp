@@ -64,3 +64,23 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &m
 
 	return result;
 }
+
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
+		const ObstacleSource &me, const Point &ownPosition, double distance) const
+{
+	vector<Circle> candidates = getAllObstaclesButMe(me);
+	vector<Circle> result;
+	result.reserve(candidates.size());
+
+	for (vector<Circle>::const_iterator i = candidates.begin(); i != candidates.end(); ++i)
+	{
+		Circle const &circle = *i;
+		double distanceToCenter = ownPosition.distanceTo(circle.getCenter());
+		double distanceToEdge = distanceToCenter - circle.getDiameter();
+
+		if (distanceToEdge <= distance)
+			result.push_back(circle);
+	}
+
+	return result;
+}

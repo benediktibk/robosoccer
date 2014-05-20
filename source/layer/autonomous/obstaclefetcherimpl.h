@@ -24,6 +24,8 @@ namespace Autonomous
 
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
 
 	private:
 		std::vector<ObstacleSource const *> m_sources;

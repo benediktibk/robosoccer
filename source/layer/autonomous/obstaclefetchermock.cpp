@@ -18,6 +18,12 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMe(const ObstacleSource &)
 	return m_allObstaclesButMe;
 }
 
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(
+		const ObstacleSource &, const Point &, double) const
+{
+	return m_allObstaclesButMeInRange;
+}
+
 void ObstacleFetcherMock::setAllObstacles(const vector<Circle> &obstacles)
 {
 	m_allObstacles = obstacles;
