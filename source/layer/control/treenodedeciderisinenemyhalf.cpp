@@ -1,6 +1,8 @@
 #include "layer/control/treenodedeciderisinenemyhalf.h"
 #include "layer/control/treenoderesultdefendgoal.h"
 #include "layer/control/treenoderesultattackball.h"
+#include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 
 using namespace RoboSoccer::Layer::Control;
 
@@ -12,10 +14,9 @@ TreeNodeDeciderIsInEnemyHalf::TreeNodeDeciderIsInEnemyHalf(
 {
 	m_childYes = new TreeNodeResultAttackBall(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher);
 	m_childNo = new TreeNodeResultDefendGoal(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher);
-
 }
 
 bool TreeNodeDeciderIsInEnemyHalf::calculateDecision()
 {
-	return false;
+	return !m_targetPositionFetcher.isPointInOwnFieldSide(m_ball.getPosition());
 }
