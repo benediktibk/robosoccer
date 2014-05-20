@@ -12,21 +12,8 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace std;
 
-ObstacleFetcherImpl::ObstacleFetcherImpl(const Team &team, const EnemyTeam &enemyTeam, const IntelligentBall &ball)
-{
-	const size_t sourceCount = 5;
-	m_sources.reserve(sourceCount);
-	m_sources.push_back(&enemyTeam);
-	m_sources.push_back(&ball);
-
-	for (unsigned int i = 0; i < 3; i++)
-	{
-		Robot const &robot = team.getRobotByNumber(i);
-		m_sources.push_back(&robot);
-	}
-
-	assert(m_sources.size() == sourceCount);
-}
+ObstacleFetcherImpl::ObstacleFetcherImpl()
+{ }
 
 ObstacleFetcherImpl::~ObstacleFetcherImpl()
 {

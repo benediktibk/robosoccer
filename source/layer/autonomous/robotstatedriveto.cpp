@@ -85,7 +85,7 @@ void RobotStateDriveTo::updateInternal()
 	Pose robotPose = getRobot().getPose();
 	bool movementStopUsed = false;
 
-	updateRoute();
+	//updateRoute();
 
 	//while (m_currentRoute->getPointCount() >= 2)
 	{
@@ -116,7 +116,7 @@ void RobotStateDriveTo::updateInternal()
 				return;
 			}
 
-			updateRoute();
+			//updateRoute();
 		}
 
 		if (!m_positionReached)

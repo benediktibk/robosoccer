@@ -103,4 +103,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateDriveTo
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateTurnToTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateKickTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::IntelligentBallTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::ObstacleFetcherTest);
+//CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::ObstacleFetcherTest);

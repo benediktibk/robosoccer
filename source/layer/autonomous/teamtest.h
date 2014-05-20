@@ -32,6 +32,7 @@ namespace Main
 namespace Autonomous
 {
 	class TeamImpl;
+	class ObstacleFetcherMock;
 
 	class TeamTest :
 			public CPPUNIT_NS::TestFixture
@@ -56,6 +57,7 @@ namespace Autonomous
 		void getSecondFieldPlayer_empty_notTheFirstFieldPlayer();
 
 	private:
+		ObstacleFetcherMock *m_obstacleFetcher;
 		TeamImpl *m_teamImpl;
 		Abstraction::StorageMock *m_storageMock;
 		Abstraction::ControllableRobotMock *m_controllableRobotMockGoalie;

@@ -12,6 +12,7 @@
 #include "common/geometry/circle.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/autonomous/obstaclefetchermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -29,7 +30,8 @@ void TeamTest::setUp()
 	m_controllableRobotMockGoalie = &(m_storageMock->getOwnRobotMock(0));
 	m_controllableRobotMockPlayer1 = &(m_storageMock->getOwnRobotMock(1));
 	m_controllableRobotMockPlayer2 = &(m_storageMock->getOwnRobotMock(2));
-	m_teamImpl = new TeamImpl(*m_storageMock, *m_watchMock, *m_loggerMock, *m_fieldPositionCheckerGoalkeeper, *m_fieldPositionCheckerFieldPlayer);
+	m_obstacleFetcher = new ObstacleFetcherMock();
+	m_teamImpl = new TeamImpl(*m_storageMock, *m_watchMock, *m_loggerMock, *m_fieldPositionCheckerGoalkeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher);
 }
 
 void TeamTest::tearDown()
@@ -49,6 +51,8 @@ void TeamTest::tearDown()
 	m_fieldPositionCheckerGoalkeeper = 0;
 	delete m_fieldPositionCheckerFieldPlayer;
 	m_fieldPositionCheckerFieldPlayer = 0;
+	delete m_obstacleFetcher;
+	m_obstacleFetcher = 0;
 }
 
 void TeamTest::getPlayerCloserToBall_playerOneCloser_correct()

@@ -31,6 +31,7 @@ namespace Autonomous
 {
 	class RobotImpl;
 	class IntelligentBallMock;
+	class ObstacleFetcherMock;
 
 	class RobotTest :
 			public CPPUNIT_NS::TestFixture
@@ -68,7 +69,8 @@ namespace Autonomous
 		Abstraction::ControllableRobotMock *m_hardwareRobot;
 		Common::Time::WatchMock *m_watch;
 		Common::Logging::LoggerMock *m_logger;
-		Common::Routing::RouterMock *m_routerMock;
+		Common::Routing::RouterMock *m_router;
+		ObstacleFetcherMock *m_obstacleFetcher;
 		RobotImpl *m_robot;
 		IntelligentBallMock *m_ball;
 	};

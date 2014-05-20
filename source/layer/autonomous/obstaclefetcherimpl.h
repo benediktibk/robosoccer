@@ -17,9 +17,7 @@ namespace Autonomous
 			public ObstacleFetcher
 	{
 	public:
-		ObstacleFetcherImpl(Team const &team,
-						EnemyTeam const &enemyTeam,
-						IntelligentBall const &ball);
+		ObstacleFetcherImpl();
 		~ObstacleFetcherImpl();
 
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
