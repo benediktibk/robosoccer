@@ -1,6 +1,7 @@
 set(COMMON_LAYER_ABSTRACTION_SRC
 	controllablerobotimpl.cpp
 	controllablerobotmock.cpp
+	readablerobot.cpp
 	readablerobotimpl.cpp
 	readablerobotmock.cpp
 	ballimpl.cpp
