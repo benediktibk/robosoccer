@@ -28,6 +28,7 @@ namespace Autonomous
 	class TeamImpl;
 	class IntelligentBall;
 	class TargetPositionFetcher;
+	class ObstacleFetcher;
 }
 namespace Main
 {
@@ -53,6 +54,7 @@ namespace Main
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
+		Autonomous::ObstacleFetcher *m_obstacleFetcher;
 		bool m_stop;
 	};
 }
