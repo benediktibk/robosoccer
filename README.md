@@ -1,8 +1,6 @@
-RoboSoccer Laboratory
-====================
+# RoboSoccer Laboratory
 
-C++ Project, Team C, SS2014
----------------------
+## C++ Project, Team C, SS2014
 
 > *If you want to know which team may do the kick of then use GetSide(). It retruns LEFT_SIDE or RIGHT_SIDE and you have to logically think what that means for your team.*
 
@@ -33,3 +31,11 @@ Find this project [on bitbucket](https://bitbucket.org/robosoccer/robosoccer), o
 >
 > - Flo:   Bene duasd du eigentlich Klettern ?  
 > - Bene:  Naaaa, Ich extrapolier nur.
+
+---
+
+### Steps to build the application
+
+1. change into the source directory
+2. execute `prepare.sh`
+3. run `make` from `source/build/debug` or `source/build/release` to build the binaries in the subdirectory `main/bin`
