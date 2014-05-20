@@ -7,7 +7,7 @@
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/robot.h"
-#include "layer/autonomous/obstaclefetcher.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/control/pause.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"

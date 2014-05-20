@@ -1,5 +1,5 @@
 #include "layer/autonomous/obstaclefetchertest.h"
-#include "layer/autonomous/obstaclefetcher.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
@@ -13,7 +13,7 @@ void ObstacleFetcherTest::setUp()
 	m_team = new TeamMock();
 	m_enemyTeam = new EnemyTeamMock();
 	m_ball = new IntelligentBallMock();
-	m_obstacleFetcher = new ObstacleFetcher(*m_team, *m_enemyTeam, *m_ball);
+	m_obstacleFetcher = new ObstacleFetcherImpl(*m_team, *m_enemyTeam, *m_ball);
 	RobotMock &ownRobot = m_team->getRobotMock();
 	ownRobot.setObstacle(Circle(Point(3, 3), 3));
 	vector<Circle> enemyObstacles;

@@ -14,7 +14,8 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotstatekick.cpp
 	intelligentballimpl.cpp
 	intelligentballmock.cpp
-	obstaclefetcher.cpp
+	obstaclefetcherimpl.cpp
+	obstaclefetchermock.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_TEST_SRC

@@ -10,7 +10,7 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class ObstacleFetcher;
+	class ObstacleFetcherImpl;
 	class TeamMock;
 	class EnemyTeamMock;
 	class IntelligentBallMock;
@@ -30,7 +30,7 @@ namespace Autonomous
 		void getAllObstacles_empty_countIs7();
 
 	private:
-		ObstacleFetcher *m_obstacleFetcher;
+		ObstacleFetcherImpl *m_obstacleFetcher;
 		TeamMock *m_team;
 		EnemyTeamMock *m_enemyTeam;
 		IntelligentBallMock *m_ball;
