@@ -34,6 +34,8 @@ class TreeNode
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
 
 		virtual ~TreeNode() { }
+
+	private:
 		virtual bool decide() = 0;
 
 	protected:
@@ -43,12 +45,9 @@ class TreeNode
 		const Autonomous::EnemyTeam &m_enemyTeam;
 		const Autonomous::IntelligentBall &m_ball;
 		const Autonomous::TargetPositionFetcher &m_targetPositionFetcher;
-
 	};
 }
 }
 }
 
 #endif
-
-

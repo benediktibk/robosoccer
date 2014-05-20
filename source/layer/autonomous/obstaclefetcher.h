@@ -32,7 +32,8 @@ namespace Autonomous
 		 * is interpreted as distance to the edge of an obstacle, therefore the radius of other objects
 		 * do not have to be included in this param.
 		 */
-		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 	};
 }
 }
