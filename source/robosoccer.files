@@ -340,3 +340,7 @@ layer/control/treenodedecider.h
 layer/control/treenoderesult.cpp
 layer/control/treenoderesult.h
 layer/control/treenode.cpp
+layer/control/treenodedeciderisinenemyhalf.cpp
+layer/control/treenodedeciderisinenemyhalf.h
+layer/control/treenodedeciderisinenemyhalftest.cpp
+layer/control/treenodedeciderisinenemyhalftest.h
