@@ -16,24 +16,15 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class IntelligentBall;
-	class Team;
-	class EnemyTeam;
 	class ObstacleSource;
 
 	class ObstacleFetcher
 	{
 	public:
-		ObstacleFetcher(Team const &team,
-						EnemyTeam const &enemyTeam,
-						IntelligentBall const &ball);
-		~ObstacleFetcher();
+		virtual ~ObstacleFetcher() { }
 
-		std::vector<Common::Geometry::Circle> getAllObstacles() const;
-		std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
-
-	private:
-		std::vector<ObstacleSource const *> m_sources;
+		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const = 0;
 	};
 }
 }

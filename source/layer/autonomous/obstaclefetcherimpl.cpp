@@ -1,4 +1,4 @@
-#include "layer/autonomous/obstaclefetcher.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/enemyteam.h"
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/intelligentball.h"
@@ -12,7 +12,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace std;
 
-ObstacleFetcher::ObstacleFetcher(const Team &team, const EnemyTeam &enemyTeam, const IntelligentBall &ball)
+ObstacleFetcherImpl::ObstacleFetcherImpl(const Team &team, const EnemyTeam &enemyTeam, const IntelligentBall &ball)
 {
 	const size_t sourceCount = 5;
 	m_sources.reserve(sourceCount);
@@ -28,12 +28,12 @@ ObstacleFetcher::ObstacleFetcher(const Team &team, const EnemyTeam &enemyTeam, c
 	assert(m_sources.size() == sourceCount);
 }
 
-ObstacleFetcher::~ObstacleFetcher()
+ObstacleFetcherImpl::~ObstacleFetcherImpl()
 {
 	m_sources.clear();
 }
 
-vector<Circle> ObstacleFetcher::getAllObstacles() const
+vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 {
 	vector<Circle> result;
 
@@ -47,7 +47,7 @@ vector<Circle> ObstacleFetcher::getAllObstacles() const
 	return result;
 }
 
-vector<Circle> ObstacleFetcher::getAllObstaclesButMe(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me) const
 {
 	vector<Circle> result;
 
@@ -64,4 +64,3 @@ vector<Circle> ObstacleFetcher::getAllObstaclesButMe(const ObstacleSource &me) c
 
 	return result;
 }
-

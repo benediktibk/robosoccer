@@ -7,7 +7,7 @@
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/robot.h"
-#include "layer/autonomous/obstaclefetcher.h"
+#include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/control/pause.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/stopwatch.h"
@@ -34,7 +34,7 @@ Application::Application(TeamColor ownTeamColor) :
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
-	m_obstacleFetcher(new ObstacleFetcher(*m_ownTeam, *m_enemyTeam, *m_ball)),
+	m_obstacleFetcher(new ObstacleFetcherImpl(*m_ownTeam, *m_enemyTeam, *m_ball)),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
