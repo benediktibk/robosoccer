@@ -45,12 +45,9 @@ class TreeNode
 		const Autonomous::EnemyTeam &m_enemyTeam;
 		const Autonomous::IntelligentBall &m_ball;
 		const Autonomous::TargetPositionFetcher &m_targetPositionFetcher;
-
 	};
 }
 }
 }
 
 #endif
-
-
