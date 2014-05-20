@@ -16,10 +16,10 @@ TreeNodeDecider *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
 
 void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
 {
-
+	CPPUNIT_ASSERT(m_node->getChild() != 0);
 }
 
 void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
 {
-
+	CPPUNIT_ASSERT(m_node->getChild() !=0);
 }
