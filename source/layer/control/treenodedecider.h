@@ -21,10 +21,10 @@ class TreeNodeDecider :
 		virtual bool decide();
 		virtual TreeNode* getChild();
 
-	private:
+	protected:
 		virtual bool calculateDecision() = 0;
 
-	private:
+	protected:
 		TreeNode *m_childYes;
 		TreeNode *m_childNo;
 
