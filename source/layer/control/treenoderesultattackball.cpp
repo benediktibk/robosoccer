@@ -1,5 +1,12 @@
 #include "layer/control/treenoderesultattackball.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/robot.h"
+#include "layer/autonomous/intelligentball.h"
+#include "common/geometry/pose.h"
 
+using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Control;
 
 
@@ -14,5 +21,6 @@ TreeNodeResultAttackBall::TreeNodeResultAttackBall(
 
 void TreeNodeResultAttackBall::execute()
 {
-
+	//! @todo use useful targets
+	m_ownTeam.getPlayerCloserToBall(m_ball).goTo(Pose(m_ball.getPosition(), Angle()));
 }
