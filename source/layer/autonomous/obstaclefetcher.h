@@ -26,10 +26,11 @@ namespace Autonomous
 	public:
 		ObstacleFetcher(Team const &team,
 						EnemyTeam const &enemyTeam,
-						IntelligentBall const &obstacleBall);
+						IntelligentBall const &ball);
 		~ObstacleFetcher();
 
-		const std::vector<Common::Geometry::Circle> getAllObstacles() const;
+		std::vector<Common::Geometry::Circle> getAllObstacles() const;
+		std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
 
 	private:
 		std::vector<ObstacleSource const *> m_sources;

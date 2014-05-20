@@ -31,13 +31,14 @@ namespace Autonomous
 		void setIsMoving(bool value);
 		void setCurrentFieldSide(Layer::Abstraction::FieldSide fieldSide);
 		void setMovingDirection(Layer::Abstraction::FieldSide fieldSide);
+		void setObstacle(Common::Geometry::Circle const &obstacle);
 
 	private:
 		Abstraction::BallMock m_ball;
 		bool m_isMoving;
 		Abstraction::FieldSide m_currentFieldSide;
 		Abstraction::FieldSide m_movingDirection;
-
+		Common::Geometry::Circle m_obstacle;
 	};
 }
 }

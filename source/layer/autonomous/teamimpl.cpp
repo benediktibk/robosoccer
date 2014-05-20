@@ -110,14 +110,3 @@ const Robot &TeamImpl::getRobotByNumber(unsigned int i) const
 	// avoid errors from the compiler
 	return *m_goalie;
 }
-
-std::vector<Circle> TeamImpl::getObstacles()
-{
-	vector<Circle> obstacles;
-	obstacles.reserve(3);
-
-	for(unsigned int i=0;i<3;i++)
-		obstacles.push_back(getRobotByNumber(i).getObstacle());
-
-	return obstacles;
-}

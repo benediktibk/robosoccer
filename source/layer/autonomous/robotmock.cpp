@@ -29,12 +29,14 @@ Pose RobotMock::getCurrentPose() const
 
 Circle RobotMock::getObstacle() const
 {
-	return Circle();
+	return m_obstacle;
 }
 
 vector<Circle> RobotMock::getObstacles() const
 {
-	return vector<Circle>();
+	vector<Circle> result;
+	result.push_back(getObstacle());
+	return result;
 }
 
 bool RobotMock::targetReached() const
@@ -73,6 +75,11 @@ unsigned int RobotMock::getCallsToKick() const
 void RobotMock::setTargetReached(bool value)
 {
 	m_targetReached = value;
+}
+
+void RobotMock::setObstacle(const Circle &obstacle)
+{
+	m_obstacle = obstacle;
 }
 
 void RobotMock::stop()

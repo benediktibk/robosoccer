@@ -41,7 +41,6 @@ namespace Autonomous
 		virtual Robot& getSecondFieldPlayer() = 0;
 		virtual Robot& getRobotByNumber(unsigned int i) = 0;
 		virtual Robot const& getRobotByNumber(unsigned int i) const = 0;
-		virtual std::vector<Common::Geometry::Circle> getObstacles() = 0;
 	};
 }
 }

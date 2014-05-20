@@ -33,13 +33,31 @@ ObstacleFetcher::~ObstacleFetcher()
 	m_sources.clear();
 }
 
-const vector<Circle> ObstacleFetcher::getAllObstacles() const
+vector<Circle> ObstacleFetcher::getAllObstacles() const
 {
 	vector<Circle> result;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
 		ObstacleSource const &source = **i;
+		vector<Circle> resultPart = source.getObstacles();
+		result.insert(result.end(), resultPart.begin(), resultPart.end());
+	}
+
+	return result;
+}
+
+vector<Circle> ObstacleFetcher::getAllObstaclesButMe(const ObstacleSource &me) const
+{
+	vector<Circle> result;
+
+	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
+	{
+		ObstacleSource const &source = **i;
+
+		if (&source == &me)
+			continue;
+
 		vector<Circle> resultPart = source.getObstacles();
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
