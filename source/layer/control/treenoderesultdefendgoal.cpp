@@ -11,3 +11,8 @@ TreeNodeResultDefendGoal::TreeNodeResultDefendGoal(
 {
 
 }
+
+void TreeNodeResultDefendGoal::execute()
+{
+
+}

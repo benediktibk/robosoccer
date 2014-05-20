@@ -18,6 +18,8 @@ class TreeNodeResultDefendGoal :
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
 
+		virtual void execute();
+
 
 	};
 }
