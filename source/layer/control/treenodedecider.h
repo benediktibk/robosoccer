@@ -13,9 +13,15 @@ class TreeNodeDecider :
 		public TreeNode
 	{
 	public:
+		TreeNodeDecider(
+				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
+				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+
 		virtual bool decide();
 		virtual TreeNode* getChild();
 
+	private:
 		virtual bool calculateDecision() = 0;
 
 	private:

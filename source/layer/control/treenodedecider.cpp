@@ -2,6 +2,13 @@
 
 using namespace RoboSoccer::Layer::Control;
 
+TreeNodeDecider::TreeNodeDecider(
+		Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
+		Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+		Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
+	TreeNode(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
+{ }
+
 bool TreeNodeDecider::decide()
 {
 	return true;
