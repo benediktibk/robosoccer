@@ -39,6 +39,7 @@ set(COMMON_LAYER_CONTROL_TEST_SRC
 	treenodetest.cpp
 	treenodedeciderisinenemyhalftest.cpp
 	treenoderesultdefendgoaltest.cpp
+	treenoderesultattackballtest.cpp
 )
 
 add_library(layercontrol ${COMMON_LAYER_CONTROL_SRC})
