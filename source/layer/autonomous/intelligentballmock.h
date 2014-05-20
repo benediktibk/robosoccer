@@ -19,6 +19,7 @@ namespace Autonomous
 
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual Common::Geometry::Point getPosition() const;
 		virtual double getVelocity() const;
 		virtual bool isMoving() const;

@@ -26,7 +26,7 @@ EnemyTeamMock::~EnemyTeamMock()
 	m_robots.clear();
 }
 
-const vector<Circle> EnemyTeamMock::getObstacles()
+vector<Circle> EnemyTeamMock::getObstacles() const
 {
 	vector<Circle> obstacles;
 	obstacles.reserve(3);

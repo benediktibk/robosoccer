@@ -1,6 +1,8 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOT_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOT_H
 
+#include "layer/autonomous/obstaclesource.h"
+
 namespace RoboSoccer
 {
 namespace Common
@@ -17,7 +19,8 @@ namespace Autonomous
 {
 	class IntelligentBall;
 
-	class Robot
+	class Robot :
+			public ObstacleSource
 	{
 	public:
 		virtual ~Robot() { }
@@ -27,6 +30,7 @@ namespace Autonomous
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
 		virtual bool targetReached() const = 0;
 		virtual bool cantReachTarget() const = 0;
 		virtual void kick(unsigned int force, IntelligentBall const &ball) = 0;

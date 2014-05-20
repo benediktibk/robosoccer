@@ -6,6 +6,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace std;
 
 IntelligentBallMock::IntelligentBallMock() :
 	m_isMoving(false),
@@ -21,6 +22,11 @@ Angle IntelligentBallMock::getRotation() const
 Circle IntelligentBallMock::getObstacle() const
 {
 	return Circle();
+}
+
+vector<Circle> IntelligentBallMock::getObstacles() const
+{
+	return vector<Circle>();
 }
 
 Point IntelligentBallMock::getPosition() const

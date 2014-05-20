@@ -21,6 +21,7 @@ namespace Autonomous
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual bool targetReached() const;
 		virtual bool cantReachTarget() const;
 		virtual void kick(unsigned int force, IntelligentBall const &ball);

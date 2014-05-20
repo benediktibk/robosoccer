@@ -4,6 +4,7 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace std;
 
 RobotMock::RobotMock() :
 	m_callsToStop(0),
@@ -29,6 +30,11 @@ Pose RobotMock::getCurrentPose() const
 Circle RobotMock::getObstacle() const
 {
 	return Circle();
+}
+
+vector<Circle> RobotMock::getObstacles() const
+{
+	return vector<Circle>();
 }
 
 bool RobotMock::targetReached() const

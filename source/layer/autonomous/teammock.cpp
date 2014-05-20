@@ -41,6 +41,11 @@ Robot &TeamMock::getRobotByNumber(unsigned int /*i*/)
 	return m_robot;
 }
 
+const Robot &TeamMock::getRobotByNumber(unsigned int /*i*/) const
+{
+	return m_robot;
+}
+
 std::vector<Circle> TeamMock::getObstacles()
 {
 	return vector<Circle>();

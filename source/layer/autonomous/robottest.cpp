@@ -13,6 +13,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Routing;
+using namespace std;
 
 void RobotTest::setUp()
 {
@@ -123,4 +124,25 @@ void RobotTest::update_empty_robotGotCallToUpdate()
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdate());
+}
+
+void RobotTest::getObstacle_empty_sameAsFromControllableRobot()
+{
+	m_hardwareRobot->setPose(Pose(Point(4, 3), Angle(3)));
+	Circle obstacleShouldBe = m_hardwareRobot->getObstacle();
+
+	Circle obstacle = m_robot->getObstacle();
+
+	CPPUNIT_ASSERT_EQUAL(obstacleShouldBe, obstacle);
+}
+
+void RobotTest::getObstacles_empty_oneWhichIsSameAsFromControllableRobot()
+{
+	m_hardwareRobot->setPose(Pose(Point(4, 3), Angle(3)));
+	Circle obstacleShouldBe = m_hardwareRobot->getObstacle();
+
+	vector<Circle> obstacles = m_robot->getObstacles();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL(obstacleShouldBe, obstacles.front());
 }

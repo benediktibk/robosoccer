@@ -16,6 +16,7 @@ namespace Autonomous
 		IntelligentBallImpl(Abstraction::Ball const &ball);
 
 		virtual Common::Geometry::Angle getRotation() const;
+		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual Common::Geometry::Point getPosition() const;
 		virtual double getVelocity() const;

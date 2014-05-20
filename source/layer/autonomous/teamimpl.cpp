@@ -93,6 +93,24 @@ Robot &TeamImpl::getRobotByNumber(unsigned int i)
 	return *m_goalie;
 }
 
+const Robot &TeamImpl::getRobotByNumber(unsigned int i) const
+{
+	switch(i)
+	{
+	case 0:
+		return *m_goalie;
+	case 1:
+		return *m_fieldPlayerOne;
+	case 2:
+		return *m_fieldPlayerTwo;
+	default:
+		assert(false);
+	}
+
+	// avoid errors from the compiler
+	return *m_goalie;
+}
+
 std::vector<Circle> TeamImpl::getObstacles()
 {
 	vector<Circle> obstacles;

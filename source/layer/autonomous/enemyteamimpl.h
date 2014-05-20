@@ -22,7 +22,7 @@ namespace Autonomous
 		virtual ~EnemyTeamImpl();
 
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
-		virtual const std::vector<Common::Geometry::Circle>  getObstacles();
+		virtual std::vector<Common::Geometry::Circle>  getObstacles() const;
 
 	private:
 		std::vector<const Abstraction::ReadableRobot*> m_robots;

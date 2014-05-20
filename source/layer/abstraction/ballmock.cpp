@@ -24,7 +24,7 @@ Angle BallMock::getRotation() const
 
 Circle BallMock::getObstacle() const
 {
-	return Circle();
+	return m_obstacle;
 }
 
 double BallMock::getVelocity() const
@@ -40,6 +40,11 @@ void BallMock::setPosition(Point position)
 void BallMock::setVelocity(double value)
 {
 	m_velocity = value;
+}
+
+void BallMock::setObstacle(const Circle &obstacle)
+{
+	m_obstacle = obstacle;
 }
 
 void BallMock::setRotation(Angle value)
