@@ -38,8 +38,8 @@ namespace Autonomous
 				const Common::Geometry::Pose &target,
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
-				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType/*,
-				ObstacleFetcher &obstacleFetcher*/);
+				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
+				ObstacleFetcher &obstacleFetcher);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
@@ -72,7 +72,7 @@ namespace Autonomous
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;
 		Common::Routing::Route *m_currentRoute;
-		//ObstacleFetcher &m_obstacleFetcher;
+		ObstacleFetcher &m_obstacleFetcher;
 	};
 }
 }

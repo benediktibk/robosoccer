@@ -50,11 +50,11 @@ namespace Main
 		Abstraction::Storage *m_storage;
 		FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
 		FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
+		Autonomous::ObstacleFetcher *m_obstacleFetcher;
 		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
-		Autonomous::ObstacleFetcher *m_obstacleFetcher;
 		bool m_stop;
 	};
 }

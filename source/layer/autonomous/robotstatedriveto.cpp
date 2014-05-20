@@ -18,7 +18,7 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
-		Watch const &watch, Logger &logger, Logger::LogFileType logFileType/*, ObstacleFetcher &obstacleFetcher*/) :
+		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
@@ -32,8 +32,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
-	m_currentRoute(0)//,
-	//m_obstacleFetcher(obstacleFetcher)
+	m_currentRoute(0),
+	m_obstacleFetcher(obstacleFetcher)
 {
 	m_watchDog->getTimeAndRestart();
 }

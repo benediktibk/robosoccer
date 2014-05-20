@@ -32,13 +32,15 @@ namespace Abstraction
 namespace Autonomous
 {
 	class RobotState;
+	class ObstacleFetcher;
 
 	class RobotImpl :
 			public Robot
 	{
 	public:
 		RobotImpl(Abstraction::ControllableRobot &robot, const Common::Routing::Router &router,
-				  Common::Time::Watch const &watch, Common::Logging::Logger &logger, unsigned int robotIndex);
+				  Common::Time::Watch const &watch, Common::Logging::Logger &logger, unsigned int robotIndex,
+				  ObstacleFetcher &obstacleFetcher);
 		virtual ~RobotImpl();
 
 		virtual void goTo(Common::Geometry::Pose const &position);
@@ -64,6 +66,7 @@ namespace Autonomous
 		Common::Logging::Logger &m_logger;
 		RobotState *m_currentState;
 		Common::Logging::Logger::LogFileType m_logFileType;
+		ObstacleFetcher &m_obstacleFetcher;
 	};
 }
 }

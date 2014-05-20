@@ -20,12 +20,12 @@ using namespace std;
 
 TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger,
 				   FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalkeeper,
-				   FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer) :
-	m_routerGoalie(new RouterImpl(0.095, fieldPositionCheckerGoalkeeper)),
-	m_routerFieldPlayer(new RouterImpl(0.095, fieldPositionCheckerFieldPlayer)),
-	m_goalie(new RobotImpl(storage.getOwnRobot(0), *m_routerGoalie, watch, logger, 0)),
-	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), *m_routerFieldPlayer, watch, logger, 1)),
-	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), *m_routerFieldPlayer, watch, logger, 2))
+				   FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer, ObstacleFetcher &obstacleFetcher) :
+	m_routerGoalie(new RouterImpl(ReadableRobot::getWidth(), fieldPositionCheckerGoalkeeper)),
+	m_routerFieldPlayer(new RouterImpl(ReadableRobot::getWidth(), fieldPositionCheckerFieldPlayer)),
+	m_goalie(new RobotImpl(storage.getOwnRobot(0), *m_routerGoalie, watch, logger, 0, obstacleFetcher)),
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), *m_routerFieldPlayer, watch, logger, 1, obstacleFetcher)),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), *m_routerFieldPlayer, watch, logger, 2, obstacleFetcher))
 { }
 
 TeamImpl::~TeamImpl()
