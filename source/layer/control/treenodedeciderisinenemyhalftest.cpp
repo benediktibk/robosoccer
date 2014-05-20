@@ -22,7 +22,7 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_ball->setPosition(Point(-1.1, 0.3));
 
-	TreeNode *node = m_node->getChild();
+	TreeNode *node = ((TreeNodeDecider*)m_node)->getChild();
 	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
 	CPPUNIT_ASSERT(defendGoal != 0);
 }
@@ -32,7 +32,7 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_ball->setPosition(Point(1.1, 0.3));
 
-	TreeNode *node = m_node->getChild();
+	TreeNode *node = ((TreeNodeDecider*)m_node)->getChild();
 	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
 	CPPUNIT_ASSERT(defendGoal == 0);
 }
