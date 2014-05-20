@@ -7,6 +7,7 @@
 #include "layer/autonomous/intelligentballmock.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/control/treenoderesultdefendgoal.h"
+#include "layer/control/treenoderesultattackball.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -35,4 +36,7 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
 	TreeNode *node = ((TreeNodeDecider*)m_node)->getChild();
 	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
 	CPPUNIT_ASSERT(defendGoal == 0);
+
+	TreeNodeResultAttackBall *attackBall = dynamic_cast<TreeNodeResultAttackBall*>(node);
+	CPPUNIT_ASSERT(attackBall != 0);
 }
