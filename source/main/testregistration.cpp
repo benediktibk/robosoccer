@@ -41,6 +41,7 @@
 #include "layer/control/penaltydefensivetest.h"
 #include "layer/control/treenodedecidertest.h"
 #include "layer/control/treenodedeciderisinenemyhalftest.h"
+#include "layer/control/treenoderesultdefendgoaltest.h"
 #include "layer/autonomous/robottest.h"
 #include "layer/autonomous/teamtest.h"
 #include "layer/autonomous/enemyteamtest.h"
@@ -97,6 +98,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyOffensiveTest
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyDefensiveTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsInEnemyHalfTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultDefendGoalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);
