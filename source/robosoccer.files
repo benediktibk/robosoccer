@@ -350,3 +350,5 @@ layer/control/treenoderesultdefendgoal.cpp
 layer/control/treenoderesultdefendgoal.h
 layer/control/treenoderesultdefendgoaltest.cpp
 layer/control/treenoderesultdefendgoaltest.h
+layer/control/treenoderesultattackball.cpp
+layer/control/treenoderesultattackball.h

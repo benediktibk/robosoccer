@@ -19,6 +19,7 @@ set(COMMON_LAYER_CONTROL_SRC
 	treenoderesult.cpp
 	treenodedeciderisinenemyhalf.cpp
 	treenoderesultdefendgoal.cpp
+	treenoderesultattackball.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC
