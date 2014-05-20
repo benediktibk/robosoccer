@@ -18,7 +18,8 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
-		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher) :
+		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
+		ObstacleSource &autonomousRobot) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
@@ -33,7 +34,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
 	m_currentRoute(0),
-	m_obstacleFetcher(obstacleFetcher)
+	m_obstacleFetcher(obstacleFetcher),
+	m_autonomousRobot(autonomousRobot)
 {
 	m_watchDog->getTimeAndRestart();
 }
@@ -173,7 +175,7 @@ void RobotStateDriveTo::updateInternal()
 
 void RobotStateDriveTo::updateRoute()
 {
-	if (!isRouteFeasible(vector<Circle>()))
+	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
 	{
 		clearRoute();
 		m_currentRoute = new Route(ReadableRobot::getWidth());
