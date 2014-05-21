@@ -63,14 +63,16 @@
 \section{Class diagram}
 \begin{frame}
 	\frametitle{Layers}
-	\center
-	\input{class_structure/layers}
+	\begin{center}
+		\input{class_structure/layers}
+	\end{center}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Classes}
-	\center
-	\input{class_structure/class-diagram}
+	\begin{center}
+		\input{class_structure/class-diagram}
+	\end{center}
 \end{frame}
 
 \section{State-Machine} 
@@ -86,161 +88,169 @@
 \section{Router} 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 1
-		\robot at (0,0) {};
-		\node[obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {}; 
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 1
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {}; 
+		\end{tikzpicture}
+	\end{center}		
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 2
-		\path[edge] (-0.4,0) -- (6.4,0);
-		\robot at (0,0) {};
-		\node[obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 2
+			\path[edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 3
-		\path[ignored edge] (-0.4,0) -- (6.4,0);
-		\robot at (0,0) {};
-		\node[selected obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-		\goalHelp at (1.5,-1.8) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 3
+			\path[ignored edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 4
-		\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-		\path[edge] (-0.3,0.3) -- (1.8,-2.1);
-		\path[edge] (1.1,0.6) -- (6.4,-0.05);
-		\path[edge] (1.2,-1.9) -- (6.4,0.2);
-		\robot at (0,0) {};
-		\node[selected obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-		\goalHelp at (1.5,-1.8) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 4
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (-0.3,0.3) -- (1.8,-2.1);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\path[edge] (1.2,-1.9) -- (6.4,0.2);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 5
-		\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-		\path[edge] (1.1,0.6) -- (6.4,-0.05);
-		\robot at (0,0) {};
-		\node[selected obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 5
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 6
-		\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-		\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
-		\robot at (0,0) {};
-		\node[obstacle] at (1.5,-.5) {}; 
-		\node[selected obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-		\goalHelp at (4,.9) {};
-		\goalHelp at (4,-1.1) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 6
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 7
-		\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-		\path[edge] (1.1,0.7) -- (4.4,-1.3);
-		\path[edge] (1.1,0.4) -- (4.4,1);
-		\path[edge] (3.7,-1.3) -- (6.4,0.2);
-		\path[edge] (3.8,1) -- (6.4,-0.2);
-		\robot at (0,0) {};
-		\node[obstacle] at (1.5,-.5) {}; 
-		\node[selected obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-		\goalHelp at (4,.9) {};
-		\goalHelp at (4,-1.1) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 7
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.7) -- (4.4,-1.3);
+			\path[edge] (1.1,0.4) -- (4.4,1);
+			\path[edge] (3.7,-1.3) -- (6.4,0.2);
+			\path[edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \begin{frame}
 	\frametitle{Router} 
-	\center
-	\begin{tikzpicture}
-		% Background Box
-		\begin{pgfonlayer}{background}
-			\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-		\end{pgfonlayer}
-		% Folie 8
-		\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
-		\path[selected edge] (1.1,0.4) -- (4.4,1);
-		\path[selected edge] (3.8,1) -- (6.4,-0.2);
-		\robot at (0,0) {};
-		\node[obstacle] at (1.5,-.5) {}; 
-		\node[obstacle] at (4,-0.1) {};
-		\goal at (6,0) {};
-		\goalHelp at (1.5,.5) {};
-		\goalHelp at (4,.9) {};
-	\end{tikzpicture}	
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 8
+			\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[selected edge] (1.1,0.4) -- (4.4,1);
+			\path[selected edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \section{Gantt-Diagramm} 
