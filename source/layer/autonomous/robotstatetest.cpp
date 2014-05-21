@@ -5,6 +5,7 @@
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
 #include "layer/autonomous/obstaclefetchermock.h"
+#include "layer/autonomous/robotmock.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -20,6 +21,7 @@ void RobotStateTest::setUp()
 	m_logger = new LoggerMock();
 	m_router = new RouterMock();
 	m_obstacleFetcher = new ObstacleFetcherMock();
+	m_autonomousRobotMock = new RobotMock();
 	m_robotState = createInstance();
 	assert(m_robotState != 0);
 }
@@ -38,6 +40,8 @@ void RobotStateTest::tearDown()
 	m_router = 0;
 	delete m_obstacleFetcher;
 	m_obstacleFetcher = 0;
+	delete m_autonomousRobotMock;
+	m_autonomousRobotMock = 0;
 }
 
 RobotState *RobotStateTest::createInstance()
