@@ -117,11 +117,9 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 	switchInto(StateDrivingShort);
 }
 
-void ControllableRobotImpl::kick(unsigned int force)
+void ControllableRobotImpl::kick(Geometry::Point const &ballPosition)
 {
-	assert(force <= 100);
-	// the second param should not be set 0, despite the documentation says something different
-	m_robot->Kick(force, 0.24);
+	determineIsDrivingForwardForGoTo(ballPosition);
 	switchInto(StateKick);
 }
 
@@ -152,7 +150,7 @@ void ControllableRobotImpl::update()
 	double rotationSpeed = 0;
 	Geometry::Compare orientationCompare(0.1);
 	bool watchDogTurningEnd = m_watchDogEnd->getTime() > 0.5;
-	bool watchDogKickingEnd = m_watchDogEnd->getTime() > 1;
+	bool watchDogKickingEnd = m_watchDogEnd->getTime() > 0.3;
 	const double speedInDrivingShort = 0.1;
 	const double speedInDrivingLong = 0.5;
 	bool watchDogDrivingShortEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingShort;
@@ -218,7 +216,11 @@ void ControllableRobotImpl::update()
 			log("watch dog for kicking");
 			switchInto(StateStop);
 		}
-		return;
+		else
+		{
+			translationSpeed = 200;
+			rotationSpeed = 0;
+		}
 	}
 
 	setSpeed(translationSpeed, rotationSpeed);

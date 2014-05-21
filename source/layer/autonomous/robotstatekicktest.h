@@ -16,7 +16,8 @@ namespace Autonomous
 		CPPUNIT_TEST(targetReached_empty_false);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_noTimePassedBy_0);
-		CPPUNIT_TEST(nextState_oneSecondWaited_followingState);
+		CPPUNIT_TEST(nextState_oneSecondAndRobotStillMoving_0);
+		CPPUNIT_TEST(nextState_robotNotMovingAnymore_reachedTarget);
 		CPPUNIT_TEST(update_severalTimesCalled_oneCallToKick);
 		CPPUNIT_TEST(isEquivalentToDriveTo_empty_false);
 		CPPUNIT_TEST_SUITE_END();
@@ -28,7 +29,8 @@ namespace Autonomous
 		void targetReached_empty_false();
 		void cantReachTarget_empty_false();
 		void nextState_noTimePassedBy_0();
-		void nextState_oneSecondWaited_followingState();
+		void nextState_oneSecondAndRobotStillMoving_0();
+		void nextState_robotNotMovingAnymore_reachedTarget();
 		void update_severalTimesCalled_oneCallToKick();
 		void isEquivalentToDriveTo_empty_false();
 	};

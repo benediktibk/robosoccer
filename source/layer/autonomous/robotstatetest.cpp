@@ -1,11 +1,12 @@
 #include "layer/autonomous/robotstatetest.h"
 #include "layer/autonomous/robotstate.h"
+#include "layer/autonomous/obstaclefetchermock.h"
+#include "layer/autonomous/robotmock.h"
+#include "layer/autonomous/intelligentballmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
-#include "layer/autonomous/obstaclefetchermock.h"
-#include "layer/autonomous/robotmock.h"
 #include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -16,6 +17,7 @@ using namespace RoboSoccer::Common::Routing;
 
 void RobotStateTest::setUp()
 {
+	m_ball = new IntelligentBallMock();
 	m_controllableRobot = new ControllableRobotMock();
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
@@ -42,6 +44,8 @@ void RobotStateTest::tearDown()
 	m_obstacleFetcher = 0;
 	delete m_autonomousRobotMock;
 	m_autonomousRobotMock = 0;
+	delete m_ball;
+	m_ball = 0;
 }
 
 RobotState *RobotStateTest::createInstance()

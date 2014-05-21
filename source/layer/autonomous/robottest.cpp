@@ -114,7 +114,7 @@ void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle()));
 	m_ball->setPosition(Point(0.2, 0));
 
-	m_robot->kick(100, *m_ball);
+	m_robot->kick(*m_ball);
 	m_robot->update();
 	m_robot->update();
 

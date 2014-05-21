@@ -49,7 +49,7 @@ void PenaltyOffensive::updateInternal()
 
 	if(movementsFinished() && !m_ballKicked)
 	{
-		robot.kick(100, m_ball);
+		robot.kick(m_ball);
 		m_ballKicked = true;
 	}
 }

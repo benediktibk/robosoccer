@@ -96,10 +96,10 @@ bool RobotImpl::cantReachTarget() const
 	return m_currentState->cantReachTarget();
 }
 
-void RobotImpl::kick(unsigned int force, IntelligentBall const &ball)
+void RobotImpl::kick(IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
-	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, force, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
+	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, ball, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
 }
 
 void RobotImpl::update()

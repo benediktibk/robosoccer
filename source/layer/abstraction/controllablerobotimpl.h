@@ -53,7 +53,7 @@ namespace Abstraction
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual void gotoPositionImprecise(const Common::Geometry::Point &position);
 		virtual void gotoPositionPrecise(const Common::Geometry::Point &position);
-		virtual void kick(unsigned int force);
+		virtual void kick(Common::Geometry::Point const &ballPosition);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 		virtual void update();
