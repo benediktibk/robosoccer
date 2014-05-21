@@ -44,6 +44,14 @@ add_custom_target(
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 
+file(COPY
+	${CMAKE_CURRENT_SOURCE_DIR}/../README.md
+	DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/)
+
+
+execute_process(COMMAND git rev-list --count HEAD
+				OUTPUT_VARIABLE GIT_CURRENT_REV)
+
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 
 add_custom_target(
