@@ -42,6 +42,10 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_positionAreLeft);
+		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointRight_false);
+		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true);
+		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointRight_true);
+		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointLeft_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -71,6 +75,10 @@ namespace Autonomous
 		void getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange();
 		void getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange();
 		void getEnemyGoalPosition_fieldSideRight_positionAreLeft();
+		void isPointInOwnFieldSide_fieldSideLeftAndPointRight_false();
+		void isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true();
+		void isPointInOwnFieldSide_fieldSideRightAndPointRight_true();
+		void isPointInOwnFieldSide_fieldSideRightAndPointLeft_false();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);

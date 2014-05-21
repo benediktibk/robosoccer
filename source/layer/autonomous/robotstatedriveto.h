@@ -29,6 +29,7 @@ namespace Layer
 namespace Autonomous
 {
 	class ObstacleFetcher;
+	class ObstacleSource;
 
 	class RobotStateDriveTo :
 			public RobotState
@@ -39,7 +40,7 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
-				ObstacleFetcher &obstacleFetcher);
+				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
@@ -73,6 +74,7 @@ namespace Autonomous
 		Common::Time::StopWatch *m_watchDog;
 		Common::Routing::Route *m_currentRoute;
 		ObstacleFetcher &m_obstacleFetcher;
+		ObstacleSource &m_autonomousRobot;
 	};
 }
 }

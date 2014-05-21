@@ -65,7 +65,7 @@ void RobotImpl::goTo(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType, m_obstacleFetcher));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType, m_obstacleFetcher, *this));
 	logPosition("target is", position);
 }
 

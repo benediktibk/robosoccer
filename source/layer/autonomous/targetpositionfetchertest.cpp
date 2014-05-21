@@ -348,6 +348,42 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreL
 		CPPUNIT_ASSERT(targetPositionFetcher.getEnemyGoalPosition()[i].getX() < 0);
 }
 
+void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideLeftAndPointRight_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	Point position(1,0);
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPointInOwnFieldSide(position));
+}
+
+void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	Point position(-1,0);
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPointInOwnFieldSide(position));
+}
+
+void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideRightAndPointRight_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	Point position(1,0);
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPointInOwnFieldSide(position));
+}
+
+void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideRightAndPointLeft_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	Point position(-1,0);
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPointInOwnFieldSide(position));
+}
+
 void TargetPositionFetcherTest::isInUsefulRange(const Pose &pose, double distanceToGoal, bool left)
 {
 	Point const &position = pose.getPosition();

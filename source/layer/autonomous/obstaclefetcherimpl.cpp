@@ -62,7 +62,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
 	{
 		Circle const &circle = *i;
 		double distanceToCenter = ownPosition.distanceTo(circle.getCenter());
-		double distanceToEdge = distanceToCenter - circle.getDiameter();
+		double distanceToEdge = distanceToCenter - circle.getDiameter()/2;
 
 		if (distanceToEdge <= distance)
 			result.push_back(circle);
