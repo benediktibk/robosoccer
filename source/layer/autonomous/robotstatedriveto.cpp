@@ -150,7 +150,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 			m_initialRotationReached = true;
 			m_movementStopUsed = true;
 		}
-		else if (hasMovementStopped())
+		else if (hasMovementStopped() && !m_movementStopUsed)
 		{
 			log("inital rotation not really reached, but movement stopped");
 			m_movementStopUsed = true;

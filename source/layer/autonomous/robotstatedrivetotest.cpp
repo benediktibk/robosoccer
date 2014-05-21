@@ -460,7 +460,7 @@ void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRouteAn
 
 void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint()
 {
-	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_router->setChessMode(true);
 	m_robotState->update();
 	m_controllableRobot->setIsMoving(true);
@@ -474,7 +474,7 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReachedAnd
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
-	CPPUNIT_ASSERT_EQUAL(Angle(),m_controllableRobot->getLastAngleToTurnTo());
+	CPPUNIT_ASSERT_EQUAL(Angle(Point(0,0),Point(5,4)),m_controllableRobot->getLastAngleToTurnTo());
 }
 
 void RobotStateDriveToTest::update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint()
