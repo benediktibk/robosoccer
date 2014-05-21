@@ -26,6 +26,7 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
 	TreeNode *node = ((TreeNodeDecider*)m_node)->getChild();
 	TreeNodeResultDefendGoal *defendGoal = dynamic_cast<TreeNodeResultDefendGoal*>(node);
 	CPPUNIT_ASSERT(defendGoal != 0);
+	delete node;
 }
 
 void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
@@ -39,4 +40,5 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
 
 	TreeNodeResultAttackBall *attackBall = dynamic_cast<TreeNodeResultAttackBall*>(node);
 	CPPUNIT_ASSERT(attackBall != 0);
+	delete node;
 }
