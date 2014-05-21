@@ -218,10 +218,7 @@ void ControllableRobotImpl::update()
 		}
 		else
 		{
-			if (m_isDrivingFoward)
-				translationSpeed = 200;
-			else
-				translationSpeed = -200;
+			translationSpeed = 200;
 			rotationSpeed = 0;
 		}
 	}
