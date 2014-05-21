@@ -49,7 +49,7 @@ bool RobotMock::cantReachTarget() const
 	return false;
 }
 
-void RobotMock::kick(unsigned int /*force*/, IntelligentBall const &/*ball*/)
+void RobotMock::kick(IntelligentBall const &/*ball*/)
 {
 	++m_callsToKick;
 }

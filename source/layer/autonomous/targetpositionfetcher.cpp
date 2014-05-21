@@ -82,7 +82,7 @@ Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball
 	Pose penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
 
-	double percentOfLineLength = -0.08/lineToGoal.getLength();
+	double percentOfLineLength = -0.10/lineToGoal.getLength();
 	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
 
 	return penaltyPosition;

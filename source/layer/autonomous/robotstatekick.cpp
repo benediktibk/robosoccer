@@ -1,5 +1,6 @@
 #include "layer/autonomous/robotstatekick.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
+#include "layer/autonomous/intelligentball.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/time/stopwatch.h"
 
@@ -10,11 +11,11 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
 RobotStateKick::RobotStateKick(
-		Abstraction::ControllableRobot &robot, unsigned int force,
+		Abstraction::ControllableRobot &robot, IntelligentBall const &ball,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
 	m_stopWatch(new StopWatch(watch)),
-	m_force(force),
+	m_ball(ball),
 	m_alreadyKicked(false),
 	m_stopWatchRestarted(false)
 { }
@@ -43,10 +44,10 @@ RobotState *RobotStateKick::nextState()
 		m_stopWatch->getTimeAndRestart();
 	}
 
-	if (m_stopWatch->getTime() < 0.5)
+	if (getRobot().isMoving())
 		return 0;
-
-	return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+	else
+		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 }
 
 void RobotStateKick::updateInternal()
@@ -54,7 +55,7 @@ void RobotStateKick::updateInternal()
 	if (m_alreadyKicked)
 		return;
 
-	getRobot().kick(m_force);
+	getRobot().kick(m_ball.getPosition());
 	m_alreadyKicked = true;
 	m_stopWatch->getTimeAndRestart();
 }

@@ -32,6 +32,7 @@ namespace Autonomous
 	class RobotState;
 	class ObstacleFetcherMock;
 	class RobotMock;
+	class IntelligentBallMock;
 
 	class RobotStateTest :
 			public CPPUNIT_NS::TestFixture
@@ -66,6 +67,7 @@ namespace Autonomous
 		Common::Routing::Router *m_router;
 		ObstacleFetcherMock *m_obstacleFetcher;
 		RobotMock *m_autonomousRobotMock;
+		IntelligentBallMock *m_ball;
 	};
 }
 }
