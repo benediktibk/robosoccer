@@ -78,7 +78,7 @@ Logger& RobotState::getLogger()
 
 void RobotState::log(const string &message)
 {
-	m_logger.logToLogFileOfType(Logger::LogFileTypeAutonomousRobotOne, message);
+	m_logger.logToLogFileOfType(m_logFileType, message);
 }
 
 void RobotState::log(const string &message, size_t value)
