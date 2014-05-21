@@ -18,7 +18,7 @@ namespace Logging
 }
 namespace Routing
 {
-	class Router;
+	class RouterMock;
 }
 }
 namespace Layer
@@ -64,7 +64,7 @@ namespace Autonomous
 		Common::Time::WatchMock *m_watch;
 		RobotState *m_robotState;
 		Common::Logging::LoggerMock *m_logger;
-		Common::Routing::Router *m_router;
+		Common::Routing::RouterMock *m_router;
 		ObstacleFetcherMock *m_obstacleFetcher;
 		RobotMock *m_autonomousRobotMock;
 		IntelligentBallMock *m_ball;

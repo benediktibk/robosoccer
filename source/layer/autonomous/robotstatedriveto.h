@@ -53,6 +53,7 @@ namespace Autonomous
 		virtual void updateInternal();
 
 	private:
+		bool setOrdersForIntermediatePointAndGetOrderSet();
 		void updateRoute();
 		void updateRoutePoint();
 		void updateRouteForTarget();
@@ -71,6 +72,7 @@ namespace Autonomous
 		bool m_driveStarted;
 		bool m_finalRotationReached;
 		bool m_finalRotationStarted;
+		bool m_movementStopUsed;
 		Common::Geometry::Pose m_target;
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;

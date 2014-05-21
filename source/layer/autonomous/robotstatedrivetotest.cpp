@@ -10,6 +10,7 @@
 #include "common/routing/routerimpl.h"
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robotstate.h"
+#include "common/routing/routermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -310,4 +311,41 @@ void RobotStateDriveToTest::reachedTarget_empty_false()
 void RobotStateDriveToTest::cantReachTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReached_turningToThirdPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle(),m_controllableRobot->getLastAngleToTurnTo());
+
 }

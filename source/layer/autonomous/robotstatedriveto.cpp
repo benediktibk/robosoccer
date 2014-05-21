@@ -30,6 +30,7 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_driveStarted(false),
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
+	m_movementStopUsed(false),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
@@ -85,65 +86,16 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 void RobotStateDriveTo::updateInternal()
 {
 	Pose robotPose = getRobot().getPose();
-	bool movementStopUsed = false;
+	m_movementStopUsed = false;
 
 	updateRoute();
 
 	if (!m_currentRoute->isValid())
 		return;
 
-	const Point &target = getNextTargetPoint();
+	if(setOrdersForIntermediatePointAndGetOrderSet())
+		return;
 
-	if (!m_initialRotationReached)
-	{
-		Compare compareAngle(m_precisionOrientationInitial);
-		Angle targetAngle(robotPose.getPosition(), target);
-		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
-		{
-			log("inital rotation reached");
-			m_initialRotationReached = true;
-			movementStopUsed = true;
-		}
-		else if (hasMovementStopped())
-		{
-			log("inital rotation not really reached, but movement stopped");
-			movementStopUsed = true;
-			m_initialRotationReached = true;
-		}
-		else
-		{
-			if (!m_initialRotationStarted)
-				getRobot().turn(targetAngle);
-
-			m_initialRotationStarted = true;
-			return;
-		}
-	}
-
-	if (!m_positionReached)
-	{
-		Compare comparePosition(m_precisionPosition);
-		if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
-		{
-			log("position reached");
-			m_positionReached = true;
-			movementStopUsed = true;
-		}
-		else if (hasMovementStopped() && !movementStopUsed)
-		{
-			log("position not really reached, but movement stopped");
-			movementStopUsed = true;
-			m_positionReached = true;
-		}
-		else
-		{
-			if (!m_driveStarted)
-				getRobot().gotoPositionImprecise(target);
-
-			m_driveStarted = true;
-			return;
-		}
-	}
 	updateRoutePoint();
 
 	if (!m_finalRotationReached && m_currentRoute->getPointCount() <= 2)
@@ -153,12 +105,12 @@ void RobotStateDriveTo::updateInternal()
 		{
 			log("final rotation reached");
 			m_finalRotationReached = true;
-			movementStopUsed = true;
+			m_movementStopUsed = true;
 		}
-		else if (hasMovementStopped() && !movementStopUsed)
+		else if (hasMovementStopped() && !m_movementStopUsed)
 		{
 			log("final rotation not really reached, but movement stopped");
-			movementStopUsed = true;
+			m_movementStopUsed = true;
 			m_finalRotationReached = true;
 		}
 		else
@@ -170,6 +122,65 @@ void RobotStateDriveTo::updateInternal()
 			return;
 		}
 	}
+}
+
+bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
+{
+	Pose robotPose = getRobot().getPose();
+
+	const Point &target = getNextTargetPoint();
+
+	if (!m_initialRotationReached)
+	{
+		Compare compareAngle(m_precisionOrientationInitial);
+		Angle targetAngle(robotPose.getPosition(), target);
+		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
+		{
+			log("inital rotation reached");
+			m_initialRotationReached = true;
+			m_movementStopUsed = true;
+		}
+		else if (hasMovementStopped())
+		{
+			log("inital rotation not really reached, but movement stopped");
+			m_movementStopUsed = true;
+			m_initialRotationReached = true;
+		}
+		else
+		{
+			if (!m_initialRotationStarted)
+				getRobot().turn(targetAngle);
+
+			m_initialRotationStarted = true;
+			return true;
+		}
+	}
+
+	if (!m_positionReached)
+	{
+		Compare comparePosition(m_precisionPosition);
+		if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
+		{
+			log("position reached");
+			m_positionReached = true;
+			m_movementStopUsed = true;
+		}
+		else if (hasMovementStopped() && !m_movementStopUsed)
+		{
+			log("position not really reached, but movement stopped");
+			m_movementStopUsed = true;
+			m_positionReached = true;
+		}
+		else
+		{
+			if (!m_driveStarted)
+				getRobot().gotoPositionImprecise(target);
+
+			m_driveStarted = true;
+			return true;
+		}
+	}
+	return false;
 }
 
 void RobotStateDriveTo::updateRoute()

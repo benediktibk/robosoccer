@@ -51,6 +51,9 @@ namespace Autonomous
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint);
+		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint);
+		CPPUNIT_TEST(update_secondPositionReachedAndRotationNotReached_turningToThirdPoint);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -86,6 +89,9 @@ namespace Autonomous
 		void isEquivalentToDriveToDirect_differentTarget_false();
 		void reachedTarget_empty_false();
 		void cantReachTarget_empty_false();
+		void update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint();
+		void update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint();
+		void update_secondPositionReachedAndRotationNotReached_turningToThirdPoint();
 
 	private:
 		RobotState *m_robotStateWithRouter;
