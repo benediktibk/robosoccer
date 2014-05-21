@@ -1,5 +1,11 @@
 \documentclass[hyperref={pdfpagelabels=false}]{beamer}
 \usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
 \definecolor{UniWhite}{RGB}{255,255,255}
@@ -16,7 +22,7 @@
 {
 	Technische Universit\"at M\"unchen, Germany
 }
-\date{\today} 
+\date{June 4, 2014}
 \begin{document}
 \begin{frame}
 \titlepage
@@ -24,16 +30,8 @@
 
 
 \begin{frame}
-\frametitle{Table of contents}
-	\begin{itemize}
-		\item Einleitung
-		\item Klassendiagramm
-		\item State-Machine
-		\item Regelung
-		\item Router
-		\item Gantt-Diagramm
-	\end{itemize}	
-%\tableofcontents
+	\frametitle{Table of contents}
+	\tableofcontents
 \end{frame} 
 
 \section{Einleitung} 
@@ -41,9 +39,17 @@
 	\frametitle{Einleitung} 
 \end{frame}
 
-\section{Klassendiagramm} 
+\section{Class diagram}
 \begin{frame}
-	\frametitle{Klassendiagramm}
+	\frametitle{Layers}
+	\center
+	\input{class_structure/layers}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Classes}
+	\center
+	\input{class_structure/class-diagram}
 \end{frame}
 
 \section{State-Machine} 
