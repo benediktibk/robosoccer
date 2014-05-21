@@ -1,6 +1,8 @@
 #include "layer/autonomous/robotstate.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/logging/logger.h"
+#include <sstream>
+#include <string>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -77,6 +79,13 @@ Logger& RobotState::getLogger()
 void RobotState::log(const string &message)
 {
 	m_logger.logToLogFileOfType(Logger::LogFileTypeAutonomousRobotOne, message);
+}
+
+void RobotState::log(const string &message, size_t value)
+{
+	stringstream stream;
+	stream << message << ": " << value;
+	log(stream.str());
 }
 
 Logger::LogFileType RobotState::getLogFileType() const

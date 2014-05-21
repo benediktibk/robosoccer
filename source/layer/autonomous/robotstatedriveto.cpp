@@ -172,12 +172,14 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		log("position reached");
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
+		log("new point count of route", m_currentRoute->getPointCount());
 	}
 	else if (hasMovementStopped() && !m_movementStopUsed)
 	{
 		log("position not really reached, but movement stopped");
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
+		log("new point count of route", m_currentRoute->getPointCount());
 	}
 	else
 	{
@@ -209,6 +211,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, m_target,
 						growObstacles(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5)));
+	log("new point count of route", m_currentRoute->getPointCount());
 }
 
 const Point &RobotStateDriveTo::getNextTargetPoint() const

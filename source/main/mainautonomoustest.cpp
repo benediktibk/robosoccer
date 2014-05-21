@@ -49,25 +49,17 @@ int main(int, char**)
 
 	while(true)
 	{
-		//robotOne.goTo(Pose(Point(0, 0.5), Angle::getQuarterRotation()));
-		robotTwo.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()));
-		//robotThree.goTo(Pose(Point(0, -0.5), Angle::getQuarterRotation()));
-		while (!robotOne.targetReached() || !robotTwo.targetReached() || !robotThree.targetReached())
+		robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
+		while (!robotTwo.targetReached())
 		{
-			//robotOne.update();
 			robotTwo.update();
-			//robotThree.update();
 			usleep(10000);
 		}
 
-		//robotOne.goTo(Pose(Point(-1, 0.5), Angle::getQuarterRotation()));
 		robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
-		//robotThree.goTo(Pose(Point(-1, -0.5), Angle::getQuarterRotation()));
-		while (!robotOne.targetReached() || !robotTwo.targetReached() || !robotThree.targetReached())
+		while (!robotTwo.targetReached())
 		{
-			//robotOne.update();
 			robotTwo.update();
-			//robotThree.update();
 			usleep(10000);
 		}
 	}
