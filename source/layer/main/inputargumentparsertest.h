@@ -10,14 +10,14 @@ namespace layer
 {
 namespace Main
 {
-class InputArgumentParser :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(OwnTeamColorTest);
-	CPPUNIT_TEST_SUITE_END();
-private:
+	class InputArgumentParserTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(InputArgumentParserTest);
+		CPPUNIT_TEST_SUITE_END();
+	private:
 
-};
+	};
 }
 }
 }

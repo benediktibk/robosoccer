@@ -6,20 +6,18 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 {
-
-	if (string Argument(arguments,17) == "--SetOwnTeamColor ")
+	if (arguments[1] == "--setOwnTeamColor ")
 	{
 		m_valid = true;
-		switch (InputArgumentParser(arguments, 17, 4))
-		{
-			case "red": m_ownTeamColor = TeamColorRed;
-			case "blue": m_ownTeamColor = TeamColorBlue;
+		if (arguments[2] == "red")
+			m_ownTeamColor = TeamColorRed;
+		else if (arguments[2] == "blue")
+			m_ownTeamColor = TeamColorBlue;
+		else
+			m_valid = false;
 	}
-	}
-	else {
+	else
 		m_valid = false;
-
-	}
 }
 
 bool InputArgumentParser::isValid() const
@@ -31,5 +29,3 @@ TeamColor InputArgumentParser::getOwnTeamColor() const
 {
 	return m_ownTeamColor;
 }
-
-
