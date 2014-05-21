@@ -179,6 +179,7 @@ void RobotStateDriveTo::updateRoute()
 		m_currentRoute = new Route(ReadableRobot::getWidth());
 		updateRouteForTarget();
 	}
+
 	if(m_positionReached && m_currentRoute->getPointCount() > 2)
 	{
 		m_currentRoute->removeFirstPoint();
