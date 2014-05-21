@@ -35,7 +35,6 @@ namespace Geometry
 		static Angle getQuarterRotation();
 		static Angle getFullRotation();
 		static Angle getEighthRotation();
-		static Angle getThreeQuarterRotation();
 		static Angle convertFromDegreeToRadiant(double angle);
 
 	private:

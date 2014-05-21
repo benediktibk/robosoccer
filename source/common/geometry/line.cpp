@@ -30,7 +30,7 @@ vector<Point> Line::getIntersectPoints(const Circle &circle) const
 	if(compare.isFuzzyEqual(end.getX(), start.getX()))
 	{
 		gradient = 0;
-		angleForVerticalLines = Angle::getThreeQuarterRotation();
+		angleForVerticalLines = Angle::getQuarterRotation() * 3.0;
 		start.rotate(angleForVerticalLines);
 		end.rotate(angleForVerticalLines);
 	}
