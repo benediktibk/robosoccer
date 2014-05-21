@@ -1,5 +1,6 @@
 #include "layer/abstraction/storageimpl.h"
 #include "layer/autonomous/teamimpl.h"
+#include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/obstaclefetcherimpl.h"
@@ -33,10 +34,18 @@ int main(int, char**)
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	ObstacleFetcherImpl obstacleFetcher;
 	TeamImpl team(storage, watch, logger, fieldPositionCheckerGoalKeeper, fieldPositionCheckerFieldPlayer, obstacleFetcher);
+	EnemyTeamImpl enemyTeam(storage);
+	IntelligentBallImpl ball(storage.getBall());
 	Robot &robotOne = team.getFirstFieldPlayer();
 	Robot &robotTwo = team.getSecondFieldPlayer();
 	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
+
+	obstacleFetcher.addSource(robotOne);
+	obstacleFetcher.addSource(robotTwo);
+	obstacleFetcher.addSource(robotThree);
+	obstacleFetcher.addSource(enemyTeam);
+	obstacleFetcher.addSource(ball);
 
 //	robotOne.goTo(Pose(Point(-1, 0), Angle(0)));
 //	robotTwo.goTo(Pose(Point(0, 0), Angle(0)));
@@ -70,7 +79,6 @@ int main(int, char**)
 		}
 	}
 
-//	IntelligentBallImpl ball(storage.getBall());
 //	while(true)
 //	{
 //		robotOne.goToDirect(Pose(ball.getPosition(), Angle(robotOne.getCurrentPose().getPosition(), ball.getPosition())));
