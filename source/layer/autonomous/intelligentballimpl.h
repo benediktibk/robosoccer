@@ -2,7 +2,6 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_INTELLIGENTBALLIMPL_H
 
 #include "intelligentball.h"
-
 namespace RoboSoccer
 {
 namespace Layer
@@ -23,7 +22,7 @@ namespace Autonomous
 		virtual bool isMoving() const;
 		virtual Abstraction::FieldSide getMovingDirection() const;
 		virtual Abstraction::FieldSide getCurrentFieldSide() const;
-
+		virtual double getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Common::Geometry::Point &target) const;
 	private:
 		Abstraction::Ball const &m_ball;
 	};

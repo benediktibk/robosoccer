@@ -25,6 +25,7 @@ namespace Autonomous
 		virtual bool isMoving() const;
 		virtual Abstraction::FieldSide getMovingDirection() const;
 		virtual Abstraction::FieldSide getCurrentFieldSide() const;
+		virtual double getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Common::Geometry::Point &target) const;
 
 		void setPosition(Common::Geometry::Point position);
 		void setRotation(Common::Geometry::Angle angle);
