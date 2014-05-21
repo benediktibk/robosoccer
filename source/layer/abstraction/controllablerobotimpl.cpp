@@ -31,7 +31,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_watchDogRestart(new StopWatch(watch)),
 	m_logger(logger),
 	m_logFileType(Logger::LogFileTypeInvalid),
-	m_turnStarted(false)
+	m_turnStarted(false),
+	m_distanceForGoTo(0)
 {
 	unsigned int modifiedDeviceId = deviceId;
 	if (color == TeamColorRed)
@@ -101,6 +102,7 @@ void ControllableRobotImpl::gotoPositionImprecise(const Geometry::Point &positio
 
 	determineIsDrivingForwardForGoTo(position);
 	m_driveTarget = position;
+	m_distanceForGoTo = getPosition().distanceTo(position);
 	switchInto(StateDrivingLong);
 }
 
@@ -111,6 +113,7 @@ void ControllableRobotImpl::gotoPositionPrecise(const Geometry::Point &position)
 
 	determineIsDrivingForwardForGoTo(position);
 	m_driveTarget = position;
+	m_distanceForGoTo = getPosition().distanceTo(position);
 	switchInto(StateDrivingShort);
 }
 
@@ -150,6 +153,10 @@ void ControllableRobotImpl::update()
 	Geometry::Compare orientationCompare(0.1);
 	bool watchDogTurningEnd = m_watchDogEnd->getTime() > 0.5;
 	bool watchDogKickingEnd = m_watchDogEnd->getTime() > 1;
+	const double speedInDrivingShort = 0.1;
+	const double speedInDrivingLong = 0.5;
+	bool watchDogDrivingShortEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingShort;
+	bool watchDogDrivingLongEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingLong;
 	bool watchDogRestart = m_watchDogRestart->getTime() > 0.5;
 
 	switch(m_state)
@@ -176,7 +183,12 @@ void ControllableRobotImpl::update()
 		}
 		return;
 	case StateDrivingShort:
-		if(getPosition().distanceTo(m_driveTarget) > 0.01)
+		if (watchDogDrivingShortEnd)
+		{
+			log("was not able to reach target, took too long");
+			switchInto(StateStop);
+		}
+		else if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveShortControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 		{
@@ -186,7 +198,12 @@ void ControllableRobotImpl::update()
 		}
 		break;
 	case StateDrivingLong:
-		if(getPosition().distanceTo(m_driveTarget) > 0.01)
+		if (watchDogDrivingLongEnd)
+		{
+			log("was not able to reach target, took too long");
+			switchInto(StateStop);
+		}
+		else if(getPosition().distanceTo(m_driveTarget) > 0.01)
 			m_driveLongControl->evaluate(getPose(), m_driveTarget, translationSpeed, rotationSpeed);
 		else
 		{

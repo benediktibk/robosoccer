@@ -28,7 +28,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	ObstacleFetcherImpl obstacleFetcher;
@@ -38,37 +38,37 @@ int main(int, char**)
 	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
 
-	robotOne.goTo(Pose(Point(-1, 0), Angle(0)));
-	robotTwo.goTo(Pose(Point(0, 0), Angle(0)));
-	robotThree.goTo(Pose(Point(1, 0), Angle(0)));
-	robotOne.update();
-	robotTwo.update();
-	robotThree.update();
+//	robotOne.goTo(Pose(Point(-1, 0), Angle(0)));
+//	robotTwo.goTo(Pose(Point(0, 0), Angle(0)));
+//	robotThree.goTo(Pose(Point(1, 0), Angle(0)));
+//	robotOne.update();
+//	robotTwo.update();
+//	robotThree.update();
 
-//	while(true)
-//	{
-//		robotOne.goToDirect(Pose(Point(1, 0.5), Angle()));
-//		robotTwo.goToDirect(Pose(Point(1, 0), Angle()));
-//		robotThree.goToDirect(Pose(Point(1, -0.5), Angle()));
-//		for (unsigned int i = 0; i < 1200; ++i)
-//		{
-//			robotOne.update();
-//			robotTwo.update();
-//			robotThree.update();
-//			usleep(5000);
-//		}
+	while(true)
+	{
+		robotOne.goTo(Pose(Point(0, 0.5), Angle::getQuarterRotation()));
+		robotTwo.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()));
+		robotThree.goTo(Pose(Point(0, -0.5), Angle::getQuarterRotation()));
+		for (unsigned int i = 0; i < 1000; ++i)
+		{
+			robotOne.update();
+			robotTwo.update();
+			robotThree.update();
+			usleep(5000);
+		}
 
-//		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle()));
-//		robotTwo.goToDirect(Pose(Point(-1, 0), Angle()));
-//		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle()));
-//		for (unsigned int i = 0; i < 1200; ++i)
-//		{
-//			robotOne.update();
-//			robotTwo.update();
-//			robotThree.update();
-//			usleep(5000);
-//		}
-//	}
+		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle::getQuarterRotation()));
+		robotTwo.goToDirect(Pose(Point(-1, 0), Angle::getQuarterRotation()));
+		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle::getQuarterRotation()));
+		for (unsigned int i = 0; i < 2500; ++i)
+		{
+			robotOne.update();
+			robotTwo.update();
+			robotThree.update();
+			usleep(5000);
+		}
+	}
 
 //	IntelligentBallImpl ball(storage.getBall());
 //	while(true)
