@@ -1,7 +1,7 @@
 
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "RoboSoccer - Team C"
-PROJECT_NUMBER         =
+PROJECT_NUMBER         = rev. @GIT_CURRENT_REV@
 PROJECT_BRIEF          =
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = documentation
@@ -86,13 +86,13 @@ WARN_IF_DOC_ERROR      = YES
 WARN_NO_PARAMDOC       = NO
 WARN_FORMAT            = "$file:$line: $text"
 WARN_LOGFILE           =
-INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@
+INPUT                  = @CMAKE_CURRENT_SOURCE_DIR@ @CMAKE_CURRENT_BINARY_DIR@/README.md
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          =
 RECURSIVE              = YES
 EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
-EXCLUDE_PATTERNS       = *build/* *external/* *test.*
+EXCLUDE_PATTERNS       = *build/* *external/* *test.* *mock.*
 EXCLUDE_SYMBOLS        =
 EXAMPLE_PATH           =
 EXAMPLE_PATTERNS       =
