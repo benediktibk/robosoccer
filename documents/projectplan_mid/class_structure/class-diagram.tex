@@ -2,10 +2,11 @@
 %!tikz source begin
 \begin{tikzpicture}[node distance=4.5cm, scale=0.5, transform shape]
 	\font\btt=rm-lmtk10
+	\definecolor{PresiBlue}{RGB}{50,57,171}
 	
 	\tikzstyle{class}=[
 		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=3, 
-		fill=blue!40, drop shadow, font=\tt,
+		fill=PresiBlue, drop shadow, font=\tt,
         text centered, anchor=north, text=white, text width=3.5cm]
 		
 	\tikzstyle{comment}=[
@@ -13,7 +14,7 @@
         text centered, anchor=north, text=white, text width=3cm]
 		
 	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
-	\tikzstyle{property}=[draw, ->, >=angle 60, thick]
+	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
 	\tikzstyle{line}=[-, thick]
    
    % Classes
@@ -125,7 +126,7 @@
 		+decideNextStep()
 	};
 	% Connections
-	\path [inheritance] (controllablerobot.west) +(0,-1) -| (readablerobot);
+	\path [inheritance] (controllablerobot.west) +(0,-1.3) -| (readablerobot);
 	\path [property] (controllablerobot) -- (ownteam);
 	\path [property] (readablerobot) -- (enemyteam);
 	\path [property] (ball) -- (intelligentball);
