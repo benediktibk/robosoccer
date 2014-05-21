@@ -57,6 +57,8 @@ namespace Autonomous
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint);
 		CPPUNIT_TEST(update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation);
 		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState);
+		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementStoppedByRobot_reachedTargetState);
+		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -98,6 +100,8 @@ namespace Autonomous
 		void update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint();
 		void update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation();
 		void nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState();
+		void nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementStoppedByRobot_reachedTargetState();
+		void update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint();
 
 	private:
 		RobotState *m_robotStateWithRouter;

@@ -332,6 +332,7 @@ void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRoute_r
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
 }
 
@@ -406,4 +407,52 @@ void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReache
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
 	delete state;
+}
+
+void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementStoppedByRobot_reachedTargetState()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	RobotState *state = m_robotState->nextState();
+
+	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
 }
