@@ -120,3 +120,8 @@ const Point & ControllableRobotMock::getLastPointToDriveTo() const
 	assert(getCallsToGoToPositionImprecise() + getCallsToGoToPositionPrecise() > 0);
 	return m_lastPointToDriveTo;
 }
+
+unsigned int RoboSoccer::Layer::Abstraction::ControllableRobotMock::getCallsToGoToCombined() const
+{
+	return getCallsToGoToPositionImprecise() + getCallsToGoToPositionPrecise();
+}

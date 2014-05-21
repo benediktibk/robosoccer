@@ -30,6 +30,7 @@ namespace Abstraction
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoToPositionImprecise() const;
 		unsigned int getCallsToGoToPositionPrecise() const;
+		unsigned int getCallsToGoToCombined() const;
 		unsigned int getCallsToTurn() const;
 		unsigned int getCallsToKick() const;
 		unsigned int getCallsToUpdate() const;

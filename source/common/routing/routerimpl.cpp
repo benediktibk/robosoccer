@@ -82,7 +82,7 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 			offsetDistanceShortPoint += 2*centerBetweenIntersectPoints.distanceTo(obstacle.getCenter());
 		if(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromLeft)
 		{
-			offsetAngleShortPoint = offsetAngleShortPoint + Angle::getThreeQuarterRotation();
+			offsetAngleShortPoint = offsetAngleShortPoint + Angle::getQuarterRotation() * 3.0;
 			if(line.isTargetPointRightOfLine(obstacle.getCenter()) && !path.isCircleCenterOnPath(obstacle))
 				offsetAngleShortPoint = offsetAngleShortPoint - Angle::getHalfRotation();
 		}
@@ -98,7 +98,7 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 	else
 	{
 		shortPointBesideObstacle = obstacle.getCenter() + Point(offsetDistanceLongPoint, offsetAngleShortPoint + Angle::getQuarterRotation());
-		longPointBesideObstacle = obstacle.getCenter() + Point(offsetDistanceLongPoint, offsetAngleShortPoint + Angle::getThreeQuarterRotation());
+		longPointBesideObstacle = obstacle.getCenter() + Point(offsetDistanceLongPoint, offsetAngleShortPoint + Angle::getQuarterRotation() * 3.0);
 	}
 
 	pointsBesideObstacle.push_back(shortPointBesideObstacle);

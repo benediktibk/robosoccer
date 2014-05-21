@@ -35,7 +35,6 @@ namespace Geometry
 		CPPUNIT_TEST(abs_1_valueIs1);
 		CPPUNIT_TEST(abs_minus1_valueIs1);
 		CPPUNIT_TEST(getEighthRotation_empty_valueIsPiQuarter);
-		CPPUNIT_TEST(getThreeQuarterRotation_empty_valueIsThreeHalfPi);
 		CPPUNIT_TEST(isObtuse_0_false);
 		CPPUNIT_TEST(isObtuse_pi_true);
 		CPPUNIT_TEST(isObtuse_piQuarter_false);
@@ -67,7 +66,6 @@ namespace Geometry
 		void abs_1_valueIs1();
 		void abs_minus1_valueIs1();
 		void getEighthRotation_empty_valueIsPiQuarter();
-		void getThreeQuarterRotation_empty_valueIsThreeHalfPi();
 		void isObtuse_0_false();
 		void isObtuse_pi_true();
 		void isObtuse_piQuarter_false();
