@@ -33,10 +33,11 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_logFileType(Logger::LogFileTypeInvalid),
 	m_turnStarted(false)
 {
+	unsigned int modifiedDeviceId = deviceId;
 	if (color == TeamColorRed)
-		deviceId += 3;
-	assert(deviceId <= 5);
-	m_robot = new RoboControl(dataBase,deviceId);
+		modifiedDeviceId += 3;
+	assert(modifiedDeviceId <= 5);
+	m_robot = new RoboControl(dataBase, modifiedDeviceId);
 
 	switch(deviceId)
 	{
