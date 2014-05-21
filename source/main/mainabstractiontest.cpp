@@ -23,7 +23,7 @@ int main(int, char**)
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(1);
@@ -35,12 +35,12 @@ int main(int, char**)
 	cout << "current pose of own robot is " << ownRobot.getPose() << endl;
 	referee.logInformation();
 
-	ownRobot.kick(100);
-	for (unsigned int i = 0; i < 1000; ++i)
-	{
-		ownRobot.update();
-		usleep(10000);
-	}
+//	ownRobot.kick(100);
+//	for (unsigned int i = 0; i < 1000; ++i)
+//	{
+//		ownRobot.update();
+//		usleep(10000);
+//	}
 
 //	while(true)
 //	{
@@ -75,6 +75,13 @@ int main(int, char**)
 //		else
 //			cout << "still moving " << endl;
 //	}
+
+	ownRobot.gotoPositionImprecise(Point(-1, 0));
+	for (unsigned int i = 0; i < 400; ++i)
+	{
+		ownRobot.update();
+		usleep(10000);
+	}
 
 	return 0;
 }

@@ -91,6 +91,7 @@ namespace Abstraction
 		Common::Logging::Logger &m_logger;
 		Common::Logging::Logger::LogFileType m_logFileType;
 		bool m_turnStarted;
+		double m_distanceForGoTo;
 	};
 }
 }
