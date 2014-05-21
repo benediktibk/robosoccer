@@ -7,10 +7,36 @@
 #include "common/logging/loggermock.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
+#include "common/routing/routerimpl.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/autonomous/robotstate.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Common::Routing;
+
+void RobotStateDriveToTest::setUp()
+{
+	RobotStateTest::setUp();
+	m_field = new FieldPositionCheckerFieldPlayer();
+	m_routerImpl = new RouterImpl(Abstraction::ReadableRobot::getWidth(), *m_field);
+	m_robotStateWithRouter = new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
+												   *m_routerImpl, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+												   *m_obstacleFetcher, *m_autonomousRobotMock);
+}
+
+void RobotStateDriveToTest::tearDown()
+{
+	RobotStateTest::tearDown();
+	delete m_field;
+	m_field = 0;
+	delete m_routerImpl;
+	m_routerImpl = 0;
+	delete m_robotStateWithRouter;
+	m_robotStateWithRouter = 0;
+}
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
