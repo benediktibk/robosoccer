@@ -16,12 +16,16 @@ namespace Geometry
 	{
 	public:
 		Line(const Point &start, const Point &end);
+		Line(const Point &start, const Angle &angle, double distance);
 
 		std::vector<Point> getIntersectPoints(const Circle &circle) const;
+		std::vector<Point> getIntersectPoint(const Line &line) const;
 		Point getPerpendicularPoint(Point point) const;
+		Point getPointOnDirectionOfLine(double percentOfLenghtOfLine) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
 		bool isOnePointLeftAndOneRightOfLine(const Point &one, const Point &two) const;
 		void shiftParallel(const Point &point);
+		double getLength() const;
 		Point getStart() const;
 		Point getEnd() const;
 

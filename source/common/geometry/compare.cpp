@@ -1,7 +1,7 @@
 #include "common/geometry/compare.h"
 #include "common/geometry/point.h"
 #include "common/geometry/circle.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include <math.h>
 
 using namespace RoboSoccer::Common::Geometry;
@@ -29,19 +29,19 @@ bool Compare::isFuzzyEqual(const Circle &one, const Circle &two) const
 			m_internalCompare.isFuzzyEqual(one.getDiameter(), two.getDiameter());
 }
 
-bool Compare::isFuzzyEqual(const OrientedPosition &one, const OrientedPosition &two) const
+bool Compare::isFuzzyEqual(const Pose &one, const Pose &two) const
 {
 	return	isFuzzyEqual(one.getPosition(), two.getPosition()) &&
 			isFuzzyEqual(one.getOrientation(), two.getOrientation());
 }
 
-bool Compare::isFuzzyEqual(const list<OrientedPosition> &one, const list<OrientedPosition> &two) const
+bool Compare::isFuzzyEqual(const list<Pose> &one, const list<Pose> &two) const
 {
-	list<OrientedPosition>::const_iterator j = two.begin();
+	list<Pose>::const_iterator j = two.begin();
 	if(one.size() != two.size())
 		return false;
 
-	for(list<OrientedPosition>::const_iterator i = one.begin(); i != one.end(); ++i, ++j)
+	for(list<Pose>::const_iterator i = one.begin(); i != one.end(); ++i, ++j)
 		if(!isFuzzyEqual((*i), (*j)))
 			return false;
 

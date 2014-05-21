@@ -12,11 +12,17 @@ Line::Line(const Point &start, const Point &end) :
 	m_end(end)
 { }
 
+Line::Line(const Point &start, const Angle &angle, double distance) :
+	m_start(start),
+	m_end(start + Point(distance, angle))
+{ }
+
 vector<Point> Line::getIntersectPoints(const Circle &circle) const
 {
 	Point start(m_start - circle.getCenter());
 	Point end(m_end - circle.getCenter());
 	vector<Point> intersectPoints;
+	intersectPoints.reserve(2);
 	Angle angleForVerticalLines;
 	double gradient;
 	Other::Compare compare(0.001);
@@ -83,6 +89,29 @@ vector<Point> Line::getIntersectPoints(const Circle &circle) const
 	return intersectPoints;
 }
 
+vector<Point> Line::getIntersectPoint(const Line &line) const
+{
+	vector<Point> intersectPoint;
+	intersectPoint.reserve(1);
+	Point vectorOne = m_end - m_start;
+	Point vectorTwo = line.getEnd() - line.getStart();
+	double determinantSolutionMatrix = vectorTwo.getX()*(-vectorOne.getY()) + vectorTwo.getY()*vectorOne.getX();
+
+	if (determinantSolutionMatrix != 0)
+	{
+		double percentOfLineOne = (-vectorTwo.getY()*(m_start.getX()-line.getStart().getX()) +
+								   vectorTwo.getX()*(m_start.getY()-line.getStart().getY())) / determinantSolutionMatrix;
+
+		double percentOfLineTwo = (-vectorOne.getY()*(m_start.getX()-line.getStart().getX()) +
+								   vectorOne.getX()*(m_start.getY()-line.getStart().getY())) / determinantSolutionMatrix;
+
+		if (percentOfLineOne >= 0 && percentOfLineOne <= 1 && percentOfLineTwo >= 0 && percentOfLineTwo <= 1)
+			intersectPoint.push_back(m_start + vectorOne*percentOfLineOne);
+	}
+
+	return intersectPoint;
+}
+
 Point Line::getPerpendicularPoint(Point point) const
 {
 	Angle angleBetweenPoints(m_start, m_end);
@@ -95,6 +124,13 @@ Point Line::getPerpendicularPoint(Point point) const
 	perpendicularPoint = perpendicularPoint + m_start;
 
 	return perpendicularPoint;
+}
+
+Point Line::getPointOnDirectionOfLine(double percentOfLenghtOfLine) const
+{
+	Point direction(m_end - m_start);
+
+	return m_start + direction * percentOfLenghtOfLine;
 }
 
 bool Line::isTargetPointRightOfLine(const Point &target) const
@@ -131,6 +167,11 @@ void Line::shiftParallel(const Point &point)
 	Point direction(m_end - m_start);
 	m_start = point;
 	m_end = m_start + direction;
+}
+
+double Line::getLength() const
+{
+	return m_start.distanceTo(m_end);
 }
 
 Point Line::getStart() const

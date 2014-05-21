@@ -14,8 +14,14 @@ namespace Main
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(FieldPositionCheckerFieldPlayerTest);
+		CPPUNIT_TEST(isPointInsideField_notInsideField_false);
+		CPPUNIT_TEST(isPointInsideField_onFieldNotInGoalZone_true);
+		CPPUNIT_TEST(isPointInsideField_onFieldAndInGoalZone_false);
 		CPPUNIT_TEST_SUITE_END();
 	private:
+		void isPointInsideField_notInsideField_false();
+		void isPointInsideField_onFieldNotInGoalZone_true();
+		void isPointInsideField_onFieldAndInGoalZone_false();
 
 	};
 }

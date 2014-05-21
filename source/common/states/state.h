@@ -24,6 +24,7 @@ namespace States
 		virtual std::string getName() = 0;
 		virtual bool allowLogMessages();
 		bool updateAlreadyCalled() const;
+		Logging::Logger& getLogger();
 
 	protected:
 		virtual void updateInternal() = 0;

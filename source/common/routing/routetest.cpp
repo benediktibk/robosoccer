@@ -2,7 +2,7 @@
 #include "common/routing/route.h"
 #include "common/geometry/compare.h"
 #include "common/geometry/angle.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include <math.h>
 
 using namespace std;

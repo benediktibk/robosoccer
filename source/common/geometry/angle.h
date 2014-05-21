@@ -28,6 +28,7 @@ namespace Geometry
 		Angle operator-(const Angle &rhs) const;
 		Angle operator*(double value) const;
 		Angle operator/(double value) const;
+		bool operator==(const Angle &rhs) const;
 
 	public:
 		static Angle getHalfRotation();

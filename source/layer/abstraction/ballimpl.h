@@ -3,6 +3,7 @@
 
 #include "layer/abstraction/ball.h"
 
+
 class RawBall;
 
 namespace KogniMobil
@@ -22,10 +23,10 @@ namespace Abstraction
 	public:
 		BallImpl(KogniMobil::RTDBConn &dataBase);
 		virtual ~BallImpl();
-
 		virtual Common::Geometry::Point getPosition() const;
+		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
-
+		virtual double getVelocity() const;
 	private:
 		RawBall *m_ball;
 	};

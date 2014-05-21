@@ -8,7 +8,8 @@ set(COMMON_GEOMETRY_SRC
 	pointdistancecompare.cpp
 	rectangle.cpp
 	compare.cpp
-	orientedposition.cpp
+	pose.cpp
+    rectangleroundedcorners.cpp
 )
 
 set(COMMON_GEOMETRY_TEST_SRC
@@ -21,7 +22,8 @@ set(COMMON_GEOMETRY_TEST_SRC
 	pointdistancecomparetest.cpp
 	rectangletest.cpp
 	comparetest.cpp
-	orientedpositiontest.cpp
+	posetest.cpp
+    rectangleroundedcornerstest.cpp
 )
 
 add_library(commongeometry ${COMMON_GEOMETRY_SRC})

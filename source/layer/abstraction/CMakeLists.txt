@@ -1,6 +1,7 @@
 set(COMMON_LAYER_ABSTRACTION_SRC
 	controllablerobotimpl.cpp
 	controllablerobotmock.cpp
+	readablerobot.cpp
 	readablerobotimpl.cpp
 	readablerobotmock.cpp
 	ballimpl.cpp
@@ -9,6 +10,12 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	refereemock.cpp
 	storageimpl.cpp
 	storagemock.cpp
+	fieldside.cpp
+	robotdrivecontrol.cpp
+)
+
+set(COMMON_LAYER_ABSTRACTION_TEST_SRC
+	robotdrivecontroltest.cpp
 )
 
 set(COMPILE_FLAGS_ROSO "-Wno-overflow -Wno-format")
@@ -19,3 +26,4 @@ set_source_files_properties(refereeimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_F
 set_source_files_properties(storageimpl.cpp PROPERTIES COMPILE_FLAGS ${COMPILE_FLAGS_ROSO})
 
 add_library(layerabstraction ${COMMON_LAYER_ABSTRACTION_SRC})
+add_library(layerabstractiontest ${COMMON_LAYER_ABSTRACTION_TEST_SRC})

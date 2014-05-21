@@ -6,7 +6,8 @@
 #include "common/geometry/pointtest.h"
 #include "common/geometry/pointdistancecomparetest.h"
 #include "common/geometry/rectangletest.h"
-#include "common/geometry/orientedpositiontest.h"
+#include "common/geometry/posetest.h"
+#include "common/geometry/rectangleroundedcornerstest.h"
 #include "common/logging/loggertest.h"
 #include "common/other/comparetest.h"
 #include "common/other/pidcontrollertest.h"
@@ -22,9 +23,33 @@
 #include "common/time/watchtest.h"
 #include "common/states/statetest.h"
 #include "common/states/statemachinetest.h"
+#include "layer/abstraction/robotdrivecontroltest.h"
 #include "layer/main/applicationtest.h"
 #include "layer/main/fieldpositioncheckerfieldplayertest.h"
 #include "layer/main/fieldpositioncheckergoalkeepertest.h"
+#include "layer/control/pausetest.h"
+#include "layer/control/preparekickofftest.h"
+#include "layer/control/playtest.h"
+#include "layer/control/preparepenaltytest.h"
+#include "layer/control/preparekickoffoffensivetest.h"
+#include "layer/control/preparekickoffdefensivetest.h"
+#include "layer/control/kickoffdefensivetest.h"
+#include "layer/control/kickoffoffensivetest.h"
+#include "layer/control/preparepenaltyoffensivetest.h"
+#include "layer/control/preparepenaltydefensivetest.h"
+#include "layer/control/penaltyoffensivetest.h"
+#include "layer/control/penaltydefensivetest.h"
+#include "layer/autonomous/robottest.h"
+#include "layer/autonomous/teamtest.h"
+#include "layer/autonomous/enemyteamtest.h"
+#include "layer/autonomous/targetpositionfetchertest.h"
+#include "layer/autonomous/robotstatereachedtargettest.h"
+#include "layer/autonomous/robotstatedrivetotest.h"
+#include "layer/autonomous/robotstatedrivetodirecttest.h"
+#include "layer/autonomous/robotstateturntotest.h"
+#include "layer/autonomous/robotstatekicktest.h"
+#include "layer/autonomous/intelligentballtest.h"
+#include "layer/autonomous/obstaclefetchertest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -34,7 +59,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PathTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PointTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PointDistanceCompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::OrientedPositionTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PoseTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleRoundedCornersTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Logging::LoggerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
@@ -51,6 +77,30 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Time::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Time::WatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateMachineTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotDriveControlTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerGoalkeeperTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PauseTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PlayTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PreparePenaltyTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffOffensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffDefensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::KickOffDefensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::KickOffOffensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PreparePenaltyOffensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PreparePenaltyDefensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyOffensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyDefensiveTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TargetPositionFetcherTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateReachedTargetTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateDriveToTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateDriveToDirectTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateTurnToTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotStateKickTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::IntelligentBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::ObstacleFetcherTest);

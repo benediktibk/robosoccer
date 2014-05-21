@@ -2,6 +2,14 @@
 #define ROBOSOCCER_LAYER_ABSTRACTION_READABLEROBOTIMPL_H
 
 #include "layer/abstraction/readablerobot.h"
+#include "teamcolor.h"
+
+class RoboControl;
+
+namespace KogniMobil
+{
+	class RTDBConn;
+}
 
 namespace RoboSoccer
 {
@@ -13,12 +21,14 @@ namespace Abstraction
 			public ReadableRobot
 	{
 	public:
-		ReadableRobotImpl();
+		ReadableRobotImpl(unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color);
+		~ReadableRobotImpl();
 
-		virtual Common::Geometry::OrientedPosition getPosition() const;
-		virtual Common::Geometry::Circle createObstacle() const;
+		virtual Common::Geometry::Pose getPose() const;
+		virtual Common::Geometry::Circle getObstacle() const;
 
 	private:
+		RoboControl *m_robot;
 	};
 }
 }

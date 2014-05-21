@@ -12,7 +12,7 @@ namespace Geometry
 {
 	class Point;
 	class Circle;
-	class OrientedPosition;
+	class Pose;
 	class Angle;
 
 	class Compare
@@ -23,8 +23,8 @@ namespace Geometry
 		bool isFuzzyEqual(const Angle &one, const Angle &two) const;
 		bool isFuzzyEqual(const Point &one, const Point &two) const;
 		bool isFuzzyEqual(const Circle &one, const Circle &two) const;
-		bool isFuzzyEqual(const OrientedPosition &one, const OrientedPosition &two) const;
-		bool isFuzzyEqual(const std::list<OrientedPosition> &one, const std::list<OrientedPosition> &two) const;
+		bool isFuzzyEqual(const Pose &one, const Pose &two) const;
+		bool isFuzzyEqual(const std::list<Pose> &one, const std::list<Pose> &two) const;
 
 	private:
 		 Other::Compare m_internalCompare;

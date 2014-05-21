@@ -4,7 +4,7 @@
 #include "layer/abstraction/ball.h"
 #include "layer/abstraction/readablerobot.h"
 #include "layer/abstraction/controllablerobot.h"
-#include "layer/abstraction/referee.h"
+#include "layer/abstraction/refereebase.h"
 
 namespace RoboSoccer
 {
@@ -20,7 +20,7 @@ namespace Abstraction
 		virtual Ball const& getBall() const = 0;
 		virtual ReadableRobot const& getEnemyRobot(unsigned int number) const = 0;
 		virtual ControllableRobot& getOwnRobot(unsigned int number) = 0;
-		virtual Referee& getReferee() = 0;
+		virtual RefereeBase& getReferee() = 0;
 	};
 }
 }

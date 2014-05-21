@@ -1,11 +1,13 @@
 #include "layer/abstraction/ballimpl.h"
 #include "common/geometry/point.h"
 #include "common/geometry/circle.h"
+#include "common/geometry/angle.h"
+#include "common/geometry/pose.h"
 #include <kogmo_rtdb.hxx>
 #include <raw_ball.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
-using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common;
 
 BallImpl::BallImpl(KogniMobil::RTDBConn &dataBase) :
 	m_ball(new RawBall(dataBase))
@@ -17,13 +19,26 @@ BallImpl::~BallImpl()
 	m_ball = 0;
 }
 
-Point BallImpl::getPosition() const
+Geometry::Angle BallImpl::getRotation() const
 {
-	return Point(m_ball->GetX(), m_ball->GetY());
+	Angle angle = m_ball->GetPhi();
+	return Geometry::Angle(angle.Rad());
 }
 
-Circle BallImpl::getObstacle() const
+Geometry::Point BallImpl::getPosition() const
 {
-	//! @todo measure and fix diameter of ball
-	return Circle(getPosition(), 0.05);
+	Geometry::Point ballPosition;
+	ballPosition.setX(m_ball->GetX());
+	ballPosition.setY(m_ball->GetY());
+	return ballPosition;
+}
+
+Geometry::Circle BallImpl::getObstacle() const
+{
+	return Geometry::Circle(getPosition(), 0.045);
+}
+
+double BallImpl::getVelocity() const
+{
+	return m_ball->GetVelocity()*871.3072;
 }

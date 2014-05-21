@@ -15,11 +15,16 @@ class Logger
 	public:
 		enum LogFileType
 		{
-			LogFileTypeGlobal,
+			LogFileTypeGlobal = 0, // must be zero so that the value for the last one is correct
+			LogFileTypeReferee,
 			LogFileTypeStateChanges,
-			LogFileTypeField,
-			LogFileTypeFieldDetection,
-			LogFileTypeRobot
+			LogFileTypeAutonomousRobotOne,
+			LogFileTypeAutonomousRobotTwo,
+			LogFileTypeAutonomousRobotGoalie,
+			LogFileTypeControllableRobotOne,
+			LogFileTypeControllableRobotTwo,
+			LogFileTypeControllableRobotGoalkeeper,
+			LogFileTypeInvalid // must be last one so that we can count from global to invalid
 		};
 
 	public:

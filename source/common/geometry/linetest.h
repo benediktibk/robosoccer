@@ -33,6 +33,16 @@ namespace Geometry
 		 CPPUNIT_TEST(getPerpendicularPoint_pointIs1p5And2_resultIsCorrect);
 		 CPPUNIT_TEST(isOnePointLeftAndOneRightOfLine_strangeExample_resultIsTrue);
 		 CPPUNIT_TEST(shiftParallel_shiftLine_resultIsCorrect);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd);
+		 CPPUNIT_TEST(getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreParralel_noIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreVerticalButNotToutching_noIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreIntersecting_oneIntersect);
+		 CPPUNIT_TEST(getIntersectPoint_linesAreToutching_oneIntersect);
+		 CPPUNIT_TEST(constructor_startAndAngle_correct);
+		 CPPUNIT_TEST(getLength_lengthIs1_correct);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -55,6 +65,17 @@ namespace Geometry
 		 void getPerpendicularPoint_pointIs1p5And2_resultIsCorrect();
 		 void isOnePointLeftAndOneRightOfLine_strangeExample_resultIsTrue();
 		 void shiftParallel_shiftLine_resultIsCorrect();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd();
+		 void getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect();
+		 void getIntersectPoint_linesAreParralel_noIntersect();
+		 void getIntersectPoint_linesAreVerticalButNotToutching_noIntersect();
+		 void getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect();
+		 void getIntersectPoint_linesAreIntersecting_oneIntersect();
+		 void getIntersectPoint_linesAreToutching_oneIntersect();
+		 void constructor_startAndAngle_correct();
+		 void getLength_lengthIs1_correct();
+
 	};
 }
 }

@@ -7,7 +7,7 @@
 #include "common/geometry/path.h"
 #include "common/time/watchimpl.h"
 #include "common/geometry/angle.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/line.h"
 #include "common/other/signum.h"
 #include "common/geometry/pathintersectpoints.h"

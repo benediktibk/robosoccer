@@ -1,6 +1,8 @@
 #ifndef ROBOSOCCER_LAYER_MAIN_APPLICATION_H
 #define ROBOSOCCER_LAYER_MAIN_APPLICATION_H
 
+#include "layer/abstraction/teamcolor.h"
+
 namespace RoboSoccer
 {
 namespace Common
@@ -20,19 +22,40 @@ namespace Abstraction
 {
 	class Storage;
 }
+namespace Autonomous
+{
+	class EnemyTeamImpl;
+	class TeamImpl;
+	class IntelligentBall;
+	class TargetPositionFetcher;
+	class ObstacleFetcher;
+}
 namespace Main
 {
+	class FieldPositionCheckerGoalkeeper;
+	class FieldPositionCheckerFieldPlayer;
+
 	class Application
 	{
 	public:
-		Application(Abstraction::Storage &storage, Common::Logging::Logger &logger, Common::Time::Watch const &watch);
+		Application(Abstraction::TeamColor ownTeamColor);
+		~Application();
 
 		void run();
+		void stop();
 
 	private:
-		Abstraction::Storage &m_storage;
-		Common::Logging::Logger &m_logger;
-		Common::Time::Watch const &m_watch;
+		Common::Logging::Logger *m_logger;
+		Common::Time::Watch *m_watch;
+		Abstraction::Storage *m_storage;
+		FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
+		FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
+		Autonomous::ObstacleFetcher *m_obstacleFetcher;
+		Autonomous::EnemyTeamImpl *m_enemyTeam;
+		Autonomous::TeamImpl *m_ownTeam;
+		Autonomous::IntelligentBall *m_ball;
+		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
+		bool m_stop;
 	};
 }
 }

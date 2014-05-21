@@ -1,6 +1,7 @@
 #include "common/geometry/linetest.h"
 #include "common/geometry/line.h"
 #include "common/geometry/circle.h"
+#include "common/geometry/angle.h"
 #include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Common::Geometry;
@@ -150,4 +151,79 @@ void LineTest::shiftParallel_shiftLine_resultIsCorrect()
 
 	CPPUNIT_ASSERT_EQUAL(Point(2,2), line.getStart());
 	CPPUNIT_ASSERT_EQUAL(Point(5,3), line.getEnd());
+}
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs0_resultIsStart()
+{
+	Line line(Point(1,1), Point(3,1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(1,1),line.getPointOnDirectionOfLine(0));
+}
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs1_resultIsEnd()
+{
+	Line line(Point(1,1), Point(3,1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3,1),line.getPointOnDirectionOfLine(1));
+}
+
+void LineTest::getPointOnDirectionOfLine_percentOfLenghtOfLineIs2_resultIsCorrect()
+{
+	Line line(Point(1,1), Point(2,2));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3,3),line.getPointOnDirectionOfLine(2));
+}
+
+void LineTest::getIntersectPoint_linesAreParralel_noIntersect()
+{
+	Line lineOne(Point(0,0), Point(1,0));
+	Line lineTwo(Point(0,1), Point(1,1));
+
+	CPPUNIT_ASSERT(lineOne.getIntersectPoint(lineTwo).empty());
+}
+
+void LineTest::getIntersectPoint_linesAreVerticalButNotToutching_noIntersect()
+{
+	Line lineOne(Point(0,0), Point(2,0));
+	Line lineTwo(Point(1,1), Point(1,2));
+
+	CPPUNIT_ASSERT(lineOne.getIntersectPoint(lineTwo).empty());
+}
+
+void LineTest::getIntersectPoint_linesAreVerticalAndIntersecting_oneIntersect()
+{
+	Line lineOne(Point(0,0), Point(2,0));
+	Line lineTwo(Point(1,-1), Point(1,1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(1,0),lineOne.getIntersectPoint(lineTwo).front());
+}
+
+void LineTest::getIntersectPoint_linesAreIntersecting_oneIntersect()
+{
+	Line lineOne(Point(-1,-1), Point(1,1));
+	Line lineTwo(Point(-1,1), Point(1,-1));
+
+	CPPUNIT_ASSERT_EQUAL(Point(0,0),lineOne.getIntersectPoint(lineTwo).front());
+}
+
+void LineTest::getIntersectPoint_linesAreToutching_oneIntersect()
+{
+	Line lineOne(Point(-1,-1), Point(1,1));
+	Line lineTwo(Point(-1,1), Point(0,0));
+
+	CPPUNIT_ASSERT_EQUAL(Point(0,0),lineOne.getIntersectPoint(lineTwo).front());
+}
+
+void LineTest::constructor_startAndAngle_correct()
+{
+	Line line(Point(0,0), Angle::getQuarterRotation(), 1);
+
+	CPPUNIT_ASSERT_EQUAL(Point(0,1),line.getEnd());
+}
+
+void LineTest::getLength_lengthIs1_correct()
+{
+	Line line(Point(0,1), Point(0,0));
+
+	CPPUNIT_ASSERT_EQUAL(1.0,line.getLength());
 }

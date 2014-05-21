@@ -8,7 +8,7 @@
 #include "common/geometry/pathintersectpoints.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/line.h"
-#include "common/geometry/orientedposition.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/compare.h"
 #include <math.h>
 #include <assert.h>
@@ -225,7 +225,7 @@ vector<RoutingResult> RouterImpl::calculateEndParts(
 		const list<RoutingObstacle> &consideredObstacles = i->getObstacles();
 		const Geometry::Point &lastPoint = startRoute.getLastPoint();
 		const Geometry::Point &nextToLastPoint = startRoute.getNextToLastPoint();
-		OrientedPosition start(lastPoint, Angle(nextToLastPoint, lastPoint));
+		Pose start(lastPoint, Angle(nextToLastPoint, lastPoint));
 		bool startInsideField = m_fieldPositionChecker.isPointInsideField(lastPoint);
 		assert(!(lastPoint == end));
 

@@ -1,12 +1,17 @@
 #ifndef ROBOSOCCER_COMMON_LOGGING_LOGGERIMPL_H
 #define ROBOSOCCER_COMMON_LOGGING_LOGGERIMPL_H
 
+#include <vector>
 #include "common/logging/logger.h"
 
 namespace RoboSoccer
 {
 namespace Common
 {
+namespace Time
+{
+	class Watch;
+}
 namespace Logging
 {
 class LoggerImpl :
@@ -27,19 +32,26 @@ class LoggerImpl :
 		virtual void enableLogWriting();
 		virtual void disableLogWriting();
 
+		void deleteLogFolderAfterFinish();
+
 	private:
+		std::string getNameForLogFileType(LogFileType logType) const;
 		void initLogFiles();
 		void closeLogFiles();
+		void deleteLogFiles();
+		std::string buildPathForLogFileTypeAndFolder(LogFileType logType, std::string &folder) const;
+		std::string getTimeAbsolute() const;
+		std::string getTimeRelative() const;
 
 	private:
 		bool m_consoleOutputEnabled;
 		bool m_logWritingEnabled;
+		bool m_deleteAfterFinish;
+		std::string m_folder;
+		Time::Watch *m_watch;
 
-		std::fstream m_globalLogFile;
-		std::fstream m_stateChangesLogFile;
-		std::fstream m_fieldLogFile;
-		std::fstream m_fieldDetectionLogFile;
-		std::fstream m_robotLogFile;
+		std::vector<std::fstream*> m_logFiles;
+
 	};
 }
 }
