@@ -55,7 +55,6 @@ namespace Autonomous
 	private:
 		bool setOrdersForIntermediatePointAndGetOrderSet();
 		void updateRoute();
-		void updateRoutePoint();
 		void updateRouteForTarget();
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
@@ -68,7 +67,6 @@ namespace Autonomous
 		const double m_precisionOrientationFinal;
 		bool m_initialRotationReached;
 		bool m_initialRotationStarted;
-		bool m_positionReached;
 		bool m_driveStarted;
 		bool m_finalRotationReached;
 		bool m_finalRotationStarted;

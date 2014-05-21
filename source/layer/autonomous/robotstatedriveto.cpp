@@ -26,7 +26,6 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_precisionOrientationFinal(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
-	m_positionReached(false),
 	m_driveStarted(false),
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
@@ -93,12 +92,23 @@ void RobotStateDriveTo::updateInternal()
 	if (!m_currentRoute->isValid())
 		return;
 
-	if(setOrdersForIntermediatePointAndGetOrderSet())
-		return;
+	if(m_currentRoute->getPointCount() >= 2)
+	{
+		if(setOrdersForIntermediatePointAndGetOrderSet())
+			return;
 
-	updateRoutePoint();
+		m_initialRotationReached = false;
+		m_initialRotationStarted = false;
+		m_driveStarted = false;
 
-	if (!m_finalRotationReached && m_currentRoute->getPointCount() <= 2)
+		if(m_currentRoute->getPointCount() >= 2)
+		{
+			if(setOrdersForIntermediatePointAndGetOrderSet())
+				return;
+		}
+	}
+
+	if (!m_finalRotationReached && m_currentRoute->getPointCount() < 2)
 	{
 		Compare compareAngle(m_precisionOrientationFinal);
 		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), m_target.getOrientation()))
@@ -156,30 +166,28 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		}
 	}
 
-	if (!m_positionReached)
+	Compare comparePosition(m_precisionPosition);
+	if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
 	{
-		Compare comparePosition(m_precisionPosition);
-		if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
-		{
-			log("position reached");
-			m_positionReached = true;
-			m_movementStopUsed = true;
-		}
-		else if (hasMovementStopped() && !m_movementStopUsed)
-		{
-			log("position not really reached, but movement stopped");
-			m_movementStopUsed = true;
-			m_positionReached = true;
-		}
-		else
-		{
-			if (!m_driveStarted)
-				getRobot().gotoPositionImprecise(target);
-
-			m_driveStarted = true;
-			return true;
-		}
+		log("position reached");
+		m_movementStopUsed = true;
+		m_currentRoute->removeFirstPoint();
 	}
+	else if (hasMovementStopped() && !m_movementStopUsed)
+	{
+		log("position not really reached, but movement stopped");
+		m_movementStopUsed = true;
+		m_currentRoute->removeFirstPoint();
+	}
+	else
+	{
+		if (!m_driveStarted)
+			getRobot().gotoPositionImprecise(target);
+
+		m_driveStarted = true;
+		return true;
+	}
+
 	return false;
 }
 
@@ -192,18 +200,6 @@ void RobotStateDriveTo::updateRoute()
 		clearRoute();
 		m_currentRoute = new Route(ReadableRobot::getWidth());
 		updateRouteForTarget();
-	}
-	updateRoutePoint();
-}
-
-void RobotStateDriveTo::updateRoutePoint()
-{
-	if(m_positionReached && m_currentRoute->getPointCount() > 2)
-	{
-		m_currentRoute->removeFirstPoint();
-		m_initialRotationReached = false;
-		m_initialRotationStarted = false;
-		m_positionReached = false;
 	}
 }
 
