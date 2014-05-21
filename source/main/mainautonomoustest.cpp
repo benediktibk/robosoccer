@@ -47,21 +47,28 @@ int main(int, char**)
 	obstacleFetcher.addSource(enemyTeam);
 	obstacleFetcher.addSource(ball);
 
-	while(true)
-	{
-		robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
-		while (!robotTwo.targetReached())
-		{
-			robotTwo.update();
-			usleep(10000);
-		}
+//	while(true)
+//	{
+//		robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
+//		while (!robotTwo.targetReached())
+//		{
+//			robotTwo.update();
+//			usleep(10000);
+//		}
 
-		robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
-		while (!robotTwo.targetReached())
-		{
-			robotTwo.update();
-			usleep(10000);
-		}
+//		robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
+//		while (!robotTwo.targetReached())
+//		{
+//			robotTwo.update();
+//			usleep(10000);
+//		}
+//	}
+
+	robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
+	while (!robotTwo.targetReached())
+	{
+		robotTwo.update();
+		usleep(10000);
 	}
 
 //	while(true)
