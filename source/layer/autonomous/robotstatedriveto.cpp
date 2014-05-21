@@ -171,7 +171,8 @@ void RobotStateDriveTo::updateInternal()
 
 void RobotStateDriveTo::updateRoute()
 {
-	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
+	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(
+							 m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
 	{
 		log("current route is not feasible anymore we try to create a new one");
 		clearRoute();
