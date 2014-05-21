@@ -18,7 +18,8 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
-		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher) :
+		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
+		ObstacleSource &autonomousRobot) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
@@ -33,7 +34,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
 	m_currentRoute(0),
-	m_obstacleFetcher(obstacleFetcher)
+	m_obstacleFetcher(obstacleFetcher),
+	m_autonomousRobot(autonomousRobot)
 {
 	m_watchDog->getTimeAndRestart();
 }
@@ -85,67 +87,63 @@ void RobotStateDriveTo::updateInternal()
 	Pose robotPose = getRobot().getPose();
 	bool movementStopUsed = false;
 
-	//updateRoute();
+	updateRoute();
 
-	//while (m_currentRoute->getPointCount() >= 2)
+	const Point &target = getNextTargetPoint();
+
+	if (!m_initialRotationReached)
 	{
-		const Point &target = m_target.getPosition();//getNextTargetPoint();
-
-		if (!m_initialRotationReached)
+		Compare compareAngle(m_precisionOrientationInitial);
+		Angle targetAngle(robotPose.getPosition(), target);
+		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
 		{
-			Compare compareAngle(m_precisionOrientationInitial);
-			Angle targetAngle(robotPose.getPosition(), target);
-			if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
-			{
-				log("inital rotation reached");
-				m_initialRotationReached = true;
-				movementStopUsed = true;
-			}
-			else if (hasMovementStopped())
-			{
-				log("inital rotation not really reached, but movement stopped");
-				movementStopUsed = true;
-				m_initialRotationReached = true;
-			}
-			else
-			{
-				if (!m_initialRotationStarted)
-					getRobot().turn(targetAngle);
-
-				m_initialRotationStarted = true;
-				return;
-			}
-
-			//updateRoute();
+			log("inital rotation reached");
+			m_initialRotationReached = true;
+			movementStopUsed = true;
 		}
-
-		if (!m_positionReached)
+		else if (hasMovementStopped())
 		{
-			Compare comparePosition(m_precisionPosition);
-			if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
-			{
-				log("position reached");
-				m_positionReached = true;
-				movementStopUsed = true;
-			}
-			else if (hasMovementStopped() && !movementStopUsed)
-			{
-				log("position not really reached, but movement stopped");
-				movementStopUsed = true;
-				m_positionReached = true;
-			}
-			else
-			{
-				if (!m_driveStarted)
-					getRobot().gotoPositionImprecise(target);
-
-				m_driveStarted = true;
-				return;
-			}
+			log("inital rotation not really reached, but movement stopped");
+			movementStopUsed = true;
+			m_initialRotationReached = true;
 		}
-		}
+		else
+		{
+			if (!m_initialRotationStarted)
+				getRobot().turn(targetAngle);
 
-	if (!m_finalRotationReached)
+			m_initialRotationStarted = true;
+			return;
+		}
+	}
+
+	if (!m_positionReached)
+	{
+		Compare comparePosition(m_precisionPosition);
+		if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
+		{
+			log("position reached");
+			m_positionReached = true;
+			movementStopUsed = true;
+		}
+		else if (hasMovementStopped() && !movementStopUsed)
+		{
+			log("position not really reached, but movement stopped");
+			movementStopUsed = true;
+			m_positionReached = true;
+		}
+		else
+		{
+			if (!m_driveStarted)
+				getRobot().gotoPositionImprecise(target);
+
+			m_driveStarted = true;
+			return;
+		}
+	}
+	updateRoute();
+
+	if (!m_finalRotationReached && m_currentRoute->getPointCount() <= 2)
 	{
 		Compare compareAngle(m_precisionOrientationFinal);
 		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), m_target.getOrientation()))
@@ -173,12 +171,14 @@ void RobotStateDriveTo::updateInternal()
 
 void RobotStateDriveTo::updateRoute()
 {
-	if (!isRouteFeasible(vector<Circle>()))
+	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
 	{
+		log("current route is not feasible anymore we try to create a new one");
 		clearRoute();
 		m_currentRoute = new Route(ReadableRobot::getWidth());
+		updateRouteForTarget();
 	}
-	if(m_positionReached)
+	if(m_positionReached && m_currentRoute->getPointCount() > 2)
 	{
 		m_currentRoute->removeFirstPoint();
 		m_initialRotationReached = false;
@@ -191,7 +191,8 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 
-	m_router.calculateRoute(robotPoint,m_target,vector<Circle>());
+	*m_currentRoute = m_router.calculateRoute(
+				robotPoint,m_target,m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5));
 }
 
 const Point &RobotStateDriveTo::getNextTargetPoint() const
