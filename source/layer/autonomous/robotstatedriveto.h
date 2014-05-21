@@ -54,6 +54,7 @@ namespace Autonomous
 
 	private:
 		void updateRoute();
+		void updateRoutePoint();
 		void updateRouteForTarget();
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;

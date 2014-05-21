@@ -89,6 +89,9 @@ void RobotStateDriveTo::updateInternal()
 
 	updateRoute();
 
+	if (!m_currentRoute->isValid())
+		return;
+
 	const Point &target = getNextTargetPoint();
 
 	if (!m_initialRotationReached)
@@ -141,7 +144,7 @@ void RobotStateDriveTo::updateInternal()
 			return;
 		}
 	}
-	updateRoute();
+	updateRoutePoint();
 
 	if (!m_finalRotationReached && m_currentRoute->getPointCount() <= 2)
 	{
@@ -179,7 +182,11 @@ void RobotStateDriveTo::updateRoute()
 		m_currentRoute = new Route(ReadableRobot::getWidth());
 		updateRouteForTarget();
 	}
+	updateRoutePoint();
+}
 
+void RobotStateDriveTo::updateRoutePoint()
+{
 	if(m_positionReached && m_currentRoute->getPointCount() > 2)
 	{
 		m_currentRoute->removeFirstPoint();
