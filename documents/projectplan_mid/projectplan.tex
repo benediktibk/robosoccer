@@ -1,5 +1,11 @@
 \documentclass[hyperref={pdfpagelabels=false}]{beamer}
 \usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
 \definecolor{UniWhite}{RGB}{255,255,255}
@@ -33,9 +39,15 @@
 	\frametitle{Einleitung} 
 \end{frame}
 
-\section{Klassendiagramm} 
+\section{Class diagram}
 \begin{frame}
-	\frametitle{Klassendiagramm}
+	\frametitle{Layers}
+	\input{class_structure/layers}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Classes}
+	\input{class_structure/class-diagram}
 \end{frame}
 
 \section{State-Machine} 
