@@ -87,11 +87,11 @@ void RobotStateDriveTo::updateInternal()
 	Pose robotPose = getRobot().getPose();
 	bool movementStopUsed = false;
 
-	//updateRoute();
+	updateRoute();
 
-	//while (m_currentRoute->getPointCount() >= 2)
+	while (m_currentRoute->getPointCount() >= 2)
 	{
-		const Point &target = m_target.getPosition();//getNextTargetPoint();
+		const Point &target = getNextTargetPoint();
 
 		if (!m_initialRotationReached)
 		{
@@ -117,8 +117,6 @@ void RobotStateDriveTo::updateInternal()
 				m_initialRotationStarted = true;
 				return;
 			}
-
-			//updateRoute();
 		}
 
 		if (!m_positionReached)
@@ -145,7 +143,8 @@ void RobotStateDriveTo::updateInternal()
 				return;
 			}
 		}
-		}
+		updateRoute();
+	}
 
 	if (!m_finalRotationReached)
 	{
@@ -177,8 +176,10 @@ void RobotStateDriveTo::updateRoute()
 {
 	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
 	{
+		log("current route is not feasible anymore we try to create a new one");
 		clearRoute();
 		m_currentRoute = new Route(ReadableRobot::getWidth());
+		updateRouteForTarget();
 	}
 	if(m_positionReached)
 	{
@@ -193,7 +194,8 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 
-	m_router.calculateRoute(robotPoint,m_target,vector<Circle>());
+	*m_currentRoute = m_router.calculateRoute(
+				robotPoint,m_target,m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5));
 }
 
 const Point &RobotStateDriveTo::getNextTargetPoint() const
