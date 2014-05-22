@@ -5,7 +5,8 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{tkz-euclide}
-
+\usepackage[percent]{overpic}
+\graphicspath{{Pictures/}}
 \usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
@@ -205,9 +206,39 @@
 	\end{center}
 \end{frame}
 
-\section{Regelung} 
+\section{Control} 
 \begin{frame}
-	\frametitle{Regelung}
+	\frametitle{Control}
+	
+	\begin{figure}
+		\centering
+		\begin{overpic}[width=0.8\textwidth]{roboline.eps}
+			\put(10,39){\small Start}
+			\put(10,44){\small Goal}
+			\put(15,7){\small \color{blue} d}
+	   	\end{overpic}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}
+	\begin{figure}
+		\centering
+		\begin{overpic}[width=0.8\textwidth]{control.eps}
+			\put(30,15){\textsc{PI}}
+			\put(30,29){\textsc{PI}}
+			\put(10.5,15.5){\tiny +}
+			\put(10.5,29.75){\tiny +}
+			\put(57.15,29.75){\tiny +}
+			\put(73,28){\includegraphics[scale=0.02]{3pi.eps}}
+			\put(73,25.5){\tiny Tracker}
+			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
+			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
+			\put(65,1.5){\scriptsize $d$}
+			\put(43,29){\scriptsize $>60$}
+			\put(-3,29){\small $0$}
+			\put(-3,15){\small $0$}
+	   	\end{overpic}
+	\end{figure}	
 \end{frame}
 
 \section{Router} 
