@@ -58,7 +58,7 @@ namespace Autonomous
 		void updateRouteForTarget();
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
-		std::vector<Common::Geometry::Circle> growObstacles(const std::vector<Common::Geometry::Circle> &obstacles) const;
+		std::vector<Common::Geometry::Circle> modifyObstacles(const std::vector<Common::Geometry::Circle> &obstacles, double growFactor) const;
 		void clearRoute();
 		void resetAllMovementFlags();
 

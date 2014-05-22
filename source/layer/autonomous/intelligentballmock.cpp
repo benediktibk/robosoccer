@@ -56,6 +56,11 @@ FieldSide IntelligentBallMock::getCurrentFieldSide() const
 	return m_currentFieldSide;
 }
 
+double IntelligentBallMock::getShootingLineCoveragePercent(ObstacleFetcher &/*obstacles*/, Point &/*target*/) const
+{
+	return 0;
+}
+
 void IntelligentBallMock::setPosition(Point position)
 {
 	m_ball.setPosition(position);

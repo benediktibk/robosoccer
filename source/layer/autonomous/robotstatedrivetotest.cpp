@@ -8,7 +8,7 @@
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
 #include "common/routing/routerimpl.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "common/routing/fieldpositioncheckermock.h"
 #include "layer/autonomous/robotstate.h"
 #include "common/routing/routermock.h"
 #include <vector>
@@ -16,14 +16,13 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
-using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
 void RobotStateDriveToTest::setUp()
 {
 	RobotStateTest::setUp();
-	m_field = new FieldPositionCheckerFieldPlayer();
+	m_field = new FieldPositionCheckerMock();
 	m_routerImpl = new RouterImpl(Abstraction::ReadableRobot::getWidth(), *m_field);
 	m_robotStateWithRouter = new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 												   *m_routerImpl, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
@@ -540,4 +539,36 @@ void RobotStateDriveToTest::update_initialRotationReachedAndRouteChangedAndiniti
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_robotStateWithRouter->update();
+	obstacles.front().setDiameter(0.6);
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_robotStateWithRouter->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_robotStateWithRouter->update();
+	obstacles.front().setCenter(Point(2,1.5));
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_robotStateWithRouter->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 }

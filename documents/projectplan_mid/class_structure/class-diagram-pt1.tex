@@ -6,12 +6,8 @@
 	
 	\tikzstyle{class}=[
 		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=3, 
-		fill=PresiBlue, drop shadow, font=\tt,
-        text centered, anchor=north, text=white, text width=3.5cm]
-		
-	\tikzstyle{comment}=[
-		rectangle, draw=black, rounded corners, fill=green, drop shadow,
-        text centered, anchor=north, text=white, text width=3cm]
+		fill=PresiBlue!80, drop shadow, font=\tt,
+        text centered, anchor=north, text=white, text width=3.5cm, thick]
 		
 	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
 	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
@@ -21,7 +17,7 @@
       
 	\node (enemyteam) [class]
 	{
-		\btt EnemyTeam
+		{\large \texttt{\textbf{EnemyTeam}}}
 		
 		\nodepart{second}
 		-m\char`_robots
@@ -33,7 +29,7 @@
 	
 	\node (ownteam) [class, right= of enemyteam.north , anchor=north]
 	{
-		\btt OwnTeam
+		{\large \texttt{\textbf{OwnTeam}}}
 		
 		\nodepart{second}
 		-m\char`_robots
@@ -47,7 +43,7 @@
     
 	\node (intelligentball) [class, right= of ownteam.north, anchor=north]
 	{
-		\btt IntelligentBall
+		{\large \texttt{\textbf{IntelligentBall}}}
 		
 		\nodepart{second}
 		-m\char`_ball
@@ -60,7 +56,7 @@
 	
 	\node (readablerobot) [class, below of=enemyteam]
 	{
-		\btt ReadableRobot
+		{\large \texttt{\textbf{ReadableRobot}}}
 		
 		\nodepart{second}
 		-m\char`_roboControl
@@ -72,7 +68,7 @@
 		
 	\node (controllablerobot) [class, right= of readablerobot.north, anchor=north]
 	{
-		\btt ControllableR.
+		{\large \texttt{\textbf{ControllableR.}}}
 		
 		\nodepart{second}
 		-m\char`_roboControl
@@ -86,7 +82,7 @@
 	
 	\node (ball) [class, right= of controllablerobot.north, anchor=north]
 	{
-		\btt Ball
+		{\large \texttt{\textbf{Ball}}}
 		
 		\nodepart{second}
 		-m\char`_rawBall

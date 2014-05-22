@@ -3,6 +3,7 @@
 
 #include "layer/abstraction/fieldside.h"
 #include "layer/autonomous/obstaclesource.h"
+#include "layer/autonomous/obstaclefetcher.h"
 
 namespace RoboSoccer
 {
@@ -37,6 +38,7 @@ namespace Autonomous
 		virtual bool isMoving() const = 0;
 		virtual Abstraction::FieldSide getMovingDirection() const = 0;
 		virtual Abstraction::FieldSide getCurrentFieldSide() const = 0;
+		virtual double getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Common::Geometry::Point &target) const = 0;
 	};
 }
 }
