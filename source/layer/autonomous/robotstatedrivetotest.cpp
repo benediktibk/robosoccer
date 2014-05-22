@@ -520,3 +520,24 @@ void RobotStateDriveToTest::update_initialRotationReachedAndRouteChanged_robotGo
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
 }
+
+void RobotStateDriveToTest::update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_router->setChessMode(false);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_robotState->update();
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
+}
