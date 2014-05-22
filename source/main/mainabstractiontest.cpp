@@ -26,7 +26,7 @@ int main(int, char**)
 	StorageImpl storage(14, TeamColorRed, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
-	ControllableRobot &ownRobot = storage.getOwnRobot(1);
+	ControllableRobot &ownRobot = storage.getOwnRobot(2);
 	RefereeBase &referee = storage.getReferee();
 
 	cout << "current ball position is " << ball.getPosition() << endl;
@@ -76,11 +76,30 @@ int main(int, char**)
 //			cout << "still moving " << endl;
 //	}
 
-	ownRobot.gotoPositionImprecise(Point(-1, 0));
-	for (unsigned int i = 0; i < 400; ++i)
+//	ownRobot.gotoPositionImprecise(Point(-1, 0));
+//	for (unsigned int i = 0; i < 400; ++i)
+//	{
+//		ownRobot.update();
+//		usleep(10000);
+//	}
+
+	while(true)
 	{
-		ownRobot.update();
-		usleep(10000);
+		for (unsigned int i = 0; i < 200; ++i)
+		{
+			ownRobot.turn(Angle(0));
+			ownRobot.update();
+			usleep(10000);
+		}
+		cout << ownRobot.getPose().getOrientation() << endl;
+
+		for (unsigned int i = 0; i < 200; ++i)
+		{
+			ownRobot.turn(Angle(0.5));
+			ownRobot.update();
+			usleep(10000);
+		}
+		cout << ownRobot.getPose().getOrientation() - Angle(0.5) << endl;
 	}
 
 	return 0;

@@ -167,6 +167,7 @@ void ControllableRobotImpl::update()
 		{
 			m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
 			m_watchDogRestart->getTimeAndRestart();
+			m_turnStarted = true;
 		}
 		else if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
 		{
