@@ -123,7 +123,7 @@ double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obst
 			endIteration = 100;
 		}
 		assert(startIteration >= 0 && startIteration <= 100);
-		assert(endIteration >= 0 && endIteration <= 100);
+		assert(endIteration > 0 && endIteration <= 100);
 		for (int i = startIteration; i < endIteration; ++i)
 			coverageArray[i] = 1;
 
