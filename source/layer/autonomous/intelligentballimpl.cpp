@@ -3,6 +3,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/point.h"
+#include "layer/autonomous/obstaclefetcher.h"
 #include <assert.h>
 #include <math.h>
 
@@ -66,4 +67,12 @@ FieldSide IntelligentBallImpl::getCurrentFieldSide() const
 Point IntelligentBallImpl::getPosition() const
 {
 	return m_ball.getPosition();
+}
+
+double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Point &target) const
+{
+	vector<Circle> Obstacles = obstacles.getAllObstacles();
+	Point Punkthaftigkeit = target;
+	Circle erster = Obstacles.at(1);
+	return Punkthaftigkeit.getX()+erster.getDiameter();
 }

@@ -6,12 +6,8 @@
 	
 	\tikzstyle{class}=[
 		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=3, 
-		fill=PresiBlue, drop shadow, font=\tt,
-        text centered, anchor=north, text=white, text width=3.5cm]
-		
-	\tikzstyle{comment}=[
-		rectangle, draw=black, rounded corners, fill=green, drop shadow,
-        text centered, anchor=north, text=white, text width=3cm]
+		fill=PresiBlue!80, drop shadow, font=\tt,
+        text centered, anchor=north, text=white, text width=3.5cm, thick]
 		
 	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
 	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
@@ -21,7 +17,7 @@
       
 	\node (enemyteam) [class]
 	{
-		\btt EnemyTeam
+		{\large \texttt{\textbf{EnemyTeam}}}
 		
 		\nodepart{second}
 		-m\char`_robots
@@ -33,7 +29,7 @@
 	
 	\node (ownteam) [class, right= of enemyteam.north , anchor=north]
 	{
-		\btt OwnTeam
+		{\large \texttt{\textbf{OwnTeam}}}
 		
 		\nodepart{second}
 		-m\char`_robots
@@ -47,7 +43,7 @@
     
 	\node (intelligentball) [class, right= of ownteam.north, anchor=north]
 	{
-		\btt IntelligentBall
+		{\large \texttt{\textbf{IntelligentBall}}}
 		
 		\nodepart{second}
 		-m\char`_ball
@@ -60,7 +56,7 @@
 	
 	\node (game) [class, above= of ownteam, anchor=north]
 	{
-		\btt Game
+		{\large \texttt{\textbf{Game}}}
 		
 		\nodepart{second}
 		-m\char`_enemyTeam\\
@@ -74,7 +70,7 @@
 	
 	\node (statemachine) [class, left= of game.north, anchor=north]
 	{
-		\btt StateMachine
+		{\large \texttt{\textbf{StateMachine}}}
 		
 		\nodepart{third}
 		+executeNextStep()
@@ -82,7 +78,7 @@
 	
 	\node (strategy) [class, right= of game.north, anchor=north]
 	{
-		\btt Strategy
+		{\large \texttt{\textbf{Strategy}}}
 		
 		\nodepart{third}
 		+decideNextStep()
