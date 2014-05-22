@@ -193,8 +193,11 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 
 void RobotStateDriveTo::updateRoute()
 {
-	if (!isRouteFeasible(m_obstacleFetcher.getAllObstaclesButMeInRange(
-							 m_autonomousRobot, getRobot().getPose().getPosition(), 0.5)))
+	Point robotPoint = getRobot().getPose().getPosition();
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5);
+	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,0.9);
+
+	if (!isRouteFeasible(modifiedObstacles))
 	{
 		log("current route is not feasible anymore we try to create a new one");
 		clearRoute();

@@ -565,7 +565,7 @@ void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMoved_tur
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_robotStateWithRouter->update();
-	obstacles.front().setCenter(Point(2,1.8));
+	obstacles.front().setCenter(Point(2,1.5));
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_robotStateWithRouter->update();
 
