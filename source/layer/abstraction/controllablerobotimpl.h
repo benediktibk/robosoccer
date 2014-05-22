@@ -92,6 +92,7 @@ namespace Abstraction
 		Common::Logging::Logger::LogFileType m_logFileType;
 		bool m_turnStarted;
 		double m_distanceForGoTo;
+		const double m_timeWatchDogRestart;
 	};
 }
 }

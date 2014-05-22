@@ -16,6 +16,8 @@ namespace Time
 
 		double getTimeAndRestart();
 		double getTime() const;
+		void restart();
+		void restart(double startTime);
 
 	private:
 		const Watch &m_watch;

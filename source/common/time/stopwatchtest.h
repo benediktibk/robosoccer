@@ -14,13 +14,23 @@ namespace Time
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(StopWatchTest);
-		CPPUNIT_TEST(getTimeAndRestart_twiceDirectBehindCalled_0);
-		CPPUNIT_TEST(getTimeAndRestart_sleepOf200ms_02);
+		CPPUNIT_TEST(constructor_3SecondsAlreadyPassedBy_getTimeReturns0);
+		CPPUNIT_TEST(getTimeAndRestart_someTimePassedAlreadyBefore_getTimeReturns0);
+		CPPUNIT_TEST(getTimeAndRestart_2SecondsPassedBy_2);
+		CPPUNIT_TEST(getTimeAndRestart_initialTime1SecondAnd2SecondsPassedBy_2);
+		CPPUNIT_TEST(getTime_initialTime1SecondAnd2SecondsPassedBy_2);
+		CPPUNIT_TEST(restart_3SecondsAlreadyPassedBy_getTimeReturns0);
+		CPPUNIT_TEST(restart_4SecondsAlreadyPassedByAndStartTimeSetTo1And2SecondsPassedByAfter_getTimeReturns3);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
-		void getTimeAndRestart_twiceDirectBehindCalled_0();
-		void getTimeAndRestart_sleepOf200ms_02();
+		void constructor_3SecondsAlreadyPassedBy_getTimeReturns0();
+		void getTimeAndRestart_someTimePassedAlreadyBefore_getTimeReturns0();
+		void getTimeAndRestart_2SecondsPassedBy_2();
+		void getTimeAndRestart_initialTime1SecondAnd2SecondsPassedBy_2();
+		void getTime_initialTime1SecondAnd2SecondsPassedBy_2();
+		void restart_3SecondsAlreadyPassedBy_getTimeReturns0();
+		void restart_4SecondsAlreadyPassedByAndStartTimeSetTo1And2SecondsPassedByAfter_getTimeReturns3();
 	};
 }
 }

@@ -32,7 +32,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	m_logger(logger),
 	m_logFileType(Logger::LogFileTypeInvalid),
 	m_turnStarted(false),
-	m_distanceForGoTo(0)
+	m_distanceForGoTo(0),
+	m_timeWatchDogRestart(0.5)
 {
 	unsigned int modifiedDeviceId = deviceId;
 	if (color == TeamColorRed)
@@ -57,6 +58,8 @@ ControllableRobotImpl::ControllableRobotImpl(
 	default:
 		assert(false);
 	}
+
+	m_watchDogRestart->restart(m_timeWatchDogRestart);
 }
 
 ControllableRobotImpl::~ControllableRobotImpl()
@@ -155,7 +158,7 @@ void ControllableRobotImpl::update()
 	const double speedInDrivingLong = 0.5;
 	bool watchDogDrivingShortEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingShort;
 	bool watchDogDrivingLongEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingLong;
-	bool watchDogRestart = m_watchDogRestart->getTime() > 0.5;
+	bool watchDogRestart = m_watchDogRestart->getTime() > m_timeWatchDogRestart;
 
 	switch(m_state)
 	{
@@ -166,7 +169,8 @@ void ControllableRobotImpl::update()
 		if (watchDogRestart && !m_turnStarted)
 		{
 			m_robot->TurnAbs(Angle(m_turnTarget.getValueBetweenMinusPiAndPi()));
-			m_watchDogRestart->getTimeAndRestart();
+			logOrientation("set order to turn to", m_turnTarget);
+			m_watchDogRestart->restart();
 			m_turnStarted = true;
 		}
 		else if (orientationCompare.isFuzzyEqual(getOrientation(), m_turnTarget))
@@ -266,7 +270,7 @@ void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
 	m_driveShortControl->reset(getPose());
 	m_driveLongControl->reset(getPose());
 	m_state = state;
-	m_watchDogEnd->getTimeAndRestart();
+	m_watchDogEnd->restart();
 	m_turnStarted = false;
 }
 
