@@ -12,16 +12,34 @@
 \definecolor{UniWhite}{RGB}{255,255,255}
 \setbeamercolor{eecks} {bg=UniRed, fg=UniWhite}
 
+% Layer tikz definitions
+\tikzstyle{block} = [
+	rectangle, draw, fill=blue!20, 
+	text width=20em, text centered, 
+	rounded corners, minimum height=4em,
+	node distance=2.5cm]
+
+\tikzstyle{block-active} = [
+	rectangle, draw, fill=green!20, 
+	text width=20em, text centered, 
+	rounded corners, minimum height=4em,
+	node distance=2.5cm]
+
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=2cm, minimum height=2em]
+
+\tikzstyle{line} = [draw, ->, >=stealth', ultra thick]
+\tikzstyle{dline} = [draw, <->, >=stealth', ultra thick]
+
 % Router tikz definitions
 \def\robot at (#1,#2) {
-\draw[fill=red] (#1,#2) circle (0.35);
-\draw[fill=blue] (#1,#2)++(0.15,0) circle (0.1);
+	\draw[fill=red] (#1,#2) circle (0.35);
+	\draw[fill=blue] (#1,#2)++(0.15,0) circle (0.1);
 }
 \def\goal at (#1,#2) {
-\draw[red,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
+	\draw[red,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
 }
 \def\goalHelp at (#1,#2) {
-\draw[green!80!blue,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
+	\draw[green!80!blue,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
 }
 \tikzstyle{edge} = [draw,line width=24pt,-,gray]
 \tikzstyle{selected edge} = [draw,line width=24pt,-,green]
@@ -63,14 +81,107 @@
 \section{Class diagram}
 \begin{frame}
 	\frametitle{Layers}
-	\center
-	\input{class_structure/layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]		
+		    % Layers
+			\node [block] (control) {\huge \textbf{Control}};
+		    \node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+	
+			% Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+    
+			% Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+	
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+	
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+	
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]		
+		    % Layers
+			\node [block] (control) {\huge \textbf{Control}};
+		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+	
+			% Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+    
+			% Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+	
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+	
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+	
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Classes}
 	\center
 	\input{class_structure/class-diagram-pt1}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]		
+		    % Layers
+			\node [block-active] (control) {\huge \textbf{Control}};
+		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+	
+			% Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+    
+			% Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+	
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+	
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+	
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
 \end{frame}
 
 \begin{frame}
