@@ -29,7 +29,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	ObstacleFetcherImpl obstacleFetcher;
@@ -64,7 +64,7 @@ int main(int, char**)
 //		}
 //	}
 
-	robotTwo.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
 	while (!robotTwo.targetReached())
 	{
 		robotTwo.update();

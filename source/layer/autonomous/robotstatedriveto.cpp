@@ -211,7 +211,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.1);
+	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.5);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
