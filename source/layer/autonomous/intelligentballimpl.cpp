@@ -100,7 +100,7 @@ double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obst
 			else
 			{
 				startIteration = 0;
-				endIteration = 50 - percentageFree;
+				endIteration = 51 - percentageFree;
 			}
 		}
 		if(distanceRobotEdgeToLine > -ballRadius && distanceRobotEdgeToLine <= 0)
@@ -114,7 +114,7 @@ double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obst
 			}else
 			{
 				startIteration = 0;
-				endIteration = 49 + percentageFree;
+				endIteration = 50 + percentageFree;
 			}
 		}
 		if(distanceRobotEdgeToLine <= -ballRadius)
