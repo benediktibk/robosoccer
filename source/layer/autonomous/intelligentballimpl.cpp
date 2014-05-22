@@ -3,6 +3,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/circle.h"
 #include "common/geometry/point.h"
+#include "common/geometry/line.h"
 #include "layer/autonomous/obstaclefetcher.h"
 #include <assert.h>
 #include <math.h>
@@ -71,8 +72,68 @@ Point IntelligentBallImpl::getPosition() const
 
 double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Point &target) const
 {
-	vector<Circle> Obstacles = obstacles.getAllObstacles();
-	Point Punkthaftigkeit = target;
-	Circle erster = Obstacles.at(1);
-	return Punkthaftigkeit.getX()+erster.getDiameter();
+	int coverageArray[100] = {0};
+	vector<Circle> obstaclesWithoutBall = obstacles.getAllObstaclesButMe(*this);
+	Line ballToTargetLine(getPosition(), target);
+	double ballRadius = getObstacle().getDiameter()/2.0;
+
+	for (vector<Circle>::const_iterator i = obstaclesWithoutBall.begin(); i != obstaclesWithoutBall.end(); ++i)
+	{
+		Circle const &currentObstacle = *i;
+		Point obstaclePosition = currentObstacle.getCenter();
+		Point perpendicularPoint = ballToTargetLine.getPerpendicularPoint(obstaclePosition);
+		double distanceRobotEdgeToLine = obstaclePosition.distanceTo(perpendicularPoint);
+		distanceRobotEdgeToLine -= currentObstacle.getDiameter()/2.0;
+		int startIteration = 0;
+		int endIteration = 0;
+		bool isRight = (ballToTargetLine.isTargetPointRightOfLine(obstaclePosition));
+
+		if(distanceRobotEdgeToLine > 0 && distanceRobotEdgeToLine <= ballRadius)
+		{
+			int percentageFree = static_cast<int>((distanceRobotEdgeToLine)/(ballRadius*2.0)*100.0 + 0.5);
+			assert(percentageFree >= 0 && percentageFree <= 50);
+			if(isRight)
+			{
+				startIteration = 49 + percentageFree;
+				endIteration = 100;
+			}
+			else
+			{
+				startIteration = 0;
+				endIteration = 50 - percentageFree;
+			}
+		}
+		if(distanceRobotEdgeToLine > -ballRadius && distanceRobotEdgeToLine <= 0)
+		{
+			int percentageFree = static_cast<int>(ballRadius+distanceRobotEdgeToLine)/(2.0*ballRadius)*100 +0.5;
+			assert(percentageFree >= 0 && percentageFree <= 50);
+			if(isRight)
+			{
+				startIteration = percentageFree;
+				endIteration = 100;
+			}else
+			{
+				startIteration = 0;
+				endIteration = 49 + percentageFree;
+			}
+		}
+		if(distanceRobotEdgeToLine <= -ballRadius)
+		{
+			startIteration = 0;
+			endIteration = 100;
+		}
+		assert(startIteration >= 0 && startIteration <= 100);
+		assert(endIteration >= 0 && endIteration <= 100);
+		for (int i = startIteration; i < endIteration; ++i)
+			coverageArray[i] = 1;
+
+	}
+	int sumOfElements = 0;
+
+	for (int i = 0 ; i < 100; ++i)
+	{
+		sumOfElements += coverageArray[i];
+	}
+
+	return static_cast<double>(sumOfElements);
 }
