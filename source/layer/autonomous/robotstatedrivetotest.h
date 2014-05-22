@@ -10,14 +10,11 @@ namespace Common
 namespace Routing
 {
 	class RouterImpl;
+	class FieldPositionCheckerMock;
 }
 }
 namespace Layer
 {
-namespace Main
-{
-	class FieldPositionCheckerFieldPlayer;
-}
 namespace Autonomous
 {
 	class RobotState;
@@ -63,6 +60,8 @@ namespace Autonomous
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint);
 		CPPUNIT_TEST(update_initialRotationReachedAndRouteChanged_robotGotTwoCallsToTurn);
 		CPPUNIT_TEST(update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -110,11 +109,13 @@ namespace Autonomous
 		void update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint();
 		void update_initialRotationReachedAndRouteChanged_robotGotTwoCallsToTurn();
 		void update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive();
+		void update_initialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint();
+		void update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute();
 
 	private:
 		RobotState *m_robotStateWithRouter;
 		Common::Routing::RouterImpl *m_routerImpl;
-		Main::FieldPositionCheckerFieldPlayer *m_field;
+		Common::Routing::FieldPositionCheckerMock *m_field;
 	};
 }
 }

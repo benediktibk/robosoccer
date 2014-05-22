@@ -206,9 +206,12 @@ void RobotStateDriveTo::updateRoute()
 void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
+	Point target = m_target.getPosition();
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5);
+	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.1);
 
-	*m_currentRoute = m_router.calculateRoute(robotPoint, m_target,
-						growObstacles(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5)));
+	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
+
 	resetAllMovementFlags();
 	log("new point count of route", m_currentRoute->getPointCount());
 }
@@ -227,8 +230,7 @@ bool RobotStateDriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) co
 	return	m_currentRoute->isValid() && !m_currentRoute->intersectsWith(obstacles);
 }
 
-
-vector<Circle> RobotStateDriveTo::growObstacles(const vector<Circle> &obstacles) const
+vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
 {
 	vector<Circle> result;
 	result.reserve(obstacles.size());
@@ -237,7 +239,7 @@ vector<Circle> RobotStateDriveTo::growObstacles(const vector<Circle> &obstacles)
 	{
 		Circle circle = *i;
 		double diameter = circle.getDiameter();
-		circle.setDiameter(diameter*1.1);
+		circle.setDiameter(diameter*growFactor);
 		result.push_back(circle);
 	}
 
