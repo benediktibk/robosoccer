@@ -1,11 +1,11 @@
 TARGET=projectplan
 
-all: latex
+all: $(TARGET).pdf
 
-latex:
+$(TARGET).pdf: $(TARGET).tex
 	pdflatex $(TARGET).tex 
 	
-clean:
+clean::
 	-rm -f $(TARGET).aux
 	-rm -f $(TARGET).toc
 	-rm -f $(TARGET).out
@@ -18,3 +18,6 @@ clean:
 	-rm -f $(TARGET)-blx.bib
 	-rm -f $(TARGET).run.xml
 	-rm -f texput.log
+
+realclean: clean
+	-rm -f $(TARGET).pdf
