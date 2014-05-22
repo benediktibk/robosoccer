@@ -194,7 +194,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 void RobotStateDriveTo::updateRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5);
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,0.9);
 
 	if (!isRouteFeasible(modifiedObstacles))
@@ -210,7 +210,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5);
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.1);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
