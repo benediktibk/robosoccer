@@ -1,6 +1,6 @@
 %!tikz editor 1.0
 %!tikz source begin
-\begin{tikzpicture}[node distance=4.5cm, scale=0.5, transform shape]
+\begin{tikzpicture}[node distance=4.5cm, scale=0.7, transform shape]
 	\font\btt=rm-lmtk10
 	\definecolor{PresiBlue}{RGB}{50,57,171}
 	
@@ -58,44 +58,6 @@
 		+isMoving()
 	};
 	
-	\node (readablerobot) [class, below of=enemyteam]
-	{
-		\btt ReadableRobot
-		
-		\nodepart{second}
-		-m\char`_roboControl
-		
-		\nodepart{third}
-		+getPosition()\\
-		+getObstacle()
-	};
-		
-	\node (controllablerobot) [class, right= of readablerobot.north, anchor=north]
-	{
-		\btt ControllableR.
-		
-		\nodepart{second}
-		-m\char`_roboControl
-		
-		\nodepart{third}
-		+moveToInprecise()\\
-		+moveToPrecise()\\
-		+kick()\\
-		+stop()
-	};
-	
-	\node (ball) [class, right= of controllablerobot.north, anchor=north]
-	{
-		\btt Ball
-		
-		\nodepart{second}
-		-m\char`_rawBall
-		
-		\nodepart{third}
-		+getPosition()\\
-		+getVelocity()
-	};
-	
 	\node (game) [class, above= of ownteam, anchor=north]
 	{
 		\btt Game
@@ -126,10 +88,6 @@
 		+decideNextStep()
 	};
 	% Connections
-	\path [inheritance] (controllablerobot.west) +(0,-1.3) -| (readablerobot);
-	\path [property] (controllablerobot) -- (ownteam);
-	\path [property] (readablerobot) -- (enemyteam);
-	\path [property] (ball) -- (intelligentball);
 	\path [property] (enemyteam.north) -- +(0,1) -| (game.south);
 	\path [property] (ownteam.north) -- +(0,1) -| (game.south);
 	\path [property] (intelligentball.north) -- +(0,1) -| (game.south);
@@ -137,9 +95,7 @@
 	% Background Box
 	\begin{pgfonlayer}{background}
 		\draw [dashed, very thick, red] ($(enemyteam.north west) + (-1,0.7)$) -- ($(intelligentball.north east) + (1,0.7)$);
-		\draw [dashed, very thick, red] ($(readablerobot.north west) + (-1,0.7)$) -- ($(ball.north east) + (1,0.7)$);
-		\draw ($(ball.south east) + (1,-0.4)$) node [left, red] {\textbf{\textit{Abstraction}}};
-		\draw ($(ball.north east) + (1,1)$) node [left, red] {\textbf{\textit{Autonomous}}};
+		\draw ($(intelligentball.north east) + (1,0.45)$) node [left, red] {\textbf{\textit{Autonomous}}};
 		\draw ($(intelligentball.north east) + (1,1)$) node [left, red] {\textbf{\textit{Control}}};
 	\end{pgfonlayer}
 

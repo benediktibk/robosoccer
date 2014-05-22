@@ -97,9 +97,7 @@ void RobotStateDriveTo::updateInternal()
 		if(setOrdersForIntermediatePointAndGetOrderSet())
 			return;
 
-		m_initialRotationReached = false;
-		m_initialRotationStarted = false;
-		m_driveStarted = false;
+		resetAllMovementFlags();
 
 		if(m_currentRoute->getPointCount() >= 2)
 		{
@@ -211,6 +209,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, m_target,
 						growObstacles(m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 0.5)));
+	resetAllMovementFlags();
 	log("new point count of route", m_currentRoute->getPointCount());
 }
 
@@ -249,6 +248,15 @@ void RobotStateDriveTo::clearRoute()
 {
 	delete m_currentRoute;
 	m_currentRoute = 0;
+}
+
+void RobotStateDriveTo::resetAllMovementFlags()
+{
+	m_initialRotationReached = false;
+	m_initialRotationStarted = false;
+	m_finalRotationReached = false;
+	m_finalRotationStarted = false;
+	m_driveStarted = false;
 }
 
 string RobotStateDriveTo::getName() const

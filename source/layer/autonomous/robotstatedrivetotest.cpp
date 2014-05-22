@@ -11,12 +11,14 @@
 #include "layer/main/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robotstate.h"
 #include "common/routing/routermock.h"
+#include <vector>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Common::Routing;
+using namespace std;
 
 void RobotStateDriveToTest::setUp()
 {
@@ -498,4 +500,44 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationReachedAndAll
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL(Point(5,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndRouteChanged_robotGotTwoCallsToTurn()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_router->setChessMode(false);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_robotState->update();
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_router->setChessMode(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_router->setChessMode(false);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_robotState->update();
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
 }

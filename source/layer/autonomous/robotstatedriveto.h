@@ -60,6 +60,7 @@ namespace Autonomous
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		std::vector<Common::Geometry::Circle> growObstacles(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		void clearRoute();
+		void resetAllMovementFlags();
 
 	private:
 		const double m_precisionPosition;
