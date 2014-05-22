@@ -22,3 +22,12 @@ double StopWatch::getTime() const
 	return time - m_startTime;
 }
 
+void StopWatch::restart()
+{
+	m_startTime = m_watch.getTime();
+}
+
+void StopWatch::restart(double startTime)
+{
+	m_startTime = m_watch.getTime() - startTime;
+}

@@ -33,7 +33,7 @@ namespace Autonomous
 		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
 		virtual bool targetReached() const = 0;
 		virtual bool cantReachTarget() const = 0;
-		virtual void kick(unsigned int force, IntelligentBall const &ball) = 0;
+		virtual void kick(IntelligentBall const &ball) = 0;
 		virtual void update() = 0;
 	};
 }

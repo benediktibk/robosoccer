@@ -47,36 +47,28 @@ int main(int, char**)
 	obstacleFetcher.addSource(enemyTeam);
 	obstacleFetcher.addSource(ball);
 
-//	robotOne.goTo(Pose(Point(-1, 0), Angle(0)));
-//	robotTwo.goTo(Pose(Point(0, 0), Angle(0)));
-//	robotThree.goTo(Pose(Point(1, 0), Angle(0)));
-//	robotOne.update();
-//	robotTwo.update();
-//	robotThree.update();
+//	while(true)
+//	{
+//		robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
+//		while (!robotTwo.targetReached())
+//		{
+//			robotTwo.update();
+//			usleep(10000);
+//		}
 
-	while(true)
+//		robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
+//		while (!robotTwo.targetReached())
+//		{
+//			robotTwo.update();
+//			usleep(10000);
+//		}
+//	}
+
+	robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()));
+	while (!robotTwo.targetReached())
 	{
-		robotOne.goTo(Pose(Point(0, 0.5), Angle::getQuarterRotation()));
-		robotTwo.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()));
-		robotThree.goTo(Pose(Point(0, -0.5), Angle::getQuarterRotation()));
-		for (unsigned int i = 0; i < 1000; ++i)
-		{
-			robotOne.update();
-			robotTwo.update();
-			robotThree.update();
-			usleep(5000);
-		}
-
-		robotOne.goToDirect(Pose(Point(-1, 0.5), Angle::getQuarterRotation()));
-		robotTwo.goToDirect(Pose(Point(-1, 0), Angle::getQuarterRotation()));
-		robotThree.goToDirect(Pose(Point(-1, -0.5), Angle::getQuarterRotation()));
-		for (unsigned int i = 0; i < 2500; ++i)
-		{
-			robotOne.update();
-			robotTwo.update();
-			robotThree.update();
-			usleep(5000);
-		}
+		robotTwo.update();
+		usleep(10000);
 	}
 
 //	while(true)
@@ -86,7 +78,6 @@ int main(int, char**)
 //		usleep(5000);
 //	}
 
-//	IntelligentBallImpl ball(storage.getBall());
 //	TargetPositionFetcher targetPositionFetcher;
 //	targetPositionFetcher.setFieldSide(FieldSideLeft);
 //	fstream ballPositions;
@@ -104,6 +95,25 @@ int main(int, char**)
 //		usleep(30000);
 //		ballPositions.flush();
 //		goaliePositions.flush();
+//	}
+
+//	TargetPositionFetcher targetPositionFetcher;
+//	targetPositionFetcher.setFieldSide(FieldSideLeft);
+//	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball);
+//	robotOne.goToDirect(targetPose);
+//	robotOne.update();
+//	while(!robotOne.targetReached())
+//	{
+//		robotOne.update();
+//		usleep(10000);
+//	}
+
+//	robotOne.kick(ball);
+//	robotOne.update();
+//	while(!robotOne.targetReached())
+//	{
+//		robotOne.update();
+//		usleep(10000);
 //	}
 
 	return 0;

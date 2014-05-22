@@ -7,10 +7,37 @@
 #include "common/logging/loggermock.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
+#include "common/routing/routerimpl.h"
+#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/autonomous/robotstate.h"
+#include "common/routing/routermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Common::Routing;
+
+void RobotStateDriveToTest::setUp()
+{
+	RobotStateTest::setUp();
+	m_field = new FieldPositionCheckerFieldPlayer();
+	m_routerImpl = new RouterImpl(Abstraction::ReadableRobot::getWidth(), *m_field);
+	m_robotStateWithRouter = new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
+												   *m_routerImpl, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+												   *m_obstacleFetcher, *m_autonomousRobotMock);
+}
+
+void RobotStateDriveToTest::tearDown()
+{
+	RobotStateTest::tearDown();
+	delete m_field;
+	m_field = 0;
+	delete m_routerImpl;
+	m_routerImpl = 0;
+	delete m_robotStateWithRouter;
+	m_robotStateWithRouter = 0;
+}
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
@@ -284,4 +311,191 @@ void RobotStateDriveToTest::reachedTarget_empty_false()
 void RobotStateDriveToTest::cantReachTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
+}
+
+void RobotStateDriveToTest::update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReached_turningToThirdPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Angle(),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Point(5,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getEighthRotation()));
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getEighthRotation()));
+	m_robotState->update();
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	m_robotState->update();
+
+	RobotState *state = m_robotState->nextState();
+
+	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
+}
+
+void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	RobotState *state = m_robotState->nextState();
+
+	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
+	CPPUNIT_ASSERT(stateCasted != 0);
+	delete state;
+}
+
+void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_controllableRobot->getLastPointToDriveTo());
+}
+
+void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Angle(Point(0,0),Point(5,4)),m_controllableRobot->getLastAngleToTurnTo());
+}
+
+void RobotStateDriveToTest::update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_router->setChessMode(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(true);
+	m_robotState->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotState->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL(Point(5,4),m_controllableRobot->getLastPointToDriveTo());
 }

@@ -5,10 +5,23 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Routing
+{
+	class RouterImpl;
+}
+}
 namespace Layer
 {
+namespace Main
+{
+	class FieldPositionCheckerFieldPlayer;
+}
 namespace Autonomous
 {
+	class RobotState;
+
 	class RobotStateDriveToTest :
 			public RobotStateTest
 	{
@@ -38,7 +51,21 @@ namespace Autonomous
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint);
+		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint);
+		CPPUNIT_TEST(update_secondPositionReachedAndRotationNotReached_turningToThirdPoint);
+		CPPUNIT_TEST(update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint);
+		CPPUNIT_TEST(update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation);
+		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState);
+		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState);
+		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint);
+		CPPUNIT_TEST(update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint);
+		CPPUNIT_TEST(update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint);
 		CPPUNIT_TEST_SUITE_END();
+
+	public:
+		virtual void setUp();
+		virtual void tearDown();
 
 	protected:
 		virtual RobotState* createInstance();
@@ -69,6 +96,21 @@ namespace Autonomous
 		void isEquivalentToDriveToDirect_differentTarget_false();
 		void reachedTarget_empty_false();
 		void cantReachTarget_empty_false();
+		void update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint();
+		void update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint();
+		void update_secondPositionReachedAndRotationNotReached_turningToThirdPoint();
+		void update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint();
+		void update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation();
+		void nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState();
+		void nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState();
+		void update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint();
+		void update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint();
+		void update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint();
+
+	private:
+		RobotState *m_robotStateWithRouter;
+		Common::Routing::RouterImpl *m_routerImpl;
+		Main::FieldPositionCheckerFieldPlayer *m_field;
 	};
 }
 }

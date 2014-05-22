@@ -1,9 +1,35 @@
 \documentclass[hyperref={pdfpagelabels=false}]{beamer}
 \usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{tkz-euclide}
+
+\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
 \definecolor{UniWhite}{RGB}{255,255,255}
 \setbeamercolor{eecks} {bg=UniRed, fg=UniWhite}
+
+% Router tikz definitions
+\def\robot at (#1,#2) {
+\draw[fill=red] (#1,#2) circle (0.35);
+\draw[fill=blue] (#1,#2)++(0.15,0) circle (0.1);
+}
+\def\goal at (#1,#2) {
+\draw[red,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
+}
+\def\goalHelp at (#1,#2) {
+\draw[green!80!blue,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
+}
+\tikzstyle{edge} = [draw,line width=24pt,-,gray]
+\tikzstyle{selected edge} = [draw,line width=24pt,-,green]
+\tikzstyle{ignored edge} = [draw,line width=24pt,-,red!50!white]
+\tikzstyle{obstacle} = [draw,very thick,circle,minimum size=20pt,shading=radial,outer color=black!80!white,inner color=white]
+\tikzstyle{selected obstacle} = [draw,very thick,circle,fill=blue!20!white,minimum size=20pt]
+
+% Title
 \title{\textsc{RoboSoccer} Project Plan}  
 \author[Hofbauer, Jiang, Meyer, Schmidt, Wirnshofer]{
   Markus~Hofbauer \and
@@ -16,24 +42,17 @@
 {
 	Technische Universit\"at M\"unchen, Germany
 }
-\date{\today} 
+\date{June 4, 2014}
+
+% Presentation
 \begin{document}
 \begin{frame}
 \titlepage
 \end{frame} 
 
-
 \begin{frame}
-\frametitle{Table of contents}
-	\begin{itemize}
-		\item Einleitung
-		\item Klassendiagramm
-		\item State-Machine
-		\item Regelung
-		\item Router
-		\item Gantt-Diagramm
-	\end{itemize}	
-%\tableofcontents
+	\frametitle{Table of contents}
+	\tableofcontents
 \end{frame} 
 
 \section{Einleitung} 
@@ -41,14 +60,149 @@
 	\frametitle{Einleitung} 
 \end{frame}
 
-\section{Klassendiagramm} 
+\section{Class diagram}
 \begin{frame}
-	\frametitle{Klassendiagramm}
+	\frametitle{Layers}
+	\center
+	\input{class_structure/layers}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Classes}
+	\center
+	\input{class_structure/class-diagram}
 \end{frame}
 
 \section{State-Machine} 
 \begin{frame}
-	\frametitle{State-Machine} 	
+	\frametitle{State-Machine - Overview} 	
+	\fontsize{6pt}{7.2}\selectfont
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,semithick]
+			\tikzstyle{every state}=[draw=none,text=black]
+			\tikzset{elliptic state/.style={draw,ellipse}}
+			
+			\node[initial,elliptic state] (init)                    {Init/Pause};
+			\node[elliptic state]         (prepareKickOff) [above right of=init,text width=0.7cm] {Prepare Kickoff};
+			\node[elliptic state]         (prepareKickOffOffensive) [above right of=prepareKickOff,text width=0.9cm] {Prepare Kickoff Offensive};
+			\node[elliptic state]         (executeKickOffOffensive) [right of=prepareKickOffOffensive,text width=0.9cm] {Execute Kickoff Offensive};
+			\node[elliptic state]         (prepareKickOffDefensive) [right of=prepareKickOff,text width=0.9cm]       {Prepare Kickoff Defensive};
+			\node[elliptic state]         (executeKickOffDefensive) [right of=prepareKickOffDefensive,text width=0.9cm]       {Execute Kickoff Defensive};
+			\node[elliptic state]         (preparePenalty) [below right of=init,text width=0.7cm] {Prepare Penalty};
+			\node[elliptic state]         (preparePenaltyOffensive) [below right of=preparePenalty,text width=0.9cm] {Prepare Penalty Offensive};
+			\node[elliptic state]         (executePenaltyOffensive) [right of=preparePenaltyOffensive,text width=0.9cm] {Execute Penalty Offensive};
+			\node[elliptic state]         (preparePenaltyDefensive) [right of=preparePenalty,text width=0.9cm]       {Prepare Penalty Defensive};
+			\node[elliptic state]         (executePenaltyDefensive) [right of=preparePenaltyDefensive,text width=0.9cm]       {Execute Penalty Defensive};
+			\node[elliptic state]         (play) [below right of=executeKickOffDefensive,text width=0.5cm]       {Play};
+			
+			\path (init) 
+						edge (prepareKickOff)
+			  			edge (preparePenalty)
+			      (prepareKickOff) 
+			        	edge (prepareKickOffOffensive)
+			            edge (prepareKickOffDefensive)
+			      (prepareKickOffOffensive)
+			        	edge (executeKickOffOffensive)
+			      (prepareKickOffDefensive)
+			        	edge (executeKickOffDefensive)
+			      (executeKickOffOffensive)
+				       	edge [bend left] (play)
+			      (executeKickOffDefensive)
+			        	edge (play)
+			      (preparePenalty) 
+			        	edge (preparePenaltyOffensive)
+			            edge (preparePenaltyDefensive)
+			      (preparePenaltyOffensive)
+			        	edge (executePenaltyOffensive)
+			      (preparePenaltyDefensive)
+			        	edge (executePenaltyDefensive)
+			      (executePenaltyOffensive)
+			        	edge [bend right] (play)
+			      (executePenaltyDefensive)
+			        	edge (play)
+			      (play)
+			        	edge (init);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Init/Pause} 	
+	\fontsize{6pt}{7.2}\selectfont
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.5cm,semithick]
+			\tikzstyle{every state}=[draw=none,text=black]
+			\tikzset{elliptic state/.style={draw,ellipse}}
+			
+			\node[initial,elliptic state] (init)                    {Init/Pause};
+			\node[elliptic state]         (prepareKickOff) [above right of=init,text width=0.7cm] {Prepare Kickoff};
+			\node[elliptic state]         (preparePenalty) [below right of=init,text width=0.7cm] {Prepare Penalty};
+			
+			\path (init) 
+						edge node[text width=1cm]{prepare kickoff} (prepareKickOff)
+			  			edge node[text width=1cm]{prepare penalty} (preparePenalty);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Kickoff} 	
+	\fontsize{6pt}{7.2}\selectfont
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.2cm,semithick]
+			\tikzstyle{every state}=[draw=none,text=black]
+			\tikzset{elliptic state/.style={draw,ellipse}}
+			
+			\node[elliptic state]         (prepareKickOff) [text width=0.7cm] {Prepare Kickoff};
+			\node[elliptic state]         (prepareKickOffOffensive) [above right of=prepareKickOff,text width=0.9cm] {Prepare Kickoff Offensive};
+			\node[elliptic state]         (executeKickOffOffensive) [right of=prepareKickOffOffensive,text width=0.9cm] {Execute Kickoff Offensive};
+			\node[elliptic state]         (prepareKickOffDefensive) [below right of=prepareKickOff,text width=0.9cm]       {Prepare Kickoff Defensive};
+			\node[elliptic state]         (executeKickOffDefensive) [right of=prepareKickOffDefensive,text width=0.9cm]       {Execute Kickoff Defensive};
+			\node[elliptic state]         (play) [above right of=executeKickOffDefensive,text width=0.5cm]       {Play};
+			
+			\path (prepareKickOff) 
+			        	edge node[text width=1.5cm]{has penalty or kickoff} (prepareKickOffOffensive)
+			            edge node[text width=1.5cm]{has not penalty or kickoff} (prepareKickOffDefensive)
+			      (prepareKickOffOffensive)
+			        	edge node[text width=1.5cm]{all robots reached target and execute kickoff} (executeKickOffOffensive)
+			      (prepareKickOffDefensive)
+			        	edge node[text width=1.5cm]{all robots reached target and execute kickoff} (executeKickOffDefensive)
+			      (executeKickOffOffensive)
+				       	edge node[text width=1cm]{continue playing} (play)
+			      (executeKickOffDefensive)
+			        	edge node[text width=1cm]{continue playing} (play);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Penalty} 	
+	\fontsize{6pt}{7.2}\selectfont
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.2cm,semithick]
+			\tikzstyle{every state}=[draw=none,text=black]
+			\tikzset{elliptic state/.style={draw,ellipse}}
+			
+			\node[elliptic state]         (preparePenalty) [text width=0.7cm] {Prepare Penalty};
+			\node[elliptic state]         (preparePenaltyOffensive) [above right of=preparePenalty,text width=0.9cm] {Prepare Penalty Offensive};
+			\node[elliptic state]         (executePenaltyOffensive) [right of=preparePenaltyOffensive,text width=0.9cm] {Execute Penalty Offensive};
+			\node[elliptic state]         (preparePenaltyDefensive) [below right of=preparePenalty,text width=0.9cm]       {Prepare Penalty Defensive};
+			\node[elliptic state]         (executePenaltyDefensive) [right of=preparePenaltyDefensive,text width=0.9cm]       {Execute Penalty Defensive};
+			\node[elliptic state]         (play) [above right of=executePenaltyDefensive,text width=0.5cm]       {Play};
+			
+			\path (preparePenalty) 
+			        	edge node[text width=1.5cm]{user selects offensive} (preparePenaltyOffensive)
+			            edge node[text width=1.5cm]{user selects defensive} (preparePenaltyDefensive)
+			      (preparePenaltyOffensive)
+			        	edge node[text width=1.5cm]{all robots reached target and execute penalty} (executePenaltyOffensive)
+			      (preparePenaltyDefensive)
+			        	edge node[text width=1.5cm]{all robots reached target and execute penalty} (executePenaltyDefensive)
+			      (executePenaltyOffensive)
+				       	edge node[text width=1cm]{continue playing} (play)
+			      (executePenaltyDefensive)
+			        	edge node[text width=1cm]{continue playing} (play);
+		\end{tikzpicture}
+	\end{center}
 \end{frame}
 
 \section{Regelung} 
@@ -59,6 +213,169 @@
 \section{Router} 
 \begin{frame}
 	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 1
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {}; 
+		\end{tikzpicture}
+	\end{center}		
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 2
+			\path[edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 3
+			\path[ignored edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 4
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (-0.3,0.3) -- (1.8,-2.1);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\path[edge] (1.2,-1.9) -- (6.4,0.2);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 5
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 6
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 7
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.7) -- (4.4,-1.3);
+			\path[edge] (1.1,0.4) -- (4.4,1);
+			\path[edge] (3.7,-1.3) -- (6.4,0.2);
+			\path[edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router} 
+	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			% Folie 8
+			\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[selected edge] (1.1,0.4) -- (4.4,1);
+			\path[selected edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {}; 
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+		\end{tikzpicture}
+	\end{center}	
 \end{frame}
 
 \section{Gantt-Diagramm} 

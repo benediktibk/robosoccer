@@ -43,7 +43,7 @@ void ControllableRobotMock::gotoPositionPrecise(const Point &position)
 	m_lastPointToDriveTo = position;
 }
 
-void ControllableRobotMock::kick(unsigned int /*force*/)
+void ControllableRobotMock::kick(Point const &/*ballPosition*/)
 {
 	++m_callsToKick;
 }

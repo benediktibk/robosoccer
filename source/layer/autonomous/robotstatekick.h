@@ -17,12 +17,14 @@ namespace Layer
 {
 namespace Autonomous
 {
+	class IntelligentBall;
+
 	class RobotStateKick :
 			public RobotState
 	{
 	public:
 		RobotStateKick(
-				Abstraction::ControllableRobot &robot, unsigned int force,
+				Abstraction::ControllableRobot &robot, IntelligentBall const &ball,
 				Common::Time::Watch const &watch, Common::Logging::Logger &logger,
 				Common::Logging::Logger::LogFileType logFileType);
 		virtual ~RobotStateKick();
@@ -37,7 +39,7 @@ namespace Autonomous
 
 	private:
 		Common::Time::StopWatch *m_stopWatch;
-		unsigned int m_force;
+		IntelligentBall const &m_ball;
 		bool m_alreadyKicked;
 		bool m_stopWatchRestarted;
 	};

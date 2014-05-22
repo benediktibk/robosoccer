@@ -3,21 +3,18 @@ TARGET=projectplan
 all: latex
 
 latex:
-	latex $(TARGET).tex 
-	-bibtex $(TARGET)
-	latex $(TARGET).tex
-	latex $(TARGET).tex
-	dvipdf $(TARGET).dvi
+	pdflatex $(TARGET).tex 
+	
 clean:
-	-rm $(TARGET).aux
-	-rm $(TARGET).toc
-	-rm $(TARGET).out
-	-rm $(TARGET).snm
-	-rm $(TARGET).nav
-	-rm $(TARGET).bbl
-	-rm $(TARGET).blg
-	-rm $(TARGET).log
-	-rm $(TARGET).dvi
-	-rm $(TARGET)-blx.bib
-	-rm $(TARGET).run.xml
-	-rm texput.log
+	-rm -f $(TARGET).aux
+	-rm -f $(TARGET).toc
+	-rm -f $(TARGET).out
+	-rm -f $(TARGET).snm
+	-rm -f $(TARGET).nav
+	-rm -f $(TARGET).bbl
+	-rm -f $(TARGET).blg
+	-rm -f $(TARGET).log
+	-rm -f $(TARGET).dvi
+	-rm -f $(TARGET)-blx.bib
+	-rm -f $(TARGET).run.xml
+	-rm -f texput.log
