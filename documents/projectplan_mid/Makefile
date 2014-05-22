@@ -3,11 +3,8 @@ TARGET=projectplan
 all: latex
 
 latex:
-	latex $(TARGET).tex 
-	-bibtex $(TARGET)
-	latex $(TARGET).tex
-	latex $(TARGET).tex
-	dvipdf $(TARGET).dvi
+	pdflatex $(TARGET).tex 
+	
 clean:
 	-rm -f $(TARGET).aux
 	-rm -f $(TARGET).toc
