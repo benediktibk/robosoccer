@@ -104,3 +104,4 @@ void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()
 
 	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getCurrentFieldSide(),FieldSideLeft);
 }
+
