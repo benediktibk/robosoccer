@@ -30,6 +30,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getCurrentFieldSide_isRight_FieldsideRight);
 		CPPUNIT_TEST(getObstacle_empty_sameAsFromBall);
 		CPPUNIT_TEST(getObstacles_empty_oneElementWhichIsSameAsFromBall);
+		CPPUNIT_TEST(getShootingLineCoveragePercent_isZero_0);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -47,6 +48,7 @@ namespace Autonomous
 		void getCurrentFieldSide_isRight_FieldsideRight();
 		void getObstacle_empty_sameAsFromBall();
 		void getObstacles_empty_oneElementWhichIsSameAsFromBall();
+		void getShootingLineCoveragePercent_isZero_0();
 
 	private:
 		Abstraction::BallMock *m_ballMock;

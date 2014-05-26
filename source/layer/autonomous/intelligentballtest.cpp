@@ -5,6 +5,7 @@
 #include "common/geometry/angle.h"
 #include "layer/abstraction/fieldside.h"
 #include "common/geometry/compare.h"
+#include "layer/autonomous/obstaclefetchermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -105,3 +106,22 @@ void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()
 	CPPUNIT_ASSERT_EQUAL(m_intelligentBall->getCurrentFieldSide(),FieldSideLeft);
 }
 
+void IntelligentBallTest::getShootingLineCoveragePercent_isZero_0()
+{
+	Compare compare(0.001);
+
+	Circle obstacleOne(Point(-0.5, 0.5), 0.075);
+	Circle obstacleTwo(Point(0.5, 0.5), 0.075);
+
+	vector<Circle> obstacleVector;
+
+	obstacleVector.push_back(obstacleOne);
+	obstacleVector.push_back(obstacleTwo);
+
+	ObstacleFetcherMock obstacleFetcher;
+	obstacleFetcher.setAllObstaclesButMe(obstacleVector);
+	m_ballMock->setPosition(Point(0, 0));
+	Point target(0, 1.0);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(0.0, m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target)));
+}
