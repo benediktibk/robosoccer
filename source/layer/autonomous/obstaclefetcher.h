@@ -34,6 +34,11 @@ namespace Autonomous
 		 */
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
+		/*!
+		 * The same as the function above, but it ignores the specified ball.
+		 */
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBallInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 	};
 }
 }
