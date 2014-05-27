@@ -40,6 +40,7 @@ Application::Application(TeamColor ownTeamColor) :
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);
 	m_obstacleFetcher->addSource(*m_ball);
+	m_obstacleFetcher->defineBall(*m_ball);
 
 	for (unsigned int i = 0; i < 3; i++)
 	{
