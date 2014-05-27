@@ -185,6 +185,8 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 	{
 		if (!m_driveStarted)
 			getRobot().gotoPositionImprecise(target);
+		else if (m_driveSlowlyAtTheEnd && robotPose.getPosition().distanceTo(target) < 0.2 && m_currentRoute->getPointCount() == 2)
+			getRobot().gotoPositionPrecise(target);
 
 		m_driveStarted = true;
 		return true;
