@@ -110,12 +110,12 @@ double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obst
 			assert(percentageFree >= 0 && percentageFree <= 50);
 			if(isRight)
 			{
-				startIteration = percentageFree;
-				endIteration = 100;
-			}else
-			{
 				startIteration = 0;
 				endIteration = 50 + percentageFree;
+			}else
+			{
+				startIteration = percentageFree;
+				endIteration = 50;
 			}
 		}
 		if(distanceRobotEdgeToLine <= -ballRadius)

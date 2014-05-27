@@ -32,6 +32,8 @@ namespace Autonomous
 		CPPUNIT_TEST(getObstacles_empty_oneElementWhichIsSameAsFromBall);
 		CPPUNIT_TEST(getShootingLineCoveragePercent_isZero_0);
 		CPPUNIT_TEST(getShootingLineCoveragePercent_isHundred_100);
+		CPPUNIT_TEST(getShootingLineCoveragePercent_isFiftyRightofLine_50);
+		CPPUNIT_TEST(getShootingLineCoveragePercent_isFiftyLeftofLine_50);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -51,6 +53,8 @@ namespace Autonomous
 		void getObstacles_empty_oneElementWhichIsSameAsFromBall();
 		void getShootingLineCoveragePercent_isZero_0();
 		void getShootingLineCoveragePercent_isHundred_100();
+		void getShootingLineCoveragePercent_isFiftyRightofLine_50();
+		void getShootingLineCoveragePercent_isFiftyLeftofLine_50();
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;
