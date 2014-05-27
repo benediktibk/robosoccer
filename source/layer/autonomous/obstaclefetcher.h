@@ -25,6 +25,7 @@ namespace Autonomous
 		virtual ~ObstacleFetcher() { }
 
 		virtual void addSource(ObstacleSource const &source) = 0;
+		virtual void defineBall(ObstacleSource const &source) = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const = 0;
 		/*!

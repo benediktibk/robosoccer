@@ -121,3 +121,55 @@ void ObstacleFetcherTest::getAllObstaclesButMeInRange_firstRobotAndNearlyCloseEn
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
 }
+
+void ObstacleFetcherTest::defineBall_noBallDefined_getAllObstaclesButMeAndBallInRangeReturnsAllObstacles()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(0, 0), 100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+}
+
+void ObstacleFetcherTest::defineBall_ballDefined_getAllObstablesButMeAndBallInRangeReturnsOneLess()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(0, 0), 100);
+	CPPUNIT_ASSERT_EQUAL((size_t)4, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndBallInRange_ballNotInRange_noObstacles()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(8, 8), 0.1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndBallInRange_ballInRange_noObstacles()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(7.2, 7.2), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndBallInRange_otherObstacleInRange_oneCorrectObstacle()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(6.2, 6.2), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, obstacles.size());
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 0.5)));
+}
+
+void ObstacleFetcherTest::getAllObstaclesBugMeAndBallInRange_selfInRange_noObstacles()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(1.2, 1.2), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
+}

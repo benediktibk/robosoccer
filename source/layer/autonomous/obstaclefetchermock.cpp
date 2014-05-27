@@ -11,6 +11,9 @@ ObstacleFetcherMock::ObstacleFetcherMock()
 void ObstacleFetcherMock::addSource(const ObstacleSource &)
 { }
 
+void ObstacleFetcherMock::defineBall(const ObstacleSource &)
+{ }
+
 vector<Circle> ObstacleFetcherMock::getAllObstacles() const
 {
 	return m_allObstacles;

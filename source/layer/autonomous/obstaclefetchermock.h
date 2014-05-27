@@ -16,6 +16,7 @@ namespace Autonomous
 		ObstacleFetcherMock();
 
 		virtual void addSource(ObstacleSource const &source);
+		virtual void defineBall(ObstacleSource const &source);
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
