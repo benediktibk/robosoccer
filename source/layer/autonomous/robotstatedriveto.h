@@ -59,6 +59,7 @@ namespace Autonomous
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		std::vector<Common::Geometry::Circle> modifyObstacles(const std::vector<Common::Geometry::Circle> &obstacles, double growFactor) const;
+		std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeWithOrWithoutBall(const Common::Geometry::Point &robotPoint, double distance) const;
 		void clearRoute();
 		void resetAllMovementFlags();
 
@@ -72,6 +73,8 @@ namespace Autonomous
 		bool m_finalRotationReached;
 		bool m_finalRotationStarted;
 		bool m_movementStopUsed;
+		bool m_ignoreBall;
+		bool m_driveSlowlyAtTheEnd;
 		Common::Geometry::Pose m_target;
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;

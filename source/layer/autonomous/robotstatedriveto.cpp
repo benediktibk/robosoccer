@@ -30,6 +30,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
 	m_movementStopUsed(false),
+	m_ignoreBall(false),
+	m_driveSlowlyAtTheEnd(false),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
@@ -194,7 +196,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 void RobotStateDriveTo::updateRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,0.9);
 
 	if (!isRouteFeasible(modifiedObstacles))
@@ -210,7 +212,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.5);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
@@ -247,6 +249,14 @@ vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacle
 	}
 
 	return result;
+}
+
+vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeWithOrWithoutBall(const Point &robotPoint, double distance) const
+{
+	if(m_ignoreBall)
+		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
+	else
+		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
 }
 
 void RobotStateDriveTo::clearRoute()
