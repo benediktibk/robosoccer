@@ -278,3 +278,8 @@ string RobotStateDriveTo::getName() const
 {
 	return string("drive to");
 }
+
+size_t RobotStateDriveTo::getRoutePointsCount() const
+{
+	return m_currentRoute->getPointCount();
+}

@@ -50,6 +50,8 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual std::string getName() const;
 
+		size_t getRoutePointsCount() const;
+
 	protected:
 		virtual void updateInternal();
 

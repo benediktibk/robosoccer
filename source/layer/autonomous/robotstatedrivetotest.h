@@ -18,6 +18,7 @@ namespace Layer
 namespace Autonomous
 {
 	class RobotState;
+	class RobotStateDriveTo;
 
 	class RobotStateDriveToTest :
 			public RobotStateTest
@@ -62,6 +63,7 @@ namespace Autonomous
 		CPPUNIT_TEST(update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive);
 		CPPUNIT_TEST(update_initialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint);
 		CPPUNIT_TEST(update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute);
+		CPPUNIT_TEST(update_ignoreBall_routePointsCountIs2);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -111,9 +113,11 @@ namespace Autonomous
 		void update_initialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive();
 		void update_initialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint();
 		void update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute();
+		void update_ignoreBall_routePointsCountIs2();
 
 	private:
-		RobotState *m_robotStateWithRouter;
+		RobotStateDriveTo *m_robotStateWithRouter;
+		RobotStateDriveTo *m_robotStateWithRouterAndIgnoredBall;
 		Common::Routing::RouterImpl *m_routerImpl;
 		Common::Routing::FieldPositionCheckerMock *m_field;
 	};
