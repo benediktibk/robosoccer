@@ -13,12 +13,17 @@
 #include "common/time/stopwatch.h"
 #include "common/time/watchimpl.h"
 #include "common/states/statemachine.h"
+#include "common/geometry/angle.h"
+#include "common/geometry/pose.h"
 #include <unistd.h>
+#include <sstream>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Autonomous;
+using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
@@ -40,6 +45,7 @@ Application::Application(TeamColor ownTeamColor) :
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);
 	m_obstacleFetcher->addSource(*m_ball);
+	m_obstacleFetcher->defineBall(*m_ball);
 
 	for (unsigned int i = 0; i < 3; i++)
 	{
@@ -74,6 +80,15 @@ Application::~Application()
 
 void Application::run()
 {
+	m_logger->logToConsoleAndGlobalLogFile("checking the hardware");
+	if (!checkHardware())
+	{
+		m_logger->logErrorToConsoleAndWriteToGlobalLogFile("hardware is not okay, closing the program");
+		return;
+	}
+	else
+		m_logger->logToConsoleAndGlobalLogFile("hardware is okay");
+
 	StopWatch stopWatch(*m_watch);
 	stopWatch.getTimeAndRestart();
 	const double maximumLoopTime = 0.033;
@@ -118,4 +133,49 @@ void Application::stop()
 {
 	m_stop = true;
 	m_logger->logToConsoleAndGlobalLogFile("stop requested");
+}
+
+bool Application::checkHardware()
+{
+	// Turn twice two targets which differ only in a quarter rotation.
+	turnAllRobotsTo(Angle::getQuarterRotation());
+	turnAllRobotsTo(Angle(0));
+
+	for (unsigned int i = 0; i < 3; ++i)
+	{
+		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		Angle orientation = robot.getPose().getOrientation();
+
+		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.3)
+		{
+			stringstream stream;
+			stream << "orientation of one robot is " << orientation <<", but should be 0" << endl;
+			m_logger->logErrorToConsoleAndWriteToGlobalLogFile(stream.str());
+			return false;
+		}
+	}
+
+	return true;
+}
+
+void Application::turnAllRobotsTo(const Angle &angle)
+{
+	for (unsigned int i = 0; i < 3; ++i)
+	{
+		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		robot.turn(angle);
+	}
+
+	unsigned int robotsNotMovingCount;
+	do
+	{
+		robotsNotMovingCount = 0;
+		for (unsigned int i = 0; i < 3; ++i)
+		{
+			Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+			robot.update();
+			if (!robot.isMoving())
+				++robotsNotMovingCount;
+		}
+	} while (robotsNotMovingCount < 3);
 }

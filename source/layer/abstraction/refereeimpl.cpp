@@ -141,6 +141,8 @@ void RefereeImpl::logFieldSide(const char *message, FieldSide fieldSide)
 
 void RefereeImpl::setReady()
 {
+	m_logger.logToLogFileOfType(Logger::LogFileTypeReferee, "sending ready signal");
+
 	switch(m_ownColor)
 	{
 	case TeamColorBlue:
