@@ -254,7 +254,7 @@ vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacle
 vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeWithOrWithoutBall(const Point &robotPoint, double distance) const
 {
 	if(m_ignoreBall)
-		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
+		return m_obstacleFetcher.getAllObstaclesButMeAndBallInRange(m_autonomousRobot, robotPoint, distance);
 	else
 		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
 }
