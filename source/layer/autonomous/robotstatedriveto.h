@@ -40,7 +40,8 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
-				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot);
+				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot,
+				bool ignoreBall, bool driveSlowlyAtTheEnd);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;

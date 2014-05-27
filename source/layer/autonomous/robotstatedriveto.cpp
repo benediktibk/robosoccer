@@ -19,7 +19,7 @@ using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
-		ObstacleSource &autonomousRobot) :
+		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
@@ -30,8 +30,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
 	m_movementStopUsed(false),
-	m_ignoreBall(false),
-	m_driveSlowlyAtTheEnd(false),
+	m_ignoreBall(ignoreBall),
+	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),

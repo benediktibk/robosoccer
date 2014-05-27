@@ -64,7 +64,7 @@ int main(int, char**)
 //		}
 //	}
 
-	robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()));
+	robotTwo.goTo(Pose(Point(-1, 0), Angle::getQuarterRotation()), false, false);
 	while (!robotTwo.targetReached())
 	{
 		robotTwo.update();
