@@ -34,7 +34,7 @@ void RobotStateDriveToTest::setUp()
 	m_robotStateWithRouterAndDriveSlowlyAtTheEnd =
 			new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),	*m_routerImpl,
 								  *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-								  *m_autonomousRobotMock, true, false);
+								  *m_autonomousRobotMock, false, true);
 }
 
 void RobotStateDriveToTest::tearDown()
@@ -602,5 +602,17 @@ void RobotStateDriveToTest::update_ignoreBall_routePointsCountIs2()
 
 void RobotStateDriveToTest::update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
 {
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
 
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+
+	m_controllableRobot->setIsMoving(true);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 }
