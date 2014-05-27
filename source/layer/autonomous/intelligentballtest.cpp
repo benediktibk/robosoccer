@@ -6,7 +6,7 @@
 #include "layer/abstraction/fieldside.h"
 #include "common/geometry/compare.h"
 #include "layer/autonomous/obstaclefetchermock.h"
-
+#include "iostream"
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
@@ -109,15 +109,13 @@ void IntelligentBallTest::getCurrentFieldSide_isLeft_FieldsideLeft()
 void IntelligentBallTest::getShootingLineCoveragePercent_isZero_0()
 {
 	Compare compare(0.001);
-
+	m_ballMock->setPosition(Point(0,0));
+	m_ballMock->setObstacle(Circle(Point(0,0),0.03));
 	Circle obstacleOne(Point(-0.5, 0.5), 0.075);
 	Circle obstacleTwo(Point(0.5, 0.5), 0.075);
-
 	vector<Circle> obstacleVector;
-
 	obstacleVector.push_back(obstacleOne);
 	obstacleVector.push_back(obstacleTwo);
-
 	ObstacleFetcherMock obstacleFetcher;
 	obstacleFetcher.setAllObstaclesButMe(obstacleVector);
 	m_ballMock->setPosition(Point(0, 0));
@@ -129,19 +127,18 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isZero_0()
 void IntelligentBallTest::getShootingLineCoveragePercent_isHundred_100()
 {
 	Compare compare(0.001);
-
+	m_ballMock->setPosition(Point(0,0));
+	m_ballMock->setObstacle(Circle(Point(0,0),0.03));
 	Circle obstacleOne(Point(0, 0.5), 0.075);
 	Circle obstacleTwo(Point(0.5, 0.5), 0.075);
-
 	vector<Circle> obstacleVector;
-
 	obstacleVector.push_back(obstacleOne);
 	obstacleVector.push_back(obstacleTwo);
-
 	ObstacleFetcherMock obstacleFetcher;
 	obstacleFetcher.setAllObstaclesButMe(obstacleVector);
-	m_ballMock->setPosition(Point(0, 0));
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
+
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(100.0, coverage));
 }
+

@@ -51,7 +51,6 @@ namespace Autonomous
 		void getObstacles_empty_oneElementWhichIsSameAsFromBall();
 		void getShootingLineCoveragePercent_isZero_0();
 		void getShootingLineCoveragePercent_isHundred_100();
-
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;
