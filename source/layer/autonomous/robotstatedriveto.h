@@ -65,6 +65,7 @@ namespace Autonomous
 		std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeWithOrWithoutBall(const Common::Geometry::Point &robotPoint, double distance) const;
 		void clearRoute();
 		void resetAllMovementFlags();
+		void prepareLastRouteSegmentForDrivingSlowly();
 
 	private:
 		const double m_precisionPosition;

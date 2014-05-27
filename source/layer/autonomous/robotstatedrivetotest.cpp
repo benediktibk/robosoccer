@@ -31,6 +31,10 @@ void RobotStateDriveToTest::setUp()
 			new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),	*m_routerImpl,
 								  *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
 								  *m_autonomousRobotMock, true, false);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd =
+			new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),	*m_routerImpl,
+								  *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+								  *m_autonomousRobotMock, true, false);
 }
 
 void RobotStateDriveToTest::tearDown()
@@ -44,6 +48,8 @@ void RobotStateDriveToTest::tearDown()
 	m_robotStateWithRouter = 0;
 	delete m_robotStateWithRouterAndIgnoredBall;
 	m_robotStateWithRouterAndIgnoredBall = 0;
+	delete m_robotStateWithRouterAndDriveSlowlyAtTheEnd;
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd = 0;
 }
 
 RobotState *RobotStateDriveToTest::createInstance()
@@ -592,4 +598,9 @@ void RobotStateDriveToTest::update_ignoreBall_routePointsCountIs2()
 	m_robotStateWithRouterAndIgnoredBall->update();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, m_robotStateWithRouterAndIgnoredBall->getRoutePointsCount());
+}
+
+void RobotStateDriveToTest::update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
+{
+
 }

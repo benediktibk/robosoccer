@@ -184,9 +184,12 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 	else
 	{
 		if (!m_driveStarted)
-			getRobot().gotoPositionImprecise(target);
-		else if (m_driveSlowlyAtTheEnd && robotPose.getPosition().distanceTo(target) < 0.2 && m_currentRoute->getPointCount() == 2)
-			getRobot().gotoPositionPrecise(target);
+		{
+			if(m_currentRoute->getPointCount() == 2 && m_driveSlowlyAtTheEnd)
+				getRobot().gotoPositionPrecise(target);
+			else
+				getRobot().gotoPositionImprecise(target);
+		}
 
 		m_driveStarted = true;
 		return true;
@@ -218,6 +221,9 @@ void RobotStateDriveTo::updateRouteForTarget()
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.5);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
+
+	if(m_driveSlowlyAtTheEnd)
+		prepareLastRouteSegmentForDrivingSlowly();
 
 	resetAllMovementFlags();
 	log("new point count of route", m_currentRoute->getPointCount());
@@ -274,6 +280,14 @@ void RobotStateDriveTo::resetAllMovementFlags()
 	m_finalRotationReached = false;
 	m_finalRotationStarted = false;
 	m_driveStarted = false;
+}
+
+void RobotStateDriveTo::prepareLastRouteSegmentForDrivingSlowly()
+{
+	double lengthOfLastSegment = 0.15;
+
+	if(m_currentRoute->getLengthOfLastSegment() > lengthOfLastSegment)
+		m_currentRoute->splitLastSegment(lengthOfLastSegment);
 }
 
 string RobotStateDriveTo::getName() const
