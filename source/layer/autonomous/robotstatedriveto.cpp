@@ -8,6 +8,7 @@
 #include "layer/autonomous/obstaclefetcher.h"
 #include "layer/abstraction/readablerobot.h"
 #include <assert.h>
+#include <sstream>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -147,12 +148,14 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
 		{
 			log("inital rotation reached");
+			logCurrentPose();
 			m_initialRotationReached = true;
 			m_movementStopUsed = true;
 		}
 		else if (hasMovementStopped() && !m_movementStopUsed)
 		{
 			log("inital rotation not really reached, but movement stopped");
+			logCurrentPose();
 			m_movementStopUsed = true;
 			m_initialRotationReached = true;
 		}
@@ -170,16 +173,18 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 	if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
 	{
 		log("position reached");
+		logCurrentPose();
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
-		log("new point count of route", m_currentRoute->getPointCount());
+		logRoute();
 	}
 	else if (hasMovementStopped() && !m_movementStopUsed)
 	{
 		log("position not really reached, but movement stopped");
+		logCurrentPose();
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
-		log("new point count of route", m_currentRoute->getPointCount());
+		logRoute();
 	}
 	else
 	{
@@ -226,7 +231,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	resetAllMovementFlags();
-	log("new point count of route", m_currentRoute->getPointCount());
+	logRoute();
 }
 
 const Point &RobotStateDriveTo::getNextTargetPoint() const
@@ -298,4 +303,19 @@ string RobotStateDriveTo::getName() const
 size_t RobotStateDriveTo::getRoutePointsCount() const
 {
 	return m_currentRoute->getPointCount();
+}
+
+void RobotStateDriveTo::logRoute()
+{
+	log("point count of route", m_currentRoute->getPointCount());
+	stringstream stream;
+	stream << "points: " << *m_currentRoute;
+	log(stream.str());
+}
+
+void RobotStateDriveTo::logCurrentPose()
+{
+	stringstream stream;
+	stream << "current pose: " << getRobot().getPose();
+	log(stream.str());
 }

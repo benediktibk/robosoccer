@@ -162,3 +162,19 @@ void Route::splitLastSegment(double lengthOfLastSegment)
 	m_points.push_back(midPoint);
 	m_points.push_back(lastPoint);
 }
+
+ostream& operator<<(ostream &stream, const Route &route)
+{
+	list<Point> points = route.getAllPoints();
+
+	if (points.empty())
+		return stream;
+
+	stream << points.front();
+	list<Point>::const_iterator i = points.begin();
+	++i;
+	for (; i != points.end(); ++i)
+		stream << " - " << *i;
+
+	return stream;
+}

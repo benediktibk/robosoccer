@@ -66,6 +66,8 @@ namespace Autonomous
 		void clearRoute();
 		void resetAllMovementFlags();
 		void prepareLastRouteSegmentForDrivingSlowly();
+		void logRoute();
+		void logCurrentPose();
 
 	private:
 		const double m_precisionPosition;

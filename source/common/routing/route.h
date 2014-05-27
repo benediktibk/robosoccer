@@ -49,4 +49,6 @@ namespace Routing
 }
 }
 
+std::ostream& operator<<(std::ostream &stream, const RoboSoccer::Common::Routing::Route &route);
+
 #endif
