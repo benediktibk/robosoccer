@@ -70,3 +70,10 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
 
 	return result;
 }
+
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBallInRange(
+		const ObstacleSource &me, const Point &ownPosition, double distance) const
+{
+	//! @todo implement
+	return getAllObstaclesButMeInRange(me, ownPosition, distance);
+}
