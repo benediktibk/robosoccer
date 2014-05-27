@@ -37,6 +37,9 @@ namespace Routing
 		bool intersectsWith(const std::vector<Geometry::Circle> &objects) const;
 		void replaceFirstPoint(const Geometry::Point &point);
 		double getLength() const;
+		double getLengthOfLastSegment() const;
+		void splitLastSegment(double lengthOfLastSegment);
+
 
 	private:
 		std::list<Geometry::Point> m_points;

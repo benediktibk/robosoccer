@@ -3,6 +3,7 @@
 #include "common/geometry/angle.h"
 #include "common/geometry/pose.h"
 #include "common/other/signum.h"
+#include "common/geometry/line.h"
 #include <assert.h>
 #include <math.h>
 #include <algorithm>
@@ -140,4 +141,24 @@ double Route::getLength() const
 	}
 
 	return totalLength;
+}
+
+double Route::getLengthOfLastSegment() const
+{
+	Point lastPoint = getLastPoint();
+	Point nextToLastPoint = getNextToLastPoint();
+
+	return lastPoint.distanceTo(nextToLastPoint);
+}
+
+void Route::splitLastSegment(double lengthOfLastSegment)
+{
+	Point lastPoint = getLastPoint();
+	Point nextToLastPoint = getNextToLastPoint();
+	Line lastSegment(lastPoint,nextToLastPoint);
+	Point midPoint(lastSegment.getPointOnDirectionOfLine(lengthOfLastSegment/lastSegment.getLength()));
+
+	m_points.pop_back();
+	m_points.push_back(midPoint);
+	m_points.push_back(lastPoint);
 }
