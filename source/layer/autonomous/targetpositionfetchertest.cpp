@@ -454,3 +454,14 @@ void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballATwoMinu
 	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 1);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(3,-1)));
 }
+
+void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtPointFiveZero_ballposition()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5, 0));
+	Point shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(0.5,0)));
+}
