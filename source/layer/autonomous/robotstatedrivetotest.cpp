@@ -616,3 +616,13 @@ void RobotStateDriveToTest::update_closeToThirdPositionAndDriveSlowlyAtTheEnd_ro
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 }
+
+void RobotStateDriveToTest::update_targetNotInsideField_noCallToDriveAndTurn()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_field->setAllCoordinatesOutside(true);
+	m_robotStateWithRouter->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
+}
