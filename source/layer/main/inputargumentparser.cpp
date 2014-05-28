@@ -12,16 +12,17 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 		return;
 	}
 
-	if (arguments[1] == "--setOwnTeamColor")
+	if (arguments[1] != "--setOwnTeamColor")
 	{
-		m_valid = true;
-		if (arguments[2] == "red")
-			m_ownTeamColor = TeamColorRed;
-		else if (arguments[2] == "blue")
-			m_ownTeamColor = TeamColorBlue;
-		else
-			m_valid = false;
+		m_valid = false;
+		return;
 	}
+
+	m_valid = true;
+	if (arguments[2] == "red")
+		m_ownTeamColor = TeamColorRed;
+	else if (arguments[2] == "blue")
+		m_ownTeamColor = TeamColorBlue;
 	else
 		m_valid = false;
 
