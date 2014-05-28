@@ -137,5 +137,5 @@ double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obst
 			sumOfElements += 1;
 	}
 
-	return static_cast<double>(sumOfElements);
+	return static_cast<double>(sumOfElements)/100.0;
 }

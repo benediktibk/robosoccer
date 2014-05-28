@@ -139,7 +139,7 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isHundred_100()
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(100.0, coverage));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(1.0, coverage));
 }
 
 void IntelligentBallTest::getShootingLineCoveragePercent_isFiftyRightofLine_50()
@@ -157,7 +157,7 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isFiftyRightofLine_50()
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(50.0, coverage));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(0.5, coverage));
 }
 
 void IntelligentBallTest::getShootingLineCoveragePercent_isFiftyLeftofLine_50()
@@ -175,7 +175,7 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isFiftyLeftofLine_50()
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(50.0, coverage));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(0.5, coverage));
 }
 
 void IntelligentBallTest::getShootingLineCoveragePercent_isHundredFiftyFromLeftFiftyFromRight_100()
@@ -195,7 +195,7 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isHundredFiftyFromLeftF
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(100.0, coverage));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(1.0, coverage));
 }
 
 void IntelligentBallTest::getShootingLineCoveragePercent_isTwentyfiveFromLeftTwentyfiveFromRight_50()
@@ -215,5 +215,5 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isTwentyfiveFromLeftTwe
 	Point target(0, 1.0);
 	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(50.0, coverage));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(0.5, coverage));
 }
