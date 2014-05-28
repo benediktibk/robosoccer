@@ -477,3 +477,25 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front(),Point(-0.5,0)));
 }
 
+
+void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0));
+	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1),Point(-0.5,0.2)));
+}
+
+void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5, 0));
+	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1),Point(-0.5,-0.4)));
+}
