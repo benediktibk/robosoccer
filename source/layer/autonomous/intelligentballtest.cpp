@@ -197,3 +197,23 @@ void IntelligentBallTest::getShootingLineCoveragePercent_isHundredFiftyFromLeftF
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(100.0, coverage));
 }
+
+void IntelligentBallTest::getShootingLineCoveragePercent_isTwentyfiveFromLeftTwentyfiveFromRight_50()
+{
+	Compare compare(0.001);
+	m_ballMock->setPosition(Point(0,0));
+	m_ballMock->setObstacle(Circle(Point(0,0),0.03));
+	Circle obstacleTwo(Point(-0.075/2.0-0.03/4.0, 0), 0.075);
+	Circle obstacleOne(Point(0.075/2.0+0.03/4.0, 0.5), 0.075);
+	Circle obstacleThree(Point(1, 0.5), 0.075);
+	vector<Circle> obstacleVector;
+	obstacleVector.push_back(obstacleOne);
+	obstacleVector.push_back(obstacleTwo);
+	obstacleVector.push_back(obstacleThree);
+	ObstacleFetcherMock obstacleFetcher;
+	obstacleFetcher.setAllObstaclesButMe(obstacleVector);
+	Point target(0, 1.0);
+	double coverage = m_intelligentBall->getShootingLineCoveragePercent(obstacleFetcher, target);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(50.0, coverage));
+}

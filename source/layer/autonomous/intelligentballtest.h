@@ -35,6 +35,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getShootingLineCoveragePercent_isFiftyRightofLine_50);
 		CPPUNIT_TEST(getShootingLineCoveragePercent_isFiftyLeftofLine_50);
 		CPPUNIT_TEST(getShootingLineCoveragePercent_isHundredFiftyFromLeftFiftyFromRight_100);
+		CPPUNIT_TEST(getShootingLineCoveragePercent_isTwentyfiveFromLeftTwentyfiveFromRight_50);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -57,6 +58,7 @@ namespace Autonomous
 		void getShootingLineCoveragePercent_isFiftyRightofLine_50();
 		void getShootingLineCoveragePercent_isFiftyLeftofLine_50();
 		void getShootingLineCoveragePercent_isHundredFiftyFromLeftFiftyFromRight_100();
+		void getShootingLineCoveragePercent_isTwentyfiveFromLeftTwentyfiveFromRight_50();
 	private:
 		Abstraction::BallMock *m_ballMock;
 		Autonomous::IntelligentBallImpl *m_intelligentBall;
