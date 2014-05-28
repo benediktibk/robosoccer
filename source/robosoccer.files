@@ -351,10 +351,10 @@ layer/autonomous/obstaclefetchermock.h
 layer/autonomous/obstaclefetchermock.cpp
 layer/autonomous/obstaclesourcemock.h
 layer/autonomous/obstaclesourcemock.cpp
-layer/control/treenodedeciderisinenemyhalf.cpp
-layer/control/treenodedeciderisinenemyhalf.h
-layer/control/treenodedeciderisinenemyhalftest.cpp
-layer/control/treenodedeciderisinenemyhalftest.h
+layer/control/treenodedeciderisonerobotbehindtheball.cpp
+layer/control/treenodedeciderisonerobotbehindtheball.h
+layer/control/treenodedeciderisonerobotbehindtheballtest.cpp
+layer/control/treenodedeciderisonerobotbehindtheballtest.h
 layer/control/treenodetest.h
 layer/control/treenodetest.cpp
 layer/control/treenoderesultdefendgoal.cpp

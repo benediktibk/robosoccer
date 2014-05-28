@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALFTEST_H
-#define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALFTEST_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISONEROBOTBEHINDTHEBALLTEST_H
+#define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISONEROBOTBEHINDTHEBALLTEST_H
 
 #include "layer/control/treenodetest.h"
 
@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Control
 {
-class TreeNodeDeciderIsInEnemyHalfTest :
+class TreeNodeDeciderIsOneRobotBehindTheBallTest :
 		public TreeNodeTest
 	{
-		CPPUNIT_TEST_SUITE(TreeNodeDeciderIsInEnemyHalfTest);
+		CPPUNIT_TEST_SUITE(TreeNodeDeciderIsOneRobotBehindTheBallTest);
 		CPPUNIT_TEST(getChild_ballInOwnZone_defend);
 		CPPUNIT_TEST(getChild_ballInEnemyZone_attack);
 		CPPUNIT_TEST_SUITE_END();

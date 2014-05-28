@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALF_H
-#define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISINENEMYHALF_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISONEROBOTBEHINDTHEBALL_H
+#define ROBOSOCCER_LAYER_CONTROL_TREENODEDECIDERISONEROBOTBEHINDTHEBALL_H
 
 #include "layer/control/treenodedecider.h"
 
@@ -9,11 +9,11 @@ namespace Layer
 {
 namespace Control
 {
-class TreeNodeDeciderIsInEnemyHalf :
+class TreeNodeDeciderIsOneRobotBehindTheBall :
 		public TreeNodeDecider
 	{
 	public:
-		TreeNodeDeciderIsInEnemyHalf(
+		TreeNodeDeciderIsOneRobotBehindTheBall(
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);

@@ -1,5 +1,5 @@
-#include "layer/control/treenodedeciderisinenemyhalftest.h"
-#include "layer/control/treenodedeciderisinenemyhalf.h"
+#include "layer/control/treenodedeciderisonerobotbehindtheballtest.h"
+#include "layer/control/treenodedeciderisonerobotbehindtheball.h"
 #include "common/logging/loggermock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/autonomous/teammock.h"
@@ -13,12 +13,12 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Control;
 
-TreeNode *TreeNodeDeciderIsInEnemyHalfTest::createTestNode()
+TreeNode *TreeNodeDeciderIsOneRobotBehindTheBallTest::createTestNode()
 {
-	return new TreeNodeDeciderIsInEnemyHalf(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeDeciderIsOneRobotBehindTheBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }
 
-void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
+void TreeNodeDeciderIsOneRobotBehindTheBallTest::getChild_ballInOwnZone_defend()
 {
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_ball->setPosition(Point(-1.1, 0.3));
@@ -29,7 +29,7 @@ void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInOwnZone_defend()
 	delete node;
 }
 
-void TreeNodeDeciderIsInEnemyHalfTest::getChild_ballInEnemyZone_attack()
+void TreeNodeDeciderIsOneRobotBehindTheBallTest::getChild_ballInEnemyZone_attack()
 {
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_ball->setPosition(Point(1.1, 0.3));
