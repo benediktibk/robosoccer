@@ -18,9 +18,11 @@ namespace Routing
 		virtual bool isPointInsideField(Geometry::Point const &position) const;
 
 		void setNegativeCoordinatesOutside(bool value);
+		void setAllCoordinatesOutside(bool value);
 
 	private:
 		bool m_negativeCoordinatesOutside;
+		bool m_allPointsOutside;
 	};
 }
 }

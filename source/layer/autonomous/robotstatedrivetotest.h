@@ -65,6 +65,7 @@ namespace Autonomous
 		CPPUNIT_TEST(update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute);
 		CPPUNIT_TEST(update_ignoreBall_routePointsCountIs2);
 		CPPUNIT_TEST(update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly);
+		CPPUNIT_TEST(update_targetNotInsideField_noCallToDriveAndTurn);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -116,6 +117,7 @@ namespace Autonomous
 		void update_initialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute();
 		void update_ignoreBall_routePointsCountIs2();
 		void update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly();
+		void update_targetNotInsideField_noCallToDriveAndTurn();
 
 	private:
 		RobotStateDriveTo *m_robotStateWithRouter;
