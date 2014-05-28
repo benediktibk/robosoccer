@@ -27,6 +27,7 @@
 #include "layer/main/applicationtest.h"
 #include "layer/main/fieldpositioncheckerfieldplayertest.h"
 #include "layer/main/fieldpositioncheckergoalkeepertest.h"
+#include "layer/main/inputargumentparsertest.h"
 #include "layer/control/pausetest.h"
 #include "layer/control/preparekickofftest.h"
 #include "layer/control/playtest.h"
@@ -40,9 +41,11 @@
 #include "layer/control/penaltyoffensivetest.h"
 #include "layer/control/penaltydefensivetest.h"
 #include "layer/control/treenodetest.h"
-#include "layer/control/treenodedeciderisinenemyhalftest.h"
-#include "layer/control/treenoderesultdefendgoaltest.h"
-#include "layer/control/treenoderesultattackballtest.h"
+#include "layer/control/treenodedeciderisonerobotbehindtheballtest.h"
+#include "layer/control/treenodedeciderisonerobotinshootingrangetest.h"
+#include "layer/control/treenoderesultgetbehindballtest.h"
+#include "layer/control/treenoderesultshoottest.h"
+#include "layer/control/treenoderesultfollowballtest.h"
 #include "layer/autonomous/robottest.h"
 #include "layer/autonomous/teamtest.h"
 #include "layer/autonomous/enemyteamtest.h"
@@ -85,6 +88,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotDriveContro
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerGoalkeeperTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::InputArgumentParserTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PauseTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PlayTest);
@@ -98,9 +102,11 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PreparePenaltyDefens
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyOffensiveTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyDefensiveTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsInEnemyHalfTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultDefendGoalTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultAttackBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotBehindTheBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotInShootingRangeTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultGetBehindBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultShootTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultFollowBallTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);

@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODERESULTATTACKBALL_H
-#define ROBOSOCCER_LAYER_CONTROL_TREENODERESULTATTACKBALL_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODERESULTSHOOT_H
+#define ROBOSOCCER_LAYER_CONTROL_TREENODERESULTSHOOT_H
 
 #include "layer/control/treenoderesult.h"
 
@@ -9,11 +9,11 @@ namespace Layer
 {
 namespace Control
 {
-class TreeNodeResultAttackBall :
+class TreeNodeResultShoot :
 		public TreeNodeResult
 	{
 	public:
-		TreeNodeResultAttackBall(
+		TreeNodeResultShoot(
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
