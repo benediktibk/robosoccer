@@ -357,10 +357,10 @@ layer/control/treenodedeciderisonerobotbehindtheballtest.cpp
 layer/control/treenodedeciderisonerobotbehindtheballtest.h
 layer/control/treenodetest.h
 layer/control/treenodetest.cpp
-layer/control/treenoderesultdefendgoal.cpp
-layer/control/treenoderesultdefendgoal.h
-layer/control/treenoderesultdefendgoaltest.cpp
-layer/control/treenoderesultdefendgoaltest.h
+layer/control/treenoderesultgetbehindball.cpp
+layer/control/treenoderesultgetbehindball.h
+layer/control/treenoderesultgetbehindballtest.cpp
+layer/control/treenoderesultgetbehindballtest.h
 layer/control/treenoderesultshoot.cpp
 layer/control/treenoderesultshoot.h
 layer/control/treenoderesultshoottest.cpp
