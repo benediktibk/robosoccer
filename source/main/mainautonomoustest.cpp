@@ -49,17 +49,17 @@ int main(int, char**)
 
 	while(true)
 	{
-		robotTwo.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false);
-		while (!robotTwo.targetReached())
+		robotOne.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false);
+		while (!robotOne.targetReached())
 		{
-			robotTwo.update();
+			robotOne.update();
 			usleep(10000);
 		}
 
-		robotTwo.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false);
-		while (!robotTwo.targetReached())
+		robotOne.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false);
+		while (!robotOne.targetReached())
 		{
-			robotTwo.update();
+			robotOne.update();
 			usleep(10000);
 		}
 	}
