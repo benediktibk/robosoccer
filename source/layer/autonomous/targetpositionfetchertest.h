@@ -46,6 +46,8 @@ namespace Autonomous
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true);
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointRight_true);
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointLeft_false);
+		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToZeroOne_zeroAndZeroPointTwo);
+		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToMinusOneMinusOne_zeroAndZeroPointTwo);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -79,6 +81,8 @@ namespace Autonomous
 		void isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true();
 		void isPointInOwnFieldSide_fieldSideRightAndPointRight_true();
 		void isPointInOwnFieldSide_fieldSideRightAndPointLeft_false();
+		void getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToZeroOne_zeroAndZeroPointTwo();
+		void getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToMinusOneMinusOne_zeroAndZeroPointTwo();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
