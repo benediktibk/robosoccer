@@ -37,3 +37,17 @@ TeamColor InputArgumentParser::getOwnTeamColor() const
 {
 	return m_ownTeamColor;
 }
+
+vector<string> InputArgumentParser::convertArguments(int argc, char **argv)
+{
+	vector<string> arguments;
+	arguments.reserve(argc);
+
+	for (int i=0; i < argc; i++)
+	{
+		string currentArgument(argv[i]);
+		arguments.push_back(currentArgument);
+	}
+
+	return arguments;
+}

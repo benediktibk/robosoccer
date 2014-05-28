@@ -19,10 +19,11 @@ namespace Main
 			bool isValid() const;
 			Layer::Abstraction::TeamColor getOwnTeamColor() const;
 
+			static std::vector<std::string> convertArguments(int argc, char **argv);
+
 		private:
 			Layer::Abstraction::TeamColor m_ownTeamColor;
 			bool m_valid;
-
 	};
 }
 }
