@@ -96,6 +96,13 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 	return getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25);
 }
 
+Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
+{
+	Angle ballOrientation = ball.getRotation();
+	Point pointDelta(distanceToBall, ballOrientation);
+	return ball.getPosition() + pointDelta;
+}
+
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 {
 	vector<Pose> positions;
