@@ -33,7 +33,7 @@ bool FieldPositionCheckerGoalkeeper::isPointInsideField(const Point &position) c
 	return !goalZoneLeft.isInside(position, compare) && !goalZoneRight.isInside(position, compare);
 }
 
-void FieldPositionCheckerGoalkeeper::setTeamSide(FieldSide fieldSide)
+void FieldPositionCheckerGoalkeeper::setFieldSide(FieldSide fieldSide)
 {
 	m_fieldSide = fieldSide;
 }

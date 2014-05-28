@@ -48,11 +48,11 @@ void ObstacleFetcherTest::tearDown()
 	m_ball = 0;
 }
 
-void ObstacleFetcherTest::getAllObstacles_6obstaclesInTotal_countIs6()
+void ObstacleFetcherTest::getAllObstacles_12obstaclesInTotal_countIs12()
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstacles();
 
-	CPPUNIT_ASSERT_EQUAL((size_t)6, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)12, obstacles.size());
 }
 
 void ObstacleFetcherTest::getAllObstacles_6obstaclesInTotal_allObstaclesContained()
@@ -66,11 +66,11 @@ void ObstacleFetcherTest::getAllObstacles_6obstaclesInTotal_allObstaclesContaine
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 0.5)));
 }
 
-void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_countIs5()
+void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_countIs11()
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_firstRobot);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)11, obstacles.size());
 }
 
 void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained()
@@ -83,11 +83,11 @@ void ObstacleFetcherTest::getAllObstaclesButMe_firstRobot_allObstaclesButOwnCont
 	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 0.5)));
 }
 
-void ObstacleFetcherTest::getAllObstaclesButMe_secondRobot_countIs5()
+void ObstacleFetcherTest::getAllObstaclesButMe_secondRobot_countIs11()
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMe(*m_secondRobot);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)11, obstacles.size());
 }
 
 void ObstacleFetcherTest::getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained()
@@ -126,7 +126,7 @@ void ObstacleFetcherTest::defineBall_noBallDefined_getAllObstaclesButMeAndBallIn
 {
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(0, 0), 100);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)11, obstacles.size());
 }
 
 void ObstacleFetcherTest::defineBall_ballDefined_getAllObstablesButMeAndBallInRangeReturnsOneLess()
@@ -134,7 +134,7 @@ void ObstacleFetcherTest::defineBall_ballDefined_getAllObstablesButMeAndBallInRa
 	m_obstacleFetcher->defineBall(*m_ball);
 
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(0, 0), 100);
-	CPPUNIT_ASSERT_EQUAL((size_t)4, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)10, obstacles.size());
 }
 
 void ObstacleFetcherTest::getAllObstaclesButMeAndBallInRange_ballNotInRange_noObstacles()

@@ -17,11 +17,11 @@ namespace Autonomous
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(ObstacleFetcherTest);
-		CPPUNIT_TEST(getAllObstacles_6obstaclesInTotal_countIs6);
+		CPPUNIT_TEST(getAllObstacles_12obstaclesInTotal_countIs12);
 		CPPUNIT_TEST(getAllObstacles_6obstaclesInTotal_allObstaclesContained);
-		CPPUNIT_TEST(getAllObstaclesButMe_firstRobot_countIs5);
+		CPPUNIT_TEST(getAllObstaclesButMe_firstRobot_countIs11);
 		CPPUNIT_TEST(getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained);
-		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_countIs5);
+		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_countIs11);
 		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained);
 		CPPUNIT_TEST(getAllObstaclesButMeInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0);
 		CPPUNIT_TEST(getAllObstaclesButMeInRange_firstRobotAndCloseToBall_oneCorrectElement);
@@ -38,11 +38,11 @@ namespace Autonomous
 		virtual void tearDown();
 
 	private:
-		void getAllObstacles_6obstaclesInTotal_countIs6();
+		void getAllObstacles_12obstaclesInTotal_countIs12();
 		void getAllObstacles_6obstaclesInTotal_allObstaclesContained();
-		void getAllObstaclesButMe_firstRobot_countIs5();
+		void getAllObstaclesButMe_firstRobot_countIs11();
 		void getAllObstaclesButMe_firstRobot_allObstaclesButOwnContained();
-		void getAllObstaclesButMe_secondRobot_countIs5();
+		void getAllObstaclesButMe_secondRobot_countIs11();
 		void getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained();
 		void getAllObstaclesButMeInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0();
 		void getAllObstaclesButMeInRange_firstRobotAndCloseToBall_oneCorrectElement();

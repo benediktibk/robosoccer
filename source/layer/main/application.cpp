@@ -102,7 +102,7 @@ void Application::run()
 	{
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
-		m_fieldPositionCheckerGoalKeeper->setTeamSide(ownSide);
+		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
 		stateMachine.update();
 
 		if (referee.playModeChangedSinceLastCall())
