@@ -6,7 +6,13 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 {
-	if (arguments[1] == "--setOwnTeamColor ")
+	if (arguments.size() != 3)
+	{
+		m_valid = false;
+		return;
+	}
+
+	if (arguments[1] == "--setOwnTeamColor")
 	{
 		m_valid = true;
 		if (arguments[2] == "red")
@@ -18,6 +24,7 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 	}
 	else
 		m_valid = false;
+
 }
 
 bool InputArgumentParser::isValid() const
