@@ -5,6 +5,13 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Geometry
+{
+	class Circle;
+}
+}
 namespace Layer
 {
 namespace Autonomous
@@ -32,6 +39,7 @@ namespace Autonomous
 		bool isInRange(Common::Geometry::Point const &ownPosition, double distance, Common::Geometry::Circle const &circle) const;
 
 	private:
+		std::vector<Common::Geometry::Circle> m_routingObstaclesInGoalZones;
 		std::vector<ObstacleSource const *> m_sources;
 		ObstacleSource const *m_ball;
 	};
