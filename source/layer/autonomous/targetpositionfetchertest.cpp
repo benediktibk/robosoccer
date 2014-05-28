@@ -497,5 +497,5 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
 	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1),Point(-0.5,-0.4)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4),Point(-0.5,-0.4)));
 }
