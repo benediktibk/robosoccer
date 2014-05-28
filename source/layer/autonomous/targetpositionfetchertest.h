@@ -46,8 +46,9 @@ namespace Autonomous
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true);
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointRight_true);
 		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointLeft_false);
-		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToZeroOne_zeroAndZeroPointTwo);
-		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToMinusOneMinusOne_zeroAndZeroPointTwo);
+		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo);
+		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne);
+		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -81,9 +82,9 @@ namespace Autonomous
 		void isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true();
 		void isPointInOwnFieldSide_fieldSideRightAndPointRight_true();
 		void isPointInOwnFieldSide_fieldSideRightAndPointLeft_false();
-		void getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToZeroOne_zeroAndZeroPointTwo();
-		void getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToMinusOneMinusOne_zeroAndZeroPointTwo();
-
+		void getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo();
+		void getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne();
+		void getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne();
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
 		void isInUsefulRange(Common::Geometry::Point const &position, double distanceToGoal, bool left);
