@@ -103,6 +103,18 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
+Point TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
+{
+	Point enemyGoalPosition = getEnemyGoalPosition().front();
+	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
+	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
+	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
+	Line expandedLineRobotTarget(expandLine,enemyGoalPosition);
+	Line yLineThroughBall(Point(ball.getPosition().getX(),-2.0), Point(ball.getPosition().getX(), 2.0));
+	assert(!expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).empty());
+	return expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).front();
+}
+
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 {
 	vector<Pose> positions;
