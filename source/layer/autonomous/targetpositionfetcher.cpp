@@ -96,6 +96,25 @@ Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball
 	return getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25);
 }
 
+Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
+{
+	Angle ballOrientation = ball.getRotation();
+	Point pointDelta(distanceToBall, ballOrientation);
+	return ball.getPosition() + pointDelta;
+}
+
+Point TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
+{
+	Point enemyGoalPosition = getEnemyGoalPosition().front();
+	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
+	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
+	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
+	Line expandedLineRobotTarget(expandLine,enemyGoalPosition);
+	Line yLineThroughBall(Point(ball.getPosition().getX(),-2.0), Point(ball.getPosition().getX(), 2.0));
+	assert(!expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).empty());
+	return expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).front();
+}
+
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 {
 	vector<Pose> positions;

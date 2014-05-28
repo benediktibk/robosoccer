@@ -6,18 +6,26 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 {
-	if (arguments[1] == "--setOwnTeamColor ")
+	if (arguments.size() != 3)
 	{
-		m_valid = true;
-		if (arguments[2] == "red")
-			m_ownTeamColor = TeamColorRed;
-		else if (arguments[2] == "blue")
-			m_ownTeamColor = TeamColorBlue;
-		else
-			m_valid = false;
+		m_valid = false;
+		return;
 	}
+
+	if (arguments[1] != "--setOwnTeamColor")
+	{
+		m_valid = false;
+		return;
+	}
+
+	m_valid = true;
+	if (arguments[2] == "red")
+		m_ownTeamColor = TeamColorRed;
+	else if (arguments[2] == "blue")
+		m_ownTeamColor = TeamColorBlue;
 	else
 		m_valid = false;
+
 }
 
 bool InputArgumentParser::isValid() const
@@ -28,4 +36,18 @@ bool InputArgumentParser::isValid() const
 TeamColor InputArgumentParser::getOwnTeamColor() const
 {
 	return m_ownTeamColor;
+}
+
+vector<string> InputArgumentParser::convertArguments(int argc, char **argv)
+{
+	vector<string> arguments;
+	arguments.reserve(argc);
+
+	for (int i=0; i < argc; i++)
+	{
+		string currentArgument(argv[i]);
+		arguments.push_back(currentArgument);
+	}
+
+	return arguments;
 }

@@ -17,9 +17,11 @@ set(COMMON_LAYER_CONTROL_SRC
 	treenode.cpp
 	treenodedecider.cpp
 	treenoderesult.cpp
-	treenodedeciderisinenemyhalf.cpp
-	treenoderesultdefendgoal.cpp
-	treenoderesultattackball.cpp
+	treenodedeciderisonerobotbehindtheball.cpp
+	treenodedeciderisonerobotinshootingrange.cpp
+	treenoderesultgetbehindball.cpp
+	treenoderesultshoot.cpp
+	treenoderesultfollowball.cpp
 )
 
 set(COMMON_LAYER_CONTROL_TEST_SRC
@@ -37,9 +39,11 @@ set(COMMON_LAYER_CONTROL_TEST_SRC
 	penaltyoffensivetest.cpp
 	penaltydefensivetest.cpp
 	treenodetest.cpp
-	treenodedeciderisinenemyhalftest.cpp
-	treenoderesultdefendgoaltest.cpp
-	treenoderesultattackballtest.cpp
+	treenodedeciderisonerobotbehindtheballtest.cpp
+	treenodedeciderisonerobotinshootingrangetest.cpp
+	treenoderesultgetbehindballtest.cpp
+	treenoderesultshoottest.cpp
+	treenoderesultfollowballtest.cpp
 )
 
 add_library(layercontrol ${COMMON_LAYER_CONTROL_SRC})
