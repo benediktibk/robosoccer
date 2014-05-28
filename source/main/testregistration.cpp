@@ -27,6 +27,7 @@
 #include "layer/main/applicationtest.h"
 #include "layer/main/fieldpositioncheckerfieldplayertest.h"
 #include "layer/main/fieldpositioncheckergoalkeepertest.h"
+#include "layer/main/inputargumentparsertest.h"
 #include "layer/control/pausetest.h"
 #include "layer/control/preparekickofftest.h"
 #include "layer/control/playtest.h"
@@ -87,6 +88,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotDriveContro
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::FieldPositionCheckerGoalkeeperTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::InputArgumentParserTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PauseTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PrepareKickOffTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PlayTest);

@@ -6,6 +6,7 @@
 #include "common/geometry/compare.h"
 #include "common/geometry/rectangle.h"
 #include "common/other/compare.h"
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -413,4 +414,43 @@ void TargetPositionFetcherTest::isInUsefulRange(const vector<Pose> &poses, doubl
 {
 	for (vector<Pose>::const_iterator i = poses.begin(); i != poses.end(); ++i)
 		isInUsefulRange(*i, distanceToGoal, left);
+}
+
+void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0, 0));
+	Angle ballRotation(Point(0,0),Point(0,1));
+	ball.setRotation(ballRotation);
+	ball.setIsMoving(true);
+	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 0.2);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(0,0.2)));
+}
+
+void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-2, 2));
+	Angle ballRotation(Point(0,0),Point(-1,-1));
+	ball.setRotation(ballRotation);
+	ball.setIsMoving(true);
+	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, sqrt(2.0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(-3,1)));
+}
+
+void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne()
+{
+	Compare compare(0.00001);
+	TargetPositionFetcher targetPositionFetcher;
+	IntelligentBallMock ball;
+	ball.setPosition(Point(2, -1));
+	Angle ballRotation(Point(0,0),Point(1,0));
+	ball.setRotation(ballRotation);
+	ball.setIsMoving(true);
+	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 1);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(3,-1)));
 }
