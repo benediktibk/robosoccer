@@ -25,7 +25,12 @@ namespace Autonomous
 		CPPUNIT_TEST(getAllObstaclesButMe_secondRobot_allObstaclesButOwnContained);
 		CPPUNIT_TEST(getAllObstaclesButMeInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0);
 		CPPUNIT_TEST(getAllObstaclesButMeInRange_firstRobotAndCloseToBall_oneCorrectElement);
-		CPPUNIT_TEST(getAllObstaclesButMeInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0);
+		CPPUNIT_TEST(defineBall_noBallDefined_getAllObstaclesButMeAndBallInRangeReturnsAllObstacles);
+		CPPUNIT_TEST(defineBall_ballDefined_getAllObstablesButMeAndBallInRangeReturnsOneLess);
+		CPPUNIT_TEST(getAllObstaclesButMeAndBallInRange_ballNotInRange_noObstacles);
+		CPPUNIT_TEST(getAllObstaclesButMeAndBallInRange_ballInRange_noObstacles);
+		CPPUNIT_TEST(getAllObstaclesButMeAndBallInRange_otherObstacleInRange_oneCorrectObstacle);
+		CPPUNIT_TEST(getAllObstaclesBugMeAndBallInRange_selfInRange_noObstacles);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -42,6 +47,12 @@ namespace Autonomous
 		void getAllObstaclesButMeInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0();
 		void getAllObstaclesButMeInRange_firstRobotAndCloseToBall_oneCorrectElement();
 		void getAllObstaclesButMeInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0();
+		void defineBall_noBallDefined_getAllObstaclesButMeAndBallInRangeReturnsAllObstacles();
+		void defineBall_ballDefined_getAllObstablesButMeAndBallInRangeReturnsOneLess();
+		void getAllObstaclesButMeAndBallInRange_ballNotInRange_noObstacles();
+		void getAllObstaclesButMeAndBallInRange_ballInRange_noObstacles();
+		void getAllObstaclesButMeAndBallInRange_otherObstacleInRange_oneCorrectObstacle();
+		void getAllObstaclesBugMeAndBallInRange_selfInRange_noObstacles();
 
 	private:
 		ObstacleFetcher *m_obstacleFetcher;

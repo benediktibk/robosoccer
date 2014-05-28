@@ -25,6 +25,7 @@ namespace Autonomous
 		virtual ~ObstacleFetcher() { }
 
 		virtual void addSource(ObstacleSource const &source) = 0;
+		virtual void defineBall(ObstacleSource const &source) = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const = 0;
 		/*!
@@ -33,6 +34,11 @@ namespace Autonomous
 		 * do not have to be included in this param.
 		 */
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
+		/*!
+		 * The same as the function above, but it ignores the specified ball.
+		 */
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBallInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 	};
 }

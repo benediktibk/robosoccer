@@ -22,5 +22,6 @@ TreeNodeResultAttackBall::TreeNodeResultAttackBall(
 void TreeNodeResultAttackBall::execute()
 {
 	//! @todo use useful targets
-	m_ownTeam.getPlayerCloserToBall(m_ball).goTo(Pose(m_ball.getPosition(), Angle()));
+	//! @todo consider ignoreBall and driveSlolyAtTheEnd
+	m_ownTeam.getPlayerCloserToBall(m_ball).goTo(Pose(m_ball.getPosition(), Angle()), false, false);
 }

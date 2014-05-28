@@ -8,6 +8,7 @@
 #include "layer/autonomous/obstaclefetcher.h"
 #include "layer/abstraction/readablerobot.h"
 #include <assert.h>
+#include <sstream>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -19,7 +20,7 @@ using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
-		ObstacleSource &autonomousRobot) :
+		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.4),
@@ -30,6 +31,8 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_finalRotationReached(false),
 	m_finalRotationStarted(false),
 	m_movementStopUsed(false),
+	m_ignoreBall(ignoreBall),
+	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
@@ -145,12 +148,14 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		if (compareAngle.isFuzzyEqual(robotPose.getOrientation(), targetAngle))
 		{
 			log("inital rotation reached");
+			logCurrentPose();
 			m_initialRotationReached = true;
 			m_movementStopUsed = true;
 		}
 		else if (hasMovementStopped() && !m_movementStopUsed)
 		{
 			log("inital rotation not really reached, but movement stopped");
+			logCurrentPose();
 			m_movementStopUsed = true;
 			m_initialRotationReached = true;
 		}
@@ -168,21 +173,28 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 	if ((comparePosition.isFuzzyEqual(robotPose.getPosition(), target)))
 	{
 		log("position reached");
+		logCurrentPose();
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
-		log("new point count of route", m_currentRoute->getPointCount());
+		logRoute();
 	}
 	else if (hasMovementStopped() && !m_movementStopUsed)
 	{
 		log("position not really reached, but movement stopped");
+		logCurrentPose();
 		m_movementStopUsed = true;
 		m_currentRoute->removeFirstPoint();
-		log("new point count of route", m_currentRoute->getPointCount());
+		logRoute();
 	}
 	else
 	{
 		if (!m_driveStarted)
-			getRobot().gotoPositionImprecise(target);
+		{
+			if(m_currentRoute->getPointCount() == 2 && m_driveSlowlyAtTheEnd)
+				getRobot().gotoPositionPrecise(target);
+			else
+				getRobot().gotoPositionImprecise(target);
+		}
 
 		m_driveStarted = true;
 		return true;
@@ -194,7 +206,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 void RobotStateDriveTo::updateRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,0.9);
 
 	if (!isRouteFeasible(modifiedObstacles))
@@ -210,13 +222,16 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.5);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
+	if(m_driveSlowlyAtTheEnd)
+		prepareLastRouteSegmentForDrivingSlowly();
+
 	resetAllMovementFlags();
-	log("new point count of route", m_currentRoute->getPointCount());
+	logRoute();
 }
 
 const Point &RobotStateDriveTo::getNextTargetPoint() const
@@ -249,6 +264,14 @@ vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacle
 	return result;
 }
 
+vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeWithOrWithoutBall(const Point &robotPoint, double distance) const
+{
+	if(m_ignoreBall)
+		return m_obstacleFetcher.getAllObstaclesButMeAndBallInRange(m_autonomousRobot, robotPoint, distance);
+	else
+		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
+}
+
 void RobotStateDriveTo::clearRoute()
 {
 	delete m_currentRoute;
@@ -264,7 +287,35 @@ void RobotStateDriveTo::resetAllMovementFlags()
 	m_driveStarted = false;
 }
 
+void RobotStateDriveTo::prepareLastRouteSegmentForDrivingSlowly()
+{
+	double lengthOfLastSegment = 0.15;
+
+	if(m_currentRoute->getLengthOfLastSegment() > lengthOfLastSegment)
+		m_currentRoute->splitLastSegment(lengthOfLastSegment);
+}
+
 string RobotStateDriveTo::getName() const
 {
 	return string("drive to");
+}
+
+size_t RobotStateDriveTo::getRoutePointsCount() const
+{
+	return m_currentRoute->getPointCount();
+}
+
+void RobotStateDriveTo::logRoute()
+{
+	log("point count of route", m_currentRoute->getPointCount());
+	stringstream stream;
+	stream << "points: " << *m_currentRoute;
+	log(stream.str());
+}
+
+void RobotStateDriveTo::logCurrentPose()
+{
+	stringstream stream;
+	stream << "current pose: " << getRobot().getPose();
+	log(stream.str());
 }

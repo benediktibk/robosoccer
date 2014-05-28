@@ -43,7 +43,7 @@ namespace Autonomous
 				  ObstacleFetcher &obstacleFetcher);
 		virtual ~RobotImpl();
 
-		virtual void goTo(Common::Geometry::Pose const &position);
+		virtual void goTo(Common::Geometry::Pose const &position, bool ignoreBall, bool driveSlowlyAtTheEnd);
 		virtual void goToDirect(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;

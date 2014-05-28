@@ -16,19 +16,24 @@ namespace Autonomous
 		ObstacleFetcherMock();
 
 		virtual void addSource(ObstacleSource const &source);
+		virtual void defineBall(ObstacleSource const &source);
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBallInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
 
 		void setAllObstacles(std::vector<Common::Geometry::Circle> const &obstacles);
 		void setAllObstaclesButMe(std::vector<Common::Geometry::Circle> const &obstacles);
 		void setAllObstaclesButMeInRange(std::vector<Common::Geometry::Circle> const &obstacles);
+		void setAllObstaclesButMeAndBallInRange(std::vector<Common::Geometry::Circle> const &obstacles);
 
 	private:
 		std::vector<Common::Geometry::Circle> m_allObstacles;
 		std::vector<Common::Geometry::Circle> m_allObstaclesButMe;
 		std::vector<Common::Geometry::Circle> m_allObstaclesButMeInRange;
+		std::vector<Common::Geometry::Circle> m_allObstaclesButMeAndBallInRange;
 	};
 }
 }

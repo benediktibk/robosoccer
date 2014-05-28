@@ -15,6 +15,10 @@ namespace Time
 {
 	class Watch;
 }
+namespace Geometry
+{
+	class Angle;
+}
 }
 namespace Layer
 {
@@ -43,6 +47,10 @@ namespace Main
 
 		void run();
 		void stop();
+
+	private:
+		bool checkHardware();
+		void turnAllRobotsTo(Common::Geometry::Angle const &angle);
 
 	private:
 		Common::Logging::Logger *m_logger;

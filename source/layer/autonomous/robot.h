@@ -25,7 +25,7 @@ namespace Autonomous
 	public:
 		virtual ~Robot() { }
 
-		virtual void goTo(Common::Geometry::Pose const &position) = 0;
+		virtual void goTo(Common::Geometry::Pose const &position, bool ignoreBall, bool driveSlowlyAtTheEnd) = 0;
 		virtual void goToDirect(Common::Geometry::Pose const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;

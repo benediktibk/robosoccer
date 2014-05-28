@@ -57,7 +57,7 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Pose &position)
+void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTheEnd)
 {
 	if (m_currentState->isEquivalentToDriveTo(position))
 	{
@@ -65,7 +65,8 @@ void RobotImpl::goTo(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType, m_obstacleFetcher, *this));
+	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType,
+										  m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd));
 	logPosition("target is", position);
 }
 

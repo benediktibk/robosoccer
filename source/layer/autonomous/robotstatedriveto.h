@@ -40,7 +40,8 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
-				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot);
+				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot,
+				bool ignoreBall, bool driveSlowlyAtTheEnd);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
@@ -48,6 +49,8 @@ namespace Autonomous
 		virtual RobotState* nextState();
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual std::string getName() const;
+
+		size_t getRoutePointsCount() const;
 
 	protected:
 		virtual void updateInternal();
@@ -59,8 +62,12 @@ namespace Autonomous
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		std::vector<Common::Geometry::Circle> modifyObstacles(const std::vector<Common::Geometry::Circle> &obstacles, double growFactor) const;
+		std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeWithOrWithoutBall(const Common::Geometry::Point &robotPoint, double distance) const;
 		void clearRoute();
 		void resetAllMovementFlags();
+		void prepareLastRouteSegmentForDrivingSlowly();
+		void logRoute();
+		void logCurrentPose();
 
 	private:
 		const double m_precisionPosition;
@@ -72,6 +79,8 @@ namespace Autonomous
 		bool m_finalRotationReached;
 		bool m_finalRotationStarted;
 		bool m_movementStopUsed;
+		bool m_ignoreBall;
+		bool m_driveSlowlyAtTheEnd;
 		Common::Geometry::Pose m_target;
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;

@@ -36,6 +36,9 @@ namespace Routing
 		CPPUNIT_TEST(intersectsWith_widthTooSmallForIntersection_false);
 		CPPUNIT_TEST(getLength_from1And2To3And2To3And5_5);
 		CPPUNIT_TEST(add_validRoute_countOfPointsIsCorrect);
+		CPPUNIT_TEST(getLengthOfLastSegment_threePointsAdded_lenghtIs1);
+		CPPUNIT_TEST(splitLastSegment_twoPointsAdded_allPointsCorrect);
+		CPPUNIT_TEST(splitLastSegment_twoPointsAdded_lastLengthCorrect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -61,6 +64,9 @@ namespace Routing
 		void intersectsWith_widthTooSmallForIntersection_false();
 		void getLength_from1And2To3And2To3And5_5();
 		void add_validRoute_countOfPointsIsCorrect();
+		void getLengthOfLastSegment_threePointsAdded_lenghtIs1();
+		void splitLastSegment_twoPointsAdded_allPointsCorrect();
+		void splitLastSegment_twoPointsAdded_lastLengthCorrect();
 	};
 }
 }

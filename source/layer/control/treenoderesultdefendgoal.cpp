@@ -18,6 +18,7 @@ TreeNodeResultDefendGoal::TreeNodeResultDefendGoal(
 void TreeNodeResultDefendGoal::execute()
 {
 	//! @todo use useful targets
-	m_ownTeam.getFirstFieldPlayer().goTo(Pose(Point(-0.5,-0.5), Angle()));
-	m_ownTeam.getSecondFieldPlayer().goTo(Pose(Point(-0.5,0.5), Angle()));
+	//! @todo consider ignoreBall and driveSlolyAtTheEnd
+	m_ownTeam.getFirstFieldPlayer().goTo(Pose(Point(-0.5,-0.5), Angle()), false, false);
+	m_ownTeam.getSecondFieldPlayer().goTo(Pose(Point(-0.5,0.5), Angle()), false, false);
 }

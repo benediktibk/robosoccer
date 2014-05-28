@@ -26,7 +26,15 @@ void RobotStateDriveToTest::setUp()
 	m_routerImpl = new RouterImpl(Abstraction::ReadableRobot::getWidth(), *m_field);
 	m_robotStateWithRouter = new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 												   *m_routerImpl, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-												   *m_obstacleFetcher, *m_autonomousRobotMock);
+												   *m_obstacleFetcher, *m_autonomousRobotMock, false, false);
+	m_robotStateWithRouterAndIgnoredBall =
+			new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),	*m_routerImpl,
+								  *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+								  *m_autonomousRobotMock, true, false);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd =
+			new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),	*m_routerImpl,
+								  *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+								  *m_autonomousRobotMock, false, true);
 }
 
 void RobotStateDriveToTest::tearDown()
@@ -38,13 +46,17 @@ void RobotStateDriveToTest::tearDown()
 	m_routerImpl = 0;
 	delete m_robotStateWithRouter;
 	m_robotStateWithRouter = 0;
+	delete m_robotStateWithRouterAndIgnoredBall;
+	m_robotStateWithRouterAndIgnoredBall = 0;
+	delete m_robotStateWithRouterAndDriveSlowlyAtTheEnd;
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd = 0;
 }
 
 RobotState *RobotStateDriveToTest::createInstance()
 {
 	return new RobotStateDriveTo(*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),*m_router,
 								 *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-								 *m_autonomousRobotMock);
+								 *m_autonomousRobotMock, false, false);
 }
 
 void RobotStateDriveToTest::nextState_targetNotReached_0()
@@ -571,4 +583,36 @@ void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMoved_tur
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
+}
+
+void RobotStateDriveToTest::update_ignoreBall_routePointsCountIs2()
+{
+	vector<Circle> obstacles;
+
+	m_obstacleFetcher->setAllObstaclesButMeAndBallInRange(obstacles);
+
+	obstacles.push_back(Circle(Point(2.5,2),0.5));
+	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	m_robotStateWithRouterAndIgnoredBall->update();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, m_robotStateWithRouterAndIgnoredBall->getRoutePointsCount());
+}
+
+void RobotStateDriveToTest::update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+
+	m_controllableRobot->setIsMoving(true);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+	m_controllableRobot->setIsMoving(false);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 }

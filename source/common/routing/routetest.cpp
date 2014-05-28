@@ -241,3 +241,38 @@ void RouteTest::add_validRoute_countOfPointsIsCorrect()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)4, one.getPointCount());
 }
+
+void RouteTest::getLengthOfLastSegment_threePointsAdded_lenghtIs1()
+{
+	Route route(0.2);
+	route.addPoint(Point(1, 1));
+	route.addPoint(Point(2, 2));
+	route.addPoint(Point(2, 3));
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1.0,route.getLengthOfLastSegment(),0.0001);
+}
+
+void RouteTest::splitLastSegment_twoPointsAdded_allPointsCorrect()
+{
+	Route route(0.2);
+	route.addPoint(Point(1, 1));
+	route.addPoint(Point(1, 2));
+
+	route.splitLastSegment(0.2);
+
+	CPPUNIT_ASSERT_EQUAL(Point(1,1),route.getFirstPoint());
+	CPPUNIT_ASSERT_EQUAL(Point(1,1.8),route.getSecondPoint());
+	CPPUNIT_ASSERT_EQUAL(Point(1,2),route.getLastPoint());
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,route.getLengthOfLastSegment(),0.0001);
+}
+
+void RouteTest::splitLastSegment_twoPointsAdded_lastLengthCorrect()
+{
+	Route route(0.2);
+	route.addPoint(Point(1, 1));
+	route.addPoint(Point(2, 2));
+
+	route.splitLastSegment(0.2);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,route.getLengthOfLastSegment(),0.0001);
+}
