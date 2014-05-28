@@ -369,3 +369,7 @@ layer/control/treenodedeciderisonerobotinshootingrange.cpp
 layer/control/treenodedeciderisonerobotinshootingrange.h
 layer/control/treenodedeciderisonerobotinshootingrangetest.cpp
 layer/control/treenodedeciderisonerobotinshootingrangetest.h
+layer/control/treenoderesultfollowball.cpp
+layer/control/treenoderesultfollowball.h
+layer/control/treenoderesultfollowballtest.cpp
+layer/control/treenoderesultfollowballtest.h
