@@ -11,7 +11,17 @@ using namespace std;
 
 ObstacleFetcherImpl::ObstacleFetcherImpl() :
 	m_ball(0)
-{ }
+{
+	double xCoordinateRightSide = 1.45 - 0.125;
+	double diameterAndDistanceToNextObstacle = 0.25;
+
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,0),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,0),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,-diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,-diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
+}
 
 ObstacleFetcherImpl::~ObstacleFetcherImpl()
 {
@@ -31,7 +41,7 @@ void ObstacleFetcherImpl::defineBall(const ObstacleSource &source)
 
 vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 {
-	vector<Circle> result;
+	vector<Circle> result = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -45,7 +55,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me) const
 {
-	vector<Circle> result;
+	vector<Circle> result = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -63,7 +73,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &m
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me) const
 {
-	vector<Circle> result;
+	vector<Circle> result = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{

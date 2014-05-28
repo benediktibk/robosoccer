@@ -18,7 +18,7 @@ namespace Main
 
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
 
-		void setTeamSide(Abstraction::FieldSide fieldSide);
+		void setFieldSide(Abstraction::FieldSide fieldSide);
 
 	private:
 		Abstraction::FieldSide m_fieldSide;

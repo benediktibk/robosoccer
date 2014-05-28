@@ -9,7 +9,7 @@ using namespace RoboSoccer::Common::Geometry;
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_pointOutsideField_false()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideRight);
+	fieldPositionChecker.setFieldSide(FieldSideRight);
 fieldPositionChecker.isPointInsideField(Point(-0.3,2));
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-0.3,2)));
 }
@@ -17,7 +17,7 @@ fieldPositionChecker.isPointInsideField(Point(-0.3,2));
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_rightSidePointInOwnGoalZone_true()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideRight);
+	fieldPositionChecker.setFieldSide(FieldSideRight);
 
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
 }
@@ -25,7 +25,7 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_rightSidePointInOwnG
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_rightSidePointInEnemyGoalZone_false()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideRight);
+	fieldPositionChecker.setFieldSide(FieldSideRight);
 
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
 }
@@ -33,7 +33,7 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_rightSidePointInEnem
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_leftSidePointInOwnGoalZone_true()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideLeft);
+	fieldPositionChecker.setFieldSide(FieldSideLeft);
 
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(-1.3,0.1)));
 }
@@ -41,7 +41,7 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_leftSidePointInOwnGo
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_leftSidePointInEnemyGoalZone_false()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideLeft);
+	fieldPositionChecker.setFieldSide(FieldSideLeft);
 
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.24,-0.23)));
 }
@@ -49,12 +49,12 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_leftSidePointInEnemy
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_changingSidesInGoalZone_falseThenTrue()
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
-	fieldPositionChecker.setTeamSide(FieldSideRight);
+	fieldPositionChecker.setFieldSide(FieldSideRight);
 
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
 
-	fieldPositionChecker.setTeamSide(FieldSideLeft);
+	fieldPositionChecker.setFieldSide(FieldSideLeft);
 
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));

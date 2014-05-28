@@ -23,7 +23,7 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
-	m_precisionOrientationInitial(0.4),
+	m_precisionOrientationInitial(0.2),
 	m_precisionOrientationFinal(0.1),
 	m_initialRotationReached(false),
 	m_initialRotationStarted(false),
@@ -223,7 +223,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
 	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,1.5);
+	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
