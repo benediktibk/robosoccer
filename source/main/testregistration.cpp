@@ -43,7 +43,7 @@
 #include "layer/control/treenodedeciderisonerobotbehindtheballtest.h"
 #include "layer/control/treenodedeciderisonerobotinshootingrangetest.h"
 #include "layer/control/treenoderesultdefendgoaltest.h"
-#include "layer/control/treenoderesultattackballtest.h"
+#include "layer/control/treenoderesultshoottest.h"
 #include "layer/autonomous/robottest.h"
 #include "layer/autonomous/teamtest.h"
 #include "layer/autonomous/enemyteamtest.h"
@@ -102,7 +102,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotBehindTheBallTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotInShootingRangeTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultDefendGoalTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultAttackBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultShootTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);

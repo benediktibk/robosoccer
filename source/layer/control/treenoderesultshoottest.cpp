@@ -1,5 +1,5 @@
-#include "layer/control/treenoderesultattackballtest.h"
-#include "layer/control/treenoderesultattackball.h"
+#include "layer/control/treenoderesultshoottest.h"
+#include "layer/control/treenoderesultshoot.h"
 #include "common/logging/loggermock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/autonomous/teammock.h"
@@ -13,16 +13,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Control;
 
-TreeNode *TreeNodeResultAttackBallTest::createTestNode()
+TreeNode *TreeNodeResultShootTest::createTestNode()
 {
-	return new TreeNodeResultAttackBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);;
-}
-
-void TreeNodeResultAttackBallTest::execute_bothRobotsShouldMove_moveMethodsGetCalled()
-{
-	const RobotMock &robot1 = m_ownTeam->getRobotMock();
-
-	((TreeNodeResult*)m_node)->execute();
-
-	CPPUNIT_ASSERT(robot1.getCallsToGoToCombined() > 0);
+	return new TreeNodeResultShoot(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);;
 }

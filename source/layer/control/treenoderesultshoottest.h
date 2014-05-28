@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODERESULTATTACKBALLTEST_H
-#define ROBOSOCCER_LAYER_CONTROL_TREENODERESULTATTACKBALLTEST_H
+#ifndef ROBOSOCCER_LAYER_CONTROL_TREENODERESULTSHOOTTEST_H
+#define ROBOSOCCER_LAYER_CONTROL_TREENODERESULTSHOOTTEST_H
 
 #include "layer/control/treenodetest.h"
 
@@ -9,18 +9,16 @@ namespace Layer
 {
 namespace Control
 {
-class TreeNodeResultAttackBallTest :
+class TreeNodeResultShootTest :
 		public TreeNodeTest
 	{
-		CPPUNIT_TEST_SUITE(TreeNodeResultAttackBallTest);
-		CPPUNIT_TEST(execute_bothRobotsShouldMove_moveMethodsGetCalled);
+		CPPUNIT_TEST_SUITE(TreeNodeResultShootTest);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		virtual TreeNode *createTestNode();
 
 	private:
-		void execute_bothRobotsShouldMove_moveMethodsGetCalled();
 
 	};
 }

@@ -7,7 +7,7 @@
 #include "layer/autonomous/intelligentballmock.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/control/treenoderesultdefendgoal.h"
-#include "layer/control/treenoderesultattackball.h"
+#include "layer/control/treenoderesultshoot.h"
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;

@@ -361,10 +361,10 @@ layer/control/treenoderesultdefendgoal.cpp
 layer/control/treenoderesultdefendgoal.h
 layer/control/treenoderesultdefendgoaltest.cpp
 layer/control/treenoderesultdefendgoaltest.h
-layer/control/treenoderesultattackball.cpp
-layer/control/treenoderesultattackball.h
-layer/control/treenoderesultattackballtest.cpp
-layer/control/treenoderesultattackballtest.h
+layer/control/treenoderesultshoot.cpp
+layer/control/treenoderesultshoot.h
+layer/control/treenoderesultshoottest.cpp
+layer/control/treenoderesultshoottest.h
 layer/control/treenodedeciderisonerobotinshootingrange.cpp
 layer/control/treenodedeciderisonerobotinshootingrange.h
 layer/control/treenodedeciderisonerobotinshootingrangetest.cpp
