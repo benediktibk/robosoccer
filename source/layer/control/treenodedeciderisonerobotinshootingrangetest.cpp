@@ -1,5 +1,5 @@
-#include "layer/control/treenodedeciderisonerobotbehindtheballtest.h"
-#include "layer/control/treenodedeciderisonerobotbehindtheball.h"
+#include "layer/control/treenodedeciderisonerobotinshootingrangetest.h"
+#include "layer/control/treenodedeciderisonerobotinshootingrange.h"
 #include "common/logging/loggermock.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/autonomous/teammock.h"
@@ -13,7 +13,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Control;
 
-TreeNode *TreeNodeDeciderIsOneRobotBehindTheBallTest::createTestNode()
+TreeNode *TreeNodeDeciderIsOneRobotInShootingRangeTest::createTestNode()
 {
-	return new TreeNodeDeciderIsOneRobotBehindTheBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeDeciderIsOneRobotInShootingRange(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
 }

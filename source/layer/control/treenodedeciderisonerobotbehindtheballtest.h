@@ -13,16 +13,12 @@ class TreeNodeDeciderIsOneRobotBehindTheBallTest :
 		public TreeNodeTest
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeDeciderIsOneRobotBehindTheBallTest);
-		CPPUNIT_TEST(getChild_ballInOwnZone_defend);
-		CPPUNIT_TEST(getChild_ballInEnemyZone_attack);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
 		virtual TreeNode* createTestNode();
 
 	private:
-		void getChild_ballInOwnZone_defend();
-		void getChild_ballInEnemyZone_attack();
 
 
 	};

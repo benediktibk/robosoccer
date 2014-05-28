@@ -365,3 +365,7 @@ layer/control/treenoderesultattackball.cpp
 layer/control/treenoderesultattackball.h
 layer/control/treenoderesultattackballtest.cpp
 layer/control/treenoderesultattackballtest.h
+layer/control/treenodedeciderisonerobotinshootingrange.cpp
+layer/control/treenodedeciderisonerobotinshootingrange.h
+layer/control/treenodedeciderisonerobotinshootingrangetest.cpp
+layer/control/treenodedeciderisonerobotinshootingrangetest.h

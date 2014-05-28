@@ -18,6 +18,7 @@ set(COMMON_LAYER_CONTROL_SRC
 	treenodedecider.cpp
 	treenoderesult.cpp
 	treenodedeciderisonerobotbehindtheball.cpp
+	treenodedeciderisonerobotinshootingrange.cpp
 	treenoderesultdefendgoal.cpp
 	treenoderesultattackball.cpp
 )
@@ -38,6 +39,7 @@ set(COMMON_LAYER_CONTROL_TEST_SRC
 	penaltydefensivetest.cpp
 	treenodetest.cpp
 	treenodedeciderisonerobotbehindtheballtest.cpp
+	treenodedeciderisonerobotinshootingrangetest.cpp
 	treenoderesultdefendgoaltest.cpp
 	treenoderesultattackballtest.cpp
 )
