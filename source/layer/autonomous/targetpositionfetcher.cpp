@@ -103,10 +103,10 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-std::vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
+vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
 {
-	std::vector<Point> targetPoints;
-Point enemyGoalPosition = getEnemyGoalPosition().front();
+	vector<Point> targetPoints;
+	Point enemyGoalPosition = getEnemyGoalPosition().front();
 	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
 	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
 	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
