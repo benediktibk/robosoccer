@@ -373,3 +373,15 @@ layer/control/treenoderesultfollowball.cpp
 layer/control/treenoderesultfollowball.h
 layer/control/treenoderesultfollowballtest.cpp
 layer/control/treenoderesultfollowballtest.h
+layer/autonomous/robotstatedrivetodirectinitialrotationtest.h
+layer/autonomous/robotstatedrivetodirectinitialrotation.h
+layer/autonomous/robotstatedrivetodirectinitialrotationtest.cpp
+layer/autonomous/robotstatedrivetodirectinitialrotation.cpp
+layer/autonomous/robotstatedrivetodirectdrivingtest.h
+layer/autonomous/robotstatedrivetodirectdriving.h
+layer/autonomous/robotstatedrivetodirectdrivingtest.cpp
+layer/autonomous/robotstatedrivetodirectdriving.cpp
+layer/autonomous/robotstatedrivetodirectfinalrotationtest.h
+layer/autonomous/robotstatedrivetodirectfinalrotation.h
+layer/autonomous/robotstatedrivetodirectfinalrotationtest.cpp
+layer/autonomous/robotstatedrivetodirectfinalrotation.cpp

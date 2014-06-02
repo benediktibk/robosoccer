@@ -10,6 +10,9 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	robotstatereachedtarget.cpp
 	robotstatedriveto.cpp
 	robotstatedrivetodirect.cpp
+	robotstatedrivetodirectdriving.cpp
+	robotstatedrivetodirectinitialrotation.cpp
+	robotstatedrivetodirectfinalrotation.cpp
 	robotstateturnto.cpp
 	robotstatekick.cpp
 	intelligentballimpl.cpp
@@ -28,6 +31,9 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	robotstatereachedtargettest.cpp
 	robotstatedrivetotest.cpp
 	robotstatedrivetodirecttest.cpp
+	robotstatedrivetodirectdrivingtest.cpp
+	robotstatedrivetodirectinitialrotationtest.cpp
+	robotstatedrivetodirectfinalrotationtest.cpp
 	robotstateturntotest.cpp
 	robotstatekicktest.cpp
 	intelligentballtest.cpp
