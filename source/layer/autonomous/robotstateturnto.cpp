@@ -35,6 +35,16 @@ bool RobotStateTurnTo::cantReachTarget() const
 	return false;
 }
 
+bool RobotStateTurnTo::isEquivalentToDriveTo(const Pose &) const
+{
+	return false;
+}
+
+bool RobotStateTurnTo::isEquivalentToDriveToDirect(const Pose &) const
+{
+	return false;
+}
+
 RobotState *RobotStateTurnTo::nextState()
 {
 	Compare compare(0.1);

@@ -37,16 +37,6 @@ bool RobotState::hasMovementStopped() const
 	return m_movementStopped;
 }
 
-bool RobotState::isEquivalentToDriveTo(const Pose &) const
-{
-	return false;
-}
-
-bool RobotState::isEquivalentToDriveToDirect(const Pose &) const
-{
-	return false;
-}
-
 void RobotState::update()
 {
 	updateMovementStopped();

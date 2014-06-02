@@ -85,6 +85,11 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }
 
+bool RobotStateDriveTo::isEquivalentToDriveToDirect(const Pose &) const
+{
+	return false;
+}
+
 void RobotStateDriveTo::updateInternal()
 {
 	Pose robotPose = getRobot().getPose();

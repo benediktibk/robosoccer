@@ -36,6 +36,16 @@ bool RobotStateKick::cantReachTarget() const
 	return false;
 }
 
+bool RobotStateKick::isEquivalentToDriveTo(const Pose &) const
+{
+	return false;
+}
+
+bool RobotStateKick::isEquivalentToDriveToDirect(const Pose &) const
+{
+	return false;
+}
+
 RobotState *RobotStateKick::nextState()
 {
 	if (!m_stopWatchRestarted)

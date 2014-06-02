@@ -21,6 +21,7 @@ namespace Autonomous
 		virtual bool cantReachTarget() const;
 		virtual RobotState* nextState();
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
+		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
 		virtual std::string getName() const;
 
 	protected:
