@@ -63,7 +63,7 @@ void RobotStateDriveToTest::nextState_targetNotReached_0()
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(false);
 
 	CPPUNIT_ASSERT(state == 0);
 }
@@ -72,7 +72,7 @@ void RobotStateDriveToTest::nextState_targetReached_reachedTargetState()
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getQuarterRotation()));
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(false);
 
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
@@ -84,7 +84,7 @@ void RobotStateDriveToTest::nextState_longTimeWaited_reachedTargetState()
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_watch->setTime(100);
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(false);
 
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
@@ -95,7 +95,7 @@ void RobotStateDriveToTest::update_initialRotationNotReached_robotGotCallToTurnT
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	Compare compare(0.0001);
 	Angle targetShouldBe(Point(1, 2), Point(5, 4));
@@ -107,7 +107,7 @@ void RobotStateDriveToTest::update_initialRotationNotReached_robotGotNoCallToDri
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionPrecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToPositionImprecise());
@@ -117,8 +117,8 @@ void RobotStateDriveToTest::update_initialRotationNotReachedTwiceCalled_robotGot
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
-	m_robotState->update();
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
@@ -126,12 +126,9 @@ void RobotStateDriveToTest::update_initialRotationNotReachedTwiceCalled_robotGot
 void RobotStateDriveToTest::update_initialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise()
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
 	Compare compare(0.00001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -142,7 +139,7 @@ void RobotStateDriveToTest::update_positionNotReached_robotGotCallToDriveToTarge
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -153,7 +150,7 @@ void RobotStateDriveToTest::update_positionNotReached_robotGotNoCallToTurnToward
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 }
@@ -162,8 +159,8 @@ void RobotStateDriveToTest::update_positionNotReachedTwiceCalled_robotGotNoAddit
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
 
-	m_robotState->update();
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
 }
@@ -171,12 +168,9 @@ void RobotStateDriveToTest::update_positionNotReachedTwiceCalled_robotGotNoAddit
 void RobotStateDriveToTest::update_positionNotreachedButMovementStopped_robotGotCallToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
 	Compare compare(0.00001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -188,7 +182,7 @@ void RobotStateDriveToTest::update_finalRotationNotReached_robotGotCallToTurn()
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
@@ -199,7 +193,7 @@ void RobotStateDriveToTest::update_finalRotationNotReached_robotGotNoCallToDrive
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
 }
@@ -208,8 +202,8 @@ void RobotStateDriveToTest::update_finalRotationNotReachedTwiceCalled_robotGotNo
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
-	m_robotState->update();
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
@@ -217,14 +211,11 @@ void RobotStateDriveToTest::update_finalRotationNotReachedTwiceCalled_robotGotNo
 void RobotStateDriveToTest::update_finalRotationNotReachedButMovementStopped_nextStateWouldBeReachedTarget()
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(true);
 
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
@@ -235,9 +226,8 @@ void RobotStateDriveToTest::update_initialRotationReachedButRobotStillMoving_rob
 {
 	m_controllableRobot->setPose(Pose(Point(1, 2), Angle()));
 
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
@@ -247,9 +237,8 @@ void RobotStateDriveToTest::update_positionReachedButRobotStillMoving_robotGotNo
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
 
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -259,9 +248,8 @@ void RobotStateDriveToTest::update_finalRotationReachedButRobotStillMoving_robot
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
@@ -270,13 +258,11 @@ void RobotStateDriveToTest::update_finalRotationReachedButRobotStillMoving_robot
 void RobotStateDriveToTest::update_initalRotationReachedAndMovementStopped_robotGotCallToMove()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
+	m_robotState->update(false);
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(true);
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
@@ -287,13 +273,11 @@ void RobotStateDriveToTest::update_initalRotationReachedAndMovementStopped_robot
 void RobotStateDriveToTest::update_positionReachedAndMovementStopped_robotGotCallToTurn()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 4), Angle()));
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
+	m_robotState->update(false);
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle()));
 
-	m_robotState->update();
+	m_robotState->update(true);
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
@@ -330,7 +314,7 @@ void RobotStateDriveToTest::update_initialRotationNotReachedAndThreePointsInRout
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_controllableRobot->getLastAngleToTurnTo());
@@ -340,9 +324,9 @@ void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRoute_r
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
@@ -353,11 +337,11 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReached_tu
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -368,13 +352,13 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationReached_robot
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
@@ -385,15 +369,15 @@ void RobotStateDriveToTest::update_thirdPositionReachedAndFinalRotationNotReache
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
@@ -404,19 +388,19 @@ void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReache
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0,4),Angle()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getEighthRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(false);
 
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
@@ -427,29 +411,19 @@ void RobotStateDriveToTest::nextState_thirdPositionReachedAndFinalRotationReache
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
-	RobotState *state = m_robotState->nextState();
+	RobotState *state = m_robotState->nextState(true);
 
 	RobotStateReachedTarget *stateCasted = dynamic_cast<RobotStateReachedTarget*>(state);
 	CPPUNIT_ASSERT(stateCasted != 0);
@@ -460,11 +434,9 @@ void RobotStateDriveToTest::update_initialRotationReachedAndThreePointsInRouteAn
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -475,15 +447,11 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationNotReachedAnd
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
@@ -494,19 +462,13 @@ void RobotStateDriveToTest::update_secondPositionReachedAndRotationReachedAndAll
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_router->setChessMode(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(true);
-	m_robotState->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
+	m_robotState->update(false);
+	m_robotState->update(true);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
@@ -520,12 +482,12 @@ void RobotStateDriveToTest::update_initialRotationReachedAndRouteChanged_robotGo
 
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_router->setChessMode(false);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
@@ -539,14 +501,14 @@ void RobotStateDriveToTest::update_initialRotationReachedAndRouteChangedAndiniti
 
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_router->setChessMode(false);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
-	m_robotState->update();
+	m_robotState->update(false);
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_router->setChessMode(true);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
@@ -560,10 +522,10 @@ void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMovedALit
 
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
-	m_robotStateWithRouter->update();
+	m_robotStateWithRouter->update(false);
 	obstacles.front().setDiameter(0.6);
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
-	m_robotStateWithRouter->update();
+	m_robotStateWithRouter->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
@@ -576,10 +538,10 @@ void RobotStateDriveToTest::update_initialRotationNotReachedAndObstacleMoved_tur
 
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
-	m_robotStateWithRouter->update();
+	m_robotStateWithRouter->update(false);
 	obstacles.front().setCenter(Point(2,1.5));
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
-	m_robotStateWithRouter->update();
+	m_robotStateWithRouter->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToTurn());
@@ -595,7 +557,7 @@ void RobotStateDriveToTest::update_ignoreBall_routePointsCountIs2()
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
-	m_robotStateWithRouterAndIgnoredBall->update();
+	m_robotStateWithRouterAndIgnoredBall->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, m_robotStateWithRouterAndIgnoredBall->getRoutePointsCount());
 }
@@ -603,14 +565,12 @@ void RobotStateDriveToTest::update_ignoreBall_routePointsCountIs2()
 void RobotStateDriveToTest::update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
-	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
 
-	m_controllableRobot->setIsMoving(true);
-	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
-	m_controllableRobot->setIsMoving(false);
-	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update();
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update(false);
+	m_robotStateWithRouterAndDriveSlowlyAtTheEnd->update(true);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionImprecise());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToGoToPositionPrecise());
@@ -621,7 +581,7 @@ void RobotStateDriveToTest::update_targetNotInsideField_noCallToDriveAndTurn()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_field->setAllCoordinatesOutside(true);
-	m_robotStateWithRouter->update();
+	m_robotStateWithRouter->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_controllableRobot->getCallsToTurn());

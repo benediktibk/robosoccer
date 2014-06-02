@@ -37,27 +37,14 @@ namespace Autonomous
 	class RobotStateTest :
 			public CPPUNIT_NS::TestFixture
 	{
-		CPPUNIT_TEST_SUITE(RobotStateTest);
-		CPPUNIT_TEST(hasMovementStopped_stillMoving_false);
-		CPPUNIT_TEST(hasMovementStopped_startedMovement_false);
-		CPPUNIT_TEST(hasMovementStopped_stoppedMovement_true);
-		CPPUNIT_TEST(hasMovementStopped_stillStopped_true);
-		CPPUNIT_TEST(hasMovementStopped_onceAgainStarted_false);
-		CPPUNIT_TEST_SUITE_END();
-
 	public:
 		virtual void setUp();
 		virtual void tearDown();
 
 	protected:
-		virtual RobotState* createInstance();
+		virtual RobotState* createInstance() = 0;
 
 	private:
-		void hasMovementStopped_stillMoving_false();
-		void hasMovementStopped_startedMovement_false();
-		void hasMovementStopped_stoppedMovement_true();
-		void hasMovementStopped_stillStopped_true();
-		void hasMovementStopped_onceAgainStarted_false();
 
 	protected:
 		Abstraction::ControllableRobotMock *m_controllableRobot;

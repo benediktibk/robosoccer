@@ -12,7 +12,7 @@ namespace Autonomous
 	class RobotStateKickTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUB_SUITE(RobotStateKickTest, RobotStateTest);
+		CPPUNIT_TEST_SUITE(RobotStateKickTest);
 		CPPUNIT_TEST(targetReached_empty_false);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_noTimePassedBy_0);

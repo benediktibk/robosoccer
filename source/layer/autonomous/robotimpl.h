@@ -58,6 +58,7 @@ namespace Autonomous
 		void switchIntoState(RobotState *state);
 		void log(std::string const &message);
 		void logPosition(std::string const &message, Common::Geometry::Point const &position);
+		void updateMovementStopped();
 
 	private:
 		Abstraction::ControllableRobot &m_robot;
@@ -67,6 +68,9 @@ namespace Autonomous
 		RobotState *m_currentState;
 		Common::Logging::Logger::LogFileType m_logFileType;
 		ObstacleFetcher &m_obstacleFetcher;
+		bool m_lastMovementState;
+		bool m_currentMovementState;
+		bool m_movementStopped;
 	};
 }
 }

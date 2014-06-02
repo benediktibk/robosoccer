@@ -25,12 +25,12 @@ void RobotStateReachedTargetTest::cantReachTarget_empty_false()
 
 void RobotStateReachedTargetTest::nextState_empty_0()
 {
-	CPPUNIT_ASSERT(m_robotState->nextState() == 0);
+	CPPUNIT_ASSERT(m_robotState->nextState(false) == 0);
 }
 
 void RobotStateReachedTargetTest::update_empty_callToStop()
 {
-	m_robotState->update();
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToStop());
 }

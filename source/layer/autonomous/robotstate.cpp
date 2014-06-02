@@ -13,9 +13,6 @@ using namespace std;
 RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger, Logger::LogFileType logFileType) :
 	m_robot(robot),
 	m_logger(logger),
-	m_lastMovementState(false),
-	m_currentMovementState(false),
-	m_movementStopped(false),
 	m_logFileType(logFileType)
 { }
 
@@ -32,33 +29,9 @@ ControllableRobot const &RobotState::getRobot() const
 	return m_robot;
 }
 
-bool RobotState::hasMovementStopped() const
+void RobotState::update(bool movementStopped)
 {
-	return m_movementStopped;
-}
-
-void RobotState::update()
-{
-	updateMovementStopped();
-	updateInternal();
-}
-
-void RobotState::updateMovementStopped()
-{
-	m_lastMovementState = m_currentMovementState;
-	m_currentMovementState = m_robot.isMoving();
-
-	if (m_lastMovementState && !m_currentMovementState)
-	{
-		m_movementStopped = true;
-		log("movement stopped");
-	}
-	else if (m_currentMovementState)
-	{
-		if (m_movementStopped)
-			log("movement not stopped anymore");
-		m_movementStopped = false;
-	}
+	updateInternal(movementStopped);
 }
 
 Logger& RobotState::getLogger()

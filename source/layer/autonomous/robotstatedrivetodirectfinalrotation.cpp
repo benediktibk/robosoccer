@@ -22,7 +22,7 @@ bool RobotStateDriveToDirectFinalRotation::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectFinalRotation::nextState()
+RobotState *RobotStateDriveToDirectFinalRotation::nextState(bool /*movementStopped*/)
 {
 	return 0;
 }
@@ -42,7 +42,7 @@ string RobotStateDriveToDirectFinalRotation::getName() const
 	return string("drive to direct - final rotation");
 }
 
-void RobotStateDriveToDirectFinalRotation::updateInternal()
+void RobotStateDriveToDirectFinalRotation::updateInternal(bool /*movementStopped*/)
 {
 
 }

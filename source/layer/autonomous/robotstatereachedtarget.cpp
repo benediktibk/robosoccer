@@ -23,7 +23,7 @@ bool RobotStateReachedTarget::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateReachedTarget::nextState()
+RobotState *RobotStateReachedTarget::nextState(bool)
 {
 	return 0;
 }
@@ -40,7 +40,7 @@ bool RobotStateReachedTarget::isEquivalentToDriveToDirect(const Pose &target) co
 	return isEquivalentToDriveTo(target);
 }
 
-void RobotStateReachedTarget::updateInternal()
+void RobotStateReachedTarget::updateInternal(bool)
 {
 	getRobot().stop();
 }

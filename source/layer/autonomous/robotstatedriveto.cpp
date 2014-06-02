@@ -60,7 +60,7 @@ bool RobotStateDriveTo::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveTo::nextState()
+RobotState *RobotStateDriveTo::nextState(bool)
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationFinal);
@@ -90,7 +90,7 @@ bool RobotStateDriveTo::isEquivalentToDriveToDirect(const Pose &) const
 	return false;
 }
 
-void RobotStateDriveTo::updateInternal()
+void RobotStateDriveTo::updateInternal(bool movementStopped)
 {
 	Pose robotPose = getRobot().getPose();
 	m_movementStopUsed = false;
@@ -102,14 +102,14 @@ void RobotStateDriveTo::updateInternal()
 
 	if(m_currentRoute->getPointCount() >= 2)
 	{
-		if(setOrdersForIntermediatePointAndGetOrderSet())
+		if(setOrdersForIntermediatePointAndGetOrderSet(movementStopped))
 			return;
 
 		resetAllMovementFlags();
 
 		if(m_currentRoute->getPointCount() >= 2)
 		{
-			if(setOrdersForIntermediatePointAndGetOrderSet())
+			if(setOrdersForIntermediatePointAndGetOrderSet(movementStopped))
 				return;
 		}
 	}
@@ -123,7 +123,7 @@ void RobotStateDriveTo::updateInternal()
 			m_finalRotationReached = true;
 			m_movementStopUsed = true;
 		}
-		else if (hasMovementStopped() && !m_movementStopUsed)
+		else if (movementStopped && !m_movementStopUsed)
 		{
 			log("final rotation not really reached, but movement stopped");
 			m_movementStopUsed = true;
@@ -140,7 +140,7 @@ void RobotStateDriveTo::updateInternal()
 	}
 }
 
-bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
+bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet(bool movementStopped)
 {
 	Pose robotPose = getRobot().getPose();
 
@@ -157,7 +157,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 			m_initialRotationReached = true;
 			m_movementStopUsed = true;
 		}
-		else if (hasMovementStopped() && !m_movementStopUsed)
+		else if (movementStopped && !m_movementStopUsed)
 		{
 			log("inital rotation not really reached, but movement stopped");
 			logCurrentPose();
@@ -183,7 +183,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		m_currentRoute->removeFirstPoint();
 		logRoute();
 	}
-	else if (hasMovementStopped() && !m_movementStopUsed)
+	else if (movementStopped && !m_movementStopUsed)
 	{
 		log("position not really reached, but movement stopped");
 		logCurrentPose();

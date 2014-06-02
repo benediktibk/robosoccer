@@ -27,7 +27,10 @@ RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &ro
 	m_logger(logger),
 	m_currentState(0),
 	m_logFileType(Logger::LogFileTypeInvalid),
-	m_obstacleFetcher(obstacleFetcher)
+	m_obstacleFetcher(obstacleFetcher),
+	m_lastMovementState(false),
+	m_currentMovementState(false),
+	m_movementStopped(false)
 {
 	switch(robotIndex)
 	{
@@ -105,17 +108,20 @@ void RobotImpl::kick(IntelligentBall const &ball)
 
 void RobotImpl::update()
 {
+	updateMovementStopped();
 	bool stateChanged;
+	bool movementStopped = m_movementStopped;
 
 	do
 	{
-		RobotState *nextState = m_currentState->nextState();
+		RobotState *nextState = m_currentState->nextState(movementStopped);
 		stateChanged = nextState != 0;
 
 		if (stateChanged)
 			switchIntoState(nextState);
 
-		m_currentState->update();
+		m_currentState->update(movementStopped);
+		movementStopped = false;
 	} while(stateChanged);
 
 	m_robot.update();
@@ -156,4 +162,22 @@ void RobotImpl::logPosition(const string &message, const Point &position)
 	stringstream stream;
 	stream << message << ": " << position;
 	log(stream.str());
+}
+
+void RobotImpl::updateMovementStopped()
+{
+	m_lastMovementState = m_currentMovementState;
+	m_currentMovementState = m_robot.isMoving();
+
+	if (m_lastMovementState && !m_currentMovementState)
+	{
+		m_movementStopped = true;
+		log("movement stopped");
+	}
+	else if (m_currentMovementState)
+	{
+		if (m_movementStopped)
+			log("movement not stopped anymore");
+		m_movementStopped = false;
+	}
 }

@@ -31,25 +31,21 @@ namespace Autonomous
 
 		virtual bool reachedTarget() const = 0;
 		virtual bool cantReachTarget() const = 0;
-		virtual RobotState* nextState() = 0;
+		virtual RobotState* nextState(bool movementStopped) = 0;
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const = 0;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const = 0;
 		virtual std::string getName() const = 0;
 
-		void update();
+		void update(bool movementStopped);
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
 		Common::Logging::Logger &getLogger();
 		Common::Logging::Logger::LogFileType getLogFileType() const;
-		bool hasMovementStopped() const;
 
 	protected:
-		virtual void updateInternal() = 0;
+		virtual void updateInternal(bool movementStopped) = 0;
 		void log(std::string const &message);
 		void log(std::string const &message, size_t value);
-
-	private:
-		void updateMovementStopped();
 
 	private:
 		//forbid copies
@@ -59,9 +55,6 @@ namespace Autonomous
 	private:
 		Abstraction::ControllableRobot &m_robot;
 		Common::Logging::Logger &m_logger;
-		bool m_lastMovementState;
-		bool m_currentMovementState;
-		bool m_movementStopped;
 		Common::Logging::Logger::LogFileType m_logFileType;
 	};
 }

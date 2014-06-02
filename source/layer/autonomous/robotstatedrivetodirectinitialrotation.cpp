@@ -22,7 +22,7 @@ bool RobotStateDriveToDirectInitialRotation::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectInitialRotation::nextState()
+RobotState *RobotStateDriveToDirectInitialRotation::nextState(bool /*movementStopped*/)
 {
 	return 0;
 }
@@ -42,7 +42,7 @@ string RobotStateDriveToDirectInitialRotation::getName() const
 	return string("drive to direct - inital rotation");
 }
 
-void RobotStateDriveToDirectInitialRotation::updateInternal()
+void RobotStateDriveToDirectInitialRotation::updateInternal(bool /*movementStopped*/)
 {
 
 }

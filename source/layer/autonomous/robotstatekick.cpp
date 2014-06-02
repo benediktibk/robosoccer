@@ -46,7 +46,7 @@ bool RobotStateKick::isEquivalentToDriveToDirect(const Pose &) const
 	return false;
 }
 
-RobotState *RobotStateKick::nextState()
+RobotState *RobotStateKick::nextState(bool)
 {
 	if (!m_stopWatchRestarted)
 	{
@@ -60,7 +60,7 @@ RobotState *RobotStateKick::nextState()
 		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
 }
 
-void RobotStateKick::updateInternal()
+void RobotStateKick::updateInternal(bool)
 {
 	if (m_alreadyKicked)
 		return;

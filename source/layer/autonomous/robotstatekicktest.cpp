@@ -27,10 +27,10 @@ void RobotStateKickTest::cantReachTarget_empty_false()
 
 void RobotStateKickTest::nextState_noTimePassedBy_0()
 {
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setIsMoving(true);
 
-	RobotState *nextState = m_robotState->nextState();
+	RobotState *nextState = m_robotState->nextState(false);
 
 	CPPUNIT_ASSERT(nextState == 0);
 }
@@ -38,12 +38,12 @@ void RobotStateKickTest::nextState_noTimePassedBy_0()
 void RobotStateKickTest::nextState_oneSecondAndRobotStillMoving_0()
 {
 	m_watch->setTime(4);
-	m_robotState->update();
+	m_robotState->update(false);
 	m_controllableRobot->setIsMoving(true);
 
-	RobotState *nextStateOne = m_robotState->nextState();
+	RobotState *nextStateOne = m_robotState->nextState(false);
 	m_watch->setTime(5);
-	RobotState *nextStateTwo = m_robotState->nextState();
+	RobotState *nextStateTwo = m_robotState->nextState(false);
 
 
 	CPPUNIT_ASSERT(nextStateOne == 0);
@@ -54,7 +54,7 @@ void RobotStateKickTest::nextState_robotNotMovingAnymore_reachedTarget()
 {
 	m_controllableRobot->setIsMoving(false);
 
-	RobotState *nextState = m_robotState->nextState();
+	RobotState *nextState = m_robotState->nextState(false);
 
 	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
 	CPPUNIT_ASSERT(nextStateCasted != 0);
@@ -63,9 +63,9 @@ void RobotStateKickTest::nextState_robotNotMovingAnymore_reachedTarget()
 
 void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
 {
-	m_robotState->update();
-	m_robotState->update();
-	m_robotState->update();
+	m_robotState->update(false);
+	m_robotState->update(false);
+	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToKick());
 }

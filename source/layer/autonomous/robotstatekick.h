@@ -33,11 +33,11 @@ namespace Autonomous
 		virtual bool cantReachTarget() const;
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
-		virtual RobotState* nextState();
+		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
 
 	protected:
-		virtual void updateInternal();
+		virtual void updateInternal(bool movementStopped);
 
 	private:
 		Common::Time::StopWatch *m_stopWatch;

@@ -44,7 +44,7 @@ bool RobotStateDriveToDirect::cantReachTarget() const
 	return false;
 }
 
-RobotState* RobotStateDriveToDirect::nextState()
+RobotState* RobotStateDriveToDirect::nextState(bool)
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationFinal);
@@ -60,7 +60,7 @@ RobotState* RobotStateDriveToDirect::nextState()
 		return 0;
 }
 
-void RobotStateDriveToDirect::updateInternal()
+void RobotStateDriveToDirect::updateInternal(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
 	bool movementStopUsed = false;
@@ -75,7 +75,7 @@ void RobotStateDriveToDirect::updateInternal()
 			m_initialRotationReached = true;
 			movementStopUsed = true;
 		}
-		else if (hasMovementStopped())
+		else if (movementStopped)
 		{
 			log("inital rotation not really reached, but movement stopped");
 			movementStopUsed = true;
@@ -100,7 +100,7 @@ void RobotStateDriveToDirect::updateInternal()
 			m_positionReached = true;
 			movementStopUsed = true;
 		}
-		else if (hasMovementStopped() && !movementStopUsed)
+		else if (movementStopped && !movementStopUsed)
 		{
 			log("position not really reached, but movement stopped");
 			movementStopUsed = true;
@@ -125,7 +125,7 @@ void RobotStateDriveToDirect::updateInternal()
 			m_finalRotationReached = true;
 			movementStopUsed = true;
 		}
-		else if (hasMovementStopped() && !movementStopUsed)
+		else if (movementStopped && !movementStopUsed)
 		{
 			log("final rotation not really reached, but movement stopped");
 			movementStopUsed = true;

@@ -22,7 +22,7 @@ bool RobotStateDriveToDirectDriving::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectDriving::nextState()
+RobotState *RobotStateDriveToDirectDriving::nextState(bool /*movementStopped*/)
 {
 	return 0;
 }
@@ -42,7 +42,7 @@ string RobotStateDriveToDirectDriving::getName() const
 	return string("drive to direct - driving");
 }
 
-void RobotStateDriveToDirectDriving::updateInternal()
+void RobotStateDriveToDirectDriving::updateInternal(bool /*movementStopped*/)
 {
 
 }

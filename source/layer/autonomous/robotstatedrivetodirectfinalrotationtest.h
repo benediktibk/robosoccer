@@ -12,7 +12,7 @@ namespace Autonomous
 	class RobotStateDriveToDirectFinalRotationTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUB_SUITE(RobotStateDriveToDirectFinalRotationTest, RobotStateTest);
+		CPPUNIT_TEST_SUITE(RobotStateDriveToDirectFinalRotationTest);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:

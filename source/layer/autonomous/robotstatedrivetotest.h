@@ -23,7 +23,7 @@ namespace Autonomous
 	class RobotStateDriveToTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUB_SUITE(RobotStateDriveToTest, RobotStateTest);
+		CPPUNIT_TEST_SUITE(RobotStateDriveToTest);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_reachedTargetState);
 		CPPUNIT_TEST(nextState_longTimeWaited_reachedTargetState);

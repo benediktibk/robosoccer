@@ -45,14 +45,14 @@ bool RobotStateTurnTo::isEquivalentToDriveToDirect(const Pose &) const
 	return false;
 }
 
-RobotState *RobotStateTurnTo::nextState()
+RobotState *RobotStateTurnTo::nextState(bool movementStopped)
 {
 	Compare compare(0.1);
 	Pose currentPose = getRobot().getPose();
 	Angle targetOrientation = calculateTargetOrientation();
 	RobotState *result = 0;
 
-	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || hasMovementStopped())
+	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || movementStopped)
 	{
 		result = m_followingState;
 		m_followingState = 0;
@@ -61,7 +61,7 @@ RobotState *RobotStateTurnTo::nextState()
 	return result;
 }
 
-void RobotStateTurnTo::updateInternal()
+void RobotStateTurnTo::updateInternal(bool)
 {
 	if (m_targetAlreadySet)
 		return;
