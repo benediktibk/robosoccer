@@ -86,9 +86,9 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+			% Layers
 			\node [block] (control) {\huge \textbf{Control}};
-		    \node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -119,9 +119,9 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+		    	% Layers
 			\node [block] (control) {\huge \textbf{Control}};
-		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -159,9 +159,9 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+		    	% Layers
 			\node [block-active] (control) {\huge \textbf{Control}};
-		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -368,8 +368,8 @@
 		\item no direct collision avoidance
 		\item Router
 		\begin{itemize}
-			\item calculates only save routes
-			\item route ...
+			\item calculates only save routes to target
+			\item route consists of paths
 		\end{itemize}
 	\end{itemize}
 \end{frame}
