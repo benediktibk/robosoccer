@@ -105,12 +105,19 @@ void RobotImpl::kick(IntelligentBall const &ball)
 
 void RobotImpl::update()
 {
-	RobotState *nextState = m_currentState->nextState();
+	bool stateChanged;
 
-	if (nextState != 0)
-		switchIntoState(nextState);
+	do
+	{
+		RobotState *nextState = m_currentState->nextState();
+		stateChanged = nextState != 0;
 
-	m_currentState->update();
+		if (stateChanged)
+			switchIntoState(nextState);
+
+		m_currentState->update();
+	} while(stateChanged);
+
 	m_robot.update();
 }
 
