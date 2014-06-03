@@ -66,6 +66,7 @@ namespace Autonomous
 		CPPUNIT_TEST(update_ignoreBall_routePointsCountIs2);
 		CPPUNIT_TEST(update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly);
 		CPPUNIT_TEST(update_targetNotInsideField_noCallToDriveAndTurn);
+		CPPUNIT_TEST(update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -118,11 +119,13 @@ namespace Autonomous
 		void update_ignoreBall_routePointsCountIs2();
 		void update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly();
 		void update_targetNotInsideField_noCallToDriveAndTurn();
+		void update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
 
 	private:
 		RobotStateDriveTo *m_robotStateWithRouter;
 		RobotStateDriveTo *m_robotStateWithRouterAndIgnoredBall;
 		RobotStateDriveTo *m_robotStateWithRouterAndDriveSlowlyAtTheEnd;
+		RobotStateDriveTo *m_robotStateWithRouterAndIgnoreGoalObstacles;
 		Common::Routing::RouterImpl *m_routerImpl;
 		Common::Routing::FieldPositionCheckerMock *m_field;
 	};
