@@ -5,6 +5,7 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 #include "common/other/compare.h"
+#include <iostream>
 
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -23,6 +24,8 @@ TreeNodeResultShoot::TreeNodeResultShoot(
 
 void TreeNodeResultShoot::execute()
 {
+	std::cout << "KickBall" << std::endl;
+
 	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
 	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
 	Point ballPosition = m_ball.getPosition();

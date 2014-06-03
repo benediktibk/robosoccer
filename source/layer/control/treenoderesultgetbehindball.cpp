@@ -4,6 +4,7 @@
 #include "common/geometry/pose.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include <iostream>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -24,17 +25,19 @@ void TreeNodeResultGetBehindBall::execute()
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
-	Point target;
-	if (m_ball.isMoving())
-		target = m_targetPositionFetcher.getPointBehindBallInMovingDirection(m_ball, 0.3);
+	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
+	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
 
-	else
-		target = m_targetPositionFetcher.getPointBehindBallInMovingDirection(m_ball, 0.1);
-
-	if (robot1.getCurrentPose().getPosition().distanceTo(target) <
-			robot2.getCurrentPose().getPosition().distanceTo(target))
+	if (robot1.getCurrentPose().getPosition().distanceTo(targetShort) <
+			robot2.getCurrentPose().getPosition().distanceTo(targetShort))
 	{
-		robot1.goTo(Pose(target, Angle()), false, false, false);
+		robot1.goTo(targetShort, false, false, false);
+		robot2.goTo(targetLong, false, false, false);
+	}
+	else
+	{
+		robot2.goTo(targetShort, false, false, false);
+		robot1.goTo(targetLong, false, false, false);
 	}
 
 }
