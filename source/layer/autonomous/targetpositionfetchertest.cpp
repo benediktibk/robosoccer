@@ -499,3 +499,15 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4),Point(-0.5,-0.4)));
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodPosition_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5,0.0));
+	Point robotPosition(0.0,0.0);
+	Angle spanAngle(M_PI*1/6);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
