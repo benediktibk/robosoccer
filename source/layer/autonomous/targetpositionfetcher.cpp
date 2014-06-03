@@ -59,7 +59,7 @@ double TargetPositionFetcher::getDistanceToOwnGroundLine(const Point &position) 
 	return pointOnGroundLine.distanceTo(position);
 }
 
-Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
+Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) const
 {
 	double xPositionGoalKeeperRightSide = 1.45-0.07;
 

@@ -36,7 +36,7 @@ string Play::getName()
 
 void Play::updateInternal()
 {
-	Pose goalKeeperTarget = m_targetPositionFetcher.getOwnGoalPosition(m_ball);
+	Pose goalKeeperTarget = m_targetPositionFetcher.getTargetForGoalkeeper(m_ball);
 	m_ownTeam.getGoalie().goToDirect(goalKeeperTarget);
 
 	TreeNode *node = new TreeNodeDeciderIsOneRobotInShootingRange(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
