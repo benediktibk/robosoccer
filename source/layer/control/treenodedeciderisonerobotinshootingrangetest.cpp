@@ -47,3 +47,18 @@ void TreeNodeDeciderIsOneRobotInShootingRangeTest::decide_robotIsNotInShootingRa
 	CPPUNIT_ASSERT(shoot == 0);
 	delete result;
 }
+
+void TreeNodeDeciderIsOneRobotInShootingRangeTest::decide_robotIsInShootingRangeButOnWrongSide_isRobotBehindBall()
+{
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(1.5,0.2), Angle()));
+	m_ball->setPosition(Point (1.6,0.2));
+	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
+
+	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotInShootingRange*>(m_node)->getChild();
+	TreeNodeDeciderIsOneRobotBehindTheBall *isBehindBall = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(result);
+	TreeNodeResultShoot *shoot = dynamic_cast<TreeNodeResultShoot*>(result);
+
+	CPPUNIT_ASSERT(isBehindBall != 0);
+	CPPUNIT_ASSERT(shoot == 0);
+	delete result;
+}
