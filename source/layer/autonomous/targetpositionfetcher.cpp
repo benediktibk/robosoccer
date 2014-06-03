@@ -174,6 +174,8 @@ vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBa
 	result.push_back(Pose(ballPosition, orientation));
 	result.push_back(Pose(ballPosition + Point(0, 0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
+	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
 	return result;
 }
 

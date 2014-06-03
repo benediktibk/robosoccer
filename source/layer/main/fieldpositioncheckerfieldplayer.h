@@ -14,6 +14,7 @@ namespace Main
 	{
 	public:
 		FieldPositionCheckerFieldPlayer();
+
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
 	};
 }
@@ -21,5 +22,3 @@ namespace Main
 }
 
 #endif
-
-
