@@ -9,6 +9,8 @@
 #include "common/geometry/pose.h"
 #include "common/geometry/rectangle.h"
 #include "common/other/compare.h"
+#include "layer/control/treenoderesultshoot.h"
+#include "layer/control/treenodedeciderisonerobotbehindtheball.h"
 
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -20,7 +22,10 @@ TreeNodeDeciderIsOneRobotInShootingRange::TreeNodeDeciderIsOneRobotInShootingRan
 		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeDecider(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
-{ }
+{
+	m_childYes = new TreeNodeResultShoot(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	m_childNo = new TreeNodeDeciderIsOneRobotBehindTheBall(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+}
 
 bool TreeNodeDeciderIsOneRobotInShootingRange::calculateDecision()
 {

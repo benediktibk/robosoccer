@@ -1,6 +1,6 @@
 #include "layer/control/treenodedeciderisonerobotbehindtheball.h"
 #include "layer/control/treenoderesultgetbehindball.h"
-#include "layer/control/treenoderesultshoot.h"
+#include "layer/control/treenoderesultfollowball.h"
 #include "layer/abstraction/refereebase.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
@@ -19,7 +19,10 @@ TreeNodeDeciderIsOneRobotBehindTheBall::TreeNodeDeciderIsOneRobotBehindTheBall(
 		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeDecider(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
-{ }
+{
+	m_childYes = new TreeNodeResultFollowBall(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	m_childNo = new TreeNodeResultGetBehindBall(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+}
 
 bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 {
