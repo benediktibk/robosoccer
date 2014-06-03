@@ -227,7 +227,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if(m_driveSlowlyAtTheEnd)
+	if(m_driveSlowlyAtTheEnd && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	resetAllMovementFlags();

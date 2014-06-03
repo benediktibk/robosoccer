@@ -77,6 +77,16 @@ void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
 }
 
+void RobotTest::goTo_positionOutsideTheFieldAndDriveSlowlyAtTheEnd_updateDoesNotCrash()
+{
+	m_router->setInvalidRoute();
+
+	m_robot->goTo(Pose(Point(2, 3), Angle()), false, true, false);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(true);
+}
+
 void RobotTest::goToDirect_alreadyAtPosition_noCallToMoveRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
