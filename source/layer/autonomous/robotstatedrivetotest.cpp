@@ -636,6 +636,9 @@ void RobotStateDriveToTest::update_targetNotInsideField_noCallToDriveAndTurn()
 void RobotStateDriveToTest::update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive()
 {
 	vector<Circle> obstacles;
+
+	m_obstacleFetcher->setAllObstaclesButMeAndGoalObstaclesInRange(obstacles);
+
 	obstacles.push_back(Circle(Point(5,4),0.2));
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));

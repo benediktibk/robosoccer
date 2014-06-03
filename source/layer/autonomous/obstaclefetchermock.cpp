@@ -69,3 +69,8 @@ void ObstacleFetcherMock::setAllObstaclesButMeAndBallInRange(const vector<Circle
 {
 	m_allObstaclesButMeAndBallInRange = obstacles;
 }
+
+void ObstacleFetcherMock::setAllObstaclesButMeAndGoalObstaclesInRange(const std::vector<Circle> &obstacles)
+{
+	m_allObstaclesButMeAndGoalObstaclesInRange = obstacles;
+}
