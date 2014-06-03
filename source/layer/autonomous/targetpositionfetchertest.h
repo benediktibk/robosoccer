@@ -53,6 +53,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour);
+		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -93,6 +94,7 @@ namespace Autonomous
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour();
+		void getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);

@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -105,22 +106,45 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 
 vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
 {
-	vector<Point> targetPoints;
 	Point enemyGoalPosition = getEnemyGoalPosition().front();
-	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
+	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition, enemyGoalPosition);
 	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
 	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
-	Line expandedLineRobotTarget(expandLine,enemyGoalPosition);
-	Line yLineThroughBall(Point(ball.getPosition().getX(),-2.0), Point(ball.getPosition().getX(), 2.0));
-	assert(!expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).empty());
-	Point maxPriorityPoint = expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).front();
-	targetPoints.push_back(maxPriorityPoint);
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.2));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.2));
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.4));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.4));
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.6));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.6));
+	Line expandedLineRobotTarget(expandLine, enemyGoalPosition);
+	Line yLineThroughBall(Point(ball.getPosition().getX(), -2.0), Point(ball.getPosition().getX(), 2.0));
+	vector<Point> intersectionPoints = expandedLineRobotTarget.getIntersectPoint(yLineThroughBall);
+	vector<Point> targetPoints;
+
+	if (!intersectionPoints.empty())
+	{
+		Point maxPriorityPoint = intersectionPoints.front();
+		targetPoints.push_back(maxPriorityPoint);
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.2));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.2));
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.4));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.4));
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.6));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.6));
+	}
+
+	Point atHeightSimple = Point(ball.getPosition().getX(), alternativeRobotPosition.getY());
+	targetPoints.push_back(atHeightSimple);
+	targetPoints.push_back(atHeightSimple + Point(0, 0.2));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.2));
+	targetPoints.push_back(atHeightSimple + Point(0, 0.4));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.4));
+	targetPoints.push_back(atHeightSimple + Point(0, 0.6));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.6));
+
+	for (vector<Point>::iterator i = targetPoints.begin(); i != targetPoints.end(); ++i)
+	{
+		Point &currentPoint = *i;
+		double x = currentPoint.getX();
+		x = min(x, 1.0);
+		x = max(x, -1.0);
+		currentPoint.setX(x);
+	}
+
 	return targetPoints;
 }
 
@@ -148,7 +172,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
+vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
 {
 	vector<Point> goalposition;
 	goalposition.reserve(3);
