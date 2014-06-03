@@ -47,7 +47,7 @@ namespace Autonomous
 		std::vector<Common::Geometry::Point> getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
-
+		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, const Common::Geometry::Angle &spanAngle) const;
 	private:
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition(Abstraction::FieldSide fieldSide) const;
 
