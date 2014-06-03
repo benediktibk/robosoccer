@@ -32,6 +32,7 @@ namespace Autonomous
 		void setAllObstaclesButMe(std::vector<Common::Geometry::Circle> const &obstacles);
 		void setAllObstaclesButMeInRange(std::vector<Common::Geometry::Circle> const &obstacles);
 		void setAllObstaclesButMeAndBallInRange(std::vector<Common::Geometry::Circle> const &obstacles);
+		void setAllObstaclesButMeAndGoalObstaclesInRange(std::vector<Common::Geometry::Circle> const &obstacles);
 
 	private:
 		std::vector<Common::Geometry::Circle> m_allObstacles;

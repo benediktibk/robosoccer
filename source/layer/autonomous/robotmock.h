@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTMOCK_H
 
 #include "layer/autonomous/robot.h"
+#include "common/geometry/pose.h"
 
 namespace RoboSoccer
 {
@@ -34,6 +35,7 @@ namespace Autonomous
 		unsigned int getCallsToKick() const;
 		void setTargetReached(bool value);
 		void setObstacle(Common::Geometry::Circle const &obstacle);
+		void setCurrentPose(Common::Geometry::Pose const &pose);
 
 	private:
 		unsigned int m_callsToStop;
@@ -42,6 +44,7 @@ namespace Autonomous
 		unsigned int m_callsToKick;
 		bool m_targetReached;
 		Common::Geometry::Circle m_obstacle;
+		Common::Geometry::Pose m_pose;
 	};
 }
 }
