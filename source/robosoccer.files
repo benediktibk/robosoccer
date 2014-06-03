@@ -373,3 +373,4 @@ layer/control/treenoderesultfollowball.cpp
 layer/control/treenoderesultfollowball.h
 layer/control/treenoderesultfollowballtest.cpp
 layer/control/treenoderesultfollowballtest.h
+main/maincontroltest.cpp
