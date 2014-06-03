@@ -193,8 +193,6 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		{
 			if(m_currentRoute->getPointCount() == 2 && m_driveSlowlyAtTheEnd)
 				getRobot().gotoPositionPrecise(target);
-			else if(m_currentRoute->getPointCount() == 2 && m_ignoreGoalObstacles)
-				getRobot().gotoPositionImprecise(m_target);
 			else
 				getRobot().gotoPositionImprecise(target);
 		}
