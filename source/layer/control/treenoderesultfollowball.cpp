@@ -2,6 +2,7 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Common::Geometry;
@@ -21,4 +22,21 @@ TreeNodeResultFollowBall::TreeNodeResultFollowBall(
 
 void TreeNodeResultFollowBall::execute()
 {
+	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
+	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
+
+	Pose target(m_ball.getPosition(), Angle());
+	Pose alternativeTarget = Pose(m_targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(m_ball, target.getPosition()).front(), Angle());
+
+	if (robot1.getCurrentPose().distanceTo(target) <
+			robot2.getCurrentPose().distanceTo(target))
+	{
+		robot1.goTo(target, true, true);
+		robot2.goTo(alternativeTarget, false, false);
+	}
+	else
+	{
+		robot2.goTo(target, true, true);
+		robot1.goTo(alternativeTarget, false, false);
+	}
 }
