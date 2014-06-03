@@ -51,6 +51,14 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 	return getEnemyGoalPosition(m_fieldSide);
 }
 
+double TargetPositionFetcher::getDistanceToOwnGroundLine(const Point &position) const
+{
+	Point pointOnGroundLine = mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.45,0));
+	pointOnGroundLine.setY(position.getY());
+
+	return pointOnGroundLine.distanceTo(position);
+}
+
 Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
 {
 	double xPositionGoalKeeperRightSide = 1.45-0.07;

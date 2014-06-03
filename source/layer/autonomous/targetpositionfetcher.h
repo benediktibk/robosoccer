@@ -35,6 +35,7 @@ namespace Autonomous
 		Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
+		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
 		Common::Geometry::Pose getOwnGoalPosition(const IntelligentBall &ball) const;
 
 		Common::Geometry::Pose getPenaltyPositionPrepareKicker() const;
