@@ -46,6 +46,10 @@ int main(int, char**)
 
 	while (true)
 	{
+		team.getFirstFieldPlayer().update();
+		team.getSecondFieldPlayer().update();
+		team.getGoalie().update();
+
 		TreeNode *node = new TreeNodeDeciderIsOneRobotInShootingRange(logger, referee, team, enemyTeam, ball, targetPositionFetcher);
 		while (node->decide())
 		{
@@ -56,6 +60,7 @@ int main(int, char**)
 
 		TreeNodeResult *result = dynamic_cast<TreeNodeResult*>(node);
 		result->execute();
+		delete result;
 
 		usleep(10000);
 	}
