@@ -50,8 +50,9 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints);
-		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_threeResults);
-		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_allXAre1);
+		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_fiveResults);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_threeXAre1);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -90,8 +91,9 @@ namespace Autonomous
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints();
-		void getPositionToDriveOnBall_validBallPosition_threeResults();
-		void getPositionToDriveOnBall_ballXAt1_allXAre1();
+		void getPositionToDriveOnBall_validBallPosition_fiveResults();
+		void getPositionToDriveOnBall_ballXAt1_threeXAre1();
+		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
 		void getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2();
 
 	private:

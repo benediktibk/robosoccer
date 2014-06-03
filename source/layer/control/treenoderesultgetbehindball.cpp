@@ -28,8 +28,8 @@ void TreeNodeResultGetBehindBall::execute()
 	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
 	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
 
-	if (robot1.getCurrentPose().getPosition().distanceTo(targetShort) <
-			robot2.getCurrentPose().getPosition().distanceTo(targetShort))
+	if (robot1.getCurrentPose().distanceTo(targetShort) <
+			robot2.getCurrentPose().distanceTo(targetShort))
 	{
 		robot1.goTo(targetShort, false, false, false);
 		robot2.goTo(targetLong, false, false, false);
