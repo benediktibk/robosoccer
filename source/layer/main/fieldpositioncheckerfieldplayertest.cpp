@@ -26,14 +26,14 @@ void FieldPositionCheckerFieldPlayerTest::isPointInsideField_onFieldAndInGoalZon
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.3, 0.2)));
 }
 
-void FieldPositionCheckerFieldPlayerTest::isPointInsideField_1cmDistanceToTheEdge_false()
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_1cmDistanceToSideEdge_false()
 {
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;
 
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(0, 0.89)));
 }
 
-void FieldPositionCheckerFieldPlayerTest::isPointInsideField_6cmDistanceToTheEdge_true()
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_6cmDistanceToSideEdge_true()
 {
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;
 
