@@ -62,7 +62,7 @@ namespace Autonomous
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		std::vector<Common::Geometry::Circle> modifyObstacles(const std::vector<Common::Geometry::Circle> &obstacles, double growFactor) const;
-		std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeWithOrWithoutBall(const Common::Geometry::Point &robotPoint, double distance) const;
+		std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnFlags(const Common::Geometry::Point &robotPoint, double distance) const;
 		void clearRoute();
 		void resetAllMovementFlags();
 		void prepareLastRouteSegmentForDrivingSlowly();
