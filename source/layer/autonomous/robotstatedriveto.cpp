@@ -20,7 +20,7 @@ using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
-		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd) :
+		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.2),
@@ -33,6 +33,7 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_movementStopUsed(false),
 	m_ignoreBall(ignoreBall),
 	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
+	m_ignoreGoalObstacles(ignoreGoalObstacles),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
@@ -192,6 +193,8 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 		{
 			if(m_currentRoute->getPointCount() == 2 && m_driveSlowlyAtTheEnd)
 				getRobot().gotoPositionPrecise(target);
+			else if(m_currentRoute->getPointCount() == 2 && m_ignoreGoalObstacles)
+				getRobot().gotoPositionImprecise(m_target);
 			else
 				getRobot().gotoPositionImprecise(target);
 		}
@@ -227,7 +230,7 @@ void RobotStateDriveTo::updateRouteForTarget()
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if(m_driveSlowlyAtTheEnd)
+	if(m_driveSlowlyAtTheEnd || m_ignoreGoalObstacles)
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	resetAllMovementFlags();

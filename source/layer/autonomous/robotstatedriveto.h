@@ -41,7 +41,7 @@ namespace Autonomous
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot,
-				bool ignoreBall, bool driveSlowlyAtTheEnd);
+				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
 		virtual ~RobotStateDriveTo();
 
 		virtual bool reachedTarget() const;
@@ -81,6 +81,7 @@ namespace Autonomous
 		bool m_movementStopUsed;
 		bool m_ignoreBall;
 		bool m_driveSlowlyAtTheEnd;
+		bool m_ignoreGoalObstacles;
 		Common::Geometry::Pose m_target;
 		Common::Routing::Router const &m_router;
 		Common::Time::StopWatch *m_watchDog;
