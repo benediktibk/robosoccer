@@ -433,9 +433,9 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0.5, 0));
 
-	vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front(),Point(0.5,0)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(0.5, 0)));
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition()
@@ -446,9 +446,9 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
 
-	vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front(),Point(-0.5,0)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(-0.5, 0)));
 }
 
 
@@ -460,9 +460,9 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
 
-	vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1),Point(-0.5,0.2)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1).getPosition(), Point(-0.5, 0.2)));
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour()
@@ -473,9 +473,9 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
 
-	vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4),Point(-0.5,-0.4)));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4).getPosition(), Point(-0.5, -0.4)));
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints()
@@ -486,7 +486,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	ball.setPosition(Point(2, 0));
 	Point robotPosition = targetPositionFetcher.getEnemyGoalPosition().front();
 
-	vector<Point> results = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, robotPosition);
+	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, robotPosition);
 
 	CPPUNIT_ASSERT(!results.empty());
 }

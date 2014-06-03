@@ -94,7 +94,7 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
+vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
 {
 	Point enemyGoalPosition = getEnemyGoalPosition().front();
 	Line alternativeRobotToEnemyGoalLine(currentAlternativeRobotPosition,enemyGoalPosition);
@@ -126,16 +126,20 @@ vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggr
 	targetPoints.push_back(atHeightSimple + Point(0, 0.6));
 	targetPoints.push_back(atHeightSimple + Point(0, -0.6));
 
-	for (vector<Point>::iterator i = targetPoints.begin(); i != targetPoints.end(); ++i)
+	vector<Pose> results;
+	results.reserve(targetPoints.size());
+	Angle orientation = getOrientationToEnemyGoal();
+	for (vector<Point>::const_iterator i = targetPoints.begin(); i != targetPoints.end(); ++i)
 	{
-		Point &currentPoint = *i;
+		Point currentPoint = *i;
 		double x = currentPoint.getX();
 		x = min(x, 1.0);
 		x = max(x, -1.0);
 		currentPoint.setX(x);
+		results.push_back(Pose(currentPoint, orientation));
 	}
 
-	return targetPoints;
+	return results;
 }
 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
