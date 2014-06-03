@@ -103,11 +103,11 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
+vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
 {
 	vector<Point> targetPoints;
 	Point enemyGoalPosition = getEnemyGoalPosition().front();
-	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
+	Line alternativeRobotToEnemyGoalLine(currentAlternativeRobotPosition,enemyGoalPosition);
 	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
 	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
 	Line expandedLineRobotTarget(expandLine,enemyGoalPosition);
@@ -241,4 +241,17 @@ Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const Int
 		return Pose(Point(xPositionGoalKeeper,0.2),Angle::getQuarterRotation());
 	else
 		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
+}
+
+Pose TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+{
+	Angle ballOrientation;
+	if (m_fieldSide == FieldSideLeft)
+		ballOrientation = Angle::getHalfRotation();
+
+	Point resultPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
+	Pose result(resultPoint, ballOrientation + Angle::getHalfRotation());
+
+	return result;
+
 }
