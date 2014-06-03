@@ -57,7 +57,7 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTheEnd)
+void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool /*ignoreGoalObstacles*/)
 {
 	if (m_currentState->isEquivalentToDriveTo(position))
 	{
