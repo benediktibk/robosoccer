@@ -53,3 +53,31 @@ void FieldPositionCheckerFieldPlayerTest::isPointInsideField_6cmDistanceToRightE
 
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(0, -0.84)));
 }
+
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_1cmDistanceToLeftEndSide_false()
+{
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.44, 0.5)));
+}
+
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_6cmDistanceToLeftEndSide_true()
+{
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(1.39, 0.5)));
+}
+
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_1cmDistanceToRightEndSide_false()
+{
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-1.44, 0.5)));
+}
+
+void FieldPositionCheckerFieldPlayerTest::isPointInsideField_6cmDistanceToRightEndSide_true()
+{
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(-1.39, 0.5)));
+}
