@@ -2,12 +2,16 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "common/geometry/pose.h"
+#include "common/other/signum.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include <iostream>
+#include <algorithm>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Layer::Control;
 
 TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
@@ -27,6 +31,15 @@ void TreeNodeResultGetBehindBall::execute()
 
 	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
 	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
+
+	Point targetShortPosition = targetShort.getPosition();
+	if (fabs(targetShortPosition.getX()) > 1.45)
+	{
+		//! We should consider to ignore the ball in this case
+		targetShortPosition.setX(sgn(targetShortPosition.getX()) * 1.45);
+
+		//! @todo use a useful position for second player
+	}
 
 	if (robot1.getCurrentPose().distanceTo(targetShort) <
 			robot2.getCurrentPose().distanceTo(targetShort))
