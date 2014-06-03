@@ -11,8 +11,8 @@ FieldPositionCheckerFieldPlayer::FieldPositionCheckerFieldPlayer()
 
 bool FieldPositionCheckerFieldPlayer::isPointInsideField(const Point &position) const
 {
-	Compare compare(0.01);
-	RectangleRoundedCorners field(Point(-1.45, -0.9), Point(1.45, 0.9), 0.3);
+	Compare compare(0.005);
+	RectangleRoundedCorners field(Point(-1.45, -0.85), Point(1.45, 0.85), 0.3);
 
 	if (!field.isInside(position, compare))
 		return false;

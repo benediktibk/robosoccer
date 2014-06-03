@@ -17,17 +17,18 @@ namespace Main
 		CPPUNIT_TEST(isPointInsideField_notInsideField_false);
 		CPPUNIT_TEST(isPointInsideField_onFieldNotInGoalZone_true);
 		CPPUNIT_TEST(isPointInsideField_onFieldAndInGoalZone_false);
+		CPPUNIT_TEST(isPointInsideField_1cmDistanceToTheEdge_false);
+		CPPUNIT_TEST(isPointInsideField_6cmDistanceToTheEdge_true);
 		CPPUNIT_TEST_SUITE_END();
 	private:
 		void isPointInsideField_notInsideField_false();
 		void isPointInsideField_onFieldNotInGoalZone_true();
 		void isPointInsideField_onFieldAndInGoalZone_false();
-
+		void isPointInsideField_1cmDistanceToTheEdge_false();
+		void isPointInsideField_6cmDistanceToTheEdge_true();
 	};
 }
 }
 }
 
 #endif
-
-
