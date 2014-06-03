@@ -10,35 +10,22 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Control;
-
+using namespace std;
 
 TreeNodeResultFollowBall::TreeNodeResultFollowBall(
 		RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
 		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
-{
-
-}
+{ }
 
 void TreeNodeResultFollowBall::execute()
 {
-	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
-	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
+	Robot &robotCloser = m_ownTeam.getPlayerCloserToBall(m_ball);
+	Robot &robotFartherAway = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
 
-	Pose target(m_ball.getPosition(), Angle());
-
-	if (robot1.getCurrentPose().distanceTo(target) <
-			robot2.getCurrentPose().distanceTo(target))
-	{
-		robot1.goTo(target, true, true, false);
-		Pose alternativeTarget = Pose(m_targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(m_ball, robot2.getCurrentPose().getPosition()).front(), Angle());
-		robot2.goTo(alternativeTarget, false, false, false);
-	}
-	else
-	{
-		robot2.goTo(target, true, true, false);
-		Pose alternativeTarget = Pose(m_targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(m_ball, robot1.getCurrentPose().getPosition()).front(), Angle());
-		robot1.goTo(alternativeTarget, false, false, false);
-	}
+	vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionToDriveOnBall(m_ball);
+	vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(m_ball, robotFartherAway.getCurrentPose().getPosition());
+	robotCloser.goTo(targetsOnBall.front(), true, true, false);
+	robotFartherAway.goTo(targetsAlternativePlayer.front(), false, false, false);
 }
