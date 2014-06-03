@@ -10,6 +10,7 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
@@ -491,7 +492,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	CPPUNIT_ASSERT(!results.empty());
 }
 
-void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_threeResults()
+void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_fiveResults()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
@@ -500,10 +501,10 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_three
 
 	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)3, results.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)5, results.size());
 }
 
-void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_allXAre1()
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_threeXAre1()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
@@ -512,12 +513,37 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_allXAre1()
 
 	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
 
+	unsigned int count = 0;
+	Other::Compare compare(0.0001);
 	for (vector<Pose>::const_iterator i = results.begin(); i != results.end(); ++i)
 	{
 		Pose const &pose = *i;
 		Point const &position = pose.getPosition();
-		CPPUNIT_ASSERT_DOUBLES_EQUAL(1, position.getX(), 0.0001);
+		if (compare.isFuzzyEqual(1, position.getX()))
+			++count;
 	}
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballYAt2_threeYAre2()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	unsigned int count = 0;
+	Other::Compare compare(0.0001);
+	for (vector<Pose>::const_iterator i = results.begin(); i != results.end(); ++i)
+	{
+		Pose const &pose = *i;
+		Point const &position = pose.getPosition();
+		if (compare.isFuzzyEqual(2, position.getY()))
+			++count;
+	}
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
 }
 
 void TargetPositionFetcherTest::getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2()
