@@ -1,10 +1,18 @@
 #include "layer/control/treenodedeciderisonerobotbehindtheball.h"
 #include "layer/control/treenoderesultgetbehindball.h"
 #include "layer/control/treenoderesultshoot.h"
+#include "layer/abstraction/refereebase.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/autonomous/team.h"
+#include "layer/autonomous/robot.h"
+#include "common/geometry/pose.h"
+#include "common/other/compare.h"
 
 using namespace RoboSoccer::Layer::Control;
+using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Other;
 
 TreeNodeDeciderIsOneRobotBehindTheBall::TreeNodeDeciderIsOneRobotBehindTheBall(
 		RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
@@ -15,5 +23,27 @@ TreeNodeDeciderIsOneRobotBehindTheBall::TreeNodeDeciderIsOneRobotBehindTheBall(
 
 bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 {
-	return true;
+	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
+	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
+	Point ballPosition = m_ball.getPosition();
+
+	Point nearBall = ballPosition + Point(0, 0.3);
+	Point farFromBall = ballPosition + Point(0,-0.3);
+
+	if (m_referee.getOwnFieldSide() == FieldSideRight)
+	{
+		nearBall = nearBall +  Point(0,0);
+		farFromBall = farFromBall + Point(3,0);
+	}
+	else
+	{
+		nearBall = nearBall + Point(0,0);
+		farFromBall = farFromBall + Point(-3,0);
+	}
+
+	Rectangle behindBallZone(nearBall, farFromBall);
+	Compare compare(0.01);
+
+	return behindBallZone.isInside(robot1Pose.getPosition(), compare)
+			|| behindBallZone.isInside(robot2Pose.getPosition(), compare);
 }
