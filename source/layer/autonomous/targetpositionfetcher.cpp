@@ -243,7 +243,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const Int
 		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
 }
 
-Pose TargetPositionFetcher::getPointBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+Pose TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
 {
 	Angle ballOrientation;
 	if (m_fieldSide == FieldSideLeft)
