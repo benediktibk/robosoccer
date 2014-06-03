@@ -486,7 +486,49 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	ball.setPosition(Point(2, 0));
 	Point robotPosition = targetPositionFetcher.getEnemyGoalPosition().front();
 
-	vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, robotPosition);
+	vector<Point> results = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, robotPosition);
 
-	CPPUNIT_ASSERT(!shouldBe.empty());
+	CPPUNIT_ASSERT(!results.empty());
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_threeResults()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)3, results.size());
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_allXAre1()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	for (vector<Pose>::const_iterator i = results.begin(); i != results.end(); ++i)
+	{
+		Pose const &pose = *i;
+		Point const &position = pose.getPosition();
+		CPPUNIT_ASSERT_DOUBLES_EQUAL(1, position.getX(), 0.0001);
+	}
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(1, 2), results.front()));
 }
