@@ -1,4 +1,7 @@
 #include "layer/autonomous/robotstatedrivetodirectdriving.h"
+#include "layer/autonomous/robotstatedrivetodirectfinalrotation.h"
+#include "layer/abstraction/controllablerobot.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -9,7 +12,9 @@ using namespace std;
 RobotStateDriveToDirectDriving::RobotStateDriveToDirectDriving(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
-	m_target(target)
+	m_target(target),
+	m_precision(0.01),
+	m_movementStarted(false)
 { }
 
 bool RobotStateDriveToDirectDriving::reachedTarget() const
@@ -22,9 +27,23 @@ bool RobotStateDriveToDirectDriving::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectDriving::nextState(bool /*movementStopped*/)
+RobotState *RobotStateDriveToDirectDriving::nextState(bool movementStopped)
 {
-	return 0;
+	Pose pose = getRobot().getPose();
+	Compare compare(m_precision);
+
+	if (compare.isFuzzyEqual(pose.getPosition(), m_target.getPosition()))
+	{
+		log("position reached");
+		return new RobotStateDriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+	}
+	else if (movementStopped && m_movementStarted)
+	{
+		log("position not really reached, but movement stopped");
+		return new RobotStateDriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+	}
+	else
+		return 0;
 }
 
 bool RobotStateDriveToDirectDriving::isEquivalentToDriveToDirect(const Pose &target) const
@@ -42,7 +61,11 @@ string RobotStateDriveToDirectDriving::getName() const
 	return string("drive to direct - driving");
 }
 
-void RobotStateDriveToDirectDriving::updateInternal(bool /*movementStopped*/)
+void RobotStateDriveToDirectDriving::updateInternal(bool)
 {
+	if (m_movementStarted)
+		return;
 
+	getRobot().gotoPositionPrecise(m_target.getPosition());
+	m_movementStarted = true;
 }

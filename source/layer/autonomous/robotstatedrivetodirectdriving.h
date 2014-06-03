@@ -31,7 +31,9 @@ namespace Autonomous
 		virtual void updateInternal(bool movementStopped);
 
 	private:
-		Common::Geometry::Pose const m_target;
+		const Common::Geometry::Pose m_target;
+		const double m_precision;
+		bool m_movementStarted;
 	};
 }
 }

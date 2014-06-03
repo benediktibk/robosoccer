@@ -1,4 +1,7 @@
 #include "layer/autonomous/robotstatedrivetodirectinitialrotation.h"
+#include "layer/autonomous/robotstatedrivetodirectdriving.h"
+#include "layer/abstraction/controllablerobot.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -9,7 +12,9 @@ using namespace std;
 RobotStateDriveToDirectInitialRotation::RobotStateDriveToDirectInitialRotation(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
-	m_target(target)
+	m_target(target),
+	m_precision(0.4),
+	m_movementStarted(false)
 { }
 
 bool RobotStateDriveToDirectInitialRotation::reachedTarget() const
@@ -22,9 +27,24 @@ bool RobotStateDriveToDirectInitialRotation::cantReachTarget() const
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectInitialRotation::nextState(bool /*movementStopped*/)
+RobotState *RobotStateDriveToDirectInitialRotation::nextState(bool movementStopped)
 {
-	return 0;
+	Pose pose = getRobot().getPose();
+	Compare compareAngle(m_precision);
+	Angle targetAngle = calculateTargetAngle();
+
+	if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle))
+	{
+		log("inital rotation reached");
+		return new RobotStateDriveToDirectDriving(getRobot(), m_target, getLogger(), getLogFileType());
+	}
+	else if (movementStopped && m_movementStarted)
+	{
+		log("inital rotation not really reached, but movement stopped");
+		return new RobotStateDriveToDirectDriving(getRobot(), m_target, getLogger(), getLogFileType());
+	}
+	else
+		return 0;
 }
 
 bool RobotStateDriveToDirectInitialRotation::isEquivalentToDriveToDirect(const Pose &target) const
@@ -42,7 +62,18 @@ string RobotStateDriveToDirectInitialRotation::getName() const
 	return string("drive to direct - inital rotation");
 }
 
-void RobotStateDriveToDirectInitialRotation::updateInternal(bool /*movementStopped*/)
+void RobotStateDriveToDirectInitialRotation::updateInternal(bool)
 {
+	if (m_movementStarted)
+		return;
 
+	Angle targetAngle = calculateTargetAngle();
+	getRobot().turn(targetAngle);
+	m_movementStarted = true;
+}
+
+Angle RobotStateDriveToDirectInitialRotation::calculateTargetAngle() const
+{
+	Pose pose = getRobot().getPose();
+	return Angle(pose.getPosition(), m_target.getPosition());
 }
