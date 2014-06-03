@@ -20,16 +20,6 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 	m_fieldSide = fieldSide;
 }
 
-bool TargetPositionFetcher::isPointInOwnFieldSide(const Point &position) const
-{
-	assert(m_fieldSide != FieldSideInvalid);
-
-	if(m_fieldSide == FieldSideLeft)
-		return position.getX() < 0;
-	else
-		return position.getX() > 0;
-}
-
 Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
 {
 	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0));
