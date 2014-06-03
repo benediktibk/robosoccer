@@ -18,7 +18,7 @@ TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
 void TreeNodeResultGetBehindBall::execute()
 {
 	//! @todo use useful targets
-	//! @todo consider ignoreBall and driveSlolyAtTheEnd
+	//! @todo consider ignoreBall and driveSlowlyAtTheEnd
 	m_ownTeam.getFirstFieldPlayer().goTo(Pose(Point(-0.5,-0.5), Angle()), false, false);
 	m_ownTeam.getSecondFieldPlayer().goTo(Pose(Point(-0.5,0.5), Angle()), false, false);
 }

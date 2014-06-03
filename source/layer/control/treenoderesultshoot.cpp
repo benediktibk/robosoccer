@@ -2,7 +2,9 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
+#include "common/other/compare.h"
 
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -21,4 +23,16 @@ TreeNodeResultShoot::TreeNodeResultShoot(
 
 void TreeNodeResultShoot::execute()
 {
+	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
+	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
+	Point ballPosition = m_ball.getPosition();
+
+	if (ballPosition.distanceTo(robot1Pose.getPosition()) < ballPosition.distanceTo(robot2Pose.getPosition()))
+	{
+		m_ownTeam.getFirstFieldPlayer().kick(m_ball);
+	}
+	else
+	{
+		m_ownTeam.getSecondFieldPlayer().kick(m_ball);
+	}
 }
