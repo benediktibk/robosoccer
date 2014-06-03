@@ -2,7 +2,7 @@
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/robotstatereachedtarget.h"
 #include "layer/autonomous/robotstatedriveto.h"
-#include "layer/autonomous/robotstatedrivetodirect.h"
+#include "layer/autonomous/robotstatedrivetodirectinitialrotation.h"
 #include "layer/autonomous/robotstatekick.h"
 #include "layer/autonomous/robotstateturnto.h"
 #include "layer/abstraction/controllablerobot.h"
@@ -148,7 +148,7 @@ void RobotImpl::goToDirect(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveToDirect(m_robot, position, m_watch, m_logger, m_logFileType));
+	switchIntoState(new RobotStateDriveToDirectInitialRotation(m_robot, position, m_logger, m_logFileType));
 	logPosition("target is", position);
 }
 
