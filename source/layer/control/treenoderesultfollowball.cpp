@@ -31,12 +31,12 @@ void TreeNodeResultFollowBall::execute()
 	if (robot1.getCurrentPose().distanceTo(target) <
 			robot2.getCurrentPose().distanceTo(target))
 	{
-		robot1.goTo(target, true, true);
-		robot2.goTo(alternativeTarget, false, false);
+		robot1.goTo(target, true, true, false);
+		robot2.goTo(alternativeTarget, false, false, false);
 	}
 	else
 	{
-		robot2.goTo(target, true, true);
-		robot1.goTo(alternativeTarget, false, false);
+		robot2.goTo(target, true, true, false);
+		robot1.goTo(alternativeTarget, false, false, false);
 	}
 }

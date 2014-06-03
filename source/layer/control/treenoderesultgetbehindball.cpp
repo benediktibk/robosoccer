@@ -34,7 +34,7 @@ void TreeNodeResultGetBehindBall::execute()
 	if (robot1.getCurrentPose().getPosition().distanceTo(target) <
 			robot2.getCurrentPose().getPosition().distanceTo(target))
 	{
-		robot1.goTo(Pose(target, Angle()), false, false);
+		robot1.goTo(Pose(target, Angle()), false, false, false);
 	}
 
 }
