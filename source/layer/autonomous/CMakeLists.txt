@@ -36,7 +36,6 @@ set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
 set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC
 	robotstates/robotstatetest.cpp
 	robotstates/reachedtargettest.cpp
-	robotstates/drivetotest.cpp
 	robotstates/drivetodirectdrivingtest.cpp
 	robotstates/drivetodirectinitialrotationtest.cpp
 	robotstates/drivetodirectfinalrotationtest.cpp

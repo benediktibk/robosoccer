@@ -302,9 +302,7 @@ layer/autonomous/enemyteammock.cpp
 layer/autonomous/enemyteammock.h
 layer/autonomous/robotstates/robotstatetest.h
 layer/autonomous/robotstates/robotstatetest.cpp
-layer/autonomous/robotstates/drivetotest.h
 layer/autonomous/robotstates/driveto.h
-layer/autonomous/robotstates/drivetotest.cpp
 layer/autonomous/robotstates/driveto.cpp
 layer/autonomous/robotstates/turntotest.h
 layer/autonomous/robotstates/turnto.h
