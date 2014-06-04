@@ -6,15 +6,6 @@ set(COMMON_LAYER_AUTONOMOUS_SRC
 	enemyteamimpl.cpp
 	enemyteammock.cpp
 	targetpositionfetcher.cpp
-	robotstate.cpp
-	robotstatereachedtarget.cpp
-	robotstatedriveto.cpp
-	robotstatedrivetodirect.cpp
-	robotstatedrivetodirectdriving.cpp
-	robotstatedrivetodirectinitialrotation.cpp
-	robotstatedrivetodirectfinalrotation.cpp
-	robotstateturnto.cpp
-	robotstatekick.cpp
 	intelligentballimpl.cpp
 	intelligentballmock.cpp
 	obstaclefetcherimpl.cpp
@@ -27,18 +18,33 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 	teamtest.cpp
 	enemyteamtest.cpp
 	targetpositionfetchertest.cpp
-	robotstatetest.cpp
-	robotstatereachedtargettest.cpp
-	robotstatedrivetotest.cpp
-	robotstatedrivetodirecttest.cpp
-	robotstatedrivetodirectdrivingtest.cpp
-	robotstatedrivetodirectinitialrotationtest.cpp
-	robotstatedrivetodirectfinalrotationtest.cpp
-	robotstateturntotest.cpp
-	robotstatekicktest.cpp
 	intelligentballtest.cpp
 	obstaclefetchertest.cpp
 )
 
-add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC})
-add_library(layerautonomoustest ${COMMON_LAYER_AUTONOMOUS_TEST_SRC})
+set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
+	robotstates/robotstate.cpp
+	robotstates/robotstatereachedtarget.cpp
+	robotstates/robotstatedriveto.cpp
+	robotstates/robotstatedrivetodirect.cpp
+	robotstates/robotstatedrivetodirectdriving.cpp
+	robotstates/robotstatedrivetodirectinitialrotation.cpp
+	robotstates/robotstatedrivetodirectfinalrotation.cpp
+	robotstates/robotstateturnto.cpp
+	robotstates/robotstatekick.cpp
+)
+
+set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC
+	robotstates/robotstatetest.cpp
+	robotstates/robotstatereachedtargettest.cpp
+	robotstates/robotstatedrivetotest.cpp
+	robotstates/robotstatedrivetodirecttest.cpp
+	robotstates/robotstatedrivetodirectdrivingtest.cpp
+	robotstates/robotstatedrivetodirectinitialrotationtest.cpp
+	robotstates/robotstatedrivetodirectfinalrotationtest.cpp
+	robotstates/robotstateturntotest.cpp
+	robotstates/robotstatekicktest.cpp
+)
+
+add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC} ${COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC})
+add_library(layerautonomoustest ${COMMON_LAYER_AUTONOMOUS_TEST_SRC} ${COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC})
