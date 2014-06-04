@@ -29,11 +29,6 @@ ControllableRobot const &RobotState::getRobot() const
 	return m_robot;
 }
 
-void RobotState::update(bool movementStopped)
-{
-	updateInternal(movementStopped);
-}
-
 Logger& RobotState::getLogger()
 {
 	return m_logger;

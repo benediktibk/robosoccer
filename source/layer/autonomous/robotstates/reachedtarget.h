@@ -22,9 +22,7 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
 		virtual std::string getName() const;
-
-	protected:
-		virtual void updateInternal(bool movementStopped);
+		virtual void update(bool movementStopped);
 	};
 }
 }

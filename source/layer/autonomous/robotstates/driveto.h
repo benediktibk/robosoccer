@@ -49,11 +49,9 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
 		virtual std::string getName() const;
+		virtual void update(bool movementStopped);
 
 		size_t getRoutePointsCount() const;
-
-	protected:
-		virtual void updateInternal(bool movementStopped);
 
 	private:
 		bool setOrdersForIntermediatePointAndGetOrderSet(bool movementStopped);

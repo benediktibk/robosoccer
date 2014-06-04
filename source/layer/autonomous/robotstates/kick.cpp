@@ -55,7 +55,7 @@ RobotState *Kick::nextState(bool)
 		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 }
 
-void Kick::updateInternal(bool)
+void Kick::update(bool)
 {
 	if (m_alreadyKicked)
 		return;

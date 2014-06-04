@@ -86,7 +86,7 @@ bool DriveTo::isEquivalentToDriveToDirect(const Pose &) const
 	return false;
 }
 
-void DriveTo::updateInternal(bool movementStopped)
+void DriveTo::update(bool movementStopped)
 {
 	Pose robotPose = getRobot().getPose();
 	m_movementStopUsed = false;
