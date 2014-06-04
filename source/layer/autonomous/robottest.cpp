@@ -493,7 +493,7 @@ void RobotTest::update_goToAndfinalRotationNotReachedButMovementStopped_reachedT
 	m_hardwareRobot->setIsMoving(false);
 	m_robot->update();
 
-	CPPUNIT_ASSERT(m_robot->targetReached());
+	CPPUNIT_ASSERT(m_robot->reachedTarget());
 }
 
 void RobotTest::update_goToAndinitialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()

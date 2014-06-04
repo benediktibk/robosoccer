@@ -39,7 +39,7 @@ vector<Circle> RobotMock::getObstacles() const
 	return result;
 }
 
-bool RobotMock::targetReached() const
+bool RobotMock::reachedTarget() const
 {
 	return m_targetReached;
 }

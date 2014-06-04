@@ -129,7 +129,6 @@ namespace Autonomous
 		void update_goToDirectAndFinalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
 		void update_goToDirectAndInitalRotationReachedAndMovementStopped_robotGotCallToMove();
 		void update_goToDirectAndPositionReachedAndMovementStopped_robotGotCallToTurn();
-
 		void update_goToAndinitialRotationNotReached_robotGotCallToTurnTowardsTarget();
 		void update_goToAndinitialRotationNotReached_robotGotNoCallToDrive();
 		void update_goToAndinitialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn();
@@ -163,7 +162,6 @@ namespace Autonomous
 		void update_goToAndcloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly();
 		void update_goToAndtargetNotInsideField_noCallToDriveAndTurn();
 		void update_goToAndobstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
-
 		void update_kickAndTurnToReachedTarget_oneCallToKick();
 		void update_empty_robotGotCallToUpdate();
 		void getObstacle_empty_sameAsFromControllableRobot();

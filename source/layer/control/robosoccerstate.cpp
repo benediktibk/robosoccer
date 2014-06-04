@@ -23,7 +23,7 @@ bool RoboSoccerState::movementsFinished() const
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Robot const &robot = m_ownTeam.getRobotByNumber(i);
-		if (!robot.targetReached())
+		if (!robot.reachedTarget())
 			return false;
 	}
 

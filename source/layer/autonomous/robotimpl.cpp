@@ -90,7 +90,7 @@ vector<Circle> RobotImpl::getObstacles() const
 	return result;
 }
 
-bool RobotImpl::targetReached() const
+bool RobotImpl::reachedTarget() const
 {
 	return m_currentState->reachedTarget();
 }
