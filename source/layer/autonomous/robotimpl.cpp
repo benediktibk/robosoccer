@@ -1,7 +1,7 @@
 #include "layer/autonomous/robotimpl.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/robotstates/reachedtarget.h"
-#include "layer/autonomous/robotstates/driveto.h"
+#include "layer/autonomous/robotstates/drivetoinitialrotation.h"
 #include "layer/autonomous/robotstates/drivetodirectinitialrotation.h"
 #include "layer/autonomous/robotstates/kick.h"
 #include "layer/autonomous/robotstates/turnto.h"
@@ -68,8 +68,9 @@ void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTh
 		return;
 	}
 
-	switchIntoState(new DriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType,
-										  m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles));
+	switchIntoState(new DriveToInitialRotation(
+						m_robot, position, m_router, m_logger, m_logFileType,
+						m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles));
 	logPosition("target is", position);
 }
 
@@ -115,10 +116,10 @@ void RobotImpl::update()
 		if (stateChanged)
 			switchIntoState(nextState);
 
-		m_currentState->update(movementStopped);
 		movementStopped = false;
 	} while(stateChanged);
 
+	m_currentState->update(movementStopped);
 	m_robot.update();
 }
 

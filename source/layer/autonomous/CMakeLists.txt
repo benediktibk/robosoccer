@@ -29,6 +29,10 @@ set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
 	robotstates/drivetodirectdriving.cpp
 	robotstates/drivetodirectinitialrotation.cpp
 	robotstates/drivetodirectfinalrotation.cpp
+	robotstates/drivetoinitialrotation.cpp
+	robotstates/drivetofinalrotation.cpp
+	robotstates/drivetodriving.cpp
+	robotstates/drivetoinvalidroute.cpp
 	robotstates/turnto.cpp
 	robotstates/kick.cpp
 )
@@ -39,6 +43,10 @@ set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC
 	robotstates/drivetodirectdrivingtest.cpp
 	robotstates/drivetodirectinitialrotationtest.cpp
 	robotstates/drivetodirectfinalrotationtest.cpp
+	robotstates/drivetoinitialrotationtest.cpp
+	robotstates/drivetofinalrotationtest.cpp
+	robotstates/drivetodrivingtest.cpp
+	robotstates/drivetoinvalidroutetest.cpp
 	robotstates/turntotest.cpp
 	robotstates/kicktest.cpp
 )

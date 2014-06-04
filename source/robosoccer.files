@@ -392,3 +392,7 @@ layer/autonomous/robotstates/drivetofinalrotationtest.h
 layer/autonomous/robotstates/drivetofinalrotation.h
 layer/autonomous/robotstates/drivetofinalrotationtest.cpp
 layer/autonomous/robotstates/drivetofinalrotation.cpp
+layer/autonomous/robotstates/drivetoinvalidroutetest.h
+layer/autonomous/robotstates/drivetoinvalidroute.h
+layer/autonomous/robotstates/drivetoinvalidroutetest.cpp
+layer/autonomous/robotstates/drivetoinvalidroute.cpp

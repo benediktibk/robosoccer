@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINITIALROTATION_H
-#define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINITIALROTATION_H
+#ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINVALIDROUTE_H
+#define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINVALIDROUTE_H
 
 #include "layer/autonomous/robotstates/driveto.h"
 
@@ -9,11 +9,11 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class DriveToInitialRotation :
+	class DriveToInvalidRoute :
 			public DriveTo
 	{
 	public:
-		DriveToInitialRotation(
+		DriveToInvalidRoute(
 				Abstraction::ControllableRobot &robot,
 				const Common::Geometry::Pose &target,
 				const Common::Routing::Router &router,
@@ -24,10 +24,6 @@ namespace Autonomous
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
 		virtual void update(bool movementStopped);
-		Common::Geometry::Angle calculateTargetOrientation(Common::Routing::Route const &currentRoute) const;
-
-	private:
-		bool m_movementStarted;
 	};
 }
 }
