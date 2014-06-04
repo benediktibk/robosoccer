@@ -558,3 +558,15 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_ballAt1And2_firstPositi
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(1, 2), results.front()));
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodPosition_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5,0.0));
+	Point robotPosition(0.0,0.0);
+	Angle spanAngle(M_PI*1/6);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
