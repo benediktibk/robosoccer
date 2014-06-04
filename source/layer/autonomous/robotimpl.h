@@ -54,6 +54,8 @@ namespace Autonomous
 		virtual void kick(IntelligentBall const &ball);
 		virtual void update();
 
+		RobotState const& getCurrentState() const;
+
 	private:
 		void switchIntoState(RobotState *state);
 		void log(std::string const &message);

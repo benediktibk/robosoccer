@@ -127,6 +127,11 @@ void RobotImpl::update()
 	m_robot.update();
 }
 
+const RobotState &RobotImpl::getCurrentState() const
+{
+	return *m_currentState;
+}
+
 
 void RobotImpl::switchIntoState(RobotState *state)
 {

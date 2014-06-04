@@ -32,7 +32,7 @@ bool ReachedTarget::isEquivalentToDriveTo(const Pose &target) const
 {
 	Compare compare(0.02);
 	Pose currentPose = getRobot().getPose();
-	return compare.isFuzzyEqual(currentPose.getPosition(), target);
+	return compare.isFuzzyEqual(currentPose, target);
 }
 
 bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target) const
