@@ -89,6 +89,24 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSo
 	return result;
 }
 
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me) const
+{
+	vector<Circle> result;
+
+	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
+	{
+		ObstacleSource const &source = **i;
+
+		if (&source == &me)
+			continue;
+
+		vector<Circle> resultPart = source.getObstacles();
+		result.insert(result.end(), resultPart.begin(), resultPart.end());
+	}
+
+	return result;
+}
+
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
 		const ObstacleSource &me, const Point &ownPosition, double distance) const
 {
@@ -100,6 +118,12 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBallInRange(
 		const ObstacleSource &me, const Point &ownPosition, double distance) const
 {
 	vector<Circle> candidates = getAllObstaclesButMeAndBall(me);
+	return filterByDistance(candidates, ownPosition, distance);
+}
+
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &me, const Point &ownPosition, double distance) const
+{
+	vector<Circle> candidates = getAllObstaclesButMeAndGoalObstacles(me);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 

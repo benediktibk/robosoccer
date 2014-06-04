@@ -5,6 +5,7 @@
 #include <assert.h>
 #include <iostream>
 #include <math.h>
+#include <algorithm>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -18,16 +19,6 @@ TargetPositionFetcher::TargetPositionFetcher() :
 void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 {
 	m_fieldSide = fieldSide;
-}
-
-bool TargetPositionFetcher::isPointInOwnFieldSide(const Point &position) const
-{
-	assert(m_fieldSide != FieldSideInvalid);
-
-	if(m_fieldSide == FieldSideLeft)
-		return position.getX() < 0;
-	else
-		return position.getX() > 0;
 }
 
 Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
@@ -60,7 +51,15 @@ std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 	return getEnemyGoalPosition(m_fieldSide);
 }
 
-Pose TargetPositionFetcher::getOwnGoalPosition(const IntelligentBall &ball) const
+double TargetPositionFetcher::getDistanceToOwnGroundLine(const Point &position) const
+{
+	Point pointOnGroundLine = mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.45,0));
+	pointOnGroundLine.setY(position.getY());
+
+	return pointOnGroundLine.distanceTo(position);
+}
+
+Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) const
 {
 	double xPositionGoalKeeperRightSide = 1.45-0.07;
 
@@ -103,25 +102,52 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-std::vector<Point> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &alternativeRobotPosition) const
+vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
 {
-	std::vector<Point> targetPoints;
-Point enemyGoalPosition = getEnemyGoalPosition().front();
-	Line alternativeRobotToEnemyGoalLine(alternativeRobotPosition,enemyGoalPosition);
+	Point enemyGoalPosition = getEnemyGoalPosition().front();
+	Line alternativeRobotToEnemyGoalLine(currentAlternativeRobotPosition,enemyGoalPosition);
 	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
 	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
-	Line expandedLineRobotTarget(expandLine,enemyGoalPosition);
-	Line yLineThroughBall(Point(ball.getPosition().getX(),-2.0), Point(ball.getPosition().getX(), 2.0));
-	assert(!expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).empty());
-	Point maxPriorityPoint = expandedLineRobotTarget.getIntersectPoint(yLineThroughBall).front();
-	targetPoints.push_back(maxPriorityPoint);
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.2));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.2));
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.4));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.4));
-	targetPoints.push_back(maxPriorityPoint+Point(0,0.6));
-	targetPoints.push_back(maxPriorityPoint+Point(0,-0.6));
-	return targetPoints;
+	Line expandedLineRobotTarget(expandLine, enemyGoalPosition);
+	Line yLineThroughBall(Point(ball.getPosition().getX(), -2.0), Point(ball.getPosition().getX(), 2.0));
+	vector<Point> intersectionPoints = expandedLineRobotTarget.getIntersectPoint(yLineThroughBall);
+	vector<Point> targetPoints;
+
+	if (!intersectionPoints.empty())
+	{
+		Point maxPriorityPoint = intersectionPoints.front();
+		targetPoints.push_back(maxPriorityPoint);
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.2));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.2));
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.4));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.4));
+		targetPoints.push_back(maxPriorityPoint + Point(0, 0.6));
+		targetPoints.push_back(maxPriorityPoint + Point(0, -0.6));
+	}
+
+	Point atHeightSimple = Point(ball.getPosition().getX(), currentAlternativeRobotPosition.getY());
+	targetPoints.push_back(atHeightSimple);
+	targetPoints.push_back(atHeightSimple + Point(0, 0.2));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.2));
+	targetPoints.push_back(atHeightSimple + Point(0, 0.4));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.4));
+	targetPoints.push_back(atHeightSimple + Point(0, 0.6));
+	targetPoints.push_back(atHeightSimple + Point(0, -0.6));
+
+	vector<Pose> results;
+	results.reserve(targetPoints.size());
+	Angle orientation = getOrientationToEnemyGoal();
+	for (vector<Point>::const_iterator i = targetPoints.begin(); i != targetPoints.end(); ++i)
+	{
+		Point currentPoint = *i;
+		double x = currentPoint.getX();
+		x = min(x, 1.0);
+		x = max(x, -1.0);
+		currentPoint.setX(x);
+		results.push_back(Pose(currentPoint, orientation));
+	}
+
+	return results;
 }
 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
@@ -148,7 +174,31 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
+bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, const Angle &spanAngle, double minDistance) const
+{
+	Point ballPosition = ball.getPosition();
+	Point goalPosition = getEnemyGoalPosition().front();
+	Angle angleGoalBall(goalPosition,ballPosition);
+	Angle angleBallRobot(ballPosition,robotPosition);
+	Angle deltaAngle = angleGoalBall-angleBallRobot;
+	double distanceRobotBall = ballPosition.distanceTo(robotPosition);
+	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < minDistance));
+}
+
+vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBall &ball) const
+{
+	Angle orientation = getOrientationToEnemyGoal();
+	Point ballPosition = ball.getPosition();
+	vector<Pose> result;
+	result.push_back(Pose(ballPosition, orientation));
+	result.push_back(Pose(ballPosition + Point(0, 0.05), orientation));
+	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
+	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
+	return result;
+}
+
+vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
 {
 	vector<Point> goalposition;
 	goalposition.reserve(3);
@@ -181,25 +231,28 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(FieldSide fieldSide,
 
 Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
-	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
+	if (ball.isMoving())
 	{
-		double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
-		switch (fieldSide)
+		if(ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
 		{
-		case FieldSideInvalid:
-			assert(false);
-		case FieldSideRight:
-			break;
-		case FieldSideLeft:
-			xPositionGoalKeeperRightSideModified *= -1;
-			break;
+			double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
+			switch (fieldSide)
+			{
+			case FieldSideInvalid:
+				assert(false);
+			case FieldSideRight:
+				break;
+			case FieldSideLeft:
+				xPositionGoalKeeperRightSideModified *= -1;
+				break;
+			}
+
+			Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
+			Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
+
+			if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
+				return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 		}
-
-		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
-
-		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
-			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 	}
 
 	return getGoaliePositionUsingIntersectWithGoalCenter(fieldSide, ball, xPositionGoalKeeperRightSide);
@@ -241,4 +294,23 @@ Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const Int
 		return Pose(Point(xPositionGoalKeeper,0.2),Angle::getQuarterRotation());
 	else
 		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
+}
+
+Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
+{
+	Angle ballOrientation;
+	if (m_fieldSide == FieldSideLeft)
+		ballOrientation = Angle::getHalfRotation();
+
+	return ballOrientation;
+}
+
+Pose TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+{
+	Angle ballOrientation = getOrientationToEnemyGoal();
+	Point resultPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
+	Pose result(resultPoint, ballOrientation + Angle::getHalfRotation());
+
+	return result;
+
 }

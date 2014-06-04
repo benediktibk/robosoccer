@@ -374,6 +374,7 @@ layer/control/treenoderesultfollowball.h
 layer/control/treenoderesultfollowballtest.cpp
 layer/control/treenoderesultfollowballtest.h
 layer/autonomous/robotstatedrivetodirectinitialrotationtest.h
+main/maincontroltest.cpp
 layer/autonomous/robotstatedrivetodirectinitialrotation.h
 layer/autonomous/robotstatedrivetodirectinitialrotationtest.cpp
 layer/autonomous/robotstatedrivetodirectinitialrotation.cpp

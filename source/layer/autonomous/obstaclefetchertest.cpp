@@ -173,3 +173,59 @@ void ObstacleFetcherTest::getAllObstaclesBugMeAndBallInRange_selfInRange_noObsta
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
 }
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstacles_firstRobot_countIs5()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndGoalObstacles(*m_firstRobot);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstacles_firstRobot_allObstaclesButOwnAndGoalContained()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndGoalObstacles(*m_firstRobot);
+
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(2, 2), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 0.5)));
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstacles_secondRobot_countIs5()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndGoalObstacles(*m_secondRobot);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstacles_secondRobot_allObstaclesButOwnAndGoalContained()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndGoalObstacles(*m_secondRobot);
+
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(1, 1), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(4, 4), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(5, 5), 0.5)));
+	CPPUNIT_ASSERT(1 == count(obstacles.begin(), obstacles.end(), Circle(Point(6, 6), 0.5)));
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeInRange(*m_firstRobot, Point(10, 10), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndCloseToBall_oneCorrectElement()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeInRange(*m_firstRobot, Point(7.7, 7), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, obstacles.size());
+	CPPUNIT_ASSERT_EQUAL(Circle(Point(7, 7), 0.5), obstacles.front());
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0()
+{
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeInRange(*m_firstRobot, Point(7.8, 7), 0.5);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
+}

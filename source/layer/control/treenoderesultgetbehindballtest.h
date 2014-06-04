@@ -13,12 +13,14 @@ class TreeNodeResultGetBehindBallTest :
 		public TreeNodeTest
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeResultGetBehindBallTest);
+		CPPUNIT_TEST(execute_true_bothRobotsGetGoToCalls);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		virtual TreeNode *createTestNode();
 
 	private:
+		void execute_true_bothRobotsGetGoToCalls();
 
 	};
 }

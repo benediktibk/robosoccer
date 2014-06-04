@@ -71,24 +71,36 @@
 	\titlepage
 \end{frame} 
 
+\section{}
+\begin{frame}
+\frametitle{Countdown}
+	\hfill
+		\begin{beamercolorbox}[shadow=true, rounded=true, wd=10cm]{presinative}
+			\centering
+			\Large{\textbf{There are only }}
+			\Huge \color {black} {\textbf{28 Days}}
+			\Large\color {white}{\textbf{until \newline RoSo Championship}}
+		\end{beamercolorbox}
+	\hfill
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{Pictures/wm}
+	\end{figure}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Table of contents}
 	\tableofcontents
 \end{frame} 
-
-\section{Introduction} 
-\begin{frame}
-	\frametitle{Introduction} 
-\end{frame}
 
 \section{Class Diagram}
 \begin{frame}
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+			% Layers
 			\node [block] (control) {\huge \textbf{Control}};
-		    \node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -119,9 +131,9 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+		    	% Layers
 			\node [block] (control) {\huge \textbf{Control}};
-		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -159,9 +171,9 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]		
-		    % Layers
+		    	% Layers
 			\node [block-active] (control) {\huge \textbf{Control}};
-		    \node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 	
 			% Clouds
@@ -368,8 +380,10 @@
 		\item no direct collision avoidance
 		\item Router
 		\begin{itemize}
-			\item calculates only save routes
-			\item route ...
+			\item calculates only save routes to target
+			\item gets start and target point
+			\item obstacles are circles
+			\item route consists of paths
 		\end{itemize}
 	\end{itemize}
 \end{frame}
@@ -543,7 +557,15 @@
 
 \section{Gantt Chart} 
 \begin{frame}
-	\frametitle{Gantt chart} 
+	\frametitle{Gantt Chart} 
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.95\textwidth]{Pictures/gantt2}
+	\end{figure}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.95\textwidth]{Pictures/gantt1}
+	\end{figure}
 \end{frame}
 
 \section{}
@@ -557,4 +579,3 @@
 \end{frame}
 
 \end{document}
-

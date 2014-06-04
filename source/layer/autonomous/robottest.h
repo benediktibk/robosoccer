@@ -40,6 +40,7 @@ namespace Autonomous
 		CPPUNIT_TEST(goTo_alreadyAtPosition_noCallToMoveRobot);
 		CPPUNIT_TEST(goTo_notYetAtPosition_oneCallToMoveRobot);
 		CPPUNIT_TEST(goTo_twiceWithSameTarget_oneCallToMoveRobot);
+		CPPUNIT_TEST(goTo_positionOutsideTheFieldAndDriveSlowlyAtTheEnd_updateDoesNotCrash);
 		CPPUNIT_TEST(goToDirect_alreadyAtPosition_noCallToMoveRobot);
 		CPPUNIT_TEST(goToDirect_notYetAtPosition_oneCallToMoveRobot);
 		CPPUNIT_TEST(goToDirect_twiceWithSameTarget_oneCallToMoveRobot);
@@ -73,6 +74,7 @@ namespace Autonomous
 		void goTo_alreadyAtPosition_noCallToMoveRobot();
 		void goTo_notYetAtPosition_oneCallToMoveRobot();
 		void goTo_twiceWithSameTarget_oneCallToMoveRobot();
+		void goTo_positionOutsideTheFieldAndDriveSlowlyAtTheEnd_updateDoesNotCrash();
 		void goToDirect_alreadyAtPosition_noCallToMoveRobot();
 		void goToDirect_notYetAtPosition_oneCallToMoveRobot();
 		void goToDirect_twiceWithSameTarget_oneCallToMoveRobot();
