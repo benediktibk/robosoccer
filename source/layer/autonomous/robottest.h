@@ -97,6 +97,8 @@ namespace Autonomous
 		CPPUNIT_TEST(update_goToAndobstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive);
 		CPPUNIT_TEST(update_kickAndTurnToReachedTarget_oneCallToKick);
 		CPPUNIT_TEST(update_empty_robotGotCallToUpdate);
+		CPPUNIT_TEST(update_goToAndAtTarget_reachedTarget);
+		CPPUNIT_TEST(update_goToDirectAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(getObstacle_empty_sameAsFromControllableRobot);
 		CPPUNIT_TEST(getObstacles_empty_oneWhichIsSameAsFromControllableRobot);
 		CPPUNIT_TEST_SUITE_END();
@@ -164,6 +166,8 @@ namespace Autonomous
 		void update_goToAndobstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
 		void update_kickAndTurnToReachedTarget_oneCallToKick();
 		void update_empty_robotGotCallToUpdate();
+		void update_goToAndAtTarget_reachedTarget();
+		void update_goToDirectAndAtTarget_reachedTarget();
 		void getObstacle_empty_sameAsFromControllableRobot();
 		void getObstacles_empty_oneWhichIsSameAsFromControllableRobot();
 

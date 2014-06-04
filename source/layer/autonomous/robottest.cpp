@@ -866,6 +866,30 @@ void RobotTest::update_empty_robotGotCallToUpdate()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdate());
 }
 
+void RobotTest::update_goToAndAtTarget_reachedTarget()
+{
+	Pose target(Point(1, 3), Angle::getEighthRotation());
+	m_robot->goTo(target, false, false, false);
+
+	m_robot->update();
+	m_hardwareRobot->setPose(target);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(m_robot->reachedTarget());
+}
+
+void RobotTest::update_goToDirectAndAtTarget_reachedTarget()
+{
+	Pose target(Point(1, 3), Angle::getEighthRotation());
+	m_robot->goToDirect(target);
+
+	m_robot->update();
+	m_hardwareRobot->setPose(target);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(m_robot->reachedTarget());
+}
+
 void RobotTest::getObstacle_empty_sameAsFromControllableRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(4, 3), Angle(3)));
