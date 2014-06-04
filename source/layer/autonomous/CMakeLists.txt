@@ -24,26 +24,26 @@ set(COMMON_LAYER_AUTONOMOUS_TEST_SRC
 
 set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
 	robotstates/robotstate.cpp
-	robotstates/robotstatereachedtarget.cpp
-	robotstates/robotstatedriveto.cpp
-	robotstates/robotstatedrivetodirect.cpp
-	robotstates/robotstatedrivetodirectdriving.cpp
-	robotstates/robotstatedrivetodirectinitialrotation.cpp
-	robotstates/robotstatedrivetodirectfinalrotation.cpp
-	robotstates/robotstateturnto.cpp
-	robotstates/robotstatekick.cpp
+	robotstates/reachedtarget.cpp
+	robotstates/driveto.cpp
+	robotstates/drivetodirect.cpp
+	robotstates/drivetodirectdriving.cpp
+	robotstates/drivetodirectinitialrotation.cpp
+	robotstates/drivetodirectfinalrotation.cpp
+	robotstates/turnto.cpp
+	robotstates/kick.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC
 	robotstates/robotstatetest.cpp
-	robotstates/robotstatereachedtargettest.cpp
-	robotstates/robotstatedrivetotest.cpp
-	robotstates/robotstatedrivetodirecttest.cpp
-	robotstates/robotstatedrivetodirectdrivingtest.cpp
-	robotstates/robotstatedrivetodirectinitialrotationtest.cpp
-	robotstates/robotstatedrivetodirectfinalrotationtest.cpp
-	robotstates/robotstateturntotest.cpp
-	robotstates/robotstatekicktest.cpp
+	robotstates/reachedtargettest.cpp
+	robotstates/drivetotest.cpp
+	robotstates/drivetodirecttest.cpp
+	robotstates/drivetodirectdrivingtest.cpp
+	robotstates/drivetodirectinitialrotationtest.cpp
+	robotstates/drivetodirectfinalrotationtest.cpp
+	robotstates/turntotest.cpp
+	robotstates/kicktest.cpp
 )
 
 add_library(layerautonomous ${COMMON_LAYER_AUTONOMOUS_SRC} ${COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC})
