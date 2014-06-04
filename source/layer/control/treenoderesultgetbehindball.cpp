@@ -32,11 +32,14 @@ void TreeNodeResultGetBehindBall::execute()
 	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
 	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
 
+	bool isNearToBorder = false;
+
 	Point targetShortPosition = targetShort.getPosition();
 	if (fabs(targetShortPosition.getX()) > 1.45)
 	{
 		//! We should consider to ignore the ball in this case
 		targetShortPosition.setX(sgn(targetShortPosition.getX()) * 1.45);
+		isNearToBorder = true;
 
 		//! @todo use a useful position for second player
 	}
@@ -44,12 +47,12 @@ void TreeNodeResultGetBehindBall::execute()
 	if (robot1.getCurrentPose().distanceTo(targetShort) <
 			robot2.getCurrentPose().distanceTo(targetShort))
 	{
-		robot1.goTo(targetShort, false, false, false);
+		robot1.goTo(targetShort, isNearToBorder, false, false);
 		robot2.goTo(targetLong, false, false, false);
 	}
 	else
 	{
-		robot2.goTo(targetShort, false, false, false);
+		robot2.goTo(targetShort, isNearToBorder, false, false);
 		robot1.goTo(targetLong, false, false, false);
 	}
 
