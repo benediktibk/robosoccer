@@ -17,14 +17,14 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const Pose &/*position*/, bool /*ignoreBall*/, bool /*driveSlowlyAtTheEnd*/)
+void RobotMock::goTo(const Pose &/*position*/, bool /*ignoreBall*/, bool /*driveSlowlyAtTheEnd*/, bool /*ignoreGoalObstacles*/)
 {
 	++m_callsToGoTo;
 }
 
 Pose RobotMock::getCurrentPose() const
 {
-	return Pose();
+	return m_pose;
 }
 
 Circle RobotMock::getObstacle() const
@@ -100,4 +100,9 @@ unsigned int RobotMock::getCallsToGoToDirect() const
 unsigned int RobotMock::getCallsToGoToCombined() const
 {
 	return m_callsToGoTo + m_callsToGoToDirect;
+}
+
+void RobotMock::setCurrentPose(const Pose &pose)
+{
+	m_pose = pose;
 }

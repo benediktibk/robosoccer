@@ -2,8 +2,16 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "common/geometry/pose.h"
+#include "common/other/signum.h"
+#include "layer/autonomous/intelligentball.h"
+#include "layer/autonomous/targetpositionfetcher.h"
+#include <iostream>
+#include <algorithm>
+#include <math.h>
 
+using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Layer::Control;
 
 TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
@@ -17,8 +25,35 @@ TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
 
 void TreeNodeResultGetBehindBall::execute()
 {
-	//! @todo use useful targets
-	//! @todo consider ignoreBall and driveSlolyAtTheEnd
-	m_ownTeam.getFirstFieldPlayer().goTo(Pose(Point(-0.5,-0.5), Angle()), false, false);
-	m_ownTeam.getSecondFieldPlayer().goTo(Pose(Point(-0.5,0.5), Angle()), false, false);
+	//! @todo use useful target for second robot
+	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
+	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
+
+	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
+	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
+
+	bool isNearToBorder = false;
+
+	Point targetShortPosition = targetShort.getPosition();
+	if (fabs(targetShortPosition.getX()) > 1.45)
+	{
+		//! We should consider to ignore the ball in this case
+		targetShortPosition.setX(sgn(targetShortPosition.getX()) * 1.45);
+		isNearToBorder = true;
+
+		//! @todo use a useful position for second player
+	}
+
+	if (robot1.getCurrentPose().distanceTo(targetShort) <
+			robot2.getCurrentPose().distanceTo(targetShort))
+	{
+		robot1.goTo(targetShort, isNearToBorder, false, false);
+		robot2.goTo(targetLong, false, false, false);
+	}
+	else
+	{
+		robot2.goTo(targetShort, isNearToBorder, false, false);
+		robot1.goTo(targetLong, false, false, false);
+	}
+
 }

@@ -46,17 +46,18 @@ int main(int, char**)
 	obstacleFetcher.addSource(robotThree);
 	obstacleFetcher.addSource(enemyTeam);
 	obstacleFetcher.addSource(ball);
+	obstacleFetcher.defineBall(ball);
 
 	while(true)
 	{
-		robotOne.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false);
+		robotOne.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false, false);
 		while (!robotOne.targetReached())
 		{
 			robotOne.update();
 			usleep(10000);
 		}
 
-		robotOne.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false);
+		robotOne.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false, false);
 		while (!robotOne.targetReached())
 		{
 			robotOne.update();
@@ -77,6 +78,14 @@ int main(int, char**)
 //		robotOne.update();
 //		usleep(5000);
 //	}
+
+//	robotThree.goTo(Pose(Point(1.40, 0), Angle::getQuarterRotation()), false, false, true);
+//	while (!robotThree.targetReached())
+//	{
+//		robotThree.update();
+//		usleep(10000);
+//	}
+//	cout << "done";
 
 //	TargetPositionFetcher targetPositionFetcher;
 //	targetPositionFetcher.setFieldSide(FieldSideLeft);

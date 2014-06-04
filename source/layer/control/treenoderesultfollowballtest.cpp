@@ -15,5 +15,15 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeResultFollowBallTest::createTestNode()
 {
-	return new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);;
+	return new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+}
+
+
+void TreeNodeResultFollowBallTest::execute_true_bothRobotsGetGoToCalls()
+{
+	TreeNodeResultFollowBall *followBall = dynamic_cast<TreeNodeResultFollowBall*>(m_node);
+	followBall->execute();
+
+	CPPUNIT_ASSERT(!followBall->decide());
+	CPPUNIT_ASSERT(m_ownTeam->getRobotMock().getCallsToGoTo() > 1);
 }
