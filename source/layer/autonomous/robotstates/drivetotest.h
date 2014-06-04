@@ -31,7 +31,6 @@ namespace Autonomous
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_sameTarget_true);
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
 		CPPUNIT_TEST(reachedTarget_empty_false);
-		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState);
 		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState);
 		CPPUNIT_TEST_SUITE_END();
@@ -51,7 +50,6 @@ namespace Autonomous
 		void isEquivalentToDriveToDirect_sameTarget_true();
 		void isEquivalentToDriveToDirect_differentTarget_false();
 		void reachedTarget_empty_false();
-		void cantReachTarget_empty_false();
 		void nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState();
 		void nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState();
 

@@ -18,11 +18,6 @@ void ReachedTargetTest::reachedTarget_empty_true()
 	CPPUNIT_ASSERT(m_robotState->reachedTarget());
 }
 
-void ReachedTargetTest::cantReachTarget_empty_false()
-{
-	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
-}
-
 void ReachedTargetTest::nextState_empty_0()
 {
 	CPPUNIT_ASSERT(m_robotState->nextState(false) == 0);

@@ -22,11 +22,6 @@ bool DriveToDirectDriving::reachedTarget() const
 	return false;
 }
 
-bool DriveToDirectDriving::cantReachTarget() const
-{
-	return false;
-}
-
 RobotState *DriveToDirectDriving::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();

@@ -18,7 +18,6 @@ namespace Autonomous
 				Common::Logging::Logger::LogFileType logFileType);
 
 		virtual bool reachedTarget() const;
-		virtual bool cantReachTarget() const;
 		virtual RobotState* nextState(bool movementStopped);
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;

@@ -273,8 +273,3 @@ void DriveToDirectTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
-
-void DriveToDirectTest::cantReachTarget_empty_false()
-{
-	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
-}

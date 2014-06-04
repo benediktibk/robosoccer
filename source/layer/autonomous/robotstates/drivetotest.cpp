@@ -118,12 +118,6 @@ void DriveToTest::reachedTarget_empty_false()
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
 
-void DriveToTest::cantReachTarget_empty_false()
-{
-	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
-}
-
-
 void DriveToTest::nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));

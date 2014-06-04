@@ -18,11 +18,6 @@ bool ReachedTarget::reachedTarget() const
 	return true;
 }
 
-bool ReachedTarget::cantReachTarget() const
-{
-	return false;
-}
-
 RobotState *ReachedTarget::nextState(bool)
 {
 	return 0;

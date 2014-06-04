@@ -14,7 +14,6 @@ namespace Autonomous
 	{
 		CPPUNIT_TEST_SUITE(KickTest);
 		CPPUNIT_TEST(targetReached_empty_false);
-		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_noTimePassedBy_0);
 		CPPUNIT_TEST(nextState_oneSecondAndRobotStillMoving_0);
 		CPPUNIT_TEST(nextState_robotNotMovingAnymore_reachedTarget);
@@ -27,7 +26,6 @@ namespace Autonomous
 
 	private:
 		void targetReached_empty_false();
-		void cantReachTarget_empty_false();
 		void nextState_noTimePassedBy_0();
 		void nextState_oneSecondAndRobotStillMoving_0();
 		void nextState_robotNotMovingAnymore_reachedTarget();

@@ -22,11 +22,6 @@ bool DriveToDirectFinalRotation::reachedTarget() const
 	return false;
 }
 
-bool DriveToDirectFinalRotation::cantReachTarget() const
-{
-	return false;
-}
-
 RobotState *DriveToDirectFinalRotation::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();

@@ -20,11 +20,6 @@ void KickTest::targetReached_empty_false()
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
 
-void KickTest::cantReachTarget_empty_false()
-{
-	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
-}
-
 void KickTest::nextState_noTimePassedBy_0()
 {
 	m_robotState->update(false);

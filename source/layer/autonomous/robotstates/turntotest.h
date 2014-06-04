@@ -14,7 +14,6 @@ namespace Autonomous
 	{
 		CPPUNIT_TEST_SUITE(TurnToTest);
 		CPPUNIT_TEST(reachedTarget_empty_false);
-		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_followingState);
 		CPPUNIT_TEST(nextState_movementStopped_targetReachedState);
@@ -30,7 +29,6 @@ namespace Autonomous
 
 	private:
 		void reachedTarget_empty_false();
-		void cantReachTarget_empty_false();
 		void nextState_targetNotReached_0();
 		void nextState_targetReached_followingState();
 		void nextState_movementStopped_targetReachedState();

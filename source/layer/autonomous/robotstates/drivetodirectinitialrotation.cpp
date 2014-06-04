@@ -22,11 +22,6 @@ bool DriveToDirectInitialRotation::reachedTarget() const
 	return false;
 }
 
-bool DriveToDirectInitialRotation::cantReachTarget() const
-{
-	return false;
-}
-
 RobotState *DriveToDirectInitialRotation::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();

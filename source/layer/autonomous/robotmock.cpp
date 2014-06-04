@@ -44,11 +44,6 @@ bool RobotMock::targetReached() const
 	return m_targetReached;
 }
 
-bool RobotMock::cantReachTarget() const
-{
-	return false;
-}
-
 void RobotMock::kick(IntelligentBall const &/*ball*/)
 {
 	++m_callsToKick;

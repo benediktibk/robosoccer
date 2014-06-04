@@ -30,11 +30,6 @@ bool TurnTo::reachedTarget() const
 	return false;
 }
 
-bool TurnTo::cantReachTarget() const
-{
-	return false;
-}
-
 bool TurnTo::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;

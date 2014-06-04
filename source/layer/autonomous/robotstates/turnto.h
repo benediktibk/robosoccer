@@ -29,7 +29,6 @@ namespace Autonomous
 		virtual ~TurnTo();
 
 		virtual bool reachedTarget() const;
-		virtual bool cantReachTarget() const;
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
 		virtual RobotState* nextState(bool movementStopped);

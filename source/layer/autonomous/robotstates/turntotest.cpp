@@ -20,11 +20,6 @@ void TurnToTest::reachedTarget_empty_false()
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
 
-void TurnToTest::cantReachTarget_empty_false()
-{
-	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
-}
-
 void TurnToTest::nextState_targetNotReached_0()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(0)));

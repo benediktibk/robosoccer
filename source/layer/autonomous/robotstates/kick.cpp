@@ -31,11 +31,6 @@ bool Kick::reachedTarget() const
 	return false;
 }
 
-bool Kick::cantReachTarget() const
-{
-	return false;
-}
-
 bool Kick::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;

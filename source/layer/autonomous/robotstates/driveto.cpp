@@ -56,11 +56,6 @@ bool DriveTo::reachedTarget() const
 	return false;
 }
 
-bool DriveTo::cantReachTarget() const
-{
-	return false;
-}
-
 RobotState *DriveTo::nextState(bool)
 {
 	Compare comparePosition(m_precisionPosition);

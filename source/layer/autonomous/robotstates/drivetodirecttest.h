@@ -37,7 +37,6 @@ namespace Autonomous
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_sameTarget_true);
 		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
 		CPPUNIT_TEST(reachedTarget_empty_false);
-		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
