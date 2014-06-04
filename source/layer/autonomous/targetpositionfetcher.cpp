@@ -230,25 +230,28 @@ Pose TargetPositionFetcher::mirrorPointDependentOnFieldSide(FieldSide fieldSide,
 
 Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const
 {
-	if (ball.isMoving() && ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
+	if (ball.isMoving())
 	{
-		double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
-		switch (fieldSide)
+		if(ball.getMovingDirection() == fieldSide && ball.getCurrentFieldSide() == fieldSide)
 		{
-		case FieldSideInvalid:
-			assert(false);
-		case FieldSideRight:
-			break;
-		case FieldSideLeft:
-			xPositionGoalKeeperRightSideModified *= -1;
-			break;
+			double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
+			switch (fieldSide)
+			{
+			case FieldSideInvalid:
+				assert(false);
+			case FieldSideRight:
+				break;
+			case FieldSideLeft:
+				xPositionGoalKeeperRightSideModified *= -1;
+				break;
+			}
+
+			Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
+			Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
+
+			if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
+				return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 		}
-
-		Line ballMovingLine(ball.getPosition(),ball.getRotation(),4);
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
-
-		if (!ballMovingLine.getIntersectPoint(goalKeeperMovingLine).empty())
-			return Pose(ballMovingLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
 	}
 
 	return getGoaliePositionUsingIntersectWithGoalCenter(fieldSide, ball, xPositionGoalKeeperRightSide);
