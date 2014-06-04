@@ -38,19 +38,8 @@ bool TreeNodeDeciderIsOneRobotInShootingRange::calculateDecision()
 			&& ballPosition.distanceTo(robot2Pose.getPosition()) > 0.3)
 		return false;
 
-	Point yCoordinate;
+	Angle epsilon = Angle::convertFromDegreeToRadiant(30.0);
 
-	if (m_referee.getOwnFieldSide() == FieldSideRight)
-		yCoordinate = Point(0.2,0);
-	else
-		yCoordinate = Point(-0.2,0);
-
-	Point nearBall = ballPosition + Point(0,0.1);
-	Point farFromBall = ballPosition + Point(0,-0.1) + yCoordinate;
-	Rectangle shootingZone(nearBall, farFromBall);
-
-	Compare compare(0.01);
-
-	return shootingZone.isInside(robot1Pose.getPosition(), compare)
-			|| shootingZone.isInside(robot2Pose.getPosition(), compare);
+	return m_targetPositionFetcher.isGoodKickPosition(m_ball, robot1Pose.getPosition(), epsilon)
+			|| m_targetPositionFetcher.isGoodKickPosition(m_ball, robot2Pose.getPosition(), epsilon);
 }

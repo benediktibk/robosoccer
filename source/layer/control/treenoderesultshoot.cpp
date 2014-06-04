@@ -25,7 +25,19 @@ TreeNodeResultShoot::TreeNodeResultShoot(
 void TreeNodeResultShoot::execute()
 {
 	Robot &robotCloseToBall = m_ownTeam.getPlayerCloserToBall(m_ball);
-//	Robot &robotFarFromBall = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
+	Robot &robotFarFromBall = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
 
-	robotCloseToBall.kick(m_ball);
+	Angle epsilon = Angle::convertFromDegreeToRadiant(30.0);
+
+	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotCloseToBall.getCurrentPose().getPosition(), epsilon))
+	{
+		robotCloseToBall.kick(m_ball);
+		return;
+	}
+
+	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotFarFromBall.getCurrentPose().getPosition(), epsilon))
+	{
+		robotFarFromBall.kick(m_ball);
+		return;
+	}
 }
