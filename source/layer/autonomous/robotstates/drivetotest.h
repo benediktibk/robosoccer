@@ -44,18 +44,11 @@ namespace Autonomous
 		CPPUNIT_TEST(update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove);
 		CPPUNIT_TEST(update_initalRotationReachedAndMovementStopped_robotGotCallToMove);
 		CPPUNIT_TEST(update_positionReachedAndMovementStopped_robotGotCallToTurn);
-		CPPUNIT_TEST(isEquivalentToDriveTo_empty_false);
-		CPPUNIT_TEST(isEquivalentToDriveToDirect_sameTarget_true);
-		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
-		CPPUNIT_TEST(reachedTarget_empty_false);
-		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint);
 		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint);
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationNotReached_turningToThirdPoint);
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint);
 		CPPUNIT_TEST(update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation);
-		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState);
-		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState);
 		CPPUNIT_TEST(update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint);
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint);
 		CPPUNIT_TEST(update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint);
@@ -67,6 +60,13 @@ namespace Autonomous
 		CPPUNIT_TEST(update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly);
 		CPPUNIT_TEST(update_targetNotInsideField_noCallToDriveAndTurn);
 		CPPUNIT_TEST(update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive);
+		CPPUNIT_TEST(isEquivalentToDriveTo_empty_false);
+		CPPUNIT_TEST(isEquivalentToDriveToDirect_sameTarget_true);
+		CPPUNIT_TEST(isEquivalentToDriveToDirect_differentTarget_false);
+		CPPUNIT_TEST(reachedTarget_empty_false);
+		CPPUNIT_TEST(cantReachTarget_empty_false);
+		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState);
+		CPPUNIT_TEST(nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -97,18 +97,11 @@ namespace Autonomous
 		void update_finalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove();
 		void update_initalRotationReachedAndMovementStopped_robotGotCallToMove();
 		void update_positionReachedAndMovementStopped_robotGotCallToTurn();
-		void isEquivalentToDriveTo_empty_false();
-		void isEquivalentToDriveToDirect_sameTarget_true();
-		void isEquivalentToDriveToDirect_differentTarget_false();
-		void reachedTarget_empty_false();
-		void cantReachTarget_empty_false();
 		void update_initialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint();
 		void update_initialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint();
 		void update_secondPositionReachedAndRotationNotReached_turningToThirdPoint();
 		void update_secondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint();
 		void update_thirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation();
-		void nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState();
-		void nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState();
 		void update_initialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint();
 		void update_secondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint();
 		void update_secondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint();
@@ -120,6 +113,13 @@ namespace Autonomous
 		void update_closeToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly();
 		void update_targetNotInsideField_noCallToDriveAndTurn();
 		void update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
+		void isEquivalentToDriveTo_empty_false();
+		void isEquivalentToDriveToDirect_sameTarget_true();
+		void isEquivalentToDriveToDirect_differentTarget_false();
+		void reachedTarget_empty_false();
+		void cantReachTarget_empty_false();
+		void nextState_thirdPositionReachedAndFinalRotationReached_reachedTargetState();
+		void nextState_thirdPositionReachedAndFinalRotationReachedAndAllIntermediateMovementsStoppedByRobot_reachedTargetState();
 
 	private:
 		DriveTo *m_robotStateWithRouter;
