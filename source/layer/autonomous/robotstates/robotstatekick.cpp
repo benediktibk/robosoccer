@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotStateKick::RobotStateKick(
+Kick::Kick(
 		Abstraction::ControllableRobot &robot, IntelligentBall const &ball,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
@@ -20,33 +20,33 @@ RobotStateKick::RobotStateKick(
 	m_stopWatchRestarted(false)
 { }
 
-RobotStateKick::~RobotStateKick()
+Kick::~Kick()
 {
 	delete m_stopWatch;
 	m_stopWatch = 0;
 }
 
-bool RobotStateKick::reachedTarget() const
+bool Kick::reachedTarget() const
 {
 	return false;
 }
 
-bool RobotStateKick::cantReachTarget() const
+bool Kick::cantReachTarget() const
 {
 	return false;
 }
 
-bool RobotStateKick::isEquivalentToDriveTo(const Pose &) const
+bool Kick::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;
 }
 
-bool RobotStateKick::isEquivalentToDriveToDirect(const Pose &) const
+bool Kick::isEquivalentToDriveToDirect(const Pose &) const
 {
 	return false;
 }
 
-RobotState *RobotStateKick::nextState(bool)
+RobotState *Kick::nextState(bool)
 {
 	if (!m_stopWatchRestarted)
 	{
@@ -57,10 +57,10 @@ RobotState *RobotStateKick::nextState(bool)
 	if (getRobot().isMoving())
 		return 0;
 	else
-		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 }
 
-void RobotStateKick::updateInternal(bool)
+void Kick::updateInternal(bool)
 {
 	if (m_alreadyKicked)
 		return;
@@ -70,7 +70,7 @@ void RobotStateKick::updateInternal(bool)
 	m_stopWatch->getTimeAndRestart();
 }
 
-string RobotStateKick::getName() const
+string Kick::getName() const
 {
 	return string("kick");
 }

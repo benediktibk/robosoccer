@@ -10,22 +10,22 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotState *RobotStateKickTest::createInstance()
+RobotState *KickTest::createInstance()
 {
-	return new RobotStateKick(*m_controllableRobot, *m_ball, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
+	return new Kick(*m_controllableRobot, *m_ball, *m_watch, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
-void RobotStateKickTest::targetReached_empty_false()
+void KickTest::targetReached_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
 
-void RobotStateKickTest::cantReachTarget_empty_false()
+void KickTest::cantReachTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
 }
 
-void RobotStateKickTest::nextState_noTimePassedBy_0()
+void KickTest::nextState_noTimePassedBy_0()
 {
 	m_robotState->update(false);
 	m_controllableRobot->setIsMoving(true);
@@ -35,7 +35,7 @@ void RobotStateKickTest::nextState_noTimePassedBy_0()
 	CPPUNIT_ASSERT(nextState == 0);
 }
 
-void RobotStateKickTest::nextState_oneSecondAndRobotStillMoving_0()
+void KickTest::nextState_oneSecondAndRobotStillMoving_0()
 {
 	m_watch->setTime(4);
 	m_robotState->update(false);
@@ -50,18 +50,18 @@ void RobotStateKickTest::nextState_oneSecondAndRobotStillMoving_0()
 	CPPUNIT_ASSERT(nextStateTwo == 0);
 }
 
-void RobotStateKickTest::nextState_robotNotMovingAnymore_reachedTarget()
+void KickTest::nextState_robotNotMovingAnymore_reachedTarget()
 {
 	m_controllableRobot->setIsMoving(false);
 
 	RobotState *nextState = m_robotState->nextState(false);
 
-	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	ReachedTarget *nextStateCasted = dynamic_cast<ReachedTarget*>(nextState);
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	delete nextStateCasted;
 }
 
-void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
+void KickTest::update_severalTimesCalled_oneCallToKick()
 {
 	m_robotState->update(false);
 	m_robotState->update(false);
@@ -70,7 +70,7 @@ void RobotStateKickTest::update_severalTimesCalled_oneCallToKick()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToKick());
 }
 
-void RobotStateKickTest::isEquivalentToDriveTo_empty_false()
+void KickTest::isEquivalentToDriveTo_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose()));
 }

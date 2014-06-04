@@ -10,11 +10,11 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateDriveToDirectDriving :
+	class DriveToDirectDriving :
 			public RobotState
 	{
 	public:
-		RobotStateDriveToDirectDriving(
+		DriveToDirectDriving(
 				Abstraction::ControllableRobot &robot,
 				Common::Geometry::Pose const &target,
 				Common::Logging::Logger &logger,

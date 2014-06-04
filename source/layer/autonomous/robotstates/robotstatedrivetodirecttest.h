@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateDriveToDirectTest :
+	class DriveToDirectTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateDriveToDirectTest);
+		CPPUNIT_TEST_SUITE(DriveToDirectTest);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_reachedTargetState);
 		CPPUNIT_TEST(nextState_longTimeWaited_reachedTargetState);

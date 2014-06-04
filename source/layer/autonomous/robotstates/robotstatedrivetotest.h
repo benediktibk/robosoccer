@@ -18,12 +18,12 @@ namespace Layer
 namespace Autonomous
 {
 	class RobotState;
-	class RobotStateDriveTo;
+	class DriveTo;
 
-	class RobotStateDriveToTest :
+	class DriveToTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateDriveToTest);
+		CPPUNIT_TEST_SUITE(DriveToTest);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_targetReached_reachedTargetState);
 		CPPUNIT_TEST(nextState_longTimeWaited_reachedTargetState);
@@ -122,10 +122,10 @@ namespace Autonomous
 		void update_obstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
 
 	private:
-		RobotStateDriveTo *m_robotStateWithRouter;
-		RobotStateDriveTo *m_robotStateWithRouterAndIgnoredBall;
-		RobotStateDriveTo *m_robotStateWithRouterAndDriveSlowlyAtTheEnd;
-		RobotStateDriveTo *m_robotStateWithRouterAndIgnoreGoalObstacles;
+		DriveTo *m_robotStateWithRouter;
+		DriveTo *m_robotStateWithRouterAndIgnoredBall;
+		DriveTo *m_robotStateWithRouterAndDriveSlowlyAtTheEnd;
+		DriveTo *m_robotStateWithRouterAndIgnoreGoalObstacles;
 		Common::Routing::RouterImpl *m_routerImpl;
 		Common::Routing::FieldPositionCheckerMock *m_field;
 	};

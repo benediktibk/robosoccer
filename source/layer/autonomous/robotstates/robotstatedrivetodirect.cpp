@@ -11,7 +11,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirect::RobotStateDriveToDirect(
+DriveToDirect::DriveToDirect(
 		ControllableRobot &robot, const Pose &target, const Watch &watch,
 		Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
@@ -28,23 +28,23 @@ RobotStateDriveToDirect::RobotStateDriveToDirect(
 	m_watchDog(new StopWatch(watch))
 { }
 
-RobotStateDriveToDirect::~RobotStateDriveToDirect()
+DriveToDirect::~DriveToDirect()
 {
 	delete m_watchDog;
 	m_watchDog = 0;
 }
 
-bool RobotStateDriveToDirect::reachedTarget() const
+bool DriveToDirect::reachedTarget() const
 {
 	return false;
 }
 
-bool RobotStateDriveToDirect::cantReachTarget() const
+bool DriveToDirect::cantReachTarget() const
 {
 	return false;
 }
 
-RobotState* RobotStateDriveToDirect::nextState(bool)
+RobotState* DriveToDirect::nextState(bool)
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationFinal);
@@ -53,14 +53,14 @@ RobotState* RobotStateDriveToDirect::nextState(bool)
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else
 		return 0;
 }
 
-void RobotStateDriveToDirect::updateInternal(bool movementStopped)
+void DriveToDirect::updateInternal(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
 	bool movementStopUsed = false;
@@ -142,12 +142,12 @@ void RobotStateDriveToDirect::updateInternal(bool movementStopped)
 	}
 }
 
-string RobotStateDriveToDirect::getName() const
+string DriveToDirect::getName() const
 {
 	return string("drive to direct");
 }
 
-bool RobotStateDriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
+bool DriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationInitial);
@@ -156,7 +156,7 @@ bool RobotStateDriveToDirect::isEquivalentToDriveToDirect(const Pose &target) co
 			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }
 
-bool RobotStateDriveToDirect::isEquivalentToDriveTo(const Pose &) const
+bool DriveToDirect::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;
 }

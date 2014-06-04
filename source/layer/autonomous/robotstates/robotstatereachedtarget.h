@@ -9,11 +9,11 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateReachedTarget :
+	class ReachedTarget :
 			public RobotState
 	{
 	public:
-		RobotStateReachedTarget(
+		ReachedTarget(
 				Abstraction::ControllableRobot &robot, Common::Logging::Logger &logger,
 				Common::Logging::Logger::LogFileType logFileType);
 

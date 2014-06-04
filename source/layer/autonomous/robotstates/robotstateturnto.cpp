@@ -10,7 +10,7 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
-RobotStateTurnTo::RobotStateTurnTo(
+TurnTo::TurnTo(
 		Abstraction::ControllableRobot &robot, Point const &target,
 		RobotState *followingState, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
@@ -19,33 +19,33 @@ RobotStateTurnTo::RobotStateTurnTo(
 	m_targetAlreadySet(false)
 { }
 
-RobotStateTurnTo::~RobotStateTurnTo()
+TurnTo::~TurnTo()
 {
 	delete m_followingState;
 	m_followingState = 0;
 }
 
-bool RobotStateTurnTo::reachedTarget() const
+bool TurnTo::reachedTarget() const
 {
 	return false;
 }
 
-bool RobotStateTurnTo::cantReachTarget() const
+bool TurnTo::cantReachTarget() const
 {
 	return false;
 }
 
-bool RobotStateTurnTo::isEquivalentToDriveTo(const Pose &) const
+bool TurnTo::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;
 }
 
-bool RobotStateTurnTo::isEquivalentToDriveToDirect(const Pose &) const
+bool TurnTo::isEquivalentToDriveToDirect(const Pose &) const
 {
 	return false;
 }
 
-RobotState *RobotStateTurnTo::nextState(bool movementStopped)
+RobotState *TurnTo::nextState(bool movementStopped)
 {
 	Compare compare(0.1);
 	Pose currentPose = getRobot().getPose();
@@ -61,7 +61,7 @@ RobotState *RobotStateTurnTo::nextState(bool movementStopped)
 	return result;
 }
 
-void RobotStateTurnTo::updateInternal(bool)
+void TurnTo::updateInternal(bool)
 {
 	if (m_targetAlreadySet)
 		return;
@@ -71,14 +71,14 @@ void RobotStateTurnTo::updateInternal(bool)
 	m_targetAlreadySet = true;
 }
 
-Angle RobotStateTurnTo::calculateTargetOrientation() const
+Angle TurnTo::calculateTargetOrientation() const
 {
 	Pose currentPose = getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
 	return Angle(currentPosition, m_target);
 }
 
-string RobotStateTurnTo::getName() const
+string TurnTo::getName() const
 {
 	return string("turn to");
 }

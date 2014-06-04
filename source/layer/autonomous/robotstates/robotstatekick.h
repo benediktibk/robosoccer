@@ -19,15 +19,15 @@ namespace Autonomous
 {
 	class IntelligentBall;
 
-	class RobotStateKick :
+	class Kick :
 			public RobotState
 	{
 	public:
-		RobotStateKick(
+		Kick(
 				Abstraction::ControllableRobot &robot, IntelligentBall const &ball,
 				Common::Time::Watch const &watch, Common::Logging::Logger &logger,
 				Common::Logging::Logger::LogFileType logFileType);
-		virtual ~RobotStateKick();
+		virtual ~Kick();
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;

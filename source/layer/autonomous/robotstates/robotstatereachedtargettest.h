@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateReachedTargetTest :
+	class ReachedTargetTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateReachedTargetTest);
+		CPPUNIT_TEST_SUITE(ReachedTargetTest);
 		CPPUNIT_TEST(reachedTarget_empty_true);
 		CPPUNIT_TEST(cantReachTarget_empty_false);
 		CPPUNIT_TEST(nextState_empty_0);

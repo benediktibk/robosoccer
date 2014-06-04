@@ -18,17 +18,17 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateDriveToDirect :
+	class DriveToDirect :
 			public RobotState
 	{
 	public:
-		RobotStateDriveToDirect(
+		DriveToDirect(
 				Abstraction::ControllableRobot &robot,
 				Common::Geometry::Pose const &target,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger,
 				Common::Logging::Logger::LogFileType logFileType);
-		virtual ~RobotStateDriveToDirect();
+		virtual ~DriveToDirect();
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;

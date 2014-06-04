@@ -9,7 +9,7 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RobotStateDriveToDirectDriving::RobotStateDriveToDirectDriving(
+DriveToDirectDriving::DriveToDirectDriving(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
 	RobotState(robot, logger, logFileType),
 	m_target(target),
@@ -17,17 +17,17 @@ RobotStateDriveToDirectDriving::RobotStateDriveToDirectDriving(
 	m_movementStarted(false)
 { }
 
-bool RobotStateDriveToDirectDriving::reachedTarget() const
+bool DriveToDirectDriving::reachedTarget() const
 {
 	return false;
 }
 
-bool RobotStateDriveToDirectDriving::cantReachTarget() const
+bool DriveToDirectDriving::cantReachTarget() const
 {
 	return false;
 }
 
-RobotState *RobotStateDriveToDirectDriving::nextState(bool movementStopped)
+RobotState *DriveToDirectDriving::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
 	Compare compare(m_precision);
@@ -35,33 +35,33 @@ RobotState *RobotStateDriveToDirectDriving::nextState(bool movementStopped)
 	if (compare.isFuzzyEqual(pose.getPosition(), m_target.getPosition()))
 	{
 		log("position reached");
-		return new RobotStateDriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
 	}
 	else if (movementStopped && m_movementStarted)
 	{
 		log("position not really reached, but movement stopped");
-		return new RobotStateDriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
 	}
 	else
 		return 0;
 }
 
-bool RobotStateDriveToDirectDriving::isEquivalentToDriveToDirect(const Pose &target) const
+bool DriveToDirectDriving::isEquivalentToDriveToDirect(const Pose &target) const
 {
 	return m_target == target;
 }
 
-bool RobotStateDriveToDirectDriving::isEquivalentToDriveTo(const Pose &) const
+bool DriveToDirectDriving::isEquivalentToDriveTo(const Pose &) const
 {
 	return false;
 }
 
-string RobotStateDriveToDirectDriving::getName() const
+string DriveToDirectDriving::getName() const
 {
 	return string("drive to direct - driving");
 }
 
-void RobotStateDriveToDirectDriving::updateInternal(bool)
+void DriveToDirectDriving::updateInternal(bool)
 {
 	if (m_movementStarted)
 		return;

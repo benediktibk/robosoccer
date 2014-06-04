@@ -8,41 +8,41 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotState *RobotStateReachedTargetTest::createInstance()
+RobotState *ReachedTargetTest::createInstance()
 {
-	return new RobotStateReachedTarget(*m_controllableRobot, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
+	return new ReachedTarget(*m_controllableRobot, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
-void RobotStateReachedTargetTest::reachedTarget_empty_true()
+void ReachedTargetTest::reachedTarget_empty_true()
 {
 	CPPUNIT_ASSERT(m_robotState->reachedTarget());
 }
 
-void RobotStateReachedTargetTest::cantReachTarget_empty_false()
+void ReachedTargetTest::cantReachTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
 }
 
-void RobotStateReachedTargetTest::nextState_empty_0()
+void ReachedTargetTest::nextState_empty_0()
 {
 	CPPUNIT_ASSERT(m_robotState->nextState(false) == 0);
 }
 
-void RobotStateReachedTargetTest::update_empty_callToStop()
+void ReachedTargetTest::update_empty_callToStop()
 {
 	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToStop());
 }
 
-void RobotStateReachedTargetTest::isEquivalentToDriveTo_differentPosition_false()
+void ReachedTargetTest::isEquivalentToDriveTo_differentPosition_false()
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
 
 	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(3, 7),Angle())));
 }
 
-void RobotStateReachedTargetTest::isEquivalentToDriveTo_samePosition_true()
+void ReachedTargetTest::isEquivalentToDriveTo_samePosition_true()
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
 

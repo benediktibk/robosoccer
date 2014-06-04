@@ -9,10 +9,10 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateDriveToDirectInitialRotationTest :
+	class DriveToDirectInitialRotationTest :
 			public RobotStateTest
 	{
-		CPPUNIT_TEST_SUITE(RobotStateDriveToDirectInitialRotationTest);
+		CPPUNIT_TEST_SUITE(DriveToDirectInitialRotationTest);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:

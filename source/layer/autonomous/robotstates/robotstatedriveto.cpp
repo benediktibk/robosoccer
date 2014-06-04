@@ -18,7 +18,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
-RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
+DriveTo::DriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
 		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles) :
 	RobotState(robot, logger, logFileType),
@@ -44,24 +44,24 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_watchDog->getTimeAndRestart();
 }
 
-RobotStateDriveTo::~RobotStateDriveTo()
+DriveTo::~DriveTo()
 {
 	delete m_watchDog;
 	m_watchDog = 0;
 	clearRoute();
 }
 
-bool RobotStateDriveTo::reachedTarget() const
+bool DriveTo::reachedTarget() const
 {
 	return false;
 }
 
-bool RobotStateDriveTo::cantReachTarget() const
+bool DriveTo::cantReachTarget() const
 {
 	return false;
 }
 
-RobotState *RobotStateDriveTo::nextState(bool)
+RobotState *DriveTo::nextState(bool)
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationFinal);
@@ -70,14 +70,14 @@ RobotState *RobotStateDriveTo::nextState(bool)
 	if (	(	comparePosition.isFuzzyEqual(pose.getPosition(), m_target.getPosition()) &&
 				compareAngle.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation())) ||
 			 m_finalRotationReached)
-		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else if (m_watchDog->getTime() > 10)
-		return new RobotStateReachedTarget(getRobot(), getLogger(), getLogFileType());
+		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 	else
 		return 0;
 }
 
-bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
+bool DriveTo::isEquivalentToDriveTo(const Pose &target) const
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationInitial);
@@ -86,12 +86,12 @@ bool RobotStateDriveTo::isEquivalentToDriveTo(const Pose &target) const
 			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }
 
-bool RobotStateDriveTo::isEquivalentToDriveToDirect(const Pose &) const
+bool DriveTo::isEquivalentToDriveToDirect(const Pose &) const
 {
 	return false;
 }
 
-void RobotStateDriveTo::updateInternal(bool movementStopped)
+void DriveTo::updateInternal(bool movementStopped)
 {
 	Pose robotPose = getRobot().getPose();
 	m_movementStopUsed = false;
@@ -141,7 +141,7 @@ void RobotStateDriveTo::updateInternal(bool movementStopped)
 	}
 }
 
-bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet(bool movementStopped)
+bool DriveTo::setOrdersForIntermediatePointAndGetOrderSet(bool movementStopped)
 {
 	Pose robotPose = getRobot().getPose();
 
@@ -209,7 +209,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet(bool movemen
 	return false;
 }
 
-void RobotStateDriveTo::updateRoute()
+void DriveTo::updateRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = getAllObstaclesButMeInRangeDependentOnFlags(robotPoint, 1);
@@ -224,7 +224,7 @@ void RobotStateDriveTo::updateRoute()
 	}
 }
 
-void RobotStateDriveTo::updateRouteForTarget()
+void DriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
@@ -240,13 +240,13 @@ void RobotStateDriveTo::updateRouteForTarget()
 	logRoute();
 }
 
-const Point &RobotStateDriveTo::getNextTargetPoint() const
+const Point &DriveTo::getNextTargetPoint() const
 {
 	assert(m_currentRoute->getPointCount() >= 2);
 	return m_currentRoute->getSecondPoint();
 }
 
-bool RobotStateDriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) const
+bool DriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) const
 {
 	if (m_currentRoute == 0)
 			return false;
@@ -254,7 +254,7 @@ bool RobotStateDriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) co
 	return	m_currentRoute->isValid() && !m_currentRoute->intersectsWith(obstacles);
 }
 
-vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
+vector<Circle> DriveTo::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
 {
 	vector<Circle> result;
 	result.reserve(obstacles.size());
@@ -270,7 +270,7 @@ vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacle
 	return result;
 }
 
-vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeDependentOnFlags(const Point &robotPoint, double distance) const
+vector<Circle> DriveTo::getAllObstaclesButMeInRangeDependentOnFlags(const Point &robotPoint, double distance) const
 {
 	if(m_ignoreBall)
 		return m_obstacleFetcher.getAllObstaclesButMeAndBallInRange(m_autonomousRobot, robotPoint, distance);
@@ -280,13 +280,13 @@ vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeDependentOnFlags(co
 		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
 }
 
-void RobotStateDriveTo::clearRoute()
+void DriveTo::clearRoute()
 {
 	delete m_currentRoute;
 	m_currentRoute = 0;
 }
 
-void RobotStateDriveTo::resetAllMovementFlags()
+void DriveTo::resetAllMovementFlags()
 {
 	m_initialRotationReached = false;
 	m_initialRotationStarted = false;
@@ -295,7 +295,7 @@ void RobotStateDriveTo::resetAllMovementFlags()
 	m_driveStarted = false;
 }
 
-void RobotStateDriveTo::prepareLastRouteSegmentForDrivingSlowly()
+void DriveTo::prepareLastRouteSegmentForDrivingSlowly()
 {
 	double lengthOfLastSegment = 0.15;
 
@@ -303,17 +303,17 @@ void RobotStateDriveTo::prepareLastRouteSegmentForDrivingSlowly()
 		m_currentRoute->splitLastSegment(lengthOfLastSegment);
 }
 
-string RobotStateDriveTo::getName() const
+string DriveTo::getName() const
 {
 	return string("drive to");
 }
 
-size_t RobotStateDriveTo::getRoutePointsCount() const
+size_t DriveTo::getRoutePointsCount() const
 {
 	return m_currentRoute->getPointCount();
 }
 
-void RobotStateDriveTo::logRoute()
+void DriveTo::logRoute()
 {
 	log("point count of route", m_currentRoute->getPointCount());
 	stringstream stream;
@@ -321,7 +321,7 @@ void RobotStateDriveTo::logRoute()
 	log(stream.str());
 }
 
-void RobotStateDriveTo::logCurrentPose()
+void DriveTo::logCurrentPose()
 {
 	stringstream stream;
 	stream << "current pose: " << getRobot().getPose();

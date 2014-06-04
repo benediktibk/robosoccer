@@ -31,18 +31,18 @@ namespace Autonomous
 	class ObstacleFetcher;
 	class ObstacleSource;
 
-	class RobotStateDriveTo :
+	class DriveTo :
 			public RobotState
 	{
 	public:
-		RobotStateDriveTo(Abstraction::ControllableRobot &robot,
+		DriveTo(Abstraction::ControllableRobot &robot,
 				const Common::Geometry::Pose &target,
 				const Common::Routing::Router &router,
 				Common::Time::Watch const &watch,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher &obstacleFetcher, ObstacleSource &autonomousRobot,
 				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
-		virtual ~RobotStateDriveTo();
+		virtual ~DriveTo();
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;

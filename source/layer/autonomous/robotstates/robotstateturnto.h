@@ -18,15 +18,15 @@ namespace Layer
 {
 namespace Autonomous
 {
-	class RobotStateTurnTo :
+	class TurnTo :
 			public RobotState
 	{
 	public:
-		RobotStateTurnTo(
+		TurnTo(
 				Abstraction::ControllableRobot &robot, Common::Geometry::Point const &target,
 				RobotState *followingState, Common::Logging::Logger &logger,
 				Common::Logging::Logger::LogFileType logFileType);
-		virtual ~RobotStateTurnTo();
+		virtual ~TurnTo();
 
 		virtual bool reachedTarget() const;
 		virtual bool cantReachTarget() const;

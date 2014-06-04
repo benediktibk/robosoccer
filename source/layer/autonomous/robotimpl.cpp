@@ -51,7 +51,7 @@ RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &ro
 		break;
 	}
 
-	m_currentState = new RobotStateReachedTarget(robot, logger, m_logFileType);
+	m_currentState = new ReachedTarget(robot, logger, m_logFileType);
 }
 
 RobotImpl::~RobotImpl()
@@ -68,7 +68,7 @@ void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTh
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType,
+	switchIntoState(new DriveTo(m_robot, position, m_router, m_watch, m_logger, m_logFileType,
 										  m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles));
 	logPosition("target is", position);
 }
@@ -103,7 +103,7 @@ bool RobotImpl::cantReachTarget() const
 void RobotImpl::kick(IntelligentBall const &ball)
 {
 	Point ballPosition = ball.getPosition();
-	switchIntoState(new RobotStateTurnTo(m_robot, ballPosition, new RobotStateKick(m_robot, ball, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
+	switchIntoState(new TurnTo(m_robot, ballPosition, new Kick(m_robot, ball, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
 }
 
 void RobotImpl::update()
@@ -137,7 +137,7 @@ void RobotImpl::switchIntoState(RobotState *state)
 
 void RobotImpl::stop()
 {
-	switchIntoState(new RobotStateReachedTarget(m_robot, m_logger, m_logFileType));
+	switchIntoState(new ReachedTarget(m_robot, m_logger, m_logFileType));
 }
 
 void RobotImpl::goToDirect(const Pose &position)
@@ -148,7 +148,7 @@ void RobotImpl::goToDirect(const Pose &position)
 		return;
 	}
 
-	switchIntoState(new RobotStateDriveToDirectInitialRotation(m_robot, position, m_logger, m_logFileType));
+	switchIntoState(new DriveToDirectInitialRotation(m_robot, position, m_logger, m_logFileType));
 	logPosition("target is", position);
 }
 

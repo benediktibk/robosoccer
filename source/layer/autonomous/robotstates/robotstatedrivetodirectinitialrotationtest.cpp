@@ -7,9 +7,9 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotState *RobotStateDriveToDirectInitialRotationTest::createInstance()
+RobotState *DriveToDirectInitialRotationTest::createInstance()
 {
-	return new RobotStateDriveToDirectInitialRotation(
+	return new DriveToDirectInitialRotation(
 				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 				*m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }

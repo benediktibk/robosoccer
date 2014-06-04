@@ -10,22 +10,22 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 
-RobotState *RobotStateTurnToTest::createInstance()
+RobotState *TurnToTest::createInstance()
 {
-	return new RobotStateTurnTo(*m_controllableRobot, Point(0, 1), new RobotStateReachedTarget(*m_controllableRobot, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie), *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
+	return new TurnTo(*m_controllableRobot, Point(0, 1), new ReachedTarget(*m_controllableRobot, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie), *m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
 
-void RobotStateTurnToTest::reachedTarget_empty_false()
+void TurnToTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
 
-void RobotStateTurnToTest::cantReachTarget_empty_false()
+void TurnToTest::cantReachTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->cantReachTarget());
 }
 
-void RobotStateTurnToTest::nextState_targetNotReached_0()
+void TurnToTest::nextState_targetNotReached_0()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle(0)));
 
@@ -34,18 +34,18 @@ void RobotStateTurnToTest::nextState_targetNotReached_0()
 	CPPUNIT_ASSERT(0 == nextState);
 }
 
-void RobotStateTurnToTest::nextState_targetReached_followingState()
+void TurnToTest::nextState_targetReached_followingState()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 
 	RobotState *nextState = m_robotState->nextState(false);
 
-	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	ReachedTarget *nextStateCasted = dynamic_cast<ReachedTarget*>(nextState);
 	CPPUNIT_ASSERT(0 != nextStateCasted);
 	delete nextState;
 }
 
-void RobotStateTurnToTest::nextState_movementStopped_targetReachedState()
+void TurnToTest::nextState_movementStopped_targetReachedState()
 {
 	m_robotState->update(false);
 	m_robotState->update(false);
@@ -53,19 +53,19 @@ void RobotStateTurnToTest::nextState_movementStopped_targetReachedState()
 
 	RobotState *nextState = m_robotState->nextState(true);
 
-	RobotStateReachedTarget *nextStateCasted = dynamic_cast<RobotStateReachedTarget*>(nextState);
+	ReachedTarget *nextStateCasted = dynamic_cast<ReachedTarget*>(nextState);
 	CPPUNIT_ASSERT(0 != nextStateCasted);
 	delete nextState;
 }
 
-void RobotStateTurnToTest::update_empty_robotGotCallToTurnTo()
+void TurnToTest::update_empty_robotGotCallToTurnTo()
 {
 	m_robotState->update(false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
 
-void RobotStateTurnToTest::update_targetOnTheAbove_robotGotCorrectAngleToTurnTo()
+void TurnToTest::update_targetOnTheAbove_robotGotCorrectAngleToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(1, 1), Angle()));
 
@@ -75,7 +75,7 @@ void RobotStateTurnToTest::update_targetOnTheAbove_robotGotCorrectAngleToTurnTo(
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), m_controllableRobot->getLastAngleToTurnTo()));
 }
 
-void RobotStateTurnToTest::update_targetOnTheLeft_robotGotCorrectAngleToTurnTo()
+void TurnToTest::update_targetOnTheLeft_robotGotCorrectAngleToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
 
@@ -85,7 +85,7 @@ void RobotStateTurnToTest::update_targetOnTheLeft_robotGotCorrectAngleToTurnTo()
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
 }
 
-void RobotStateTurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
+void TurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
 
@@ -95,7 +95,7 @@ void RobotStateTurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
 
-void RobotStateTurnToTest::isEquivalentToDriveTo_empty_false()
+void TurnToTest::isEquivalentToDriveTo_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose()));
 }
