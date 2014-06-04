@@ -380,3 +380,15 @@ layer/autonomous/robotstates/drivetodirectfinalrotationtest.h
 layer/autonomous/robotstates/drivetodirectfinalrotation.h
 layer/autonomous/robotstates/drivetodirectfinalrotationtest.cpp
 layer/autonomous/robotstates/drivetodirectfinalrotation.cpp
+layer/autonomous/robotstates/drivetoinitialrotationtest.h
+layer/autonomous/robotstates/drivetoinitialrotation.h
+layer/autonomous/robotstates/drivetoinitialrotationtest.cpp
+layer/autonomous/robotstates/drivetoinitialrotation.cpp
+layer/autonomous/robotstates/drivetodrivingtest.h
+layer/autonomous/robotstates/drivetodriving.h
+layer/autonomous/robotstates/drivetodrivingtest.cpp
+layer/autonomous/robotstates/drivetodriving.cpp
+layer/autonomous/robotstates/drivetofinalrotationtest.h
+layer/autonomous/robotstates/drivetofinalrotation.h
+layer/autonomous/robotstates/drivetofinalrotationtest.cpp
+layer/autonomous/robotstates/drivetofinalrotation.cpp
