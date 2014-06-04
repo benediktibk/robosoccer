@@ -174,7 +174,6 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-<<<<<<< HEAD
 bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, const Angle &spanAngle) const
 {
 	Point ballPosition = ball.getPosition();
@@ -185,8 +184,6 @@ bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomo
 	return (fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi());
 }
 
-std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
-=======
 vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBall &ball) const
 {
 	Angle orientation = getOrientationToEnemyGoal();
@@ -201,7 +198,6 @@ vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBa
 }
 
 vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
->>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 {
 	vector<Point> goalposition;
 	goalposition.reserve(3);

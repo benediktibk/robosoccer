@@ -49,15 +49,12 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour);
-<<<<<<< HEAD
 		CPPUNIT_TEST(isGoodKickPosition_robotInGoodPosition_true);
-=======
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints);
 		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_fiveResults);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_threeXAre1);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2);
->>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -94,15 +91,12 @@ namespace Autonomous
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour();
-<<<<<<< HEAD
 		void isGoodKickPosition_robotInGoodPosition_true();
-=======
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints();
 		void getPositionToDriveOnBall_validBallPosition_fiveResults();
 		void getPositionToDriveOnBall_ballXAt1_threeXAre1();
 		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
 		void getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2();
->>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
