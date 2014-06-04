@@ -29,13 +29,13 @@ void TreeNodeResultShoot::execute()
 
 	Angle epsilon = Angle::convertFromDegreeToRadiant(30.0);
 
-	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotCloseToBall.getCurrentPose().getPosition(), epsilon))
+	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotCloseToBall.getCurrentPose().getPosition(), epsilon, 0.3))
 	{
 		robotCloseToBall.kick(m_ball);
 		return;
 	}
 
-	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotFarFromBall.getCurrentPose().getPosition(), epsilon))
+	if (m_targetPositionFetcher.isGoodKickPosition(m_ball, robotFarFromBall.getCurrentPose().getPosition(), epsilon, 0.3))
 	{
 		robotFarFromBall.kick(m_ball);
 		return;

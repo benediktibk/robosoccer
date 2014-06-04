@@ -567,6 +567,6 @@ void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodPosition_true()
 	ball.setPosition(Point(0.5,0.0));
 	Point robotPosition(0.0,0.0);
 	Angle spanAngle(M_PI*1/6);
-	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle,1.0);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }
