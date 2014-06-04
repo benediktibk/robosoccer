@@ -333,10 +333,6 @@ layer/control/userinputfetcherimpl.h
 layer/control/userinputfetcherimpl.cpp
 layer/control/userinputfetchermock.h
 layer/control/userinputfetchermock.cpp
-layer/autonomous/robotstates/drivetodirect.h
-layer/autonomous/robotstates/drivetodirect.cpp
-layer/autonomous/robotstates/drivetodirecttest.h
-layer/autonomous/robotstates/drivetodirecttest.cpp
 layer/control/treenode.h
 layer/control/treenodedecider.cpp
 layer/control/treenodedecider.h

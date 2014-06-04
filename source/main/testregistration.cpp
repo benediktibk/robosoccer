@@ -52,7 +52,6 @@
 #include "layer/autonomous/targetpositionfetchertest.h"
 #include "layer/autonomous/robotstates/reachedtargettest.h"
 #include "layer/autonomous/robotstates/drivetotest.h"
-#include "layer/autonomous/robotstates/drivetodirecttest.h"
 #include "layer/autonomous/robotstates/drivetodirectdrivingtest.h"
 #include "layer/autonomous/robotstates/drivetodirectfinalrotationtest.h"
 #include "layer/autonomous/robotstates/drivetodirectinitialrotationtest.h"
@@ -116,7 +115,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TargetPositionFetcherTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::ReachedTargetTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectDrivingTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectInitialRotationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectFinalRotationTest);
