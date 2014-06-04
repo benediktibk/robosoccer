@@ -24,6 +24,16 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMe(const ObstacleSource &)
 	return m_allObstaclesButMe;
 }
 
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBall(const ObstacleSource &) const
+{
+	return m_allObstaclesButMeAndBall;
+}
+
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &) const
+{
+	return m_allObstaclesButMeAndGoalObstacles;
+}
+
 vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(
 		const ObstacleSource &, const Point &, double) const
 {
@@ -33,6 +43,11 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(
 vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBallInRange(const ObstacleSource &, const Point &, double) const
 {
 	return m_allObstaclesButMeAndBallInRange;
+}
+
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &, const Point &, double) const
+{
+	return m_allObstaclesButMeAndGoalObstaclesInRange;
 }
 
 void ObstacleFetcherMock::setAllObstacles(const vector<Circle> &obstacles)
@@ -53,4 +68,9 @@ void ObstacleFetcherMock::setAllObstaclesButMeInRange(const vector<Circle> &obst
 void ObstacleFetcherMock::setAllObstaclesButMeAndBallInRange(const vector<Circle> &obstacles)
 {
 	m_allObstaclesButMeAndBallInRange = obstacles;
+}
+
+void ObstacleFetcherMock::setAllObstaclesButMeAndGoalObstaclesInRange(const std::vector<Circle> &obstacles)
+{
+	m_allObstaclesButMeAndGoalObstaclesInRange = obstacles;
 }

@@ -42,10 +42,6 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange);
 		CPPUNIT_TEST(getEnemyGoalPosition_fieldSideRight_positionAreLeft);
-		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointRight_false);
-		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true);
-		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointRight_true);
-		CPPUNIT_TEST(isPointInOwnFieldSide_fieldSideRightAndPointLeft_false);
 		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo);
 		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne);
 		CPPUNIT_TEST(getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne);
@@ -53,7 +49,15 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo);
 		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour);
+<<<<<<< HEAD
 		CPPUNIT_TEST(isGoodKickPosition_robotInGoodPosition_true);
+=======
+		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints);
+		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_fiveResults);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_threeXAre1);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2);
+>>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -83,10 +87,6 @@ namespace Autonomous
 		void getPenaltyPositionGoalie_ballMovingRightAtLeftFieldSide_goaliePositionIsInUsefulRange();
 		void getPenaltyPositionGoalie_ballMovingLeftAtLeftFieldSide_goaliePositionIsInUsefulRange();
 		void getEnemyGoalPosition_fieldSideRight_positionAreLeft();
-		void isPointInOwnFieldSide_fieldSideLeftAndPointRight_false();
-		void isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true();
-		void isPointInOwnFieldSide_fieldSideRightAndPointRight_true();
-		void isPointInOwnFieldSide_fieldSideRightAndPointLeft_false();
 		void getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo();
 		void getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne();
 		void getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne();
@@ -94,7 +94,15 @@ namespace Autonomous
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo();
 		void getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour();
+<<<<<<< HEAD
 		void isGoodKickPosition_robotInGoodPosition_true();
+=======
+		void getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints();
+		void getPositionToDriveOnBall_validBallPosition_fiveResults();
+		void getPositionToDriveOnBall_ballXAt1_threeXAre1();
+		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
+		void getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2();
+>>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
@@ -106,5 +114,3 @@ namespace Autonomous
 }
 
 #endif
-
-

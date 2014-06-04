@@ -10,6 +10,7 @@
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
@@ -31,8 +32,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInTheMiddle_goalieIsAtYBa
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_goaliePositionIsCorrect()
@@ -43,8 +44,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideRight_g
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect()
@@ -55,8 +56,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballOnTheSideFieldSideLeft_go
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()
@@ -125,8 +126,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionNotO
 	ball.setMovingDirection(FieldSideLeft);
 	ball.setCurrentFieldSide(FieldSideRight);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.06,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.06,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballNotInOwnHalf_goaliePositionIsCorrect()
@@ -140,8 +141,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballNotInOwnHalf_goaliePositi
 	ball.setMovingDirection(FieldSideRight);
 	ball.setCurrentFieldSide(FieldSideLeft);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.03,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.03,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyOnGoal_goaliePositionIsCorrect()
@@ -156,8 +157,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	ball.setCurrentFieldSide(FieldSideRight);
 	ball.setRotation(Angle(0.1));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.1,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLikelyNotOnGoal_goaliePositionIsCorrect()
@@ -172,8 +173,8 @@ void TargetPositionFetcherTest::getOwnGoalPosition_ballInOwnHalfAndDirectionLike
 	ball.setCurrentFieldSide(FieldSideRight);
 	ball.setRotation(Angle::getEighthRotation());
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getOwnGoalPosition(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getOwnGoalPosition(ball).getOrientation()));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionUnusedOne_fieldSideRightOrLeft_robotIsOnRightSide()
@@ -349,42 +350,6 @@ void TargetPositionFetcherTest::getEnemyGoalPosition_fieldSideRight_positionAreL
 		CPPUNIT_ASSERT(targetPositionFetcher.getEnemyGoalPosition()[i].getX() < 0);
 }
 
-void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideLeftAndPointRight_false()
-{
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	Point position(1,0);
-
-	CPPUNIT_ASSERT(!targetPositionFetcher.isPointInOwnFieldSide(position));
-}
-
-void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideLeftAndPointLeft_true()
-{
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	Point position(-1,0);
-
-	CPPUNIT_ASSERT(targetPositionFetcher.isPointInOwnFieldSide(position));
-}
-
-void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideRightAndPointRight_true()
-{
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideRight);
-	Point position(1,0);
-
-	CPPUNIT_ASSERT(targetPositionFetcher.isPointInOwnFieldSide(position));
-}
-
-void TargetPositionFetcherTest::isPointInOwnFieldSide_fieldSideRightAndPointLeft_false()
-{
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideRight);
-	Point position(-1,0);
-
-	CPPUNIT_ASSERT(!targetPositionFetcher.isPointInOwnFieldSide(position));
-}
-
 void TargetPositionFetcherTest::isInUsefulRange(const Pose &pose, double distanceToGoal, bool left)
 {
 	Point const &position = pose.getPosition();
@@ -425,7 +390,9 @@ void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAtZeroZe
 	Angle ballRotation(Point(0,0),Point(0,1));
 	ball.setRotation(ballRotation);
 	ball.setIsMoving(true);
+
 	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 0.2);
+
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(0,0.2)));
 }
 
@@ -438,7 +405,9 @@ void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAMinusTw
 	Angle ballRotation(Point(0,0),Point(-1,-1));
 	ball.setRotation(ballRotation);
 	ball.setIsMoving(true);
+
 	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, sqrt(2.0));
+
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(-3,1)));
 }
 
@@ -451,7 +420,9 @@ void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballATwoMinu
 	Angle ballRotation(Point(0,0),Point(1,0));
 	ball.setRotation(ballRotation);
 	ball.setIsMoving(true);
+
 	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 1);
+
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(3,-1)));
 }
 
@@ -462,8 +433,10 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0.5, 0));
-	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front(),Point(0.5,0)));
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(0.5, 0)));
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition()
@@ -473,8 +446,10 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
-	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front(),Point(-0.5,0)));
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(-0.5, 0)));
 }
 
 
@@ -485,8 +460,10 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
-	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1),Point(-0.5,0.2)));
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1).getPosition(), Point(-0.5, 0.2)));
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour()
@@ -496,8 +473,90 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-0.5, 0));
-	std::vector<Point> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4),Point(-0.5,-0.4)));
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, Point(0,0));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4).getPosition(), Point(-0.5, -0.4)));
+}
+
+void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(2, 0));
+	Point robotPosition = targetPositionFetcher.getEnemyGoalPosition().front();
+
+	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionAtBallHeightAggressiveMode(ball, robotPosition);
+
+	CPPUNIT_ASSERT(!results.empty());
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_fiveResults()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, results.size());
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_threeXAre1()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	unsigned int count = 0;
+	Other::Compare compare(0.0001);
+	for (vector<Pose>::const_iterator i = results.begin(); i != results.end(); ++i)
+	{
+		Pose const &pose = *i;
+		Point const &position = pose.getPosition();
+		if (compare.isFuzzyEqual(1, position.getX()))
+			++count;
+	}
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballYAt2_threeYAre2()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	unsigned int count = 0;
+	Other::Compare compare(0.0001);
+	for (vector<Pose>::const_iterator i = results.begin(); i != results.end(); ++i)
+	{
+		Pose const &pose = *i;
+		Point const &position = pose.getPosition();
+		if (compare.isFuzzyEqual(2, position.getY()))
+			++count;
+	}
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
+}
+
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 2));
+
+	vector<Pose> results = targetPositionFetcher.getPositionToDriveOnBall(ball);
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(1, 2), results.front()));
 }
 
 void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodPosition_true()

@@ -47,22 +47,22 @@ int main(int, char**)
 	obstacleFetcher.addSource(enemyTeam);
 	obstacleFetcher.addSource(ball);
 
-	while(true)
-	{
-		robotOne.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false, false);
-		while (!robotOne.targetReached())
-		{
-			robotOne.update();
-			usleep(10000);
-		}
+//	while(true)
+//	{
+//		robotOne.goTo(Pose(Point(1, 0), Angle::getQuarterRotation()), false, false, false);
+//		while (!robotOne.targetReached())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
 
-		robotOne.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false, false);
-		while (!robotOne.targetReached())
-		{
-			robotOne.update();
-			usleep(10000);
-		}
-	}
+//		robotOne.goTo(Pose(Point(0, 0), Angle::getQuarterRotation()), false, false, false);
+//		while (!robotOne.targetReached())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
+//	}
 
 //	robotTwo.goTo(Pose(Point(0, 0.5), Angle::getQuarterRotation()), false, false);
 //	while (!robotTwo.targetReached())
@@ -77,6 +77,14 @@ int main(int, char**)
 //		robotOne.update();
 //		usleep(5000);
 //	}
+
+	robotThree.goTo(Pose(Point(1.40, 0), Angle::getQuarterRotation()), false, false, true);
+	while (!robotThree.targetReached())
+	{
+		robotThree.update();
+		usleep(10000);
+	}
+	cout << "done";
 
 //	TargetPositionFetcher targetPositionFetcher;
 //	targetPositionFetcher.setFieldSide(FieldSideLeft);

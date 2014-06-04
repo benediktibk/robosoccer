@@ -24,18 +24,8 @@ TreeNodeResultShoot::TreeNodeResultShoot(
 
 void TreeNodeResultShoot::execute()
 {
-	std::cout << "KickBall" << std::endl;
+	Robot &robotCloseToBall = m_ownTeam.getPlayerCloserToBall(m_ball);
+//	Robot &robotFarFromBall = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
 
-	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
-	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
-	Point ballPosition = m_ball.getPosition();
-
-	if (ballPosition.distanceTo(robot1Pose.getPosition()) < ballPosition.distanceTo(robot2Pose.getPosition()))
-	{
-		m_ownTeam.getFirstFieldPlayer().kick(m_ball);
-	}
-	else
-	{
-		m_ownTeam.getSecondFieldPlayer().kick(m_ball);
-	}
+	robotCloseToBall.kick(m_ball);
 }

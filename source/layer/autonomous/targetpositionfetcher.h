@@ -28,8 +28,6 @@ namespace Autonomous
 
 		void setFieldSide(Abstraction::FieldSide fieldSide);
 
-		bool isPointInOwnFieldSide(const Common::Geometry::Point& position) const;
-
 		Common::Geometry::Pose getStartPositionGoalkeeper() const;
 		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
 		Common::Geometry::Pose getStartPositionPlayerTwoOffensive() const;
@@ -37,17 +35,24 @@ namespace Autonomous
 		Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
-		Common::Geometry::Pose getOwnGoalPosition(const IntelligentBall &ball) const;
+		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
+		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
 
 		Common::Geometry::Pose getPenaltyPositionPrepareKicker() const;
 		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
 		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
 		Common::Geometry::Pose getTargetBehindBall(const IntelligentBall &ball, double distanceToBall) const;
-		std::vector<Common::Geometry::Point> getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
+		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
+<<<<<<< HEAD
 		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, const Common::Geometry::Angle &spanAngle) const;
+=======
+		std::vector<Common::Geometry::Pose> getPositionToDriveOnBall(const IntelligentBall &ball) const;
+		Common::Geometry::Angle getOrientationToEnemyGoal() const;
+
+>>>>>>> 9ef9907bc8ebda2a4c4c61e4a1b04671c3250f6a
 	private:
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition(Abstraction::FieldSide fieldSide) const;
 

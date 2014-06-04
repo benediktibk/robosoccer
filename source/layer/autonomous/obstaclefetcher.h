@@ -28,6 +28,8 @@ namespace Autonomous
 		virtual void defineBall(ObstacleSource const &source) = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBall(ObstacleSource const &me) const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstacles(ObstacleSource const &me) const = 0;
 		/*!
 		 * Returns all obstacles except the own one which are closer than the distance. The distance
 		 * is interpreted as distance to the edge of an obstacle, therefore the radius of other objects
@@ -39,6 +41,11 @@ namespace Autonomous
 		 * The same as the function above, but it ignores the specified ball.
 		 */
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBallInRange(
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
+		/*!
+		 * The same as the function above, but it ignores the dummy obstacles in the goal that are needed for the router.
+		 */
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstaclesInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 	};
 }

@@ -20,7 +20,7 @@ using namespace RoboSoccer::Common::Routing;
 
 RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose const &target, const Router &router,
 		Watch const &watch, Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher &obstacleFetcher,
-		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd) :
+		ObstacleSource &autonomousRobot, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.2),
@@ -33,6 +33,7 @@ RobotStateDriveTo::RobotStateDriveTo(Abstraction::ControllableRobot &robot, Pose
 	m_movementStopUsed(false),
 	m_ignoreBall(ignoreBall),
 	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
+	m_ignoreGoalObstacles(ignoreGoalObstacles),
 	m_target(target),
 	m_router(router),
 	m_watchDog(new StopWatch(watch)),
@@ -206,7 +207,7 @@ bool RobotStateDriveTo::setOrdersForIntermediatePointAndGetOrderSet()
 void RobotStateDriveTo::updateRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeDependentOnFlags(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles,0.9);
 
 	if (!isRouteFeasible(modifiedObstacles))
@@ -222,12 +223,12 @@ void RobotStateDriveTo::updateRouteForTarget()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
-	vector<Circle> obstacles = getAllObstaclesButMeInRangeWithOrWithoutBall(robotPoint, 1);
+	vector<Circle> obstacles = getAllObstaclesButMeInRangeDependentOnFlags(robotPoint, 1);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if(m_driveSlowlyAtTheEnd && m_currentRoute->isValid())
+	if((m_driveSlowlyAtTheEnd || m_ignoreGoalObstacles) && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	resetAllMovementFlags();
@@ -264,10 +265,12 @@ vector<Circle> RobotStateDriveTo::modifyObstacles(const vector<Circle> &obstacle
 	return result;
 }
 
-vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeWithOrWithoutBall(const Point &robotPoint, double distance) const
+vector<Circle> RobotStateDriveTo::getAllObstaclesButMeInRangeDependentOnFlags(const Point &robotPoint, double distance) const
 {
 	if(m_ignoreBall)
 		return m_obstacleFetcher.getAllObstaclesButMeAndBallInRange(m_autonomousRobot, robotPoint, distance);
+	else if(m_ignoreGoalObstacles)
+		return m_obstacleFetcher.getAllObstaclesButMeAndGoalObstaclesInRange(m_autonomousRobot, robotPoint, distance);
 	else
 		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_autonomousRobot, robotPoint, distance);
 }
