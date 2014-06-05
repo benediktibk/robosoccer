@@ -345,7 +345,7 @@ void RobotTest::update_goToDirectAndPositionReachedAndMovementStopped_robotGotCa
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_hardwareRobot->getLastAngleToTurnTo()));
 }
 
-void RobotTest::update_goToAndinitialRotationNotReached_robotGotCallToTurnTowardsTarget()
+void RobotTest::update_goToAndInitialRotationNotReached_robotGotCallToTurnTowardsTarget()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -358,7 +358,7 @@ void RobotTest::update_goToAndinitialRotationNotReached_robotGotCallToTurnToward
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(targetShouldBe, m_hardwareRobot->getLastAngleToTurnTo()));
 }
 
-void RobotTest::update_goToAndinitialRotationNotReached_robotGotNoCallToDrive()
+void RobotTest::update_goToAndInitialRotationNotReached_robotGotNoCallToDrive()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -369,7 +369,7 @@ void RobotTest::update_goToAndinitialRotationNotReached_robotGotNoCallToDrive()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToPositionImprecise());
 }
 
-void RobotTest::update_goToAndinitialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
+void RobotTest::update_goToAndInitialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -380,7 +380,7 @@ void RobotTest::update_goToAndinitialRotationNotReachedTwiceCalled_robotGotNoAdd
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndinitialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise()
+void RobotTest::update_goToAndInitialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -397,7 +397,7 @@ void RobotTest::update_goToAndinitialRotationNotReachedButMovementStopped_robotG
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_hardwareRobot->getLastPointToDriveTo()));
 }
 
-void RobotTest::update_goToAndpositionNotReached_robotGotCallToDriveToTargetImprecise()
+void RobotTest::update_goToAndPositionNotReached_robotGotCallToDriveToTargetImprecise()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -409,7 +409,7 @@ void RobotTest::update_goToAndpositionNotReached_robotGotCallToDriveToTargetImpr
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_hardwareRobot->getLastPointToDriveTo()));
 }
 
-void RobotTest::update_goToAndpositionNotReached_robotGotNoCallToTurnTowardsTarget()
+void RobotTest::update_goToAndPositionNotReached_robotGotNoCallToTurnTowardsTarget()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -419,7 +419,7 @@ void RobotTest::update_goToAndpositionNotReached_robotGotNoCallToTurnTowardsTarg
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndpositionNotReachedTwiceCalled_robotGotNoAdditionalCallToDriveToTargetImprecise()
+void RobotTest::update_goToAndPositionNotReachedTwiceCalled_robotGotNoAdditionalCallToDriveToTargetImprecise()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -430,7 +430,7 @@ void RobotTest::update_goToAndpositionNotReachedTwiceCalled_robotGotNoAdditional
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
 }
 
-void RobotTest::update_goToAndpositionNotreachedButMovementStopped_robotGotCallToTurnTo()
+void RobotTest::update_goToAndPositionNotreachedButMovementStopped_robotGotCallToTurnTo()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -448,7 +448,7 @@ void RobotTest::update_goToAndpositionNotreachedButMovementStopped_robotGotCallT
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_hardwareRobot->getLastAngleToTurnTo()));
 }
 
-void RobotTest::update_goToAndfinalRotationNotReached_robotGotCallToTurn()
+void RobotTest::update_goToAndFinalRotationNotReached_robotGotCallToTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -460,7 +460,7 @@ void RobotTest::update_goToAndfinalRotationNotReached_robotGotCallToTurn()
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_hardwareRobot->getLastAngleToTurnTo()));
 }
 
-void RobotTest::update_goToAndfinalRotationNotReached_robotGotNoCallToDrive()
+void RobotTest::update_goToAndFinalRotationNotReached_robotGotNoCallToDrive()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -470,7 +470,7 @@ void RobotTest::update_goToAndfinalRotationNotReached_robotGotNoCallToDrive()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
 }
 
-void RobotTest::update_goToAndfinalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
+void RobotTest::update_goToAndFinalRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -481,7 +481,7 @@ void RobotTest::update_goToAndfinalRotationNotReachedTwiceCalled_robotGotNoAddit
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndfinalRotationNotReachedButMovementStopped_reachedTarget()
+void RobotTest::update_goToAndFinalRotationNotReachedButMovementStopped_reachedTarget()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -496,7 +496,7 @@ void RobotTest::update_goToAndfinalRotationNotReachedButMovementStopped_reachedT
 	CPPUNIT_ASSERT(m_robot->reachedTarget());
 }
 
-void RobotTest::update_goToAndinitialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+void RobotTest::update_goToAndInitialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -508,7 +508,7 @@ void RobotTest::update_goToAndinitialRotationReachedButRobotStillMoving_robotGot
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
 }
 
-void RobotTest::update_goToAndpositionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+void RobotTest::update_goToAndPositionReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -520,7 +520,7 @@ void RobotTest::update_goToAndpositionReachedButRobotStillMoving_robotGotNoAddit
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
 }
 
-void RobotTest::update_goToAndfinalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
+void RobotTest::update_goToAndFinalRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -532,7 +532,7 @@ void RobotTest::update_goToAndfinalRotationReachedButRobotStillMoving_robotGotNo
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
 }
 
-void RobotTest::update_goToAndinitalRotationReachedAndMovementStopped_robotGotCallToMove()
+void RobotTest::update_goToAndInitalRotationReachedAndMovementStopped_robotGotCallToMove()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -551,7 +551,7 @@ void RobotTest::update_goToAndinitalRotationReachedAndMovementStopped_robotGotCa
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_hardwareRobot->getLastPointToDriveTo()));
 }
 
-void RobotTest::update_goToAndpositionReachedAndMovementStopped_robotGotCallToTurn()
+void RobotTest::update_goToAndPositionReachedAndMovementStopped_robotGotCallToTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -570,7 +570,7 @@ void RobotTest::update_goToAndpositionReachedAndMovementStopped_robotGotCallToTu
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_hardwareRobot->getLastAngleToTurnTo()));
 }
 
-void RobotTest::update_goToAndinitialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint()
+void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -587,7 +587,7 @@ void RobotTest::update_goToAndinitialRotationReachedAndThreePointsInRouteAndMove
 	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
-void RobotTest::update_goToAndsecondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint()
+void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -609,7 +609,7 @@ void RobotTest::update_goToAndsecondPositionReachedAndRotationNotReachedAndAllIn
 	CPPUNIT_ASSERT_EQUAL(Angle(Point(0,0),Point(5,4)),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndsecondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint()
+void RobotTest::update_goToAndSecondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -636,7 +636,7 @@ void RobotTest::update_goToAndsecondPositionReachedAndRotationReachedAndAllInter
 	CPPUNIT_ASSERT_EQUAL(Point(5,4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
-void RobotTest::update_goToAndinitialRotationReachedAndRouteChanged_robotGotTwoCallsToTurn()
+void RobotTest::update_goToAndInitialRotationReachedAndRouteChanged_robotGotTwoCallsToTurn()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
@@ -656,7 +656,7 @@ void RobotTest::update_goToAndinitialRotationReachedAndRouteChanged_robotGotTwoC
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndinitialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
+void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
@@ -678,7 +678,7 @@ void RobotTest::update_goToAndinitialRotationReachedAndRouteChangedAndinitialRot
 	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
-void RobotTest::update_goToAndinitialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint()
+void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMovedALittleBit_turningToSecondPoint()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
@@ -695,7 +695,7 @@ void RobotTest::update_goToAndinitialRotationNotReachedAndObstacleMovedALittleBi
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndinitialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute()
+void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
@@ -712,7 +712,7 @@ void RobotTest::update_goToAndinitialRotationNotReachedAndObstacleMoved_turningT
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndignoreBall_routePointsCountIs2()
+void RobotTest::update_goToAndIgnoreBall_routePointsCountIs2()
 {
 	vector<Circle> obstacles;
 	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), true, false, false);
@@ -727,7 +727,7 @@ void RobotTest::update_goToAndignoreBall_routePointsCountIs2()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, state.getRoutePointsCount());
 }
 
-void RobotTest::update_goToAndcloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
+void RobotTest::update_goToAndCloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
 	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, true, false);
@@ -746,7 +746,7 @@ void RobotTest::update_goToAndcloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGo
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndtargetNotInsideField_noCallToDriveAndTurn()
+void RobotTest::update_goToAndTargetNotInsideField_noCallToDriveAndTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
@@ -758,7 +758,7 @@ void RobotTest::update_goToAndtargetNotInsideField_noCallToDriveAndTurn()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndobstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive()
+void RobotTest::update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive()
 {
 	vector<Circle> obstacles;
 	m_obstacleFetcher->setAllObstaclesButMeAndGoalObstaclesInRange(obstacles);
@@ -773,7 +773,7 @@ void RobotTest::update_goToAndobstacleOnTargetAndIgnoreObstacle_robotGotCallToDr
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToTurn());
 }
 
-void RobotTest::update_goToAndinitialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint()
+void RobotTest::update_goToAndInitialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
@@ -783,7 +783,7 @@ void RobotTest::update_goToAndinitialRotationNotReachedAndThreePointsInRoute_tur
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndinitialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint()
+void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
@@ -796,7 +796,7 @@ void RobotTest::update_goToAndinitialRotationReachedAndThreePointsInRoute_robotG
 	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
-void RobotTest::update_goToAndsecondPositionReachedAndRotationNotReached_turningToThirdPoint()
+void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReached_turningToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
@@ -811,7 +811,7 @@ void RobotTest::update_goToAndsecondPositionReachedAndRotationNotReached_turning
 	CPPUNIT_ASSERT_EQUAL(Angle(),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndsecondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint()
+void RobotTest::update_goToAndSecondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
@@ -828,7 +828,7 @@ void RobotTest::update_goToAndsecondPositionReachedAndRotationReached_robotGotCa
 	CPPUNIT_ASSERT_EQUAL(Point(5,4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
-void RobotTest::update_goToAndthirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation()
+void RobotTest::update_goToAndThirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
