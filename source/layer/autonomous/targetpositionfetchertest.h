@@ -56,6 +56,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2);
 		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false);
+		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToAngleViolation_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -99,6 +100,7 @@ namespace Autonomous
 		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
 		void getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2();
 		void isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false();
+		void isGoodKickPosition_robotInBadPositionDueToAngleViolation_false();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
