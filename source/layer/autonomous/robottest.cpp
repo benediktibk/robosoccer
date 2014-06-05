@@ -750,8 +750,8 @@ void RobotTest::update_goToAndCloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGo
 void RobotTest::update_goToAndTargetNotInsideField_noCallToDriveAndTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
-	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_field->setAllCoordinatesOutside(true);
+	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 
 	m_robotWithRealRouter->update();
 
