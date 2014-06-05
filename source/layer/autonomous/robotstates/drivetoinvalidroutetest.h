@@ -1,8 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINVALIDROUTETEST_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOINVALIDROUTETEST_H
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include "layer/autonomous/robotstates/robotstatetest.h"
 
 namespace RoboSoccer
 {
@@ -11,10 +10,14 @@ namespace Layer
 namespace Autonomous
 {
 	class DriveToInvalidRouteTest :
-			public CPPUNIT_NS::TestFixture
+			public RobotStateTest
 	{
 		CPPUNIT_TEST_SUITE(DriveToInvalidRouteTest);
 		CPPUNIT_TEST_SUITE_END();
+
+	protected:
+		virtual RobotState* createInstance();
+
 	private:
 
 	};

@@ -15,16 +15,6 @@ using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
 DriveToDriving::DriveToDriving(
-		ControllableRobot &robot, const Pose &target, const Router &router,
-		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
-	m_movementStarted(false)
-{ }
-
-DriveToDriving::DriveToDriving(
 		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,

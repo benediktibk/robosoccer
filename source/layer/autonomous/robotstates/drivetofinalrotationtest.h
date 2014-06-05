@@ -1,8 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOFINALROTATIONTEST_H
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETOFINALROTATIONTEST_H
 
-#include <cppunit/TestFixture.h>
-#include <cppunit/extensions/HelperMacros.h>
+#include "layer/autonomous/robotstates/robotstatetest.h"
 
 namespace RoboSoccer
 {
@@ -11,10 +10,14 @@ namespace Layer
 namespace Autonomous
 {
 	class DriveToFinalRotationTest :
-			public CPPUNIT_NS::TestFixture
+			public RobotStateTest
 	{
 		CPPUNIT_TEST_SUITE(DriveToFinalRotationTest);
 		CPPUNIT_TEST_SUITE_END();
+
+	protected:
+		virtual RobotState* createInstance();
+
 	private:
 
 	};

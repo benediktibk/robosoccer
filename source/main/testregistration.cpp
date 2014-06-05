@@ -54,6 +54,10 @@
 #include "layer/autonomous/robotstates/drivetodirectdrivingtest.h"
 #include "layer/autonomous/robotstates/drivetodirectfinalrotationtest.h"
 #include "layer/autonomous/robotstates/drivetodirectinitialrotationtest.h"
+#include "layer/autonomous/robotstates/drivetoinitialrotationtest.h"
+#include "layer/autonomous/robotstates/drivetofinalrotationtest.h"
+#include "layer/autonomous/robotstates/drivetodrivingtest.h"
+#include "layer/autonomous/robotstates/drivetoinvalidroutetest.h"
 #include "layer/autonomous/robotstates/turntotest.h"
 #include "layer/autonomous/robotstates/kicktest.h"
 #include "layer/autonomous/intelligentballtest.h"
@@ -116,6 +120,10 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::ReachedTargetTest
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectDrivingTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectInitialRotationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDirectFinalRotationTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToInitialRotationTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToFinalRotationTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToDrivingTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::DriveToInvalidRouteTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TurnToTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::KickTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::IntelligentBallTest);

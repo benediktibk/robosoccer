@@ -19,6 +19,7 @@ namespace Logging
 namespace Routing
 {
 	class RouterMock;
+	class Route;
 }
 }
 namespace Layer
@@ -44,8 +45,6 @@ namespace Autonomous
 	protected:
 		virtual RobotState* createInstance() = 0;
 
-	private:
-
 	protected:
 		Abstraction::ControllableRobotMock *m_controllableRobot;
 		Common::Time::WatchMock *m_watch;
@@ -55,6 +54,7 @@ namespace Autonomous
 		ObstacleFetcherMock *m_obstacleFetcher;
 		RobotMock *m_autonomousRobotMock;
 		IntelligentBallMock *m_ball;
+		Common::Routing::Route *m_route;
 	};
 }
 }
