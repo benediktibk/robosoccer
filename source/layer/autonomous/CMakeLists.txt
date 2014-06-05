@@ -35,6 +35,7 @@ set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
 	robotstates/drivetoinvalidroute.cpp
 	robotstates/turnto.cpp
 	robotstates/kick.cpp
+	robotstates/drivemode.cpp
 )
 
 set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_TEST_SRC
