@@ -19,6 +19,10 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_routeBecomesInvalidAndNoNewOnePossible_invalidRoute);
 		CPPUNIT_TEST(nextState_routeBecomesInvalidAndNewOnePossible_initialRotation);
 		CPPUNIT_TEST(nextState_targetNotReached_0);
+		CPPUNIT_TEST(nextState_targetReachedAndNoPointsLeft_finalRotation);
+		CPPUNIT_TEST(nextState_movementStoppedAndNoPointsLeft_finalRotation);
+		CPPUNIT_TEST(nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute);
+		CPPUNIT_TEST(nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -31,6 +35,10 @@ namespace Autonomous
 		void nextState_routeBecomesInvalidAndNoNewOnePossible_invalidRoute();
 		void nextState_routeBecomesInvalidAndNewOnePossible_initialRotation();
 		void nextState_targetNotReached_0();
+		void nextState_targetReachedAndNoPointsLeft_finalRotation();
+		void nextState_movementStoppedAndNoPointsLeft_finalRotation();
+		void nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute();
+		void nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute();
 	};
 }
 }

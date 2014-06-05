@@ -2,6 +2,7 @@
 #include "layer/autonomous/robotstates/drivetodriving.h"
 #include "layer/autonomous/robotstates/drivetoinvalidroute.h"
 #include "layer/autonomous/robotstates/drivetoinitialrotation.h"
+#include "layer/autonomous/robotstates/drivetofinalrotation.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
@@ -92,4 +93,68 @@ void DriveToDrivingTest::nextState_targetNotReached_0()
 	RobotState *nextState = m_robotState->nextState(false);
 
 	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToDrivingTest::nextState_targetReachedAndNoPointsLeft_finalRotation()
+{
+	m_controllableRobot->setPose(Pose(Point(5, 4), Angle(0)));
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	DriveToFinalRotation *nextStateCasted = dynamic_cast<DriveToFinalRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
+	delete nextState;
+}
+
+void DriveToDrivingTest::nextState_movementStoppedAndNoPointsLeft_finalRotation()
+{
+	m_controllableRobot->setPose(Pose(Point(0, 2), Angle(0)));
+
+	RobotState *nextState = m_robotState->nextState(true);
+
+	DriveToFinalRotation *nextStateCasted = dynamic_cast<DriveToFinalRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
+	delete nextState;
+}
+
+void DriveToDrivingTest::nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute()
+{
+	Route route(1);
+	route.addPoint(Point(0, 0));
+	route.addPoint(Point(5, 0));
+	route.addPoint(Point(5, 4));
+	DriveToDriving state(
+				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
+				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+				*m_autonomousRobotMock, false, false, false, route);
+	m_controllableRobot->setPose(Pose(Point(5, 0), Angle(0)));
+
+	RobotState *nextState = state.nextState(false);
+
+	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
+	delete nextState;
+}
+
+void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute()
+{
+	Route route(1);
+	route.addPoint(Point(0, 0));
+	route.addPoint(Point(5, 0));
+	route.addPoint(Point(5, 4));
+	DriveToDriving state(
+				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
+				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+				*m_autonomousRobotMock, false, false, false, route);
+	m_controllableRobot->setPose(Pose(Point(1, 0), Angle(0)));
+
+	RobotState *nextState = state.nextState(true);
+
+	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
+	delete nextState;
 }
