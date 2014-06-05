@@ -538,15 +538,16 @@ void RobotTest::update_goToAndInitalRotationReachedAndMovementStopped_robotGotCa
 	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_robot->update();
 	m_robot->update();
-	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0, 0), Point(5, 4))));
 
+	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(false);
 	m_robot->update();
 
 	Compare compare(0.0001);
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_hardwareRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(5, 4), m_hardwareRobot->getLastPointToDriveTo()));
 }
