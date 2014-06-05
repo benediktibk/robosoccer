@@ -79,7 +79,7 @@ void ObstacleFetcherMock::setAllObstaclesButMeAndGoalObstaclesInRange(const std:
 	m_allObstaclesButMeAndGoalObstaclesInRange = obstacles;
 }
 
-void ObstacleFetcherMock::setAllObstaclesButMeDependentOn(const std::vector<Circle> &obstacles)
+void ObstacleFetcherMock::setAllObstaclesButMeInRangeDependentOnDriveMode(const std::vector<Circle> &obstacles)
 {
 	m_allObstaclesButMeDependentOnDriveMode = obstacles;
 }
