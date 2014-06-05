@@ -15,6 +15,8 @@ namespace Autonomous
 		CPPUNIT_TEST_SUITE(DriveToInvalidRouteTest);
 		CPPUNIT_TEST(update_onceCalled_robotGotOneCallToStop);
 		CPPUNIT_TEST(update_twiceCalled_robotGotTwoCallsToStop);
+		CPPUNIT_TEST(nextState_noRouteFeasible_0);
+		CPPUNIT_TEST(nextState_feasibleRoute_initialRotation);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -23,6 +25,8 @@ namespace Autonomous
 	private:
 		void update_onceCalled_robotGotOneCallToStop();
 		void update_twiceCalled_robotGotTwoCallsToStop();
+		void nextState_noRouteFeasible_0();
+		void nextState_feasibleRoute_initialRotation();
 	};
 }
 }

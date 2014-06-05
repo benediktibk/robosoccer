@@ -1,5 +1,6 @@
 #include "layer/autonomous/robotstates/drivetoinvalidroutetest.h"
 #include "layer/autonomous/robotstates/drivetoinvalidroute.h"
+#include "layer/autonomous/robotstates/drivetoinitialrotation.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
@@ -34,4 +35,22 @@ void DriveToInvalidRouteTest::update_twiceCalled_robotGotTwoCallsToStop()
 	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_controllableRobot->getCallsToStop());
+}
+
+void DriveToInvalidRouteTest::nextState_noRouteFeasible_0()
+{
+	m_router->setInvalidRoute();
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToInvalidRouteTest::nextState_feasibleRoute_initialRotation()
+{
+	RobotState *nextState = m_robotState->nextState(false);
+
+	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
 }
