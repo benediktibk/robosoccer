@@ -599,8 +599,8 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReachedAndAllIn
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(false);
 	m_robot->update();
-	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(false);
 	m_robot->update();
