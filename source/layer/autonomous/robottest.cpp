@@ -892,6 +892,8 @@ void RobotTest::update_goToDirectAndAtTarget_reachedTarget()
 	m_robot->goToDirect(target);
 
 	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0, 0), Point(1, 3))));
+	m_robot->update();
 	m_hardwareRobot->setPose(target);
 	m_robot->update();
 
