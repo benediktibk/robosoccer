@@ -34,8 +34,7 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstacles(const O
 	return m_allObstaclesButMeAndGoalObstacles;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(
-		const ObstacleSource &, const Point &, double) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(const ObstacleSource &, const Point &, double) const
 {
 	return m_allObstaclesButMeInRange;
 }
@@ -48,6 +47,11 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBallInRange(const Obs
 vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &, const Point &, double) const
 {
 	return m_allObstaclesButMeAndGoalObstaclesInRange;
+}
+
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, bool , bool) const
+{
+	return m_allObstaclesButMeDependentOnDriveMode;
 }
 
 void ObstacleFetcherMock::setAllObstacles(const vector<Circle> &obstacles)
@@ -73,4 +77,9 @@ void ObstacleFetcherMock::setAllObstaclesButMeAndBallInRange(const vector<Circle
 void ObstacleFetcherMock::setAllObstaclesButMeAndGoalObstaclesInRange(const std::vector<Circle> &obstacles)
 {
 	m_allObstaclesButMeAndGoalObstaclesInRange = obstacles;
+}
+
+void ObstacleFetcherMock::setAllObstaclesButMeInRangeDependentOnDriveMode(const std::vector<Circle> &obstacles)
+{
+	m_allObstaclesButMeDependentOnDriveMode = obstacles;
 }

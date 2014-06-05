@@ -648,7 +648,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChanged_robotGotTwoC
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
 	m_robot->update();
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_routerMock->setChessMode(true);
 	m_robot->update();
 
@@ -657,7 +657,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChanged_robotGotTwoC
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
+void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndInitialRotationReachedAgain_robotGotTwoCallsToDrive()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
@@ -668,7 +668,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndinitialRot
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
 	m_robot->update();
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_routerMock->setChessMode(true);
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
@@ -702,11 +702,11 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMoved_turningT
 	obstacles.push_back(Circle(Point(1,1),0.5));
 	m_robotWithRealRouter->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_robotWithRealRouter->update();
 	obstacles.front().setCenter(Point(2,1.5));
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_robotWithRealRouter->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());

@@ -47,7 +47,7 @@ void DriveToInitialRotationTest::nextState_routeBecomesInvalidAndNoNewOnePossibl
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(3, 3), 1));
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_router->setInvalidRoute();
 
 	RobotState *nextState = m_robotState->nextState(false);
@@ -61,7 +61,7 @@ void DriveToInitialRotationTest::nextState_routeBecomesInvalidAndNewOnePossible_
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(3, 3), 1));
-	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 
 	RobotState *nextState = m_robotState->nextState(false);
 

@@ -127,6 +127,16 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, bool ignoreBall, bool ignoreGoalObstacles) const
+{
+	if(ignoreBall)
+		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance);
+	else if(ignoreGoalObstacles)
+		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance);
+	else
+		return getAllObstaclesButMeInRange(me, ownPosition, distance);
+}
+
 vector<Circle> ObstacleFetcherImpl::filterByDistance(
 		const vector<Circle> &candidates, const Point &ownPosition, double distance) const
 {
