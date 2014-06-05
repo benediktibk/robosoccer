@@ -20,6 +20,8 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_targetNotReached_0);
 		CPPUNIT_TEST(nextState_movementStopped_driving);
 		CPPUNIT_TEST(nextState_targetReached_driving);
+		CPPUNIT_TEST(constructor_noRoute_routeCreated);
+		CPPUNIT_TEST(constructor_routeWithThreePoints_routeHasThreePoints);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -33,6 +35,8 @@ namespace Autonomous
 		void nextState_targetNotReached_0();
 		void nextState_movementStopped_driving();
 		void nextState_targetReached_driving();
+		void constructor_noRoute_routeCreated();
+		void constructor_routeWithThreePoints_routeHasThreePoints();
 	};
 }
 }

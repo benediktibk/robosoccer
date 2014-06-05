@@ -101,3 +101,25 @@ void DriveToInitialRotationTest::nextState_targetReached_driving()
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	delete nextState;
 }
+
+void DriveToInitialRotationTest::constructor_noRoute_routeCreated()
+{
+	DriveTo *stateCasted = dynamic_cast<DriveTo*>(m_robotState);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, stateCasted->getRoutePointsCount());
+}
+
+void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreePoints()
+{
+	Route route(1);
+	route.addPoint(Point(0, 0));
+	route.addPoint(Point(1, 0));
+	route.addPoint(Point(1, 2));
+
+	DriveToInitialRotation state(
+					*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
+					*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
+					*m_autonomousRobotMock, false, false, false, route);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)3, state.getRoutePointsCount());
+}
