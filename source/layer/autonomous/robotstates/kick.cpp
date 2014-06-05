@@ -49,7 +49,7 @@ RobotState *Kick::nextState(bool)
 		m_stopWatch->getTimeAndRestart();
 	}
 
-	if (getRobot().isMoving())
+	if (getRobot().isMoving() || !m_alreadyKicked)
 		return 0;
 	else
 		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
