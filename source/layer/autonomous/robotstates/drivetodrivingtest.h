@@ -39,6 +39,7 @@ namespace Autonomous
 		void nextState_movementStoppedAndNoPointsLeft_finalRotation();
 		void nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute();
 		void nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute();
+		//! @todo test what happens if an obstacle occurs behind the robot
 	};
 }
 }
