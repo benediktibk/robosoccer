@@ -25,10 +25,13 @@ RobotState *DriveToInvalidRoute::nextState(bool)
 	Route const &currentRoute = getCurrentRoute();
 
 	if (currentRoute.isValid())
+	{
+		log("found again a valid route, starting with initial rotation");
 		return new DriveToInitialRotation(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 					ignoreGoalObstacles(), currentRoute);
+	}
 
 	return 0;
 }

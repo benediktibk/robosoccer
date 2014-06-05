@@ -175,16 +175,22 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	Route const &currentRoute = getCurrentRoute();
 
 	if (!currentRoute.isValid())
+	{
+		log("route is invalid");
 		return new DriveToInvalidRoute(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 					ignoreGoalObstacles());
+	}
 
 	if (routeUpdated)
+	{
+		log("created new route, starting with initial rotation");
 		return new DriveToInitialRotation(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 					ignoreGoalObstacles(), currentRoute);
+	}
 
 	return 0;
 }

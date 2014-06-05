@@ -41,6 +41,7 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 	{
 		if (currentRoute.getPointCount() > 2)
 		{
+			log("position reached, turning to next point");
 			currentRoute.removeFirstPoint();
 			return new DriveToInitialRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
@@ -48,10 +49,13 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 						ignoreGoalObstacles(), currentRoute);
 		}
 		else
+		{
+			log("position reached, turning to final orientation");
 			return new DriveToFinalRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 						ignoreGoalObstacles(), currentRoute);
+		}
 	}
 
 	return 0;

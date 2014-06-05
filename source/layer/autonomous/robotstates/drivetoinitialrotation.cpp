@@ -58,10 +58,13 @@ RobotState *DriveToInitialRotation::nextState(bool movementStopped)
 	Angle targetOrientation = calculateTargetOrientation(currentRoute);
 
 	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || movementStopped)
+	{
+		log("reached initial orientation, driving to next point");
 		return new DriveToDriving(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 					ignoreGoalObstacles(), currentRoute);
+	}
 
 	return 0;
 }
