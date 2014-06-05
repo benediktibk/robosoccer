@@ -54,6 +54,7 @@ namespace Autonomous
 		virtual void update();
 
 		RobotState const& getCurrentState() const;
+		bool movementStopped() const;
 
 	private:
 		void switchIntoState(RobotState *state);

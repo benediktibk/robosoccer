@@ -900,6 +900,63 @@ void RobotTest::update_goToDirectAndAtTarget_reachedTarget()
 	CPPUNIT_ASSERT(m_robot->reachedTarget());
 }
 
+void RobotTest::update_finalRotationReachedThroughMovementStopped_movementHasNotStopped()
+{
+	Pose target(Point(1, 3), Angle::getHalfRotation());
+	m_robot->goTo(target, false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(1, 0), Angle::getQuarterRotation()));
+
+	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle::getQuarterRotation()));
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+	CPPUNIT_ASSERT(m_robot->reachedTarget());
+}
+
+void RobotTest::goTo_movementStoppedBefore_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+	m_robot->update();
+	CPPUNIT_ASSERT(m_robot->movementStopped());
+
+	m_robot->goTo(Pose(Point(1, 2), Angle(3)), false, false, false);
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
+void RobotTest::goToDirect_movementStoppedBefore_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+	m_robot->update();
+	CPPUNIT_ASSERT(m_robot->movementStopped());
+
+	m_robot->goToDirect(Pose(Point(1, 2), Angle(3)));
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
+void RobotTest::kick_movementStoppedBefore_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+	m_robot->update();
+	CPPUNIT_ASSERT(m_robot->movementStopped());
+
+	m_robot->kick(*m_ball);
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
 void RobotTest::getObstacle_empty_sameAsFromControllableRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(4, 3), Angle(3)));

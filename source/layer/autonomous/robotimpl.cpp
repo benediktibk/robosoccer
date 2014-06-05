@@ -106,17 +106,14 @@ void RobotImpl::update()
 {
 	updateMovementStopped();
 	bool stateChanged;
-	bool movementStopped = m_movementStopped;
 
 	do
 	{
-		RobotState *nextState = m_currentState->nextState(movementStopped);
+		RobotState *nextState = m_currentState->nextState(m_movementStopped);
 		stateChanged = nextState != 0;
 
 		if (stateChanged)
 			switchIntoState(nextState);
-
-		movementStopped = false;
 	} while(stateChanged);
 
 	m_currentState->update();
@@ -134,6 +131,7 @@ void RobotImpl::switchIntoState(RobotState *state)
 	log(string("switching into ") + state->getName());
 	delete m_currentState;
 	m_currentState = state;
+	m_movementStopped = false;
 }
 
 void RobotImpl::stop()
@@ -181,4 +179,9 @@ void RobotImpl::updateMovementStopped()
 			log("movement not stopped anymore");
 		m_movementStopped = false;
 	}
+}
+
+bool RobotImpl::movementStopped() const
+{
+	return m_movementStopped;
 }

@@ -99,6 +99,10 @@ namespace Autonomous
 		CPPUNIT_TEST(update_empty_robotGotCallToUpdate);
 		CPPUNIT_TEST(update_goToAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(update_goToDirectAndAtTarget_reachedTarget);
+		CPPUNIT_TEST(update_finalRotationReachedThroughMovementStopped_movementHasNotStopped);
+		CPPUNIT_TEST(goTo_movementStoppedBefore_movementNotStopped);
+		CPPUNIT_TEST(goToDirect_movementStoppedBefore_movementNotStopped);
+		CPPUNIT_TEST(kick_movementStoppedBefore_movementNotStopped);
 		CPPUNIT_TEST(getObstacle_empty_sameAsFromControllableRobot);
 		CPPUNIT_TEST(getObstacles_empty_oneWhichIsSameAsFromControllableRobot);
 		CPPUNIT_TEST_SUITE_END();
@@ -168,6 +172,10 @@ namespace Autonomous
 		void update_empty_robotGotCallToUpdate();
 		void update_goToAndAtTarget_reachedTarget();
 		void update_goToDirectAndAtTarget_reachedTarget();
+		void update_finalRotationReachedThroughMovementStopped_movementHasNotStopped();
+		void goTo_movementStoppedBefore_movementNotStopped();
+		void goToDirect_movementStoppedBefore_movementNotStopped();
+		void kick_movementStoppedBefore_movementNotStopped();
 		void getObstacle_empty_sameAsFromControllableRobot();
 		void getObstacles_empty_oneWhichIsSameAsFromControllableRobot();
 
