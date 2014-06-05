@@ -35,15 +35,18 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 
 	Compare compare = getPositionCompare();
 	Pose const& currentPose = getRobot().getPose();
-	Route const &currentRoute = getCurrentRoute();
+	Route currentRoute = getCurrentRoute();
 
 	if (compare.isFuzzyEqual(currentPose.getPosition(), currentRoute.getSecondPoint()) || movementStopped)
 	{
 		if (currentRoute.getPointCount() > 2)
+		{
+			currentRoute.removeFirstPoint();
 			return new DriveToInitialRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
 						ignoreGoalObstacles(), currentRoute);
+		}
 		else
 			return new DriveToFinalRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),

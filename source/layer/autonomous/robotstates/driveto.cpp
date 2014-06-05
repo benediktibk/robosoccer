@@ -184,7 +184,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 		return new DriveToInitialRotation(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+					ignoreGoalObstacles(), currentRoute);
 
 	return 0;
 }

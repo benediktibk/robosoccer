@@ -30,12 +30,11 @@ DriveToInitialRotation::DriveToInitialRotation(
 		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles, Route oldRoute) :
+		bool ignoreGoalObstacles, const Route &oldRoute) :
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
 			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
 	m_movementStarted(false)
 {
-	oldRoute.removeFirstPoint();
 	setRoute(oldRoute);
 }
 
