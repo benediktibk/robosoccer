@@ -76,6 +76,7 @@ void DriveToFinalRotationTest::nextState_finalRotationReached_reachedTarget()
 void DriveToFinalRotationTest::nextState_movementStopped_reachedTarget()
 {
 	m_controllableRobot->setPose(Pose(Point(5, 4), Angle::getHalfRotation()));
+	m_robotState->update();
 
 	RobotState *nextState = m_robotState->nextState(true);
 

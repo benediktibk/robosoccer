@@ -83,6 +83,7 @@ void DriveToInitialRotationTest::nextState_targetNotReached_0()
 void DriveToInitialRotationTest::nextState_movementStopped_driving()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_robotState->update();
 
 	RobotState *nextState = m_robotState->nextState(true);
 

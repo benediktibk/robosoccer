@@ -39,7 +39,8 @@ RobotState *DriveToFinalRotation::nextState(bool movementStopped)
 	Pose const& currentPose = getRobot().getPose();
 	Pose const& target = getTarget();
 
-	if (compare.isFuzzyEqual(currentPose.getOrientation(), target.getOrientation()) || movementStopped)
+	if (	compare.isFuzzyEqual(currentPose.getOrientation(), target.getOrientation()) ||
+			(movementStopped && m_movementStarted))
 	{
 		log("reached final orientation");
 		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());

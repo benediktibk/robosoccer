@@ -37,7 +37,8 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 	Pose const& currentPose = getRobot().getPose();
 	Route currentRoute = getCurrentRoute();
 
-	if (compare.isFuzzyEqual(currentPose.getPosition(), currentRoute.getSecondPoint()) || movementStopped)
+	if (	compare.isFuzzyEqual(currentPose.getPosition(), currentRoute.getSecondPoint()) ||
+			(movementStopped && m_movementStarted))
 	{
 		if (currentRoute.getPointCount() > 2)
 		{

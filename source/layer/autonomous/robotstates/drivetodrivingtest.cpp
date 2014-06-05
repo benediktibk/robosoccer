@@ -110,6 +110,7 @@ void DriveToDrivingTest::nextState_targetReachedAndNoPointsLeft_finalRotation()
 void DriveToDrivingTest::nextState_movementStoppedAndNoPointsLeft_finalRotation()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 2), Angle(0)));
+	m_robotState->update();
 
 	RobotState *nextState = m_robotState->nextState(true);
 
@@ -150,6 +151,7 @@ void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRota
 				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
 				*m_autonomousRobotMock, false, false, false, route);
 	m_controllableRobot->setPose(Pose(Point(1, 0), Angle(0)));
+	state.update();
 
 	RobotState *nextState = state.nextState(true);
 

@@ -57,7 +57,8 @@ RobotState *DriveToInitialRotation::nextState(bool movementStopped)
 	Route const &currentRoute = getCurrentRoute();
 	Angle targetOrientation = calculateTargetOrientation(currentRoute);
 
-	if (compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) || movementStopped)
+	if (	compare.isFuzzyEqual(currentPose.getOrientation(), targetOrientation) ||
+			(movementStopped && m_movementStarted))
 	{
 		log("reached initial orientation, driving to next point");
 		return new DriveToDriving(
