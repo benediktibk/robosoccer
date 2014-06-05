@@ -123,3 +123,8 @@ void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreeP
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, state.getRoutePointsCount());
 }
+
+void DriveToInitialRotationTest::reachedTarget_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}

@@ -19,6 +19,7 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_finalRotationNotReached_0);
 		CPPUNIT_TEST(nextState_finalRotationReached_reachedTarget);
 		CPPUNIT_TEST(nextState_movementStopped_reachedTarget);
+		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -31,6 +32,7 @@ namespace Autonomous
 		void nextState_finalRotationNotReached_0();
 		void nextState_finalRotationReached_reachedTarget();
 		void nextState_movementStopped_reachedTarget();
+		void reachedTarget_empty_false();
 	};
 }
 }

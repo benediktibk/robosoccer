@@ -34,7 +34,6 @@ namespace Autonomous
 		const Common::Geometry::Pose m_target;
 		const double m_precision;
 		bool m_movementStarted;
-
 	};
 }
 }

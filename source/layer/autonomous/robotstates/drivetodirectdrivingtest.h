@@ -13,12 +13,14 @@ namespace Autonomous
 			public RobotStateTest
 	{
 		CPPUNIT_TEST_SUITE(DriveToDirectDrivingTest);
+		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
 		virtual RobotState* createInstance();
 
 	private:
+		void reachedTarget_empty_false();
 	};
 }
 }

@@ -158,3 +158,8 @@ void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRota
 	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
 	delete nextState;
 }
+
+void DriveToDrivingTest::reachedTarget_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}

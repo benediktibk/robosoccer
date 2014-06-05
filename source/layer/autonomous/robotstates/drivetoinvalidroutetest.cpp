@@ -54,3 +54,8 @@ void DriveToInvalidRouteTest::nextState_feasibleRoute_initialRotation()
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	delete nextState;
 }
+
+void DriveToInvalidRouteTest::reachedTarget_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}

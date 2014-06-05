@@ -83,3 +83,8 @@ void DriveToFinalRotationTest::nextState_movementStopped_reachedTarget()
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	delete nextState;
 }
+
+void DriveToFinalRotationTest::reachedTarget_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}

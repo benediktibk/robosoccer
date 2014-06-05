@@ -13,3 +13,8 @@ RobotState *DriveToDirectInitialRotationTest::createInstance()
 				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 				*m_logger, Logger::LogFileTypeAutonomousRobotGoalie);
 }
+
+void DriveToDirectInitialRotationTest::reachedTarget_empty_false()
+{
+	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}
