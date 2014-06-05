@@ -48,6 +48,7 @@ void KickTest::nextState_oneSecondAndRobotStillMoving_0()
 void KickTest::nextState_robotNotMovingAnymore_reachedTarget()
 {
 	m_controllableRobot->setIsMoving(false);
+	m_robotState->update(false);
 
 	RobotState *nextState = m_robotState->nextState(false);
 
