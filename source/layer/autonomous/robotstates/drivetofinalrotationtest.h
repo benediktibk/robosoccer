@@ -16,6 +16,9 @@ namespace Autonomous
 		CPPUNIT_TEST(constructor_routeWithTwoPoints_routeHasTwoPoints);
 		CPPUNIT_TEST(update_onceCalled_robotGotOneCallToTurnToFinalRotation);
 		CPPUNIT_TEST(update_twiceCalled_robotGotOneCallToTurnToFinalRotation);
+		CPPUNIT_TEST(nextState_finalRotationNotReached_0);
+		CPPUNIT_TEST(nextState_finalRotationReached_reachedTarget);
+		CPPUNIT_TEST(nextState_movementStopped_reachedTarget);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,6 +28,9 @@ namespace Autonomous
 		void constructor_routeWithTwoPoints_routeHasTwoPoints();
 		void update_onceCalled_robotGotOneCallToTurnToFinalRotation();
 		void update_twiceCalled_robotGotOneCallToTurnToFinalRotation();
+		void nextState_finalRotationNotReached_0();
+		void nextState_finalRotationReached_reachedTarget();
+		void nextState_movementStopped_reachedTarget();
 	};
 }
 }
