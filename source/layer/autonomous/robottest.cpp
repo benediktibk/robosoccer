@@ -657,7 +657,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChanged_robotGotTwoC
 	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
 }
 
-void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndinitialRotationReachedAgain_robotGotTwoCallsToDrive()
+void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndInitialRotationReachedAgain_robotGotTwoCallsToDrive()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
