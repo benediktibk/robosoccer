@@ -20,6 +20,14 @@ namespace Autonomous
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
 				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
+		DriveToInitialRotation(
+				Abstraction::ControllableRobot &robot,
+				const Common::Geometry::Pose &target,
+				const Common::Routing::Router &router,
+				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
+				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
+				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles,
+				Common::Routing::Route oldRoute);
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;

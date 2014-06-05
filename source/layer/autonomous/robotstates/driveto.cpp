@@ -33,10 +33,8 @@ DriveTo::DriveTo(
 	m_router(router),
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
-	m_currentRoute(0)
-{
-	updateRouteIfNecessary();
-}
+	m_currentRoute(new Route(ControllableRobot::getWidth()))
+{ }
 
 DriveTo::~DriveTo()
 {
@@ -161,6 +159,12 @@ bool DriveTo::updateRouteIfNecessary()
 	m_currentRoute = new Route(ReadableRobot::getWidth());
 	calculateNewRoute();
 	return true;
+}
+
+void DriveTo::setRoute(const Route &route)
+{
+	assert(m_currentRoute != 0);
+	*m_currentRoute = route;
 }
 
 void DriveTo::calculateNewRoute()

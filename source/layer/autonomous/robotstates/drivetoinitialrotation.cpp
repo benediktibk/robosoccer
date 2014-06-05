@@ -22,7 +22,22 @@ DriveToInitialRotation::DriveToInitialRotation(
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
 			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
 	m_movementStarted(false)
-{ }
+{
+	updateRouteIfNecessary();
+}
+
+DriveToInitialRotation::DriveToInitialRotation(
+		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
+		bool ignoreGoalObstacles, Route oldRoute) :
+	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
+			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
+	m_movementStarted(false)
+{
+	oldRoute.removeFirstPoint();
+	setRoute(oldRoute);
+}
 
 Angle DriveToInitialRotation::calculateTargetOrientation(Route const &currentRoute) const
 {
@@ -56,7 +71,7 @@ RobotState *DriveToInitialRotation::nextState(bool movementStopped)
 		return new DriveToDriving(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+					ignoreGoalObstacles(), currentRoute);
 
 	return 0;
 }

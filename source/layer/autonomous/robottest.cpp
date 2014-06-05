@@ -807,7 +807,7 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReached_turning
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	m_robot->update();
-	m_hardwareRobot->setPose(Pose(Point(0,4),Angle::getEighthRotation()));
+	m_hardwareRobot->setPose(Pose(Point(0, 4),Angle::getEighthRotation()));
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_hardwareRobot->getCallsToTurn());

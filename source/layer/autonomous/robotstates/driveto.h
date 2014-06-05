@@ -63,6 +63,7 @@ namespace Autonomous
 
 	protected:
 		bool updateRouteIfNecessary();
+		void setRoute(const Common::Routing::Route &route);
 
 	private:
 		void calculateNewRoute();

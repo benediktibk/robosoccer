@@ -21,8 +21,20 @@ DriveToDriving::DriveToDriving(
 		bool ignoreGoalObstacles) :
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
 			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
-	m_movmentStarted(false)
+	m_movementStarted(false)
 { }
+
+DriveToDriving::DriveToDriving(
+		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
+		bool ignoreGoalObstacles, const Route &oldRoute) :
+	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
+			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
+	m_movementStarted(false)
+{
+	setRoute(oldRoute);
+}
 
 RobotState *DriveToDriving::nextState(bool movementStopped)
 {
@@ -45,10 +57,18 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 	Pose const& currentPose = getRobot().getPose();
 
 	if (compare.isFuzzyEqual(currentPose.getPosition(), currentRoute.getSecondPoint()) || movementStopped)
-		return new DriveToFinalRotation(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+	{
+		if (currentRoute.getPointCount() > 2)
+			return new DriveToInitialRotation(
+						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
+						ignoreGoalObstacles(), currentRoute);
+		else
+			return new DriveToFinalRotation(
+						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
+						ignoreGoalObstacles());
+	}
 
 	return 0;
 }
@@ -62,7 +82,7 @@ void DriveToDriving::update(bool)
 {
 	Route const& currentRoute = getCurrentRoute();
 
-	if (m_movmentStarted || !currentRoute.isValid())
+	if (m_movementStarted || !currentRoute.isValid())
 		return;
 
 	Point const& nextPoint = currentRoute.getSecondPoint();
@@ -71,5 +91,5 @@ void DriveToDriving::update(bool)
 	else
 		getRobot().gotoPositionImprecise(nextPoint);
 
-	m_movmentStarted = true;
+	m_movementStarted = true;
 }
