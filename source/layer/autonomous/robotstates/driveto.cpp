@@ -34,7 +34,9 @@ DriveTo::DriveTo(
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
 	m_currentRoute(0)
-{ }
+{
+	updateRouteIfNecessary();
+}
 
 DriveTo::~DriveTo()
 {
