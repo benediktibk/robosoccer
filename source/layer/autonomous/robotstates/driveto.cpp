@@ -62,16 +62,6 @@ bool DriveTo::isEquivalentToDriveToDirect(const Pose &) const
 	return false;
 }
 
-vector<Circle> DriveTo::getAllObstaclesButMeInRangeDependentOnFlags(const Point &robotPoint, double distance) const
-{
-	if(m_ignoreBall)
-		return m_obstacleFetcher.getAllObstaclesButMeAndBallInRange(m_ownObstacleSource, robotPoint, distance);
-	else if(m_ignoreGoalObstacles)
-		return m_obstacleFetcher.getAllObstaclesButMeAndGoalObstaclesInRange(m_ownObstacleSource, robotPoint, distance);
-	else
-		return m_obstacleFetcher.getAllObstaclesButMeInRange(m_ownObstacleSource, robotPoint, distance);
-}
-
 void DriveTo::clearRoute()
 {
 	delete m_currentRoute;
@@ -150,7 +140,8 @@ const Route &DriveTo::getCurrentRoute() const
 bool DriveTo::updateRouteIfNecessary()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = getAllObstaclesButMeInRangeDependentOnFlags(robotPoint, 1);
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
 
 	if (isRouteFeasible(modifiedObstacles))
@@ -193,7 +184,8 @@ void DriveTo::calculateNewRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
-	vector<Circle> obstacles = getAllObstaclesButMeInRangeDependentOnFlags(robotPoint, 1);
+	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);

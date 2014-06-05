@@ -35,6 +35,8 @@ namespace Autonomous
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstaclesInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
+				const Common::Geometry::Point &ownPosition, double distance, bool ignoreBall, bool ignoreGoalObstacles) const;
 
 	private:
 		std::vector<Common::Geometry::Circle> filterByDistance(
