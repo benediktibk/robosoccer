@@ -957,6 +957,42 @@ void RobotTest::kick_movementStoppedBefore_movementNotStopped()
 	CPPUNIT_ASSERT(!m_robot->movementStopped());
 }
 
+void RobotTest::goTo_movementStoppedBeforeAndUpdate_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+
+	m_robot->goTo(Pose(Point(1, 2), Angle(3)), false, false, false);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
+void RobotTest::goToDirect_movementStoppedBeforeAndUpdate_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+
+	m_robot->goToDirect(Pose(Point(1, 2), Angle(3)));
+	m_robot->update();
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
+void RobotTest::kick_movementStoppedBeforeAndUpdate_movementNotStopped()
+{
+	m_hardwareRobot->setIsMoving(true);
+	m_robot->update();
+	m_hardwareRobot->setIsMoving(false);
+
+	m_robot->kick(*m_ball);
+	m_robot->update();
+
+	CPPUNIT_ASSERT(!m_robot->movementStopped());
+}
+
 void RobotTest::getObstacle_empty_sameAsFromControllableRobot()
 {
 	m_hardwareRobot->setPose(Pose(Point(4, 3), Angle(3)));

@@ -132,6 +132,8 @@ void RobotImpl::switchIntoState(RobotState *state)
 	delete m_currentState;
 	m_currentState = state;
 	m_movementStopped = false;
+	m_lastMovementState = false;
+	m_currentMovementState = false;
 }
 
 void RobotImpl::stop()
