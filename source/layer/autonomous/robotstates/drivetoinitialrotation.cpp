@@ -81,7 +81,7 @@ string DriveToInitialRotation::getName() const
 	return string("drive to - initial rotation");
 }
 
-void DriveToInitialRotation::update(bool)
+void DriveToInitialRotation::update()
 {
 	Route const &currentRoute = getCurrentRoute();
 

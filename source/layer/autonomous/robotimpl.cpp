@@ -119,7 +119,7 @@ void RobotImpl::update()
 		movementStopped = false;
 	} while(stateChanged);
 
-	m_currentState->update(movementStopped);
+	m_currentState->update();
 	m_robot.update();
 }
 

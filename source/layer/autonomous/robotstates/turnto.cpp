@@ -56,7 +56,7 @@ RobotState *TurnTo::nextState(bool movementStopped)
 	return result;
 }
 
-void TurnTo::update(bool)
+void TurnTo::update()
 {
 	if (m_targetAlreadySet)
 		return;

@@ -24,7 +24,7 @@ namespace Autonomous
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
-		virtual void update(bool movementStopped);
+		virtual void update();
 
 	private:
 		bool m_movementStarted;

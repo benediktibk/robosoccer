@@ -60,7 +60,7 @@ string DriveToFinalRotation::getName() const
 	return string("drive to - final rotation");
 }
 
-void DriveToFinalRotation::update(bool)
+void DriveToFinalRotation::update()
 {
 	Route const& currentRoute = getCurrentRoute();
 

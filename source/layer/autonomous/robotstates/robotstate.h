@@ -34,7 +34,7 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const = 0;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const = 0;
 		virtual std::string getName() const = 0;
-		virtual void update(bool movementStopped) = 0;
+		virtual void update() = 0;
 
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;

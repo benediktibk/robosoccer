@@ -56,7 +56,7 @@ string DriveToDirectFinalRotation::getName() const
 	return string("drive to direct - final rotation");
 }
 
-void DriveToDirectFinalRotation::update(bool)
+void DriveToDirectFinalRotation::update()
 {
 	if (m_movementStarted)
 		return;

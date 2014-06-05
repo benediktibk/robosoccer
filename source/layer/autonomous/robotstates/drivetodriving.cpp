@@ -78,7 +78,7 @@ string DriveToDriving::getName() const
 	return string("drive to - driving");
 }
 
-void DriveToDriving::update(bool)
+void DriveToDriving::update()
 {
 	Route const& currentRoute = getCurrentRoute();
 

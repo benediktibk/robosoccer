@@ -33,7 +33,7 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
-		virtual void update(bool movementStopped);
+		virtual void update();
 
 	private:
 		Common::Geometry::Angle calculateTargetOrientation() const;

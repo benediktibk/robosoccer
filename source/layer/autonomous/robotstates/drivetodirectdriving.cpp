@@ -56,7 +56,7 @@ string DriveToDirectDriving::getName() const
 	return string("drive to direct - driving");
 }
 
-void DriveToDirectDriving::update(bool)
+void DriveToDirectDriving::update()
 {
 	if (m_movementStarted)
 		return;

@@ -23,7 +23,7 @@ namespace Autonomous
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
-		virtual void update(bool movementStopped);
+		virtual void update();
 	};
 }
 }

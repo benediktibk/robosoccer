@@ -42,9 +42,9 @@ void TurnToTest::nextState_targetReached_followingState()
 
 void TurnToTest::nextState_movementStopped_targetReachedState()
 {
-	m_robotState->update(false);
-	m_robotState->update(false);
-	m_robotState->update(true);
+	m_robotState->update();
+	m_robotState->update();
+	m_robotState->update();
 
 	RobotState *nextState = m_robotState->nextState(true);
 
@@ -55,7 +55,7 @@ void TurnToTest::nextState_movementStopped_targetReachedState()
 
 void TurnToTest::update_empty_robotGotCallToTurnTo()
 {
-	m_robotState->update(false);
+	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }
@@ -64,7 +64,7 @@ void TurnToTest::update_targetOnTheAbove_robotGotCorrectAngleToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(1, 1), Angle()));
 
-	m_robotState->update(false);
+	m_robotState->update();
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), m_controllableRobot->getLastAngleToTurnTo()));
@@ -74,7 +74,7 @@ void TurnToTest::update_targetOnTheLeft_robotGotCorrectAngleToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
 
-	m_robotState->update(false);
+	m_robotState->update();
 
 	Compare compare(0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), m_controllableRobot->getLastAngleToTurnTo()));
@@ -84,8 +84,8 @@ void TurnToTest::update_twiceCalled_onlyOneCallToTurnTo()
 {
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle()));
 
-	m_robotState->update(false);
-	m_robotState->update(false);
+	m_robotState->update();
+	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToTurn());
 }

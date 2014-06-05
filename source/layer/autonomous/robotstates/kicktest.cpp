@@ -22,7 +22,7 @@ void KickTest::targetReached_empty_false()
 
 void KickTest::nextState_noTimePassedBy_0()
 {
-	m_robotState->update(false);
+	m_robotState->update();
 	m_controllableRobot->setIsMoving(true);
 
 	RobotState *nextState = m_robotState->nextState(false);
@@ -33,7 +33,7 @@ void KickTest::nextState_noTimePassedBy_0()
 void KickTest::nextState_oneSecondAndRobotStillMoving_0()
 {
 	m_watch->setTime(4);
-	m_robotState->update(false);
+	m_robotState->update();
 	m_controllableRobot->setIsMoving(true);
 
 	RobotState *nextStateOne = m_robotState->nextState(false);
@@ -48,7 +48,7 @@ void KickTest::nextState_oneSecondAndRobotStillMoving_0()
 void KickTest::nextState_robotNotMovingAnymore_reachedTarget()
 {
 	m_controllableRobot->setIsMoving(false);
-	m_robotState->update(false);
+	m_robotState->update();
 
 	RobotState *nextState = m_robotState->nextState(false);
 
@@ -59,9 +59,9 @@ void KickTest::nextState_robotNotMovingAnymore_reachedTarget()
 
 void KickTest::update_severalTimesCalled_oneCallToKick()
 {
-	m_robotState->update(false);
-	m_robotState->update(false);
-	m_robotState->update(false);
+	m_robotState->update();
+	m_robotState->update();
+	m_robotState->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_controllableRobot->getCallsToKick());
 }

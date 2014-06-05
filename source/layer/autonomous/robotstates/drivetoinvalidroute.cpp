@@ -38,7 +38,7 @@ string DriveToInvalidRoute::getName() const
 	return string("drive to - invalid route");
 }
 
-void DriveToInvalidRoute::update(bool)
+void DriveToInvalidRoute::update()
 {
 	getRobot().stop();
 }

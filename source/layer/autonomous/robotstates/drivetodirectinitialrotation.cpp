@@ -57,7 +57,7 @@ string DriveToDirectInitialRotation::getName() const
 	return string("drive to direct - inital rotation");
 }
 
-void DriveToDirectInitialRotation::update(bool)
+void DriveToDirectInitialRotation::update()
 {
 	if (m_movementStarted)
 		return;

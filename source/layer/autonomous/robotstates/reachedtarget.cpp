@@ -35,7 +35,7 @@ bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target) const
 	return isEquivalentToDriveTo(target);
 }
 
-void ReachedTarget::update(bool)
+void ReachedTarget::update()
 {
 	getRobot().stop();
 }
