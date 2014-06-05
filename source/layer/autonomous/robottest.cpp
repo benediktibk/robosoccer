@@ -574,8 +574,8 @@ void RobotTest::update_goToAndPositionReachedAndMovementStopped_robotGotCallToTu
 void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRouteAndMovementStoppedByRobot_robotGotCallToMoveToSecondPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
-	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
@@ -585,14 +585,14 @@ void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRouteAndMove
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
-	CPPUNIT_ASSERT_EQUAL(Point(0,4),m_hardwareRobot->getLastPointToDriveTo());
+	CPPUNIT_ASSERT_EQUAL(Point(0, 4),m_hardwareRobot->getLastPointToDriveTo());
 }
 
 void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReachedAndAllIntermediateMovementsStoppedByRobot_turningToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
-	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
@@ -613,8 +613,8 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReachedAndAllIn
 void RobotTest::update_goToAndSecondPositionReachedAndRotationReachedAndAllIntermediateMovementsStoppedByRobot_robotGotCallToMoveToThirdPoint()
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
-	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
