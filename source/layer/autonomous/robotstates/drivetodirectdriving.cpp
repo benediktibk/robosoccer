@@ -43,6 +43,7 @@ RobotState *DriveToDirectDriving::nextState(bool movementStopped)
 
 bool DriveToDirectDriving::isEquivalentToDriveToDirect(const Pose &target) const
 {
+	//! @todo improve this
 	return m_target == target;
 }
 

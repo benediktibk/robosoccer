@@ -44,6 +44,7 @@ RobotState *DriveToDirectInitialRotation::nextState(bool movementStopped)
 
 bool DriveToDirectInitialRotation::isEquivalentToDriveToDirect(const Pose &target) const
 {
+	//! @todo improve this
 	return m_target == target;
 }
 
