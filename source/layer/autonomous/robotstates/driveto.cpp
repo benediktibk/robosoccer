@@ -1,5 +1,7 @@
 #include "layer/autonomous/robotstates/driveto.h"
 #include "layer/autonomous/robotstates/reachedtarget.h"
+#include "layer/autonomous/robotstates/drivetoinitialrotation.h"
+#include "layer/autonomous/robotstates/drivetoinvalidroute.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/geometry/compare.h"
 #include "common/routing/route.h"
@@ -165,6 +167,26 @@ void DriveTo::setRoute(const Route &route)
 {
 	assert(m_currentRoute != 0);
 	*m_currentRoute = route;
+}
+
+RobotState *DriveTo::nextStateWithRouteUpdate()
+{
+	bool routeUpdated = updateRouteIfNecessary();
+	Route const &currentRoute = getCurrentRoute();
+
+	if (!currentRoute.isValid())
+		return new DriveToInvalidRoute(
+					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
+					ignoreGoalObstacles());
+
+	if (routeUpdated)
+		return new DriveToInitialRotation(
+					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
+					ignoreGoalObstacles());
+
+	return 0;
 }
 
 void DriveTo::calculateNewRoute()

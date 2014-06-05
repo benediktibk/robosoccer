@@ -64,6 +64,7 @@ namespace Autonomous
 	protected:
 		bool updateRouteIfNecessary();
 		void setRoute(const Common::Routing::Route &route);
+		RobotState* nextStateWithRouteUpdate();
 
 	private:
 		void calculateNewRoute();

@@ -30,20 +30,10 @@ DriveToFinalRotation::DriveToFinalRotation(
 
 RobotState *DriveToFinalRotation::nextState(bool movementStopped)
 {
-	bool routeUpdated = updateRouteIfNecessary();
-	Route const &currentRoute = getCurrentRoute();
+	RobotState *state = nextStateWithRouteUpdate();
 
-	if (!currentRoute.isValid())
-		return new DriveToInvalidRoute(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
-
-	if (routeUpdated)
-		return new DriveToInitialRotation(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+	if (state != 0)
+		return state;
 
 	Compare compare = getFinalRotationCompare();
 	Pose const& currentPose = getRobot().getPose();
