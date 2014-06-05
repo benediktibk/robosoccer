@@ -67,7 +67,7 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 			return new DriveToFinalRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
 						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-						ignoreGoalObstacles());
+						ignoreGoalObstacles(), currentRoute);
 	}
 
 	return 0;
