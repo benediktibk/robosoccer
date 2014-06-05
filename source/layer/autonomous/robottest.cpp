@@ -776,8 +776,9 @@ void RobotTest::update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDr
 
 void RobotTest::update_goToAndInitialRotationNotReachedAndThreePointsInRoute_turningToSecondPoint()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
@@ -786,8 +787,9 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndThreePointsInRoute_tur
 
 void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRoute_robotGotCallToMoveToSecondPoint()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	m_robot->update();
@@ -799,8 +801,9 @@ void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRoute_robotG
 
 void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReached_turningToThirdPoint()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	m_robot->update();
@@ -814,8 +817,9 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReached_turning
 
 void RobotTest::update_goToAndSecondPositionReachedAndRotationReached_robotGotCallToMoveToThirdPoint()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	m_robot->update();
@@ -831,8 +835,9 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationReached_robotGotCa
 
 void RobotTest::update_goToAndThirdPositionReachedAndFinalRotationNotReached_turningToFinalRotation()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
+	m_robot->goTo(Pose(Point(5, 4), Angle::getQuarterRotation()), false, false, false);
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	m_robot->update();
