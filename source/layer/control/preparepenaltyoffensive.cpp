@@ -47,7 +47,7 @@ void PreparePenaltyOffensive::updateInternal()
 	//! @todo consider ignoreBall and driveSlolyAtTheEnd
 	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front(), DriveMoveDefault);
 	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front(), DriveMoveDefault);
-	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionPrepareKicker(), DriveModeIgnoreGoalObstacles);
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionPrepareKicker().front(), DriveModeIgnoreGoalObstacles);
 
 	if (movementsFinished())
 	{

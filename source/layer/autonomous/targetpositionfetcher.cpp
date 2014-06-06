@@ -66,23 +66,24 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 	return getGoaliePositionUsingEstimatedIntersectPoint(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
 {
-	Pose preparePenaltyPosition(Point::zero(), Angle::getHalfRotation());
+	vector<Pose> preparePenaltyPosition;
+	preparePenaltyPosition.push_back(Pose(Point::zero(), Angle::getHalfRotation()));
 
 	return preparePenaltyPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
 	FieldSide fieldSide = FieldSideRight;
 
-	Pose penaltyPosition;
+	vector<Pose> penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
 
 	double percentOfLineLength = -0.11/lineToGoal.getLength();
-	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
+	penaltyPosition.push_back(Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation()));
 
 	return penaltyPosition;
 }

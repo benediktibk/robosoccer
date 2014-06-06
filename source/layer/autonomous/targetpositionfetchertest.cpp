@@ -66,7 +66,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.11, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball));
+	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.11, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball).front());
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough()
@@ -76,7 +76,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanc
 	Point ballPosition(0.5, -0.2);
 	ball.setPosition(ballPosition);
 
-	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball);
+	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball).front();
 
 	Point const &targetPosition = targetPose.getPosition();
 	double distanceToBall = targetPosition.distanceTo(ballPosition);
@@ -92,7 +92,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanc
 	Point ballPosition(0.5, -0.2);
 	ball.setPosition(ballPosition);
 
-	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball);
+	Pose targetPose = targetPositionFetcher.getPenaltyPositionKicker(ball).front();
 
 	Point const &targetPosition = targetPose.getPosition();
 	double distanceToBall = targetPosition.distanceTo(ballPosition);
@@ -205,7 +205,7 @@ void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_positionInC
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	Rectangle targetArea(Point(-0.3, -0.3), Point(0.3, 0.3));
 
-	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker();
+	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker().front();
 
 	CPPUNIT_ASSERT(targetArea.isInside(target.getPosition(), Common::Other::Compare(0.1)));
 }
@@ -216,7 +216,7 @@ void TargetPositionFetcherTest::getPenaltyPositionPrepareKicker_ball_angleIsCorr
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	Compare compare(0.1);
 
-	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker();
+	Pose target = targetPositionFetcher.getPenaltyPositionPrepareKicker().front();
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getHalfRotation(), target.getOrientation()));
 }

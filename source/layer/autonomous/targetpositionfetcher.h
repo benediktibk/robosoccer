@@ -36,11 +36,12 @@ namespace Autonomous
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
 		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
-		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
 
-		Common::Geometry::Pose getPenaltyPositionPrepareKicker() const;
-		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
+		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
 		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
+
+		std::vector<Common::Geometry::Pose> getPenaltyPositionPrepareKicker() const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
