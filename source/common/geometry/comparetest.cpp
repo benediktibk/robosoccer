@@ -9,37 +9,37 @@ using namespace std;
 void CompareTest::isFuzzyEqual_towListsWithOrientedPositions_true()
 {
 	Compare compare(0.1);
-	list<Pose> list1, list2;
-	list1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
-	list1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector<Pose> vector1, vector2;
+	vector1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(list1, list2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoListsWithOrientedPositions_false()
 {
 	Compare compare(0.1);
-	list<Pose> list1, list2;
-	list1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
-	list1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector<Pose> vector1, vector2;
+	vector1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(!compare.isFuzzyEqual(list1, list2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_towListsWithOrientedPositionsInDiffrentOrder_true()
 {
 	Compare compare(0.1);
-	list<Pose> list1, list2;
-	list1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
-	list1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
-	list2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector<Pose> vector1, vector2;
+	vector1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector1.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(!compare.isFuzzyEqual(list1, list2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoAnglesNearPi_true()
