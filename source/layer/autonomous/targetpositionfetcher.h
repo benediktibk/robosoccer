@@ -28,11 +28,11 @@ namespace Autonomous
 
 		void setFieldSide(Abstraction::FieldSide fieldSide);
 
-		Common::Geometry::Pose getStartPositionGoalkeeper() const;
-		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
-		Common::Geometry::Pose getStartPositionPlayerTwoOffensive() const;
-		Common::Geometry::Pose getStartPositionPlayerOneDefensive() const;
-		Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionGoalkeeper() const;
+		std::vector<Common::Geometry::Pose> getStartPositionPlayerOneOffensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionPlayerTwoOffensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionPlayerOneDefensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionPlayerTwoDefensive() const;
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
 		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;

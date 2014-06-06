@@ -21,32 +21,52 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 	m_fieldSide = fieldSide;
 }
 
-Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
+vector<Pose> TargetPositionFetcher::getStartPositionGoalkeeper() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerOneOffensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionPlayerOneOffensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerTwoOffensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionPlayerTwoOffensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerOneDefensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionPlayerOneDefensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1)));
+
+	return targetPoints;
 }
 
-std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
+vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
 {
 	return getEnemyGoalPosition(m_fieldSide);
 }
