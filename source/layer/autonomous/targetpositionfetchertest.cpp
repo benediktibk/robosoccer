@@ -108,7 +108,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSide_goaliePos
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0.5));
 
-	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.25/3, target.getPosition().getY(),0.0001);
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), target.getOrientation()));
@@ -228,7 +228,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballBehindGoalie_goalie
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-1.45,0.5));
 
-	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Pose target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), target.getOrientation()));
 	isInUsefulRange(target, 0.2, true);
@@ -242,7 +242,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFie
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideRight);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -255,7 +255,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFiel
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideLeft);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -268,7 +268,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFie
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideRight);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -281,7 +281,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtRightFie
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideRight);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -294,7 +294,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFiel
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideLeft);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -307,7 +307,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballNotMovingAtLeftFiel
 	ball.setIsMoving(false);
 	ball.setCurrentFieldSide(FieldSideLeft);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -322,7 +322,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballMovingRightAtLeftFi
 	ball.setCurrentFieldSide(FieldSideLeft);
 	ball.setMovingDirection(FieldSideRight);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }
@@ -336,7 +336,7 @@ void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballMovingLeftAtLeftFie
 	ball.setCurrentFieldSide(FieldSideLeft);
 	ball.setMovingDirection(FieldSideLeft);
 
-	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball);
+	Point target = targetPositionFetcher.getPenaltyPositionGoalie(ball).front();
 
 	isInUsefulRange(target, 0.2, true);
 }

@@ -108,12 +108,14 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	return penaltyPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
 	FieldSide fieldSide = FieldSideLeft;
+	vector<Pose> penaltyPosition;
+	penaltyPosition.push_back(getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25));
 
-	return getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25);
+	return penaltyPosition;
 }
 
 Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
@@ -326,12 +328,13 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-Pose TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+vector<Pose> TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
 {
+	vector<Pose> targetPoint;
 	Angle ballOrientation = getOrientationToEnemyGoal();
 	Point resultPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
-	Pose result(resultPoint, ballOrientation + Angle::getHalfRotation());
+	targetPoint.push_back(Pose(resultPoint, ballOrientation + Angle::getHalfRotation()));
 
-	return result;
+	return targetPoint;
 
 }
