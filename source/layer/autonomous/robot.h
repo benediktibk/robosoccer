@@ -26,7 +26,7 @@ namespace Autonomous
 	public:
 		virtual ~Robot() { }
 
-		virtual void goTo(std::vector<Common::Geometry::Pose> const &position, DriveMode driveMode) = 0;
+		virtual void goTo(std::vector<Common::Geometry::Pose> const &positions, DriveMode driveMode) = 0;
 		virtual void goToDirect(Common::Geometry::Pose const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;

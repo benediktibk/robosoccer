@@ -17,7 +17,7 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const vector<Pose> &/*position*/, DriveMode /*driveMode*/)
+void RobotMock::goTo(const vector<Pose> &, DriveMode)
 {
 	++m_callsToGoTo;
 }
@@ -44,7 +44,7 @@ bool RobotMock::reachedTarget() const
 	return m_targetReached;
 }
 
-void RobotMock::kick(IntelligentBall const &/*ball*/)
+void RobotMock::kick(IntelligentBall const &)
 {
 	++m_callsToKick;
 }

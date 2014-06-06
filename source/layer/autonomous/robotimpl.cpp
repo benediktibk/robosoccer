@@ -60,23 +60,23 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const vector<Pose> &position, DriveMode driveMode)
+void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 {
-	assert(!position.empty());
-	if (m_currentState->isEquivalentToDriveTo(position.front()))
+	assert(!positions.empty());
+	if (m_currentState->isEquivalentToDriveTo(positions.front()))
 	{
 		log("new target for go to is equal to the current one");
 		return;
 	}
 
 	switchIntoState(new DriveToInitialRotation(
-						m_robot, position.front(), m_router, m_logger, m_logFileType,
+						m_robot, positions.front(), m_router, m_logger, m_logFileType,
 						m_obstacleFetcher, *this, driveMode));
 
 	stringstream stream;
-	stream << "target count: " << position.size();
+	stream << "target count: " << positions.size();
 	log(stream.str());
-	logPositions("target is", position);
+	logPositions("target is", positions);
 }
 
 Pose RobotImpl::getCurrentPose() const
