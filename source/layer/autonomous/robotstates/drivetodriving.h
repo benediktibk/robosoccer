@@ -15,7 +15,7 @@ namespace Autonomous
 	public:
 		DriveToDriving(
 				Abstraction::ControllableRobot &robot,
-				const Common::Geometry::Pose &target,
+				const std::vector<Common::Geometry::Pose> &targets,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,

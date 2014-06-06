@@ -70,7 +70,7 @@ void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 	}
 
 	switchIntoState(new DriveToInitialRotation(
-						m_robot, positions.front(), m_router, m_logger, m_logFileType,
+						m_robot, positions, m_router, m_logger, m_logFileType,
 						m_obstacleFetcher, *this, driveMode));
 
 	stringstream stream;

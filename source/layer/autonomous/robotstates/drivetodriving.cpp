@@ -14,10 +14,10 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToDriving::DriveToDriving(ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+DriveToDriving::DriveToDriving(ControllableRobot &robot, const std::vector<Pose> &targets, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
+	DriveTo(robot, targets, router, logger, logFileType, obstacleFetcher,
 			ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
@@ -43,14 +43,14 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 			log("position reached, turning to next point");
 			currentRoute.removeFirstPoint();
 			return new DriveToInitialRotation(
-						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+						getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
 						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 		}
 		else
 		{
 			log("position reached, turning to final orientation");
 			return new DriveToFinalRotation(
-						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
+						getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
 						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 		}
 	}

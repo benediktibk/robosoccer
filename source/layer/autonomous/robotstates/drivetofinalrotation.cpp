@@ -16,10 +16,10 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToFinalRotation::DriveToFinalRotation(ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+DriveToFinalRotation::DriveToFinalRotation(ControllableRobot &robot, const std::vector<Pose> &targets, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
+	DriveTo(robot, targets, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	setRoute(oldRoute);
@@ -34,7 +34,7 @@ RobotState *DriveToFinalRotation::nextState(bool movementStopped)
 
 	Compare compare = getFinalRotationCompare();
 	Pose const& currentPose = getRobot().getPose();
-	Pose const& target = getTarget();
+	Pose const& target = getTargets().front();
 
 	if (	compare.isFuzzyEqual(currentPose.getOrientation(), target.getOrientation()) ||
 			(movementStopped && m_movementStarted))
@@ -58,7 +58,7 @@ void DriveToFinalRotation::update()
 	if (m_movementStarted || !currentRoute.isValid())
 		return;
 
-	Pose const& target = getTarget();
+	Pose const& target = getTargets().front();
 	Angle const& targetOrientaton = target.getOrientation();
 	getRobot().turn(targetOrientaton);
 	m_movementStarted = true;

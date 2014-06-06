@@ -38,7 +38,7 @@ namespace Autonomous
 	{
 	public:
 		DriveTo(Abstraction::ControllableRobot &robot,
-				const Common::Geometry::Pose &target,
+				const std::vector<Common::Geometry::Pose> &targets,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
@@ -53,7 +53,7 @@ namespace Autonomous
 		Common::Geometry::Compare getPositionCompare() const;
 		Common::Geometry::Compare getInitialRotationCompare() const;
 		Common::Geometry::Compare getFinalRotationCompare() const;
-		Common::Geometry::Pose const& getTarget() const;
+		std::vector<Common::Geometry::Pose> const& getTargets() const;
 		Common::Routing::Router const& getRouter() const;
 		ObstacleFetcher const& getObstacleFetcher() const;
 		ObstacleSource const& getOwnObstacleSource() const;
@@ -80,7 +80,7 @@ namespace Autonomous
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
 		const DriveMode m_driveMode;
-		const Common::Geometry::Pose m_target;
+		const std::vector<Common::Geometry::Pose> m_targets;
 		Common::Routing::Router const &m_router;
 		ObstacleFetcher const &m_obstacleFetcher;
 		ObstacleSource const &m_ownObstacleSource;

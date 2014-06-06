@@ -18,18 +18,22 @@ using namespace std;
 
 RobotState *DriveToFinalRotationTest::createInstance()
 {
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	return new DriveToFinalRotation(
-				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, DriveMoveDefault, *m_route);
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveMoveDefault, *m_route);
 }
 
 void DriveToFinalRotationTest::constructor_routeWithTwoPoints_routeHasTwoPoints()
 {
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	DriveToFinalRotation state(
-					*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-					*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-					*m_autonomousRobotMock, DriveMoveDefault, *m_route);
+					*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, *m_route);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, state.getRoutePointsCount());
 }
