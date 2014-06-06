@@ -17,7 +17,7 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const Pose &/*position*/, DriveMode /*driveMode*/)
+void RobotMock::goTo(const vector<Pose> &/*position*/, DriveMode /*driveMode*/)
 {
 	++m_callsToGoTo;
 }

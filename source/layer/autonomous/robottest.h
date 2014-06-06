@@ -3,6 +3,8 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include "common/geometry/pose.h"
+#include <vector>
 
 namespace RoboSoccer
 {
@@ -193,6 +195,7 @@ namespace Autonomous
 		Common::Routing::RouterImpl *m_router;
 		Common::Routing::FieldPositionCheckerMock *m_field;
 		ObstacleFetcherMock *m_obstacleFetcher;
+		std::vector<Common::Geometry::Pose> m_targets;
 		RobotImpl *m_robot;
 		RobotImpl *m_robotWithRealRouter;
 		IntelligentBallMock *m_ball;
