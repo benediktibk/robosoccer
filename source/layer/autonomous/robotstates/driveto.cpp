@@ -19,18 +19,14 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
-DriveTo::DriveTo(
-		ControllableRobot &robot, Pose const &target, const Router &router,
+DriveTo::DriveTo(ControllableRobot &robot, Pose const &target, const Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles) :
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.2),
 	m_precisionOrientationFinal(0.1),
-	m_ignoreBall(ignoreBall),
-	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
-	m_ignoreGoalObstacles(ignoreGoalObstacles),
+	m_driveMode(driveMode),
 	m_target(target),
 	m_router(router),
 	m_obstacleFetcher(obstacleFetcher),
@@ -116,19 +112,9 @@ const ObstacleSource &DriveTo::getOwnObstacleSource() const
 	return m_ownObstacleSource;
 }
 
-bool DriveTo::ignoreBall() const
+DriveMode DriveTo::getDriveMode() const
 {
-	return m_ignoreBall;
-}
-
-bool DriveTo::driveSlowlyAtTheEnd() const
-{
-	return m_driveSlowlyAtTheEnd;
-}
-
-bool DriveTo::ignoreGoalObstacles() const
-{
-	return m_ignoreGoalObstacles;
+	return m_driveMode;
 }
 
 const Route &DriveTo::getCurrentRoute() const
@@ -141,7 +127,7 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
+				m_ownObstacleSource,robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
 
 	if (isRouteFeasible(modifiedObstacles))
@@ -170,8 +156,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 		log("route is invalid");
 		return new DriveToInvalidRoute(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode());
 	}
 
 	if (routeUpdated)
@@ -179,8 +164,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 		log("created new route, starting with initial rotation");
 		return new DriveToInitialRotation(
 					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles(), currentRoute);
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
 	return 0;
@@ -191,12 +175,12 @@ void DriveTo::calculateNewRoute()
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_target.getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
+				m_ownObstacleSource,robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if((m_driveSlowlyAtTheEnd || m_ignoreGoalObstacles) && m_currentRoute->isValid())
+	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles) && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	logRoute();

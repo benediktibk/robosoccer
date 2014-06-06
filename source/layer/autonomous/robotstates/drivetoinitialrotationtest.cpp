@@ -21,7 +21,7 @@ RobotState *DriveToInitialRotationTest::createInstance()
 	return new DriveToInitialRotation(
 				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, false, false, false);
+				*m_autonomousRobotMock, DriveMoveDefault);
 }
 
 void DriveToInitialRotationTest::update_onceCalled_robotGotOneCallToTurnToSecondPoint()
@@ -120,7 +120,7 @@ void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreeP
 	DriveToInitialRotation state(
 					*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
 					*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-					*m_autonomousRobotMock, false, false, false, route);
+					*m_autonomousRobotMock, DriveMoveDefault, route);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, state.getRoutePointsCount());
 }

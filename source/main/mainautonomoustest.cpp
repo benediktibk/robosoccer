@@ -50,14 +50,14 @@ int main(int, char**)
 
 	while(true)
 	{
-		robotOne.goTo(Pose(Point(0.5, 0), Angle::getQuarterRotation()), false, false, false);
+		robotOne.goTo(Pose(Point(0.5, 0), Angle::getQuarterRotation()), DriveMoveDefault);
 		while (!robotOne.reachedTarget())
 		{
 			robotOne.update();
 			usleep(10000);
 		}
 
-		robotOne.goTo(Pose(Point(-0.5, 0), Angle::getQuarterRotation()), false, false, false);
+		robotOne.goTo(Pose(Point(-0.5, 0), Angle::getQuarterRotation()), DriveMoveDefault);
 		while (!robotOne.reachedTarget())
 		{
 			robotOne.update();

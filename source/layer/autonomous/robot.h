@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOT_H
 
 #include "layer/autonomous/obstaclesource.h"
+#include "layer/autonomous/robotstates/drivemode.h"
 
 namespace RoboSoccer
 {
@@ -25,7 +26,7 @@ namespace Autonomous
 	public:
 		virtual ~Robot() { }
 
-		virtual void goTo(Common::Geometry::Pose const &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles) = 0;
+		virtual void goTo(Common::Geometry::Pose const &position, DriveMode driveMode) = 0;
 		virtual void goToDirect(Common::Geometry::Pose const &position) = 0;
 		virtual void stop() = 0;
 		virtual Common::Geometry::Pose getCurrentPose() const = 0;

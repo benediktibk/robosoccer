@@ -14,13 +14,11 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToDriving::DriveToDriving(
-		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+DriveToDriving::DriveToDriving(ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles, const Route &oldRoute) :
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
+			ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	setRoute(oldRoute);
@@ -46,16 +44,14 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 			currentRoute.removeFirstPoint();
 			return new DriveToInitialRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-						ignoreGoalObstacles(), currentRoute);
+						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 		}
 		else
 		{
 			log("position reached, turning to final orientation");
 			return new DriveToFinalRotation(
 						getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-						getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-						ignoreGoalObstacles(), currentRoute);
+						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 		}
 	}
 
@@ -75,7 +71,7 @@ void DriveToDriving::update()
 		return;
 
 	Point const& nextPoint = currentRoute.getSecondPoint();
-	if (currentRoute.getPointCount() == 2 && driveSlowlyAtTheEnd())
+	if (currentRoute.getPointCount() == 2 && getDriveMode() == DriveModeDriveSlowlyAtTheEnd)
 		getRobot().gotoPositionPrecise(nextPoint);
 	else
 		getRobot().gotoPositionImprecise(nextPoint);

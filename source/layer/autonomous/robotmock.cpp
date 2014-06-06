@@ -17,7 +17,7 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const Pose &/*position*/, bool /*ignoreBall*/, bool /*driveSlowlyAtTheEnd*/, bool /*ignoreGoalObstacles*/)
+void RobotMock::goTo(const Pose &/*position*/, DriveMode /*driveMode*/)
 {
 	++m_callsToGoTo;
 }

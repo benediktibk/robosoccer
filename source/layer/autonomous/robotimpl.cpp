@@ -60,7 +60,7 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles)
+void RobotImpl::goTo(const Pose &position, DriveMode driveMode)
 {
 	if (m_currentState->isEquivalentToDriveTo(position))
 	{
@@ -70,7 +70,7 @@ void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTh
 
 	switchIntoState(new DriveToInitialRotation(
 						m_robot, position, m_router, m_logger, m_logFileType,
-						m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles));
+						m_obstacleFetcher, *this, driveMode));
 	logPosition("target is", position);
 }
 
