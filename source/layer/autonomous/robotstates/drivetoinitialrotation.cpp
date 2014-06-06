@@ -14,8 +14,8 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
-		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const Pose &target, const Router &router,
+		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
@@ -23,8 +23,8 @@ DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const P
 	updateRouteIfNecessary();
 }
 
-DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
-		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const Pose &target, const Router &router,
+		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
 	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
