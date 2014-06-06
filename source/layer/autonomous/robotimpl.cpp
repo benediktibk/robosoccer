@@ -71,7 +71,7 @@ void RobotImpl::goTo(const vector<Pose> &position, DriveMode driveMode)
 	switchIntoState(new DriveToInitialRotation(
 						m_robot, position.front(), m_router, m_logger, m_logFileType,
 						m_obstacleFetcher, *this, driveMode));
-	logPosition("target is", position.front());
+	logPositions("target is", position);
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -156,6 +156,12 @@ void RobotImpl::goToDirect(const Pose &position)
 void RobotImpl::log(const string &message)
 {
 	m_logger.logToLogFileOfType(m_logFileType, message);
+}
+
+void RobotImpl::logPositions(const string &message, const std::vector<Pose> &positions)
+{
+	for (vector<Pose>::const_iterator i = positions.begin(); i != positions.end(); ++i)
+		logPosition(message, *i);
 }
 
 void RobotImpl::logPosition(const string &message, const Point &position)

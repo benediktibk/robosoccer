@@ -59,6 +59,7 @@ namespace Autonomous
 	private:
 		void switchIntoState(RobotState *state);
 		void log(std::string const &message);
+		void logPositions(std::string const &message, std::vector<Common::Geometry::Pose> const &positions);
 		void logPosition(std::string const &message, Common::Geometry::Point const &position);
 		void updateMovementStopped();
 
