@@ -71,7 +71,8 @@ void DriveToDriving::update()
 		return;
 
 	Point const& nextPoint = currentRoute.getSecondPoint();
-	if (currentRoute.getPointCount() == 2 && getDriveMode() == DriveModeDriveSlowlyAtTheEnd)
+	if (currentRoute.getPointCount() == 2 &&
+			(getDriveMode() == DriveModeDriveSlowlyAtTheEnd || getDriveMode() == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd))
 		getRobot().gotoPositionPrecise(nextPoint);
 	else
 		getRobot().gotoPositionImprecise(nextPoint);

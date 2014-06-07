@@ -180,7 +180,8 @@ void DriveTo::calculateNewRoute()
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles) && m_currentRoute->isValid())
+	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
+		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	logRoute();
