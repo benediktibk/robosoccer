@@ -16,6 +16,9 @@ namespace Autonomous
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST(update_onceCalled_robotGotOneCallToDriveToTarget);
 		CPPUNIT_TEST(update_twiceCalled_robotGotOneCallToDriveToTarget);
+		CPPUNIT_TEST(nextState_targetNotReached_0);
+		CPPUNIT_TEST(nextState_targetReached_finalRotation);
+		CPPUNIT_TEST(nextState_movementStopped_finalRotation);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,6 +28,9 @@ namespace Autonomous
 		void reachedTarget_empty_false();
 		void update_onceCalled_robotGotOneCallToDriveToTarget();
 		void update_twiceCalled_robotGotOneCallToDriveToTarget();
+		void nextState_targetNotReached_0();
+		void nextState_targetReached_finalRotation();
+		void nextState_movementStopped_finalRotation();
 	};
 }
 }
