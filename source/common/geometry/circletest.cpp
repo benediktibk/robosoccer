@@ -123,6 +123,14 @@ void CircleTest::overlapsWith_closeTogetherButTooSmallDiameters_false()
 	CPPUNIT_ASSERT(!one.overlapsWith(two));
 }
 
+void CircleTest::overlapsWith_realWorldExample_false()
+{
+	Circle one(Point(1.325, -0.25), 0.25);
+	Circle two(Point(1.29548, -0.018396), 0.13435);
+
+	CPPUNIT_ASSERT(!one.overlapsWith(two));
+}
+
 void CircleTest::getIntersectionPoints_farAway_resultSizeIs0()
 {
 	Circle one(Point(10, 20), 1);

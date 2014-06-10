@@ -28,6 +28,7 @@ namespace Geometry
 		CPPUNIT_TEST(overlapsWith_crossingWithCenterOutside_true);
 		CPPUNIT_TEST(overlapsWith_crossingWithCenterInside_true);
 		CPPUNIT_TEST(overlapsWith_closeTogetherButTooSmallDiameters_false);
+		CPPUNIT_TEST(overlapsWith_realWorldExample_false);
 		CPPUNIT_TEST(getIntersectionPoints_farAway_resultSizeIs0);
 		CPPUNIT_TEST(getIntersectionPoints_touching_resultSizeIs1);
 		CPPUNIT_TEST(getIntersectionPoints_intersecting_resultSizeIs2);
@@ -57,6 +58,7 @@ namespace Geometry
 		void overlapsWith_crossingWithCenterOutside_true();
 		void overlapsWith_crossingWithCenterInside_true();
 		void overlapsWith_closeTogetherButTooSmallDiameters_false();
+		void overlapsWith_realWorldExample_false();
 		void getIntersectionPoints_farAway_resultSizeIs0();
 		void getIntersectionPoints_touching_resultSizeIs1();
 		void getIntersectionPoints_intersecting_resultSizeIs2();
