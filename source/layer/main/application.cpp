@@ -29,10 +29,10 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
 using namespace std;
 
-Application::Application(TeamColor ownTeamColor) :
+Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
-	m_storage(new StorageImpl(14, ownTeamColor, *m_logger, *m_watch)),
+	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
 	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
 	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
 	m_obstacleFetcher(new ObstacleFetcherImpl()),

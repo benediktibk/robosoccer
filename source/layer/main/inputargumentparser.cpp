@@ -1,4 +1,5 @@
 #include "layer/main/inputargumentparser.h"
+#include <stdlib.h>
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -6,13 +7,21 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments)
 {
-	if (arguments.size() != 3)
+	if (arguments.size() != 5)
 	{
 		m_valid = false;
 		return;
 	}
 
-	if (arguments[1] != "--setOwnTeamColor")
+	if ((arguments[1] != "--setOwnTeamColor")&&(arguments[3] != "--setOwnClientNumber"))
+	{
+		m_valid = false;
+		return;
+	}
+
+	std::string value = arguments[4];
+	m_ownClientNumber = atoi(value.c_str());
+	if ((m_ownClientNumber < 11)||(m_ownClientNumber > 15))
 	{
 		m_valid = false;
 		return;
@@ -38,6 +47,10 @@ TeamColor InputArgumentParser::getOwnTeamColor() const
 	return m_ownTeamColor;
 }
 
+int InputArgumentParser::getOwnClientNumber() const
+{
+	return m_ownClientNumber;
+}
 
 
 vector<string> InputArgumentParser::convertArguments(int argc, char **argv)
