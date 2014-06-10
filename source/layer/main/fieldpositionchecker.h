@@ -22,6 +22,7 @@ namespace Main
 	public:
 		bool isPointInsideLeftGoalZone(Common::Geometry::Point const &position) const;
 		bool isPointInsideRightGoalZone(Common::Geometry::Point const &position) const;
+		bool isPointInsideGoalZone(Common::Geometry::Point const &position) const;
 	};
 }
 }

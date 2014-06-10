@@ -19,3 +19,8 @@ bool FieldPositionChecker::isPointInsideRightGoalZone(const Point &position) con
 	Rectangle goalZoneRight(Point(1.2, -0.35), Point(1.45, 0.35));
 	return goalZoneRight.isInside(position, compare);
 }
+
+bool FieldPositionChecker::isPointInsideGoalZone(const Point &position) const
+{
+	return isPointInsideLeftGoalZone(position) || isPointInsideRightGoalZone(position);
+}
