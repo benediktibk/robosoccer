@@ -48,25 +48,48 @@ int main(int, char**)
 	obstacleFetcher.addSource(ball);
 	obstacleFetcher.defineBall(ball);
 
-	while(true)
-	{
-		vector<Pose> target;
-		target.push_back(Pose(Point(0.5, 0), Angle::getQuarterRotation()));
-		robotOne.goTo(target, DriveMoveDefault);
-		while (!robotOne.reachedTarget())
-		{
-			robotOne.update();
-			usleep(10000);
-		}
+//	while(true)
+//	{
+//		vector<Pose> target;
+//		target.push_back(Pose(Point(0.5, 0), Angle::getQuarterRotation()));
+//		robotOne.goTo(target, DriveMoveDefault);
+//		while (!robotOne.reachedTarget())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
 
-		target.push_back(Pose(Point(-0.5, 0), Angle::getQuarterRotation()));
-		robotOne.goTo(target, DriveMoveDefault);
-		while (!robotOne.reachedTarget())
-		{
-			robotOne.update();
-			usleep(10000);
-		}
-	}
+//		target.push_back(Pose(Point(-0.5, 0), Angle::getQuarterRotation()));
+//		robotOne.goTo(target, DriveMoveDefault);
+//		while (!robotOne.reachedTarget())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
+//	}
+
+//	while(true)
+//	{
+//		Pose targetOne(Point(0.1, 0), Angle());
+//		robotOne.goToDirect(targetOne);
+//		while (!robotOne.reachedTarget())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
+
+//		cout << targetOne.getPosition().distanceTo(robotOne.getCurrentPose().getPosition()) << endl;
+
+//		Pose targetTwo(Point(-0.1, 0), Angle());
+//		robotOne.goToDirect(targetTwo);
+//		while (!robotOne.reachedTarget())
+//		{
+//			robotOne.update();
+//			usleep(10000);
+//		}
+
+//		cout << targetTwo.getPosition().distanceTo(robotOne.getCurrentPose().getPosition()) << endl;
+//	}
 
 //	robotTwo.goTo(Pose(Point(0, 0.5), Angle::getQuarterRotation()), false, false);
 //	while (!robotTwo.targetReached())
@@ -90,24 +113,24 @@ int main(int, char**)
 //	}
 //	cout << "done";
 
-//	TargetPositionFetcher targetPositionFetcher;
-//	targetPositionFetcher.setFieldSide(FieldSideLeft);
-//	fstream ballPositions;
-//	fstream goaliePositions;
-//	ballPositions.open("ball.dat", ios_base::out | ios_base::trunc);
-//	goaliePositions.open("goalie.dat", ios_base::out | ios_base::trunc);
-//	while(true)
-//	{
-//		Point ballPosition = ball.getPosition();
-//		Pose targetPose = targetPositionFetcher.getPenaltyPositionGoalie(ball);
-//		ballPositions << ballPosition.getX() << " " << ballPosition.getY() << endl;
-//		goaliePositions << targetPose.getPosition().getX() << " " << targetPose.getPosition().getY() << endl;
-//		robotOne.goToDirect(targetPose);
-//		robotOne.update();
-//		usleep(30000);
-//		ballPositions.flush();
-//		goaliePositions.flush();
-//	}
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	fstream ballPositions;
+	fstream goaliePositions;
+	ballPositions.open("ball.dat", ios_base::out | ios_base::trunc);
+	goaliePositions.open("goalie.dat", ios_base::out | ios_base::trunc);
+	while(true)
+	{
+		Point ballPosition = ball.getPosition();
+		Pose targetPose = targetPositionFetcher.getTargetForGoalkeeper(ball);
+		ballPositions << ballPosition.getX() << " " << ballPosition.getY() << endl;
+		goaliePositions << targetPose.getPosition().getX() << " " << targetPose.getPosition().getY() << endl;
+		robotOne.goToDirect(targetPose);
+		robotOne.update();
+		usleep(30000);
+		ballPositions.flush();
+		goaliePositions.flush();
+	}
 
 //	TargetPositionFetcher targetPositionFetcher;
 //	targetPositionFetcher.setFieldSide(FieldSideLeft);

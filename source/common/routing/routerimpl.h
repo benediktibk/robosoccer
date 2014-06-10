@@ -26,8 +26,8 @@ namespace Routing
 
 		virtual Route calculateRoute(
 				const Geometry::Point &start, const Geometry::Point &end, const std::vector<Geometry::Circle> &obstacles) const;
+		virtual std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &obstacles, const Geometry::Point &position) const;
 		std::vector<Geometry::Point> getPointsBesideObstacle(const Geometry::Path &path, const Geometry::Circle &obstacle) const;
-		std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &obstacles, const Geometry::Point &position) const;
 		bool detectLoopInConsideredObstacles(const std::list<RoutingObstacle> &obstacles) const;
 
 	private:
