@@ -137,15 +137,15 @@ const Route &DriveTo::getCurrentRoute() const
 
 bool DriveTo::updateRouteIfNecessary()
 {
-	Point robotPoint = getRobot().getPose().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
+	Point currentPosition = getRobot().getPose().getPosition();
+	vector<Circle> obstacles = modifyObstacles(m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource,currentPosition, 1, m_driveMode), 0.9);
+	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
-		m_currentRoute->replaceFirstPoint(robotPoint);
+		m_currentRoute->replaceFirstPoint(currentPosition);
 
-	if (isRouteFeasible(modifiedObstacles))
+	if (isRouteFeasible(filteredObstacles))
 		return false;
 
 	log("current route is not feasible anymore we try to create a new one");
@@ -187,13 +187,13 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 
 void DriveTo::calculateNewRoute()
 {
-	Point robotPoint = getRobot().getPose().getPosition();
+	Point currentPosition = getRobot().getPose().getPosition();
 	Point target = m_targets.front().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
+	vector<Circle> obstacles = modifyObstacles(m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource,currentPosition, 1, m_driveMode), 2);
+	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
-	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
+	*m_currentRoute = m_router.calculateRoute(currentPosition, target, filteredObstacles);
 
 	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
 		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
