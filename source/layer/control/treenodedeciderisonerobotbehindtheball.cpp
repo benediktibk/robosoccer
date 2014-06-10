@@ -7,6 +7,8 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "common/geometry/pose.h"
+#include "common/geometry/angle.h"
+#include "common/geometry/straight.h"
 #include "common/other/compare.h"
 
 using namespace RoboSoccer::Layer::Control;
@@ -30,23 +32,24 @@ bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
 	Point ballPosition = m_ball.getPosition();
 
-	Point nearBall = ballPosition + Point(0, 0.3);
-	Point farFromBall = ballPosition + Point(0,-0.3);
+	Angle angleCircularSector = Angle::getQuarterRotation();
+	Angle straight1Direction;
+	Angle straight2Direction;
 
-	if (m_referee.getOwnFieldSide() == FieldSideRight)
+	if(m_referee.getOwnFieldSide() == FieldSideRight)
 	{
-		nearBall = nearBall +  Point(0,0);
-		farFromBall = farFromBall + Point(3,0);
+		straight1Direction = Angle() - (angleCircularSector * 0.5);
+		straight2Direction = (angleCircularSector * 0.5) - Angle::getHalfRotation();
 	}
 	else
 	{
-		nearBall = nearBall + Point(0,0);
-		farFromBall = farFromBall + Point(-3,0);
+		straight1Direction = Angle::getHalfRotation() - (angleCircularSector * 0.5);
+		straight2Direction = Angle() + (angleCircularSector * 0.5);
 	}
 
-	Rectangle behindBallZone(nearBall, farFromBall);
-	Compare compare(0.01);
+	Straight straight1(ballPosition, straight1Direction);
+	Straight straight2(ballPosition, straight2Direction);
 
-	return behindBallZone.isInside(robot1Pose.getPosition(), compare)
-			|| behindBallZone.isInside(robot2Pose.getPosition(), compare);
+	return (straight1.isTargetPointRightOfLine(robot1Pose) && straight2.isTargetPointRightOfLine(robot1Pose))
+			|| (straight1.isTargetPointRightOfLine(robot2Pose) && straight2.isTargetPointRightOfLine(robot2Pose));
 }
