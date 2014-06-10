@@ -8,6 +8,7 @@
 #include "common/routing/router.h"
 #include "layer/autonomous/obstaclefetcher.h"
 #include "layer/abstraction/readablerobot.h"
+#include "layer/abstraction/fieldpositionchecker.h"
 #include <assert.h>
 #include <sstream>
 
@@ -151,8 +152,9 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Pose currentPose = getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, m_driveMode, 0.9);
+				m_ownObstacleSource, currentPosition, 1, driveMode, 0.9);
 	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
@@ -198,15 +200,29 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	return 0;
 }
 
+DriveMode DriveTo::getDriveModeOverriden() const
+{
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = m_driveMode;
+
+	if (m_fieldPositionChecker.isPointInsideGoalZone(currentPosition))
+		driveMode = DriveModeIgnoreGoalObstacles;
+
+	return driveMode;
+}
+
 void DriveTo::calculateNewRoute()
 {
-	Point currentPosition = getRobot().getPose().getPosition();
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
 
 	for (unsigned int i = 0; i < m_targets.size(); ++i)
 	{
 		Point target = m_targets[i].getPosition();
 		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, m_driveMode, 2);
+				m_ownObstacleSource, currentPosition, 1, driveMode, 2);
 
 		*m_currentRoute = m_router.calculateRoute(currentPosition, target, obstacles);
 
@@ -214,8 +230,8 @@ void DriveTo::calculateNewRoute()
 			break;
 	}
 
-	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
-		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
+	if((driveMode == DriveModeDriveSlowlyAtTheEnd || driveMode == DriveModeIgnoreGoalObstacles
+		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	logRoute();

@@ -80,6 +80,7 @@ namespace Autonomous
 		void prepareLastRouteSegmentForDrivingSlowly();
 		void logRoute();
 		void logCurrentPose();
+		DriveMode getDriveModeOverriden() const;
 
 	private:
 		const double m_precisionPosition;
