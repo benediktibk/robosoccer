@@ -26,9 +26,9 @@ Find the [repository](https://bitbucket.org/robosoccer/robosoccer), the [documen
 > - Connect always the robots to the charging station after user.  
 > - Careful handling, all WITHOUT violence connected!  
 > - In case of doubt, always consult with us!  
->
-> ---  
->
+
+---  
+
 > - Flo:   Bene duasd du eigentlich Klettern ?  
 > - Bene:  Naaaa, Ich extrapolier nur.
 
