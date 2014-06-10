@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPERTEST_H
-#define ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPERTEST_H
+#ifndef ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKERGOALKEEPERTEST_H
+#define ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKERGOALKEEPERTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -8,7 +8,7 @@ namespace RoboSoccer
 {
 namespace Layer
 {
-namespace Main
+namespace Abstraction
 {
 	class FieldPositionCheckerGoalkeeperTest :
 			public CPPUNIT_NS::TestFixture

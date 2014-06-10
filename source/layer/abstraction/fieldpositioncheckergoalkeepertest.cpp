@@ -1,8 +1,7 @@
-#include "layer/main/fieldpositioncheckergoalkeepertest.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeepertest.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "common/geometry/point.h"
 
-using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
@@ -10,8 +9,10 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_pointOutsideField_fa
 {
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
 	fieldPositionChecker.setFieldSide(FieldSideRight);
-fieldPositionChecker.isPointInsideField(Point(-0.3,2));
-	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(-0.3,2)));
+
+	bool result = fieldPositionChecker.isPointInsideField(Point(-0.3,2));
+
+	CPPUNIT_ASSERT(!result);
 }
 
 void FieldPositionCheckerGoalkeeperTest::isPointInsideField_rightSidePointInOwnGoalZone_true()

@@ -1,5 +1,5 @@
-#ifndef ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKER_H
-#define ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKER_H
+#ifndef ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKER_H
+#define ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKER_H
 
 #include "common/routing/fieldpositionchecker.h"
 
@@ -14,7 +14,7 @@ namespace Geometry
 }
 namespace Layer
 {
-namespace Main
+namespace Abstraction
 {
 	class FieldPositionChecker :
 			public Common::Routing::FieldPositionChecker

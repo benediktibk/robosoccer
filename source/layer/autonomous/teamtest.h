@@ -23,9 +23,6 @@ namespace Abstraction
 {
 	class ControllableRobotMock;
 	class StorageMock;
-}
-namespace Main
-{
 	class FieldPositionCheckerGoalkeeper;
 	class FieldPositionCheckerFieldPlayer;
 }
@@ -65,13 +62,11 @@ namespace Autonomous
 		Abstraction::ControllableRobotMock *m_controllableRobotMockPlayer2;
 		Common::Logging::Logger *m_loggerMock;
 		Common::Time::Watch *m_watchMock;
-		Main::FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalkeeper;
-		Main::FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
+		Abstraction::FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalkeeper;
+		Abstraction::FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
 	};
 }
 }
 }
 
 #endif
-
-

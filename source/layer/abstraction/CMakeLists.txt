@@ -12,10 +12,15 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	storagemock.cpp
 	fieldside.cpp
 	robotdrivecontrol.cpp
+	fieldpositioncheckerfieldplayer.cpp
+	fieldpositioncheckergoalkeeper.cpp
+	fieldpositionchecker.cpp
 )
 
 set(COMMON_LAYER_ABSTRACTION_TEST_SRC
 	robotdrivecontroltest.cpp
+	fieldpositioncheckerfieldplayertest.cpp
+	fieldpositioncheckergoalkeepertest.cpp
 )
 
 set(COMPILE_FLAGS_ROSO "-Wno-overflow -Wno-format")

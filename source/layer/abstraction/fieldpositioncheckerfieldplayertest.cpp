@@ -1,8 +1,8 @@
-#include "layer/main/fieldpositioncheckerfieldplayertest.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayertest.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "common/geometry/point.h"
 
-using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 
 void FieldPositionCheckerFieldPlayerTest::isPointInsideField_notInsideField_false()

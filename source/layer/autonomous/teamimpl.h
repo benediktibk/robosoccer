@@ -17,9 +17,6 @@ namespace Layer
 namespace Abstraction
 {
 	class Storage;
-}
-namespace Main
-{
 	class FieldPositionCheckerGoalkeeper;
 	class FieldPositionCheckerFieldPlayer;
 }
@@ -34,8 +31,8 @@ namespace Autonomous
 	{
 	public:
 		TeamImpl(Abstraction::Storage &storage, const Common::Time::Watch &watch,
-				 Common::Logging::Logger &logger, Main::FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalkeeper,
-				 Main::FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer, ObstacleFetcher &obstacleFetcher);
+				 Common::Logging::Logger &logger, Abstraction::FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalkeeper,
+				 Abstraction::FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer, ObstacleFetcher &obstacleFetcher);
 		virtual ~TeamImpl();
 
 		virtual Robot& getGoalie();

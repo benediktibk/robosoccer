@@ -1,6 +1,6 @@
 #include "layer/main/application.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "layer/abstraction/storageimpl.h"
 #include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/teamimpl.h"

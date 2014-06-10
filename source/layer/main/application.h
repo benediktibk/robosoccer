@@ -25,6 +25,8 @@ namespace Layer
 namespace Abstraction
 {
 	class Storage;
+	class FieldPositionCheckerGoalkeeper;
+	class FieldPositionCheckerFieldPlayer;
 }
 namespace Autonomous
 {
@@ -36,9 +38,6 @@ namespace Autonomous
 }
 namespace Main
 {
-	class FieldPositionCheckerGoalkeeper;
-	class FieldPositionCheckerFieldPlayer;
-
 	class Application
 	{
 	public:
@@ -56,8 +55,8 @@ namespace Main
 		Common::Logging::Logger *m_logger;
 		Common::Time::Watch *m_watch;
 		Abstraction::Storage *m_storage;
-		FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
-		FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
+		Abstraction::FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
+		Abstraction::FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
 		Autonomous::ObstacleFetcher *m_obstacleFetcher;
 		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::TeamImpl *m_ownTeam;

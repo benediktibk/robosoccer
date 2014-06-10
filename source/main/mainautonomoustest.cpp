@@ -4,8 +4,8 @@
 #include "layer/autonomous/intelligentballimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/obstaclefetcherimpl.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/robot.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/watchimpl.h"
@@ -21,7 +21,6 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Routing;
-using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
 int main(int, char**)

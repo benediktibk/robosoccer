@@ -1,8 +1,8 @@
-#include "layer/main/fieldpositionchecker.h"
+#include "layer/abstraction/fieldpositionchecker.h"
 #include "common/geometry/rectangle.h"
 #include "common/other/compare.h"
 
-using namespace RoboSoccer::Layer::Main;
+using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Other;
 

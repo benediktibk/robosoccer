@@ -1,14 +1,14 @@
-#ifndef ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPER_H
-#define ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPER_H
+#ifndef ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKERGOALKEEPER_H
+#define ROBOSOCCER_LAYER_ABSTRACTION_FIELDPOSITIONCHECKERGOALKEEPER_H
 
-#include "layer/main/fieldpositionchecker.h"
+#include "layer/abstraction/fieldpositionchecker.h"
 #include "layer/abstraction/fieldside.h"
 
 namespace RoboSoccer
 {
 namespace Layer
 {
-namespace Main
+namespace Abstraction
 {
 	class FieldPositionCheckerGoalkeeper :
 			public FieldPositionChecker

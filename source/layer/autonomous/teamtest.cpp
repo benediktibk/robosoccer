@@ -10,8 +10,8 @@
 #include "common/geometry/compare.h"
 #include "layer/autonomous/robot.h"
 #include "common/geometry/circle.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -19,7 +19,6 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Geometry;
-using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
 void TeamTest::setUp()

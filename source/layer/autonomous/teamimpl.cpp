@@ -6,8 +6,8 @@
 #include <assert.h>
 #include "common/geometry/circle.h"
 #include "common/routing/routerimpl.h"
-#include "layer/main/fieldpositioncheckerfieldplayer.h"
-#include "layer/main/fieldpositioncheckergoalkeeper.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -15,7 +15,6 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Routing;
-using namespace RoboSoccer::Layer::Main;
 using namespace std;
 
 TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger,
