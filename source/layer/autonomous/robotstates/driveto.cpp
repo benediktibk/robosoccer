@@ -140,12 +140,12 @@ bool DriveTo::updateRouteIfNecessary()
 	Point robotPoint = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
+	//vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
 		m_currentRoute->replaceFirstPoint(robotPoint);
 
-	if (isRouteFeasible(modifiedObstacles))
+	if (isRouteFeasible(obstacles))
 		return false;
 
 	log("current route is not feasible anymore we try to create a new one");
