@@ -30,8 +30,8 @@ void TreeNodeResultGetBehindBall::execute()
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
-	vector<Pose> targetsShort = m_targetPositionFetcher.getTargetsBehindBall(m_ball, 0.3);
-	vector<Pose> targetsLong = m_targetPositionFetcher.getTargetsBehindBall(m_ball, 0.6);
+	vector<Pose> targetsShort = m_targetPositionFetcher.getTargetsBehindBall(m_ball);
+	vector<Pose> targetsLong;
 
 	DriveMode driveMode = DriveModeDefault;
 

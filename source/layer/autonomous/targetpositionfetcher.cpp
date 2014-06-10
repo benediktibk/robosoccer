@@ -359,13 +359,46 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
 {
-	vector<Pose> targetPoint;
+	vector<Pose> targetPoints;
+	static double distanceToBall = 0.2;
+	Point ballPosition = ball.getPosition();
+	Line enemyGoalToBall(getEnemyGoalPositions().front(),ballPosition);
+	Point maxProrityPoint = enemyGoalToBall.getPointOnDirectionOfLine((enemyGoalToBall.getLength()+distanceToBall)/enemyGoalToBall.getLength());
+	targetPoints.push_back(Pose(maxProrityPoint, Angle(enemyGoalToBall.getStart(),enemyGoalToBall.getEnd())));
+
 	Angle ballOrientation = getOrientationToEnemyGoal();
-	Point resultPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
-	targetPoint.push_back(Pose(resultPoint, ballOrientation + Angle::getHalfRotation()));
+	Point secondPriorityPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
+	targetPoints.push_back(Pose(secondPriorityPoint, ballOrientation + Angle::getHalfRotation()));
+	Point targetLeftViewFromGoalie;
+	Point targetRightViewFromGoalie;
+	if (m_fieldSide == FieldSideLeft)
+	{
+		targetLeftViewFromGoalie = ballPosition - Point(0,distanceToBall);
+		targetRightViewFromGoalie = ballPosition + Point(0,distanceToBall);
+	}
+	else
+	{
+		targetLeftViewFromGoalie = ballPosition + Point(0,distanceToBall);
+		targetRightViewFromGoalie = ballPosition - Point(0,distanceToBall);
+	}
+	Angle yAngle = Angle::getQuarterRotation();
 
-	return targetPoint;
+	if (ballPosition.getY() < 0)
+	{
+		if (ballPosition.getX() < 0)
+			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+		else
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+	}
+	else
+	{
+		if (ballPosition.getX() < 0)
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+		else
+			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+	}
 
+	return targetPoints;
 }

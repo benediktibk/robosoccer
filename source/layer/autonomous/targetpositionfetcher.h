@@ -46,7 +46,7 @@ namespace Autonomous
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
 		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
-		std::vector<Common::Geometry::Pose> getTargetBehindBall(const IntelligentBall &ball, double distanceToBall) const;
+		std::vector<Common::Geometry::Pose> getTargetsBehindBall(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPositionsToDriveOnBall(const IntelligentBall &ball) const;
 
 		//! @todo this function might be unused
