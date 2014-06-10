@@ -127,7 +127,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, DriveMode driveMode) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, DriveMode driveMode, double growFactor) const
 {
 	switch (driveMode)
 	{

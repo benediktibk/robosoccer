@@ -49,7 +49,7 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(
 	return m_allObstaclesButMeAndGoalObstaclesInRange;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, DriveMode) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, DriveMode, double) const
 {
 	return m_allObstaclesButMeDependentOnDriveMode;
 }
