@@ -171,6 +171,18 @@ void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRota
 	delete nextState;
 }
 
+void DriveToDrivingTest::nextState_obstacleBehindRobotOccurs_0()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1, 1), 1));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_controllableRobot->setPose(Pose(Point(4, 3), Angle::getEighthRotation()));
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	CPPUNIT_ASSERT(nextState == 0);
+}
+
 void DriveToDrivingTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());

@@ -23,6 +23,7 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_movementStoppedAndNoPointsLeft_finalRotation);
 		CPPUNIT_TEST(nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute);
 		CPPUNIT_TEST(nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute);
+		CPPUNIT_TEST(nextState_obstacleBehindRobotOccurs_0);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -40,7 +41,7 @@ namespace Autonomous
 		void nextState_movementStoppedAndNoPointsLeft_finalRotation();
 		void nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute();
 		void nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute();
-		//! @todo test what happens if an obstacle occurs behind the robot
+		void nextState_obstacleBehindRobotOccurs_0();
 		void reachedTarget_empty_false();
 	};
 }
