@@ -20,7 +20,7 @@ RobotState *DriveToInvalidRouteTest::createInstance()
 	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 
 	return new DriveToInvalidRoute(
-				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
 				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
 }
 
