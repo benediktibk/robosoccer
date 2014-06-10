@@ -216,22 +216,6 @@ bool DriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) const
 	return	m_currentRoute->isValid() && !m_currentRoute->intersectsWith(obstacles);
 }
 
-vector<Circle> DriveTo::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
-{
-	vector<Circle> result;
-	result.reserve(obstacles.size());
-
-	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
-	{
-		Circle circle = *i;
-		double diameter = circle.getDiameter();
-		circle.setDiameter(diameter*growFactor);
-		result.push_back(circle);
-	}
-
-	return result;
-}
-
 void DriveTo::logRoute()
 {
 	log("point count of route", m_currentRoute->getPointCount());

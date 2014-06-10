@@ -166,3 +166,19 @@ bool ObstacleFetcherImpl::isInRange(const Point &ownPosition, double distance, c
 	double distanceToEdge = distanceToCenter - circle.getDiameter()/2;
 	return distanceToEdge <= distance;
 }
+
+vector<Circle> ObstacleFetcherImpl::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
+{
+	vector<Circle> result;
+	result.reserve(obstacles.size());
+
+	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
+	{
+		Circle circle = *i;
+		double diameter = circle.getDiameter();
+		circle.setDiameter(diameter*growFactor);
+		result.push_back(circle);
+	}
+
+	return result;
+}
