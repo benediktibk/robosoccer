@@ -46,8 +46,8 @@ void PrepareKickOffDefensive::updateInternal()
 
 	//! @todo consider ignoreBall and driveSlolyAtTheEnd
 	goalie.goTo(m_targetPositionFetcher.getStartPositionsGoalkeeper(), DriveModeIgnoreGoalObstacles);
-	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionsPlayerOneDefensive(), DriveMoveDefault);
-	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionsPlayerTwoDefensive(), DriveMoveDefault);
+	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionsPlayerOneDefensive(), DriveModeDefault);
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionsPlayerTwoDefensive(), DriveModeDefault);
 
 	if (movementsFinished())
 	{
