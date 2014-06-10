@@ -594,3 +594,15 @@ void TargetPositionFetcherTest::isGoodKickPosition_robotInBadPositionDueToAngleV
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle,0.6);
 	CPPUNIT_ASSERT(!isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodKickPosition_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5,0.0));
+	Point robotPosition(0.0,0.0);
+	Angle spanAngle(M_PI*1/6);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
