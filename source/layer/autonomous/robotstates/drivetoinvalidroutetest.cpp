@@ -21,7 +21,7 @@ RobotState *DriveToInvalidRouteTest::createInstance()
 
 	return new DriveToInvalidRoute(
 				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault);
 }
 
 void DriveToInvalidRouteTest::update_onceCalled_robotGotOneCallToStop()

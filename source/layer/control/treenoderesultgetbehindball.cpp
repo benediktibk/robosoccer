@@ -33,7 +33,7 @@ void TreeNodeResultGetBehindBall::execute()
 	vector<Pose> targetsShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
 	vector<Pose> targetsLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
 
-	DriveMode driveMode = DriveMoveDefault;
+	DriveMode driveMode = DriveModeDefault;
 
 	Point targetShortPosition = targetsShort.front().getPosition();
 	if (fabs(targetShortPosition.getX()) > 1.45)
@@ -49,12 +49,12 @@ void TreeNodeResultGetBehindBall::execute()
 			robot2.getCurrentPose().distanceTo(targetsShort.front()))
 	{
 		robot1.goTo(targetsShort, driveMode);
-		robot2.goTo(targetsLong, DriveMoveDefault);
+		robot2.goTo(targetsLong, DriveModeDefault);
 	}
 	else
 	{
 		robot2.goTo(targetsShort, driveMode);
-		robot1.goTo(targetsLong, DriveMoveDefault);
+		robot1.goTo(targetsLong, DriveModeDefault);
 	}
 
 }
