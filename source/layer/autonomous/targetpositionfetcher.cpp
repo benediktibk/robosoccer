@@ -72,6 +72,12 @@ vector<Point> TargetPositionFetcher::getEnemyGoalPositions() const
 	return getEnemyGoalPositions(m_fieldSide);
 }
 
+vector<Point> TargetPositionFetcher::getOwnGoalPositions() const
+{
+	FieldSide fieldSide = m_fieldSide == FieldSideLeft ? FieldSideRight : FieldSideLeft;
+	return getEnemyGoalPositions(fieldSide);
+}
+
 double TargetPositionFetcher::getDistanceToOwnGroundLine(const Point &position) const
 {
 	Point pointOnGroundLine = mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.45,0));
@@ -399,6 +405,25 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer
 		else
 			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
 	}
+
+	return targetPoints;
+}
+
+vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
+{
+	vector<Pose> targetPoints;
+	static double distanceToBall = 0.2;
+	Point ballPosition = ball.getPosition();
+	Line ownGoalToBall(getOwnGoalPositions().front(),ballPosition);
+
+	Point maxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall/ownGoalToBall.getLength());
+	targetPoints.push_back(Pose(maxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+
+	Point secondMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*2/ownGoalToBall.getLength());
+	targetPoints.push_back(Pose(secondMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+
+	Point thirdMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*3/ownGoalToBall.getLength());
+	targetPoints.push_back(Pose(thirdMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
 
 	return targetPoints;
 }
