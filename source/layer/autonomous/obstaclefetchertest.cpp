@@ -2,6 +2,7 @@
 #include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/obstaclesourcemock.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -230,7 +231,7 @@ void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstaclesInRange_firstRobot
 	CPPUNIT_ASSERT_EQUAL((size_t)0, obstacles.size());
 }
 
-void ObstacleFetcherTest::getAllObstablesButMeAndBallInRangeReturnsOneLess_goalObstaclesNoChangedSize()
+void ObstacleFetcherTest::getAllObstablesButMeAndBallInRange_goalObstaclesNoChangedSize()
 {
 	m_obstacleFetcher->defineBall(*m_ball);
 	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndBallInRange(*m_firstRobot, Point(0, 0), 100, 10);
@@ -239,6 +240,22 @@ void ObstacleFetcherTest::getAllObstablesButMeAndBallInRangeReturnsOneLess_goalO
 	{
 		Circle circle = *i;
 		double diameter = circle.getDiameter();
+		if(diameter == 0.25)
+			counter++;
+	}
+	CPPUNIT_ASSERT_EQUAL(6, counter);
+}
+
+void ObstacleFetcherTest::getAllObstablesButMeInRange_goalObstaclesNoChangedSize()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeInRange(*m_firstRobot, Point(0, 0), 100, 10);
+	int counter = 0;
+	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
+	{
+		Circle circle = *i;
+		double diameter = circle.getDiameter();
+		cout << diameter << endl;
 		if(diameter == 0.25)
 			counter++;
 	}
