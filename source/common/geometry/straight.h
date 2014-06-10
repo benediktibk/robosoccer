@@ -16,10 +16,12 @@ namespace Geometry
 	{
 	public:
 		Straight(const Point &referencePoint, const Angle &direction);
-//		Straight(const Point &pointOnStraight1, const Point &pointOnStraight2);
 
+		std::vector<Point> getIntersectPoint(const Straight &straight) const;
 		Point getPerpendicularPoint(const Point &point) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
+		Point getNormalizedDirectionVector() const;
+		Point getReferencePoint() const;
 
 	private:
 		Point m_referencePoint;

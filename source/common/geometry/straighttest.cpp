@@ -43,3 +43,27 @@ void StraightTest::isTargetPointRightOfLine_straightThroughOriginPointIsRight_tr
 
 	CPPUNIT_ASSERT(straight.isTargetPointRightOfLine(target));
 }
+
+void StraightTest::getIntersectPoint_linesAreParralel_noIntersect()
+{
+	Straight straightOne(Point(0,0), Angle());
+	Straight straightTwo(Point(0,1), Angle());
+
+	CPPUNIT_ASSERT(straightOne.getIntersectPoint(straightTwo).empty());
+}
+
+void StraightTest::getIntersectPoint_linesAreIntersecting_oneIntersect()
+{
+	Straight straightOne(Point(-1,-1), Angle::getEighthRotation());
+	Straight straightTwo(Point(2,0), Angle());
+
+	CPPUNIT_ASSERT_EQUAL(Point(0,0), straightOne.getIntersectPoint(straightTwo).front());
+}
+
+void StraightTest::getIntersectPoint_linesAreToutching_oneIntersect()
+{
+	Straight straightOne(Point(1,0), Angle());
+	Straight straightTwo(Point(2,0), Angle());
+
+	CPPUNIT_ASSERT_EQUAL(Point(0,0), straightOne.getIntersectPoint(straightTwo).front());
+}
