@@ -16,6 +16,8 @@ class TreeNodeDeciderIsOneRobotBehindTheBallTest :
 		CPPUNIT_TEST(decide_bothRobotsBehindBall_followBall);
 		CPPUNIT_TEST(decide_oneRobotBehindBall_followBall);
 		CPPUNIT_TEST(decide_robotBehindBall_followBall);
+		CPPUNIT_TEST(decide_robotBehindBallAndFieldSideIsRight_followBall);
+		CPPUNIT_TEST(decide_robotIsNotBehindBallAndFieldSideIsRight_getBehindBall);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,6 +27,8 @@ class TreeNodeDeciderIsOneRobotBehindTheBallTest :
 		void decide_bothRobotsBehindBall_followBall();
 		void decide_oneRobotBehindBall_followBall();
 		void decide_robotBehindBall_followBall();
+		void decide_robotBehindBallAndFieldSideIsRight_followBall();
+		void decide_robotIsNotBehindBallAndFieldSideIsRight_getBehindBall();
 
 
 	};
