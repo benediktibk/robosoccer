@@ -6,6 +6,7 @@
 #include "common/geometry/point.h"
 #include "common/geometry/compare.h"
 #include "common/routing/route.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -21,6 +22,7 @@ DriveToDriving::DriveToDriving(ControllableRobot &robot, const std::vector<Pose>
 			ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
+	assert(oldRoute.isValid());
 	setRoute(oldRoute);
 }
 

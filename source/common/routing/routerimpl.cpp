@@ -110,8 +110,8 @@ vector<Circle> RouterImpl::filterObstacles(
 		const vector<Circle> &obstacles,
 		const Point &position) const
 {
-	vector<Circle> fileredObstacles;
-	fileredObstacles.reserve(obstacles.size());
+	vector<Circle> filteredObstacles;
+	filteredObstacles.reserve(obstacles.size());
 	Circle startCircle(position, sqrt(2)*m_robotWidth);
 
 	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
@@ -129,10 +129,10 @@ vector<Circle> RouterImpl::filterObstacles(
 			obstacle.setDiameter(diameter);
 		}
 
-		fileredObstacles.push_back(obstacle);
+		filteredObstacles.push_back(obstacle);
 	}
 
-	return fileredObstacles;
+	return filteredObstacles;
 }
 
 vector<RoutingResult> RouterImpl::calculateStartParts(const Point &start, const Point &end,

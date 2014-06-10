@@ -2,9 +2,9 @@
 #define ROBOSOCCER_COMMON_GEOMETRY_LINE_H
 
 #include "common/geometry/point.h"
-#include "vector"
+#include <vector>
 
-namespace  RoboSoccer
+namespace RoboSoccer
 {
 namespace Common
 {
