@@ -2,7 +2,6 @@
 #include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/obstaclesourcemock.h"
 #include <algorithm>
-#include <iostream>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -255,9 +254,23 @@ void ObstacleFetcherTest::getAllObstablesButMeInRange_goalObstaclesNoChangedSize
 	{
 		Circle circle = *i;
 		double diameter = circle.getDiameter();
-		cout << diameter << endl;
 		if(diameter == 0.25)
 			counter++;
 	}
 	CPPUNIT_ASSERT_EQUAL(6, counter);
+}
+
+void ObstacleFetcherTest::getAllObstaclesButMeAndGoalObstaclesInRange_noGoalObstacles()
+{
+	m_obstacleFetcher->defineBall(*m_ball);
+	vector<Circle> obstacles = m_obstacleFetcher->getAllObstaclesButMeAndGoalObstaclesInRange(*m_firstRobot, Point(0, 0), 100, 10);
+	int counter = 0;
+	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
+	{
+		Circle circle = *i;
+		double diameter = circle.getDiameter();
+		if(diameter == 0.25)
+			counter++;
+	}
+	CPPUNIT_ASSERT_EQUAL(0, counter);
 }
