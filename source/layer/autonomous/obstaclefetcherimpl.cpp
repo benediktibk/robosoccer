@@ -53,7 +53,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 	return result;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me, double growFactor) const
 {
 	vector<Circle> result = m_routingObstaclesInGoalZones;
 
@@ -71,7 +71,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &m
 	return result;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me, double growFactor) const
 {
 	vector<Circle> result = m_routingObstaclesInGoalZones;
 
@@ -89,7 +89,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSo
 	return result;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me, double growFactor) const
 {
 	vector<Circle> result;
 
@@ -108,22 +108,22 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const O
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
-		const ObstacleSource &me, const Point &ownPosition, double distance) const
+		const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMe(me);
+	vector<Circle> candidates = getAllObstaclesButMe(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBallInRange(
-		const ObstacleSource &me, const Point &ownPosition, double distance) const
+		const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMeAndBall(me);
+	vector<Circle> candidates = getAllObstaclesButMeAndBall(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &me, const Point &ownPosition, double distance) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMeAndGoalObstacles(me);
+	vector<Circle> candidates = getAllObstaclesButMeAndGoalObstacles(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
@@ -133,14 +133,14 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveM
 	{
 	case DriveModeIgnoreBall:
 	case DriveModeIgnoreBallAndDriveSlowlyAtTheEnd:
-		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance);
+		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance, growFactor);
 	case DriveModeIgnoreGoalObstacles:
-		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance);
+		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance, growFactor);
 	case DriveModeDriveSlowlyAtTheEnd:
 	case DriveMoveDefault:
 		break;
 	}
-	return getAllObstaclesButMeInRange(me, ownPosition, distance);
+	return getAllObstaclesButMeInRange(me, ownPosition, distance, growFactor);
 }
 
 vector<Circle> ObstacleFetcherImpl::filterByDistance(

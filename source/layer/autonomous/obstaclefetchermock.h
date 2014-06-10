@@ -18,15 +18,15 @@ namespace Autonomous
 		virtual void addSource(ObstacleSource const &source);
 		virtual void defineBall(ObstacleSource const &source);
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const;
-		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me) const;
-		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBall(ObstacleSource const &me) const;
-		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstacles(ObstacleSource const &me) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me, double growFactor) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBall(ObstacleSource const &me, double growFactor) const;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstacles(ObstacleSource const &me, double growFactor) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRange(
-				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance, double growFactor) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBallInRange(
-				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance, double growFactor) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstaclesInRange(
-				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
+				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance, double growFactor) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
 				const Common::Geometry::Point &ownPosition, double distance, DriveMode driveMode, double growFactor) const;
 
