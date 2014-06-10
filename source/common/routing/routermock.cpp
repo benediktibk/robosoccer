@@ -24,6 +24,11 @@ Route RouterMock::calculateRoute(
 	return route;
 }
 
+vector<Circle> RouterMock::filterObstacles(const vector<Circle> &obstacles, const Point &) const
+{
+	return obstacles;
+}
+
 void RouterMock::setChessMode(bool value)
 {
 	m_chessMode = value;
