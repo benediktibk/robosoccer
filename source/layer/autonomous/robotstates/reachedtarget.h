@@ -23,6 +23,9 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 		virtual std::string getName() const;
 		virtual void update();
+
+	private:
+		bool isEquivalentToInternal(Common::Geometry::Pose const &target, double precisionPosition, double precisionOrientation);
 	};
 }
 }
