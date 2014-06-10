@@ -51,7 +51,6 @@ namespace Autonomous
 
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
 				const Common::Geometry::Point &ownPosition, double distance, DriveMode driveMode, double growFactor) const = 0;
-		virtual std::vector<Common::Geometry::Circle> modifyObstacles(const std::vector<Common::Geometry::Circle> &obstacles, double growFactor) const = 0;
 	};
 }
 }
