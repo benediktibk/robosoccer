@@ -29,7 +29,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	ObstacleFetcherImpl obstacleFetcher;
@@ -40,6 +40,7 @@ int main(int, char**)
 	Robot &robotTwo = team.getSecondFieldPlayer();
 	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
+	fieldPositionCheckerGoalKeeper.setFieldSide(FieldSideRight);
 
 	obstacleFetcher.addSource(robotOne);
 	obstacleFetcher.addSource(robotTwo);
@@ -52,20 +53,20 @@ int main(int, char**)
 	{
 		vector<Pose> target;
 		target.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
-		robotOne.goTo(target, DriveMoveDefault);
-		while (!robotOne.reachedTarget())
+		robotThree.goTo(target, DriveMoveDefault);
+		while (!robotThree.reachedTarget())
 		{
-			robotOne.update();
+			robotThree.update();
 			usleep(10000);
 		}
 		cout << "reached target" << endl;
 
 		target.clear();
-		target.push_back(Pose(Point(1, 0), Angle::getQuarterRotation()));
-		robotOne.goTo(target, DriveMoveDefault);
-		while (!robotOne.reachedTarget())
+		target.push_back(Pose(Point(1.3, 0), Angle::getQuarterRotation()));
+		robotThree.goTo(target, DriveModeIgnoreGoalObstacles);
+		while (!robotThree.reachedTarget())
 		{
-			robotOne.update();
+			robotThree.update();
 			usleep(10000);
 		}
 		cout << "reached target" << endl;
