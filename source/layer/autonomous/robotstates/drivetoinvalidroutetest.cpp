@@ -67,7 +67,7 @@ void DriveToInvalidRouteTest::nextState_inGoal_initialRotation()
 	obstacles.push_back(Circle(Point(1.325, -0.25), 0.25));
 	obstacles.push_back(Circle(Point(1.325, 0), 0.25));
 	m_controllableRobot->setPose(Pose(Point(1.29548090934753, -0.0183960431814194), Angle::getQuarterRotation()));
-	m_obstacleFetcher->setAllObstaclesButMeAndGoalObstaclesInRange(obstacles);
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
 	vector<Pose> targets;
 	targets.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
