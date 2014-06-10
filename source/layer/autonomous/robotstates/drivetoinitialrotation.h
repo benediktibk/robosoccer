@@ -16,12 +16,14 @@ namespace Autonomous
 		DriveToInitialRotation(
 				Abstraction::ControllableRobot &robot,
 				const std::vector<Common::Geometry::Pose> &targets,
+				const Common::Geometry::Pose &currentTarget,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource, DriveMode driveMode);
 		DriveToInitialRotation(
 				Abstraction::ControllableRobot &robot,
 				const std::vector<Common::Geometry::Pose> &targets,
+				const Common::Geometry::Pose &currentTarget,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource, DriveMode driveMode,

@@ -14,19 +14,19 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &targets, const Router &router,
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &targets, const Pose &currentTarget, const Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
-	DriveTo(robot, targets, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
+	DriveTo(robot, targets,currentTarget , router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	updateRouteIfNecessary();
 }
 
-DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &target, const Router &router,
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &target, const Pose &currentTarget, const Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
+	DriveTo(robot, target, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	setRoute(oldRoute);
@@ -56,7 +56,7 @@ RobotState *DriveToInitialRotation::nextState(bool movementStopped)
 	{
 		log("reached initial orientation, driving to next point");
 		return new DriveToDriving(
-					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
