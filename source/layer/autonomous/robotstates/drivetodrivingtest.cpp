@@ -199,7 +199,7 @@ void DriveToDrivingTest::nextState_obstacleCloseToStartPositionAndTargetNotReach
 	FieldPositionCheckerMock fieldPositionChecker;
 	RouterImpl router(0.5, fieldPositionChecker);
 	DriveToDriving state(
-				*m_controllableRobot, targets, router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
 				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, route);
 
 	RobotState *nextState = state.nextState(false);
