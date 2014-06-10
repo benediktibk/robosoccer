@@ -22,15 +22,27 @@ bool DriveToDirect::reachedTarget() const
 	return false;
 }
 
-bool DriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
+bool DriveToDirect::isEquivalentToDriveToDirect(const Pose &target)
 {
-	Compare positionCompare(m_precisionDriving);
-	Compare rotationCompare(m_precisionFinalRotation);
-	return	positionCompare.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
-			rotationCompare.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
+	Compare comparePosition(m_precisionDriving);
+	Compare compareAngle(m_precisionFinalRotation);
+
+	if (!comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()))
+	{
+		log("position is not equal");
+		return false;
+	}
+
+	if (!compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation()))
+	{
+		log("orientation is not equal");
+		return false;
+	}
+
+	return true;
 }
 
-bool DriveToDirect::isEquivalentToDriveTo(const Pose &) const
+bool DriveToDirect::isEquivalentToDriveTo(const Pose &)
 {
 	return false;
 }

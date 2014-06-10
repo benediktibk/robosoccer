@@ -64,10 +64,7 @@ void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 {
 	assert(!positions.empty());
 	if (m_currentState->isEquivalentToDriveTo(positions.front()))
-	{
-		log("new target for go to is equal to the current one");
 		return;
-	}
 
 	switchIntoState(new DriveToInitialRotation(
 						m_robot, positions, m_router, m_logger, m_logFileType,
@@ -149,10 +146,7 @@ void RobotImpl::stop()
 void RobotImpl::goToDirect(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveToDirect(position))
-	{
-		log("new target for go to direct is equal to the current one");
 		return;
-	}
 
 	switchIntoState(new DriveToDirectInitialRotation(m_robot, position, m_logger, m_logFileType));
 	logPosition("target is", position);

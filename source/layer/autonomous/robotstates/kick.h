@@ -30,8 +30,8 @@ namespace Autonomous
 		virtual ~Kick();
 
 		virtual bool reachedTarget() const;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
-		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
+		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
+		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
 		virtual void update();

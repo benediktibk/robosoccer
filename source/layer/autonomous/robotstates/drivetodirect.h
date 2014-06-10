@@ -21,8 +21,8 @@ namespace Autonomous
 				Common::Logging::Logger::LogFileType logFileType);
 
 		virtual bool reachedTarget() const;
-		virtual bool isEquivalentToDriveToDirect(const Common::Geometry::Pose &target) const;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
+		virtual bool isEquivalentToDriveToDirect(const Common::Geometry::Pose &target);
+		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
 		virtual void update();
 
 		Common::Geometry::Pose const& getTarget() const;

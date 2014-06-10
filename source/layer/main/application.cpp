@@ -139,6 +139,7 @@ bool Application::checkHardware()
 {
 	// Turn twice two targets which differ only in a quarter rotation.
 	turnAllRobotsTo(Angle::getQuarterRotation());
+	sleep(1);
 	turnAllRobotsTo(Angle(0));
 
 	for (unsigned int i = 0; i < 3; ++i)
@@ -146,7 +147,7 @@ bool Application::checkHardware()
 		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
 		Angle orientation = robot.getPose().getOrientation();
 
-		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.3)
+		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.5)
 		{
 			stringstream stream;
 			stream << "orientation of one robot is " << orientation <<", but should be 0" << endl;
