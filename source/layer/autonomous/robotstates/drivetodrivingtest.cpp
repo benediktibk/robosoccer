@@ -189,8 +189,16 @@ void DriveToDrivingTest::nextState_obstacleCloseToStartPositionAndTargetNotReach
 	obstacles.push_back(Circle(Point(0, -0.5), 1));
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	Route route(0.2);
+	route.addPoint(Point(0, 0));
+	route.addPoint(Point(5, 4));
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	DriveToDriving state(
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, route);
 
-	RobotState *nextState = m_robotState->nextState(false);
+	RobotState *nextState = state.nextState(false);
 
 	CPPUNIT_ASSERT(nextState == 0);
 }
