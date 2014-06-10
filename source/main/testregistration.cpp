@@ -8,6 +8,7 @@
 #include "common/geometry/rectangletest.h"
 #include "common/geometry/posetest.h"
 #include "common/geometry/rectangleroundedcornerstest.h"
+#include "common/geometry/straighttest.h"
 #include "common/logging/loggertest.h"
 #include "common/other/comparetest.h"
 #include "common/other/pidcontrollertest.h"
@@ -73,6 +74,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PointDistanceCompa
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::PoseTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleRoundedCornersTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::StraightTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Logging::LoggerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
