@@ -64,7 +64,7 @@ void RobotTest::goTo_alreadyAtPosition_noCallToMoveRobot()
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 	m_targets.push_back(Pose(Point(1, 3), Angle()));
 
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
@@ -75,7 +75,7 @@ void RobotTest::goTo_notYetAtPosition_oneCallToMoveRobot()
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 	m_targets.push_back(Pose(Point(2, 3), Angle()));
 
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
@@ -86,9 +86,9 @@ void RobotTest::goTo_twiceWithSameTarget_oneCallToMoveRobot()
 	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
 	m_targets.push_back(Pose(Point(2, 3), Angle()));
 
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
@@ -99,7 +99,7 @@ void RobotTest::goTo_positionOutsideTheFieldAndDriveSlowlyAtTheEnd_updateDoesNot
 	m_routerMock->setInvalidRoute();
 	m_targets.push_back(Pose(Point(2, 3), Angle()));
 
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 
 	CPPUNIT_ASSERT(true);
@@ -354,7 +354,7 @@ void RobotTest::update_goToAndInitialRotationNotReached_robotGotCallToTurnToward
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -368,7 +368,7 @@ void RobotTest::update_goToAndInitialRotationNotReached_robotGotNoCallToDrive()
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -380,7 +380,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedTwiceCalled_robotGotNoAdd
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -392,7 +392,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedButMovementStopped_robotG
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -410,7 +410,7 @@ void RobotTest::update_goToAndPositionNotReached_robotGotCallToDriveToTargetImpr
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -423,7 +423,7 @@ void RobotTest::update_goToAndPositionNotReached_robotGotNoCallToTurnTowardsTarg
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -434,7 +434,7 @@ void RobotTest::update_goToAndPositionNotReachedTwiceCalled_robotGotNoAdditional
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -446,7 +446,7 @@ void RobotTest::update_goToAndPositionNotreachedButMovementStopped_robotGotCallT
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -465,7 +465,7 @@ void RobotTest::update_goToAndFinalRotationNotReached_robotGotCallToTurn()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -478,7 +478,7 @@ void RobotTest::update_goToAndFinalRotationNotReached_robotGotNoCallToDrive()
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 
@@ -489,7 +489,7 @@ void RobotTest::update_goToAndFinalRotationNotReachedTwiceCalled_robotGotNoAddit
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -501,7 +501,7 @@ void RobotTest::update_goToAndFinalRotationNotReachedButMovementStopped_reachedT
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -517,7 +517,7 @@ void RobotTest::update_goToAndInitialRotationReachedButRobotStillMoving_robotGot
 {
 	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -530,7 +530,7 @@ void RobotTest::update_goToAndPositionReachedButRobotStillMoving_robotGotNoAddit
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -543,7 +543,7 @@ void RobotTest::update_goToAndFinalRotationReachedButRobotStillMoving_robotGotNo
 {
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_robot->update();
@@ -556,7 +556,7 @@ void RobotTest::update_goToAndInitalRotationReachedAndMovementStopped_robotGotCa
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0, 0), Point(5, 4))));
@@ -577,7 +577,7 @@ void RobotTest::update_goToAndPositionReachedAndMovementStopped_robotGotCallToTu
 {
 	m_hardwareRobot->setPose(Pose(Point(0, 4), Angle()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(5, 4), Angle()));
@@ -598,7 +598,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRouteAndMove
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
@@ -616,7 +616,7 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReachedAndAllIn
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
@@ -639,7 +639,7 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationReachedAndAllInter
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 	m_robot->update();
 	m_hardwareRobot->setIsMoving(true);
@@ -667,7 +667,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChanged_robotGotTwoC
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_routerMock->setChessMode(false);
@@ -688,7 +688,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndRouteChangedAndInitialRot
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_routerMock->setChessMode(false);
@@ -711,7 +711,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMovedALittleBi
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robotWithRealRouter->goTo(m_targets, DriveMoveDefault);
+	m_robotWithRealRouter->goTo(m_targets, DriveModeDefault);
 
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
@@ -729,7 +729,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMoved_turningT
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1,1),0.5));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robotWithRealRouter->goTo(m_targets, DriveMoveDefault);
+	m_robotWithRealRouter->goTo(m_targets, DriveModeDefault);
 
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
@@ -783,7 +783,7 @@ void RobotTest::update_goToAndTargetNotInsideField_noCallToDriveAndTurn()
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_field->setAllCoordinatesOutside(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robotWithRealRouter->goTo(m_targets, DriveMoveDefault);
+	m_robotWithRealRouter->goTo(m_targets, DriveModeDefault);
 
 	m_robotWithRealRouter->update();
 
@@ -811,7 +811,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndThreePointsInRoute_tur
 {
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 
@@ -823,7 +823,7 @@ void RobotTest::update_goToAndInitialRotationReachedAndThreePointsInRoute_robotG
 {
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
@@ -838,7 +838,7 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationNotReached_turning
 {
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
@@ -855,7 +855,7 @@ void RobotTest::update_goToAndSecondPositionReachedAndRotationReached_robotGotCa
 {
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
@@ -874,7 +874,7 @@ void RobotTest::update_goToAndThirdPositionReachedAndFinalRotationNotReached_tur
 {
 	m_routerMock->setChessMode(true);
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
@@ -913,7 +913,7 @@ void RobotTest::update_empty_robotGotCallToUpdate()
 void RobotTest::update_goToAndAtTarget_reachedTarget()
 {
 	m_targets.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	m_robot->update();
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0, 0), Point(1, 3))));
@@ -941,7 +941,7 @@ void RobotTest::update_goToDirectAndAtTarget_reachedTarget()
 void RobotTest::update_finalRotationReachedThroughMovementStopped_movementHasNotStopped()
 {
 	m_targets.push_back(Pose(Point(1, 3), Angle::getHalfRotation()));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_hardwareRobot->setPose(Pose(Point(1, 0), Angle::getQuarterRotation()));
 
 	m_robot->update();
@@ -965,7 +965,7 @@ void RobotTest::goTo_movementStoppedBefore_movementNotStopped()
 	CPPUNIT_ASSERT(m_robot->movementStopped());
 
 	m_targets.push_back(Pose(Point(1, 2), Angle(3)));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 
 	CPPUNIT_ASSERT(!m_robot->movementStopped());
 }
@@ -1003,7 +1003,7 @@ void RobotTest::goTo_movementStoppedBeforeAndUpdate_movementNotStopped()
 	m_hardwareRobot->setIsMoving(false);
 
 	m_targets.push_back(Pose(Point(1, 2), Angle(3)));
-	m_robot->goTo(m_targets, DriveMoveDefault);
+	m_robot->goTo(m_targets, DriveModeDefault);
 	m_robot->update();
 
 	CPPUNIT_ASSERT(!m_robot->movementStopped());

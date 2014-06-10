@@ -27,5 +27,5 @@ void TreeNodeResultFollowBall::execute()
 	vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
 	vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robotFartherAway.getCurrentPose().getPosition());
 	robotCloser.goTo(targetsOnBall, DriveModeIgnoreBallAndDriveSlowlyAtTheEnd);
-	robotFartherAway.goTo(targetsAlternativePlayer, DriveMoveDefault);
+	robotFartherAway.goTo(targetsAlternativePlayer, DriveModeDefault);
 }

@@ -23,7 +23,7 @@ RobotState *DriveToFinalRotationTest::createInstance()
 
 	return new DriveToFinalRotation(
 				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher, *m_autonomousRobotMock, DriveMoveDefault, *m_route);
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
 }
 
 void DriveToFinalRotationTest::constructor_routeWithTwoPoints_routeHasTwoPoints()
@@ -33,7 +33,7 @@ void DriveToFinalRotationTest::constructor_routeWithTwoPoints_routeHasTwoPoints(
 
 	DriveToFinalRotation state(
 					*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, *m_route);
+					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, *m_route);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, state.getRoutePointsCount());
 }

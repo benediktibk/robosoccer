@@ -24,7 +24,7 @@ RobotState *DriveToInvalidRouteTest::createInstance()
 
 	return new DriveToInvalidRoute(
 				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault);
 }
 
 void DriveToInvalidRouteTest::update_onceCalled_robotGotOneCallToStop()
@@ -72,7 +72,7 @@ void DriveToInvalidRouteTest::nextState_inGoal_initialRotation()
 	vector<Pose> targets;
 	targets.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
 	RouterImpl router(ControllableRobot::getWidth(), fieldPositionChecker);
-	DriveToInvalidRoute state(*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher, *m_autonomousRobotMock, DriveMoveDefault);
+	DriveToInvalidRoute state(*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault);
 
 	RobotState *nextState = state.nextState(false);
 

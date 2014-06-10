@@ -15,7 +15,7 @@ namespace Autonomous
 		DriveModeDriveSlowlyAtTheEnd,
 		DriveModeIgnoreGoalObstacles,
 		DriveModeIgnoreBallAndDriveSlowlyAtTheEnd,
-		DriveMoveDefault
+		DriveModeDefault
 	};
 }
 }
