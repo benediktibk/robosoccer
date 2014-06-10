@@ -23,6 +23,7 @@ namespace Geometry
 		 CPPUNIT_TEST(intersectsWith_pathFromRightToLeftAndCircleFarAwayRight_false);
 		 CPPUNIT_TEST(intersectsWith_oneBoundaryPostFarAway_false);
 		 CPPUNIT_TEST(intersectsWith_oneBoundaryPostFarAwaySimplified_false);
+		 CPPUNIT_TEST(intersectsWith_slightlyRotatedButNotIntersecting_false);
 		 CPPUNIT_TEST(isCircleOnPath_circleOnPath_true);
 		 CPPUNIT_TEST(isCircleOnPath_circleCenterIsNotOnPath_false);
 		 CPPUNIT_TEST(getIntersectPoints_circleWithNoIntersects_intersectPointsCountIs0);
@@ -48,6 +49,7 @@ namespace Geometry
 		 void intersectsWith_pathFromRightToLeftAndCircleFarAwayRight_false();
 		 void intersectsWith_oneBoundaryPostFarAway_false();
 		 void intersectsWith_oneBoundaryPostFarAwaySimplified_false();
+		 void intersectsWith_slightlyRotatedButNotIntersecting_false();
 		 void isCircleOnPath_circleOnPath_true();
 		 void isCircleOnPath_circleCenterIsNotOnPath_false();
 		 void getIntersectPoints_circleWithNoIntersects_intersectPointsCountIs0();
