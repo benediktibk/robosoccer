@@ -566,7 +566,39 @@ void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodPosition_true()
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0.5,0.0));
 	Point robotPosition(0.0,0.0);
-	Angle spanAngle(M_PI*1/6);
-	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,spanAngle,1.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,1.0);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5,0.0));
+	Point robotPosition(0.0,0.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.45);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInBadPositionDueToAngleViolation_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.5,0.0));
+	Point robotPosition(0.0,1.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodKickPosition_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-0.5,0.0));
+	Point robotPosition(0.0,0.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }

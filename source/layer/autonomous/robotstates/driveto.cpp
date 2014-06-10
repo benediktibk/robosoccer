@@ -19,7 +19,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
-DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Router &router,
+DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Pose &currentTarget, const Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
 	RobotState(robot, logger, logFileType),
@@ -28,6 +28,7 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Ro
 	m_precisionOrientationFinal(0.1),
 	m_driveMode(driveMode),
 	m_targets(targets),
+	m_currentTarget(currentTarget),
 	m_router(router),
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
@@ -109,6 +110,11 @@ const vector<Pose> &DriveTo::getTargets() const
 	return m_targets;
 }
 
+const Pose &DriveTo::getCurrentTarget() const
+{
+	return m_currentTarget;
+}
+
 const Router &DriveTo::getRouter() const
 {
 	return m_router;
@@ -137,15 +143,15 @@ const Route &DriveTo::getCurrentRoute() const
 
 bool DriveTo::updateRouteIfNecessary()
 {
-	Point robotPoint = getRobot().getPose().getPosition();
+	Point currentPosition = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
+				m_ownObstacleSource, currentPosition, 1, m_driveMode, 0.9);
+	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
-		m_currentRoute->replaceFirstPoint(robotPoint);
+		m_currentRoute->replaceFirstPoint(currentPosition);
 
-	if (isRouteFeasible(modifiedObstacles))
+	if (isRouteFeasible(filteredObstacles))
 		return false;
 
 	log("current route is not feasible anymore we try to create a new one");
@@ -170,7 +176,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	{
 		log("route is invalid");
 		return new DriveToInvalidRoute(
-					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode());
 	}
 
@@ -178,7 +184,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	{
 		log("created new route, starting with initial rotation");
 		return new DriveToInitialRotation(
-					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
@@ -187,13 +193,20 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 
 void DriveTo::calculateNewRoute()
 {
-	Point robotPoint = getRobot().getPose().getPosition();
-	Point target = m_targets.front().getPosition();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
+	Point currentPosition = getRobot().getPose().getPosition();
 
-	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
+	for (unsigned int i = 0; i < m_targets.size(); ++i)
+	{
+		Point target = m_targets[i].getPosition();
+		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource, currentPosition, 1, m_driveMode, 2);
+		vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
+
+		*m_currentRoute = m_router.calculateRoute(currentPosition, target, filteredObstacles);
+
+		if (m_currentRoute->isValid())
+			break;
+	}
 
 	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
 		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
@@ -214,22 +227,6 @@ bool DriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) const
 			return false;
 
 	return	m_currentRoute->isValid() && !m_currentRoute->intersectsWith(obstacles);
-}
-
-vector<Circle> DriveTo::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
-{
-	vector<Circle> result;
-	result.reserve(obstacles.size());
-
-	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
-	{
-		Circle circle = *i;
-		double diameter = circle.getDiameter();
-		circle.setDiameter(diameter*growFactor);
-		result.push_back(circle);
-	}
-
-	return result;
 }
 
 void DriveTo::logRoute()

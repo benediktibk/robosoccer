@@ -3,12 +3,15 @@
 #include "layer/autonomous/robotstates/drivetoinitialrotation.h"
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
+#include "layer/main/fieldpositioncheckergoalkeeper.h"
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
+#include "common/routing/routerimpl.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
+using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
@@ -20,8 +23,8 @@ RobotState *DriveToInvalidRouteTest::createInstance()
 	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 
 	return new DriveToInvalidRoute(
-				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
+				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault);
 }
 
 void DriveToInvalidRouteTest::update_onceCalled_robotGotOneCallToStop()
@@ -51,6 +54,27 @@ void DriveToInvalidRouteTest::nextState_noRouteFeasible_0()
 void DriveToInvalidRouteTest::nextState_feasibleRoute_initialRotation()
 {
 	RobotState *nextState = m_robotState->nextState(false);
+
+	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
+}
+
+void DriveToInvalidRouteTest::nextState_inGoal_initialRotation()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1.325, 0.25), 0.25));
+	obstacles.push_back(Circle(Point(1.325, -0.25), 0.25));
+	obstacles.push_back(Circle(Point(1.325, 0), 0.25));
+	m_controllableRobot->setPose(Pose(Point(1.29548090934753, -0.0183960431814194), Angle::getQuarterRotation()));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	FieldPositionCheckerGoalkeeper fieldPositionChecker;
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	RouterImpl router(0.095, fieldPositionChecker);
+	DriveToInvalidRoute state(*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault);
+
+	RobotState *nextState = state.nextState(false);
 
 	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
 	CPPUNIT_ASSERT(nextStateCasted != 0);

@@ -18,6 +18,7 @@ namespace Routing
 
 		virtual Route calculateRoute(
 				const Geometry::Point &start, const Geometry::Point &end, const std::vector<Geometry::Circle> &obstacles) const;
+		virtual std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &obstacles, const Geometry::Point &position) const;
 		void setChessMode(bool value);
 
 		void setRoute(const Geometry::Point &one, const Geometry::Point &two, const Geometry::Point &three);

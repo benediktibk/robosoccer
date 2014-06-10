@@ -20,7 +20,7 @@ using namespace RoboSoccer::Common::Logging;
 
 ControllableRobotImpl::ControllableRobotImpl(
 		unsigned int deviceId, KogniMobil::RTDBConn &dataBase, TeamColor color, Watch const &watch, Common::Logging::Logger &logger) :
-	m_driveShortControl(new RobotDriveControl(watch, 0.3, 0.2, 50, 0, 40)),
+	m_driveShortControl(new RobotDriveControl(watch, 0.4, 0.2, 500, 0, 40)),
 	m_driveLongControl(new RobotDriveControl(watch, 0.2, 0.05, 200, 0, 120)),
 	m_state(StateStop),
 	m_translationSpeed(0),

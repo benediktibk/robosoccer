@@ -26,6 +26,7 @@ namespace Routing
 
 		virtual Route calculateRoute(
 				const Geometry::Point &start, const Geometry::Point &end, const std::vector<Geometry::Circle> &obstacles) const = 0;
+		virtual std::vector<Geometry::Circle> filterObstacles(const std::vector<Geometry::Circle> &obstacles, const Geometry::Point &position) const = 0;
 	};
 }
 }

@@ -10,12 +10,13 @@ RefereeMock::RefereeMock() :
 	m_executePenalty(false),
 	m_gamePaused(false),
 	m_continuePlaying(false),
-	m_callsToSetReady(0)
+	m_callsToSetReady(0),
+	m_ownFieldSide(FieldSideLeft)
 { }
 
 FieldSide RefereeMock::getOwnFieldSide() const
 {
-	return FieldSideLeft;
+	return m_ownFieldSide;
 }
 
 bool RefereeMock::getPrepareForKickOff() const
@@ -109,4 +110,9 @@ unsigned int RefereeMock::getCallsToSetReady() const
 bool RoboSoccer::Layer::Abstraction::RefereeMock::playModeChangedSinceLastCall()
 {
 	return false;
+}
+
+void RefereeMock::setOwnFieldSide(FieldSide fieldSide)
+{
+	m_ownFieldSide = fieldSide;
 }

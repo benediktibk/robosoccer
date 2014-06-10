@@ -20,7 +20,7 @@ ostream& operator<<(ostream &stream, const DriveMode &driveMode)
 	case DriveModeIgnoreGoalObstacles:
 		stream << "ignore goal obstacles";
 		break;
-	case DriveMoveDefault:
+	case DriveModeDefault:
 		stream << "default";
 		break;
 	}

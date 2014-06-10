@@ -53,9 +53,9 @@ vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 	return result;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me, double growFactor) const
 {
-	vector<Circle> result = m_routingObstaclesInGoalZones;
+	vector<Circle> result;// = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -68,12 +68,14 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &m
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
 
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	modifiedResult.insert(modifiedResult.end(), m_routingObstaclesInGoalZones.begin(), m_routingObstaclesInGoalZones.end());
+	return modifiedResult;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me, double growFactor) const
 {
-	vector<Circle> result = m_routingObstaclesInGoalZones;
+	vector<Circle> result;// = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -85,11 +87,12 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSo
 		vector<Circle> resultPart = source.getObstacles();
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
-
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	modifiedResult.insert(modifiedResult.end(), m_routingObstaclesInGoalZones.begin(), m_routingObstaclesInGoalZones.end());
+	return modifiedResult;
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me, double growFactor) const
 {
 	vector<Circle> result;
 
@@ -103,44 +106,44 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const O
 		vector<Circle> resultPart = source.getObstacles();
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
-
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	return modifiedResult;
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
-		const ObstacleSource &me, const Point &ownPosition, double distance) const
+		const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMe(me);
+	vector<Circle> candidates = getAllObstaclesButMe(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBallInRange(
-		const ObstacleSource &me, const Point &ownPosition, double distance) const
+		const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMeAndBall(me);
+	vector<Circle> candidates = getAllObstaclesButMeAndBall(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &me, const Point &ownPosition, double distance) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &me, const Point &ownPosition, double distance, double growFactor) const
 {
-	vector<Circle> candidates = getAllObstaclesButMeAndGoalObstacles(me);
+	vector<Circle> candidates = getAllObstaclesButMeAndGoalObstacles(me, growFactor);
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, DriveMode driveMode) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, DriveMode driveMode, double growFactor) const
 {
 	switch (driveMode)
 	{
 	case DriveModeIgnoreBall:
 	case DriveModeIgnoreBallAndDriveSlowlyAtTheEnd:
-		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance);
+		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance, growFactor);
 	case DriveModeIgnoreGoalObstacles:
-		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance);
+		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance, growFactor);
 	case DriveModeDriveSlowlyAtTheEnd:
-	case DriveMoveDefault:
+	case DriveModeDefault:
 		break;
 	}
-	return getAllObstaclesButMeInRange(me, ownPosition, distance);
+	return getAllObstaclesButMeInRange(me, ownPosition, distance, growFactor);
 }
 
 vector<Circle> ObstacleFetcherImpl::filterByDistance(
@@ -165,4 +168,20 @@ bool ObstacleFetcherImpl::isInRange(const Point &ownPosition, double distance, c
 	double distanceToCenter = ownPosition.distanceTo(circle.getCenter());
 	double distanceToEdge = distanceToCenter - circle.getDiameter()/2;
 	return distanceToEdge <= distance;
+}
+
+vector<Circle> ObstacleFetcherImpl::modifyObstacles(const vector<Circle> &obstacles, double growFactor) const
+{
+	vector<Circle> result;
+	result.reserve(obstacles.size());
+
+	for (vector<Circle>::const_iterator i = obstacles.begin(); i != obstacles.end(); ++i)
+	{
+		Circle circle = *i;
+		double diameter = circle.getDiameter();
+		circle.setDiameter(diameter*growFactor);
+		result.push_back(circle);
+	}
+
+	return result;
 }

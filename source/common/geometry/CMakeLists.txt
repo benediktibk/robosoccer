@@ -10,6 +10,7 @@ set(COMMON_GEOMETRY_SRC
 	compare.cpp
 	pose.cpp
     rectangleroundedcorners.cpp
+	straight.cpp
 )
 
 set(COMMON_GEOMETRY_TEST_SRC
@@ -24,6 +25,7 @@ set(COMMON_GEOMETRY_TEST_SRC
 	comparetest.cpp
 	posetest.cpp
     rectangleroundedcornerstest.cpp
+	straighttest.cpp
 )
 
 add_library(commongeometry ${COMMON_GEOMETRY_SRC})

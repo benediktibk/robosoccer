@@ -19,37 +19,37 @@ vector<Circle> ObstacleFetcherMock::getAllObstacles() const
 	return m_allObstacles;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMe(const ObstacleSource &) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMe(const ObstacleSource &, double) const
 {
 	return m_allObstaclesButMe;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBall(const ObstacleSource &) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBall(const ObstacleSource &, double) const
 {
 	return m_allObstaclesButMeAndBall;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &, double) const
 {
 	return m_allObstaclesButMeAndGoalObstacles;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(const ObstacleSource &, const Point &, double) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRange(const ObstacleSource &, const Point &, double, double) const
 {
 	return m_allObstaclesButMeInRange;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBallInRange(const ObstacleSource &, const Point &, double) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndBallInRange(const ObstacleSource &, const Point &, double, double ) const
 {
 	return m_allObstaclesButMeAndBallInRange;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &, const Point &, double) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(const ObstacleSource &, const Point &, double, double ) const
 {
 	return m_allObstaclesButMeAndGoalObstaclesInRange;
 }
 
-vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, DriveMode) const
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, DriveMode, double) const
 {
 	return m_allObstaclesButMeDependentOnDriveMode;
 }

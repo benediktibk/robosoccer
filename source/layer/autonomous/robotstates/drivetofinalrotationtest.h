@@ -20,6 +20,8 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_finalRotationReached_reachedTarget);
 		CPPUNIT_TEST(nextState_movementStopped_reachedTarget);
 		CPPUNIT_TEST(reachedTarget_empty_false);
+		CPPUNIT_TEST(nextState_currentTargetIsTheSecondTargetAndFinalRotationNotReached_0);
+		CPPUNIT_TEST(nextState_currentTargetIsTheSecondTargetAndFinalRotationReached_reachedTarget);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -33,6 +35,8 @@ namespace Autonomous
 		void nextState_finalRotationReached_reachedTarget();
 		void nextState_movementStopped_reachedTarget();
 		void reachedTarget_empty_false();
+		void nextState_currentTargetIsTheSecondTargetAndFinalRotationNotReached_0();
+		void nextState_currentTargetIsTheSecondTargetAndFinalRotationReached_reachedTarget();
 	};
 }
 }

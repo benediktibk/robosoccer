@@ -24,6 +24,7 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute);
 		CPPUNIT_TEST(nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute);
 		CPPUNIT_TEST(nextState_obstacleBehindRobotOccurs_0);
+		CPPUNIT_TEST(nextState_obstacleCloseToStartPositionAndTargetNotReached_0);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -42,6 +43,7 @@ namespace Autonomous
 		void nextState_targetReachedAndRoutePointsLeft_initialRotationWithShorterRoute();
 		void nextState_movementStoppedAndRoutePointsLeft_initialRotationWithShorterRoute();
 		void nextState_obstacleBehindRobotOccurs_0();
+		void nextState_obstacleCloseToStartPositionAndTargetNotReached_0();
 		void reachedTarget_empty_false();
 	};
 }
