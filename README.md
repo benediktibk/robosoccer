@@ -15,7 +15,7 @@ Written by:
 -   Benedikt Schmidt
 -   Florian Wirnshofer
 
-Find this project [on bitbucket](https://bitbucket.org/robosoccer/robosoccer), our [discussion board](https://forum.kevin-meyer.de/).
+Find the [repository](https://bitbucket.org/robosoccer/robosoccer), the [documentation](http://kevin-meyer.de/docu-robosoccer/) and our [discussion board](https://forum.kevin-meyer.de/).
 
 ---
 
