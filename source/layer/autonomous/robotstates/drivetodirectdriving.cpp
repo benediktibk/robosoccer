@@ -11,45 +11,27 @@ using namespace std;
 
 DriveToDirectDriving::DriveToDirectDriving(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
-	RobotState(robot, logger, logFileType),
-	m_target(target),
-	m_precision(0.01),
-	m_movementStarted(false)
+	DriveToDirect(robot, target, logger, logFileType)
 { }
-
-bool DriveToDirectDriving::reachedTarget() const
-{
-	return false;
-}
 
 RobotState *DriveToDirectDriving::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
-	Compare compare(m_precision);
+	Compare compare(getPrecisionDriving());
+	const Pose &target = getTarget();
 
-	if (compare.isFuzzyEqual(pose.getPosition(), m_target.getPosition()))
+	if (compare.isFuzzyEqual(pose.getPosition(), target.getPosition()))
 	{
 		log("position reached");
-		return new DriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectFinalRotation(getRobot(), target, getLogger(), getLogFileType());
 	}
-	else if (movementStopped && m_movementStarted)
+	else if (movementStopped && hasMovementStarted())
 	{
 		log("position not really reached, but movement stopped");
-		return new DriveToDirectFinalRotation(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectFinalRotation(getRobot(), target, getLogger(), getLogFileType());
 	}
 	else
 		return 0;
-}
-
-bool DriveToDirectDriving::isEquivalentToDriveToDirect(const Pose &target) const
-{
-	//! @todo improve this
-	return m_target == target;
-}
-
-bool DriveToDirectDriving::isEquivalentToDriveTo(const Pose &) const
-{
-	return false;
 }
 
 string DriveToDirectDriving::getName() const
@@ -57,11 +39,8 @@ string DriveToDirectDriving::getName() const
 	return string("drive to direct - driving");
 }
 
-void DriveToDirectDriving::update()
+void DriveToDirectDriving::updateInternal()
 {
-	if (m_movementStarted)
-		return;
-
-	getRobot().gotoPositionPrecise(m_target.getPosition());
-	m_movementStarted = true;
+	const Pose &target = getTarget();
+	getRobot().gotoPositionPrecise(target.getPosition());
 }

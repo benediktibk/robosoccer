@@ -398,3 +398,5 @@ layer/autonomous/robotstates/drivetoinvalidroutetest.cpp
 layer/autonomous/robotstates/drivetoinvalidroute.cpp
 layer/autonomous/robotstates/drivemode.cpp
 layer/autonomous/robotstates/drivemode.h
+layer/autonomous/robotstates/drivetodirect.h
+layer/autonomous/robotstates/drivetodirect.cpp
