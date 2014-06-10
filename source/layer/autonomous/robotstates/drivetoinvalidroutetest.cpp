@@ -63,15 +63,15 @@ void DriveToInvalidRouteTest::nextState_feasibleRoute_initialRotation()
 void DriveToInvalidRouteTest::nextState_inGoal_initialRotation()
 {
 	vector<Circle> obstacles;
-	obstacles.push_back(Circle(Point(1.325, 0.25), 0.225));
-	obstacles.push_back(Circle(Point(1.325, -0.25), 0.225));
-	obstacles.push_back(Circle(Point(1.325, 0), 0.225));
-	m_controllableRobot->setPose(Pose(Point(1.3, -0.01848), Angle::getQuarterRotation()));
+	obstacles.push_back(Circle(Point(1.325, 0.25), 0.25));
+	obstacles.push_back(Circle(Point(1.325, -0.25), 0.25));
+	obstacles.push_back(Circle(Point(1.325, 0), 0.25));
+	m_controllableRobot->setPose(Pose(Point(1.29548090934753, -0.0183960431814194), Angle::getQuarterRotation()));
 	m_obstacleFetcher->setAllObstaclesButMeAndGoalObstaclesInRange(obstacles);
 	FieldPositionCheckerGoalkeeper fieldPositionChecker;
 	vector<Pose> targets;
 	targets.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
-	RouterImpl router(ControllableRobot::getWidth(), fieldPositionChecker);
+	RouterImpl router(0.095, fieldPositionChecker);
 	DriveToInvalidRoute state(*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault);
 
 	RobotState *nextState = state.nextState(false);
