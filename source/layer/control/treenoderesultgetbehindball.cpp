@@ -31,19 +31,19 @@ void TreeNodeResultGetBehindBall::execute()
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
 	vector<Pose> targetsBehindBall = m_targetPositionFetcher.getTargetsBehindBall(m_ball);
-
+	vector<Pose> targetsBehindBallAlternativeRobot = m_targetPositionFetcher.getTargetsBehindBallAlternativeRobot(m_ball);
 	DriveMode driveMode = DriveModeDefault;
 
 	if (robot1.getCurrentPose().distanceTo(targetsBehindBall.front()) <
 			robot2.getCurrentPose().distanceTo(targetsBehindBall.front()))
 	{
 		robot1.goTo(targetsBehindBall, driveMode);
-		robot2.goTo(m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robot2.getCurrentPose()), DriveModeDefault);
+		robot2.goTo(targetsBehindBallAlternativeRobot, DriveModeDefault);
 	}
 	else
 	{
 		robot2.goTo(targetsBehindBall, driveMode);
-		robot1.goTo(m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robot1.getCurrentPose()), DriveModeDefault);
+		robot1.goTo(targetsBehindBallAlternativeRobot, DriveModeDefault);
 	}
 
 }
