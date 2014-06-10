@@ -20,12 +20,12 @@ void StraightTest::isTargetPointRightOfLine_straightIsYAxisAndPointIsLeft_false(
 	CPPUNIT_ASSERT(!straight.isTargetPointRightOfLine(target));
 }
 
-void StraightTest::isTargetPointRightOfLine_straightAndPointIsRight_false()
+void StraightTest::isTargetPointRightOfLine_straightAndPointIsRight_true()
 {
 	Straight straight(Point(1,2.1), Angle::getEighthRotation() * 3.0);
-	Point target(0,0);
+	Point target(4,5);
 
-	CPPUNIT_ASSERT(!straight.isTargetPointRightOfLine(target));
+	CPPUNIT_ASSERT(straight.isTargetPointRightOfLine(target));
 }
 
 void StraightTest::isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_false()

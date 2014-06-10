@@ -24,7 +24,7 @@ Point Straight::getPerpendicularPoint(const Point &point) const
 bool Straight::isTargetPointRightOfLine(const Point &target) const
 {
 	Point point = target - m_referencePoint;
-	point.rotate(Angle() - m_direction);
+	point.rotate(m_direction * -1.0);
 
 	return point.getY() < 0;
 }
