@@ -14,8 +14,15 @@ class StraightTest :
 		public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(StraightTest);
+		CPPUNIT_TEST(isTargetPointRightOfLine_straightIsXAxisAndPointIsRight_true);
+		CPPUNIT_TEST(isTargetPointRightOfLine_straightIsYAxisAndPointIsLeft_false);
+		CPPUNIT_TEST(isTargetPointRightOfLine_straightAndPointIsRight_true);
 		CPPUNIT_TEST_SUITE_END();
 	private:
+		void isTargetPointRightOfLine_straightIsXAxisAndPointIsRight_true();
+		void isTargetPointRightOfLine_straightIsYAxisAndPointIsLeft_false();
+		void isTargetPointRightOfLine_straightAndPointIsRight_true();
+
 
 	};
 }
