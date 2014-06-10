@@ -12,12 +12,15 @@ namespace Common
 namespace Geometry
 {
 	class Circle;
+	class Line;
+
 	class Straight
 	{
 	public:
 		Straight(const Point &referencePoint, const Angle &direction);
 
 		std::vector<Point> getIntersectPoint(const Straight &straight) const;
+		std::vector<Point> getIntersectPoint(const Line &line) const;
 		Point getPerpendicularPoint(const Point &point) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
 		Point getNormalizedDirectionVector() const;
