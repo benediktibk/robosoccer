@@ -30,26 +30,7 @@ bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 {
 	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
 	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
-	Point ballPosition = m_ball.getPosition();
 
-	Angle angleCircularSector = Angle::getQuarterRotation();
-	Angle straight1Direction;
-	Angle straight2Direction;
-
-	if(m_referee.getOwnFieldSide() == FieldSideRight)
-	{
-		straight1Direction = (angleCircularSector * 0.5);
-		straight2Direction = Angle::getHalfRotation() - (angleCircularSector * 0.5);
-	}
-	else
-	{
-		straight1Direction = Angle::getHalfRotation() + (angleCircularSector * 0.5);
-		straight2Direction = angleCircularSector * (-0.5);
-	}
-
-	Straight straight1(ballPosition, straight1Direction);
-	Straight straight2(ballPosition, straight2Direction);
-
-	return (straight1.isTargetPointRightOfLine(robot1Pose) && straight2.isTargetPointRightOfLine(robot1Pose))
-			|| (straight1.isTargetPointRightOfLine(robot2Pose) && straight2.isTargetPointRightOfLine(robot2Pose));
+	return m_targetPositionFetcher.isPositionBehindTheBall(robot1Pose, m_ball)
+			|| m_targetPositionFetcher.isPositionBehindTheBall(robot2Pose, m_ball);
 }
