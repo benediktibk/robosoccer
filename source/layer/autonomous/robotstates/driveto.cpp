@@ -130,6 +130,9 @@ bool DriveTo::updateRouteIfNecessary()
 				m_ownObstacleSource,robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
 
+	if (m_currentRoute != 0 && m_currentRoute->isValid())
+		m_currentRoute->replaceFirstPoint(robotPoint);
+
 	if (isRouteFeasible(modifiedObstacles))
 		return false;
 
