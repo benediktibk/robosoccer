@@ -7,6 +7,8 @@
 #include "layer/abstraction/controllablerobotmock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
+#include "common/routing/routerimpl.h"
+#include "common/routing/fieldpositioncheckermock.h"
 #include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
@@ -132,4 +134,24 @@ void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreeP
 void DriveToInitialRotationTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
+}
+
+void DriveToInitialRotationTest::constructor_noRouteAndFirstRouteInvalid_routeCreated()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(5, 4), 1));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_controllableRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	targets.push_back(Pose(Point(3, 3), Angle::getQuarterRotation()));
+	FieldPositionCheckerMock fieldPositionChecker;
+	RouterImpl router(0.5, fieldPositionChecker);
+	DriveToInitialRotation *state = new DriveToInitialRotation(
+				*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
+
+	DriveTo *stateCasted = dynamic_cast<DriveTo*>(state);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, stateCasted->getRoutePointsCount());
 }
