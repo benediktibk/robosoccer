@@ -28,7 +28,7 @@ int main(int, char**)
 	cout << "creating objects" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorBlue, logger, watch);
+	StorageImpl storage(14, TeamColorRed, logger, watch);
 	FieldPositionCheckerGoalkeeper fieldPositionCheckerGoalKeeper;
 	FieldPositionCheckerFieldPlayer fieldPositionCheckerFieldPlayer;
 	ObstacleFetcherImpl obstacleFetcher;
