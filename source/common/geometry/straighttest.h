@@ -19,9 +19,9 @@ class StraightTest :
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightAndPointIsRight_true);
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_false);
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightThroughOriginPointIsRight_true);
-		CPPUNIT_TEST(getIntersectPoint_linesAreParralel_noIntersect);
-		CPPUNIT_TEST(getIntersectPoint_linesAreIntersecting_oneIntersect);
-		CPPUNIT_TEST(getIntersectPoint_linesAreEqual_noIntersect);
+		CPPUNIT_TEST(getIntersectPoint_straightsAreParralel_noIntersect);
+		CPPUNIT_TEST(getIntersectPoint_straightsAreIntersecting_oneIntersect);
+		CPPUNIT_TEST(getIntersectPoint_straightsAreEqual_noIntersect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -30,9 +30,9 @@ class StraightTest :
 		void isTargetPointRightOfLine_straightAndPointIsRight_true();
 		void isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_false();
 		void isTargetPointRightOfLine_straightThroughOriginPointIsRight_true();
-		void getIntersectPoint_linesAreParralel_noIntersect();
-		void getIntersectPoint_linesAreIntersecting_oneIntersect();
-		void getIntersectPoint_linesAreEqual_noIntersect();
+		void getIntersectPoint_straightsAreParralel_noIntersect();
+		void getIntersectPoint_straightsAreIntersecting_oneIntersect();
+		void getIntersectPoint_straightsAreEqual_noIntersect();
 	};
 }
 }
