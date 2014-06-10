@@ -44,7 +44,7 @@ bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 	else
 	{
 		straight1Direction = Angle::getHalfRotation() - (angleCircularSector * 0.5);
-		straight2Direction = Angle() + (angleCircularSector * 0.5);
+		straight2Direction = angleCircularSector * 0.5;
 	}
 
 	Straight straight1(ballPosition, straight1Direction);
