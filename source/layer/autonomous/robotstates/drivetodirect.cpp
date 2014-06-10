@@ -1,4 +1,5 @@
 #include "layer/autonomous/robotstates/drivetodirect.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -23,8 +24,10 @@ bool DriveToDirect::reachedTarget() const
 
 bool DriveToDirect::isEquivalentToDriveToDirect(const Pose &target) const
 {
-	//! @todo improve this
-	return m_target == target;
+	Compare positionCompare(m_precisionDriving);
+	Compare rotationCompare(m_precisionFinalRotation);
+	return	positionCompare.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
+			rotationCompare.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
 }
 
 bool DriveToDirect::isEquivalentToDriveTo(const Pose &) const
