@@ -42,10 +42,12 @@ bool Path::isCircleCenterOnPath(const Circle &circle) const
 PathIntersectPoints Path::getIntersectPoints(const Circle &circle) const
 {
 	Angle angleBetweenPoints(m_start, m_end);
-	Point startLeft(m_start + Point(sqrt(2)*0.5*m_width, Angle::getQuarterRotation() + Angle::getEighthRotation() + angleBetweenPoints));
-	Point startRight(m_start + Point(sqrt(2)*0.5*m_width, angleBetweenPoints - Angle::getQuarterRotation() - Angle::getEighthRotation()));
-	Point endLeft(m_end + Point(sqrt(2)*0.5*m_width, Angle::getEighthRotation() + angleBetweenPoints));
-	Point endRight(m_end + Point(sqrt(2)*0.5*m_width, angleBetweenPoints - Angle::getEighthRotation()));
+	double halfWidth = m_width/2;
+	double diagonalHalfWidth = sqrt(2)*halfWidth;
+	Point startLeft(m_start + Point(diagonalHalfWidth, Angle::getQuarterRotation() + Angle::getEighthRotation() + angleBetweenPoints));
+	Point startRight(m_start + Point(diagonalHalfWidth, angleBetweenPoints - Angle::getQuarterRotation() - Angle::getEighthRotation()));
+	Point endLeft(m_end + Point(diagonalHalfWidth, Angle::getEighthRotation() + angleBetweenPoints));
+	Point endRight(m_end + Point(diagonalHalfWidth, angleBetweenPoints - Angle::getEighthRotation()));
 	Line leftOutline(startLeft, endLeft);
 	Line rightOutline(startRight, endRight);
 	Line startOutline(startLeft, startRight);
