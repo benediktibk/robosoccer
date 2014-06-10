@@ -93,3 +93,39 @@ void DriveToFinalRotationTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
+
+void DriveToFinalRotationTest::nextState_currentTargetIsTheSecondTargetAndFinalRotationNotReached_0()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 1), Angle()));
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	targets.push_back(Pose(Point(1, 1), Angle::getQuarterRotation()));
+	DriveToFinalRotation state(
+				*m_controllableRobot, targets, targets.back(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
+	state.update();
+
+	RobotState *nextState = state.nextState(false);
+
+	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToFinalRotationTest::nextState_currentTargetIsTheSecondTargetAndFinalRotationReached_reachedTarget()
+{
+	m_controllableRobot->setPose(Pose(Point(1, 1), Angle()));
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	targets.push_back(Pose(Point(1, 1), Angle::getQuarterRotation()));
+	DriveToFinalRotation state(
+				*m_controllableRobot, targets, targets.back(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
+	state.update();
+	m_controllableRobot->setPose(Pose(Point(1, 1), Angle::getQuarterRotation()));
+	state.update();
+
+	RobotState *nextState = state.nextState(false);
+
+	ReachedTarget *nextStateCasted = dynamic_cast<ReachedTarget*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
+}

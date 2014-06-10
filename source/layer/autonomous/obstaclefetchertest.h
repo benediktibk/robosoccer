@@ -39,6 +39,9 @@ namespace Autonomous
 		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0);
 		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndCloseToBall_oneCorrectElement);
 		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0);
+		CPPUNIT_TEST(getAllObstablesButMeAndBallInRange_goalObstaclesNoChangedSize);
+		CPPUNIT_TEST(getAllObstablesButMeInRange_goalObstaclesNoChangedSize);
+		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_noGoalObstacles);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -68,6 +71,9 @@ namespace Autonomous
 		void getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndFarAwayFromAllOtherObstacles_countIs0();
 		void getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndCloseToBall_oneCorrectElement();
 		void getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0();
+		void getAllObstablesButMeAndBallInRange_goalObstaclesNoChangedSize();
+		void getAllObstablesButMeInRange_goalObstaclesNoChangedSize();
+		void getAllObstaclesButMeAndGoalObstaclesInRange_noGoalObstacles();
 
 	private:
 		ObstacleFetcher *m_obstacleFetcher;

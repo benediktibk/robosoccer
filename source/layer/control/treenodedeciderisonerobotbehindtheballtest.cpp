@@ -22,7 +22,7 @@ TreeNode *TreeNodeDeciderIsOneRobotBehindTheBallTest::createTestNode()
 void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_bothRobotsBehindBall_followBall()
 {
 	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-1.5,0.2), Angle()));
-	m_ball->setPosition(Point (0,0));
+	m_ball->setPosition(Point (-1.4,0.2));
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 
 	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(m_node)->getChild();
@@ -38,11 +38,43 @@ void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_oneRobotBehindBall_follo
 //	CPPUNIT_ASSERT(false);
 }
 
-void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_noRobotBehindBall_getBehindBall()
+void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_robotBehindBall_followBall()
 {
 	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(1.5,-0.2), Angle()));
-	m_ball->setPosition(Point (0,0));
+	m_ball->setPosition(Point (1.65,-0.2));
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
+
+	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(m_node)->getChild();
+	TreeNodeResultFollowBall *followBall = dynamic_cast<TreeNodeResultFollowBall*>(result);
+	TreeNodeResultGetBehindBall *getBehindBall = dynamic_cast<TreeNodeResultGetBehindBall*>(result);
+
+	CPPUNIT_ASSERT(followBall != 0);
+	CPPUNIT_ASSERT(getBehindBall == 0);
+	delete result;
+}
+
+void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_robotBehindBallAndFieldSideIsRight_followBall()
+{
+	m_referee->setOwnFieldSide(FieldSideRight);
+	m_targetPositionFetcher->setFieldSide(FieldSideRight);
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-0.7,0.2), Angle()));
+	m_ball->setPosition(Point (-0.9,0.2));
+
+	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(m_node)->getChild();
+	TreeNodeResultFollowBall *followBall = dynamic_cast<TreeNodeResultFollowBall*>(result);
+	TreeNodeResultGetBehindBall *getBehindBall = dynamic_cast<TreeNodeResultGetBehindBall*>(result);
+
+	CPPUNIT_ASSERT(followBall != 0);
+	CPPUNIT_ASSERT(getBehindBall == 0);
+	delete result;
+}
+
+void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_robotIsNotBehindBallAndFieldSideIsRight_getBehindBall()
+{
+	m_referee->setOwnFieldSide(FieldSideRight);
+	m_targetPositionFetcher->setFieldSide(FieldSideRight);
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-0.9,0.2), Angle()));
+	m_ball->setPosition(Point (-0.7,0.2));
 
 	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(m_node)->getChild();
 	TreeNodeResultFollowBall *followBall = dynamic_cast<TreeNodeResultFollowBall*>(result);

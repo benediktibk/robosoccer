@@ -1,7 +1,8 @@
 #include "layer/autonomous/targetpositionfetcher.h"
-#include "common/geometry/pose.h"
 #include "layer/autonomous/intelligentball.h"
+#include "common/geometry/pose.h"
 #include "common/geometry/line.h"
+#include "common/geometry/straight.h"
 #include <assert.h>
 #include <iostream>
 #include <math.h>
@@ -206,6 +207,30 @@ bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomo
 	Angle deltaAngle = angleGoalBall-angleBallRobot;
 	double distanceRobotBall = ballPosition.distanceTo(robotPosition);
 	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < minDistance));
+}
+
+bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, const IntelligentBall &ball) const
+{
+	Point ballPosition = ball.getPosition();
+	Angle angleCircularSector = Angle::getQuarterRotation();
+	Angle straight1Direction;
+	Angle straight2Direction;
+
+	if(m_fieldSide == FieldSideRight)
+	{
+		straight1Direction = (angleCircularSector * 0.5);
+		straight2Direction = Angle::getHalfRotation() - (angleCircularSector * 0.5);
+	}
+	else
+	{
+		straight1Direction = Angle::getHalfRotation() + (angleCircularSector * 0.5);
+		straight2Direction = angleCircularSector * (-0.5);
+	}
+
+	Straight straight1(ballPosition, straight1Direction);
+	Straight straight2(ballPosition, straight2Direction);
+
+	return straight1.isTargetPointRightOfLine(robotPosition) && straight2.isTargetPointRightOfLine(robotPosition);
 }
 
 vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentBall &ball) const

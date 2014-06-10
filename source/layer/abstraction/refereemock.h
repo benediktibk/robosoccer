@@ -28,6 +28,7 @@ namespace Abstraction
 		virtual void logInformation();
 		virtual bool playModeChangedSinceLastCall();
 
+		void setOwnFieldSide(FieldSide  fieldSide);
 		void setPrepareForKickOff(bool value);
 		void setPrepareForPenalty(bool value);
 		void setHasKickOffOrPenalty(bool value);
@@ -46,6 +47,7 @@ namespace Abstraction
 		bool m_gamePaused;
 		bool m_continuePlaying;
 		unsigned int m_callsToSetReady;
+		FieldSide m_ownFieldSide;
 	};
 }
 }
