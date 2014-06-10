@@ -17,6 +17,7 @@ namespace Autonomous
 	public:
 		IntelligentBallMock();
 
+		virtual void update();
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual std::vector<Common::Geometry::Circle> getObstacles() const;

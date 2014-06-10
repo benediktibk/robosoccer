@@ -21,7 +21,7 @@ namespace Abstraction
 		StorageMock();
 		virtual ~StorageMock();
 
-		virtual Ball const& getBall() const;
+		virtual Ball &getBall();
 		virtual ReadableRobot  const& getEnemyRobot(unsigned int number) const;
 		virtual ControllableRobot& getOwnRobot(unsigned int number);
 		virtual RefereeBase& getReferee();

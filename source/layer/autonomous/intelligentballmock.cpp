@@ -14,6 +14,9 @@ IntelligentBallMock::IntelligentBallMock() :
 	m_movingDirection(FieldSideInvalid)
 { }
 
+void IntelligentBallMock::update()
+{ }
+
 Angle IntelligentBallMock::getRotation() const
 {
 	return m_ball.getRotation();

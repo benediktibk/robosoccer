@@ -18,10 +18,12 @@ namespace Abstraction
 	public:
 		BallMock();
 
+		virtual void update();
 		virtual Common::Geometry::Point getPosition() const;
 		virtual Common::Geometry::Angle getRotation() const;
 		virtual Common::Geometry::Circle getObstacle() const;
 		virtual double getVelocity() const;
+
 		void setRotation(Common::Geometry::Angle value);
 		void setPosition(Common::Geometry::Point position);
 		void setVelocity(double value);

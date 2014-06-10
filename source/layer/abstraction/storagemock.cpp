@@ -24,7 +24,7 @@ StorageMock::~StorageMock()
 	m_enemyRobot.clear();
 }
 
-Ball const& StorageMock::getBall() const
+Ball &StorageMock::getBall()
 {
 	return m_ball;
 }

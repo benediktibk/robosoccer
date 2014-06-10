@@ -113,6 +113,7 @@ void Application::run()
 			Robot &robot = m_ownTeam->getRobotByNumber(i);
 			robot.update();
 		}
+		m_ball->update();
 
 		double loopTime = stopWatch.getTimeAndRestart();
 

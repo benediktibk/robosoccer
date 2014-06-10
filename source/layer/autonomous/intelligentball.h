@@ -30,6 +30,7 @@ namespace Autonomous
 	public:
 		virtual ~IntelligentBall() { }
 
+		virtual void update() = 0;
 		virtual Common::Geometry::Angle getRotation() const = 0;
 		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
