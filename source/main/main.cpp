@@ -35,7 +35,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	application = new Application(parser.getOwnTeamColor());
+	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber());
 
 	sigIntHandler.sa_handler = signalHandler;
 	sigemptyset(&sigIntHandler.sa_mask);
