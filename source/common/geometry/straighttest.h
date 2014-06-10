@@ -18,6 +18,7 @@ class StraightTest :
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightIsYAxisAndPointIsLeft_false);
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightAndPointIsRight_true);
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_false);
+		CPPUNIT_TEST(isTargetPointRightOfLine_straightThroughOriginPointIsRight_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -25,6 +26,7 @@ class StraightTest :
 		void isTargetPointRightOfLine_straightIsYAxisAndPointIsLeft_false();
 		void isTargetPointRightOfLine_straightAndPointIsRight_true();
 		void isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_false();
+		void isTargetPointRightOfLine_straightThroughOriginPointIsRight_true();
 	};
 }
 }
