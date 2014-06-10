@@ -201,9 +201,8 @@ void DriveTo::calculateNewRoute()
 		Point target = m_targets[i].getPosition();
 		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 				m_ownObstacleSource, currentPosition, 1, m_driveMode, 2);
-		vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
-		*m_currentRoute = m_router.calculateRoute(currentPosition, target, filteredObstacles);
+		*m_currentRoute = m_router.calculateRoute(currentPosition, target, obstacles);
 
 		if (m_currentRoute->isValid())
 			break;
