@@ -30,31 +30,20 @@ void TreeNodeResultGetBehindBall::execute()
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
-	vector<Pose> targetsShort = m_targetPositionFetcher.getTargetsBehindBall(m_ball);
-	vector<Pose> targetsLong;
+	vector<Pose> targetsBehindBall = m_targetPositionFetcher.getTargetsBehindBall(m_ball);
 
 	DriveMode driveMode = DriveModeDefault;
 
-	Point targetShortPosition = targetsShort.front().getPosition();
-	if (fabs(targetShortPosition.getX()) > 1.45)
+	if (robot1.getCurrentPose().distanceTo(targetsBehindBall.front()) <
+			robot2.getCurrentPose().distanceTo(targetsBehindBall.front()))
 	{
-		//! We should consider to ignore the ball in this case
-		targetShortPosition.setX(sgn(targetShortPosition.getX()) * 1.45);
-		driveMode = DriveModeIgnoreBall;
-
-		//! @todo use a useful position for second player
-	}
-
-	if (robot1.getCurrentPose().distanceTo(targetsShort.front()) <
-			robot2.getCurrentPose().distanceTo(targetsShort.front()))
-	{
-		robot1.goTo(targetsShort, driveMode);
-		robot2.goTo(targetsLong, DriveModeDefault);
+		robot1.goTo(targetsBehindBall, driveMode);
+		robot2.goTo(m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robot2.getCurrentPose()), DriveModeDefault);
 	}
 	else
 	{
-		robot2.goTo(targetsShort, driveMode);
-		robot1.goTo(targetsLong, DriveModeDefault);
+		robot2.goTo(targetsBehindBall, driveMode);
+		robot1.goTo(m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robot1.getCurrentPose()), DriveModeDefault);
 	}
 
 }
