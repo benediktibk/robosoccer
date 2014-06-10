@@ -17,7 +17,7 @@ namespace Autonomous
 		RobotMock();
 		virtual ~RobotMock();
 
-		virtual void goTo(Common::Geometry::Pose const &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
+		virtual void goTo(std::vector<Common::Geometry::Pose> const &positions, DriveMode driveMode);
 		virtual void goToDirect(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;

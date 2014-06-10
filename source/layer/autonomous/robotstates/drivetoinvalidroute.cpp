@@ -10,13 +10,10 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToInvalidRoute::DriveToInvalidRoute(
-		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
+DriveToInvalidRoute::DriveToInvalidRoute(ControllableRobot &robot, const std::vector<Pose> &targets, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles)
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
+	DriveTo(robot, targets, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode)
 { }
 
 RobotState *DriveToInvalidRoute::nextState(bool)
@@ -28,9 +25,8 @@ RobotState *DriveToInvalidRoute::nextState(bool)
 	{
 		log("found again a valid route, starting with initial rotation");
 		return new DriveToInitialRotation(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles(), currentRoute);
+					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
 	return 0;

@@ -13,6 +13,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Layer::Control;
+using namespace std;
 
 TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
 		RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
@@ -29,31 +30,31 @@ void TreeNodeResultGetBehindBall::execute()
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
-	Pose targetShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
-	Pose targetLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
+	vector<Pose> targetsShort = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.3);
+	vector<Pose> targetsLong = m_targetPositionFetcher.getTargetBehindBall(m_ball, 0.6);
 
-	bool isNearToBorder = false;
+	DriveMode driveMode = DriveMoveDefault;
 
-	Point targetShortPosition = targetShort.getPosition();
+	Point targetShortPosition = targetsShort.front().getPosition();
 	if (fabs(targetShortPosition.getX()) > 1.45)
 	{
 		//! We should consider to ignore the ball in this case
 		targetShortPosition.setX(sgn(targetShortPosition.getX()) * 1.45);
-		isNearToBorder = true;
+		driveMode = DriveModeIgnoreBall;
 
 		//! @todo use a useful position for second player
 	}
 
-	if (robot1.getCurrentPose().distanceTo(targetShort) <
-			robot2.getCurrentPose().distanceTo(targetShort))
+	if (robot1.getCurrentPose().distanceTo(targetsShort.front()) <
+			robot2.getCurrentPose().distanceTo(targetsShort.front()))
 	{
-		robot1.goTo(targetShort, isNearToBorder, false, false);
-		robot2.goTo(targetLong, false, false, false);
+		robot1.goTo(targetsShort, driveMode);
+		robot2.goTo(targetsLong, DriveMoveDefault);
 	}
 	else
 	{
-		robot2.goTo(targetShort, isNearToBorder, false, false);
-		robot1.goTo(targetLong, false, false, false);
+		robot2.goTo(targetsShort, driveMode);
+		robot1.goTo(targetsLong, DriveMoveDefault);
 	}
 
 }

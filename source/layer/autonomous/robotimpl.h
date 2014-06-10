@@ -43,7 +43,7 @@ namespace Autonomous
 				  ObstacleFetcher &obstacleFetcher);
 		virtual ~RobotImpl();
 
-		virtual void goTo(Common::Geometry::Pose const &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
+		virtual void goTo(std::vector<Common::Geometry::Pose> const &positions, DriveMode driveMode);
 		virtual void goToDirect(Common::Geometry::Pose const &position);
 		virtual void stop();
 		virtual Common::Geometry::Pose getCurrentPose() const;
@@ -59,6 +59,7 @@ namespace Autonomous
 	private:
 		void switchIntoState(RobotState *state);
 		void log(std::string const &message);
+		void logPositions(std::string const &message, std::vector<Common::Geometry::Pose> const &positions);
 		void logPosition(std::string const &message, Common::Geometry::Point const &position);
 		void updateMovementStopped();
 

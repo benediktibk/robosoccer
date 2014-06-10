@@ -60,18 +60,20 @@ RobotImpl::~RobotImpl()
 	m_currentState = 0;
 }
 
-void RobotImpl::goTo(const Pose &position, bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles)
+void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 {
-	if (m_currentState->isEquivalentToDriveTo(position))
-	{
-		log("new target for go to is equal to the current one");
+	assert(!positions.empty());
+	if (m_currentState->isEquivalentToDriveTo(positions.front()))
 		return;
-	}
 
 	switchIntoState(new DriveToInitialRotation(
-						m_robot, position, m_router, m_logger, m_logFileType,
-						m_obstacleFetcher, *this, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles));
-	logPosition("target is", position);
+						m_robot, positions, m_router, m_logger, m_logFileType,
+						m_obstacleFetcher, *this, driveMode));
+
+	stringstream stream;
+	stream << "target count: " << positions.size();
+	log(stream.str());
+	logPositions("target is", positions);
 }
 
 Pose RobotImpl::getCurrentPose() const
@@ -144,10 +146,7 @@ void RobotImpl::stop()
 void RobotImpl::goToDirect(const Pose &position)
 {
 	if (m_currentState->isEquivalentToDriveToDirect(position))
-	{
-		log("new target for go to direct is equal to the current one");
 		return;
-	}
 
 	switchIntoState(new DriveToDirectInitialRotation(m_robot, position, m_logger, m_logFileType));
 	logPosition("target is", position);
@@ -156,6 +155,12 @@ void RobotImpl::goToDirect(const Pose &position)
 void RobotImpl::log(const string &message)
 {
 	m_logger.logToLogFileOfType(m_logFileType, message);
+}
+
+void RobotImpl::logPositions(const string &message, const std::vector<Pose> &positions)
+{
+	for (vector<Pose>::const_iterator i = positions.begin(); i != positions.end(); ++i)
+		logPosition(message, *i);
 }
 
 void RobotImpl::logPosition(const string &message, const Point &position)

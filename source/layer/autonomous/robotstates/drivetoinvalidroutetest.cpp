@@ -16,10 +16,12 @@ using namespace std;
 
 RobotState *DriveToInvalidRouteTest::createInstance()
 {
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	return new DriveToInvalidRoute(
-				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, false, false, false);
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault);
 }
 
 void DriveToInvalidRouteTest::update_onceCalled_robotGotOneCallToStop()

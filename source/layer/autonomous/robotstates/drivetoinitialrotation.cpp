@@ -14,25 +14,19 @@ using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
-DriveToInitialRotation::DriveToInitialRotation(
-		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
-		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &targets, const Router &router,
+		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
+	DriveTo(robot, targets, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	updateRouteIfNecessary();
 }
 
-DriveToInitialRotation::DriveToInitialRotation(
-		ControllableRobot &robot, const Pose &target, const Router &router, Logger &logger,
-		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles, const Route &oldRoute) :
-	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, ignoreBall, driveSlowlyAtTheEnd, ignoreGoalObstacles),
+DriveToInitialRotation::DriveToInitialRotation(ControllableRobot &robot, const std::vector<Pose> &target, const Router &router,
+		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
+	DriveTo(robot, target, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
 	m_movementStarted(false)
 {
 	setRoute(oldRoute);
@@ -62,9 +56,8 @@ RobotState *DriveToInitialRotation::nextState(bool movementStopped)
 	{
 		log("reached initial orientation, driving to next point");
 		return new DriveToDriving(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles(), currentRoute);
+					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
 	return 0;

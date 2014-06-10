@@ -19,19 +19,15 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Routing;
 
-DriveTo::DriveTo(
-		ControllableRobot &robot, Pose const &target, const Router &router,
+DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, bool ignoreBall, bool driveSlowlyAtTheEnd,
-		bool ignoreGoalObstacles) :
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.2),
 	m_precisionOrientationFinal(0.1),
-	m_ignoreBall(ignoreBall),
-	m_driveSlowlyAtTheEnd(driveSlowlyAtTheEnd),
-	m_ignoreGoalObstacles(ignoreGoalObstacles),
-	m_target(target),
+	m_driveMode(driveMode),
+	m_targets(targets),
 	m_router(router),
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
@@ -48,16 +44,28 @@ bool DriveTo::reachedTarget() const
 	return false;
 }
 
-bool DriveTo::isEquivalentToDriveTo(const Pose &target) const
+bool DriveTo::isEquivalentToDriveTo(const Pose &target)
 {
-	Compare comparePosition(m_precisionPosition);
-	Compare compareAngle(m_precisionOrientationInitial);
+	Compare comparePosition(m_precisionPosition*4);
+	Compare compareAngle(m_precisionOrientationFinal*4);
+	Pose const &bestTarget = m_targets.front();
 
-	return	comparePosition.isFuzzyEqual(m_target.getPosition(), target.getPosition()) &&
-			compareAngle.isFuzzyEqual(m_target.getOrientation(), target.getOrientation());
+	if (!comparePosition.isFuzzyEqual(bestTarget.getPosition(), target.getPosition()))
+	{
+		log("position is not equal");
+		return false;
+	}
+
+	if (!compareAngle.isFuzzyEqual(bestTarget.getOrientation(), target.getOrientation()))
+	{
+		log("orientation is not equal");
+		return false;
+	}
+
+	return true;
 }
 
-bool DriveTo::isEquivalentToDriveToDirect(const Pose &) const
+bool DriveTo::isEquivalentToDriveToDirect(const Pose &)
 {
 	return false;
 }
@@ -96,9 +104,9 @@ Compare DriveTo::getFinalRotationCompare() const
 	return Compare(m_precisionOrientationFinal);
 }
 
-const Pose &DriveTo::getTarget() const
+const vector<Pose> &DriveTo::getTargets() const
 {
-	return m_target;
+	return m_targets;
 }
 
 const Router &DriveTo::getRouter() const
@@ -116,19 +124,9 @@ const ObstacleSource &DriveTo::getOwnObstacleSource() const
 	return m_ownObstacleSource;
 }
 
-bool DriveTo::ignoreBall() const
+DriveMode DriveTo::getDriveMode() const
 {
-	return m_ignoreBall;
-}
-
-bool DriveTo::driveSlowlyAtTheEnd() const
-{
-	return m_driveSlowlyAtTheEnd;
-}
-
-bool DriveTo::ignoreGoalObstacles() const
-{
-	return m_ignoreGoalObstacles;
+	return m_driveMode;
 }
 
 const Route &DriveTo::getCurrentRoute() const
@@ -141,8 +139,11 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
+				m_ownObstacleSource,robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
+
+	if (m_currentRoute != 0 && m_currentRoute->isValid())
+		m_currentRoute->replaceFirstPoint(robotPoint);
 
 	if (isRouteFeasible(modifiedObstacles))
 		return false;
@@ -169,18 +170,16 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	{
 		log("route is invalid");
 		return new DriveToInvalidRoute(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles());
+					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode());
 	}
 
 	if (routeUpdated)
 	{
 		log("created new route, starting with initial rotation");
 		return new DriveToInitialRotation(
-					getRobot(), getTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), ignoreBall(), driveSlowlyAtTheEnd(),
-					ignoreGoalObstacles(), currentRoute);
+					getRobot(), getTargets(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
 	}
 
 	return 0;
@@ -189,14 +188,15 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 void DriveTo::calculateNewRoute()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
-	Point target = m_target.getPosition();
+	Point target = m_targets.front().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_ignoreBall, m_ignoreGoalObstacles);
+				m_ownObstacleSource,robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
 
-	if((m_driveSlowlyAtTheEnd || m_ignoreGoalObstacles) && m_currentRoute->isValid())
+	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
+		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	logRoute();

@@ -11,28 +11,21 @@ using namespace std;
 
 DriveToDirectFinalRotation::DriveToDirectFinalRotation(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
-	RobotState(robot, logger, logFileType),
-	m_target(target),
-	m_precision(0.1),
-	m_movementStarted(false)
+	DriveToDirect(robot, target, logger, logFileType)
 { }
-
-bool DriveToDirectFinalRotation::reachedTarget() const
-{
-	return false;
-}
 
 RobotState *DriveToDirectFinalRotation::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
-	Compare compare(m_precision);
+	const Pose &target = getTarget();
+	Compare compare(getPrecisionFinalRotation());
 
-	if (compare.isFuzzyEqual(pose.getOrientation(), m_target.getOrientation()))
+	if (compare.isFuzzyEqual(pose.getOrientation(), target.getOrientation()))
 	{
 		log("final rotation reached");
 		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
 	}
-	else if (movementStopped && m_movementStarted)
+	else if (movementStopped && hasMovementStarted())
 	{
 		log("final rotation not really reached, but movement stopped");
 		return new ReachedTarget(getRobot(), getLogger(), getLogFileType());
@@ -41,27 +34,13 @@ RobotState *DriveToDirectFinalRotation::nextState(bool movementStopped)
 		return 0;
 }
 
-bool DriveToDirectFinalRotation::isEquivalentToDriveToDirect(const Pose &target) const
-{
-	//! @todo improve this
-	return m_target == target;
-}
-
-bool DriveToDirectFinalRotation::isEquivalentToDriveTo(const Pose &) const
-{
-	return false;
-}
-
 string DriveToDirectFinalRotation::getName() const
 {
 	return string("drive to direct - final rotation");
 }
 
-void DriveToDirectFinalRotation::update()
+void DriveToDirectFinalRotation::updateInternal()
 {
-	if (m_movementStarted)
-		return;
-
-	getRobot().turn(m_target.getOrientation());
-	m_movementStarted = true;
+	const Pose &target = getTarget();
+	getRobot().turn(target.getOrientation());
 }

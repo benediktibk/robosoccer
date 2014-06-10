@@ -28,7 +28,7 @@ namespace Autonomous
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndGoalObstaclesInRange(
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
-				const Common::Geometry::Point &ownPosition, double distance, bool ignoreBall, bool ignoreGoalObstacles) const;
+				const Common::Geometry::Point &ownPosition, double distance, DriveMode driveMode) const;
 
 		void setAllObstacles(std::vector<Common::Geometry::Circle> const &obstacles);
 		void setAllObstaclesButMe(std::vector<Common::Geometry::Circle> const &obstacles);

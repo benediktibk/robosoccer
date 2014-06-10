@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_OBSTACLEFETCHER_H
 
 #include <vector>
+#include "layer/autonomous/robotstates/drivemode.h"
 
 namespace RoboSoccer
 {
@@ -49,7 +50,7 @@ namespace Autonomous
 				ObstacleSource const &me, Common::Geometry::Point const &ownPosition, double distance) const = 0;
 
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
-				const Common::Geometry::Point &ownPosition, double distance, bool ignoreBall, bool ignoreGoalObstacles) const = 0;
+				const Common::Geometry::Point &ownPosition, double distance, DriveMode driveMode) const = 0;
 
 	};
 }

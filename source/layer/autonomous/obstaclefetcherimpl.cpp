@@ -127,14 +127,20 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstaclesInRange(
 	return filterByDistance(candidates, ownPosition, distance);
 }
 
-vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, bool ignoreBall, bool ignoreGoalObstacles) const
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &me, const Point &ownPosition, double distance, DriveMode driveMode) const
 {
-	if(ignoreBall)
+	switch (driveMode)
+	{
+	case DriveModeIgnoreBall:
+	case DriveModeIgnoreBallAndDriveSlowlyAtTheEnd:
 		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance);
-	else if(ignoreGoalObstacles)
+	case DriveModeIgnoreGoalObstacles:
 		return getAllObstaclesButMeAndGoalObstaclesInRange(me, ownPosition, distance);
-	else
-		return getAllObstaclesButMeInRange(me, ownPosition, distance);
+	case DriveModeDriveSlowlyAtTheEnd:
+	case DriveMoveDefault:
+		break;
+	}
+	return getAllObstaclesButMeInRange(me, ownPosition, distance);
 }
 
 vector<Circle> ObstacleFetcherImpl::filterByDistance(

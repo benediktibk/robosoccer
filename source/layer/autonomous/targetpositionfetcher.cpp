@@ -21,34 +21,54 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 	m_fieldSide = fieldSide;
 }
 
-Pose TargetPositionFetcher::getStartPositionGoalkeeper() const
+vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerOneOffensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneOffensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerTwoOffensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoOffensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerOneDefensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneDefensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1)));
+
+	return targetPoints;
 }
 
-Pose TargetPositionFetcher::getStartPositionPlayerTwoDefensive() const
+vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoDefensive() const
 {
-	return mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1));
+	vector<Pose> targetPoints;
+
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1)));
+
+	return targetPoints;
 }
 
-std::vector<Point> TargetPositionFetcher::getEnemyGoalPosition() const
+vector<Point> TargetPositionFetcher::getEnemyGoalPositions() const
 {
-	return getEnemyGoalPosition(m_fieldSide);
+	return getEnemyGoalPositions(m_fieldSide);
 }
 
 double TargetPositionFetcher::getDistanceToOwnGroundLine(const Point &position) const
@@ -66,33 +86,36 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 	return getGoaliePositionUsingEstimatedIntersectPoint(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionPrepareKicker() const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionsPrepareKicker() const
 {
-	Pose preparePenaltyPosition(Point::zero(), Angle::getHalfRotation());
+	vector<Pose> preparePenaltyPosition;
+	preparePenaltyPosition.push_back(Pose(Point::zero(), Angle::getHalfRotation()));
 
 	return preparePenaltyPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
 	FieldSide fieldSide = FieldSideRight;
 
-	Pose penaltyPosition;
-	Line lineToGoal(ball.getPosition(), getEnemyGoalPosition(fieldSide).front());
+	vector<Pose> penaltyPosition;
+	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
 	double percentOfLineLength = -0.11/lineToGoal.getLength();
-	penaltyPosition = Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation());
+	penaltyPosition.push_back(Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation()));
 
 	return penaltyPosition;
 }
 
-Pose TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBall &ball) const
 {
 	//! Penalty Goal is fixed on the left side.
 	FieldSide fieldSide = FieldSideLeft;
+	vector<Pose> penaltyPosition;
+	penaltyPosition.push_back(getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25));
 
-	return getGoaliePositionUsingEstimatedIntersectPoint(fieldSide, ball, 1.25);
+	return penaltyPosition;
 }
 
 Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
@@ -102,9 +125,9 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
+vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
 {
-	Point enemyGoalPosition = getEnemyGoalPosition().front();
+	Point enemyGoalPosition = getEnemyGoalPositions().front();
 	Line alternativeRobotToEnemyGoalLine(currentAlternativeRobotPosition,enemyGoalPosition);
 	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
 	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
@@ -177,7 +200,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, const Angle &spanAngle, double minDistance) const
 {
 	Point ballPosition = ball.getPosition();
-	Point goalPosition = getEnemyGoalPosition().front();
+	Point goalPosition = getEnemyGoalPositions().front();
 	Angle angleGoalBall(goalPosition,ballPosition);
 	Angle angleBallRobot(ballPosition,robotPosition);
 	Angle deltaAngle = angleGoalBall-angleBallRobot;
@@ -185,7 +208,7 @@ bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomo
 	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < minDistance));
 }
 
-vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentBall &ball) const
 {
 	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
@@ -198,7 +221,7 @@ vector<Pose> TargetPositionFetcher::getPositionToDriveOnBall(const IntelligentBa
 	return result;
 }
 
-vector<Point> TargetPositionFetcher::getEnemyGoalPosition(FieldSide fieldSide) const
+vector<Point> TargetPositionFetcher::getEnemyGoalPositions(FieldSide fieldSide) const
 {
 	vector<Point> goalposition;
 	goalposition.reserve(3);
@@ -305,12 +328,13 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-Pose TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+vector<Pose> TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
 {
+	vector<Pose> targetPoint;
 	Angle ballOrientation = getOrientationToEnemyGoal();
 	Point resultPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
-	Pose result(resultPoint, ballOrientation + Angle::getHalfRotation());
+	targetPoint.push_back(Pose(resultPoint, ballOrientation + Angle::getHalfRotation()));
 
-	return result;
+	return targetPoint;
 
 }

@@ -19,10 +19,12 @@ using namespace std;
 
 RobotState *DriveToDrivingTest::createInstance()
 {
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	return new DriveToDriving(
-				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, false, false, false, *m_route);
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, *m_route);
 }
 
 void DriveToDrivingTest::constructor_routeWithThreePoints_routesHasThreePoints()
@@ -32,10 +34,12 @@ void DriveToDrivingTest::constructor_routeWithThreePoints_routesHasThreePoints()
 	route.addPoint(Point(1, 0));
 	route.addPoint(Point(1, 2));
 
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	DriveToDriving state(
-					*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-					*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-					*m_autonomousRobotMock, false, false, false, route);
+					*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, route);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, state.getRoutePointsCount());
 }
@@ -126,10 +130,13 @@ void DriveToDrivingTest::nextState_targetReachedAndRoutePointsLeft_initialRotati
 	route.addPoint(Point(0, 0));
 	route.addPoint(Point(5, 0));
 	route.addPoint(Point(5, 4));
+
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	DriveToDriving state(
-				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, false, false, false, route);
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, route);
 	m_controllableRobot->setPose(Pose(Point(5, 0), Angle(0)));
 
 	RobotState *nextState = state.nextState(false);
@@ -146,10 +153,13 @@ void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRota
 	route.addPoint(Point(0, 0));
 	route.addPoint(Point(5, 0));
 	route.addPoint(Point(5, 4));
+
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+
 	DriveToDriving state(
-				*m_controllableRobot, Pose(Point(5, 4), Angle::getQuarterRotation()),
-				*m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie, *m_obstacleFetcher,
-				*m_autonomousRobotMock, false, false, false, route);
+				*m_controllableRobot, targets, *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveMoveDefault, route);
 	m_controllableRobot->setPose(Pose(Point(1, 0), Angle(0)));
 	state.update();
 
@@ -159,6 +169,18 @@ void DriveToDrivingTest::nextState_movementStoppedAndRoutePointsLeft_initialRota
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	CPPUNIT_ASSERT_EQUAL((size_t)2, nextStateCasted->getRoutePointsCount());
 	delete nextState;
+}
+
+void DriveToDrivingTest::nextState_obstacleBehindRobotOccurs_0()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1, 1), 1));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_controllableRobot->setPose(Pose(Point(4, 3), Angle::getEighthRotation()));
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	CPPUNIT_ASSERT(nextState == 0);
 }
 
 void DriveToDrivingTest::reachedTarget_empty_false()

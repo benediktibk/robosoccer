@@ -15,12 +15,11 @@ namespace Autonomous
 	public:
 		DriveToDriving(
 				Abstraction::ControllableRobot &robot,
-				const Common::Geometry::Pose &target,
+				const std::vector<Common::Geometry::Pose> &targets,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
-				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles,
-				const Common::Routing::Route &oldRoute);
+				DriveMode driveMode, const Common::Routing::Route &oldRoute);
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;

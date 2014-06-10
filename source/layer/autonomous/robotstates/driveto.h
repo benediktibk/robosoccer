@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_AUTONOMOUS_ROBOTSTATES_DRIVETO_H
 
 #include "layer/autonomous/robotstates/robotstate.h"
+#include "layer/autonomous/robotstates/drivemode.h"
 #include "common/geometry/pose.h"
 #include <vector>
 
@@ -37,28 +38,26 @@ namespace Autonomous
 	{
 	public:
 		DriveTo(Abstraction::ControllableRobot &robot,
-				const Common::Geometry::Pose &target,
+				const std::vector<Common::Geometry::Pose> &targets,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
-				bool ignoreBall, bool driveSlowlyAtTheEnd, bool ignoreGoalObstacles);
+				DriveMode driveMode);
 		virtual ~DriveTo();
 
 		virtual bool reachedTarget() const;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
-		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
+		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
+		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 
 		size_t getRoutePointsCount() const;
 		Common::Geometry::Compare getPositionCompare() const;
 		Common::Geometry::Compare getInitialRotationCompare() const;
 		Common::Geometry::Compare getFinalRotationCompare() const;
-		Common::Geometry::Pose const& getTarget() const;
+		std::vector<Common::Geometry::Pose> const& getTargets() const;
 		Common::Routing::Router const& getRouter() const;
 		ObstacleFetcher const& getObstacleFetcher() const;
 		ObstacleSource const& getOwnObstacleSource() const;
-		bool ignoreBall() const;
-		bool driveSlowlyAtTheEnd() const;
-		bool ignoreGoalObstacles() const;
+		DriveMode getDriveMode() const;
 		Common::Routing::Route const& getCurrentRoute() const;
 
 	protected:
@@ -80,10 +79,8 @@ namespace Autonomous
 		const double m_precisionPosition;
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
-		const bool m_ignoreBall;
-		const bool m_driveSlowlyAtTheEnd;
-		const bool m_ignoreGoalObstacles;
-		const Common::Geometry::Pose m_target;
+		const DriveMode m_driveMode;
+		const std::vector<Common::Geometry::Pose> m_targets;
 		Common::Routing::Router const &m_router;
 		ObstacleFetcher const &m_obstacleFetcher;
 		ObstacleSource const &m_ownObstacleSource;

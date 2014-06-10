@@ -26,6 +26,7 @@ set(COMMON_LAYER_AUTONOMOUS_ROBOTSTATES_SRC
 	robotstates/robotstate.cpp
 	robotstates/reachedtarget.cpp
 	robotstates/driveto.cpp
+	robotstates/drivetodirect.cpp
 	robotstates/drivetodirectdriving.cpp
 	robotstates/drivetodirectinitialrotation.cpp
 	robotstates/drivetodirectfinalrotation.cpp

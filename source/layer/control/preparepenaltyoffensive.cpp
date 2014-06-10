@@ -45,9 +45,9 @@ void PreparePenaltyOffensive::updateInternal()
 	Robot &goalie = m_ownTeam.getGoalie();
 
 	//! @todo consider ignoreBall and driveSlolyAtTheEnd
-	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne().front(), false, false, false);
-	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo().front(), false, false, false);
-	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionPrepareKicker(), false, false, true);
+	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne(), DriveMoveDefault);
+	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo(), DriveMoveDefault);
+	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionsPrepareKicker(), DriveModeIgnoreGoalObstacles);
 
 	if (movementsFinished())
 	{

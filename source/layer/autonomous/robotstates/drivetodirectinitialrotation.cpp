@@ -11,46 +11,28 @@ using namespace std;
 
 DriveToDirectInitialRotation::DriveToDirectInitialRotation(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
-	RobotState(robot, logger, logFileType),
-	m_target(target),
-	m_precision(0.4),
-	m_movementStarted(false)
+	DriveToDirect(robot, target, logger, logFileType)
 { }
-
-bool DriveToDirectInitialRotation::reachedTarget() const
-{
-	return false;
-}
 
 RobotState *DriveToDirectInitialRotation::nextState(bool movementStopped)
 {
 	Pose pose = getRobot().getPose();
-	Compare compareAngle(m_precision);
+	Compare compareAngle(getPrecisionInitialRotation());
 	Angle targetAngle = calculateTargetAngle();
+	const Pose &target = getTarget();
 
 	if (compareAngle.isFuzzyEqual(pose.getOrientation(), targetAngle))
 	{
 		log("inital rotation reached");
-		return new DriveToDirectDriving(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectDriving(getRobot(), target, getLogger(), getLogFileType());
 	}
-	else if (movementStopped && m_movementStarted)
+	else if (movementStopped && hasMovementStarted())
 	{
 		log("inital rotation not really reached, but movement stopped");
-		return new DriveToDirectDriving(getRobot(), m_target, getLogger(), getLogFileType());
+		return new DriveToDirectDriving(getRobot(), target, getLogger(), getLogFileType());
 	}
 	else
 		return 0;
-}
-
-bool DriveToDirectInitialRotation::isEquivalentToDriveToDirect(const Pose &target) const
-{
-	//! @todo improve this
-	return m_target == target;
-}
-
-bool DriveToDirectInitialRotation::isEquivalentToDriveTo(const Pose &) const
-{
-	return false;
 }
 
 string DriveToDirectInitialRotation::getName() const
@@ -58,18 +40,15 @@ string DriveToDirectInitialRotation::getName() const
 	return string("drive to direct - inital rotation");
 }
 
-void DriveToDirectInitialRotation::update()
+void DriveToDirectInitialRotation::updateInternal()
 {
-	if (m_movementStarted)
-		return;
-
 	Angle targetAngle = calculateTargetAngle();
 	getRobot().turn(targetAngle);
-	m_movementStarted = true;
 }
 
 Angle DriveToDirectInitialRotation::calculateTargetAngle() const
 {
 	Pose pose = getRobot().getPose();
-	return Angle(pose.getPosition(), m_target.getPosition());
+	const Pose &target = getTarget();
+	return Angle(pose.getPosition(), target.getPosition());
 }

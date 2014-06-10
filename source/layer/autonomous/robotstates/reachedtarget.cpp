@@ -23,16 +23,14 @@ RobotState *ReachedTarget::nextState(bool)
 	return 0;
 }
 
-bool ReachedTarget::isEquivalentToDriveTo(const Pose &target) const
+bool ReachedTarget::isEquivalentToDriveTo(const Pose &target)
 {
-	Compare compare(0.02);
-	Pose currentPose = getRobot().getPose();
-	return compare.isFuzzyEqual(currentPose, target);
+	return isEquivalentToInternal(target, 0.05, 0.5);
 }
 
-bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target) const
+bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target)
 {
-	return isEquivalentToDriveTo(target);
+	return isEquivalentToInternal(target, 0.02, 0.5);
 }
 
 void ReachedTarget::update()
@@ -43,4 +41,25 @@ void ReachedTarget::update()
 string ReachedTarget::getName() const
 {
 	return string("reached target");
+}
+
+bool ReachedTarget::isEquivalentToInternal(const Pose &target, double precisionPosition, double precisionOrientation)
+{
+	Compare positionCompare(precisionPosition);
+	Compare orientationCompare(precisionOrientation);
+	Pose currentPose = getRobot().getPose();
+
+	if (!positionCompare.isFuzzyEqual(currentPose.getPosition(), target.getPosition()))
+	{
+		log("position is not equal");
+		return false;
+	}
+
+	if (!orientationCompare.isFuzzyEqual(currentPose.getOrientation(), target.getOrientation()))
+	{
+		log("rotation is not equal");
+		return false;
+	}
+
+	return true;
 }

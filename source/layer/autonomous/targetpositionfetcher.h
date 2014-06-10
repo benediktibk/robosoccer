@@ -28,32 +28,36 @@ namespace Autonomous
 
 		void setFieldSide(Abstraction::FieldSide fieldSide);
 
-		Common::Geometry::Pose getStartPositionGoalkeeper() const;
-		Common::Geometry::Pose getStartPositionPlayerOneOffensive() const;
-		Common::Geometry::Pose getStartPositionPlayerTwoOffensive() const;
-		Common::Geometry::Pose getStartPositionPlayerOneDefensive() const;
-		Common::Geometry::Pose getStartPositionPlayerTwoDefensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionsGoalkeeper() const;
+		std::vector<Common::Geometry::Pose> getStartPositionsPlayerOneOffensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionsPlayerTwoOffensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionsPlayerOneDefensive() const;
+		std::vector<Common::Geometry::Pose> getStartPositionsPlayerTwoDefensive() const;
 
-		std::vector<Common::Geometry::Point> getEnemyGoalPosition() const;
+		std::vector<Common::Geometry::Point> getEnemyGoalPositions() const;
 		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
-		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
 
-		Common::Geometry::Pose getPenaltyPositionPrepareKicker() const;
-		Common::Geometry::Pose getPenaltyPositionKicker(const IntelligentBall &ball) const;
-		Common::Geometry::Pose getPenaltyPositionGoalie(const IntelligentBall &ball) const;
-		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
-		Common::Geometry::Pose getTargetBehindBall(const IntelligentBall &ball, double distanceToBall) const;
-		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
+		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionGoalie(const IntelligentBall &ball) const;
+
+		std::vector<Common::Geometry::Pose> getPenaltyPositionsPrepareKicker() const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
+		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
+		std::vector<Common::Geometry::Pose> getTargetBehindBall(const IntelligentBall &ball, double distanceToBall) const;
+		std::vector<Common::Geometry::Pose> getPositionsToDriveOnBall(const IntelligentBall &ball) const;
+
+		//! @todo this function might be unused
+		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
+
 		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, const Common::Geometry::Angle &spanAngle, double minDistanc) const;
 
-		std::vector<Common::Geometry::Pose> getPositionToDriveOnBall(const IntelligentBall &ball) const;
 		Common::Geometry::Angle getOrientationToEnemyGoal() const;
 
 	private:
-		std::vector<Common::Geometry::Point> getEnemyGoalPosition(Abstraction::FieldSide fieldSide) const;
+		std::vector<Common::Geometry::Point> getEnemyGoalPositions(Abstraction::FieldSide fieldSide) const;
 
 		Common::Geometry::Pose mirrorPointDependentOnFieldSide(Abstraction::FieldSide fieldSide, Common::Geometry::Point pointFieldSideRight) const;
 		Common::Geometry::Pose getGoaliePositionUsingEstimatedIntersectPoint(Abstraction::FieldSide fieldSide, const IntelligentBall &ball, double xPositionGoalKeeperRightSide) const;
