@@ -139,7 +139,7 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Point robotPoint = getRobot().getPose().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
+				m_ownObstacleSource, robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 0.9);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
@@ -190,7 +190,7 @@ void DriveTo::calculateNewRoute()
 	Point robotPoint = getRobot().getPose().getPosition();
 	Point target = m_targets.front().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource,robotPoint, 1, m_driveMode);
+				m_ownObstacleSource, robotPoint, 1, m_driveMode);
 	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
 	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
