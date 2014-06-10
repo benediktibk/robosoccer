@@ -359,7 +359,7 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, double distanceToBall) const
 {
 	vector<Pose> targetPoint;
 	Angle ballOrientation = getOrientationToEnemyGoal();
