@@ -18,6 +18,7 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_noRouteFeasible_0);
 		CPPUNIT_TEST(nextState_feasibleRoute_initialRotation);
 		CPPUNIT_TEST(nextState_inGoalRealWorldExample_initialRotation);
+		CPPUNIT_TEST(nextState_inGoal_initialRotation);
 		CPPUNIT_TEST(reachedTarget_empty_false);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -30,6 +31,7 @@ namespace Autonomous
 		void nextState_noRouteFeasible_0();
 		void nextState_feasibleRoute_initialRotation();
 		void nextState_inGoalRealWorldExample_initialRotation();
+		void nextState_inGoal_initialRotation();
 		void reachedTarget_empty_false();
 	};
 }
