@@ -60,7 +60,7 @@ void DriveToInvalidRouteTest::nextState_feasibleRoute_initialRotation()
 	delete nextState;
 }
 
-void DriveToInvalidRouteTest::nextState_inGoal_initialRotation()
+void DriveToInvalidRouteTest::nextState_inGoalRealWorldExample_initialRotation()
 {
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(1.325, 0.25), 0.25));
