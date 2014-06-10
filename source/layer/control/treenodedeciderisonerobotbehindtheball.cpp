@@ -38,8 +38,8 @@ bool TreeNodeDeciderIsOneRobotBehindTheBall::calculateDecision()
 
 	if(m_referee.getOwnFieldSide() == FieldSideRight)
 	{
-		straight1Direction = Angle() - (angleCircularSector * 0.5);
-		straight2Direction = (angleCircularSector * 0.5) - Angle::getHalfRotation();
+		straight1Direction = (angleCircularSector * 0.5);
+		straight2Direction = Angle::getHalfRotation() - (angleCircularSector * 0.5);
 	}
 	else
 	{
