@@ -55,7 +55,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me, double growFactor) const
 {
-	vector<Circle> result = m_routingObstaclesInGoalZones;
+	vector<Circle> result;// = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -68,12 +68,14 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &m
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
 
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	modifiedResult.insert(modifiedResult.end(), m_routingObstaclesInGoalZones.begin(), m_routingObstaclesInGoalZones.end());
+	return modifiedResult;
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSource &me, double growFactor) const
 {
-	vector<Circle> result = m_routingObstaclesInGoalZones;
+	vector<Circle> result;// = m_routingObstaclesInGoalZones;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -85,8 +87,9 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndBall(const ObstacleSo
 		vector<Circle> resultPart = source.getObstacles();
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
-
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	modifiedResult.insert(modifiedResult.end(), m_routingObstaclesInGoalZones.begin(), m_routingObstaclesInGoalZones.end());
+	return modifiedResult;
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const ObstacleSource &me, double growFactor) const
@@ -103,8 +106,8 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeAndGoalObstacles(const O
 		vector<Circle> resultPart = source.getObstacles();
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}
-
-	return result;
+	vector<Circle> modifiedResult = modifyObstacles(result, growFactor);
+	return modifiedResult;
 }
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRange(
