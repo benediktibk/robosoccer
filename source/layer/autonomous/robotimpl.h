@@ -27,6 +27,7 @@ namespace Layer
 namespace Abstraction
 {
 	class ControllableRobot;
+	class FieldPositionChecker;
 }
 
 namespace Autonomous
@@ -40,7 +41,7 @@ namespace Autonomous
 	public:
 		RobotImpl(Abstraction::ControllableRobot &robot, const Common::Routing::Router &router,
 				  Common::Time::Watch const &watch, Common::Logging::Logger &logger, unsigned int robotIndex,
-				  ObstacleFetcher &obstacleFetcher);
+				  ObstacleFetcher &obstacleFetcher, Abstraction::FieldPositionChecker const &fieldPositionChecker);
 		virtual ~RobotImpl();
 
 		virtual void goTo(std::vector<Common::Geometry::Pose> const &positions, DriveMode driveMode);
@@ -66,6 +67,7 @@ namespace Autonomous
 	private:
 		Abstraction::ControllableRobot &m_robot;
 		Common::Routing::Router const &m_router;
+		Abstraction::FieldPositionChecker const &m_fieldPositionChecker;
 		Common::Time::Watch const &m_watch;
 		Common::Logging::Logger &m_logger;
 		RobotState *m_currentState;

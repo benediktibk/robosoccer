@@ -4,6 +4,7 @@
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotstates/driveto.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "layer/abstraction/fieldpositioncheckermock.h"
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
 #include "common/geometry/pose.h"
@@ -17,7 +18,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::Geometry;
-using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Common;
 using namespace std;
 
 void RobotTest::setUp()
@@ -25,13 +26,13 @@ void RobotTest::setUp()
 	m_hardwareRobot = new ControllableRobotMock();
 	m_watch = new WatchMock();
 	m_logger = new LoggerMock();
-	m_routerMock = new RouterMock();
+	m_routerMock = new Routing::RouterMock();
 	m_field = new FieldPositionCheckerMock();
-	m_router = new RouterImpl(ReadableRobot::getWidth(), *m_field);
+	m_router = new Routing::RouterImpl(ReadableRobot::getWidth(), *m_field);
 	m_obstacleFetcher = new ObstacleFetcherMock();
 	m_targets.clear();
-	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger, 0, *m_obstacleFetcher);
-	m_robotWithRealRouter = new RobotImpl(*m_hardwareRobot, *m_router, *m_watch, *m_logger, 0, *m_obstacleFetcher);
+	m_robot = new RobotImpl(*m_hardwareRobot, *m_routerMock, *m_watch, *m_logger, 0, *m_obstacleFetcher, *m_field);
+	m_robotWithRealRouter = new RobotImpl(*m_hardwareRobot, *m_router, *m_watch, *m_logger, 0, *m_obstacleFetcher, *m_field);
 	m_ball = new IntelligentBallMock();
 }
 

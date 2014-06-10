@@ -27,6 +27,7 @@ namespace Layer
 namespace Abstraction
 {
 	class ControllableRobotMock;
+	class FieldPositionCheckerMock;
 }
 namespace Autonomous
 {
@@ -55,6 +56,7 @@ namespace Autonomous
 		RobotMock *m_autonomousRobotMock;
 		IntelligentBallMock *m_ball;
 		Common::Routing::Route *m_route;
+		Abstraction::FieldPositionCheckerMock *m_fieldPositionChecker;
 	};
 }
 }

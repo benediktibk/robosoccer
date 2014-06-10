@@ -19,7 +19,7 @@ namespace Autonomous
 				const Common::Geometry::Pose &currentTarget,
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
-				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource, DriveMode driveMode);
+				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource, DriveMode driveMode, Abstraction::FieldPositionChecker const &fieldPositionChecker);
 		DriveToInitialRotation(
 				Abstraction::ControllableRobot &robot,
 				const std::vector<Common::Geometry::Pose> &targets,
@@ -27,7 +27,7 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource, DriveMode driveMode,
-				const Common::Routing::Route &oldRoute);
+				const Common::Routing::Route &oldRoute, Abstraction::FieldPositionChecker const &fieldPositionChecker);
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;

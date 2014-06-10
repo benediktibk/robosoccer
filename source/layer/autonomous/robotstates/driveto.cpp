@@ -17,11 +17,11 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
-using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Common;
 
-DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Pose &currentTarget, const Router &router,
+DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Pose &currentTarget, const Routing::Router &router,
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.2),
@@ -32,7 +32,8 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 	m_router(router),
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
-	m_currentRoute(new Route(ControllableRobot::getWidth()))
+	m_currentRoute(new Routing::Route(ControllableRobot::getWidth())),
+	m_fieldPositionChecker(fieldPositionChecker)
 { }
 
 DriveTo::~DriveTo()
@@ -115,7 +116,7 @@ const Pose &DriveTo::getCurrentTarget() const
 	return m_currentTarget;
 }
 
-const Router &DriveTo::getRouter() const
+const Routing::Router &DriveTo::getRouter() const
 {
 	return m_router;
 }
@@ -135,10 +136,15 @@ DriveMode DriveTo::getDriveMode() const
 	return m_driveMode;
 }
 
-const Route &DriveTo::getCurrentRoute() const
+const Routing::Route &DriveTo::getCurrentRoute() const
 {
 	assert(m_currentRoute != 0);
 	return *m_currentRoute;
+}
+
+const FieldPositionChecker &DriveTo::getFieldPositionChecker() const
+{
+	return m_fieldPositionChecker;
 }
 
 bool DriveTo::updateRouteIfNecessary()
@@ -157,12 +163,12 @@ bool DriveTo::updateRouteIfNecessary()
 
 	log("current route is not feasible anymore we try to create a new one");
 	clearRoute();
-	m_currentRoute = new Route(ReadableRobot::getWidth());
+	m_currentRoute = new Routing::Route(ReadableRobot::getWidth());
 	calculateNewRoute();
 	return true;
 }
 
-void DriveTo::setRoute(const Route &route)
+void DriveTo::setRoute(const Routing::Route &route)
 {
 	assert(m_currentRoute != 0);
 	*m_currentRoute = route;
@@ -171,14 +177,14 @@ void DriveTo::setRoute(const Route &route)
 RobotState *DriveTo::nextStateWithRouteUpdate()
 {
 	bool routeUpdated = updateRouteIfNecessary();
-	Route const &currentRoute = getCurrentRoute();
+	Routing::Route const &currentRoute = getCurrentRoute();
 
 	if (!currentRoute.isValid())
 	{
 		log("route is invalid");
 		return new DriveToInvalidRoute(
 					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode());
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), getFieldPositionChecker());
 	}
 
 	if (routeUpdated)
@@ -186,7 +192,7 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 		log("created new route, starting with initial rotation");
 		return new DriveToInitialRotation(
 					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute, getFieldPositionChecker());
 	}
 
 	return 0;

@@ -28,6 +28,10 @@ namespace Routing
 }
 namespace Layer
 {
+namespace Abstraction
+{
+	class FieldPositionChecker;
+}
 namespace Autonomous
 {
 	class ObstacleFetcher;
@@ -43,7 +47,7 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
-				DriveMode driveMode);
+				DriveMode driveMode, Abstraction::FieldPositionChecker const &fieldPositionChecker);
 		virtual ~DriveTo();
 
 		virtual bool reachedTarget() const;
@@ -61,6 +65,7 @@ namespace Autonomous
 		ObstacleSource const& getOwnObstacleSource() const;
 		DriveMode getDriveMode() const;
 		Common::Routing::Route const& getCurrentRoute() const;
+		Abstraction::FieldPositionChecker const& getFieldPositionChecker() const;
 
 	protected:
 		bool updateRouteIfNecessary();
@@ -87,6 +92,7 @@ namespace Autonomous
 		ObstacleFetcher const &m_obstacleFetcher;
 		ObstacleSource const &m_ownObstacleSource;
 		Common::Routing::Route *m_currentRoute;
+		Abstraction::FieldPositionChecker const &m_fieldPositionChecker;
 	};
 }
 }

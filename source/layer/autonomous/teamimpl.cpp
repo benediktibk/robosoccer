@@ -22,9 +22,9 @@ TeamImpl::TeamImpl(Storage &storage, const Watch &watch, Logger &logger,
 				   FieldPositionCheckerFieldPlayer &fieldPositionCheckerFieldPlayer, ObstacleFetcher &obstacleFetcher) :
 	m_routerGoalie(new RouterImpl(ReadableRobot::getWidth(), fieldPositionCheckerGoalkeeper)),
 	m_routerFieldPlayer(new RouterImpl(ReadableRobot::getWidth(), fieldPositionCheckerFieldPlayer)),
-	m_goalie(new RobotImpl(storage.getOwnRobot(0), *m_routerGoalie, watch, logger, 0, obstacleFetcher)),
-	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), *m_routerFieldPlayer, watch, logger, 1, obstacleFetcher)),
-	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), *m_routerFieldPlayer, watch, logger, 2, obstacleFetcher))
+	m_goalie(new RobotImpl(storage.getOwnRobot(0), *m_routerGoalie, watch, logger, 0, obstacleFetcher, fieldPositionCheckerGoalkeeper)),
+	m_fieldPlayerOne(new RobotImpl(storage.getOwnRobot(1), *m_routerFieldPlayer, watch, logger, 1, obstacleFetcher, fieldPositionCheckerFieldPlayer)),
+	m_fieldPlayerTwo(new RobotImpl(storage.getOwnRobot(2), *m_routerFieldPlayer, watch, logger, 2, obstacleFetcher, fieldPositionCheckerFieldPlayer))
 { }
 
 TeamImpl::~TeamImpl()

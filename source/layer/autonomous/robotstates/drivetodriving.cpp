@@ -17,9 +17,9 @@ using namespace std;
 
 DriveToDriving::DriveToDriving(ControllableRobot &robot, const std::vector<Pose> &targets, const Pose &currentTarget, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute, FieldPositionChecker const &fieldPositionChecker) :
 	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher,
-			ownObstacleSource, driveMode),
+			ownObstacleSource, driveMode, fieldPositionChecker),
 	m_movementStarted(false)
 {
 	assert(oldRoute.isValid());
@@ -46,14 +46,14 @@ RobotState *DriveToDriving::nextState(bool movementStopped)
 			currentRoute.removeFirstPoint();
 			return new DriveToInitialRotation(
 						getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
+						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute, getFieldPositionChecker());
 		}
 		else
 		{
 			log("position reached, turning to final orientation");
 			return new DriveToFinalRotation(
 						getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
+						getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute, getFieldPositionChecker());
 		}
 	}
 

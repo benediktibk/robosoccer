@@ -4,6 +4,7 @@
 #include "layer/autonomous/robotmock.h"
 #include "layer/autonomous/intelligentballmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "layer/abstraction/fieldpositioncheckermock.h"
 #include "common/time/watchmock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
@@ -29,6 +30,7 @@ void RobotStateTest::setUp()
 	m_route = new Route(ControllableRobot::getWidth());
 	m_route->addPoint(Point(0, 0));
 	m_route->addPoint(Point(5, 4));
+	m_fieldPositionChecker = new FieldPositionCheckerMock();
 	m_robotState = createInstance();
 	assert(m_robotState != 0);
 }
@@ -53,4 +55,6 @@ void RobotStateTest::tearDown()
 	m_ball = 0;
 	delete m_route;
 	m_route = 0;
+	delete m_fieldPositionChecker;
+	m_fieldPositionChecker = 0;
 }

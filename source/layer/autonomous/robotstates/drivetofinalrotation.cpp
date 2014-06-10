@@ -18,8 +18,8 @@ using namespace std;
 
 DriveToFinalRotation::DriveToFinalRotation(ControllableRobot &robot, const std::vector<Pose> &targets, const Pose &currentTarget, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute) :
-	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode),
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, const Route &oldRoute, FieldPositionChecker const &fieldPositionChecker) :
+	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode, fieldPositionChecker),
 	m_movementStarted(false)
 {
 	setRoute(oldRoute);

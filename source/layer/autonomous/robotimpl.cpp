@@ -20,9 +20,10 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
 
 RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &router,
-		const Watch &watch, Logger &logger, unsigned int robotIndex, ObstacleFetcher &obstacleFetcher) :
+		const Watch &watch, Logger &logger, unsigned int robotIndex, ObstacleFetcher &obstacleFetcher, FieldPositionChecker const &fieldPositionChecker) :
 	m_robot(robot),
 	m_router(router),
+	m_fieldPositionChecker(fieldPositionChecker),
 	m_watch(watch),
 	m_logger(logger),
 	m_currentState(0),
@@ -68,7 +69,7 @@ void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 
 	switchIntoState(new DriveToInitialRotation(
 						m_robot, positions, positions.front(), m_router, m_logger, m_logFileType,
-						m_obstacleFetcher, *this, driveMode));
+						m_obstacleFetcher, *this, driveMode, m_fieldPositionChecker));
 
 	stringstream stream;
 	stream << "target count: " << positions.size();

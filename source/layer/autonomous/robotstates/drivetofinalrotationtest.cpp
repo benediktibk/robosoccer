@@ -5,6 +5,7 @@
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "layer/abstraction/fieldpositioncheckermock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
 #include "common/geometry/compare.h"
@@ -23,7 +24,7 @@ RobotState *DriveToFinalRotationTest::createInstance()
 
 	return new DriveToFinalRotation(
 				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route, *m_fieldPositionChecker);
 }
 
 void DriveToFinalRotationTest::constructor_routeWithTwoPoints_routeHasTwoPoints()
@@ -33,7 +34,7 @@ void DriveToFinalRotationTest::constructor_routeWithTwoPoints_routeHasTwoPoints(
 
 	DriveToFinalRotation state(
 					*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, *m_route);
+					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, *m_route, *m_fieldPositionChecker);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, state.getRoutePointsCount());
 }
@@ -102,7 +103,7 @@ void DriveToFinalRotationTest::nextState_currentTargetIsTheSecondTargetAndFinalR
 	targets.push_back(Pose(Point(1, 1), Angle::getQuarterRotation()));
 	DriveToFinalRotation state(
 				*m_controllableRobot, targets, targets.back(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route, *m_fieldPositionChecker);
 	state.update();
 
 	RobotState *nextState = state.nextState(false);
@@ -118,7 +119,7 @@ void DriveToFinalRotationTest::nextState_currentTargetIsTheSecondTargetAndFinalR
 	targets.push_back(Pose(Point(1, 1), Angle::getQuarterRotation()));
 	DriveToFinalRotation state(
 				*m_controllableRobot, targets, targets.back(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route);
+				*m_obstacleFetcher, *m_autonomousRobotMock, DriveModeDefault, *m_route, *m_fieldPositionChecker);
 	state.update();
 	m_controllableRobot->setPose(Pose(Point(1, 1), Angle::getQuarterRotation()));
 	state.update();

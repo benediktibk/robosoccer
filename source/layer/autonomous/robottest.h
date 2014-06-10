@@ -22,7 +22,6 @@ namespace Routing
 {
 	class RouterMock;
 	class RouterImpl;
-	class FieldPositionCheckerMock;
 }
 }
 namespace Layer
@@ -30,6 +29,7 @@ namespace Layer
 namespace Abstraction
 {
 	class ControllableRobotMock;
+	class FieldPositionCheckerMock;
 }
 namespace Autonomous
 {
@@ -193,7 +193,7 @@ namespace Autonomous
 		Common::Logging::LoggerMock *m_logger;
 		Common::Routing::RouterMock *m_routerMock;
 		Common::Routing::RouterImpl *m_router;
-		Common::Routing::FieldPositionCheckerMock *m_field;
+		Abstraction::FieldPositionCheckerMock *m_field;
 		ObstacleFetcherMock *m_obstacleFetcher;
 		std::vector<Common::Geometry::Pose> m_targets;
 		RobotImpl *m_robot;

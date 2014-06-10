@@ -20,7 +20,7 @@ namespace Autonomous
 				const Common::Routing::Router &router,
 				Common::Logging::Logger &logger, Common::Logging::Logger::LogFileType logFileType,
 				ObstacleFetcher const &obstacleFetcher, ObstacleSource const &ownObstacleSource,
-				DriveMode driveMode, const Common::Routing::Route &oldRoute);
+				DriveMode driveMode, const Common::Routing::Route &oldRoute, Abstraction::FieldPositionChecker const &fieldPositionChecker);
 
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;

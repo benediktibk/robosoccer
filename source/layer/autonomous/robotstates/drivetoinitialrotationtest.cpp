@@ -5,6 +5,7 @@
 #include "layer/autonomous/obstaclefetchermock.h"
 #include "layer/autonomous/robotmock.h"
 #include "layer/abstraction/controllablerobotmock.h"
+#include "layer/abstraction/fieldpositioncheckermock.h"
 #include "common/logging/loggermock.h"
 #include "common/routing/routermock.h"
 #include "common/routing/routerimpl.h"
@@ -15,7 +16,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
-using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Common;
 using namespace std;
 
 RobotState *DriveToInitialRotationTest::createInstance()
@@ -25,7 +26,7 @@ RobotState *DriveToInitialRotationTest::createInstance()
 
 	return new DriveToInitialRotation(
 				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault);
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, *m_fieldPositionChecker);
 }
 
 void DriveToInitialRotationTest::update_onceCalled_robotGotOneCallToTurnToSecondPoint()
@@ -116,7 +117,7 @@ void DriveToInitialRotationTest::constructor_noRoute_routeCreated()
 
 void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreePoints()
 {
-	Route route(1);
+	Routing::Route route(1);
 	route.addPoint(Point(0, 0));
 	route.addPoint(Point(1, 0));
 	route.addPoint(Point(1, 2));
@@ -126,7 +127,7 @@ void DriveToInitialRotationTest::constructor_routeWithThreePoints_routeHasThreeP
 
 	DriveToInitialRotation state(
 					*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, route);
+					*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, route, *m_fieldPositionChecker);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, state.getRoutePointsCount());
 }
@@ -146,10 +147,10 @@ void DriveToInitialRotationTest::constructor_noRouteAndFirstRouteInvalid_routeCr
 	targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	targets.push_back(Pose(Point(3, 3), Angle::getQuarterRotation()));
 	FieldPositionCheckerMock fieldPositionChecker;
-	RouterImpl router(0.5, fieldPositionChecker);
+	Routing::RouterImpl router(0.5, fieldPositionChecker);
 	DriveToInitialRotation *state = new DriveToInitialRotation(
 				*m_controllableRobot, targets, targets.front(), router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
-				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault);
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, fieldPositionChecker);
 
 	DriveTo *stateCasted = dynamic_cast<DriveTo*>(state);
 

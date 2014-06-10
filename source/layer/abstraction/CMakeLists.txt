@@ -15,6 +15,7 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	fieldpositioncheckerfieldplayer.cpp
 	fieldpositioncheckergoalkeeper.cpp
 	fieldpositionchecker.cpp
+	fieldpositioncheckermock.cpp
 )
 
 set(COMMON_LAYER_ABSTRACTION_TEST_SRC

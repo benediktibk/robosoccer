@@ -12,8 +12,8 @@ using namespace std;
 
 DriveToInvalidRoute::DriveToInvalidRoute(ControllableRobot &robot, const std::vector<Pose> &targets, const Pose &currentTarget, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
-		ObstacleSource const &ownObstacleSource, DriveMode driveMode) :
-	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode)
+		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
+	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode, fieldPositionChecker)
 { }
 
 RobotState *DriveToInvalidRoute::nextState(bool)
@@ -26,7 +26,7 @@ RobotState *DriveToInvalidRoute::nextState(bool)
 		log("found again a valid route, starting with initial rotation");
 		return new DriveToInitialRotation(
 					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute);
+					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute, getFieldPositionChecker());
 	}
 
 	return 0;

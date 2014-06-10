@@ -406,3 +406,5 @@ common/geometry/straighttest.cpp
 common/geometry/straighttest.h
 layer/abstraction/fieldpositionchecker.h
 layer/abstraction/fieldpositionchecker.cpp
+layer/abstraction/fieldpositioncheckermock.h
+layer/abstraction/fieldpositioncheckermock.cpp
