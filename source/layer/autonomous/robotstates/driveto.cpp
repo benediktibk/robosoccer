@@ -143,7 +143,8 @@ const Route &DriveTo::getCurrentRoute() const
 
 bool DriveTo::updateRouteIfNecessary()
 {
-	Point currentPosition = getRobot().getPose().getPosition();
+	Pose currentPose = getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 				m_ownObstacleSource, currentPosition, 1, m_driveMode, 0.9);
 	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
