@@ -400,3 +400,7 @@ layer/autonomous/robotstates/drivemode.cpp
 layer/autonomous/robotstates/drivemode.h
 layer/autonomous/robotstates/drivetodirect.h
 layer/autonomous/robotstates/drivetodirect.cpp
+common/geometry/straight.cpp
+common/geometry/straight.h
+common/geometry/straighttest.cpp
+common/geometry/straighttest.h
