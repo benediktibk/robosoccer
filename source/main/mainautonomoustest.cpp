@@ -51,7 +51,7 @@ int main(int, char**)
 	while(true)
 	{
 		vector<Pose> target;
-		target.push_back(Pose(Point(0, 0), Angle::getQuarterRotation()));
+		target.push_back(Pose(Point(0.2, 0), Angle::getQuarterRotation()));
 		robotThree.goTo(target, DriveModeDefault);
 		while (!robotThree.reachedTarget())
 		{
