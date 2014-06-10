@@ -23,6 +23,7 @@ namespace Autonomous
 		CPPUNIT_TEST(constructor_noRoute_routeCreated);
 		CPPUNIT_TEST(constructor_routeWithThreePoints_routeHasThreePoints);
 		CPPUNIT_TEST(reachedTarget_empty_false);
+		CPPUNIT_TEST(constructor_noRouteAndFirstRouteInvalid_routeCreated);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -39,6 +40,7 @@ namespace Autonomous
 		void constructor_noRoute_routeCreated();
 		void constructor_routeWithThreePoints_routeHasThreePoints();
 		void reachedTarget_empty_false();
+		void constructor_noRouteAndFirstRouteInvalid_routeCreated();
 	};
 }
 }

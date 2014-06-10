@@ -73,7 +73,7 @@ Point IntelligentBallImpl::getPosition() const
 double IntelligentBallImpl::getShootingLineCoveragePercent(ObstacleFetcher &obstacles, Point &target) const
 {
 	bool coverageArray[100] = {0};
-	vector<Circle> obstaclesWithoutBall = obstacles.getAllObstaclesButMe(*this);
+	vector<Circle> obstaclesWithoutBall = obstacles.getAllObstaclesButMe(*this, 1);
 	Line ballToTargetLine(getPosition(), target);
 	double ballRadius = getObstacle().getDiameter()/2.0;
 
