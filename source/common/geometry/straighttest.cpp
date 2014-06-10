@@ -27,3 +27,11 @@ void StraightTest::isTargetPointRightOfLine_straightAndPointIsRight_true()
 
 	CPPUNIT_ASSERT(!straight.isTargetPointRightOfLine(target));
 }
+
+void StraightTest::isTargetPointRightOfLine_straightIsNegativeXAxisAndPointIsRightOfXAxis_true()
+{
+	Straight straight(Point::zero(), Angle::getQuarterRotation() * 3.0);
+	Point target(1,1);
+
+	CPPUNIT_ASSERT(!straight.isTargetPointRightOfLine(target));
+}
