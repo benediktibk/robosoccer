@@ -31,12 +31,12 @@ bool Kick::reachedTarget() const
 	return false;
 }
 
-bool Kick::isEquivalentToDriveTo(const Pose &) const
+bool Kick::isEquivalentToDriveTo(const Pose &)
 {
 	return false;
 }
 
-bool Kick::isEquivalentToDriveToDirect(const Pose &) const
+bool Kick::isEquivalentToDriveToDirect(const Pose &)
 {
 	return false;
 }

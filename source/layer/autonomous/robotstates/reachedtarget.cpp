@@ -23,14 +23,14 @@ RobotState *ReachedTarget::nextState(bool)
 	return 0;
 }
 
-bool ReachedTarget::isEquivalentToDriveTo(const Pose &target) const
+bool ReachedTarget::isEquivalentToDriveTo(const Pose &target)
 {
 	Compare compare(0.02);
 	Pose currentPose = getRobot().getPose();
 	return compare.isFuzzyEqual(currentPose, target);
 }
 
-bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target) const
+bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target)
 {
 	return isEquivalentToDriveTo(target);
 }

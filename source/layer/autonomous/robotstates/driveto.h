@@ -46,8 +46,8 @@ namespace Autonomous
 		virtual ~DriveTo();
 
 		virtual bool reachedTarget() const;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) const;
-		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) const;
+		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
+		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 
 		size_t getRoutePointsCount() const;
 		Common::Geometry::Compare getPositionCompare() const;
