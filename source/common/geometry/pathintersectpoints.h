@@ -25,7 +25,7 @@ namespace Geometry
 
 		std::vector<Point> getIntersectPoints();
 		IntersectType getIntersectTypeFrom();
-		std::size_t getIntersectPointsCount();
+		std::size_t getCount();
 		Point front();
 		Point back();
 

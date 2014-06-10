@@ -18,7 +18,9 @@ bool Path::intersectsWith(const Circle &circle) const
 {
 	if(isCircleCenterOnPath(circle))
 		return true;
-	if (getIntersectPoints(circle).getIntersectPointsCount() != 0)
+
+	PathIntersectPoints intersectPoints = getIntersectPoints(circle);
+	if (intersectPoints.getCount() != 0)
 		return true;
 
 	return false;
@@ -50,16 +52,16 @@ PathIntersectPoints Path::getIntersectPoints(const Circle &circle) const
 	Line endOutline(endLeft, endRight);
 
 	PathIntersectPoints intersectPointsLeft(leftOutline.getIntersectPoints(circle), PathIntersectPoints::IntersectTypeFromLeft);
-	if(intersectPointsLeft.getIntersectPointsCount() != 0)
+	if(intersectPointsLeft.getCount() != 0)
 		return intersectPointsLeft;
 	PathIntersectPoints intersectPointsRight(rightOutline.getIntersectPoints(circle), PathIntersectPoints::IntersectTypeFromRight);
-	if(intersectPointsRight.getIntersectPointsCount() != 0)
+	if(intersectPointsRight.getCount() != 0)
 		return intersectPointsRight;
 	PathIntersectPoints intersectPointsStart(startOutline.getIntersectPoints(circle), PathIntersectPoints::IntersectTypeFromStart);
-	if(intersectPointsStart.getIntersectPointsCount() != 0)
+	if(intersectPointsStart.getCount() != 0)
 		return intersectPointsStart;
 	PathIntersectPoints intersectPointsEnd(endOutline.getIntersectPoints(circle), PathIntersectPoints::IntersectTypeFromEnd);
-	if(intersectPointsEnd.getIntersectPointsCount() != 0)
+	if(intersectPointsEnd.getCount() != 0)
 		return intersectPointsEnd;
 
 	return PathIntersectPoints(vector<Point>(), PathIntersectPoints::IntersectTypeNoIntersect);

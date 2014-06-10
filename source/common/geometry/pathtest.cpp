@@ -75,7 +75,9 @@ void PathTest::intersectsWith_slightlyRotatedButNotIntersecting_false()
 	Path path(Point(1.29548, -0.018396), Point(0, 0), 0.095);
 	Circle circle(Point(1.325, -0.25), 0.25);
 
-	CPPUNIT_ASSERT(!path.intersectsWith(circle));
+	bool result = path.intersectsWith(circle);
+
+	CPPUNIT_ASSERT(!result);
 }
 
 void PathTest::isCircleOnPath_circleOnPath_true()
@@ -96,21 +98,21 @@ void PathTest::getIntersectPoints_circleWithNoIntersects_intersectPointsCountIs0
 {
 	Path path(Point(-2,2), Point(2,2), 0.2);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)0, path.getIntersectPoints(Circle(Point(0,0), 1)).getIntersectPointsCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)0, path.getIntersectPoints(Circle(Point(0,0), 1)).getCount());
 }
 
 void PathTest::getIntersectPoints_circleToutchesLine_intersectPointsCountIs1()
 {
 	Path path(Point(-2,2), Point(2,2), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)1, path.getIntersectPoints(Circle(Point(0,0), 3)).getIntersectPointsCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, path.getIntersectPoints(Circle(Point(0,0), 3)).getCount());
 }
 
 void PathTest::getIntersectPoints_circleIntersectsLine_intersectPointsCountIs2()
 {
 	Path path(Point(-2,2), Point(2,2), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)2, path.getIntersectPoints(Circle(Point(0,0), 4)).getIntersectPointsCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)2, path.getIntersectPoints(Circle(Point(0,0), 4)).getCount());
 }
 
 void PathTest::getIntersectPoints_circleIntersectsLineFromRight_intersectTypeFromRight()

@@ -11,7 +11,7 @@ void PathIntersectPointsTest::constructor_createDefaultObject_intersectPointsCou
 	intersectPoints.push_back(Point(1,1));
 	PathIntersectPoints pathIntersectPoints(intersectPoints, PathIntersectPoints::IntersectTypeFromLeft);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)2, pathIntersectPoints.getIntersectPointsCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)2, pathIntersectPoints.getCount());
 }
 
 void PathIntersectPointsTest::constructor_createDefaultObject_intersectTypeFromLeft()
