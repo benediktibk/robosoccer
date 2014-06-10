@@ -191,9 +191,9 @@ void DriveTo::calculateNewRoute()
 	Point target = m_targets.front().getPosition();
 	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 				m_ownObstacleSource,robotPoint, 1, m_driveMode);
-	vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
+	//vector<Circle> modifiedObstacles = modifyObstacles(obstacles, 2);
 
-	*m_currentRoute = m_router.calculateRoute(robotPoint, target, modifiedObstacles);
+	*m_currentRoute = m_router.calculateRoute(robotPoint, target, obstacles);
 
 	if((m_driveMode == DriveModeDriveSlowlyAtTheEnd || m_driveMode == DriveModeIgnoreGoalObstacles
 		|| m_driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
