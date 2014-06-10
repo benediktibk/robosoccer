@@ -41,7 +41,7 @@ namespace Main
 	class Application
 	{
 	public:
-		Application(Abstraction::TeamColor ownTeamColor);
+		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber);
 		~Application();
 
 		void run();

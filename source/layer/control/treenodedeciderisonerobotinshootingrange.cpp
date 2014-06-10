@@ -34,8 +34,6 @@ bool TreeNodeDeciderIsOneRobotInShootingRange::calculateDecision()
 
 	//! @todo find shooting range
 
-	Angle epsilon = Angle::convertFromDegreeToRadiant(30.0);
-
-	return m_targetPositionFetcher.isGoodKickPosition(m_ball, robot1Pose.getPosition(), epsilon, 0.3)
-			|| m_targetPositionFetcher.isGoodKickPosition(m_ball, robot2Pose.getPosition(), epsilon, 0.3);
+	return m_targetPositionFetcher.isGoodKickPosition(m_ball, robot1Pose.getPosition(), 0.3)
+			|| m_targetPositionFetcher.isGoodKickPosition(m_ball, robot2Pose.getPosition(), 0.3);
 }

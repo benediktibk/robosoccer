@@ -12,6 +12,9 @@ BallMock::BallMock() :
 	m_rotation(0)
 { }
 
+void BallMock::update()
+{ }
+
 Point BallMock::getPosition() const
 {
 	return m_position;

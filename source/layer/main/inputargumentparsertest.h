@@ -16,18 +16,21 @@ namespace Main
 		CPPUNIT_TEST_SUITE(InputArgumentParserTest);
 		CPPUNIT_TEST(constructor_twoInputs_isInvalid);
 		CPPUNIT_TEST(constructor_teamColorSetToLila_isInvalid);
-		CPPUNIT_TEST(constructor_validArgumentTeamColorRed_isValid);
-		CPPUNIT_TEST(constructor_validArgumentTeamColorBlue_isValid);
+		CPPUNIT_TEST(constructor_validArgumentTeamColorRedClientNr12_isValid);
+		CPPUNIT_TEST(constructor_validArgumentTeamColorBlueClientNr12_isValid);
 		CPPUNIT_TEST(constructor_fourInputs_isInvalid);
+		CPPUNIT_TEST(constructor_fifthInputsNotANumber_isInvalid);
+		CPPUNIT_TEST(constructor_fifthInputsAWrongNumber_isInvalid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void constructor_twoInputs_isInvalid();
 		void constructor_teamColorSetToLila_isInvalid();
-		void constructor_validArgumentTeamColorRed_isValid();
-		void constructor_validArgumentTeamColorBlue_isValid();
+		void constructor_validArgumentTeamColorRedClientNr12_isValid();
+		void constructor_validArgumentTeamColorBlueClientNr12_isValid();
 		void constructor_fourInputs_isInvalid();
-
+		void constructor_fifthInputsNotANumber_isInvalid();
+		void constructor_fifthInputsAWrongNumber_isInvalid();
 	};
 }
 }

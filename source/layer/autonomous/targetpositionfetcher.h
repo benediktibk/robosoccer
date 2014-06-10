@@ -35,6 +35,7 @@ namespace Autonomous
 		std::vector<Common::Geometry::Pose> getStartPositionsPlayerTwoDefensive() const;
 
 		std::vector<Common::Geometry::Point> getEnemyGoalPositions() const;
+		std::vector<Common::Geometry::Point> getOwnGoalPositions() const;
 		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
 
 		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
@@ -46,13 +47,14 @@ namespace Autonomous
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerTwo() const;
 
 		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
-		std::vector<Common::Geometry::Pose> getTargetBehindBall(const IntelligentBall &ball, double distanceToBall) const;
+		std::vector<Common::Geometry::Pose> getTargetsBehindBall(const IntelligentBall &ball) const;
+		std::vector<Common::Geometry::Pose> getTargetsBehindBallAlternativeRobot(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPositionsToDriveOnBall(const IntelligentBall &ball) const;
 
 		//! @todo this function might be unused
 		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
 
-		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, const Common::Geometry::Angle &spanAngle, double minDistanc) const;
+		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, double minDistanc) const;
 		bool isPositionBehindTheBall(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball)const;
 
 		Common::Geometry::Angle getOrientationToEnemyGoal() const;

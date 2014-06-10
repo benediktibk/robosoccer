@@ -1,8 +1,5 @@
 #include "layer/abstraction/ballimpl.h"
-#include "common/geometry/point.h"
 #include "common/geometry/circle.h"
-#include "common/geometry/angle.h"
-#include "common/geometry/pose.h"
 #include <kogmo_rtdb.hxx>
 #include <raw_ball.h>
 
@@ -19,26 +16,29 @@ BallImpl::~BallImpl()
 	m_ball = 0;
 }
 
+void BallImpl::update()
+{
+	m_orientation = Geometry::Angle(m_ball->GetPhi().Rad());
+	m_position = Geometry::Point(m_ball->GetX(),m_ball->GetY());
+	m_velocity = m_ball->GetVelocity()*871.3072;
+}
+
 Geometry::Angle BallImpl::getRotation() const
 {
-	Angle angle = m_ball->GetPhi();
-	return Geometry::Angle(angle.Rad());
+	return m_orientation;
 }
 
 Geometry::Point BallImpl::getPosition() const
 {
-	Geometry::Point ballPosition;
-	ballPosition.setX(m_ball->GetX());
-	ballPosition.setY(m_ball->GetY());
-	return ballPosition;
+	return m_position;
 }
 
 Geometry::Circle BallImpl::getObstacle() const
 {
-	return Geometry::Circle(getPosition(), 0.045);
+	return Geometry::Circle(m_position, 0.045);
 }
 
 double BallImpl::getVelocity() const
 {
-	return m_ball->GetVelocity()*871.3072;
+	return m_velocity;
 }

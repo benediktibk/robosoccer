@@ -56,7 +56,7 @@ StorageImpl::~StorageImpl()
 	m_dataBase = 0;
 }
 
-Ball const& StorageImpl::getBall() const
+Ball &StorageImpl::getBall()
 {
 	return *m_ball;
 }
