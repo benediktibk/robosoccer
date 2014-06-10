@@ -48,9 +48,10 @@ bool DriveTo::isEquivalentToDriveTo(const Pose &target) const
 {
 	Compare comparePosition(m_precisionPosition);
 	Compare compareAngle(m_precisionOrientationInitial);
+	Pose const &bestTarget = m_targets.front();
 
-	return	comparePosition.isFuzzyEqual(m_targets.front().getPosition(), target.getPosition()) &&
-			compareAngle.isFuzzyEqual(m_targets.front().getOrientation(), target.getOrientation());
+	return	comparePosition.isFuzzyEqual(bestTarget.getPosition(), target.getPosition()) &&
+			compareAngle.isFuzzyEqual(bestTarget.getOrientation(), target.getOrientation());
 }
 
 bool DriveTo::isEquivalentToDriveToDirect(const Pose &) const
