@@ -1,7 +1,7 @@
 #ifndef ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPER_H
 #define ROBOSOCCER_LAYER_MAIN_FIELDPOSITIONCHECKERGOALKEEPER_H
 
-#include "common/routing/fieldpositionchecker.h"
+#include "layer/main/fieldpositionchecker.h"
 #include "layer/abstraction/fieldside.h"
 
 namespace RoboSoccer
@@ -11,7 +11,7 @@ namespace Layer
 namespace Main
 {
 	class FieldPositionCheckerGoalkeeper :
-			public Common::Routing::FieldPositionChecker
+			public FieldPositionChecker
 	{
 	public:
 		FieldPositionCheckerGoalkeeper();

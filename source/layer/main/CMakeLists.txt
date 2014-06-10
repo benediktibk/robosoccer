@@ -3,6 +3,7 @@ set(COMMON_LAYER_MAIN_SRC
 	application.cpp
 	fieldpositioncheckerfieldplayer.cpp
 	fieldpositioncheckergoalkeeper.cpp
+	fieldpositionchecker.cpp
 )
 
 set(COMMON_LAYER_MAIN_TEST_SRC

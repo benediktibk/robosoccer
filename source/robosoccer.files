@@ -404,3 +404,5 @@ common/geometry/straight.cpp
 common/geometry/straight.h
 common/geometry/straighttest.cpp
 common/geometry/straighttest.h
+layer/main/fieldpositionchecker.h
+layer/main/fieldpositionchecker.cpp

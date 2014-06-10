@@ -22,15 +22,12 @@ bool FieldPositionCheckerGoalkeeper::isPointInsideField(const Point &position) c
 	if (!field.isInside(position, compare))
 		return false;
 
-	Rectangle goalZoneRight(Point(1.2, -0.35), Point(1.45, 0.35));
-	Rectangle goalZoneLeft(Point(-1.45, -0.35), Point(-1.2, 0.35));
-
 	if (m_fieldSide == FieldSideLeft)
-		return !goalZoneRight.isInside(position, compare);
+		return !isPointInsideRightGoalZone(position);
 	if (m_fieldSide == FieldSideRight)
-		return !goalZoneLeft.isInside(position, compare);
+		return !isPointInsideLeftGoalZone(position);
 
-	return !goalZoneLeft.isInside(position, compare) && !goalZoneRight.isInside(position, compare);
+	return !isPointInsideRightGoalZone(position) && !isPointInsideLeftGoalZone(position);
 }
 
 void FieldPositionCheckerGoalkeeper::setFieldSide(FieldSide fieldSide)
