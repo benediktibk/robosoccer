@@ -60,10 +60,10 @@ void StraightTest::getIntersectPoint_linesAreIntersecting_oneIntersect()
 	CPPUNIT_ASSERT_EQUAL(Point(0,0), straightOne.getIntersectPoint(straightTwo).front());
 }
 
-void StraightTest::getIntersectPoint_linesAreToutching_oneIntersect()
+void StraightTest::getIntersectPoint_linesAreEqual_noIntersect()
 {
 	Straight straightOne(Point(1,0), Angle());
 	Straight straightTwo(Point(2,0), Angle());
 
-	CPPUNIT_ASSERT_EQUAL(Point(0,0), straightOne.getIntersectPoint(straightTwo).front());
+	CPPUNIT_ASSERT(straightOne.getIntersectPoint(straightTwo).empty());
 }

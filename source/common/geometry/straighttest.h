@@ -21,7 +21,7 @@ class StraightTest :
 		CPPUNIT_TEST(isTargetPointRightOfLine_straightThroughOriginPointIsRight_true);
 		CPPUNIT_TEST(getIntersectPoint_linesAreParralel_noIntersect);
 		CPPUNIT_TEST(getIntersectPoint_linesAreIntersecting_oneIntersect);
-		CPPUNIT_TEST(getIntersectPoint_linesAreToutching_oneIntersect);
+		CPPUNIT_TEST(getIntersectPoint_linesAreEqual_noIntersect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -32,7 +32,7 @@ class StraightTest :
 		void isTargetPointRightOfLine_straightThroughOriginPointIsRight_true();
 		void getIntersectPoint_linesAreParralel_noIntersect();
 		void getIntersectPoint_linesAreIntersecting_oneIntersect();
-		void getIntersectPoint_linesAreToutching_oneIntersect();
+		void getIntersectPoint_linesAreEqual_noIntersect();
 	};
 }
 }
