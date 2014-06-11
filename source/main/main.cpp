@@ -31,7 +31,8 @@ int main(int argc, char **argv)
 	InputArgumentParser parser(arguments);
 	if (!parser.isValid())
 	{
-		cerr << "Invalid Arguments" << endl;
+		cerr << "Invalid Arguments\n" << endl;
+		cout << "The correct inputs should be: \"./... --setOwnTeamcolor red/blue --setOwnClientnumber number between 11&15\"" << endl;
 		return 1;
 	}
 
