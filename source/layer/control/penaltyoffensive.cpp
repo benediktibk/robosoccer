@@ -43,7 +43,7 @@ void PenaltyOffensive::updateInternal()
 
 	if(!m_calledGoTo)
 	{
-		//! @todo consider ignoreBall and driveSlolyAtTheEnd
+		//! @todo consider ignoreBall and driveSlowlyAtTheEnd
 		robot.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball), DriveModeDefault);
 		m_calledGoTo = true;
 	}
