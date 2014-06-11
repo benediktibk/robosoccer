@@ -26,6 +26,7 @@ namespace Control
 
 	private:
 		bool m_movementFinished;
+		bool m_sendGoToSignal;
 	};
 }
 }
