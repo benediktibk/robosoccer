@@ -185,9 +185,17 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 	vector<Pose> positions;
 	positions.reserve(3);
 
+	positions.push_back(Pose(Point(0.7, 0.5), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(0.7, 0.7), Angle::getHalfRotation()));
+
+	positions.push_back(Pose(Point(0.9, 0.5), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(0.9, 0.7), Angle::getHalfRotation()));
+
 	positions.push_back(Pose(Point(1.1, 0.5), Angle::getHalfRotation()));
-	positions.push_back(Pose(Point(1.15, 0.6), Angle::getHalfRotation()));
-	positions.push_back(Pose(Point(1.05, 0.5), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.1, 0.7), Angle::getHalfRotation()));
+
+	positions.push_back(Pose(Point(1.3, 0.5), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.3, 0.7), Angle::getHalfRotation()));
 
 	return positions;
 }
@@ -197,16 +205,24 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	vector<Pose> positions;
 	positions.reserve(3);
 
+	positions.push_back(Pose(Point(0.7, 0.2), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(0.7, 0.0), Angle::getHalfRotation()));
+
+	positions.push_back(Pose(Point(0.9, 0.2), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(0.9, 0.0), Angle::getHalfRotation()));
+
 	positions.push_back(Pose(Point(1.1, 0.2), Angle::getHalfRotation()));
-	positions.push_back(Pose(Point(1.15, 0.1), Angle::getHalfRotation()));
-	positions.push_back(Pose(Point(1.05, 0.2), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.1, 0.0), Angle::getHalfRotation()));
+
+	positions.push_back(Pose(Point(1.3, 0.2), Angle::getHalfRotation()));
+	positions.push_back(Pose(Point(1.3, 0.0), Angle::getHalfRotation()));
 
 	return positions;
 }
 
 bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, double minDistance) const
 {
-	const double fieldWidth = 2.90;
+	const double fieldWidth = 1.7;
 	const Angle maxAngle(Angle::convertFromDegreeToRadiant(70));
 	const Angle minAngle(Angle::convertFromDegreeToRadiant(25));
 	double m = (maxAngle-minAngle).getValueBetweenZeroAndTwoPi()/fieldWidth*2;
