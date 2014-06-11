@@ -48,6 +48,7 @@ FieldSide RefereeImpl::getOwnFieldSide() const
 		}
 	}
 
+	m_logger.logToLogFileOfType(Logger::LogFileTypeReferee, "getOwnFieldSide returns: OWN_SIDE");
 	return FieldSideInvalid;
 }
 
