@@ -21,6 +21,8 @@ TreeNode *TreeNodeResultLeaveGoalZoneTest::createTestNode()
 
 void TreeNodeResultLeaveGoalZoneTest::execute_true_robotsGetGoToCalls()
 {
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-1.3,0.2), Angle()));
+
 	TreeNodeResultLeaveGoalZone *leaveGoalZone = dynamic_cast<TreeNodeResultLeaveGoalZone*>(m_node);
 	leaveGoalZone->execute();
 
