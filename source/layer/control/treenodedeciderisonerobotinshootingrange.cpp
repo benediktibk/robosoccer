@@ -32,8 +32,6 @@ bool TreeNodeDeciderIsOneRobotInShootingRange::calculateDecision()
 	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
 	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
 
-	//! @todo find shooting range
-
 	return m_targetPositionFetcher.isGoodKickPosition(m_ball, robot1Pose.getPosition(), 0.3)
 			|| m_targetPositionFetcher.isGoodKickPosition(m_ball, robot2Pose.getPosition(), 0.3);
 }
