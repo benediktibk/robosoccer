@@ -9,6 +9,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
+using namespace std;
 
 RobotState *KickTest::createInstance()
 {
@@ -68,5 +69,8 @@ void KickTest::update_severalTimesCalled_oneCallToKick()
 
 void KickTest::isEquivalentToDriveTo_empty_false()
 {
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose()));
+	vector<Pose> pose;
+	pose.push_back(Pose());
+
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(pose));
 }
