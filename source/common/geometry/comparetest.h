@@ -19,7 +19,7 @@ namespace Geometry
 		CPPUNIT_TEST(isFuzzyEqual_twoVectorsWithDifferentSize_false);
 		CPPUNIT_TEST(isFuzzyEqual_towVectorsWithOrientedPositions_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoDifferentVectorsWithOrientedPositions_false);
-		CPPUNIT_TEST(isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_true);
+		CPPUNIT_TEST(isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_false);
 		CPPUNIT_TEST(isFuzzyEqual_twoAnglesNearPi_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoAnglesNearZero_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoAnglesWhichAreNotEqual_false);
@@ -35,7 +35,7 @@ namespace Geometry
 		void isFuzzyEqual_twoVectorsWithDifferentSize_false();
 		void isFuzzyEqual_towVectorsWithOrientedPositions_true();
 		void isFuzzyEqual_twoDifferentVectorsWithOrientedPositions_false();
-		void isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_true();
+		void isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_false();
 		void isFuzzyEqual_twoAnglesNearPi_true();
 		void isFuzzyEqual_twoAnglesNearZero_true();
 		void isFuzzyEqual_twoAnglesWhichAreNotEqual_false();

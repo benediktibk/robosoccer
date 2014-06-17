@@ -15,7 +15,7 @@ void CompareTest::isFuzzyEqual_twoCompletelyEqualVectors_true()
 	vector2.push_back(Pose(Point(1, 1), Angle()));
 	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoNearlyEqualVectors_true()
@@ -27,7 +27,7 @@ void CompareTest::isFuzzyEqual_twoNearlyEqualVectors_true()
 	vector2.push_back(Pose(Point(1, 1), Angle()));
 	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoVectorsWithDifferentSize_false()
@@ -40,7 +40,7 @@ void CompareTest::isFuzzyEqual_twoVectorsWithDifferentSize_false()
 	vector2.push_back(Pose(Point(1, 1), Angle()));
 	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(!compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositions_true()
@@ -52,7 +52,7 @@ void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositions_true()
 	vector2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
 	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoDifferentVectorsWithOrientedPositions_false()
@@ -64,10 +64,10 @@ void CompareTest::isFuzzyEqual_twoDifferentVectorsWithOrientedPositions_false()
 	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(!compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
-void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_true()
+void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_false()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
@@ -76,7 +76,7 @@ void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_tr
 	vector2.push_back(Pose(Point(1, 2.5), Angle::getEighthRotation()));
 	vector2.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
+	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_twoAnglesNearPi_true()

@@ -2,7 +2,6 @@
 #define ROBOSOCCER_COMMON_GEOMETRY_COMPARE_H
 
 #include <vector>
-#include <list>
 #include "common/other/compare.h"
 
 namespace RoboSoccer
@@ -25,8 +24,7 @@ namespace Geometry
 		bool isFuzzyEqual(const Point &one, const Point &two) const;
 		bool isFuzzyEqual(const Circle &one, const Circle &two) const;
 		bool isFuzzyEqual(const Pose &one, const Pose &two) const;
-		bool isFuzzyEqual(const std::vector<Pose> &one, const std::vector<Pose> &two) const;
-		bool isFuzzyEqual(const std::list<Pose> &one, const std::list<Pose> &two) const;
+		bool isFuzzyEqualWithCorrectOrder(const std::vector<Pose> &one, const std::vector<Pose> &two) const;
 
 	private:
 		 Other::Compare m_internalCompare;
