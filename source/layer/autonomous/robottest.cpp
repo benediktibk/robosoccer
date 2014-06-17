@@ -1067,3 +1067,17 @@ void RobotTest::update_kickAndRobotInGoalZone_robotGotOneCallToKick()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToKick());
 }
+
+void RobotTest::goTo_robotAtSecondTarget_noCallToDrive()
+{
+	m_hardwareRobot->setPose(Pose(Point(1, 3), Angle()));
+	m_targets.push_back(Pose(Point(2, 3), Angle()));
+	m_targets.push_back(Pose(Point(1, 3), Angle()));
+
+	m_robot->goTo(m_targets, DriveModeDefault);
+	m_robot->update();
+	m_robot->goTo(m_targets, DriveModeDefault);
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
+}
