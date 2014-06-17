@@ -611,3 +611,14 @@ void TargetPositionFetcherTest::getPositionsToGetOutOfGoalZone_fieldSideRight_po
 	for(unsigned int i = 0; i<targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0)).size(); i++)
 		CPPUNIT_ASSERT(targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0))[i].getPosition().getX() < 0);
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodAnglePositionButBallInsideGoalZone_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1.3,0.0));
+	Point robotPosition(1.0,0.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}

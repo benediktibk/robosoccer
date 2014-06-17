@@ -6,9 +6,6 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Other;
 
-FieldPositionCheckerFieldPlayer::FieldPositionCheckerFieldPlayer()
-{ }
-
 bool FieldPositionCheckerFieldPlayer::isPointInsideField(const Point &position) const
 {
 	Compare compare(0.005);

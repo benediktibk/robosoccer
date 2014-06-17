@@ -21,8 +21,8 @@ TreeNode *TreeNodeDeciderIsOneRobotBehindTheBallTest::createTestNode()
 
 void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_bothRobotsBehindBall_followBall()
 {
-	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-1.5,0.2), Angle()));
-	m_ball->setPosition(Point (-1.4,0.2));
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-0.5,0.2), Angle()));
+	m_ball->setPosition(Point (-0.4,0.2));
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 
 	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotBehindTheBall*>(m_node)->getChild();
