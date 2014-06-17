@@ -1,6 +1,7 @@
 #include "layer/control/treenodedeciderisonerobotinsidegoalzonetest.h"
 #include "layer/control/treenodedeciderisonerobotinsidegoalzone.h"
 #include "layer/control/treenodedeciderisonerobotinshootingrange.h"
+#include "layer/control/treenoderesultleavegoalzone.h"
 #include "common/logging/loggermock.h"
 #include "common/geometry/pose.h"
 #include "layer/abstraction/refereemock.h"
@@ -27,8 +28,10 @@ void TreeNodeDeciderIsOneRobotInsideGoalZoneTest::decide_robotsAreInValidPositio
 
 	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotInsideGoalZone*>(m_node)->getChild();
 	TreeNodeDeciderIsOneRobotInShootingRange *isInShootingRange = dynamic_cast<TreeNodeDeciderIsOneRobotInShootingRange*>(result);
+	TreeNodeResultLeaveGoalZone *leaveGoalZone = dynamic_cast<TreeNodeResultLeaveGoalZone*>(result);
 
 	CPPUNIT_ASSERT(isInShootingRange != 0);
+	CPPUNIT_ASSERT(leaveGoalZone == 0);
 	delete result;
 }
 
@@ -39,7 +42,9 @@ void TreeNodeDeciderIsOneRobotInsideGoalZoneTest::decide_oneRobotInEnemyGoalZone
 
 	TreeNode *result = dynamic_cast<TreeNodeDeciderIsOneRobotInsideGoalZone*>(m_node)->getChild();
 	TreeNodeDeciderIsOneRobotInShootingRange *isInShootingRange = dynamic_cast<TreeNodeDeciderIsOneRobotInShootingRange*>(result);
+	TreeNodeResultLeaveGoalZone *leaveGoalZone = dynamic_cast<TreeNodeResultLeaveGoalZone*>(result);
 
+	CPPUNIT_ASSERT(leaveGoalZone != 0);
 	CPPUNIT_ASSERT(isInShootingRange == 0);
 	delete result;
 }

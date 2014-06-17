@@ -1,4 +1,5 @@
 #include "layer/control/treenodedeciderisonerobotinsidegoalzone.h"
+#include "layer/control/treenoderesultleavegoalzone.h"
 #include "layer/control/treenodedeciderisonerobotinshootingrange.h"
 #include "layer/autonomous/intelligentball.h"
 #include "layer/autonomous/targetpositionfetcher.h"
@@ -18,8 +19,7 @@ TreeNodeDeciderIsOneRobotInsideGoalZone::TreeNodeDeciderIsOneRobotInsideGoalZone
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeDecider(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
 {
-	//! @todo use useful YES TreeNode
-	m_childYes = new TreeNodeDeciderIsOneRobotInShootingRange(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	m_childYes = new TreeNodeResultLeaveGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	m_childNo = new TreeNodeDeciderIsOneRobotInShootingRange(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 }
 
