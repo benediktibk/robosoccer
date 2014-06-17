@@ -110,6 +110,7 @@ namespace Autonomous
 		CPPUNIT_TEST(kick_movementStoppedBeforeAndUpdate_movementNotStopped);
 		CPPUNIT_TEST(getObstacle_empty_sameAsFromControllableRobot);
 		CPPUNIT_TEST(getObstacles_empty_oneWhichIsSameAsFromControllableRobot);
+		CPPUNIT_TEST(update_kickAndRobotInGoalZone_robotGotOneCallToKick);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -186,6 +187,7 @@ namespace Autonomous
 		void kick_movementStoppedBeforeAndUpdate_movementNotStopped();
 		void getObstacle_empty_sameAsFromControllableRobot();
 		void getObstacles_empty_oneWhichIsSameAsFromControllableRobot();
+		void update_kickAndRobotInGoalZone_robotGotOneCallToKick();
 
 	private:
 		Abstraction::ControllableRobotMock *m_hardwareRobot;

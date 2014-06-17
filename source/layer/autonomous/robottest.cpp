@@ -1054,3 +1054,16 @@ void RobotTest::getObstacles_empty_oneWhichIsSameAsFromControllableRobot()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, obstacles.size());
 	CPPUNIT_ASSERT_EQUAL(obstacleShouldBe, obstacles.front());
 }
+
+void RobotTest::update_kickAndRobotInGoalZone_robotGotOneCallToKick()
+{
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle()));
+	m_field->setAllCoordinatesOutside(true);
+	m_ball->setPosition(Point(0.2, 0));
+
+	m_robot->kick(*m_ball);
+	m_robot->update();
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToKick());
+}
