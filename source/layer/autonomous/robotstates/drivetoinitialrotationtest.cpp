@@ -73,7 +73,6 @@ void DriveToInitialRotationTest::nextState_routeBecomesInvalidAndNewOnePossible_
 	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
 	CPPUNIT_ASSERT(nextStateCasted != 0);
 	delete nextState;
-
 }
 
 void DriveToInitialRotationTest::nextState_targetNotReached_0()
