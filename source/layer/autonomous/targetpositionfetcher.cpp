@@ -109,6 +109,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	vector<Pose> penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
+	//! @todo maybe this value has to be increased/improved
 	double percentOfLineLength = -0.11/lineToGoal.getLength();
 	penaltyPosition.push_back(Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation()));
 
