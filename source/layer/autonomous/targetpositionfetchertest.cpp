@@ -602,3 +602,14 @@ void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodKickPosition_true(
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodAnglePositionButBallInsideGoalZone_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1.3,0.0));
+	Point robotPosition(1.0,0.0);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}

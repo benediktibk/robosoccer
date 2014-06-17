@@ -58,6 +58,7 @@ namespace Autonomous
 		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false);
 		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToAngleViolation_false);
 		CPPUNIT_TEST(isGoodKickPosition_robotInGoodKickPosition_true);
+		CPPUNIT_TEST(isGoodKickPosition_robotInGoodAnglePositionButBallInsideGoalZone_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -103,6 +104,7 @@ namespace Autonomous
 		void isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false();
 		void isGoodKickPosition_robotInBadPositionDueToAngleViolation_false();
 		void isGoodKickPosition_robotInGoodKickPosition_true();
+		void isGoodKickPosition_robotInGoodAnglePositionButBallInsideGoalZone_false();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
