@@ -63,6 +63,7 @@
 #include "layer/autonomous/robotstates/kicktest.h"
 #include "layer/autonomous/intelligentballtest.h"
 #include "layer/autonomous/obstaclefetchertest.h"
+#include "common/geometry/comparetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -77,7 +78,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleRoundedCo
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::StraightTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Logging::LoggerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::PIDControllerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::QuadraticEquationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::RandomDecisionTest);

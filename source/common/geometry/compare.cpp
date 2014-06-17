@@ -47,3 +47,16 @@ bool Compare::isFuzzyEqual(const vector<Pose> &one, const vector<Pose> &two) con
 
 	return true;
 }
+
+bool Compare::isFuzzyEqual(const std::list<Pose> &one, const std::list<Pose> &two) const
+{
+	list<Pose>::const_iterator j = two.begin();
+	if(one.size() != two.size())
+		return false;
+
+	for(list<Pose>::const_iterator i = one.begin(); i != one.end(); ++i, ++j)
+		if(!isFuzzyEqual((*i), (*j)))
+			return false;
+
+	return true;
+}
