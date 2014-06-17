@@ -48,8 +48,10 @@ namespace Autonomous
 
 		std::vector<Common::Geometry::Pose> getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball,const Common::Geometry::Point &currentAlternativeRobotPosition) const;
 		std::vector<Common::Geometry::Pose> getTargetsBehindBall(const IntelligentBall &ball) const;
-		std::vector<Common::Geometry::Pose> getTargetsBehindBallAlternativeRobot(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const;
+		std::vector<Common::Geometry::Pose> getTargetsBehindBallAlternativeRobot(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPositionsToDriveOnBall(const IntelligentBall &ball) const;
+
+		std::vector<Common::Geometry::Pose> getPositionsToGetOutOfGoalZone(const Common::Geometry::Point robotPosition) const;
 
 		//! @todo this function might be unused
 		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
