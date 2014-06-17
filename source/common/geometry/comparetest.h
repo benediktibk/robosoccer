@@ -14,6 +14,8 @@ namespace Geometry
 		public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(CompareTest);
+		CPPUNIT_TEST(isFuzzyEqual_twoNearlyEqualVectorsWithExtraAgnleCompare_true);
+		CPPUNIT_TEST(isFuzzyEqual_twoNearlyEqualVectorsWithExtraAgnleCompareAndAngleCompareToSmall_false);
 		CPPUNIT_TEST(isFuzzyEqual_twoCompletelyEqualVectors_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoNearlyEqualVectors_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoVectorsWithDifferentSize_false);
@@ -30,6 +32,8 @@ namespace Geometry
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
+		void isFuzzyEqual_twoNearlyEqualVectorsWithExtraAgnleCompare_true();
+		void isFuzzyEqual_twoNearlyEqualVectorsWithExtraAgnleCompareAndAngleCompareToSmall_false();
 		void isFuzzyEqual_twoCompletelyEqualVectors_true();
 		void isFuzzyEqual_twoNearlyEqualVectors_true();
 		void isFuzzyEqual_twoVectorsWithDifferentSize_false();

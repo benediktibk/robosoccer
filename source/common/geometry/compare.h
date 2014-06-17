@@ -25,6 +25,8 @@ namespace Geometry
 		bool isFuzzyEqual(const Circle &one, const Circle &two) const;
 		bool isFuzzyEqual(const Pose &one, const Pose &two) const;
 		bool isFuzzyEqualWithCorrectOrder(const std::vector<Pose> &one, const std::vector<Pose> &two) const;
+		bool isFuzzyEqualWithCorrectOrder(const std::vector<Pose> &one, const std::vector<Pose> &two,
+										  double angleCompare) const;
 
 	private:
 		 Other::Compare m_internalCompare;

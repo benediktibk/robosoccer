@@ -51,7 +51,7 @@ bool DriveTo::isEquivalentToDriveTo(const vector<Pose> &targets)
 {
 	Compare comparePosition(m_precisionPosition*4);
 
-	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets))
+	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, 4*m_precisionOrientationFinal))
 	{
 		log("position or orientation is not equal");
 		return false;
