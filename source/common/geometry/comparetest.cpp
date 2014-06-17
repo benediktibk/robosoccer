@@ -22,7 +22,7 @@ void CompareTest::isFuzzyEqual_twoNearlyEqualVectors_true()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
-	vector1.push_back(Pose(Point(1, 1.05), Angle(0.01)));
+	vector1.push_back(Pose(Point(1, 1.05), Angle(0.1)));
 	vector1.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 	vector2.push_back(Pose(Point(1, 1), Angle()));
 	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
@@ -32,12 +32,15 @@ void CompareTest::isFuzzyEqual_twoNearlyEqualVectors_true()
 
 void CompareTest::isFuzzyEqual_twoVectorsWithDifferentSize_false()
 {
+	Compare compare(0.1);
+	vector<Pose> vector1, vector2;
+	vector1.push_back(Pose(Point(1, 1), Angle()));
+	vector1.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
+	vector1.push_back(Pose(Point(1, 2), Angle::getEighthRotation()));
+	vector2.push_back(Pose(Point(1, 1), Angle()));
+	vector2.push_back(Pose(Point(1, 3), Angle::getEighthRotation()));
 
-}
-
-void CompareTest::isFuzzyEqual_twoDifferentVectors_false()
-{
-
+	CPPUNIT_ASSERT(!compare.isFuzzyEqual(vector1, vector2));
 }
 
 void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositions_true()
@@ -52,7 +55,7 @@ void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositions_true()
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
-void CompareTest::isFuzzyEqual_twoVectorsWithOrientedPositions_false()
+void CompareTest::isFuzzyEqual_twoDifferentVectorsWithOrientedPositions_false()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
@@ -137,29 +140,4 @@ void CompareTest::isFuzzyEqual_twoAngelsNear270Degrees_true()
 	Angle two = Angle::convertFromDegreeToRadiant(270.5);
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(one, two));
-}
-
-void CompareTest::isFuzzyGreater_towAndTwoPointOneAndEpsilonZeroPointTwo_resultIsFuzzyGreater()
-{
-
-}
-
-void CompareTest::isFuzzySmaller_towAndTwoPointOneAndEpsilonZeroPointTwo_resultIsFuzzySmaller()
-{
-
-}
-
-void CompareTest::isStrictFuzzyGreater_twoPointOneAndTwoAndEpsilonZeroPointZeroFife_resultIsStrictFuzzyGreater()
-{
-
-}
-
-void CompareTest::isStrictFuzzySmaller_towAndTwoPointOneAndEpsilonZeroPointZeroFife_resultIsStrictFuzzySmaller()
-{
-
-}
-
-void CompareTest::isStrictFuzzyGreater_onlyLittleBitGreater_false()
-{
-
 }
