@@ -25,6 +25,7 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(1);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0)));
 
@@ -184,7 +185,7 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsAtBallHeightAggr
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 {
 	vector<Pose> positions;
-	positions.reserve(3);
+	positions.reserve(8);
 
 	positions.push_back(Pose(Point(0.7, 0.5), Angle::getHalfRotation()));
 	positions.push_back(Pose(Point(0.7, 0.7), Angle::getHalfRotation()));
@@ -204,7 +205,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 {
 	vector<Pose> positions;
-	positions.reserve(3);
+	positions.reserve(8);
 
 	positions.push_back(Pose(Point(0.7, 0.2), Angle::getHalfRotation()));
 	positions.push_back(Pose(Point(0.7, 0.0), Angle::getHalfRotation()));
