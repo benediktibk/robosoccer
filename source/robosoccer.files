@@ -412,3 +412,7 @@ layer/control/treenodedeciderisonerobotinsidegoalzone.cpp
 layer/control/treenodedeciderisonerobotinsidegoalzone.h
 layer/control/treenodedeciderisonerobotinsidegoalzonetest.cpp
 layer/control/treenodedeciderisonerobotinsidegoalzonetest.h
+layer/control/treenoderesultleavegoalzone.cpp
+layer/control/treenoderesultleavegoalzone.h
+layer/control/treenoderesultleavegoalzonetest.cpp
+layer/control/treenoderesultleavegoalzonetest.h
