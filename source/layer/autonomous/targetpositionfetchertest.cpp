@@ -602,3 +602,12 @@ void TargetPositionFetcherTest::isGoodKickPosition_robotInGoodKickPosition_true(
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::getPositionsToGetOutOfGoalZone_fieldSideRight_positionsAreLeft()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	for(unsigned int i = 0; i<targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0)).size(); i++)
+		CPPUNIT_ASSERT(targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0))[i].getPosition().getX() < 0);
+}
