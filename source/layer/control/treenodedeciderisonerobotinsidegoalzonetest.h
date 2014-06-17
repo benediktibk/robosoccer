@@ -13,13 +13,16 @@ class TreeNodeDeciderIsOneRobotInsideGoalZoneTest :
 		public TreeNodeTest
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeDeciderIsOneRobotInsideGoalZoneTest);
+		CPPUNIT_TEST(decide_robotsAreInValidPosition_isInShootingRange);
+		CPPUNIT_TEST(decide_oneRobotInEnemyGoalZoneAndFieldSideLeft_leaveGoalZone);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
 		virtual TreeNode* createTestNode();
 
 	private:
-
+		void decide_robotsAreInValidPosition_isInShootingRange();
+		void decide_oneRobotInEnemyGoalZoneAndFieldSideLeft_leaveGoalZone();
 
 	};
 }
