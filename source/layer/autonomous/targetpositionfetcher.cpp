@@ -282,6 +282,31 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 	return result;
 }
 
+vector<Pose> TargetPositionFetcher::getPositionsToGetOutOfGoalZone(const Point robotPosition) const
+{
+	vector<Pose> result;
+	result.reserve(3);
+	double robotX = robotPosition.getX();
+
+	switch (m_fieldSide)
+	{
+	case FieldSideInvalid:
+		assert(false);
+	case FieldSideRight:
+		result.push_back(Pose(Point(robotX,-0.55), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(robotX,-0.70), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(robotX,-0.40), Angle::getHalfRotation()));
+		break;
+	case FieldSideLeft:
+		result.push_back(Pose(Point(robotX,0.55), Angle()));
+		result.push_back(Pose(Point(robotX,0.70), Angle()));
+		result.push_back(Pose(Point(robotX,0.40), Angle()));
+		break;
+	}
+
+	return result;
+}
+
 vector<Point> TargetPositionFetcher::getEnemyGoalPositions(FieldSide fieldSide) const
 {
 	vector<Point> goalposition;
