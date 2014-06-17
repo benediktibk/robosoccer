@@ -1,4 +1,5 @@
 #include "layer/control/treenoderesultleavegoalzone.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/intelligentball.h"
@@ -21,5 +22,14 @@ TreeNodeResultLeaveGoalZone::TreeNodeResultLeaveGoalZone(
 
 void TreeNodeResultLeaveGoalZone::execute()
 {
-	//! @todo implement!
+	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
+	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	if (fieldPositionChecker.isPointInsideGoalZone(robot1Pose))
+		m_ownTeam.getFirstFieldPlayer().goTo(m_targetPositionFetcher.getPositionsToGetOutOfGoalZone(robot1Pose), DriveModeDefault);
+
+	if (fieldPositionChecker.isPointInsideGoalZone(robot2Pose))
+		m_ownTeam.getSecondFieldPlayer().goTo(m_targetPositionFetcher.getPositionsToGetOutOfGoalZone(robot2Pose), DriveModeDefault);
+
 }
