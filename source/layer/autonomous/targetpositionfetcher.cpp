@@ -1,5 +1,6 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/line.h"
 #include "common/geometry/straight.h"
@@ -224,13 +225,18 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 
 bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, double minDistance) const
 {
+	Point ballPosition = ball.getPosition();
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	if (fieldPositionChecker.isPointInsideGoalZone(ballPosition))
+		return false;
+
 	const double fieldWidth = 1.7;
 	const Angle maxAngle(Angle::convertFromDegreeToRadiant(70));
 	const Angle minAngle(Angle::convertFromDegreeToRadiant(25));
 	double m = (maxAngle-minAngle).getValueBetweenZeroAndTwoPi()/fieldWidth*2;
 	Angle spanAngle(m*fabs(robotPosition.getY())+minAngle.getValueBetweenZeroAndTwoPi());
 
-	Point ballPosition = ball.getPosition();
 	Point goalPosition = getEnemyGoalPositions().front();
 	Angle angleGoalBall(goalPosition,ballPosition);
 	Angle angleBallRobot(ballPosition,robotPosition);
