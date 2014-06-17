@@ -6,7 +6,7 @@
 using namespace RoboSoccer::Common::Geometry;
 using namespace std;
 
-void CompareTest::isFuzzyEqual_towListsWithOrientedPositions_true()
+void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositions_true()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
@@ -18,7 +18,7 @@ void CompareTest::isFuzzyEqual_towListsWithOrientedPositions_true()
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
-void CompareTest::isFuzzyEqual_twoListsWithOrientedPositions_false()
+void CompareTest::isFuzzyEqual_twoVectorsWithOrientedPositions_false()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
@@ -30,7 +30,7 @@ void CompareTest::isFuzzyEqual_twoListsWithOrientedPositions_false()
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(vector1, vector2));
 }
 
-void CompareTest::isFuzzyEqual_towListsWithOrientedPositionsInDiffrentOrder_true()
+void CompareTest::isFuzzyEqual_towVectorsWithOrientedPositionsInDiffrentOrder_true()
 {
 	Compare compare(0.1);
 	vector<Pose> vector1, vector2;
