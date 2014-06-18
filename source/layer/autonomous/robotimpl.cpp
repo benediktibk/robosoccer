@@ -9,6 +9,7 @@
 #include "common/geometry/pose.h"
 #include "common/logging/logger.h"
 #include "common/geometry/circle.h"
+#include "common/routing/route.h"
 #include <sstream>
 #include <assert.h>
 
@@ -18,6 +19,7 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Routing;
 
 RobotImpl::RobotImpl(ControllableRobot &robot, const Common::Routing::Router &router,
 		const Watch &watch, Logger &logger, unsigned int robotIndex, ObstacleFetcher &obstacleFetcher, FieldPositionChecker const &fieldPositionChecker) :
@@ -192,4 +194,9 @@ void RobotImpl::updateMovementStopped()
 bool RobotImpl::movementStopped() const
 {
 	return m_movementStopped;
+}
+
+Route RobotImpl::getCurrentRoute() const
+{
+	return m_currentState->getCurrentRoute();
 }

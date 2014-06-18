@@ -1,9 +1,11 @@
 #include "layer/autonomous/robotmock.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
+#include "common/routing/route.h"
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
+using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
 RobotMock::RobotMock() :
@@ -100,4 +102,9 @@ unsigned int RobotMock::getCallsToGoToCombined() const
 void RobotMock::setCurrentPose(const Pose &pose)
 {
 	m_pose = pose;
+}
+
+Route RobotMock::getCurrentRoute() const
+{
+	return Route();
 }
