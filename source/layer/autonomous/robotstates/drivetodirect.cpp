@@ -5,7 +5,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
-
+using namespace std;
 
 DriveToDirect::DriveToDirect(
 		ControllableRobot &robot, const Pose &target, Logger &logger, Logger::LogFileType logFileType) :
@@ -42,7 +42,7 @@ bool DriveToDirect::isEquivalentToDriveToDirect(const Pose &target)
 	return true;
 }
 
-bool DriveToDirect::isEquivalentToDriveTo(const Pose &)
+bool DriveToDirect::isEquivalentToDriveTo(const vector<Pose> &)
 {
 	return false;
 }

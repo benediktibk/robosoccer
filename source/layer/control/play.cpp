@@ -1,6 +1,6 @@
 #include "layer/control/play.h"
 #include "layer/control/pause.h"
-#include "layer/control/treenodedeciderisonerobotinshootingrange.h"
+#include "layer/control/treenodedeciderisonerobotinsidegoalzone.h"
 #include "layer/control/treenoderesult.h"
 #include "layer/abstraction/refereebase.h"
 #include "layer/autonomous/team.h"
@@ -39,7 +39,7 @@ void Play::updateInternal()
 	Pose goalKeeperTarget = m_targetPositionFetcher.getTargetForGoalkeeper(m_ball);
 	m_ownTeam.getGoalie().goToDirect(goalKeeperTarget);
 
-	TreeNode *node = new TreeNodeDeciderIsOneRobotInShootingRange(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	while (node->decide())
 	{
 		TreeNodeDecider *current = dynamic_cast<TreeNodeDecider*>(node);

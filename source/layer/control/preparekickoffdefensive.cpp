@@ -44,10 +44,9 @@ void PrepareKickOffDefensive::updateInternal()
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &fieldPlayerTwo = m_ownTeam.getSecondFieldPlayer();
 
-	//! @todo consider ignoreBall and driveSlolyAtTheEnd
 	goalie.goTo(m_targetPositionFetcher.getStartPositionsGoalkeeper(), DriveModeIgnoreGoalObstacles);
-	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionsPlayerOneDefensive(), DriveModeDefault);
-	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionsPlayerTwoDefensive(), DriveModeDefault);
+	fieldPlayerOne.goTo(m_targetPositionFetcher.getStartPositionsPlayerOneDefensive(), DriveModeDriveSlowlyAtTheEnd);
+	fieldPlayerTwo.goTo(m_targetPositionFetcher.getStartPositionsPlayerTwoDefensive(), DriveModeDriveSlowlyAtTheEnd);
 
 	if (movementsFinished())
 	{

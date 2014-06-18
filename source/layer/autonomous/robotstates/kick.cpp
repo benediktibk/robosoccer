@@ -31,7 +31,7 @@ bool Kick::reachedTarget() const
 	return false;
 }
 
-bool Kick::isEquivalentToDriveTo(const Pose &)
+bool Kick::isEquivalentToDriveTo(const vector<Pose> &)
 {
 	return false;
 }

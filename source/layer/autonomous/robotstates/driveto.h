@@ -51,7 +51,7 @@ namespace Autonomous
 		virtual ~DriveTo();
 
 		virtual bool reachedTarget() const;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
+		virtual bool isEquivalentToDriveTo(const std::vector<Common::Geometry::Pose> &targets);
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 		virtual Common::Routing::Route getCurrentRoute() const;
 

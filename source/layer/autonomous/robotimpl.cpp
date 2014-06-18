@@ -64,7 +64,7 @@ RobotImpl::~RobotImpl()
 void RobotImpl::goTo(const vector<Pose> &positions, DriveMode driveMode)
 {
 	assert(!positions.empty());
-	if (m_currentState->isEquivalentToDriveTo(positions.front()))
+	if (m_currentState->isEquivalentToDriveTo(positions))
 		return;
 
 	switchIntoState(new DriveToInitialRotation(

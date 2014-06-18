@@ -35,7 +35,7 @@ bool Compare::isFuzzyEqual(const Pose &one, const Pose &two) const
 			isFuzzyEqual(one.getOrientation(), two.getOrientation());
 }
 
-bool Compare::isFuzzyEqual(const vector<Pose> &one, const vector<Pose> &two) const
+bool Compare::isFuzzyEqualWithCorrectOrder(const vector<Pose> &one, const vector<Pose> &two) const
 {
 	vector<Pose>::const_iterator j = two.begin();
 	if(one.size() != two.size())
@@ -45,5 +45,24 @@ bool Compare::isFuzzyEqual(const vector<Pose> &one, const vector<Pose> &two) con
 		if(!isFuzzyEqual((*i), (*j)))
 			return false;
 
+	return true;
+}
+
+bool Compare::isFuzzyEqualWithCorrectOrder(const std::vector<Pose> &one, const std::vector<Pose> &two, double angleCompare) const
+{
+	Compare angle(angleCompare);
+	vector<Pose>::const_iterator j = two.begin();
+	if(one.size() != two.size())
+		return false;
+
+	for(vector<Pose>::const_iterator i = one.begin(); i != one.end(); ++i, ++j)
+	{
+		const Pose &poseOne = *i;
+		const Pose &poseTwo = *j;
+
+		if(!(isFuzzyEqual(poseOne.getPosition(), poseTwo.getPosition()) &&
+				angle.isFuzzyEqual(poseOne.getOrientation(), poseTwo.getOrientation())))
+			return false;
+	}
 	return true;
 }

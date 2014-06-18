@@ -17,7 +17,8 @@ using namespace RoboSoccer::Common::States;
 PreparePenaltyOffensive::PreparePenaltyOffensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
 	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
-	m_movementFinished(false)
+	m_movementFinished(false),
+	m_sendGoToSignal(false)
 { }
 
 State *PreparePenaltyOffensive::nextState()
@@ -44,10 +45,13 @@ void PreparePenaltyOffensive::updateInternal()
 	Robot &playerTwo = m_ownTeam.getSecondFieldPlayer();
 	Robot &goalie = m_ownTeam.getGoalie();
 
-	//! @todo consider ignoreBall and driveSlolyAtTheEnd
-	playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne(), DriveModeDefault);
-	playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo(), DriveModeDefault);
-	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionsPrepareKicker(), DriveModeIgnoreGoalObstacles);
+	if (!m_sendGoToSignal)
+	{
+		m_sendGoToSignal = true;
+		playerOne.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerOne(), DriveModeDriveSlowlyAtTheEnd);
+		playerTwo.goTo(m_targetPositionFetcher.getPenaltyPositionsUnusedPlayerTwo(), DriveModeDriveSlowlyAtTheEnd);
+		goalie.goTo(m_targetPositionFetcher.getPenaltyPositionsPrepareKicker(), DriveModeIgnoreBallAndDriveSlowlyAtTheEnd);
+	}
 
 	if (movementsFinished())
 	{

@@ -30,7 +30,7 @@ bool TurnTo::reachedTarget() const
 	return false;
 }
 
-bool TurnTo::isEquivalentToDriveTo(const Pose &)
+bool TurnTo::isEquivalentToDriveTo(const vector<Pose> &)
 {
 	return false;
 }

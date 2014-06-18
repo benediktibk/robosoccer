@@ -3,6 +3,7 @@
 
 #include "common/logging/logger.h"
 #include <string>
+#include <vector>
 
 namespace RoboSoccer
 {
@@ -35,7 +36,7 @@ namespace Autonomous
 
 		virtual bool reachedTarget() const = 0;
 		virtual RobotState* nextState(bool movementStopped) = 0;
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target) = 0;
+		virtual bool isEquivalentToDriveTo(const std::vector<Common::Geometry::Pose> &targets) = 0;
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) = 0;
 		virtual std::string getName() const = 0;
 		virtual void update() = 0;

@@ -44,9 +44,11 @@
 #include "layer/control/treenodetest.h"
 #include "layer/control/treenodedeciderisonerobotbehindtheballtest.h"
 #include "layer/control/treenodedeciderisonerobotinshootingrangetest.h"
+#include "layer/control/treenodedeciderisonerobotinsidegoalzonetest.h"
 #include "layer/control/treenoderesultgetbehindballtest.h"
 #include "layer/control/treenoderesultshoottest.h"
 #include "layer/control/treenoderesultfollowballtest.h"
+#include "layer/control/treenoderesultleavegoalzonetest.h"
 #include "layer/autonomous/robottest.h"
 #include "layer/autonomous/teamtest.h"
 #include "layer/autonomous/enemyteamtest.h"
@@ -63,6 +65,7 @@
 #include "layer/autonomous/robotstates/kicktest.h"
 #include "layer/autonomous/intelligentballtest.h"
 #include "layer/autonomous/obstaclefetchertest.h"
+#include "common/geometry/comparetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::AngleTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CircleTest);
@@ -77,7 +80,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::RectangleRoundedCo
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::StraightTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Logging::LoggerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::CompareTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Geometry::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::PIDControllerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::QuadraticEquationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::Other::RandomDecisionTest);
@@ -111,9 +114,11 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PenaltyDefensiveTest
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotBehindTheBallTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotInShootingRangeTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeDeciderIsOneRobotInsideGoalZoneTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultGetBehindBallTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultShootTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultFollowBallTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::TreeNodeResultLeaveGoalZoneTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::RobotTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::TeamTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Autonomous::EnemyTeamTest);

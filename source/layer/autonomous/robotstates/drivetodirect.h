@@ -22,7 +22,7 @@ namespace Autonomous
 
 		virtual bool reachedTarget() const;
 		virtual bool isEquivalentToDriveToDirect(const Common::Geometry::Pose &target);
-		virtual bool isEquivalentToDriveTo(Common::Geometry::Pose const &target);
+		virtual bool isEquivalentToDriveTo(const std::vector<Common::Geometry::Pose> &targets);
 		virtual void update();
 
 		Common::Geometry::Pose const& getTarget() const;
