@@ -80,8 +80,7 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoDefensive() const
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1)));
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,-0.2)));
-	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.0,-0.1)));
-
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,0.2)));
 
 	return targetPoints;
 }
