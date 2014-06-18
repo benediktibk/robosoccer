@@ -162,6 +162,8 @@ string LoggerImpl::getNameForLogFileType(LogFileType logType) const
 		return string("4_controllableRobotTwo.txt");
 	case LogFileTypeControllableRobotGoalkeeper:
 		return string("4_controllableRobotGoalie.txt");
+	case LogFileTypeRouteInformationServer:
+		return string("5_routeInformationServer.txt");
 	case LogFileTypeInvalid:
 		break;
 	}

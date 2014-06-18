@@ -6,6 +6,13 @@
 
 namespace RoboSoccer
 {
+namespace Common
+{
+namespace Logging
+{
+	class Logger;
+}
+}
 namespace Layer
 {
 namespace Autonomous
@@ -18,7 +25,7 @@ namespace Main
 	class RouteInformationServer
 	{
 	public:
-		RouteInformationServer(unsigned int port);
+		RouteInformationServer(Common::Logging::Logger &logger, unsigned int port);
 		~RouteInformationServer();
 
 		bool isValid() const;
@@ -37,8 +44,10 @@ namespace Main
 		void sendObstacles(int clientSocket, Autonomous::ObstacleFetcher const &obstacleFetcher);
 		void sendRoute(int clientSocket, std::string const &name, Autonomous::Robot const &robot);
 		void sendString(int clientSocket, std::string const &line);
+		void log(std::string const &message);
 
 	private:
+		Common::Logging::Logger &m_logger;
 		bool m_valid;
 		int m_serverSocket;
 		std::vector<int> m_clientSockets;

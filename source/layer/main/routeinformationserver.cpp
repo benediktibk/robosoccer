@@ -3,6 +3,7 @@
 #include "layer/autonomous/robot.h"
 #include "common/geometry/circle.h"
 #include "common/routing/route.h"
+#include "common/logging/logger.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -17,9 +18,11 @@ using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Routing;
+using namespace RoboSoccer::Common::Logging;
 using namespace std;
 
-RouteInformationServer::RouteInformationServer(unsigned int port)
+RouteInformationServer::RouteInformationServer(Logger &logger, unsigned int port) :
+	m_logger(logger)
 {
 	sockaddr_in serverAddress;
 	m_serverSocket = socket(AF_INET, SOCK_STREAM, 0);
@@ -27,6 +30,7 @@ RouteInformationServer::RouteInformationServer(unsigned int port)
 	if (m_serverSocket < 0)
 	{
 		m_valid = false;
+		m_logger.logErrorToConsoleAndWriteToGlobalLogFile("could not open server socket");
 		return;
 	}
 	else
@@ -35,6 +39,7 @@ RouteInformationServer::RouteInformationServer(unsigned int port)
 	if (port < 1024 || port > 49151)
 	{
 		m_valid = false;
+		m_logger.logErrorToConsoleAndWriteToGlobalLogFile("invalid port number");
 		return;
 	}
 
@@ -50,6 +55,7 @@ RouteInformationServer::RouteInformationServer(unsigned int port)
 	if (bindResult < 0)
 	{
 		m_valid = false;
+		m_logger.logErrorToConsoleAndWriteToGlobalLogFile("could not bind the server socket");
 		return;
 	}
 
@@ -95,7 +101,10 @@ void RouteInformationServer::acceptNewClients()
 					reinterpret_cast<socklen_t*>(&size));
 
 		if (clientSocket != 0)
+		{
 			m_clientSockets.push_back(clientSocket);
+			log("new client connected");
+		}
 	} while(clientSocket != 0);
 }
 
@@ -149,4 +158,9 @@ void RouteInformationServer::sendString(int clientSocket, const string &data)
 {
 	const char *dataPointer = data.c_str();
 	write(clientSocket, dataPointer, data.size() + 1);
+}
+
+void RouteInformationServer::log(string const &message)
+{
+	m_logger.logToLogFileOfType(Logger::LogFileTypeRouteInformationServer, message);
 }

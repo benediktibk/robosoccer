@@ -41,7 +41,7 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
-	m_routeInformationServer(new RouteInformationServer(1234)),
+	m_routeInformationServer(new RouteInformationServer(*m_logger, 1234)),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
