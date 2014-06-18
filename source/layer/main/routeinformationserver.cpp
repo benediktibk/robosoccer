@@ -13,6 +13,7 @@
 #include <fcntl.h>
 #include <sstream>
 #include <string.h>
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Autonomous;
@@ -157,7 +158,9 @@ void RouteInformationServer::sendRoute(int clientSocket, string const &name, Rob
 void RouteInformationServer::sendString(int clientSocket, const string &data)
 {
 	const char *dataPointer = data.c_str();
-	write(clientSocket, dataPointer, data.size() + 1);
+	size_t writtenBytes = write(clientSocket, dataPointer, data.size());
+	assert(writtenBytes == data.size());
+	(void)writtenBytes; // make the compiler in release mode happy
 }
 
 void RouteInformationServer::log(string const &message)
