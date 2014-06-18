@@ -26,9 +26,11 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 {
 	vector<Pose> targetPoints;
-	targetPoints.reserve(1);
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,-0.1)));
 
 	return targetPoints;
 }
@@ -36,8 +38,11 @@ vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneOffensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0.15)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,-0.15)));
 
 	return targetPoints;
 }
@@ -45,8 +50,12 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneOffensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoOffensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,-0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0.5)));
 
 	return targetPoints;
 }
@@ -54,8 +63,12 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoOffensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneDefensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.3,0)));
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,0.2)));
 
 	return targetPoints;
 }
@@ -63,8 +76,11 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneDefensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoDefensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,-0.2)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,0.2)));
 
 	return targetPoints;
 }
@@ -98,7 +114,11 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsPrepareKicker() const
 {
 	vector<Pose> preparePenaltyPosition;
+	preparePenaltyPosition.reserve(3);
+
 	preparePenaltyPosition.push_back(Pose(Point::zero(), Angle::getHalfRotation()));
+	preparePenaltyPosition.push_back(Pose(Point(0,0.2), Angle::getHalfRotation()));
+	preparePenaltyPosition.push_back(Pose(Point(0,-0.2), Angle::getHalfRotation()));
 
 	return preparePenaltyPosition;
 }
