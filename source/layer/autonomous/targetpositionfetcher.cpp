@@ -286,21 +286,21 @@ vector<Pose> TargetPositionFetcher::getPositionsToGetOutOfGoalZone(const Point r
 {
 	vector<Pose> result;
 	result.reserve(3);
-	double robotX = robotPosition.getX();
+	double robotY = robotPosition.getY();
 
 	switch (m_fieldSide)
 	{
 	case FieldSideInvalid:
 		assert(false);
 	case FieldSideRight:
-		result.push_back(Pose(Point(robotX,-0.55), Angle::getHalfRotation()));
-		result.push_back(Pose(Point(robotX,-0.70), Angle::getHalfRotation()));
-		result.push_back(Pose(Point(robotX,-0.40), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(-0.55, robotY), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(-0.40, robotY), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(-0.70, robotY), Angle::getHalfRotation()));
 		break;
 	case FieldSideLeft:
-		result.push_back(Pose(Point(robotX,0.55), Angle()));
-		result.push_back(Pose(Point(robotX,0.70), Angle()));
-		result.push_back(Pose(Point(robotX,0.40), Angle()));
+		result.push_back(Pose(Point(0.55, robotY), Angle()));
+		result.push_back(Pose(Point(0.40, robotY), Angle()));
+		result.push_back(Pose(Point(0.70, robotY), Angle()));
 		break;
 	}
 
