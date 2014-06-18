@@ -19,7 +19,7 @@ TreeNode *TreeNodeResultLeaveGoalZoneTest::createTestNode()
 }
 
 
-void TreeNodeResultLeaveGoalZoneTest::execute_true_robotsGetGoToCalls()
+void TreeNodeResultLeaveGoalZoneTest::execute_robotsInsideGoalZone_robotsGetGoToCalls()
 {
 	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-1.3,0.2), Angle()));
 
@@ -28,4 +28,15 @@ void TreeNodeResultLeaveGoalZoneTest::execute_true_robotsGetGoToCalls()
 
 	CPPUNIT_ASSERT(!leaveGoalZone->decide());
 	CPPUNIT_ASSERT(m_ownTeam->getRobotMock().getCallsToGoTo() > 0);
+}
+
+void TreeNodeResultLeaveGoalZoneTest::execute_robotsNotInsideGoalZone_robotsDontGetGoToCalls()
+{
+	m_ownTeam->getRobotMock().setCurrentPose(Pose(Point(-0.5,0.2), Angle()));
+
+	TreeNodeResultLeaveGoalZone *leaveGoalZone = dynamic_cast<TreeNodeResultLeaveGoalZone*>(m_node);
+	leaveGoalZone->execute();
+
+	CPPUNIT_ASSERT(!leaveGoalZone->decide());
+	CPPUNIT_ASSERT(m_ownTeam->getRobotMock().getCallsToGoTo() == 0);
 }

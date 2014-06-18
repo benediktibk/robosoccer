@@ -13,14 +13,16 @@ class TreeNodeResultLeaveGoalZoneTest :
 		public TreeNodeTest
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeResultLeaveGoalZoneTest);
-		CPPUNIT_TEST(execute_true_robotsGetGoToCalls);
+		CPPUNIT_TEST(execute_robotsInsideGoalZone_robotsGetGoToCalls);
+		CPPUNIT_TEST(execute_robotsNotInsideGoalZone_robotsDontGetGoToCalls);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		virtual TreeNode *createTestNode();
 
 	private:
-		void execute_true_robotsGetGoToCalls();
+		void execute_robotsInsideGoalZone_robotsGetGoToCalls();
+		void execute_robotsNotInsideGoalZone_robotsDontGetGoToCalls();
 
 	};
 }
