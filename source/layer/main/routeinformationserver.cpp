@@ -101,12 +101,12 @@ void RouteInformationServer::acceptNewClients()
 					reinterpret_cast<sockaddr*>(&clientAddress),
 					reinterpret_cast<socklen_t*>(&size));
 
-		if (clientSocket != 0)
+		if (clientSocket >= 0)
 		{
 			m_clientSockets.push_back(clientSocket);
 			log("new client connected");
 		}
-	} while(clientSocket != 0);
+	} while(clientSocket >= 0);
 }
 
 void RouteInformationServer::updateClient(
