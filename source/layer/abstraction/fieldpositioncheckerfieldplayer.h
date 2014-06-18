@@ -13,8 +13,6 @@ namespace Abstraction
 			public FieldPositionChecker
 	{
 	public:
-		FieldPositionCheckerFieldPlayer();
-
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
 	};
 }

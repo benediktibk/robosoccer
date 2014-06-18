@@ -47,21 +47,13 @@ bool DriveTo::reachedTarget() const
 	return false;
 }
 
-bool DriveTo::isEquivalentToDriveTo(const Pose &target)
+bool DriveTo::isEquivalentToDriveTo(const vector<Pose> &targets)
 {
 	Compare comparePosition(m_precisionPosition*4);
-	Compare compareAngle(m_precisionOrientationFinal*4);
-	Pose const &bestTarget = m_targets.front();
 
-	if (!comparePosition.isFuzzyEqual(bestTarget.getPosition(), target.getPosition()))
+	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, 4*m_precisionOrientationFinal))
 	{
-		log("position is not equal");
-		return false;
-	}
-
-	if (!compareAngle.isFuzzyEqual(bestTarget.getOrientation(), target.getOrientation()))
-	{
-		log("orientation is not equal");
+		log("position or orientation is not equal");
 		return false;
 	}
 

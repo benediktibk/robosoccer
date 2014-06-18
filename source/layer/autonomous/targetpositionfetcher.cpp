@@ -1,5 +1,6 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/autonomous/intelligentball.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "common/geometry/pose.h"
 #include "common/geometry/line.h"
 #include "common/geometry/straight.h"
@@ -131,6 +132,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	vector<Pose> penaltyPosition;
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
+	//! @todo maybe this value has to be increased/improved
 	double percentOfLineLength = -0.11/lineToGoal.getLength();
 	penaltyPosition.push_back(Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation()));
 
@@ -244,13 +246,18 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 
 bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, double minDistance) const
 {
+	Point ballPosition = ball.getPosition();
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	if (fieldPositionChecker.isPointInsideGoalZone(ballPosition))
+		return false;
+
 	const double fieldWidth = 1.7;
 	const Angle maxAngle(Angle::convertFromDegreeToRadiant(70));
 	const Angle minAngle(Angle::convertFromDegreeToRadiant(25));
 	double m = (maxAngle-minAngle).getValueBetweenZeroAndTwoPi()/fieldWidth*2;
 	Angle spanAngle(m*fabs(robotPosition.getY())+minAngle.getValueBetweenZeroAndTwoPi());
 
-	Point ballPosition = ball.getPosition();
 	Point goalPosition = getEnemyGoalPositions().front();
 	Angle angleGoalBall(goalPosition,ballPosition);
 	Angle angleBallRobot(ballPosition,robotPosition);
@@ -293,6 +300,31 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
 	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
+	return result;
+}
+
+vector<Pose> TargetPositionFetcher::getPositionsToGetOutOfGoalZone(const Point robotPosition) const
+{
+	vector<Pose> result;
+	result.reserve(3);
+	double robotY = robotPosition.getY();
+
+	switch (m_fieldSide)
+	{
+	case FieldSideInvalid:
+		assert(false);
+	case FieldSideRight:
+		result.push_back(Pose(Point(-0.55, robotY), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(-0.40, robotY), Angle::getHalfRotation()));
+		result.push_back(Pose(Point(-0.70, robotY), Angle::getHalfRotation()));
+		break;
+	case FieldSideLeft:
+		result.push_back(Pose(Point(0.55, robotY), Angle()));
+		result.push_back(Pose(Point(0.40, robotY), Angle()));
+		result.push_back(Pose(Point(0.70, robotY), Angle()));
+		break;
+	}
+
 	return result;
 }
 
@@ -403,7 +435,7 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
 	static double distanceToBall = 0.2;
@@ -415,33 +447,51 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer
 	Angle ballOrientation = getOrientationToEnemyGoal();
 	Point secondPriorityPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
 	targetPoints.push_back(Pose(secondPriorityPoint, ballOrientation + Angle::getHalfRotation()));
-	Point targetLeftViewFromGoalie;
-	Point targetRightViewFromGoalie;
+	Point targetLeftViewFromGoalie1;
+	Point targetLeftViewFromGoalie2;
+	Point targetRightViewFromGoalie1;
+	Point targetRightViewFromGoalie2;
 	if (m_fieldSide == FieldSideLeft)
 	{
-		targetLeftViewFromGoalie = ballPosition - Point(0,distanceToBall);
-		targetRightViewFromGoalie = ballPosition + Point(0,distanceToBall);
+		targetLeftViewFromGoalie1 = ballPosition - Point(0,distanceToBall);
+		targetLeftViewFromGoalie2 = ballPosition - Point(0,distanceToBall/2.0);
+		targetRightViewFromGoalie1 = ballPosition + Point(0,distanceToBall);
+		targetRightViewFromGoalie2 = ballPosition + Point(0,distanceToBall/2.0);
 	}
 	else
 	{
-		targetLeftViewFromGoalie = ballPosition + Point(0,distanceToBall);
-		targetRightViewFromGoalie = ballPosition - Point(0,distanceToBall);
+		targetLeftViewFromGoalie1 = ballPosition + Point(0,distanceToBall);
+		targetLeftViewFromGoalie2 = ballPosition + Point(0,distanceToBall/2.0);
+		targetRightViewFromGoalie1 = ballPosition - Point(0,distanceToBall);
+		targetRightViewFromGoalie2 = ballPosition - Point(0,distanceToBall/2.0);
 	}
 	Angle yAngle = Angle::getQuarterRotation();
 
 	if (ballPosition.getY() < 0)
 	{
 		if (ballPosition.getX() < 0)
-			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetRightViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetRightViewFromGoalie2, yAngle));
+		}
 		else
-			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie2, yAngle));
+		}
 	}
 	else
 	{
 		if (ballPosition.getX() < 0)
-			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie2, yAngle));
+		}
 		else
-			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetRightViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetRightViewFromGoalie2, yAngle));
+		}
 	}
 
 	return targetPoints;

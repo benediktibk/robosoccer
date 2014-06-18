@@ -23,9 +23,14 @@ RobotState *ReachedTarget::nextState(bool)
 	return 0;
 }
 
-bool ReachedTarget::isEquivalentToDriveTo(const Pose &target)
+bool ReachedTarget::isEquivalentToDriveTo(const vector<Pose> &targets)
 {
-	return isEquivalentToInternal(target, 0.05, 0.5);
+	for(unsigned int i = 0; i < targets.size(); i++)
+	{
+		if (isEquivalentToInternal(targets[i], 0.05, 0.5))
+			return true;
+	}
+	return false;
 }
 
 bool ReachedTarget::isEquivalentToDriveToDirect(const Pose &target)

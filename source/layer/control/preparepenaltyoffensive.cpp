@@ -45,7 +45,6 @@ void PreparePenaltyOffensive::updateInternal()
 	Robot &playerTwo = m_ownTeam.getSecondFieldPlayer();
 	Robot &goalie = m_ownTeam.getGoalie();
 
-	//! @todo consider ignoreBall and driveSlowlyAtTheEnd
 	if (!m_sendGoToSignal)
 	{
 		m_sendGoToSignal = true;

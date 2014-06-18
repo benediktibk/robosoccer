@@ -7,6 +7,7 @@
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
+using namespace std;
 
 RobotState *ReachedTargetTest::createInstance()
 {
@@ -33,13 +34,17 @@ void ReachedTargetTest::update_empty_callToStop()
 void ReachedTargetTest::isEquivalentToDriveTo_differentPosition_false()
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
+	vector<Pose> pose;
+	pose.push_back(Pose(Point(3, 7),Angle()));
 
-	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(Pose(Point(3, 7),Angle())));
+	CPPUNIT_ASSERT(!m_robotState->isEquivalentToDriveTo(pose));
 }
 
 void ReachedTargetTest::isEquivalentToDriveTo_samePosition_true()
 {
 	m_controllableRobot->setPose(Pose(Point(4, 5), Angle()));
+	vector<Pose> pose;
+	pose.push_back(Pose(Point(4, 5),Angle()));
 
-	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(Pose(Point(4, 5),Angle())));
+	CPPUNIT_ASSERT(m_robotState->isEquivalentToDriveTo(pose));
 }

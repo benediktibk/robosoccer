@@ -32,9 +32,13 @@ int main(int argc, char **argv)
 	if (!parser.isValid())
 	{
 		cerr << "Invalid Arguments\n" << endl;
-		cout << "The correct inputs should be: \"./... --setOwnTeamcolor red/blue --setOwnClientnumber number between 11&15\"" << endl;
+		cout << parser.usage() << endl;
 		return 1;
 	}
+
+	cout << "##### ---------------------------\n##### GAME START" << endl;
+	cout << "##### own team color    : " << parser.getOwnTeamColor() << endl;
+	cout << "##### client number     : " << parser.getOwnClientNumber() << endl;
 
 	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber());
 
