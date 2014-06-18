@@ -14,6 +14,7 @@
 #include <sstream>
 #include <string.h>
 #include <assert.h>
+#include <algorithm>
 
 using namespace RoboSoccer::Layer::Main;
 using namespace RoboSoccer::Layer::Autonomous;
@@ -81,6 +82,8 @@ void RouteInformationServer::updateClients(
 
 	for (vector<int>::const_iterator i = m_clientSockets.begin(); i != m_clientSockets.end(); ++i)
 		updateClient(*i, obstacleFetcher, robotOne, robotTwo);
+
+	removeDisconnectedClients();
 }
 
 bool RouteInformationServer::isValid() const
@@ -116,6 +119,21 @@ void RouteInformationServer::updateClient(
 	sendObstacles(clientSocket, obstacleFetcher);
 	sendRoute(clientSocket, "robot one", robotOne);
 	sendRoute(clientSocket, "robot two", robotTwo);
+}
+
+void RouteInformationServer::removeDisconnectedClients()
+{
+	for (vector<int>::const_iterator i = m_disconnectedClients.begin(); i != m_disconnectedClients.end(); ++i)
+	{
+		int client = *i;
+		vector<int>::iterator clientIterator = find(m_clientSockets.begin(), m_clientSockets.end(), client);
+		if (clientIterator != m_clientSockets.end())
+		{
+			m_clientSockets.erase(clientIterator);
+			log("lost connection to client");
+			close(client);
+		}
+	}
 }
 
 void RouteInformationServer::sendObstacles(int clientSocket, const ObstacleFetcher &obstacleFetcher)
@@ -159,8 +177,8 @@ void RouteInformationServer::sendString(int clientSocket, const string &data)
 {
 	const char *dataPointer = data.c_str();
 	size_t writtenBytes = write(clientSocket, dataPointer, data.size());
-	assert(writtenBytes == data.size());
-	(void)writtenBytes; // make the compiler in release mode happy
+	if (writtenBytes != data.size() && count(m_disconnectedClients.begin(), m_disconnectedClients.end(), clientSocket) == 0)
+		m_disconnectedClients.push_back(clientSocket);
 }
 
 void RouteInformationServer::log(string const &message)

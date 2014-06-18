@@ -41,6 +41,7 @@ namespace Main
 				Autonomous::ObstacleFetcher const &obstacleFetcher,
 				Autonomous::Robot const &robotOne,
 				Autonomous::Robot const &robotTwo);
+		void removeDisconnectedClients();
 		void sendObstacles(int clientSocket, Autonomous::ObstacleFetcher const &obstacleFetcher);
 		void sendRoute(int clientSocket, std::string const &name, Autonomous::Robot const &robot);
 		void sendString(int clientSocket, std::string const &line);
@@ -51,6 +52,7 @@ namespace Main
 		bool m_valid;
 		int m_serverSocket;
 		std::vector<int> m_clientSockets;
+		std::vector<int> m_disconnectedClients;
 	};
 }
 }
