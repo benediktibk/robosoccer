@@ -134,6 +134,8 @@ void RouteInformationServer::removeDisconnectedClients()
 			close(client);
 		}
 	}
+
+	m_disconnectedClients.clear();
 }
 
 void RouteInformationServer::sendObstacles(int clientSocket, const ObstacleFetcher &obstacleFetcher)
