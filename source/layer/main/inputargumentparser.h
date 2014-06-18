@@ -19,6 +19,7 @@ namespace Main
 			bool isValid() const;
 			Layer::Abstraction::TeamColor getOwnTeamColor() const;
 			int getOwnClientNumber() const;
+			std::string usage() const;
 
 			static std::vector<std::string> convertArguments(int argc, char **argv);
 
