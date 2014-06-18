@@ -414,7 +414,7 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 	return ballOrientation;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
 	static double distanceToBall = 0.2;
@@ -426,33 +426,51 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const RoboSoccer::Layer
 	Angle ballOrientation = getOrientationToEnemyGoal();
 	Point secondPriorityPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
 	targetPoints.push_back(Pose(secondPriorityPoint, ballOrientation + Angle::getHalfRotation()));
-	Point targetLeftViewFromGoalie;
-	Point targetRightViewFromGoalie;
+	Point targetLeftViewFromGoalie1;
+	Point targetLeftViewFromGoalie2;
+	Point targetRightViewFromGoalie1;
+	Point targetRightViewFromGoalie2;
 	if (m_fieldSide == FieldSideLeft)
 	{
-		targetLeftViewFromGoalie = ballPosition - Point(0,distanceToBall);
-		targetRightViewFromGoalie = ballPosition + Point(0,distanceToBall);
+		targetLeftViewFromGoalie1 = ballPosition - Point(0,distanceToBall);
+		targetLeftViewFromGoalie2 = ballPosition - Point(0,distanceToBall/2.0);
+		targetRightViewFromGoalie1 = ballPosition + Point(0,distanceToBall);
+		targetRightViewFromGoalie2 = ballPosition + Point(0,distanceToBall/2.0);
 	}
 	else
 	{
-		targetLeftViewFromGoalie = ballPosition + Point(0,distanceToBall);
-		targetRightViewFromGoalie = ballPosition - Point(0,distanceToBall);
+		targetLeftViewFromGoalie1 = ballPosition + Point(0,distanceToBall);
+		targetLeftViewFromGoalie2 = ballPosition + Point(0,distanceToBall/2.0);
+		targetRightViewFromGoalie1 = ballPosition - Point(0,distanceToBall);
+		targetRightViewFromGoalie2 = ballPosition - Point(0,distanceToBall/2.0);
 	}
 	Angle yAngle = Angle::getQuarterRotation();
 
 	if (ballPosition.getY() < 0)
 	{
 		if (ballPosition.getX() < 0)
-			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetRightViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetRightViewFromGoalie2, yAngle));
+		}
 		else
-			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie2, yAngle));
+		}
 	}
 	else
 	{
 		if (ballPosition.getX() < 0)
-			targetPoints.push_back(Pose(targetLeftViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetLeftViewFromGoalie2, yAngle));
+		}
 		else
-			targetPoints.push_back(Pose(targetRightViewFromGoalie, yAngle));
+		{
+			targetPoints.push_back(Pose(targetRightViewFromGoalie1, yAngle));
+			targetPoints.push_back(Pose(targetRightViewFromGoalie2, yAngle));
+		}
 	}
 
 	return targetPoints;
