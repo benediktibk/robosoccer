@@ -13,6 +13,10 @@ namespace Geometry
 	class Point;
 	class Pose;
 }
+namespace Routing
+{
+	class Route;
+}
 }
 namespace Layer
 {
@@ -35,6 +39,7 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target) = 0;
 		virtual std::string getName() const = 0;
 		virtual void update() = 0;
+		virtual Common::Routing::Route getCurrentRoute() const;
 
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;
