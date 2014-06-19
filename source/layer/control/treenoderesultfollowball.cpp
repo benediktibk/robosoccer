@@ -25,7 +25,7 @@ void TreeNodeResultFollowBall::execute()
 	Robot &robotFartherAway = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
 
 	vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
-	vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(m_ball, robotFartherAway.getCurrentPose().getPosition());
+	vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(m_ball, robotFartherAway.getCurrentPose().getPosition());
 
 	if (m_targetPositionFetcher.isPositionBehindTheBall(robotCloser.getCurrentPose(), m_ball))
 	{

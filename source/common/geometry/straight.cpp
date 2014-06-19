@@ -69,6 +69,11 @@ bool Straight::isTargetPointRightOfLine(const Point &target) const
 	return point.getY() < 0;
 }
 
+void Straight::shiftParallel(const Point &point)
+{
+	m_referencePoint = point;
+}
+
 Point Straight::getNormalizedDirectionVector() const
 {
 	return Point(1,m_direction);
