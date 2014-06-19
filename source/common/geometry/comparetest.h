@@ -29,6 +29,9 @@ namespace Geometry
 		CPPUNIT_TEST(isFuzzyEqual_twoAnglesWhichHave270DegreesDifference_false);
 		CPPUNIT_TEST(isFuzzyEqual_twoAngelsNear90Degrees_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoAngelsNear270Degrees_true);
+		CPPUNIT_TEST(isFuzzyEqual_twoEqualCircles_true);
+		CPPUNIT_TEST(isFuzzyEqual_twoCirclesWithDifferentCenter_false);
+		CPPUNIT_TEST(isFuzzyEqual_twoCirclesWithDifferentDiameter_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -47,6 +50,9 @@ namespace Geometry
 		void isFuzzyEqual_twoAnglesWhichHave270DegreesDifference_false();
 		void isFuzzyEqual_twoAngelsNear90Degrees_true();
 		void isFuzzyEqual_twoAngelsNear270Degrees_true();
+		void isFuzzyEqual_twoEqualCircles_true();
+		void isFuzzyEqual_twoCirclesWithDifferentCenter_false();
+		void isFuzzyEqual_twoCirclesWithDifferentDiameter_false();
 	};
 }
 }

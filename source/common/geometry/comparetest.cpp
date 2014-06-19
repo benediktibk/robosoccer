@@ -2,6 +2,7 @@
 #include "common/geometry/compare.h"
 #include "common/geometry/angle.h"
 #include "common/geometry/pose.h"
+#include "common/geometry/circle.h"
 
 using namespace RoboSoccer::Common::Geometry;
 using namespace std;
@@ -164,4 +165,31 @@ void CompareTest::isFuzzyEqual_twoAngelsNear270Degrees_true()
 	Angle two = Angle::convertFromDegreeToRadiant(270.5);
 
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(one, two));
+}
+
+void CompareTest::isFuzzyEqual_twoEqualCircles_true()
+{
+	Compare compare(0.1);
+	Circle one(Point(4, 3), 5);
+	Circle two(Point(4, 3), 5);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(one, two));
+}
+
+void CompareTest::isFuzzyEqual_twoCirclesWithDifferentCenter_false()
+{
+	Compare compare(0.1);
+	Circle one(Point(4, 3), 5);
+	Circle two(Point(4, 8), 5);
+
+	CPPUNIT_ASSERT(!compare.isFuzzyEqual(one, two));
+}
+
+void CompareTest::isFuzzyEqual_twoCirclesWithDifferentDiameter_false()
+{
+	Compare compare(0.1);
+	Circle one(Point(4, 3), 5);
+	Circle two(Point(4, 3), 1);
+
+	CPPUNIT_ASSERT(!compare.isFuzzyEqual(one, two));
 }
