@@ -39,6 +39,7 @@ namespace Routing
 		CPPUNIT_TEST(getLengthOfLastSegment_threePointsAdded_lenghtIs1);
 		CPPUNIT_TEST(splitLastSegment_twoPointsAdded_allPointsCorrect);
 		CPPUNIT_TEST(splitLastSegment_twoPointsAdded_lastLengthCorrect);
+		CPPUNIT_TEST(getThirdPoint_threePoints_correctResult);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -67,6 +68,7 @@ namespace Routing
 		void getLengthOfLastSegment_threePointsAdded_lenghtIs1();
 		void splitLastSegment_twoPointsAdded_allPointsCorrect();
 		void splitLastSegment_twoPointsAdded_lastLengthCorrect();
+		void getThirdPoint_threePoints_correctResult();
 	};
 }
 }

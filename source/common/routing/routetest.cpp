@@ -276,3 +276,13 @@ void RouteTest::splitLastSegment_twoPointsAdded_lastLengthCorrect()
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.2,route.getLengthOfLastSegment(),0.0001);
 }
+
+void RouteTest::getThirdPoint_threePoints_correctResult()
+{
+	Route route(0.2);
+	route.addPoint(Point(1, 1));
+	route.addPoint(Point(2, 2));
+	route.addPoint(Point(3, 3));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3, 3), route.getThirdPoint());
+}
