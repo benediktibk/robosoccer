@@ -13,6 +13,10 @@ namespace Geometry
 	class Pose;
 	class Circle;
 }
+namespace Routing
+{
+	class Route;
+}
 }
 namespace Layer
 {
@@ -35,6 +39,7 @@ namespace Autonomous
 		virtual bool reachedTarget() const = 0;
 		virtual void kick(IntelligentBall const &ball) = 0;
 		virtual void update() = 0;
+		virtual Common::Routing::Route getCurrentRoute() const = 0;
 	};
 }
 }

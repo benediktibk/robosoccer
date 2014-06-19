@@ -38,6 +38,8 @@ namespace Autonomous
 }
 namespace Main
 {
+	class RouteInformationServer;
+
 	class Application
 	{
 	public:
@@ -62,6 +64,7 @@ namespace Main
 		Autonomous::TeamImpl *m_ownTeam;
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
+		RouteInformationServer *m_routeInformationServer;
 		bool m_stop;
 	};
 }

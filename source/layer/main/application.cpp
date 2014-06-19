@@ -1,4 +1,5 @@
 #include "layer/main/application.h"
+#include "layer/main/routeinformationserver.h"
 #include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "layer/abstraction/storageimpl.h"
@@ -40,6 +41,7 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
+	m_routeInformationServer(new RouteInformationServer(*m_logger, 1234)),
 	m_stop(false)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
@@ -56,6 +58,8 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
 
 Application::~Application()
 {
+	delete m_routeInformationServer;
+	m_routeInformationServer = 0;
 	delete m_obstacleFetcher;
 	m_obstacleFetcher = 0;
 	delete m_enemyTeam;
@@ -114,6 +118,8 @@ void Application::run()
 			robot.update();
 		}
 		m_ball->update();
+		m_routeInformationServer->updateClients(
+					*m_obstacleFetcher, m_ownTeam->getFirstFieldPlayer(), m_ownTeam->getSecondFieldPlayer());
 
 		double loopTime = stopWatch.getTimeAndRestart();
 

@@ -20,9 +20,7 @@ TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
 		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
 		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
 	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
-{
-
-}
+{ }
 
 void TreeNodeResultGetBehindBall::execute()
 {

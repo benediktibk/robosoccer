@@ -408,11 +408,5 @@ layer/abstraction/fieldpositionchecker.h
 layer/abstraction/fieldpositionchecker.cpp
 layer/abstraction/fieldpositioncheckermock.h
 layer/abstraction/fieldpositioncheckermock.cpp
-layer/control/treenodedeciderisonerobotinsidegoalzone.cpp
-layer/control/treenodedeciderisonerobotinsidegoalzone.h
-layer/control/treenodedeciderisonerobotinsidegoalzonetest.cpp
-layer/control/treenodedeciderisonerobotinsidegoalzonetest.h
-layer/control/treenoderesultleavegoalzone.cpp
-layer/control/treenoderesultleavegoalzone.h
-layer/control/treenoderesultleavegoalzonetest.cpp
-layer/control/treenoderesultleavegoalzonetest.h
+layer/main/routeinformationserver.h
+layer/main/routeinformationserver.cpp

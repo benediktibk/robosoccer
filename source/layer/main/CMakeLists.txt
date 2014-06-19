@@ -1,6 +1,7 @@
 set(COMMON_LAYER_MAIN_SRC
 	inputargumentparser.cpp
 	application.cpp
+	routeinformationserver.cpp
 )
 
 set(COMMON_LAYER_MAIN_TEST_SRC

@@ -26,6 +26,7 @@ namespace Autonomous
 		virtual bool reachedTarget() const;
 		virtual void kick(IntelligentBall const &ball);
 		virtual void update();
+		virtual Common::Routing::Route getCurrentRoute() const;
 
 		unsigned int getCallsToStop() const;
 		unsigned int getCallsToGoTo() const;
