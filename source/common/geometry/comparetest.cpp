@@ -201,5 +201,5 @@ void CompareTest::isFuzzyEqualWithCorrectOrder_differentSize_false()
 	vector<Pose> two;
 	one.push_back(Pose());
 
-	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(one, two));
+	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(one, two, 0.01));
 }
