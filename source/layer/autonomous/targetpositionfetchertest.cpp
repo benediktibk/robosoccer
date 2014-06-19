@@ -426,57 +426,49 @@ void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballATwoMinu
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(3,-1)));
 }
 
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtPointFiveZero_ballposition()
+void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRight_positionBehindBall()
 {
-	Compare compare(0.00001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
-	ball.setPosition(Point(0.5, 0));
+	ball.setPosition(Point(1, 0));
+	Point robotOne(0.9,0);
 
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(0.5, 0)));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
+	for (unsigned int i = 0; i < shouldBe.size(); i++)
+		CPPUNIT_ASSERT(robotOne.getX() > shouldBe[i].getPosition().getX());
 }
 
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballposition()
+void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideRighttAndBallOnFieldSideLeft_positionBehindBall()
 {
-	Compare compare(0.00001);
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	IntelligentBallMock ball;
-	ball.setPosition(Point(-0.5, 0));
-
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(ball, Point(0,0));
-
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.front().getPosition(), Point(-0.5, 0)));
-}
-
-
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionPlusZeroPointTwo()
-{
-	Compare compare(0.00001);
-	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
-	IntelligentBallMock ball;
-	ball.setPosition(Point(-0.5, 0));
-
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(ball, Point(0,0));
-
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(1).getPosition(), Point(-0.5, 0.2)));
-}
-
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_RobotAtZeroZeroBallAtMinusPointFiveZero_ballpositionMinusZeroPointFour()
-{
-	Compare compare(0.00001);
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 	IntelligentBallMock ball;
-	ball.setPosition(Point(-0.5, 0));
+	ball.setPosition(Point(-1, 0));
+	Point robotOne(-0.9,0);
 
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(ball, Point(0,0));
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe.at(4).getPosition(), Point(-0.5, -0.4)));
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
+	for (unsigned int i = 0; i < shouldBe.size(); i++)
+		CPPUNIT_ASSERT(robotOne.getX() < shouldBe[i].getPosition().getX());
+}
+
+void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1, 0.8));
+	Point robotOne(0.9,0);
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6, shouldBe.front().getPosition().getY(),0.001);
+	for (unsigned int i = 0; i < shouldBe.size(); i++)
+		CPPUNIT_ASSERT(robotOne.getX() > shouldBe[i].getPosition().getX());
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints()
@@ -487,7 +479,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	ball.setPosition(Point(2, 0));
 	Point robotPosition = targetPositionFetcher.getEnemyGoalPositions().front();
 
-	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionsAtBallHeightAggressiveMode(ball, robotPosition);
+	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotPosition);
 
 	CPPUNIT_ASSERT(!results.empty());
 }
