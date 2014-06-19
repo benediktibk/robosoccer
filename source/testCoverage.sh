@@ -8,6 +8,6 @@ cd main/bin
 ./testrunner
 cd ../..
 lcov --capture --directory "${sourceDirectory}" --output-file coverage.info
-lcov --remove coverage.info "physic/Box2D/*" -o coverage.info
+lcov --remove coverage.info "external/*" -o coverage.info
 lcov --remove coverage.info "/usr/*" -o coverage.info
 genhtml coverage.info --output-directory html --no-branch-coverage
