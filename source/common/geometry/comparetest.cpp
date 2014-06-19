@@ -193,3 +193,13 @@ void CompareTest::isFuzzyEqual_twoCirclesWithDifferentDiameter_false()
 
 	CPPUNIT_ASSERT(!compare.isFuzzyEqual(one, two));
 }
+
+void CompareTest::isFuzzyEqualWithCorrectOrder_differentSize_false()
+{
+	Compare compare(0.1);
+	vector<Pose> one;
+	vector<Pose> two;
+	one.push_back(Pose());
+
+	CPPUNIT_ASSERT(!compare.isFuzzyEqualWithCorrectOrder(one, two));
+}

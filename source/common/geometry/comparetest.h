@@ -32,6 +32,7 @@ namespace Geometry
 		CPPUNIT_TEST(isFuzzyEqual_twoEqualCircles_true);
 		CPPUNIT_TEST(isFuzzyEqual_twoCirclesWithDifferentCenter_false);
 		CPPUNIT_TEST(isFuzzyEqual_twoCirclesWithDifferentDiameter_false);
+		CPPUNIT_TEST(isFuzzyEqualWithCorrectOrder_differentSize_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -53,6 +54,7 @@ namespace Geometry
 		void isFuzzyEqual_twoEqualCircles_true();
 		void isFuzzyEqual_twoCirclesWithDifferentCenter_false();
 		void isFuzzyEqual_twoCirclesWithDifferentDiameter_false();
+		void isFuzzyEqualWithCorrectOrder_differentSize_false();
 	};
 }
 }
