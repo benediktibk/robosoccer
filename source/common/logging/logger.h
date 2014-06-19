@@ -24,6 +24,7 @@ class Logger
 			LogFileTypeControllableRobotOne,
 			LogFileTypeControllableRobotTwo,
 			LogFileTypeControllableRobotGoalkeeper,
+			LogFileTypeRouteInformationServer,
 			LogFileTypeInvalid // must be last one so that we can count from global to invalid
 		};
 

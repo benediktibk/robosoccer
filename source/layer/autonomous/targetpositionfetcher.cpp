@@ -26,9 +26,11 @@ void TargetPositionFetcher::setFieldSide(FieldSide fieldSide)
 vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 {
 	vector<Pose> targetPoints;
-	targetPoints.reserve(1);
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(1.35,-0.1)));
 
 	return targetPoints;
 }
@@ -36,8 +38,11 @@ vector<Pose> TargetPositionFetcher::getStartPositionsGoalkeeper() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneOffensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0.15)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,-0.15)));
 
 	return targetPoints;
 }
@@ -45,8 +50,12 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneOffensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoOffensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,-0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0,0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,-0.5)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.1,0.5)));
 
 	return targetPoints;
 }
@@ -54,8 +63,12 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoOffensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneDefensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.3,0)));
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,0.2)));
 
 	return targetPoints;
 }
@@ -63,8 +76,11 @@ vector<Pose> TargetPositionFetcher::getStartPositionsPlayerOneDefensive() const
 vector<Pose> TargetPositionFetcher::getStartPositionsPlayerTwoDefensive() const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 
 	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.2,-0.1)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,-0.2)));
+	targetPoints.push_back(mirrorPointDependentOnFieldSide(m_fieldSide, Point(0.5,0.2)));
 
 	return targetPoints;
 }
@@ -98,7 +114,11 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsPrepareKicker() const
 {
 	vector<Pose> preparePenaltyPosition;
+	preparePenaltyPosition.reserve(3);
+
 	preparePenaltyPosition.push_back(Pose(Point::zero(), Angle::getHalfRotation()));
+	preparePenaltyPosition.push_back(Pose(Point(0,0.2), Angle::getHalfRotation()));
+	preparePenaltyPosition.push_back(Pose(Point(0,-0.2), Angle::getHalfRotation()));
 
 	return preparePenaltyPosition;
 }
@@ -135,52 +155,36 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsAtBallHeightAggressiveMode(const IntelligentBall &ball, const Point &currentAlternativeRobotPosition) const
+vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball, const Point &positionRobotOne) const
 {
-	Point enemyGoalPosition = getEnemyGoalPositions().front();
-	Line alternativeRobotToEnemyGoalLine(currentAlternativeRobotPosition,enemyGoalPosition);
-	double stretchFactor = -10.0/alternativeRobotToEnemyGoalLine.getLength();
-	Point expandLine = alternativeRobotToEnemyGoalLine.getPointOnDirectionOfLine(stretchFactor);
-	Line expandedLineRobotTarget(expandLine, enemyGoalPosition);
-	Line yLineThroughBall(Point(ball.getPosition().getX(), -2.0), Point(ball.getPosition().getX(), 2.0));
-	vector<Point> intersectionPoints = expandedLineRobotTarget.getIntersectPoint(yLineThroughBall);
-	vector<Point> targetPoints;
+	double maxY = 0.6;
+	double robotX = positionRobotOne.getX();
+	double ballY = ball.getPosition().getY();
 
-	if (!intersectionPoints.empty())
-	{
-		Point maxPriorityPoint = intersectionPoints.front();
-		targetPoints.push_back(maxPriorityPoint);
-		targetPoints.push_back(maxPriorityPoint + Point(0, 0.2));
-		targetPoints.push_back(maxPriorityPoint + Point(0, -0.2));
-		targetPoints.push_back(maxPriorityPoint + Point(0, 0.4));
-		targetPoints.push_back(maxPriorityPoint + Point(0, -0.4));
-		targetPoints.push_back(maxPriorityPoint + Point(0, 0.6));
-		targetPoints.push_back(maxPriorityPoint + Point(0, -0.6));
-	}
+	if(m_fieldSide == FieldSideLeft)
+		robotX += -0.5;
+	else
+		robotX += 0.5;
 
-	Point atHeightSimple = Point(ball.getPosition().getX(), currentAlternativeRobotPosition.getY());
-	targetPoints.push_back(atHeightSimple);
-	targetPoints.push_back(atHeightSimple + Point(0, 0.2));
-	targetPoints.push_back(atHeightSimple + Point(0, -0.2));
-	targetPoints.push_back(atHeightSimple + Point(0, 0.4));
-	targetPoints.push_back(atHeightSimple + Point(0, -0.4));
-	targetPoints.push_back(atHeightSimple + Point(0, 0.6));
-	targetPoints.push_back(atHeightSimple + Point(0, -0.6));
+	if(ballY > maxY)
+		ballY = maxY;
+	else if(ballY < -maxY)
+		ballY = -maxY;
 
-	vector<Pose> results;
-	results.reserve(targetPoints.size());
+	vector<Pose> targets;
+	targets.reserve(7);
 	Angle orientation = getOrientationToEnemyGoal();
-	for (vector<Point>::const_iterator i = targetPoints.begin(); i != targetPoints.end(); ++i)
-	{
-		Point currentPoint = *i;
-		double x = currentPoint.getX();
-		x = min(x, 1.0);
-		x = max(x, -1.0);
-		currentPoint.setX(x);
-		results.push_back(Pose(currentPoint, orientation));
-	}
+	Pose maxPriorityPoint = Pose(Point(robotX, ballY),orientation);
 
-	return results;
+	targets.push_back(maxPriorityPoint);
+	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.1), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.1), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.2), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.2), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.3), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.3), Angle()));
+
+	return targets;
 }
 
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerOne() const

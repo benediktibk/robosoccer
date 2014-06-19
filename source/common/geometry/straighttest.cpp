@@ -92,3 +92,12 @@ void StraightTest::getIntersectPoint_straightAndLineAreNotIntersecting_noInterse
 
 	CPPUNIT_ASSERT(straight.getIntersectPoint(line).empty());
 }
+
+void StraightTest::shiftParallel_shiftStraight_resultIsCorrect()
+{
+	Straight straight(Point(0,0), Angle::getQuarterRotation());
+	straight.shiftParallel(Point(2,2));
+
+	CPPUNIT_ASSERT_EQUAL(Point(1,Angle::getQuarterRotation()), straight.getNormalizedDirectionVector());
+	CPPUNIT_ASSERT_EQUAL(Point(2,2), straight.getReferencePoint());
+}

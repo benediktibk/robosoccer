@@ -129,7 +129,7 @@ DriveMode DriveTo::getDriveMode() const
 	return m_driveMode;
 }
 
-const Routing::Route &DriveTo::getCurrentRoute() const
+Routing::Route DriveTo::getCurrentRoute() const
 {
 	assert(m_currentRoute != 0);
 	return *m_currentRoute;

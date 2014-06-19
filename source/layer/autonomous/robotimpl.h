@@ -53,6 +53,7 @@ namespace Autonomous
 		virtual bool reachedTarget() const;
 		virtual void kick(IntelligentBall const &ball);
 		virtual void update();
+		virtual Common::Routing::Route getCurrentRoute() const;
 
 		RobotState const& getCurrentState() const;
 		bool movementStopped() const;

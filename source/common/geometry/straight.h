@@ -23,6 +23,7 @@ namespace Geometry
 		std::vector<Point> getIntersectPoint(const Line &line) const;
 		Point getPerpendicularPoint(const Point &point) const;
 		bool isTargetPointRightOfLine(const Point &target) const;
+		void shiftParallel(const Point &point);
 		Point getNormalizedDirectionVector() const;
 		Point getReferencePoint() const;
 

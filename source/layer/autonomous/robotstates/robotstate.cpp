@@ -1,6 +1,8 @@
 #include "layer/autonomous/robotstates/robotstate.h"
 #include "layer/abstraction/controllablerobot.h"
 #include "common/logging/logger.h"
+#include "common/geometry/pose.h"
+#include "common/routing/route.h"
 #include <sstream>
 #include <string>
 
@@ -8,6 +10,7 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Logging;
+using namespace RoboSoccer::Common::Routing;
 using namespace std;
 
 RobotState::RobotState(Abstraction::ControllableRobot &robot, Logger &logger, Logger::LogFileType logFileType) :
@@ -49,4 +52,12 @@ void RobotState::log(const string &message, size_t value)
 Logger::LogFileType RobotState::getLogFileType() const
 {
 	return m_logFileType;
+}
+
+Route RobotState::getCurrentRoute() const
+{
+	Route route(ControllableRobot::getWidth());
+	Pose pose = m_robot.getPose();
+	route.addPoint(pose.getPosition());
+	return route;
 }

@@ -21,12 +21,14 @@ if(NOT USE_SIM_LIBRARIES)
 		external/roso/include/rtdb
 		external/roso/include/rosomath
 	)
+	message("using the normal libraries")
 else()
 	include_directories(
 		external/roso/include-sim/roboctrl
 		external/roso/include-sim/rtdb
 		external/roso/include-sim/rosomath
 	)
+	message("using the simulation libraries")
 endif()
 
 add_custom_target(
