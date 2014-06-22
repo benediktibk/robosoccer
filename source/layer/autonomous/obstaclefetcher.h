@@ -27,6 +27,7 @@ namespace Autonomous
 
 		virtual void addSource(ObstacleSource const &source) = 0;
 		virtual void defineBall(ObstacleSource const &source) = 0;
+		virtual void defineOwnTeam(ObstacleSource const &source) = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstacles() const = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMe(ObstacleSource const &me, double growFactor) const = 0;
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeAndBall(ObstacleSource const &me, double growFactor) const = 0;
@@ -51,6 +52,7 @@ namespace Autonomous
 
 		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButMeInRangeDependentOnDriveMode(ObstacleSource const &me,
 				const Common::Geometry::Point &ownPosition, double distance, DriveMode driveMode, double growFactor) const = 0;
+		virtual std::vector<Common::Geometry::Circle> getAllObstaclesButOwnTeamAndGoalObstacles() const = 0;
 	};
 }
 }

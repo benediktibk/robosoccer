@@ -1,9 +1,10 @@
 #include "layer/autonomous/obstaclefetcherimpl.h"
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/obstaclesource.h"
-#include "common/geometry/circle.h"
 #include "layer/abstraction/readablerobot.h"
+#include "common/geometry/circle.h"
 #include <assert.h>
+#include <algorithm>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -15,12 +16,12 @@ ObstacleFetcherImpl::ObstacleFetcherImpl() :
 	double xCoordinateRightSide = 1.45 - 0.125;
 	double diameterAndDistanceToNextObstacle = 0.25;
 
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,0),diameterAndDistanceToNextObstacle));
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,0),diameterAndDistanceToNextObstacle));
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide,-diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
-	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide,-diameterAndDistanceToNextObstacle),diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide, 0), diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide, 0), diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide, diameterAndDistanceToNextObstacle), diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide, diameterAndDistanceToNextObstacle), diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(xCoordinateRightSide, -diameterAndDistanceToNextObstacle), diameterAndDistanceToNextObstacle));
+	m_routingObstaclesInGoalZones.push_back(Circle(Point(-xCoordinateRightSide, -diameterAndDistanceToNextObstacle), diameterAndDistanceToNextObstacle));
 }
 
 ObstacleFetcherImpl::~ObstacleFetcherImpl()
@@ -39,6 +40,11 @@ void ObstacleFetcherImpl::defineBall(const ObstacleSource &source)
 	m_ball = &source;
 }
 
+void ObstacleFetcherImpl::defineOwnTeam(const ObstacleSource &source)
+{
+	m_ownTeam.push_back(&source);
+}
+
 vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 {
 	vector<Circle> result = m_routingObstaclesInGoalZones;
@@ -55,7 +61,7 @@ vector<Circle> ObstacleFetcherImpl::getAllObstacles() const
 
 vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMe(const ObstacleSource &me, double growFactor) const
 {
-	vector<Circle> result;// = m_routingObstaclesInGoalZones;
+	vector<Circle> result;
 
 	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
 	{
@@ -144,6 +150,24 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveM
 		break;
 	}
 	return getAllObstaclesButMeInRange(me, ownPosition, distance, growFactor);
+}
+
+vector<Circle> ObstacleFetcherImpl::getAllObstaclesButOwnTeamAndGoalObstacles() const
+{
+	vector<Circle> result;
+
+	for (vector<ObstacleSource const *>::const_iterator i = m_sources.begin(); i != m_sources.end(); ++i)
+	{
+		ObstacleSource const &source = **i;
+
+		if (count(m_ownTeam.begin(), m_ownTeam.end(), &source) > 0)
+			continue;
+
+		vector<Circle> resultPart = source.getObstacles();
+		result.insert(result.end(), resultPart.begin(), resultPart.end());
+	}
+
+	return result;
 }
 
 vector<Circle> ObstacleFetcherImpl::filterByDistance(

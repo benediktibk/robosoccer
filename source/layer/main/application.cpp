@@ -54,6 +54,7 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 	{
 		Robot const &robot = m_ownTeam->getRobotByNumber(i);
 		m_obstacleFetcher->addSource(robot);
+		m_obstacleFetcher->defineOwnTeam(robot);
 	}
 }
 

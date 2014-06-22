@@ -140,7 +140,7 @@ void RouteInformationServer::removeDisconnectedClients()
 
 void RouteInformationServer::sendObstacles(int clientSocket, const ObstacleFetcher &obstacleFetcher)
 {
-	vector<Circle> obstacles = obstacleFetcher.getAllObstacles();
+	vector<Circle> obstacles = obstacleFetcher.getAllObstaclesButOwnTeamAndGoalObstacles();
 	stringstream stream;
 	stream << "obstacles" << endl;
 

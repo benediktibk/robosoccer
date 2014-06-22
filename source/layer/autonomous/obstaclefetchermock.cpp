@@ -14,6 +14,9 @@ void ObstacleFetcherMock::addSource(const ObstacleSource &)
 void ObstacleFetcherMock::defineBall(const ObstacleSource &)
 { }
 
+void ObstacleFetcherMock::defineOwnTeam(const ObstacleSource &)
+{ }
+
 vector<Circle> ObstacleFetcherMock::getAllObstacles() const
 {
 	return m_allObstacles;
@@ -52,6 +55,11 @@ vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeAndGoalObstaclesInRange(
 vector<Circle> ObstacleFetcherMock::getAllObstaclesButMeInRangeDependentOnDriveMode(const ObstacleSource &, const Point &, double, DriveMode, double) const
 {
 	return m_allObstaclesButMeDependentOnDriveMode;
+}
+
+vector<Circle> ObstacleFetcherMock::getAllObstaclesButOwnTeamAndGoalObstacles() const
+{
+	return vector<Circle>();
 }
 
 void ObstacleFetcherMock::setAllObstacles(const vector<Circle> &obstacles)
