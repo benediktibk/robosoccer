@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 	cout << "##### own team color    : " << parser.getOwnTeamColor() << endl;
 	cout << "##### client number     : " << parser.getOwnClientNumber() << endl;
 
-	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber());
+	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck());
 
 	sigIntHandler.sa_handler = signalHandler;
 	sigemptyset(&sigIntHandler.sa_mask);

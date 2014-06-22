@@ -43,7 +43,7 @@ namespace Main
 	class Application
 	{
 	public:
-		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber);
+		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck);
 		~Application();
 
 		void run();
@@ -66,6 +66,7 @@ namespace Main
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 		RouteInformationServer *m_routeInformationServer;
 		bool m_stop;
+		bool m_enableHardwareCheck;
 	};
 }
 }

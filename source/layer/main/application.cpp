@@ -30,7 +30,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
 using namespace std;
 
-Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
+Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
 	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
@@ -42,7 +42,8 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber ) :
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
 	m_routeInformationServer(new RouteInformationServer(*m_logger, 1234)),
-	m_stop(false)
+	m_stop(false),
+	m_enableHardwareCheck(enableHardwareCheck)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);
@@ -85,13 +86,17 @@ Application::~Application()
 void Application::run()
 {
 	m_logger->logToConsoleAndGlobalLogFile("checking the hardware");
-	if (!checkHardware())
+
+	if (m_enableHardwareCheck)
 	{
-		m_logger->logErrorToConsoleAndWriteToGlobalLogFile("hardware is not okay, closing the program");
-		return;
+		if (!checkHardware())
+		{
+			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("hardware is not okay, closing the program");
+			return;
+		}
+		else
+			m_logger->logToConsoleAndGlobalLogFile("hardware is okay");
 	}
-	else
-		m_logger->logToConsoleAndGlobalLogFile("hardware is okay");
 
 	StopWatch stopWatch(*m_watch);
 	stopWatch.getTimeAndRestart();
