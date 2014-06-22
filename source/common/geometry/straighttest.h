@@ -26,6 +26,9 @@ class StraightTest :
 		CPPUNIT_TEST(getIntersectPoint_straightAndLineAreIntersecting_oneIntersect);
 		CPPUNIT_TEST(getIntersectPoint_straightAndLineAreNotIntersecting_noIntersect);
 		CPPUNIT_TEST(shiftParallel_shiftStraight_resultIsCorrect);
+		CPPUNIT_TEST(getPerpendicularPoint_pointOnLine_samePoint);
+		CPPUNIT_TEST(getPerpendicularPoint_pointLeftOfLine_resultIsCorrect);
+		CPPUNIT_TEST(getPerpendicularPoint_pointRightOfLine_resultIsCorrect);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -41,6 +44,9 @@ class StraightTest :
 		void getIntersectPoint_straightAndLineAreIntersecting_oneIntersect();
 		void getIntersectPoint_straightAndLineAreNotIntersecting_noIntersect();
 		void shiftParallel_shiftStraight_resultIsCorrect();
+		void getPerpendicularPoint_pointOnLine_samePoint();
+		void getPerpendicularPoint_pointLeftOfLine_resultIsCorrect();
+		void getPerpendicularPoint_pointRightOfLine_resultIsCorrect();
 	};
 }
 }

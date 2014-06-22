@@ -1,9 +1,9 @@
 #include "common/geometry/straighttest.h"
 #include "common/geometry/straight.h"
 #include "common/geometry/line.h"
+#include "common/geometry/compare.h"
 
 using namespace RoboSoccer::Common::Geometry;
-
 
 void StraightTest::isTargetPointRightOfLine_straightIsXAxisAndPointIsRight_true()
 {
@@ -100,4 +100,39 @@ void StraightTest::shiftParallel_shiftStraight_resultIsCorrect()
 
 	CPPUNIT_ASSERT_EQUAL(Point(1,Angle::getQuarterRotation()), straight.getNormalizedDirectionVector());
 	CPPUNIT_ASSERT_EQUAL(Point(2,2), straight.getReferencePoint());
+}
+
+void StraightTest::getPerpendicularPoint_pointOnLine_samePoint()
+{
+	Straight straight(Point(1, 1), Angle::getEighthRotation());
+	Point point(3, 3);
+
+	Point result = straight.getPerpendicularPoint(point);
+
+	Compare compare(0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(point, result));
+}
+
+void StraightTest::getPerpendicularPoint_pointLeftOfLine_resultIsCorrect()
+{
+	Straight straight(Point(0, 1), Angle::getEighthRotation());
+	Point point(2, 1);
+
+	Point result = straight.getPerpendicularPoint(point);
+
+	Compare compare(0.0001);
+	Point resultShouldBe(1, 2);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(resultShouldBe, result));
+}
+
+void StraightTest::getPerpendicularPoint_pointRightOfLine_resultIsCorrect()
+{
+	Straight straight(Point(0, 1), Angle::getEighthRotation());
+	Point point(0, 3);
+
+	Point result = straight.getPerpendicularPoint(point);
+
+	Compare compare(0.0001);
+	Point resultShouldBe(1, 2);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(resultShouldBe, result));
 }
