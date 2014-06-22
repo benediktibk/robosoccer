@@ -4,6 +4,7 @@
 #include "layer/abstraction/teamcolor.h"
 #include <vector>
 #include <string>
+#include <list>
 
 namespace RoboSoccer
 {
@@ -13,20 +14,24 @@ namespace Main
 {
 	class InputArgumentParser
 	{
-		public:
-			InputArgumentParser(std::vector<std::string> const &arguments);
+	public:
+		InputArgumentParser(std::vector<std::string> const &arguments);
 
-			bool isValid() const;
-			Layer::Abstraction::TeamColor getOwnTeamColor() const;
-			int getOwnClientNumber() const;
-			std::string usage() const;
+		bool isValid() const;
+		Layer::Abstraction::TeamColor getOwnTeamColor() const;
+		int getOwnClientNumber() const;
+		std::string usage() const;
 
-			static std::vector<std::string> convertArguments(int argc, char **argv);
+		static std::vector<std::string> convertArguments(int argc, char **argv);
 
-		private:
-			int m_ownClientNumber;
-			Layer::Abstraction::TeamColor m_ownTeamColor;
-			bool m_valid;
+	private:
+		void parseTeamColor(std::list<std::string> &arguments);
+		void parseClientNumber(std::list<std::string> &arguments);
+
+	private:
+		int m_ownClientNumber;
+		Layer::Abstraction::TeamColor m_ownTeamColor;
+		bool m_valid;
 	};
 }
 }
