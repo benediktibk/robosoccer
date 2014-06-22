@@ -21,6 +21,7 @@ namespace Main
 		CPPUNIT_TEST(constructor_fourInputs_isInvalid);
 		CPPUNIT_TEST(constructor_fifthInputsNotANumber_isInvalid);
 		CPPUNIT_TEST(constructor_fifthInputsAWrongNumber_isInvalid);
+		CPPUNIT_TEST(constructor_firstClientNumberAndSecondTeamColor_isValid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -31,6 +32,7 @@ namespace Main
 		void constructor_fourInputs_isInvalid();
 		void constructor_fifthInputsNotANumber_isInvalid();
 		void constructor_fifthInputsAWrongNumber_isInvalid();
+		void constructor_firstClientNumberAndSecondTeamColor_isValid();
 	};
 }
 }

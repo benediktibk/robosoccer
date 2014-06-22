@@ -105,6 +105,22 @@ void InputArgumentParserTest::constructor_fifthInputsAWrongNumber_isInvalid()
 	CPPUNIT_ASSERT(!parser.isValid());
 }
 
+void InputArgumentParserTest::constructor_firstClientNumberAndSecondTeamColor_isValid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(parser.isValid());
+	CPPUNIT_ASSERT_EQUAL(TeamColorRed, parser.getOwnTeamColor());
+	CPPUNIT_ASSERT_EQUAL(14, parser.getOwnClientNumber());
+}
+
 
 
 
