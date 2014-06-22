@@ -85,10 +85,9 @@ Application::~Application()
 
 void Application::run()
 {
-	m_logger->logToConsoleAndGlobalLogFile("checking the hardware");
-
 	if (m_enableHardwareCheck)
 	{
+		m_logger->logToConsoleAndGlobalLogFile("checking the hardware");
 		if (!checkHardware())
 		{
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("hardware is not okay, closing the program");
