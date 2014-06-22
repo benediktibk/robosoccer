@@ -2,6 +2,7 @@
 
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
+using namespace std;
 
 StateMock::StateMock(Logger &logger) :
 	State(logger, false),
@@ -23,7 +24,7 @@ State *StateMock::nextState()
 	return m_nextState;
 }
 
-std::string StateMock::getName()
+string StateMock::getName()
 {
 	return "StateMock";
 }

@@ -18,6 +18,7 @@ namespace States
 		CPPUNIT_TEST(update_noStateChange_stateGotAtLeastOneCallToUpdate);
 		CPPUNIT_TEST(update_stateChange_currentStateIsNewOne);
 		CPPUNIT_TEST(update_stateChange_currentStateGotAtLeastOneCallToUpdate);
+		CPPUNIT_TEST(getNameOfCurrentState_stateMock_StateMock);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -25,6 +26,7 @@ namespace States
 		void update_noStateChange_stateGotAtLeastOneCallToUpdate();
 		void update_stateChange_currentStateIsNewOne();
 		void update_stateChange_currentStateGotAtLeastOneCallToUpdate();
+		void getNameOfCurrentState_stateMock_StateMock();
 	};
 }
 }

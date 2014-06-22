@@ -5,6 +5,7 @@
 
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
+using namespace std;
 
 void StateMachineTest::update_empty_stateGotAtLeastOneCallToNextState()
 {
@@ -52,4 +53,13 @@ void StateMachineTest::update_stateChange_currentStateGotAtLeastOneCallToUpdate(
 	stateMachine.update();
 
 	CPPUNIT_ASSERT(newState->getCallsToUpdate() > 0);
+}
+
+void StateMachineTest::getNameOfCurrentState_stateMock_StateMock()
+{
+	LoggerMock logger;
+	StateMock *state = new StateMock(logger);
+	StateMachine stateMachine(state);
+
+	CPPUNIT_ASSERT_EQUAL(string("StateMock"), stateMachine.getNameOfCurrentState());
 }
