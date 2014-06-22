@@ -410,3 +410,4 @@ layer/abstraction/fieldpositioncheckermock.h
 layer/abstraction/fieldpositioncheckermock.cpp
 layer/main/routeinformationserver.h
 layer/main/routeinformationserver.cpp
+layer/abstraction/teamcolor.cpp
