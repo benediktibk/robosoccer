@@ -14,9 +14,11 @@ namespace Time
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(WatchTest);
+		CPPUNIT_TEST(getTime_nearlyNoTimePassedBy_0);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
+		void getTime_nearlyNoTimePassedBy_0();
 	};
 }
 }
