@@ -41,9 +41,9 @@ int main(int argc, char **argv)
 	cout << "##### client number     : " << parser.getOwnClientNumber() << endl;
 
 	if (parser.disableHardwareCheck())
-			cout << "##### Hardware Check Diabled   : " << "TRUE" << endl;
+			cout << "##### Hardware Check Disabled   : " << "TRUE" << endl;
 		else
-			cout << "##### Hardware Check Diabled   : " << "FALSE" << endl;
+			cout << "##### Hardware Check Disabled   : " << "FALSE" << endl;
 
 	if (true)
 			cout << "##### Route Server Port   : " << "!!add correct port" << endl;
