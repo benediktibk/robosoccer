@@ -40,6 +40,18 @@ int main(int argc, char **argv)
 	cout << "##### own team color    : " << parser.getOwnTeamColor() << endl;
 	cout << "##### client number     : " << parser.getOwnClientNumber() << endl;
 
+	if (parser.disableHardwareCheck())
+			cout << "##### Hardware Check Diabled   : " << "TRUE" << endl;
+		else
+			cout << "##### Hardware Check Diabled   : " << "FALSE" << endl;
+
+	if (true)
+			cout << "##### Route Server Port   : " << "!!add correct port" << endl;
+		else
+			cout << "##### Route Server Port   : " << "port" << endl;
+
+	cout << "##### ---------------------------" << endl;
+
 	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck());
 
 	sigIntHandler.sa_handler = signalHandler;
