@@ -47,3 +47,11 @@ void StateTest::updateAlreadyCalled_neverUpdateCalled_false()
 
 	CPPUNIT_ASSERT(!state.updateAlreadyCalled());
 }
+
+void StateTest::allowLogMessages_empty_true()
+{
+	LoggerMock logger;
+	StateMock state(logger, true);
+
+	CPPUNIT_ASSERT(state.allowLogMessages());
+}
