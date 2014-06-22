@@ -22,6 +22,7 @@ namespace Main
 		CPPUNIT_TEST(constructor_fifthInputsNotANumber_isInvalid);
 		CPPUNIT_TEST(constructor_fifthInputsAWrongNumber_isInvalid);
 		CPPUNIT_TEST(constructor_firstClientNumberAndSecondTeamColor_isValid);
+		CPPUNIT_TEST(constructor_disableHardwareCheckSet_disableHardwareCheck);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -33,6 +34,7 @@ namespace Main
 		void constructor_fifthInputsNotANumber_isInvalid();
 		void constructor_fifthInputsAWrongNumber_isInvalid();
 		void constructor_firstClientNumberAndSecondTeamColor_isValid();
+		void constructor_disableHardwareCheckSet_disableHardwareCheck();
 	};
 }
 }

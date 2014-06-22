@@ -7,11 +7,13 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
+	m_disableHardwareCheck(false),
 	m_valid(true)
 {
 	list<string> argumentsList(arguments.begin() + 1, arguments.end());
 	bool teamColorSet = false;
 	bool clientNumberSet = false;
+	bool disableHardwareCheckSet = false;
 
 	while (m_valid && !argumentsList.empty())
 	{
@@ -27,6 +29,11 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 		{
 			parseClientNumber(argumentsList);
 			clientNumberSet = true;
+		}
+		else if (argument == "--disableHardwareCheck" && !disableHardwareCheckSet)
+		{
+			parseDisableHardwareCheck();
+			disableHardwareCheckSet = true;
 		}
 		else
 			m_valid = false;
@@ -46,6 +53,11 @@ TeamColor InputArgumentParser::getOwnTeamColor() const
 int InputArgumentParser::getOwnClientNumber() const
 {
 	return m_ownClientNumber;
+}
+
+bool InputArgumentParser::disableHardwareCheck() const
+{
+	return m_disableHardwareCheck;
 }
 
 string InputArgumentParser::usage() const
@@ -109,4 +121,9 @@ void InputArgumentParser::parseClientNumber(list<string> &arguments)
 		m_valid = false;
 		return;
 	}
+}
+
+void InputArgumentParser::parseDisableHardwareCheck()
+{
+	m_disableHardwareCheck = true;
 }

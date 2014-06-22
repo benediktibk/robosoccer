@@ -44,7 +44,7 @@ void InputArgumentParserTest::constructor_validArgumentTeamColorRedClientNr12_is
 	CPPUNIT_ASSERT(parser.isValid());
 	CPPUNIT_ASSERT_EQUAL(TeamColorRed, parser.getOwnTeamColor());
 	CPPUNIT_ASSERT_EQUAL(12, parser.getOwnClientNumber());
-
+	CPPUNIT_ASSERT(!parser.disableHardwareCheck());
 }
 
 void InputArgumentParserTest::constructor_validArgumentTeamColorBlueClientNr12_isValid()
@@ -61,6 +61,7 @@ void InputArgumentParserTest::constructor_validArgumentTeamColorBlueClientNr12_i
 	CPPUNIT_ASSERT(parser.isValid());
 	CPPUNIT_ASSERT_EQUAL(TeamColorBlue, parser.getOwnTeamColor());
 	CPPUNIT_ASSERT_EQUAL(12, parser.getOwnClientNumber());
+	CPPUNIT_ASSERT(!parser.disableHardwareCheck());
 }
 
 void InputArgumentParserTest::constructor_fourInputs_isInvalid()
@@ -119,8 +120,23 @@ void InputArgumentParserTest::constructor_firstClientNumberAndSecondTeamColor_is
 	CPPUNIT_ASSERT(parser.isValid());
 	CPPUNIT_ASSERT_EQUAL(TeamColorRed, parser.getOwnTeamColor());
 	CPPUNIT_ASSERT_EQUAL(14, parser.getOwnClientNumber());
+	CPPUNIT_ASSERT(!parser.disableHardwareCheck());
 }
 
+void InputArgumentParserTest::constructor_disableHardwareCheckSet_disableHardwareCheck()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--disableHardwareCheck");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
 
+	InputArgumentParser parser(arguments);
 
-
+	CPPUNIT_ASSERT(parser.isValid());
+	CPPUNIT_ASSERT_EQUAL(TeamColorRed, parser.getOwnTeamColor());
+	CPPUNIT_ASSERT_EQUAL(14, parser.getOwnClientNumber());
+	CPPUNIT_ASSERT(parser.disableHardwareCheck());
+}
