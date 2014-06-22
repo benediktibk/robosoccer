@@ -26,6 +26,8 @@ namespace Main
 		CPPUNIT_TEST(constructor_clientNumberTwice_isInvalid);
 		CPPUNIT_TEST(constructor_teamColorTwice_isInvalid);
 		CPPUNIT_TEST(constructor_disableHardwareCheckTwice_isInvalid);
+		CPPUNIT_TEST(constructor_teamColorMissing_isInvalid);
+		CPPUNIT_TEST(constructor_clientNumberMissing_isInvalid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -41,6 +43,8 @@ namespace Main
 		void constructor_clientNumberTwice_isInvalid();
 		void constructor_teamColorTwice_isInvalid();
 		void constructor_disableHardwareCheckTwice_isInvalid();
+		void constructor_teamColorMissing_isInvalid();
+		void constructor_clientNumberMissing_isInvalid();
 	};
 }
 }

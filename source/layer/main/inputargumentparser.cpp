@@ -38,6 +38,9 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 		else
 			m_valid = false;
 	}
+
+	if (!teamColorSet || !clientNumberSet)
+		m_valid = false;
 }
 
 bool InputArgumentParser::isValid() const
@@ -65,8 +68,9 @@ string InputArgumentParser::usage() const
 	stringstream stream;
 
 	stream << "usage: " << endl;
-	stream << "\t--setOwnTeamColor <{red,blue}>" << endl;
-	stream << "\t--setOwnClientNumber <{10 < clientNr < 16}>" << endl;
+	stream << "\t--setOwnTeamColor {red/blue}" << endl;
+	stream << "\t--setOwnClientNumber {value between 10 and 16}" << endl;
+	stream << "\t--disableHardwareCheck [optional]" << endl;
 
 	return stream.str();
 }

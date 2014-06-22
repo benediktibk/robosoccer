@@ -188,3 +188,27 @@ void InputArgumentParserTest::constructor_disableHardwareCheckTwice_isInvalid()
 
 	CPPUNIT_ASSERT(!parser.isValid());
 }
+
+void InputArgumentParserTest::constructor_teamColorMissing_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
+
+void InputArgumentParserTest::constructor_clientNumberMissing_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
