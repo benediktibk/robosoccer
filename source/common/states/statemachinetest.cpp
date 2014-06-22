@@ -63,3 +63,12 @@ void StateMachineTest::getNameOfCurrentState_stateMock_StateMock()
 
 	CPPUNIT_ASSERT_EQUAL(string("StateMock"), stateMachine.getNameOfCurrentState());
 }
+
+void StateMachineTest::allowLogMessages_allowed_true()
+{
+	LoggerMock logger;
+	StateMock *state = new StateMock(logger);
+	StateMachine stateMachine(state);
+
+	CPPUNIT_ASSERT(stateMachine.allowLogMessages());
+}

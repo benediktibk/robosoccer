@@ -19,6 +19,7 @@ namespace States
 		CPPUNIT_TEST(update_stateChange_currentStateIsNewOne);
 		CPPUNIT_TEST(update_stateChange_currentStateGotAtLeastOneCallToUpdate);
 		CPPUNIT_TEST(getNameOfCurrentState_stateMock_StateMock);
+		CPPUNIT_TEST(allowLogMessages_allowed_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -27,6 +28,7 @@ namespace States
 		void update_stateChange_currentStateIsNewOne();
 		void update_stateChange_currentStateGotAtLeastOneCallToUpdate();
 		void getNameOfCurrentState_stateMock_StateMock();
+		void allowLogMessages_allowed_true();
 	};
 }
 }
