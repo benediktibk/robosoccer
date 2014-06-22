@@ -68,9 +68,9 @@ string InputArgumentParser::usage() const
 	stringstream stream;
 
 	stream << "usage: " << endl;
-	stream << "\t--setOwnTeamColor {red/blue}" << endl;
-	stream << "\t--setOwnClientNumber {value between 10 and 16}" << endl;
-	stream << "\t--disableHardwareCheck [optional]" << endl;
+	stream << "\t--setOwnTeamColor {red/blue} [required]" << endl;
+	stream << "\t--setOwnClientNumber {value between 10 and 16} [required]" << endl;
+	stream << "\t--disableHardwareCheck [optional]";
 
 	return stream.str();
 }

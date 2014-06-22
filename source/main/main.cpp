@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 	InputArgumentParser parser(arguments);
 	if (!parser.isValid())
 	{
-		cerr << "Invalid Arguments\n" << endl;
+		cerr << "invalid arguments" << endl << endl;
 		cout << parser.usage() << endl;
 		return 1;
 	}
