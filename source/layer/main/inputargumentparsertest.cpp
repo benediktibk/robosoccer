@@ -140,3 +140,51 @@ void InputArgumentParserTest::constructor_disableHardwareCheckSet_disableHardwar
 	CPPUNIT_ASSERT_EQUAL(14, parser.getOwnClientNumber());
 	CPPUNIT_ASSERT(parser.disableHardwareCheck());
 }
+
+void InputArgumentParserTest::constructor_clientNumberTwice_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
+
+void InputArgumentParserTest::constructor_teamColorTwice_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
+
+void InputArgumentParserTest::constructor_disableHardwareCheckTwice_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--disableHardwareCheck");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+	arguments.push_back("--disableHardwareCheck");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
