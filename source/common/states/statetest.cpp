@@ -29,3 +29,21 @@ void StateTest::update_updateOnlyOnceAndCalledFourTimes_updateInternalWasCalledO
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, state.getCallsToUpdate());
 }
+
+void StateTest::updateAlreadyCalled_onceUpdateCalled_true()
+{
+	LoggerMock logger;
+	StateMock state(logger, true);
+
+	state.update();
+
+	CPPUNIT_ASSERT(state.updateAlreadyCalled());
+}
+
+void StateTest::updateAlreadyCalled_neverUpdateCalled_false()
+{
+	LoggerMock logger;
+	StateMock state(logger, true);
+
+	CPPUNIT_ASSERT(!state.updateAlreadyCalled());
+}
