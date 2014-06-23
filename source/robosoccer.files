@@ -411,3 +411,8 @@ layer/abstraction/fieldpositioncheckermock.cpp
 layer/main/routeinformationserver.h
 layer/main/routeinformationserver.cpp
 layer/abstraction/teamcolor.cpp
+layer/abstraction/tcpserversocket.h
+layer/abstraction/tcpserversocketimpl.h
+layer/abstraction/tcpserversocketimpl.cpp
+layer/abstraction/tcpserversocketmock.h
+layer/abstraction/tcpserversocketmock.cpp

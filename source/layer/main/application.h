@@ -27,6 +27,7 @@ namespace Abstraction
 	class Storage;
 	class FieldPositionCheckerGoalkeeper;
 	class FieldPositionCheckerFieldPlayer;
+	class TCPServerSocket;
 }
 namespace Autonomous
 {
@@ -59,6 +60,7 @@ namespace Main
 		Abstraction::Storage *m_storage;
 		Abstraction::FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
 		Abstraction::FieldPositionCheckerFieldPlayer *m_fieldPositionCheckerFieldPlayer;
+		Abstraction::TCPServerSocket *m_serverSocket;
 		Autonomous::ObstacleFetcher *m_obstacleFetcher;
 		Autonomous::EnemyTeamImpl *m_enemyTeam;
 		Autonomous::TeamImpl *m_ownTeam;

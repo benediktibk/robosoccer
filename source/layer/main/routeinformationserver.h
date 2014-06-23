@@ -15,6 +15,10 @@ namespace Logging
 }
 namespace Layer
 {
+namespace Abstraction
+{
+	class TCPServerSocket;
+}
 namespace Autonomous
 {
 	class ObstacleFetcher;
@@ -25,34 +29,19 @@ namespace Main
 	class RouteInformationServer
 	{
 	public:
-		RouteInformationServer(Common::Logging::Logger &logger, unsigned int port);
-		~RouteInformationServer();
+		RouteInformationServer(Abstraction::TCPServerSocket &socket);
 
-		bool isValid() const;
 		void updateClients(
 				Autonomous::ObstacleFetcher const &obstacleFetcher,
 				Autonomous::Robot const &robotOne,
 				Autonomous::Robot const &robotTwo);
 
 	private:
-		void acceptNewClients();
-		void updateClient(
-				int clientSocket,
-				Autonomous::ObstacleFetcher const &obstacleFetcher,
-				Autonomous::Robot const &robotOne,
-				Autonomous::Robot const &robotTwo);
-		void removeDisconnectedClients();
-		void sendObstacles(int clientSocket, Autonomous::ObstacleFetcher const &obstacleFetcher);
-		void sendRoute(int clientSocket, std::string const &name, Autonomous::Robot const &robot);
-		void sendString(int clientSocket, std::string const &line);
-		void log(std::string const &message);
+		void sendObstacles(Autonomous::ObstacleFetcher const &obstacleFetcher);
+		void sendRoute(std::string const &name, Autonomous::Robot const &robot);
 
 	private:
-		Common::Logging::Logger &m_logger;
-		bool m_valid;
-		int m_serverSocket;
-		std::vector<int> m_clientSockets;
-		std::vector<int> m_disconnectedClients;
+		Abstraction::TCPServerSocket &m_socket;
 	};
 }
 }

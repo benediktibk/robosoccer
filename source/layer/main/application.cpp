@@ -3,6 +3,7 @@
 #include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "layer/abstraction/storageimpl.h"
+#include "layer/abstraction/tcpserversocketimpl.h"
 #include "layer/autonomous/enemyteamimpl.h"
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/intelligentballimpl.h"
@@ -36,12 +37,13 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
 	m_fieldPositionCheckerGoalKeeper(new FieldPositionCheckerGoalkeeper),
 	m_fieldPositionCheckerFieldPlayer(new FieldPositionCheckerFieldPlayer),
+	m_serverSocket(new TCPServerSocketImpl(*m_logger, 1234)),
 	m_obstacleFetcher(new ObstacleFetcherImpl()),
 	m_enemyTeam(new EnemyTeamImpl(*m_storage)),
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
-	m_routeInformationServer(new RouteInformationServer(*m_logger, 1234)),
+	m_routeInformationServer(new RouteInformationServer(*m_serverSocket)),
 	m_stop(false),
 	m_enableHardwareCheck(enableHardwareCheck)
 {
@@ -62,6 +64,8 @@ Application::~Application()
 {
 	delete m_routeInformationServer;
 	m_routeInformationServer = 0;
+	delete m_serverSocket;
+	m_serverSocket = 0;
 	delete m_obstacleFetcher;
 	m_obstacleFetcher = 0;
 	delete m_enemyTeam;

@@ -17,6 +17,8 @@ set(COMMON_LAYER_ABSTRACTION_SRC
 	fieldpositionchecker.cpp
 	fieldpositioncheckermock.cpp
 	teamcolor.cpp
+	tcpserversocketmock.cpp
+	tcpserversocketimpl.cpp
 )
 
 set(COMMON_LAYER_ABSTRACTION_TEST_SRC
