@@ -13,6 +13,7 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include <sstream>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -30,31 +31,41 @@ void signalHandler(int signal)
 
 vector<string> getAllIpAdresses()
 {
-	struct ifaddrs * ifAddrStruct = NULL;
-	struct ifaddrs * ifa = NULL;
-	void * tmpAddrPtr = NULL;
+	vector<string> result;
+	ifaddrs *allAddresses = 0;
+	ifaddrs *currentAddress = 0;
 
-	getifaddrs(&ifAddrStruct);
+	getifaddrs(&allAddresses);
 
-	for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
-		if (ifa ->ifa_addr->sa_family==AF_INET) { // check it is IP4
-			// is a valid IP4 Address
-			tmpAddrPtr=&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+	for (currentAddress = allAddresses; currentAddress != 0; currentAddress = currentAddress->ifa_next)
+	{
+		if (string(currentAddress->ifa_name) == "lo")
+			continue;
+
+		if (currentAddress ->ifa_addr->sa_family == AF_INET)
+		{
+			void *address = &((struct sockaddr_in *)currentAddress->ifa_addr)->sin_addr;
 			char addressBuffer[INET_ADDRSTRLEN];
-			inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
-			printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
-		} else if (ifa->ifa_addr->sa_family==AF_INET6) { // check it is IP6
-			// is a valid IP6 Address
-			tmpAddrPtr=&((struct sockaddr_in6 *)ifa->ifa_addr)->sin6_addr;
+			inet_ntop(AF_INET, address, addressBuffer, INET_ADDRSTRLEN);
+			stringstream stream;
+			stream << currentAddress->ifa_name << ":\t" << addressBuffer;
+			result.push_back(stream.str());
+		}
+		else if (currentAddress->ifa_addr->sa_family == AF_INET6)
+		{
+			void *address = &((struct sockaddr_in6 *)currentAddress->ifa_addr)->sin6_addr;
 			char addressBuffer[INET6_ADDRSTRLEN];
-			inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
-			printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+			inet_ntop(AF_INET6, address, addressBuffer, INET6_ADDRSTRLEN);
+			stringstream stream;
+			stream << currentAddress->ifa_name << ":\t" << addressBuffer;
+			result.push_back(stream.str());
 		}
 	}
 
-	if (ifAddrStruct!=NULL) freeifaddrs(ifAddrStruct);
+	if (allAddresses != 0)
+		freeifaddrs(allAddresses);
 
-	return vector<string>();
+	return result;
 }
 
 int main(int argc, char **argv)
