@@ -8,6 +8,11 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <iostream>
+#include <sys/types.h>
+#include <ifaddrs.h>
+#include <netinet/in.h>
+#include <string.h>
+#include <arpa/inet.h>
 
 using namespace std;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -23,6 +28,35 @@ void signalHandler(int signal)
 		application->stop();
 }
 
+vector<string> getAllIpAdresses()
+{
+	struct ifaddrs * ifAddrStruct = NULL;
+	struct ifaddrs * ifa = NULL;
+	void * tmpAddrPtr = NULL;
+
+	getifaddrs(&ifAddrStruct);
+
+	for (ifa = ifAddrStruct; ifa != NULL; ifa = ifa->ifa_next) {
+		if (ifa ->ifa_addr->sa_family==AF_INET) { // check it is IP4
+			// is a valid IP4 Address
+			tmpAddrPtr=&((struct sockaddr_in *)ifa->ifa_addr)->sin_addr;
+			char addressBuffer[INET_ADDRSTRLEN];
+			inet_ntop(AF_INET, tmpAddrPtr, addressBuffer, INET_ADDRSTRLEN);
+			printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+		} else if (ifa->ifa_addr->sa_family==AF_INET6) { // check it is IP6
+			// is a valid IP6 Address
+			tmpAddrPtr=&((struct sockaddr_in6 *)ifa->ifa_addr)->sin6_addr;
+			char addressBuffer[INET6_ADDRSTRLEN];
+			inet_ntop(AF_INET6, tmpAddrPtr, addressBuffer, INET6_ADDRSTRLEN);
+			printf("%s IP Address %s\n", ifa->ifa_name, addressBuffer);
+		}
+	}
+
+	if (ifAddrStruct!=NULL) freeifaddrs(ifAddrStruct);
+
+	return vector<string>();
+}
+
 int main(int argc, char **argv)
 {
 	struct sigaction sigIntHandler;
@@ -35,6 +69,8 @@ int main(int argc, char **argv)
 		cout << parser.usage() << endl;
 		return 1;
 	}
+
+	vector<string> ipAdresses = getAllIpAdresses();
 
 	cout << "##### ---------------------------\n##### GAME START" << endl;
 	cout << "##### own team color    : " << parser.getOwnTeamColor() << endl;
@@ -49,6 +85,10 @@ int main(int argc, char **argv)
 			cout << "##### Route Server Port   : " << "!!add correct port" << endl;
 		else
 			cout << "##### Route Server Port   : " << "port" << endl;
+
+	cout << "##### Ip Adresses:" << endl;
+	for (vector<string>::const_iterator i = ipAdresses.begin(); i != ipAdresses.end(); ++i)
+		cout << "##### " << *i << endl;
 
 	cout << "##### ---------------------------" << endl;
 
