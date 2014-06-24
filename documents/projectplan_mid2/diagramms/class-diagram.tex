@@ -10,7 +10,7 @@
         text centered, anchor=north, text=white, text width=3.5cm, thick]
 		
 	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
-	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
+	\tikzstyle{property}=[draw, ->, >=open diamond, thick]
 	\tikzstyle{line}=[-, thick]
    
    % Classes
@@ -33,6 +33,22 @@
 	{
 		{\large \texttt{\textbf{TreeNodeResult}}}		
 	} edge [inheritance] (treenode);
+
+	\node (ownteam) [class, left = of treenode.north, anchor = south, yshift=1cm]
+	{
+		{\large \texttt{\textbf{OwnTeam}}}
+	} edge [property] (treenode);
+
+	\node (enemyteam) [class, right = of ownteam.north, anchor = north]
+	{
+		{\large \texttt{\textbf{EnemyTeam}}}
+	} edge [property] (treenode);
+
+	\node (tactics) [class, right = of enemyteam.north, anchor = north]
+	{
+		{\large \texttt{\textbf{Tactics}}}
+	} edge [property] (treenode);
+
 
 	% Connections
 	
