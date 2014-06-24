@@ -60,6 +60,7 @@
 \end{frame}
 
 \section{Project Progress}
+\subsection{}
 \begin{frame}
     \frametitle{Checklist}
     \textbf{Current Progress}
@@ -120,6 +121,58 @@
     \begin{center}
         \input{diagramms/class-diagram}
     \end{center}
+\end{frame}
+
+\section{User Interface}
+\subsection{}
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{figure}
+        \center
+        \includegraphics[width=0.6\textwidth]{Pictures/gui-1}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-1}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Features:}
+            \begin{itemize}
+                \item Connects via Network
+                \item Updates in realtime
+                \item Shows own robots and routes
+                \item Displays enemy robots and ball
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-1}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Implementation:}
+            \begin{itemize}
+                \item Seperate \textsc{Qt 5} project
+                \item Connection via TCP/IP Socket
+                \item Drawing on \textsc{QGraphicsView}
+            \end{itemize}
+        \end{column}
+    \end{columns}
 \end{frame}
 
 \section{Schedule}
