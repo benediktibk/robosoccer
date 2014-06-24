@@ -1,6 +1,7 @@
 #include "layer/main/routeinformationserver.h"
 #include "layer/autonomous/obstaclefetcher.h"
 #include "layer/autonomous/robot.h"
+#include "layer/autonomous/obstaclesource.h"
 #include "layer/abstraction/tcpserversocket.h"
 #include "common/geometry/circle.h"
 #include "common/routing/route.h"
@@ -21,19 +22,19 @@ RouteInformationServer::RouteInformationServer(Abstraction::TCPServerSocket &soc
 	assert(socket.isValid());
 }
 
-void RouteInformationServer::updateClients(
-		const ObstacleFetcher &obstacleFetcher,
-		const Robot &robotOne, const Robot &robotTwo)
+void RouteInformationServer::updateClients(const ObstacleFetcher &obstacleFetcher,
+		const Robot &robotOne, const Robot &robotTwo, const ObstacleSource &goalkeeper)
 {
 	m_socket.updateClients();
-	sendObstacles(obstacleFetcher);
+	sendObstacles(obstacleFetcher, goalkeeper);
 	sendRoute("robot one", robotOne);
 	sendRoute("robot two", robotTwo);
 }
 
-void RouteInformationServer::sendObstacles(const ObstacleFetcher &obstacleFetcher)
+void RouteInformationServer::sendObstacles(const ObstacleFetcher &obstacleFetcher, const ObstacleSource &goalkeeper)
 {
 	vector<Circle> obstacles = obstacleFetcher.getAllObstaclesButOwnTeamAndGoalObstacles();
+	obstacles.push_back(goalkeeper.getObstacles().front());
 	stringstream stream;
 	stream << "obstacles" << endl;
 

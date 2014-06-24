@@ -128,7 +128,7 @@ void Application::run()
 		}
 		m_ball->update();
 		m_routeInformationServer->updateClients(
-					*m_obstacleFetcher, m_ownTeam->getFirstFieldPlayer(), m_ownTeam->getSecondFieldPlayer());
+					*m_obstacleFetcher, m_ownTeam->getFirstFieldPlayer(), m_ownTeam->getSecondFieldPlayer(), m_ownTeam->getGoalie());
 
 		double loopTime = stopWatch.getTimeAndRestart();
 
