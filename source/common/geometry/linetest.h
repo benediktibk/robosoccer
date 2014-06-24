@@ -43,6 +43,7 @@ namespace Geometry
 		 CPPUNIT_TEST(getIntersectPoint_linesAreToutching_oneIntersect);
 		 CPPUNIT_TEST(constructor_startAndAngle_correct);
 		 CPPUNIT_TEST(getLength_lengthIs1_correct);
+		 CPPUNIT_TEST(getDirection_originTo1And1_correct);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -75,6 +76,7 @@ namespace Geometry
 		 void getIntersectPoint_linesAreToutching_oneIntersect();
 		 void constructor_startAndAngle_correct();
 		 void getLength_lengthIs1_correct();
+		 void getDirection_originTo1And1_correct();
 
 	};
 }

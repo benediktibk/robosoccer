@@ -28,6 +28,7 @@ namespace Geometry
 		double getLength() const;
 		Point getStart() const;
 		Point getEnd() const;
+		Angle getDirection() const;
 
 	private:
 		Point m_start;

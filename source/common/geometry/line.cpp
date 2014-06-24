@@ -183,3 +183,8 @@ Point Line::getEnd() const
 {
 	return m_end;
 }
+
+Angle Line::getDirection() const
+{
+	return Angle(m_start,m_end);
+}
