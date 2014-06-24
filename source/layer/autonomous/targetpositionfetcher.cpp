@@ -129,6 +129,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	FieldSide fieldSide = FieldSideRight;
 
 	vector<Pose> penaltyPosition;
+	penaltyPosition.reserve(1);
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
 	//! @todo maybe this value has to be increased/improved
@@ -227,7 +228,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, double minDistance) const
+bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, const Point robotPosition, double minDistance) const
 {
 	Point ballPosition = ball.getPosition();
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;
@@ -278,11 +279,14 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
 	vector<Pose> result;
+	result.reserve(5);
+
 	result.push_back(Pose(ballPosition, orientation));
 	result.push_back(Pose(ballPosition + Point(0, 0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
 	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
+
 	return result;
 }
 
@@ -421,6 +425,7 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
 	Line enemyGoalToBall(getEnemyGoalPositions().front(),ballPosition);
@@ -480,9 +485,10 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &
 	return targetPoints;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
 	Line ownGoalToBall(getOwnGoalPositions().front(),ballPosition);
