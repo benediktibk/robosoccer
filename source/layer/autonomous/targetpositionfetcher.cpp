@@ -493,18 +493,17 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const I
 {
 	vector<Pose> targetPoints;
 	targetPoints.reserve(3);
-	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
-	Line ownGoalToBall(getOwnGoalPositions().front(),ballPosition);
+	Line ballToPointIfFrontOfGoal(ballPosition, Point(1.2,0));
 
-	Point maxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(maxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+	Point maxProrityPoint = ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.5);
+	targetPoints.push_back(Pose(maxProrityPoint, Angle(ballToPointIfFrontOfGoal.getStart(),ballToPointIfFrontOfGoal.getEnd())));
 
-	Point secondMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*2/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(secondMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+	Point secondMaxProrityPoint = ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.7);
+	targetPoints.push_back(Pose(secondMaxProrityPoint, Angle(ballToPointIfFrontOfGoal.getStart(),ballToPointIfFrontOfGoal.getEnd())));
 
-	Point thirdMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*3/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(thirdMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+	Point thirdMaxProrityPoint = ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.8);
+	targetPoints.push_back(Pose(thirdMaxProrityPoint, Angle(ballToPointIfFrontOfGoal.getStart(),ballToPointIfFrontOfGoal.getEnd())));
 
 	return targetPoints;
 }

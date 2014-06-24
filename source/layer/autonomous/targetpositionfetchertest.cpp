@@ -481,7 +481,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }
 
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea()
+void TargetPositionFetcherTest::getAlternativeRobotPositionBehindBallAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
