@@ -16,11 +16,11 @@
 	\tikzstyle{no} =[<-, very thick, >=latex];
 
 	\node (isgoodkickposition) [class] {Is one robot in good shooting position?};
-	\node (kick) [result, below = of isgoodkickposition, xshift=-3.0cm]{Kick!} edge [yes] (isgoodkickposition);
+	\node (kick) [result, below = of isgoodkickposition, xshift=-3.0cm]{Kick!} edge [yes] node [right=.3] {\textbf{yes}} (isgoodkickposition);
 
-	\node (isbehindball) [class, below = of isgoodkickposition, xshift=3.0cm]{Is one robot behind the ball?} edge [no] (isgoodkickposition);
-	\node (followball) [result, below = of isbehindball, xshift=-3.0cm]{Follow ball} edge [yes] (isbehindball);
-	\node (getbehindball) [result, below = of isbehindball, xshift=3.0cm]{Get behind ball} edge [no] (isbehindball);
+	\node (isbehindball) [class, below = of isgoodkickposition, xshift=3.0cm]{Is one robot behind the ball?} edge [no] node [left=.3] {\textbf{no}} (isgoodkickposition);
+	\node (followball) [result, below = of isbehindball, xshift=-3.0cm]{Follow ball} edge [yes] node [right=.3] {\textbf{yes}} (isbehindball);
+	\node (getbehindball) [result, below = of isbehindball, xshift=3.0cm]{Get behind ball} edge [no] node [left=.3] {\textbf{no}} (isbehindball);
 	
 \end{tikzpicture}
 %!tikz source end
