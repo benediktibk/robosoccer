@@ -129,6 +129,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	FieldSide fieldSide = FieldSideRight;
 
 	vector<Pose> penaltyPosition;
+	penaltyPosition.reserve(1);
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
 	//! @todo maybe this value has to be increased/improved
@@ -155,16 +156,22 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 	return ball.getPosition() + pointDelta;
 }
 
-vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball, const Point &positionRobotOne) const
+vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball) const
 {
+	double maxX = 1.1;
 	double maxY = 0.6;
-	double robotX = positionRobotOne.getX();
+	double ballX = ball.getPosition().getX();
 	double ballY = ball.getPosition().getY();
 
 	if(m_fieldSide == FieldSideLeft)
-		robotX += -0.5;
+		ballX += -0.5;
 	else
-		robotX += 0.5;
+		ballX += 0.5;
+
+	if(ballX > maxX)
+		ballX = maxX;
+	else if(ballX < -maxX)
+		ballX = -maxX;
 
 	if(ballY > maxY)
 		ballY = maxY;
@@ -172,17 +179,15 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 		ballY = -maxY;
 
 	vector<Pose> targets;
-	targets.reserve(7);
+	targets.reserve(5);
 	Angle orientation = getOrientationToEnemyGoal();
-	Pose maxPriorityPoint = Pose(Point(robotX, ballY),orientation);
+	Pose maxPriorityPoint = Pose(Point(ballX, ballY),orientation);
 
 	targets.push_back(maxPriorityPoint);
 	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.1), Angle()));
 	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.1), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.2), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.2), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.3), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.3), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0.1, 0), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(-0.1, 0), Angle()));
 
 	return targets;
 }
@@ -227,7 +232,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-bool TargetPositionFetcher::isGoodKickPosition(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const Point robotPosition, double minDistance) const
+bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, const Point robotPosition, double minDistance) const
 {
 	Point ballPosition = ball.getPosition();
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;
@@ -278,11 +283,14 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
 	vector<Pose> result;
+	result.reserve(5);
+
 	result.push_back(Pose(ballPosition, orientation));
 	result.push_back(Pose(ballPosition + Point(0, 0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
 	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
+
 	return result;
 }
 
@@ -421,6 +429,7 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(4);
 	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
 	Line enemyGoalToBall(getEnemyGoalPositions().front(),ballPosition);
@@ -480,9 +489,10 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &
 	return targetPoints;
 }
 
-vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const RoboSoccer::Layer::Autonomous::IntelligentBall &ball) const
+vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
+	targetPoints.reserve(3);
 	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
 	Line ownGoalToBall(getOwnGoalPositions().front(),ballPosition);
