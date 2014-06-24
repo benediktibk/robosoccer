@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{tkz-euclide}
+\usepackage{pifont}
 \usepackage[percent]{overpic}
 \usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
 \usetheme[compress]{Berlin}
@@ -13,6 +14,8 @@
 \definecolor{PresiBlue}{RGB}{50,57,171}
 \setbeamercolor{eecks} {bg=UniRed, fg=UniWhite}
 \setbeamercolor{presinative}{bg=PresiBlue, fg=UniWhite}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 % Title
 \title{\textsc{RoboSoccer} Project Plan}
@@ -59,7 +62,22 @@
 \section{Project Progress}
 \begin{frame}
     \frametitle{Checklist}
-    \textit{What is done, what is pending, what is open.}
+    \textbf{Current Progress}
+    \begin{itemize}
+        \item Driving \cmark
+        \begin{itemize}
+            \item Controlling \cmark
+            \item Collision Avoidance \cmark
+        \end{itemize}
+        \item Shooting \cmark
+        \item Goalkeeper \cmark
+        \item Referee interaction \cmark
+        \begin{itemize}
+            \item Connection \cmark
+            \item Penalty shootout \cmark
+        \end{itemize}
+        \item Strategy and Tactics \xmark
+    \end{itemize}
 \end{frame}
 
 \section{Strategy}
