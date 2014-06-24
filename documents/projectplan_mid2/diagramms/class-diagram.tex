@@ -24,18 +24,17 @@
 		\nodepart{third}
 	};
 	
-	\node (treenodedecider) [class, left =of treenode.south, anchor = north]
+	\node (treenodedecider) [class, left =of treenode.south, anchor = north, yshift=-1cm]
 	{
 		{\large \texttt{\textbf{TreeNodeDecider}}}		
-	};
+	} edge [inheritance] (treenode);
 	
-	\node (treenoderesult) [class, right =of treenode.south, anchor = north]
+	\node (treenoderesult) [class, right =of treenode.south, anchor = north, yshift=-1cm]
 	{
-		{\large \texttt{\textbf{TreeNodeDecider}}}		
-	};
+		{\large \texttt{\textbf{TreeNodeResult}}}		
+	} edge [inheritance] (treenode);
 
 	% Connections
-	
 	
 	
 \end{tikzpicture}
