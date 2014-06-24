@@ -227,3 +227,11 @@ void LineTest::getLength_lengthIs1_correct()
 
 	CPPUNIT_ASSERT_EQUAL(1.0,line.getLength());
 }
+
+void LineTest::getDirection_originTo1And1_correct()
+{
+	Compare compare(0.001);
+	Line line(Point(0,0), Point(1,1));
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getEighthRotation(),line.getDirection()));
+}

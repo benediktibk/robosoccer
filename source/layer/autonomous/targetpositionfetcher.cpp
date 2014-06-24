@@ -492,19 +492,16 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &
 vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
-	targetPoints.reserve(3);
-	static double distanceToBall = 0.2;
+	targetPoints.reserve(5);
 	Point ballPosition = ball.getPosition();
-	Line ownGoalToBall(getOwnGoalPositions().front(),ballPosition);
+	Line ballToPointIfFrontOfGoal(Point(1.2,0),ballPosition);
+	Angle direction = ballToPointIfFrontOfGoal.getDirection();
 
-	Point maxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(maxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
-
-	Point secondMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*2/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(secondMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
-
-	Point thirdMaxProrityPoint = ownGoalToBall.getPointOnDirectionOfLine(1-distanceToBall*3/ownGoalToBall.getLength());
-	targetPoints.push_back(Pose(thirdMaxProrityPoint, Angle(ownGoalToBall.getStart(),ownGoalToBall.getEnd())));
+	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.5), direction));
+	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.3), direction));
+	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.2), direction));
+	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.7), direction));
+	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.8), direction));
 
 	return targetPoints;
 }

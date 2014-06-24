@@ -49,7 +49,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideRighttAndBallOnFieldSideLeft_positionBehindBall);
 		CPPUNIT_TEST(getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY);
 		CPPUNIT_TEST(isGoodKickPosition_robotInGoodPosition_true);
-		CPPUNIT_TEST(getAlternativeRobotPositionAtBallHeightAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea);
+		CPPUNIT_TEST(getAlternativeRobotPositionBehindBallAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea);
 		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_fiveResults);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_threeXAre1);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
@@ -61,6 +61,7 @@ namespace Autonomous
 		CPPUNIT_TEST(isGoodKickPosition_ballOnGoalBorderAndRobotBehind_true);
 		CPPUNIT_TEST(isGoodKickPosition_ballOnGoalBorderInsideGoalZoneAndRobotBehind_false);
 		CPPUNIT_TEST(getPositionsToGetOutOfGoalZone_fieldSideRight_positionsAreLeft);
+		CPPUNIT_TEST(getTargetsBehindBallAlternativeRobot_ballAtCenter_positionsBetweenGoalAndBall);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -97,7 +98,7 @@ namespace Autonomous
 		void getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideRighttAndBallOnFieldSideLeft_positionBehindBall();
 		void getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY();
 		void isGoodKickPosition_robotInGoodPosition_true();
-		void getAlternativeRobotPositionAtBallHeightAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea();
+		void getAlternativeRobotPositionBehindBallAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea();
 		void getPositionToDriveOnBall_validBallPosition_fiveResults();
 		void getPositionToDriveOnBall_ballXAt1_threeXAre1();
 		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
@@ -109,13 +110,14 @@ namespace Autonomous
 		void isGoodKickPosition_ballOnGoalBorderAndRobotBehind_true();
 		void isGoodKickPosition_ballOnGoalBorderInsideGoalZoneAndRobotBehind_false();
 		void getPositionsToGetOutOfGoalZone_fieldSideRight_positionsAreLeft();
+		void getTargetsBehindBallAlternativeRobot_ballAtCenter_positionsBetweenGoalAndBall();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
 		void isInUsefulRange(Common::Geometry::Point const &position, double distanceToGoal, bool left);
 		void isInUsefulRange(std::vector<Common::Geometry::Pose> const &poses, double distanceToGoal, bool left);
 
-		void isInUsefulArea(Common::Geometry::Point const &position);
+		void isInUsefulArea(Common::Geometry::Point const &position, double maxX, double maxY);
 	};
 }
 }
