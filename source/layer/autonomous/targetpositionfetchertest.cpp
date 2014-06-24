@@ -381,6 +381,12 @@ void TargetPositionFetcherTest::isInUsefulRange(const vector<Pose> &poses, doubl
 		isInUsefulRange(*i, distanceToGoal, left);
 }
 
+void TargetPositionFetcherTest::isInUsefulArea(const Point &position)
+{
+	CPPUNIT_ASSERT(position.getX() >= -1.1 && position.getX() <= 1.1);
+	CPPUNIT_ASSERT(position.getY() >= -0.6 && position.getY() <= 0.6);
+}
+
 void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo()
 {
 	Compare compare(0.00001);
@@ -432,13 +438,15 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(1, 0));
-	Point robotOne(0.9,0);
 
 	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
-	for (unsigned int i = 0; i < shouldBe.size(); i++)
-		CPPUNIT_ASSERT(robotOne.getX() > shouldBe[i].getPosition().getX());
+	for (size_t i = 0; i < shouldBe.size(); i++)
+	{
+		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
+		isInUsefulArea(shouldBe[i].getPosition());
+	}
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideRighttAndBallOnFieldSideLeft_positionBehindBall()
@@ -447,13 +455,15 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(-1, 0));
-	Point robotOne(-0.9,0);
 
 	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
-	for (unsigned int i = 0; i < shouldBe.size(); i++)
-		CPPUNIT_ASSERT(robotOne.getX() < shouldBe[i].getPosition().getX());
+	for (size_t i = 0; i < shouldBe.size(); i++)
+	{
+		CPPUNIT_ASSERT(ball.getPosition().getX() < shouldBe[i].getPosition().getX());
+		isInUsefulArea(shouldBe[i].getPosition());
+	}
 }
 
 void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY()
@@ -462,25 +472,28 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(1, 0.8));
-	Point robotOne(0.9,0);
 
 	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6, shouldBe.front().getPosition().getY(),0.001);
-	for (unsigned int i = 0; i < shouldBe.size(); i++)
-		CPPUNIT_ASSERT(robotOne.getX() > shouldBe[i].getPosition().getX());
+	isInUsefulArea(shouldBe.front().getPosition());
+	for (size_t i = 0; i < shouldBe.size(); i++)
+		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }
 
-void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_noIntersectionPoint_atLeastSomePoints()
+void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
-	ball.setPosition(Point(2, 0));
+	ball.setPosition(Point(-0.9, 0.5));
 
-	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
-	CPPUNIT_ASSERT(!results.empty());
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
+	isInUsefulArea(shouldBe.front().getPosition());
+	for (size_t i = 0; i < shouldBe.size(); i++)
+		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }
 
 void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_fiveResults()

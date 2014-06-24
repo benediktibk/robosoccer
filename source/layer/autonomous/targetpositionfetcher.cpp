@@ -158,6 +158,7 @@ Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const Intellige
 
 vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball) const
 {
+	double maxX = 1.1;
 	double maxY = 0.6;
 	double ballX = ball.getPosition().getX();
 	double ballY = ball.getPosition().getY();
@@ -167,23 +168,26 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 	else
 		ballX += 0.5;
 
+	if(ballX > maxX)
+		ballX = maxX;
+	else if(ballX < -maxX)
+		ballX = -maxX;
+
 	if(ballY > maxY)
 		ballY = maxY;
 	else if(ballY < -maxY)
 		ballY = -maxY;
 
 	vector<Pose> targets;
-	targets.reserve(7);
+	targets.reserve(5);
 	Angle orientation = getOrientationToEnemyGoal();
 	Pose maxPriorityPoint = Pose(Point(ballX, ballY),orientation);
 
 	targets.push_back(maxPriorityPoint);
 	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.1), Angle()));
 	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.1), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.2), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.2), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, 0.3), Angle()));
-	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.3), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(0.1, 0), Angle()));
+	targets.push_back(maxPriorityPoint + Pose(Point(-0.1, 0), Angle()));
 
 	return targets;
 }
