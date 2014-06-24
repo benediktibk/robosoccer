@@ -381,10 +381,10 @@ void TargetPositionFetcherTest::isInUsefulRange(const vector<Pose> &poses, doubl
 		isInUsefulRange(*i, distanceToGoal, left);
 }
 
-void TargetPositionFetcherTest::isInUsefulArea(const Point &position)
+void TargetPositionFetcherTest::isInUsefulArea(const Point &position, double maxX, double maxY)
 {
-	CPPUNIT_ASSERT(position.getX() >= -1.1 && position.getX() <= 1.1);
-	CPPUNIT_ASSERT(position.getY() >= -0.6 && position.getY() <= 0.6);
+	CPPUNIT_ASSERT(position.getX() >= -maxX && position.getX() <= maxX);
+	CPPUNIT_ASSERT(position.getY() >= -maxY && position.getY() <= maxY);
 }
 
 void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo()
@@ -445,7 +445,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	for (size_t i = 0; i < shouldBe.size(); i++)
 	{
 		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
-		isInUsefulArea(shouldBe[i].getPosition());
+		isInUsefulArea(shouldBe[i].getPosition(),1.1,0.6);
 	}
 }
 
@@ -462,7 +462,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	for (size_t i = 0; i < shouldBe.size(); i++)
 	{
 		CPPUNIT_ASSERT(ball.getPosition().getX() < shouldBe[i].getPosition().getX());
-		isInUsefulArea(shouldBe[i].getPosition());
+		isInUsefulArea(shouldBe[i].getPosition(),1.1,0.6);
 	}
 }
 
@@ -476,7 +476,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6, shouldBe.front().getPosition().getY(),0.001);
-	isInUsefulArea(shouldBe.front().getPosition());
+	isInUsefulArea(shouldBe.front().getPosition(),1.1,0.6);
 	for (size_t i = 0; i < shouldBe.size(); i++)
 		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }
@@ -491,7 +491,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionBehindBallAggressiveM
 	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
-	isInUsefulArea(shouldBe.front().getPosition());
+	isInUsefulArea(shouldBe.front().getPosition(),1.1,0.6);
 	for (size_t i = 0; i < shouldBe.size(); i++)
 		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }

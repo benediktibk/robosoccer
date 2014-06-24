@@ -115,7 +115,7 @@ namespace Autonomous
 		void isInUsefulRange(Common::Geometry::Point const &position, double distanceToGoal, bool left);
 		void isInUsefulRange(std::vector<Common::Geometry::Pose> const &poses, double distanceToGoal, bool left);
 
-		void isInUsefulArea(Common::Geometry::Point const &position);
+		void isInUsefulArea(Common::Geometry::Point const &position, double maxX, double maxY);
 	};
 }
 }
