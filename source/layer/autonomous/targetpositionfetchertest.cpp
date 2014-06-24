@@ -645,6 +645,20 @@ void TargetPositionFetcherTest::getPositionsToGetOutOfGoalZone_fieldSideRight_po
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideRight);
 
-	for(unsigned int i = 0; i<targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0)).size(); i++)
+	for(size_t i = 0; i<targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0)).size(); i++)
 		CPPUNIT_ASSERT(targetPositionFetcher.getPositionsToGetOutOfGoalZone(Point(-1,0))[i].getPosition().getX() < 0);
+}
+
+void TargetPositionFetcherTest::getTargetsBehindBallAlternativeRobot_ballAtCenter_positionsBetweenGoalAndBall()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0,0));
+	Rectangle usefulArea(Point(0,-0.1), Point(1.2,0.1));
+
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
+
+	for(size_t i=0;i<shouldBe.size();i++)
+		CPPUNIT_ASSERT(usefulArea.isInside(shouldBe[i].getPosition(),Other::Compare(0.001)));
 }
