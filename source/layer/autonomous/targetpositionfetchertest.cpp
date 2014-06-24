@@ -434,7 +434,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	ball.setPosition(Point(1, 0));
 	Point robotOne(0.9,0);
 
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
 	for (unsigned int i = 0; i < shouldBe.size(); i++)
@@ -449,7 +449,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	ball.setPosition(Point(-1, 0));
 	Point robotOne(-0.9,0);
 
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ball.getPosition().getY(), shouldBe.front().getPosition().getY(),0.001);
 	for (unsigned int i = 0; i < shouldBe.size(); i++)
@@ -464,7 +464,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressive
 	ball.setPosition(Point(1, 0.8));
 	Point robotOne(0.9,0);
 
-	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotOne);
+	vector<Pose> shouldBe = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.6, shouldBe.front().getPosition().getY(),0.001);
 	for (unsigned int i = 0; i < shouldBe.size(); i++)
@@ -477,9 +477,8 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionAtBallHeightAggressiv
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
 	ball.setPosition(Point(2, 0));
-	Point robotPosition = targetPositionFetcher.getEnemyGoalPositions().front();
 
-	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball, robotPosition);
+	vector<Pose> results = targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(ball);
 
 	CPPUNIT_ASSERT(!results.empty());
 }
