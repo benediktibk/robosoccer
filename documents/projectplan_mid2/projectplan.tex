@@ -5,6 +5,7 @@
 \usepackage{amsmath}
 \usepackage{tikz}
 \usepackage{tkz-euclide}
+\usepackage{pifont}
 \usepackage[percent]{overpic}
 \usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
 \usetheme[compress]{Berlin}
@@ -13,6 +14,8 @@
 \definecolor{PresiBlue}{RGB}{50,57,171}
 \setbeamercolor{eecks} {bg=UniRed, fg=UniWhite}
 \setbeamercolor{presinative}{bg=PresiBlue, fg=UniWhite}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 % Title
 \title{\textsc{RoboSoccer} Project Plan}
@@ -57,9 +60,25 @@
 \end{frame}
 
 \section{Project Progress}
+\subsection{}
 \begin{frame}
     \frametitle{Checklist}
-    \textit{What is done, what is pending, what is open.}
+    \textbf{Current Progress}
+    \begin{itemize}
+        \item Driving \cmark
+        \begin{itemize}
+            \item Controlling \cmark
+            \item Collision Avoidance \cmark
+        \end{itemize}
+        \item Shooting \cmark
+        \item Goalkeeper \cmark
+        \item Referee interaction \cmark
+        \begin{itemize}
+            \item Connection \cmark
+            \item Penalty shootout \cmark
+        \end{itemize}
+        \item Strategy and Tactics \xmark
+    \end{itemize}
 \end{frame}
 
 \section{Strategy}
@@ -71,15 +90,16 @@
 
 \begin{frame}
     \frametitle{Solution}
-    Tactics for goalkeeper:\\
+    \textbf{Goalkeeper:}\\
     \begin{itemize}
         \item Calculate target position depending on ball position\\
         (see previous presentations)
         \item Fixed robot
     \end{itemize}
     
-    One strategy for both field players:\\
+    \textbf{Field players:}\\
     \begin{itemize}
+        \item \textbf{One} strategy for both field players
         \item \textbf{Small} binary decision tree
         \item Recalculated each iteration
         \item Depending on ball and robot positions
@@ -102,6 +122,77 @@
         \input{diagramms/class-diagram}
     \end{center}
 \end{frame}
+
+\section{GUI Tool}
+\subsection{}
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{figure}
+        \center
+        \includegraphics[width=0.6\textwidth]{Pictures/gui-1}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-1}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Features:}
+            \begin{itemize}
+                \item Connects via Network
+                \item Updates in realtime
+                \item Shows own robots and routes
+                \item Displays enemy robots and ball
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-1}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Implementation:}
+            \begin{itemize}
+                \item Seperate \textsc{Qt 5} project
+                \item Connection via TCP/IP Socket
+                \item Drawing on \textsc{QGraphicsView}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[c]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-1}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \begin{center}
+                \textbf{\textit{\Large Demo?}}\\
+                $\rightarrow$ Later in the laboratory
+            \end{center}
+        \end{column}
+    \end{columns}   
+\end{frame}
+
 
 \section{Schedule}
 \subsection{}
