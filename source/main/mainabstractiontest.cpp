@@ -117,7 +117,8 @@ int main(int, char**)
 	{
 		ownRobot.update();
 		usleep(5000);
-		cout << stopWatch.getTime() << " - " << ownRobot.getPose().getOrientation() << endl;
+		Angle currentOrientation = ownRobot.getPose().getOrientation();
+		cout << stopWatch.getTime() << " - " << (currentOrientation - Angle::getQuarterRotation()).getValueBetweenMinusPiAndPi() << endl;
 	}
 
 	return 0;
