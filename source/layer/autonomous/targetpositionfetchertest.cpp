@@ -662,3 +662,55 @@ void TargetPositionFetcherTest::getTargetsBehindBallAlternativeRobot_ballAtCente
 	for(size_t i=0;i<shouldBe.size();i++)
 		CPPUNIT_ASSERT(usefulArea.isInside(shouldBe[i].getPosition(),Other::Compare(0.001)));
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAndLeftFromBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-1.43,0.5));
+	Point robotPosition(-1.43,0.4);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+
+	robotPosition = Point(-1.45,0.4);
+	isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+
+	robotPosition = Point(-1.40,0.4);
+	isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAndRightFromBall_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-1.43,0.4));
+	Point robotPosition(-1.43,0.5);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderLeftFromGoalAndLeftFromBall_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-1.43,-0.4));
+	Point robotPosition(-1.43,-0.5);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(!isGoodKickPosition);
+}
+
+void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderLeftFromGoalAndRightFromBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(-1.43,-0.5));
+	Point robotPosition(-1.43,-0.4);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
