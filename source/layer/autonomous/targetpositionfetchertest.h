@@ -113,6 +113,7 @@ namespace Autonomous
 		void getPositionsToGetOutOfGoalZone_fieldSideRight_positionsAreLeft();
 		void getTargetsBehindBallAlternativeRobot_ballAtCenter_positionsBetweenGoalAndBall();
 		void isGoodKickPosition_nearOwnBorderRightFromGoalAndLeftFromBall_true();
+		void isGoodKickPosition_nearOwnBorderRightFromGoalAndRightFromBall_false();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
