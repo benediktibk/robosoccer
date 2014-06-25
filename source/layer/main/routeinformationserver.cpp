@@ -4,6 +4,7 @@
 #include "layer/autonomous/obstaclesource.h"
 #include "layer/abstraction/tcpserversocket.h"
 #include "common/geometry/circle.h"
+#include "common/geometry/pose.h"
 #include "common/routing/route.h"
 #include "common/logging/logger.h"
 #include <sstream>
@@ -27,8 +28,8 @@ void RouteInformationServer::updateClients(const ObstacleFetcher &obstacleFetche
 {
 	m_socket.updateClients();
 	sendObstacles(obstacleFetcher, goalkeeper);
-	sendRoute("robot one", robotOne);
-	sendRoute("robot two", robotTwo);
+	sendRouteAndTargets("robot one", robotOne);
+	sendRouteAndTargets("robot two", robotTwo);
 }
 
 void RouteInformationServer::sendObstacles(const ObstacleFetcher &obstacleFetcher, const ObstacleSource &goalkeeper)
@@ -51,7 +52,7 @@ void RouteInformationServer::sendObstacles(const ObstacleFetcher &obstacleFetche
 	m_socket.sendString(stream.str());
 }
 
-void RouteInformationServer::sendRoute(string const &name, Robot const &robot)
+void RouteInformationServer::sendRouteAndTargets(string const &name, Robot const &robot)
 {
 	Route route = robot.getCurrentRoute();
 	stringstream stream;
@@ -63,6 +64,14 @@ void RouteInformationServer::sendRoute(string const &name, Robot const &robot)
 	{
 		Point const &point = *i;
 		stream << point << endl;
+	}
+
+	stream << "targets:" << endl;
+	vector<Pose> targets = robot.getCurrentTargets();
+	for (vector<Pose>::const_iterator i = targets.begin(); i != targets.end(); ++i)
+	{
+		Pose const &target = *i;
+		stream << target.getPosition() << endl;
 	}
 
 	stream << endl;
