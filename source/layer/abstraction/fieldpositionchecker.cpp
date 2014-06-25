@@ -8,14 +8,14 @@ using namespace RoboSoccer::Common::Other;
 
 bool FieldPositionChecker::isPointInsideLeftGoalZone(const Point &position) const
 {
-	Compare compare(0.01);
+	Compare compare(0.005);
 	Rectangle goalZoneLeft(Point(-1.45, -0.34), Point(-1.21, 0.34));
 	return goalZoneLeft.isInside(position, compare);
 }
 
 bool FieldPositionChecker::isPointInsideRightGoalZone(const Point &position) const
 {
-	Compare compare(0.01);
+	Compare compare(0.005);
 	Rectangle goalZoneRight(Point(1.21, -0.34), Point(1.45, 0.34));
 	return goalZoneRight.isInside(position, compare);
 }
