@@ -180,7 +180,7 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 
 	vector<Pose> targets;
 	targets.reserve(5);
-	Angle orientation = getOrientationToEnemyGoal();
+	Angle orientation = getOrientationToOwnGoal();
 	Pose maxPriorityPoint = Pose(Point(ballX, ballY),orientation);
 
 	targets.push_back(maxPriorityPoint);
@@ -280,7 +280,7 @@ bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, 
 
 vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentBall &ball) const
 {
-	Angle orientation = getOrientationToEnemyGoal();
+	Angle orientation = getOrientationToOwnGoal();
 	Point ballPosition = ball.getPosition();
 	vector<Pose> result;
 	result.reserve(5);
@@ -417,7 +417,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const Int
 		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
 }
 
-Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
+Angle TargetPositionFetcher::getOrientationToOwnGoal() const
 {
 	Angle ballOrientation;
 	if (m_fieldSide == FieldSideLeft)
@@ -437,7 +437,7 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &
 	Point targetBehindBallInShootingDirection = enemyGoalToBall.getPointOnDirectionOfLine((enemyGoalToBall.getLength()+distanceToBall)/enemyGoalToBall.getLength());
 	targetPoints.push_back(Pose(targetBehindBallInShootingDirection, Angle(enemyGoalToBall.getStart(),enemyGoalToBall.getEnd())));
 
-	Angle directionToOwnGoal = getOrientationToEnemyGoal();
+	Angle directionToOwnGoal = getOrientationToOwnGoal();
 	Point targetBehindBallInXDirection = ball.getPosition() + Point(distanceToBall, directionToOwnGoal);
 	Point targetBehindBallInXDirectionAlt1 = targetBehindBallInXDirection + Point(0,0.03);
 	Point targetBehindBallInXDirectionAlt2 = targetBehindBallInXDirection + Point(0,-0.03);
