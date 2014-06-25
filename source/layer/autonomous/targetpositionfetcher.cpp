@@ -494,7 +494,8 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const I
 	vector<Pose> targetPoints;
 	targetPoints.reserve(5);
 	Point ballPosition = ball.getPosition();
-	Line ballToPointIfFrontOfGoal(Point(1.2,0),ballPosition);
+	Point ownGoalZoneCenterPosition = m_fieldSide == FieldSideRight ? Point(1.2,0) : Point(-1.2,0);
+	Line ballToPointIfFrontOfGoal(ownGoalZoneCenterPosition,ballPosition);
 	Angle direction = ballToPointIfFrontOfGoal.getDirection();
 
 	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.5), direction));
