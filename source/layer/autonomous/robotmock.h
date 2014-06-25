@@ -33,6 +33,7 @@ namespace Autonomous
 		unsigned int getCallsToGoToDirect() const;
 		unsigned int getCallsToGoToCombined() const;
 		unsigned int getCallsToKick() const;
+		DriveMode getLastGoToDriveMode() const;
 		void setTargetReached(bool value);
 		void setObstacle(Common::Geometry::Circle const &obstacle);
 		void setCurrentPose(Common::Geometry::Pose const &pose);
@@ -42,6 +43,7 @@ namespace Autonomous
 		unsigned int m_callsToGoTo;
 		unsigned int m_callsToGoToDirect;
 		unsigned int m_callsToKick;
+		DriveMode m_lastGoToDriveMode;
 		bool m_targetReached;
 		Common::Geometry::Circle m_obstacle;
 		Common::Geometry::Pose m_pose;

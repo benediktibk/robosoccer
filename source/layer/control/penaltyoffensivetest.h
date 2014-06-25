@@ -21,6 +21,7 @@ namespace Control
 		CPPUNIT_TEST(update_onceCalled_oneCallToMove);
 		CPPUNIT_TEST(update_twiceCalled_oneCallToMove);
 		CPPUNIT_TEST(update_twiceCalled_firstMoveThenKick);
+		CPPUNIT_TEST(update_onceCalled_callToMoveIsSlowlyAtTheEndAndIgnoringBall);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -35,6 +36,7 @@ namespace Control
 		void update_onceCalled_oneCallToMove();
 		void update_twiceCalled_oneCallToMove();
 		void update_twiceCalled_firstMoveThenKick();
+		void update_onceCalled_callToMoveIsSlowlyAtTheEndAndIgnoringBall();
 	};
 }
 }
