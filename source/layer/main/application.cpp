@@ -139,7 +139,11 @@ void Application::run()
 		}
 
 		if (loopTime > maximumLoopTime)
-			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
+		{
+			stringstream stream;
+			stream << "loop time is too high: " << loopTime;
+			m_logger->logErrorToConsoleAndWriteToGlobalLogFile(stream.str());
+		}
 	}
 
 	m_logger->logToConsoleAndGlobalLogFile("stopped");
