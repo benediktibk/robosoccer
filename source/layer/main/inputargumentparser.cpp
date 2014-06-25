@@ -14,6 +14,7 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 	bool teamColorSet = false;
 	bool clientNumberSet = false;
 	bool disableHardwareCheckSet = false;
+	bool routeServerPortSet = false;
 
 	while (m_valid && !argumentsList.empty())
 	{
@@ -34,6 +35,11 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 		{
 			parseDisableHardwareCheck();
 			disableHardwareCheckSet = true;
+		}
+		else if (argument == "--routeServerPort" && !routeServerPortSet)
+		{
+			parseRouteServerPort(argumentsList);
+			routeServerPortSet = true;
 		}
 		else
 			m_valid = false;
@@ -63,6 +69,11 @@ bool InputArgumentParser::disableHardwareCheck() const
 	return m_disableHardwareCheck;
 }
 
+unsigned int InputArgumentParser::getRouteServePort() const
+{
+	return m_ownRouteServerPort;
+}
+
 string InputArgumentParser::usage() const
 {
 	stringstream stream;
@@ -71,6 +82,7 @@ string InputArgumentParser::usage() const
 	stream << "\t--setOwnTeamColor {red/blue} [required]" << endl;
 	stream << "\t--setOwnClientNumber {value between 10 and 16} [required]" << endl;
 	stream << "\t--disableHardwareCheck [optional]";
+	stream << "\t--routeServerPort {value between 1 and 65 536} [optional]";
 
 	return stream.str();
 }
@@ -131,3 +143,23 @@ void InputArgumentParser::parseDisableHardwareCheck()
 {
 	m_disableHardwareCheck = true;
 }
+
+void InputArgumentParser::parseRouteServerPort(list<std::string> &arguments)
+{
+	if (arguments.empty())
+	{
+		m_valid = false;
+		return;
+	}
+
+	string serverPort = arguments.front();
+	arguments.pop_front();
+	m_ownRouteServerPort = atoi(serverPort.c_str());
+
+	if ((m_ownRouteServerPort < 1)||(m_ownRouteServerPort > 65536))
+	{
+		m_valid = false;
+		return;
+	}
+}
+
