@@ -12,7 +12,8 @@ RefereeImpl::RefereeImpl(KogniMobil::RTDBConn &dataBase, TeamColor ownColor, Log
 	m_logger(logger),
 	m_referee(new Referee(dataBase)),
 	m_ownColor(ownColor),
-	m_lastPlayMode(REFEREE_INIT)
+	m_lastPlayMode(REFEREE_INIT),
+	m_currentPlayMode(REFEREE_INIT)
 {
 	m_referee->Init();
 }
@@ -23,11 +24,19 @@ RefereeImpl::~RefereeImpl()
 	m_referee = 0;
 }
 
+void RefereeImpl::update()
+{
+	m_lastPlayMode = m_currentPlayMode;
+	m_currentPlayMode = m_referee->GetPlayMode();
+	m_currentBlueSide = m_referee->GetBlueSide();
+
+	if (playModeChangedSinceLastCall())
+		logPlayMode(m_currentPlayMode);
+}
+
 FieldSide RefereeImpl::getOwnFieldSide() const
 {
-	eSide blueSide = m_referee->GetBlueSide();
-
-	if (blueSide == LEFT_SIDE)
+	if (m_currentBlueSide == LEFT_SIDE)
 	{
 		switch(m_ownColor)
 		{
@@ -37,7 +46,7 @@ FieldSide RefereeImpl::getOwnFieldSide() const
 			return FieldSideRight;
 		}
 	}
-	else if (blueSide == RIGHT_SIDE)
+	else if (m_currentBlueSide == RIGHT_SIDE)
 	{
 		switch(m_ownColor)
 		{
@@ -48,30 +57,28 @@ FieldSide RefereeImpl::getOwnFieldSide() const
 		}
 	}
 
-	m_logger.logToLogFileOfType(Logger::LogFileTypeReferee, "getOwnFieldSide returns: OWN_SIDE");
+	m_logger.logErrorToConsoleAndWriteToGlobalLogFile("GetBlueSide returns: OWN_SIDE");
 	return FieldSideInvalid;
 }
 
 bool RefereeImpl::getPrepareForKickOff() const
 {
-	return m_referee->GetPlayMode() == BEFORE_KICK_OFF;
+	return m_currentPlayMode == BEFORE_KICK_OFF;
 }
 
 bool RefereeImpl::getPrepareForPenalty() const
 {
-	return m_referee->GetPlayMode() == BEFORE_PENALTY;
+	return m_currentPlayMode == BEFORE_PENALTY;
 }
 
 bool RefereeImpl::hasKickOffOrPenalty() const
 {
-	eSide sideWithKickOffOrPenalty = m_referee->GetSide();
-
 	switch(getOwnFieldSide())
 	{
 	case FieldSideLeft:
-		return sideWithKickOffOrPenalty == LEFT_SIDE;
+		return m_currentBlueSide == LEFT_SIDE;
 	case FieldSideRight:
-		return sideWithKickOffOrPenalty == RIGHT_SIDE;
+		return m_currentBlueSide == RIGHT_SIDE;
 	case FieldSideInvalid:
 		break;
 	}
@@ -81,28 +88,28 @@ bool RefereeImpl::hasKickOffOrPenalty() const
 
 bool RefereeImpl::getExecuteKickOff() const
 {
-	return m_referee->GetPlayMode() == KICK_OFF;
+	return m_currentPlayMode == KICK_OFF;
 }
 
 bool RefereeImpl::getExecutePenalty() const
 {
-	return m_referee->GetPlayMode() == PENALTY;
+	return m_currentPlayMode == PENALTY;
 }
 
 bool RefereeImpl::initFinished() const
 {
-	return m_referee->GetPlayMode() != REFEREE_INIT;
+	return m_currentPlayMode != REFEREE_INIT;
 }
 
 bool RefereeImpl::isGamePaused() const
 {
-	ePlayMode playMode = m_referee->GetPlayMode();
+	ePlayMode playMode = m_currentPlayMode;
 	return playMode == PAUSE || playMode == TIME_OVER;
 }
 
 bool RefereeImpl::getContinuePlaying() const
 {
-	ePlayMode playMode = m_referee->GetPlayMode();
+	ePlayMode playMode = m_currentPlayMode;
 	return playMode == PLAY_ON;
 }
 
@@ -117,7 +124,7 @@ void RefereeImpl::logInformation()
 	logBool("game paused", isGamePaused());
 	logBool("continue playing", getContinuePlaying());
 	logFieldSide("own field side", getOwnFieldSide());
-	logPlayMode(m_referee->GetPlayMode());
+	logPlayMode(m_currentPlayMode);
 }
 
 void RefereeImpl::logBool(const char *message, bool value)
@@ -157,10 +164,7 @@ void RefereeImpl::setReady()
 
 bool RefereeImpl::playModeChangedSinceLastCall()
 {
-	ePlayMode currentMode = m_referee->GetPlayMode();
-	bool result = currentMode != m_lastPlayMode;
-	m_lastPlayMode = currentMode;
-	return result;
+	return m_lastPlayMode != m_currentPlayMode;
 }
 
 void RefereeImpl::logPlayMode(ePlayMode playMode)

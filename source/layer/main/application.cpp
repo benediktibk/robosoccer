@@ -113,6 +113,7 @@ void Application::run()
 
 	while (!m_stop)
 	{
+		referee.update();
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
@@ -170,7 +171,7 @@ bool Application::checkHardware()
 		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.5)
 		{
 			stringstream stream;
-			stream << "orientation of one robot is " << orientation <<", but should be 0" << endl;
+			stream << "orientation of one robot is " << orientation << ", but should be 0" << endl;
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile(stream.str());
 			return false;
 		}

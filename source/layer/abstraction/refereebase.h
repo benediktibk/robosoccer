@@ -14,6 +14,7 @@ namespace Abstraction
 	public:
 		virtual ~RefereeBase() {}
 
+		virtual void update() = 0;
 		virtual FieldSide getOwnFieldSide() const = 0;
 		virtual bool getPrepareForKickOff() const = 0;
 		virtual bool getPrepareForPenalty() const = 0;
