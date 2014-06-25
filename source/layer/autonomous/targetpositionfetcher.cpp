@@ -4,6 +4,7 @@
 #include "common/geometry/pose.h"
 #include "common/geometry/line.h"
 #include "common/geometry/straight.h"
+#include "common/geometry/compare.h"
 #include <assert.h>
 #include <iostream>
 #include <math.h>
@@ -240,18 +241,39 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 	if (fieldPositionChecker.isPointInsideGoalZone(ballPosition))
 		return false;
 
-	const double fieldWidth = 1.7;
-	const Angle maxAngle(Angle::convertFromDegreeToRadiant(70));
-	const Angle minAngle(Angle::convertFromDegreeToRadiant(25));
-	double m = (maxAngle-minAngle).getValueBetweenZeroAndTwoPi()/fieldWidth*2;
-	Angle spanAngle(m*fabs(robotPosition.getY())+minAngle.getValueBetweenZeroAndTwoPi());
+	if (getDistanceToOwnGroundLine(robotPosition) > 0.4)
+	{
+		const double fieldWidth = 1.7;
+		const Angle maxAngle(Angle::convertFromDegreeToRadiant(70));
+		const Angle minAngle(Angle::convertFromDegreeToRadiant(25));
+		double k = (maxAngle-minAngle).getValueBetweenZeroAndTwoPi()/fieldWidth*2;
+		Angle spanAngle(k*fabs(robotPosition.getY())+minAngle.getValueBetweenZeroAndTwoPi());
 
-	Point goalPosition = getEnemyGoalPositions().front();
-	Angle angleGoalBall(goalPosition,ballPosition);
-	Angle angleBallRobot(ballPosition,robotPosition);
-	Angle deltaAngle = angleGoalBall-angleBallRobot;
-	double distanceRobotBall = ballPosition.distanceTo(robotPosition);
-	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < maximumDistance));
+		Point goalPosition = getEnemyGoalPositions().front();
+		Angle angleGoalBall(goalPosition,ballPosition);
+		Angle angleBallRobot(ballPosition,robotPosition);
+		Angle deltaAngle = angleGoalBall-angleBallRobot;
+		double distanceRobotBall = ballPosition.distanceTo(robotPosition);
+		return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < maximumDistance));
+	}
+	else
+	{
+		Compare angleCompare(0.35);
+		Angle angleRobotBall(robotPosition, ball.getPosition());
+
+		if (robotPosition.getY() > 0)
+		{
+			Angle angleAwayFromGoal = Angle::getQuarterRotation();
+			return angleCompare.isFuzzyEqual(angleAwayFromGoal, angleRobotBall);
+		}
+		else
+		{
+			Angle angleAwayFromGoal = Angle::getQuarterRotation() * 3;
+			return angleCompare.isFuzzyEqual(angleAwayFromGoal, angleRobotBall);
+		}
+	}
+
+	return false;
 }
 
 bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, const IntelligentBall &ball) const

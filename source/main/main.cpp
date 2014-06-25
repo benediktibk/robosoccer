@@ -93,9 +93,9 @@ int main(int argc, char **argv)
 			cout << "##### Hardware Check Disabled   : " << "FALSE" << endl;
 
 	if (true)
-			cout << "##### Route Server Port   : " << "!!add correct port" << endl;
+			cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
 		else
-			cout << "##### Route Server Port   : " << "port" << endl;
+			cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
 
 	cout << "##### Ip Adresses:" << endl;
 	for (vector<string>::const_iterator i = ipAdresses.begin(); i != ipAdresses.end(); ++i)

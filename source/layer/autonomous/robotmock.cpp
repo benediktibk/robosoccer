@@ -2,6 +2,7 @@
 #include "common/geometry/pose.h"
 #include "common/geometry/circle.h"
 #include "common/routing/route.h"
+#include <assert.h>
 
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Geometry;
@@ -19,9 +20,10 @@ RobotMock::RobotMock() :
 RobotMock::~RobotMock()
 { }
 
-void RobotMock::goTo(const vector<Pose> &, DriveMode)
+void RobotMock::goTo(const vector<Pose> &, DriveMode driveMode)
 {
 	++m_callsToGoTo;
+	m_lastGoToDriveMode = driveMode;
 }
 
 Pose RobotMock::getCurrentPose() const
@@ -107,4 +109,10 @@ void RobotMock::setCurrentPose(const Pose &pose)
 Route RobotMock::getCurrentRoute() const
 {
 	return Route();
+}
+
+DriveMode RobotMock::getLastGoToDriveMode() const
+{
+	assert(m_callsToGoTo > 0);
+	return m_lastGoToDriveMode;
 }

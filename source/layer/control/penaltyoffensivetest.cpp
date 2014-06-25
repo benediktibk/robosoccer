@@ -106,3 +106,14 @@ void PenaltyOffensiveTest::update_twiceCalled_firstMoveThenKick()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToKick());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
 }
+
+void PenaltyOffensiveTest::update_onceCalled_callToMoveIsSlowlyAtTheEndAndIgnoringBall()
+{
+	m_referee->setExecutePenalty(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL(DriveModeIgnoreBallAndDriveSlowlyAtTheEnd, robot.getLastGoToDriveMode());
+}
