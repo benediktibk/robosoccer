@@ -119,9 +119,6 @@ void Application::run()
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
 		stateMachine.update();
 
-		if (referee.playModeChangedSinceLastCall())
-			referee.logInformation();
-
 		for (unsigned int i = 0; i < 3; ++i)
 		{
 			Robot &robot = m_ownTeam->getRobotByNumber(i);
