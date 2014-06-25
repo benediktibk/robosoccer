@@ -164,9 +164,9 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 	double ballY = ball.getPosition().getY();
 
 	if(m_fieldSide == FieldSideLeft)
-		ballX += -0.5;
+		ballX += -1;
 	else
-		ballX += 0.5;
+		ballX += 1;
 
 	if(ballX > maxX)
 		ballX = maxX;
