@@ -22,6 +22,7 @@ namespace Main
 		int getOwnClientNumber() const;
 		bool disableHardwareCheck() const;
 		std::string usage() const;
+		unsigned int getRouteServePort() const;
 
 		static std::vector<std::string> convertArguments(int argc, char **argv);
 
@@ -29,12 +30,14 @@ namespace Main
 		void parseTeamColor(std::list<std::string> &arguments);
 		void parseClientNumber(std::list<std::string> &arguments);
 		void parseDisableHardwareCheck();
+		void parseRouteServerPort(std::list<std::string> &arguments);
 
 	private:
 		int m_ownClientNumber;
 		Layer::Abstraction::TeamColor m_ownTeamColor;
 		bool m_disableHardwareCheck;
 		bool m_valid;
+		unsigned int m_ownRouteServerPort;
 	};
 }
 }
