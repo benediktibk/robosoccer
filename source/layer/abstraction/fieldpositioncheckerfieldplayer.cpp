@@ -9,7 +9,7 @@ using namespace RoboSoccer::Common::Other;
 bool FieldPositionCheckerFieldPlayer::isPointInsideField(const Point &position) const
 {
 	Compare compare(0.005);
-	RectangleRoundedCorners field(Point(-1.4, -0.85), Point(1.4, 0.85), 0.3);
+	RectangleRoundedCorners field(Point(-1.42, -0.87), Point(1.42, 0.87), 0.3);
 
 	if (!field.isInside(position, compare))
 		return false;
