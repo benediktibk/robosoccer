@@ -63,6 +63,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getPositionsToGetOutOfGoalZone_fieldSideRight_positionsAreLeft);
 		CPPUNIT_TEST(getTargetsBehindBallAlternativeRobot_ballAtCenter_positionsBetweenGoalAndBall);
 		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalAndLeftFromBall_true);
+		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalAndRightFromBall_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
