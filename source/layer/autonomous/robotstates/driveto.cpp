@@ -34,6 +34,7 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 	m_obstacleFetcher(obstacleFetcher),
 	m_ownObstacleSource(ownObstacleSource),
 	m_currentRoute(new Routing::Route(ControllableRobot::getWidth())),
+	m_proposalRoute(new Routing::Route(ControllableRobot::getWidth())),
 	m_fieldPositionChecker(fieldPositionChecker)
 { }
 
@@ -69,6 +70,12 @@ void DriveTo::clearRoute()
 {
 	delete m_currentRoute;
 	m_currentRoute = 0;
+}
+
+void DriveTo::clearProposalRoute()
+{
+	delete m_proposalRoute;
+	m_proposalRoute = 0;
 }
 
 void DriveTo::prepareLastRouteSegmentForDrivingSlowly()
@@ -153,12 +160,22 @@ bool DriveTo::updateRouteIfNecessary()
 		m_currentRoute->replaceFirstPoint(currentPosition);
 
 	if (isRouteFeasible(filteredObstacles))
-		return false;
-
-	log("current route is not feasible anymore we try to create a new one");
-	clearRoute();
-	m_currentRoute = new Routing::Route(ReadableRobot::getWidth());
-	calculateNewRoute();
+	{
+		if(!existsBetterRoute())
+			return false;
+		else
+		{
+			m_currentRoute = m_proposalRoute;
+			log("current route is to long so we take a better one");
+		}
+	}
+	else
+	{
+		log("current route is not feasible anymore we try to create a new one");
+		clearRoute();
+		m_currentRoute = new Routing::Route(ReadableRobot::getWidth());
+		calculateNewRoute(*m_currentRoute);
+	}
 	return true;
 }
 
@@ -204,7 +221,7 @@ DriveMode DriveTo::getDriveModeOverriden() const
 	return driveMode;
 }
 
-void DriveTo::calculateNewRoute()
+void DriveTo::calculateNewRoute(Routing::Route &route)
 {
 	Pose currentPose = 	getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
@@ -216,7 +233,7 @@ void DriveTo::calculateNewRoute()
 		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 				m_ownObstacleSource, currentPosition, 1, driveMode, 2);
 
-		*m_currentRoute = m_router.calculateRoute(currentPosition, target, obstacles);
+		route = m_router.calculateRoute(currentPosition, target, obstacles);
 
 		if (m_currentRoute->isValid())
 			break;
@@ -227,6 +244,19 @@ void DriveTo::calculateNewRoute()
 		prepareLastRouteSegmentForDrivingSlowly();
 
 	logRoute();
+}
+
+bool DriveTo::existsBetterRoute()
+{
+	clearProposalRoute();
+	m_proposalRoute = new Routing::Route(ReadableRobot::getWidth());
+	calculateNewRoute(*m_proposalRoute);
+
+	if(!m_proposalRoute->isValid())
+		return false;
+
+	double reducedLenghtOfCurrentRoute = 0.8*m_currentRoute->getLength();
+	return m_proposalRoute->getLength() < reducedLenghtOfCurrentRoute;
 }
 
 const Point &DriveTo::getNextTargetPoint() const

@@ -73,10 +73,12 @@ namespace Autonomous
 		RobotState* nextStateWithRouteUpdate();
 
 	private:
-		void calculateNewRoute();
+		void calculateNewRoute(Common::Routing::Route &route);
+		bool existsBetterRoute();
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		void clearRoute();
+		void clearProposalRoute();
 		void prepareLastRouteSegmentForDrivingSlowly();
 		void logRoute();
 		void logCurrentPose();
@@ -93,6 +95,7 @@ namespace Autonomous
 		ObstacleFetcher const &m_obstacleFetcher;
 		ObstacleSource const &m_ownObstacleSource;
 		Common::Routing::Route *m_currentRoute;
+		Common::Routing::Route *m_proposalRoute;
 		Abstraction::FieldPositionChecker const &m_fieldPositionChecker;
 	};
 }
