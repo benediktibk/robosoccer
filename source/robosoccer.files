@@ -424,3 +424,5 @@ layer/control/treenoderesultleavegoalzone.cpp
 layer/control/treenoderesultleavegoalzone.h
 layer/control/treenoderesultleavegoalzonetest.cpp
 layer/control/treenoderesultleavegoalzonetest.h
+layer/abstraction/fieldpositioncheckertest.h
+layer/abstraction/fieldpositioncheckertest.cpp
