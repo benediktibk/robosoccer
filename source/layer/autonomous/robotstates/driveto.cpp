@@ -41,6 +41,7 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 DriveTo::~DriveTo()
 {
 	clearRoute();
+	clearProposalRoute();
 }
 
 bool DriveTo::reachedTarget() const
@@ -78,12 +79,12 @@ void DriveTo::clearProposalRoute()
 	m_proposalRoute = 0;
 }
 
-void DriveTo::prepareLastRouteSegmentForDrivingSlowly()
+void DriveTo::prepareLastRouteSegmentForDrivingSlowly(Routing::Route &route)
 {
 	double lengthOfLastSegment = 0.15;
 
-	if(m_currentRoute->getLengthOfLastSegment() > lengthOfLastSegment)
-		m_currentRoute->splitLastSegment(lengthOfLastSegment);
+	if(route.getLengthOfLastSegment() > lengthOfLastSegment)
+		route.splitLastSegment(lengthOfLastSegment);
 }
 
 size_t DriveTo::getRoutePointsCount() const
@@ -165,7 +166,9 @@ bool DriveTo::updateRouteIfNecessary()
 			return false;
 		else
 		{
+			delete m_currentRoute;
 			m_currentRoute = m_proposalRoute;
+			m_proposalRoute = 0;
 			log("current route is to long so we take a better one");
 		}
 	}
@@ -235,13 +238,13 @@ void DriveTo::calculateNewRoute(Routing::Route &route)
 
 		route = m_router.calculateRoute(currentPosition, target, obstacles);
 
-		if (m_currentRoute->isValid())
+		if (route.isValid())
 			break;
 	}
 
 	if((driveMode == DriveModeDriveSlowlyAtTheEnd || driveMode == DriveModeIgnoreGoalObstacles
 		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
-		prepareLastRouteSegmentForDrivingSlowly();
+		prepareLastRouteSegmentForDrivingSlowly(route);
 
 	logRoute();
 }

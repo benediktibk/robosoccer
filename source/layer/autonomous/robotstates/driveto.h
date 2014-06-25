@@ -79,7 +79,7 @@ namespace Autonomous
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		void clearRoute();
 		void clearProposalRoute();
-		void prepareLastRouteSegmentForDrivingSlowly();
+		void prepareLastRouteSegmentForDrivingSlowly(Common::Routing::Route &route);
 		void logRoute();
 		void logCurrentPose();
 		DriveMode getDriveModeOverriden() const;
