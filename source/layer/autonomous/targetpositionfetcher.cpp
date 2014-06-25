@@ -258,7 +258,7 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 	}
 	else
 	{
-		Compare angleCompare(0.15);
+		Compare angleCompare(0.35);
 		Angle angleRobotBall(robotPosition, ball.getPosition());
 
 		if (robotPosition.getY() > 0)
