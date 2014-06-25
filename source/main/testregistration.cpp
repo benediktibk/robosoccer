@@ -25,10 +25,11 @@
 #include "common/states/statetest.h"
 #include "common/states/statemachinetest.h"
 #include "layer/abstraction/robotdrivecontroltest.h"
-#include "layer/main/applicationtest.h"
+#include "layer/abstraction/fieldpositioncheckertest.h"
 #include "layer/abstraction/fieldpositioncheckerfieldplayertest.h"
 #include "layer/abstraction/fieldpositioncheckergoalkeepertest.h"
 #include "layer/main/inputargumentparsertest.h"
+#include "layer/main/applicationtest.h"
 #include "layer/control/pausetest.h"
 #include "layer/control/preparekickofftest.h"
 #include "layer/control/playtest.h"
@@ -97,6 +98,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Common::States::StateMachineTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::RobotDriveControlTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::FieldPositionCheckerFieldPlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::FieldPositionCheckerGoalkeeperTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Abstraction::FieldPositionCheckerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::ApplicationTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Main::InputArgumentParserTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(RoboSoccer::Layer::Control::PauseTest);

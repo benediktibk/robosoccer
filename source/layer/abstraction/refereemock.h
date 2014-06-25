@@ -15,6 +15,7 @@ namespace Abstraction
 	public:
 		RefereeMock();
 
+		virtual void update();
 		virtual FieldSide getOwnFieldSide() const;
 		virtual bool getPrepareForKickOff() const;
 		virtual bool getPrepareForPenalty() const;

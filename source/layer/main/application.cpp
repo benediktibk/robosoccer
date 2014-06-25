@@ -113,13 +113,11 @@ void Application::run()
 
 	while (!m_stop)
 	{
+		referee.update();
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
 		stateMachine.update();
-
-		if (referee.playModeChangedSinceLastCall())
-			referee.logInformation();
 
 		for (unsigned int i = 0; i < 3; ++i)
 		{
@@ -139,7 +137,11 @@ void Application::run()
 		}
 
 		if (loopTime > maximumLoopTime)
-			m_logger->logErrorToConsoleAndWriteToGlobalLogFile("loop time is too high");
+		{
+			stringstream stream;
+			stream << "loop time is too high: " << loopTime;
+			m_logger->logErrorToConsoleAndWriteToGlobalLogFile(stream.str());
+		}
 	}
 
 	m_logger->logToConsoleAndGlobalLogFile("stopped");
@@ -166,7 +168,7 @@ bool Application::checkHardware()
 		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.5)
 		{
 			stringstream stream;
-			stream << "orientation of one robot is " << orientation <<", but should be 0" << endl;
+			stream << "orientation of one robot is " << orientation << ", but should be 0" << endl;
 			m_logger->logErrorToConsoleAndWriteToGlobalLogFile(stream.str());
 			return false;
 		}

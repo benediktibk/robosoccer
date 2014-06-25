@@ -33,6 +33,7 @@ namespace Abstraction
 		RefereeImpl(KogniMobil::RTDBConn &dataBase, TeamColor ownColor, Common::Logging::Logger &logger);
 		virtual ~RefereeImpl();
 
+		virtual void update();
 		virtual FieldSide getOwnFieldSide() const;
 		virtual bool getPrepareForKickOff() const;
 		virtual bool getPrepareForPenalty() const;
@@ -57,6 +58,8 @@ namespace Abstraction
 		Referee *m_referee;
 		TeamColor m_ownColor;
 		ePlayMode m_lastPlayMode;
+		ePlayMode m_currentPlayMode;
+		eSide m_currentBlueSide;
 	};
 }
 }

@@ -56,10 +56,10 @@ namespace Autonomous
 		//! @todo this function might be unused
 		Common::Geometry::Point getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const;
 
-		bool isGoodKickPosition(const IntelligentBall &ball,const Common::Geometry::Point robotPosition, double minDistanc) const;
+		bool isGoodKickPosition(const IntelligentBall &ball, const Common::Geometry::Point robotPosition, double maximumDistance) const;
 		bool isPositionBehindTheBall(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball)const;
 
-		Common::Geometry::Angle getOrientationToEnemyGoal() const;
+		Common::Geometry::Angle getOrientationToOwnGoal() const;
 
 	private:
 		std::vector<Common::Geometry::Point> getEnemyGoalPositions(Abstraction::FieldSide fieldSide) const;

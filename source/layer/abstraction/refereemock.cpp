@@ -14,6 +14,9 @@ RefereeMock::RefereeMock() :
 	m_ownFieldSide(FieldSideLeft)
 { }
 
+void RefereeMock::update()
+{ }
+
 FieldSide RefereeMock::getOwnFieldSide() const
 {
 	return m_ownFieldSide;

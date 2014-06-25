@@ -164,9 +164,9 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 	double ballY = ball.getPosition().getY();
 
 	if(m_fieldSide == FieldSideLeft)
-		ballX += -0.5;
+		ballX += -1;
 	else
-		ballX += 0.5;
+		ballX += 1;
 
 	if(ballX > maxX)
 		ballX = maxX;
@@ -180,7 +180,7 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 
 	vector<Pose> targets;
 	targets.reserve(5);
-	Angle orientation = getOrientationToEnemyGoal();
+	Angle orientation = getOrientationToOwnGoal();
 	Pose maxPriorityPoint = Pose(Point(ballX, ballY),orientation);
 
 	targets.push_back(maxPriorityPoint);
@@ -232,7 +232,7 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionsUnusedPlayerTwo() const
 	return positions;
 }
 
-bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, const Point robotPosition, double minDistance) const
+bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, const Point robotPosition, double maximumDistance) const
 {
 	Point ballPosition = ball.getPosition();
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;
@@ -251,7 +251,7 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 	Angle angleBallRobot(ballPosition,robotPosition);
 	Angle deltaAngle = angleGoalBall-angleBallRobot;
 	double distanceRobotBall = ballPosition.distanceTo(robotPosition);
-	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < minDistance));
+	return ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < maximumDistance));
 }
 
 bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, const IntelligentBall &ball) const
@@ -280,7 +280,7 @@ bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, 
 
 vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentBall &ball) const
 {
-	Angle orientation = getOrientationToEnemyGoal();
+	Angle orientation = getOrientationToOwnGoal();
 	Point ballPosition = ball.getPosition();
 	vector<Pose> result;
 	result.reserve(5);
@@ -417,7 +417,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const Int
 		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
 }
 
-Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
+Angle TargetPositionFetcher::getOrientationToOwnGoal() const
 {
 	Angle ballOrientation;
 	if (m_fieldSide == FieldSideLeft)
@@ -429,16 +429,23 @@ Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
 vector<Pose> TargetPositionFetcher::getTargetsBehindBall(const IntelligentBall &ball) const
 {
 	vector<Pose> targetPoints;
-	targetPoints.reserve(4);
+	targetPoints.reserve(6);
 	static double distanceToBall = 0.2;
 	Point ballPosition = ball.getPosition();
-	Line enemyGoalToBall(getEnemyGoalPositions().front(),ballPosition);
-	Point maxProrityPoint = enemyGoalToBall.getPointOnDirectionOfLine((enemyGoalToBall.getLength()+distanceToBall)/enemyGoalToBall.getLength());
-	targetPoints.push_back(Pose(maxProrityPoint, Angle(enemyGoalToBall.getStart(),enemyGoalToBall.getEnd())));
 
-	Angle ballOrientation = getOrientationToEnemyGoal();
-	Point secondPriorityPoint = ball.getPosition() + Point(distanceToBall, ballOrientation);
-	targetPoints.push_back(Pose(secondPriorityPoint, ballOrientation + Angle::getHalfRotation()));
+	Line enemyGoalToBall(getEnemyGoalPositions().front(),ballPosition);
+	Point targetBehindBallInShootingDirection = enemyGoalToBall.getPointOnDirectionOfLine((enemyGoalToBall.getLength()+distanceToBall)/enemyGoalToBall.getLength());
+	targetPoints.push_back(Pose(targetBehindBallInShootingDirection, Angle(enemyGoalToBall.getStart(),enemyGoalToBall.getEnd())));
+
+	Angle directionToOwnGoal = getOrientationToOwnGoal();
+	Point targetBehindBallInXDirection = ball.getPosition() + Point(distanceToBall, directionToOwnGoal);
+	Point targetBehindBallInXDirectionAlt1 = targetBehindBallInXDirection + Point(0,0.03);
+	Point targetBehindBallInXDirectionAlt2 = targetBehindBallInXDirection + Point(0,-0.03);
+
+	targetPoints.push_back(Pose(targetBehindBallInXDirection, directionToOwnGoal + Angle::getHalfRotation()));
+	targetPoints.push_back(Pose(targetBehindBallInXDirectionAlt1, directionToOwnGoal + Angle::getHalfRotation()));
+	targetPoints.push_back(Pose(targetBehindBallInXDirectionAlt2, directionToOwnGoal + Angle::getHalfRotation()));
+
 	Point targetLeftViewFromGoalie1;
 	Point targetLeftViewFromGoalie2;
 	Point targetRightViewFromGoalie1;
