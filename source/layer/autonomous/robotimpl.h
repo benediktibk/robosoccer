@@ -54,6 +54,7 @@ namespace Autonomous
 		virtual void kick(IntelligentBall const &ball);
 		virtual void update();
 		virtual Common::Routing::Route getCurrentRoute() const;
+		virtual std::vector<Common::Geometry::Pose> getCurrentTargets() const;
 
 		RobotState const& getCurrentState() const;
 		bool movementStopped() const;

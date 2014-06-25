@@ -61,3 +61,8 @@ Route RobotState::getCurrentRoute() const
 	route.addPoint(pose.getPosition());
 	return route;
 }
+
+vector<Pose> RobotState::getCurrentTargets() const
+{
+	return vector<Pose>();
+}

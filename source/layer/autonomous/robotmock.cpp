@@ -111,6 +111,11 @@ Route RobotMock::getCurrentRoute() const
 	return Route();
 }
 
+vector<Pose> RobotMock::getCurrentTargets() const
+{
+	return vector<Pose>();
+}
+
 DriveMode RobotMock::getLastGoToDriveMode() const
 {
 	assert(m_callsToGoTo > 0);

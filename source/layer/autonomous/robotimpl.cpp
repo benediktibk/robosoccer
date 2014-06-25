@@ -200,3 +200,8 @@ Route RobotImpl::getCurrentRoute() const
 {
 	return m_currentState->getCurrentRoute();
 }
+
+vector<Pose> RobotImpl::getCurrentTargets() const
+{
+	return m_currentState->getCurrentTargets();
+}

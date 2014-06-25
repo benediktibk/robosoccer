@@ -143,6 +143,11 @@ Routing::Route DriveTo::getCurrentRoute() const
 	return *m_currentRoute;
 }
 
+vector<Pose> DriveTo::getCurrentTargets() const
+{
+	return m_targets;
+}
+
 const FieldPositionChecker &DriveTo::getFieldPositionChecker() const
 {
 	return m_fieldPositionChecker;
