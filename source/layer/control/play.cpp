@@ -49,8 +49,14 @@ void Play::updateInternal()
 
 	if (m_fieldPositionCheckerGoalKeeper.isPointInsideDangerZone(ballPosition))
 		goalie.stop();
-	else
+	else if (m_fieldPositionCheckerGoalKeeper.isPointInsideGoalZone(goalie.getCurrentPose()))
 		goalie.goToDirect(goalKeeperTarget);
+	else
+	{
+		vector<Pose> targets;
+		targets.push_back(goalKeeperTarget);
+		goalie.goTo(targets, DriveModeIgnoreGoalObstacles);
+	}
 
 	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
 	while (node->decide())
