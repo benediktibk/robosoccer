@@ -26,6 +26,8 @@ namespace Autonomous
 		CPPUNIT_TEST(nextState_obstacleBehindRobotOccurs_0);
 		CPPUNIT_TEST(nextState_obstacleCloseToStartPositionAndTargetNotReached_0);
 		CPPUNIT_TEST(reachedTarget_empty_false);
+		CPPUNIT_TEST(nextState_targetNotReachedButProposalRouteIsMuchBetter_initialRotationWithNewRoute);
+		CPPUNIT_TEST(nextState_targetNotReachedAndProposalRouteIsMuchBetterButInvalid_0);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -45,6 +47,8 @@ namespace Autonomous
 		void nextState_obstacleBehindRobotOccurs_0();
 		void nextState_obstacleCloseToStartPositionAndTargetNotReached_0();
 		void reachedTarget_empty_false();
+		void nextState_targetNotReachedButProposalRouteIsMuchBetter_initialRotationWithNewRoute();
+		void nextState_targetNotReachedAndProposalRouteIsMuchBetterButInvalid_0();
 	};
 }
 }
