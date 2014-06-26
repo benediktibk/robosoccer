@@ -392,9 +392,10 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 
 			Straight ballMovingStraight(ball.getPosition(),ball.getRotation());
 			Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
+			vector<Point> intersectionPoints = ballMovingStraight.getIntersectPoint(goalKeeperMovingLine);
 
-			if (!ballMovingStraight.getIntersectPoint(goalKeeperMovingLine).empty())
-				return Pose(ballMovingStraight.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
+			if (!intersectionPoints.empty())
+				return Pose(intersectionPoints.front(), Angle::getQuarterRotation());
 		}
 	}
 
