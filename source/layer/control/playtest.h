@@ -16,6 +16,8 @@ namespace Control
 		CPPUNIT_TEST(nextState_everythingSet_0);
 		CPPUNIT_TEST(nextState_notContinuePlaying_pause);
 		CPPUNIT_TEST(update_ballInDangerZone_goalieGotCallToStop);
+		CPPUNIT_TEST(update_goalieOutsideGoalZone_goalieGotCallToGoTo);
+		CPPUNIT_TEST(update_goalieInsideGoalZone_goalieGotCallToGoToDirect);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -25,6 +27,8 @@ namespace Control
 		void nextState_everythingSet_0();
 		void nextState_notContinuePlaying_pause();
 		void update_ballInDangerZone_goalieGotCallToStop();
+		void update_goalieOutsideGoalZone_goalieGotCallToGoTo();
+		void update_goalieInsideGoalZone_goalieGotCallToGoToDirect();
 	};
 }
 }
