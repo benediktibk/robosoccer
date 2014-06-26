@@ -387,51 +387,6 @@ void TargetPositionFetcherTest::isInUsefulArea(const Point &position, double max
 	CPPUNIT_ASSERT(position.getY() >= -maxY && position.getY() <= maxY);
 }
 
-void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAtZeroZeroMovingToDirectionZeroOne_zeroAndZeroPointTwo()
-{
-	Compare compare(0.00001);
-	TargetPositionFetcher targetPositionFetcher;
-	IntelligentBallMock ball;
-	ball.setPosition(Point(0, 0));
-	Angle ballRotation(Point(0,0),Point(0,1));
-	ball.setRotation(ballRotation);
-	ball.setIsMoving(true);
-
-	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 0.2);
-
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(0,0.2)));
-}
-
-void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballAMinusTwoTwoMovingToDirectionMinusOneMinusOne_minusThreeAndOne()
-{
-	Compare compare(0.00001);
-	TargetPositionFetcher targetPositionFetcher;
-	IntelligentBallMock ball;
-	ball.setPosition(Point(-2, 2));
-	Angle ballRotation(Point(0,0),Point(-1,-1));
-	ball.setRotation(ballRotation);
-	ball.setIsMoving(true);
-
-	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, sqrt(2.0));
-
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(-3,1)));
-}
-
-void TargetPositionFetcherTest::getPointBehindBallInMovingDirection_ballATwoMinusOneMovingToDirectionOneZero_threeAndMinusOne()
-{
-	Compare compare(0.00001);
-	TargetPositionFetcher targetPositionFetcher;
-	IntelligentBallMock ball;
-	ball.setPosition(Point(2, -1));
-	Angle ballRotation(Point(0,0),Point(1,0));
-	ball.setRotation(ballRotation);
-	ball.setIsMoving(true);
-
-	Point shouldBe = targetPositionFetcher.getPointBehindBallInMovingDirection(ball, 1);
-
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(shouldBe,Point(3,-1)));
-}
-
 void TargetPositionFetcherTest::getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRight_positionBehindBall()
 {
 	TargetPositionFetcher targetPositionFetcher;

@@ -150,13 +150,6 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBa
 	return penaltyPosition;
 }
 
-Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
-{
-	Angle ballOrientation = ball.getRotation();
-	Point pointDelta(distanceToBall, ballOrientation);
-	return ball.getPosition() + pointDelta;
-}
-
 vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball) const
 {
 	double maxX = 1.1;
