@@ -48,9 +48,9 @@ namespace Autonomous
 		CPPUNIT_TEST(getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY);
 		CPPUNIT_TEST(isGoodKickPosition_robotInGoodPosition_true);
 		CPPUNIT_TEST(getAlternativeRobotPositionBehindBallAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea);
-		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_fiveResults);
-		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_threeXAre1);
-		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_threeYAre2);
+		CPPUNIT_TEST(getPositionToDriveOnBall_validBallPosition_atLeastTenResults);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballXAt1_atLeastThreeXAre1);
+		CPPUNIT_TEST(getPositionToDriveOnBall_ballYAt2_atLeastThreeYAre2);
 		CPPUNIT_TEST(getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2);
 		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false);
 		CPPUNIT_TEST(isGoodKickPosition_robotInBadPositionDueToAngleViolation_false);
@@ -103,9 +103,9 @@ namespace Autonomous
 		void getAlternativeRobotPositionsBehindBallAggressiveMode_fieldSideLeftAndBallOnFieldSideRightAndNearTheSideBorder_positionOnMaxY();
 		void isGoodKickPosition_robotInGoodPosition_true();
 		void getAlternativeRobotPositionBehindBallAggressiveMode_fieldSideLeftAndBallNearToGoal_positionInUsefulArea();
-		void getPositionToDriveOnBall_validBallPosition_fiveResults();
-		void getPositionToDriveOnBall_ballXAt1_threeXAre1();
-		void getPositionToDriveOnBall_ballYAt2_threeYAre2();
+		void getPositionToDriveOnBall_validBallPosition_atLeastTenResults();
+		void getPositionToDriveOnBall_ballXAt1_atLeastThreeXAre1();
+		void getPositionToDriveOnBall_ballYAt2_atLeastThreeYAre2();
 		void getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2();
 		void isGoodKickPosition_robotInBadPositionDueToDistanceViolation_false();
 		void isGoodKickPosition_robotInBadPositionDueToAngleViolation_false();

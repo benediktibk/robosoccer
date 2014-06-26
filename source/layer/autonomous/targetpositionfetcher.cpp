@@ -306,16 +306,37 @@ bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, 
 
 vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentBall &ball) const
 {
-	Angle orientation = getOrientationToOwnGoal();
+	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
+	int sideFactor = m_fieldSide == FieldSideLeft ? 1 : -1;
 	vector<Pose> result;
-	result.reserve(5);
+	result.reserve(30);
 
 	result.push_back(Pose(ballPosition, orientation));
+	result.push_back(Pose(ballPosition + Point(0.05*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(0.05*sideFactor, 0.03), orientation));
+	result.push_back(Pose(ballPosition + Point(0.05*sideFactor, -0.03), orientation));
+	result.push_back(Pose(ballPosition + Point(0.1*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(0.1*sideFactor, 0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(0.1*sideFactor, -0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(0.2*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(0.2*sideFactor, 0.15), orientation));
+	result.push_back(Pose(ballPosition + Point(0.2*sideFactor, -0.15), orientation));
 	result.push_back(Pose(ballPosition + Point(0, 0.05), orientation));
 	result.push_back(Pose(ballPosition + Point(0, -0.05), orientation));
-	result.push_back(Pose(ballPosition + Point(0.05, 0), orientation));
-	result.push_back(Pose(ballPosition + Point(-0.05, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(0, 0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(0, -0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(0, 0.15), orientation));
+	result.push_back(Pose(ballPosition + Point(0, -0.15), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.05*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.05*sideFactor, 0.03), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.05*sideFactor, -0.03), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.1*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.1*sideFactor, 0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.1*sideFactor, -0.1), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.2*sideFactor, 0), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.2*sideFactor, 0.15), orientation));
+	result.push_back(Pose(ballPosition + Point(-0.2*sideFactor, -0.15), orientation));
 
 	return result;
 }
@@ -544,4 +565,9 @@ vector<Pose> TargetPositionFetcher::getTargetsBehindBallAlternativeRobot(const I
 	targetPoints.push_back(Pose(ballToPointIfFrontOfGoal.getPointOnDirectionOfLine(0.8), direction));
 
 	return targetPoints;
+}
+
+Angle TargetPositionFetcher::getOrientationToEnemyGoal() const
+{
+	return getOrientationToOwnGoal() + Angle::getHalfRotation();
 }

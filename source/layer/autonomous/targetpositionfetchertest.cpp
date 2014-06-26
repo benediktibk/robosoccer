@@ -470,7 +470,7 @@ void TargetPositionFetcherTest::getAlternativeRobotPositionBehindBallAggressiveM
 		CPPUNIT_ASSERT(ball.getPosition().getX() > shouldBe[i].getPosition().getX());
 }
 
-void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_fiveResults()
+void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_atLeastTenResults()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
@@ -479,10 +479,10 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_validBallPosition_fiveR
 
 	vector<Pose> results = targetPositionFetcher.getPositionsToDriveOnBall(ball);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)5, results.size());
+	CPPUNIT_ASSERT(results.size() >= 10);
 }
 
-void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_threeXAre1()
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_atLeastThreeXAre1()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
@@ -500,10 +500,10 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_ballXAt1_threeXAre1()
 		if (compare.isFuzzyEqual(1, position.getX()))
 			++count;
 	}
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
+	CPPUNIT_ASSERT(count >= 3);
 }
 
-void TargetPositionFetcherTest::getPositionToDriveOnBall_ballYAt2_threeYAre2()
+void TargetPositionFetcherTest::getPositionToDriveOnBall_ballYAt2_atLeastThreeYAre2()
 {
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
@@ -521,7 +521,8 @@ void TargetPositionFetcherTest::getPositionToDriveOnBall_ballYAt2_threeYAre2()
 		if (compare.isFuzzyEqual(2, position.getY()))
 			++count;
 	}
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, count);
+
+	CPPUNIT_ASSERT(count >= 3);
 }
 
 void TargetPositionFetcherTest::getPositionToDriveOnBall_ballAt1And2_firstPositionIs1And2()

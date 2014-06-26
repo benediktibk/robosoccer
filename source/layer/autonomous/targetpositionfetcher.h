@@ -57,6 +57,7 @@ namespace Autonomous
 		bool isPositionBehindTheBall(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball)const;
 
 		Common::Geometry::Angle getOrientationToOwnGoal() const;
+		Common::Geometry::Angle getOrientationToEnemyGoal() const;
 
 	private:
 		std::vector<Common::Geometry::Point> getEnemyGoalPositions(Abstraction::FieldSide fieldSide) const;
