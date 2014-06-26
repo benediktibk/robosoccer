@@ -378,7 +378,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 			ball.getMovingDirection() == fieldSide &&
 			ball.getCurrentFieldSide() == fieldSide)
 	{
-		double xPositionGoalKeeperRightSideModified = xPositionGoalKeeperRightSide;
+		double xPositionGoalKeeper = xPositionGoalKeeperRightSide;
 		switch (fieldSide)
 		{
 		case FieldSideInvalid:
@@ -386,16 +386,27 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 		case FieldSideRight:
 			break;
 		case FieldSideLeft:
-			xPositionGoalKeeperRightSideModified *= -1;
+			xPositionGoalKeeper *= -1;
 			break;
 		}
 
-		Straight ballMovingStraight(ball.getPosition(),ball.getRotation());
-		Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSideModified,-0.2),Point(xPositionGoalKeeperRightSideModified,0.2));
+		Point ballPosition = ball.getPosition();
+		Angle ballRotation = ball.getRotation();
+		Straight ballMovingStraight(ballPosition, ballRotation);
+		Line goalKeeperMovingLine(Point(xPositionGoalKeeper, -0.2), Point(xPositionGoalKeeper, 0.2));
 		vector<Point> intersectionPoints = ballMovingStraight.getIntersectPoint(goalKeeperMovingLine);
 
 		if (!intersectionPoints.empty())
-			return Pose(intersectionPoints.front(), Angle::getQuarterRotation());
+		{
+			Point const &intersectionPoint = intersectionPoints.front();
+			Point ballProjectedToEdgeOfField(xPositionGoalKeeper, ballPosition.getY());
+			Angle angleToGoal(intersectionPoint, ballProjectedToEdgeOfField, ballPosition);
+
+			if (fabs(angleToGoal.getValueBetweenMinusPiAndPi()) > 0.3)
+				return Pose(intersectionPoint, Angle::getQuarterRotation());
+			else
+				return getGoaliePositionUsingYCoordinateFollowing(ball, xPositionGoalKeeper);
+		}
 	}
 
 	return getGoaliePositionUsingIntersectWithGoalCenter(fieldSide, ball, xPositionGoalKeeperRightSide);

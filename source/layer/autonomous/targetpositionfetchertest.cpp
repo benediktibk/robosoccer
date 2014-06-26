@@ -68,7 +68,7 @@ void TargetPositionFetcherTest::getTargetForGoalkeeper_ballMovingTowardsTheGoalI
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
-	ball.setPosition(Point(0.58*tan(0.3), -0.4));
+	ball.setPosition(Point(-1.38 + 0.58*tan(0.3), -0.4));
 	ball.setIsMoving(true);
 	ball.setMovingDirection(FieldSideLeft);
 	ball.setRotation(Angle::getHalfRotation() - 0.3);
