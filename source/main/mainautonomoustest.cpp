@@ -118,20 +118,23 @@ int main(int, char**)
 
 	vector<Pose> targets;
 	targets.push_back(Pose(Point(-1.4, 0), Angle(0)));
-	robotOne.goTo(targets, DriveModeIgnoreGoalObstacles);
-	while(!robotOne.reachedTarget())
+	Robot &robot = robotThree;
+	robot.goTo(targets, DriveModeIgnoreGoalObstacles);
+	cout << "driving to start position" << endl;
+	while(!robot.reachedTarget())
 	{
-		robotOne.update();
+		robot.update();
 		usleep(10000);
 	}
 
+	cout << "reached start position" << endl;
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	while(true)
 	{
 		Pose targetPose = targetPositionFetcher.getTargetForGoalkeeper(ball);
-		robotOne.goToDirect(targetPose);
-		robotOne.update();
+		robot.goToDirect(targetPose);
+		robot.update();
 		usleep(10000);
 	}
 

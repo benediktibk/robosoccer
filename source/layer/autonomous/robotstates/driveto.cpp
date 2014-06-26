@@ -248,7 +248,7 @@ void DriveTo::calculateNewRoute(Routing::Route &route)
 	}
 
 	if((driveMode == DriveModeDriveSlowlyAtTheEnd || driveMode == DriveModeIgnoreGoalObstacles
-		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && m_currentRoute->isValid())
+		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && route.isValid())
 		prepareLastRouteSegmentForDrivingSlowly(route);
 
 	logRoute();
