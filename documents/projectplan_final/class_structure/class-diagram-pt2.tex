@@ -1,0 +1,100 @@
+%!tikz editor 1.0
+%!tikz source begin
+\begin{tikzpicture}[node distance=4.5cm, scale=0.7, transform shape]
+	\font\btt=rm-lmtk10
+	\definecolor{PresiBlue}{RGB}{50,57,171}
+	
+	\tikzstyle{class}=[
+		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=3, 
+		fill=PresiBlue!80, drop shadow, font=\tt,
+        text centered, anchor=north, text=white, text width=3.5cm, thick]
+		
+	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
+	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
+	\tikzstyle{line}=[-, thick]
+   
+   % Classes
+      
+	\node (enemyteam) [class]
+	{
+		{\large \texttt{\textbf{EnemyTeam}}}
+		
+		\nodepart{second}
+		-m\char`_robots
+		
+		\nodepart{third}
+		+getObstacles()\\
+		+getNextPlayer()
+	};
+	
+	\node (ownteam) [class, right= of enemyteam.north , anchor=north]
+	{
+		{\large \texttt{\textbf{OwnTeam}}}
+		
+		\nodepart{second}
+		-m\char`_robots
+		
+		\nodepart{third}
+		+getGoalie()\\
+		+getFirstPlayer()\\
+		+getSecondPlayer()\\
+		+getObstacles()
+	};
+    
+	\node (intelligentball) [class, right= of ownteam.north, anchor=north]
+	{
+		{\large \texttt{\textbf{IntelligentBall}}}
+		
+		\nodepart{second}
+		-m\char`_ball
+		
+		\nodepart{third}
+		+getDirection()\\
+		+getFieldSide()\\
+		+isMoving()
+	};
+	
+	\node (game) [class, above= of ownteam, anchor=north]
+	{
+		{\large \texttt{\textbf{Game}}}
+		
+		\nodepart{second}
+		-m\char`_enemyTeam\\
+		-m\char`_ownTeam\\
+		-m\char`_ball\\
+		
+		\nodepart{third}
+		+isRunning()\\
+		+getOwnFieldSide()
+	};
+	
+	\node (statemachine) [class, left= of game.north, anchor=north]
+	{
+		{\large \texttt{\textbf{StateMachine}}}
+		
+		\nodepart{third}
+		+executeNextStep()
+	};
+	
+	\node (strategy) [class, right= of game.north, anchor=north]
+	{
+		{\large \texttt{\textbf{Strategy}}}
+		
+		\nodepart{third}
+		+decideNextStep()
+	};
+	% Connections
+	\path [property] (enemyteam.north) -- +(0,1) -| (game.south);
+	\path [property] (ownteam.north) -- +(0,1) -| (game.south);
+	\path [property] (intelligentball.north) -- +(0,1) -| (game.south);
+	
+	% Background Box
+	\begin{pgfonlayer}{background}
+		\draw [dashed, very thick, red] ($(enemyteam.north west) + (-1,0.7)$) -- ($(intelligentball.north east) + (1,0.7)$);
+		\draw ($(intelligentball.north east) + (1,0.45)$) node [left, red] {\textbf{\textit{Autonomous}}};
+		\draw ($(intelligentball.north east) + (1,1)$) node [left, red] {\textbf{\textit{Control}}};
+	\end{pgfonlayer}
+
+	
+\end{tikzpicture}
+%!tikz source end
