@@ -56,7 +56,6 @@ void PreparePenaltyDefensive::updateInternal()
 
 	goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball), DriveModeIgnoreGoalObstacles);
 
-	//! @todo consider ignoreBall and driveSlowlyAtTheEnd
 	if (!m_sendGoToSignal)
 	{
 		m_sendGoToSignal = true;

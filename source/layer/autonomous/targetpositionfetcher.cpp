@@ -150,13 +150,6 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionGoalie(const IntelligentBa
 	return penaltyPosition;
 }
 
-Point TargetPositionFetcher::getPointBehindBallInMovingDirection(const IntelligentBall &ball, double distanceToBall) const
-{
-	Angle ballOrientation = ball.getRotation();
-	Point pointDelta(distanceToBall, ballOrientation);
-	return ball.getPosition() + pointDelta;
-}
-
 vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggressiveMode(const IntelligentBall &ball) const
 {
 	double maxX = 1.1;
@@ -180,7 +173,7 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 		ballY = -maxY;
 
 	vector<Pose> targets;
-	targets.reserve(5);
+	targets.reserve(10);
 	Angle orientation = getOrientationToOwnGoal();
 	Pose maxPriorityPoint = Pose(Point(ballX, ballY),orientation);
 
@@ -189,6 +182,17 @@ vector<Pose> TargetPositionFetcher::getAlternativeRobotPositionsBehindBallAggres
 	targets.push_back(maxPriorityPoint + Pose(Point(0, -0.1), Angle()));
 	targets.push_back(maxPriorityPoint + Pose(Point(0.1, 0), Angle()));
 	targets.push_back(maxPriorityPoint + Pose(Point(-0.1, 0), Angle()));
+
+	Point ballPosition = ball.getPosition();
+	Point ownGoalZoneCenterPosition = m_fieldSide == FieldSideRight ? Point(1.2,0) : Point(-1.2,0);
+	Line ballToPointInFrontOfGoal(ownGoalZoneCenterPosition,ballPosition);
+	Pose secondTarget = Pose(ballToPointInFrontOfGoal.getPointOnDirectionOfLine(0.5), orientation);
+
+	targets.push_back(secondTarget);
+	targets.push_back(secondTarget + Pose(Point(0, 0.1), Angle()));
+	targets.push_back(secondTarget + Pose(Point(0, -0.1), Angle()));
+	targets.push_back(secondTarget + Pose(Point(0.1, 0), Angle()));
+	targets.push_back(secondTarget + Pose(Point(-0.1, 0), Angle()));
 
 	return targets;
 }

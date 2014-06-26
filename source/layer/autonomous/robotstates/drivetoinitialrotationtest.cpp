@@ -154,4 +154,5 @@ void DriveToInitialRotationTest::constructor_noRouteAndFirstRouteInvalid_routeCr
 	DriveTo *stateCasted = dynamic_cast<DriveTo*>(state);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, stateCasted->getRoutePointsCount());
+	delete state;
 }

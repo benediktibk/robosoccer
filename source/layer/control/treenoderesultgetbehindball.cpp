@@ -24,7 +24,6 @@ TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
 
 void TreeNodeResultGetBehindBall::execute()
 {
-	//! @todo use useful target for second robot
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 
