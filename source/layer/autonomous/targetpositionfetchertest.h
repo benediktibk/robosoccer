@@ -68,6 +68,8 @@ namespace Autonomous
 		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderLeftFromGoalAndRightFromBall_true);
 		CPPUNIT_TEST(isGoodKickPosition_nearEnemyBorderRightFromGoalAndLeftFromBall_false);
 		CPPUNIT_TEST(isGoodKickPosition_nearEnemyBorderLeftFromGoalAndLeftFromBall_false);
+		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderLeftFromGoalButRobotBehindBall_true);
+		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalButRobotBehindBall_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -123,6 +125,8 @@ namespace Autonomous
 		void isGoodKickPosition_nearOwnBorderLeftFromGoalAndRightFromBall_true();
 		void isGoodKickPosition_nearEnemyBorderRightFromGoalAndLeftFromBall_false();
 		void isGoodKickPosition_nearEnemyBorderLeftFromGoalAndLeftFromBall_false();
+		void isGoodKickPosition_nearOwnBorderLeftFromGoalButRobotBehindBall_true();
+		void isGoodKickPosition_nearOwnBorderRightFromGoalButRobotBehindBall_true();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
