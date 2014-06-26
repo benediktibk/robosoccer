@@ -74,3 +74,17 @@ void PlayTest::update_goalieOutsideGoalZone_goalieGotCallToGoTo()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoToDirect());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToStop());
 }
+
+void PlayTest::update_goalieInsideGoalZone_goalieGotCallToGoToDirect()
+{
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setCurrentPose(Pose(Point(1.4,0.07), Angle()));
+	m_ball->setIsMoving(true);
+	m_ball->setPosition(Point(0, 0.3));
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoToDirect());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToStop());
+}
