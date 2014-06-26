@@ -3,6 +3,7 @@
 #include "layer/control/play.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
@@ -13,7 +14,9 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *KickOffDefensiveTest::createInstance()
 {
-	return new KickOffDefensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new KickOffDefensive(
+				*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball,
+				*m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
 }
 
 void KickOffDefensiveTest::nextState_executeKickOff_0()

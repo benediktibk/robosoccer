@@ -14,18 +14,27 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PrepareKickOffDefensive::PrepareKickOffDefensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
-		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
+PrepareKickOffDefensive::PrepareKickOffDefensive(
+		Logger &logger, RefereeBase &referee, Team &ownTeam,
+		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+		FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+	RoboSoccerState(
+		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
+		fieldPositionCheckerGoalKeeper, false),
 	m_movementFinished(false)
 { }
 
 State *PrepareKickOffDefensive::nextState()
 {
 	if (!m_referee.getPrepareForKickOff() && !m_referee.getExecuteKickOff())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Pause(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 	else if (m_movementFinished && m_referee.getExecuteKickOff())
-		return new KickOffDefensive(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new KickOffDefensive(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 
 	return 0;
 }

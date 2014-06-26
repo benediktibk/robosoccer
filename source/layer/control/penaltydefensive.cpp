@@ -14,17 +14,26 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Autonomous;
 
-PenaltyDefensive::PenaltyDefensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false)
+PenaltyDefensive::PenaltyDefensive(
+		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+		FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+	RoboSoccerState(
+		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
+		fieldPositionCheckerGoalKeeper, false)
 { }
 
 State *PenaltyDefensive::nextState()
 {
 	if (m_referee.getContinuePlaying())
-		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Play(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 	else if (!m_referee.getExecutePenalty())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Pause(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 
 	return 0;
 }

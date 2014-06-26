@@ -108,7 +108,7 @@ void Application::run()
 	const double minimumLoopTime = 0.005;
 
 	RefereeBase &referee = m_storage->getReferee();
-	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
 	StateMachine stateMachine(initialState);
 
 	while (!m_stop)

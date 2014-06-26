@@ -17,6 +17,7 @@ namespace Layer
 namespace Abstraction
 {
 	class RefereeBase;
+	class FieldPositionCheckerGoalkeeper;
 }
 namespace Autonomous
 {
@@ -34,6 +35,7 @@ namespace Control
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
 				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+				Abstraction::FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper,
 				bool callUpdateOnlyOnce);
 
 	protected:
@@ -45,6 +47,7 @@ namespace Control
 		const Autonomous::EnemyTeam &m_enemyTeam;
 		const Autonomous::IntelligentBall &m_ball;
 		const Autonomous::TargetPositionFetcher &m_targetPositionFetcher;
+		const Abstraction::FieldPositionCheckerGoalkeeper &m_fieldPositionCheckerGoalKeeper;
 
 	};
 }
