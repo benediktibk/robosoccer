@@ -167,6 +167,8 @@ bool DriveTo::updateRouteIfNecessary()
 
 	if (isRouteFeasible(filteredObstacles))
 	{
+		if(m_currentRoute->getLength() < 0.2)
+			return false;
 		if(!existsBetterRoute())
 			return false;
 		else
@@ -273,7 +275,7 @@ const Point &DriveTo::getNextTargetPoint() const
 	return m_currentRoute->getSecondPoint();
 }
 
-bool DriveTo::isRouteFeasible(const std::vector<Circle> &obstacles) const
+bool DriveTo::isRouteFeasible(const vector<Circle> &obstacles) const
 {
 	if (m_currentRoute == 0)
 			return false;
