@@ -430,13 +430,8 @@ Pose TargetPositionFetcher::getGoaliePositionUsingIntersectWithGoalCenter(FieldS
 Pose TargetPositionFetcher::getGoaliePositionUsingYCoordinateFollowing(const IntelligentBall &ball, double xPositionGoalKeeper) const
 {
 	double yBall = ball.getPosition().getY();
-	if(fabs(yBall) < 0.2)
-		return Pose(Point(xPositionGoalKeeper,yBall),Angle::getQuarterRotation());
-
-	if(yBall > 0.2)
-		return Pose(Point(xPositionGoalKeeper,0.2),Angle::getQuarterRotation());
-	else
-		return Pose(Point(xPositionGoalKeeper,-0.2),Angle::getQuarterRotation());
+	double yTarget = max(min(yBall, 0.2), -0.2);
+	return Pose(Point(xPositionGoalKeeper, yTarget), Angle::getQuarterRotation());
 }
 
 Angle TargetPositionFetcher::getOrientationToOwnGoal() const
