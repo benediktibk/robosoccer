@@ -39,7 +39,7 @@ int main(int, char**)
 	Robot &robotTwo = team.getSecondFieldPlayer();
 	Robot &robotThree = team.getGoalie();
 	cout << "initialization finished" << endl;
-	fieldPositionCheckerGoalKeeper.setFieldSide(FieldSideLeft);
+	fieldPositionCheckerGoalKeeper.setFieldSide(FieldSideRight);
 
 	obstacleFetcher.addSource(robotOne);
 	obstacleFetcher.addSource(robotTwo);
@@ -116,10 +116,8 @@ int main(int, char**)
 //	}
 //	cout << "done";
 
-	vector<Pose> targets;
-	targets.push_back(Pose(Point(-1.4, 0), Angle(0)));
-	Robot &robot = robotThree;
-	robot.goTo(targets, DriveModeIgnoreGoalObstacles);
+	Robot &robot = robotTwo;
+	robot.goToDirect(Pose(Point(1.4, 0), Angle(0)));
 	cout << "driving to start position" << endl;
 	while(!robot.reachedTarget())
 	{
@@ -129,9 +127,10 @@ int main(int, char**)
 
 	cout << "reached start position" << endl;
 	TargetPositionFetcher targetPositionFetcher;
-	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	targetPositionFetcher.setFieldSide(FieldSideRight);
 	while(true)
 	{
+		ball.update();
 		Pose targetPose = targetPositionFetcher.getTargetForGoalkeeper(ball);
 		robot.goToDirect(targetPose);
 		robot.update();
