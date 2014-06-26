@@ -20,6 +20,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getTargetForGoalkeeper_ballInTheMiddle_goalieIsAtYBallPosition);
 		CPPUNIT_TEST(getTargetForGoalkeeper_ballOnTheSideFieldSideRight_goaliePositionIsCorrect);
 		CPPUNIT_TEST(getTargetForGoalkeeper_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect);
+		CPPUNIT_TEST(getTargetForGoalkeeper_ballMovingTowardsTheGoalInAVerySharpAngle_positionIsAtEdgeOfGoal);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballAtCenter_robotIsCorrect);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough);
 		CPPUNIT_TEST(getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsNotTooBig);
@@ -77,6 +78,7 @@ namespace Autonomous
 		void getTargetForGoalkeeper_ballInTheMiddle_goalieIsAtYBallPosition();
 		void getTargetForGoalkeeper_ballOnTheSideFieldSideRight_goaliePositionIsCorrect();
 		void getTargetForGoalkeeper_ballOnTheSideFieldSideLeft_goaliePositionIsCorrect();
+		void getTargetForGoalkeeper_ballMovingTowardsTheGoalInAVerySharpAngle_positionIsAtEdgeOfGoal();
 		void getPenaltyPositionKicker_ballAtCenter_robotIsCorrect();
 		void getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough();
 		void getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsNotTooBig();

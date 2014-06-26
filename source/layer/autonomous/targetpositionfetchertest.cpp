@@ -54,10 +54,28 @@ void TargetPositionFetcherTest::getTargetForGoalkeeper_ballOnTheSideFieldSideLef
 	TargetPositionFetcher targetPositionFetcher;
 	targetPositionFetcher.setFieldSide(FieldSideLeft);
 	IntelligentBallMock ball;
-	ball.setPosition(Point(0,0.5));
+	ball.setPosition(Point(0, 0.5));
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04,targetPositionFetcher.getTargetForGoalkeeper(ball).getPosition().getY(),0.0001);
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(),targetPositionFetcher.getTargetForGoalkeeper(ball).getOrientation()));
+	Pose target = targetPositionFetcher.getTargetForGoalkeeper(ball);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.04, target.getPosition().getY(),0.0001);
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Angle::getQuarterRotation(), target.getOrientation()));
+}
+
+void TargetPositionFetcherTest::getTargetForGoalkeeper_ballMovingTowardsTheGoalInAVerySharpAngle_positionIsAtEdgeOfGoal()
+{
+	Compare compare(0.02);
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.58*tan(0.3), -0.4));
+	ball.setIsMoving(true);
+	ball.setMovingDirection(FieldSideLeft);
+	ball.setRotation(Angle::getHalfRotation() - 0.3);
+
+	Pose target = targetPositionFetcher.getTargetForGoalkeeper(ball);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(-1.45 + 0.07, 0.2), target.getPosition()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()
