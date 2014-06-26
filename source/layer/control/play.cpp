@@ -64,9 +64,11 @@ void Play::updateInternal()
 		TreeNodeDecider *current = dynamic_cast<TreeNodeDecider*>(node);
 		node = current->getChild();
 		delete current;
+		current = 0;
 	}
 
 	TreeNodeResult *result = dynamic_cast<TreeNodeResult*>(node);
 	result->execute();
 	delete result;
+	result = 0;
 }
