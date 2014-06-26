@@ -418,13 +418,14 @@ Pose TargetPositionFetcher::getGoaliePositionUsingIntersectWithGoalCenter(FieldS
 		break;
 	}
 
-	Line ballToGoalCenterLine(ball.getPosition(),Point(xPositionBehindGoalCenter,0));
-	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2),Point(xPositionGoalKeeperRightSide,0.2));
+	Line ballToGoalCenterLine(ball.getPosition(), Point(xPositionBehindGoalCenter,0));
+	Line goalKeeperMovingLine(Point(xPositionGoalKeeperRightSide,-0.2), Point(xPositionGoalKeeperRightSide,0.2));
+	vector<Point> intersectionPoints = ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine);
 
-	if(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).empty())
-		return getGoaliePositionUsingYCoordinateFollowing(ball,xPositionGoalKeeperRightSide);
-
-	return Pose(ballToGoalCenterLine.getIntersectPoint(goalKeeperMovingLine).front(),Angle::getQuarterRotation());
+	if(intersectionPoints.empty())
+		return getGoaliePositionUsingYCoordinateFollowing(ball, xPositionGoalKeeperRightSide);
+	else
+		return Pose(intersectionPoints.front(), Angle::getQuarterRotation());
 
 }
 
