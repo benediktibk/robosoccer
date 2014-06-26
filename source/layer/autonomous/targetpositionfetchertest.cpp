@@ -71,11 +71,12 @@ void TargetPositionFetcherTest::getTargetForGoalkeeper_ballMovingTowardsTheGoalI
 	ball.setPosition(Point(-1.38 + 0.58*tan(0.3), -0.4));
 	ball.setIsMoving(true);
 	ball.setMovingDirection(FieldSideLeft);
-	ball.setRotation(Angle::getHalfRotation() - 0.3);
+	ball.setCurrentFieldSide(FieldSideLeft);
+	ball.setRotation(Angle::getQuarterRotation() + 0.3);
 
 	Pose target = targetPositionFetcher.getTargetForGoalkeeper(ball);
 
-	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(-1.45 + 0.07, 0.2), target.getPosition()));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(Point(-1.45 + 0.07, -0.2), target.getPosition()));
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCorrect()

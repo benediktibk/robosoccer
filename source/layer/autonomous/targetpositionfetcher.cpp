@@ -406,7 +406,7 @@ Pose TargetPositionFetcher::getGoaliePositionUsingEstimatedIntersectPoint(FieldS
 			Point ballProjectedToEdgeOfField(xPositionGoalKeeper, ballPosition.getY());
 			Angle angleToGoal(intersectionPoint, ballProjectedToEdgeOfField, ballPosition);
 
-			if (fabs(angleToGoal.getValueBetweenMinusPiAndPi()) > 0.3)
+			if (fabs(angleToGoal.getValueBetweenMinusPiAndPi()) > 0.4)
 				return Pose(intersectionPoint, Angle::getQuarterRotation());
 			else
 				return getGoaliePositionUsingYCoordinateFollowing(ball, xPositionGoalKeeper);
