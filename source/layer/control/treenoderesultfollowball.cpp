@@ -21,23 +21,25 @@ TreeNodeResultFollowBall::TreeNodeResultFollowBall(
 
 void TreeNodeResultFollowBall::execute()
 {
-	Robot &robotOne = m_ownTeam.getFirstFieldPlayer();
-	Robot &robotTwo = m_ownTeam.getSecondFieldPlayer();
+	Robot &robotCloseToBall = m_ownTeam.getPlayerCloserToBall(m_ball);
+	Robot &robotFarFromBall = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
+	Point ballPosition = m_ball.getPosition();
 
-	if (m_targetPositionFetcher.isPositionBehindTheBall(robotOne.getCurrentPose(), m_ball))
+	if (m_targetPositionFetcher.isPositionBehindTheBall(robotCloseToBall.getCurrentPose(), m_ball)
+			|| (ballPosition.distanceTo(robotCloseToBall.getCurrentPose()) < 0.15 && ballPosition.distanceTo(robotFarFromBall.getCurrentPose()) > 0.15))
 	{
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
 		vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(m_ball);
 
-		robotOne.goTo(targetsOnBall, DriveModeIgnoreBall);
-		robotTwo.goTo(targetsAlternativePlayer, DriveModeDefault);
+		robotCloseToBall.goTo(targetsOnBall, DriveModeIgnoreBall);
+		robotFarFromBall.goTo(targetsAlternativePlayer, DriveModeDefault);
 	}
 	else
 	{
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
 		vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(m_ball);
 
-		robotTwo.goTo(targetsOnBall, DriveModeIgnoreBall);
-		robotOne.goTo(targetsAlternativePlayer, DriveModeDefault);
+		robotFarFromBall.goTo(targetsOnBall, DriveModeIgnoreBall);
+		robotCloseToBall.goTo(targetsAlternativePlayer, DriveModeDefault);
 	}
 }
