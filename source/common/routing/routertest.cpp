@@ -12,12 +12,14 @@
 #include "common/other/signum.h"
 #include "common/geometry/pathintersectpoints.h"
 #include "common/time/stopwatch.h"
+#include "layer/abstraction/controllablerobot.h"
 #include <assert.h>
 
 using namespace std;
 using namespace RoboSoccer::Common::Routing;
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Time;
+using namespace RoboSoccer::Layer::Abstraction;
 
 void RouterTest::setUp()
 {
@@ -905,4 +907,15 @@ void RouterTest::getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, currentPath.getIntersectPoints(obstacle).getIntersectPoints().size());
 	CPPUNIT_ASSERT_EQUAL(PathIntersectPoints::IntersectTypeFromEnd, currentPath.getIntersectPoints(obstacle).getIntersectTypeFrom());
 	CPPUNIT_ASSERT_EQUAL((size_t)0, router.getPointsBesideObstacle(currentPath, obstacle).size());
+}
+
+void RouterTest::getPointsBesideObstacle_realWorldExample_noIntersectPoints()
+{
+	RouterImpl router(ControllableRobot::getWidth(), *m_field);
+	Path currentPath(Point(-1.3845716094970704,-0.46818915843963627), Point(-0.13059365530896505,-0.48615772885295067), ControllableRobot::getWidth());
+	Circle obstacle(Point(-0.5082117891311646,-0.31721130847930912),0.19);
+	vector<Point> pointsBeside = router.getPointsBesideObstacle(currentPath,obstacle);
+
+	CPPUNIT_ASSERT_EQUAL(PathIntersectPoints::IntersectTypeNoIntersect, currentPath.getIntersectPoints(obstacle).getIntersectTypeFrom());
+	CPPUNIT_ASSERT(pointsBeside.empty());
 }

@@ -65,7 +65,8 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 	Angle offsetAngleShortPoint = path.getAngleBetweenStartAndEnd();
 
 	if((intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromStart) ||
-		(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromEnd))
+		(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromEnd) ||
+		(intersectionPoints.getCount() < 2 && !path.isCircleCenterOnPath(obstacle)))
 		return pointsBesideObstacle;
 
 	if(intersectionPoints.getIntersectTypeFrom() != PathIntersectPoints::IntersectTypeNoIntersect)
