@@ -112,6 +112,10 @@ namespace Autonomous
 		CPPUNIT_TEST(getObstacles_empty_oneWhichIsSameAsFromControllableRobot);
 		CPPUNIT_TEST(update_kickAndRobotInGoalZone_robotGotOneCallToKick);
 		CPPUNIT_TEST(goTo_robotAtSecondTarget_noCallToDrive);
+		CPPUNIT_TEST(update_goToAndInitialRotationReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn);
+		CPPUNIT_TEST(update_goToAndInitialRotationReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToDriveToSecondPoint);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToTurn);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -190,6 +194,10 @@ namespace Autonomous
 		void getObstacles_empty_oneWhichIsSameAsFromControllableRobot();
 		void update_kickAndRobotInGoalZone_robotGotOneCallToKick();
 		void goTo_robotAtSecondTarget_noCallToDrive();
+		void update_goToAndInitialRotationReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn();
+		void update_goToAndInitialRotationReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToDriveToSecondPoint();
+		void update_initialRotationNotReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn();
+		void update_initialRotationNotReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToTurn();
 
 	private:
 		Abstraction::ControllableRobotMock *m_hardwareRobot;

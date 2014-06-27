@@ -1081,3 +1081,97 @@ void RobotTest::goTo_robotAtSecondTarget_noCallToDrive()
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
 }
+
+void RobotTest::update_goToAndInitialRotationReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	m_robot->goTo(m_targets, DriveModeDefault);
+
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setChessMode(true);
+	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robot->update();
+	m_routerMock->setChessMode(false);
+	obstacles.clear();
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_hardwareRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle(Point(0,0),Point(5,4)),m_hardwareRobot->getLastAngleToTurnTo());
+}
+
+void RobotTest::update_goToAndInitialRotationReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToDriveToSecondPoint()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	m_robot->goTo(m_targets, DriveModeDefault);
+
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setChessMode(true);
+	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation()));
+	m_robot->update();
+	m_routerMock->setChessMode(false);
+	obstacles.clear();
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setInvalidRoute();
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
+}
+
+void RobotTest::update_initialRotationNotReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	m_robot->goTo(m_targets, DriveModeDefault);
+
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setChessMode(true);
+	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation() + Angle::getEighthRotation()));
+	m_robot->update();
+	m_routerMock->setChessMode(false);
+	obstacles.clear();
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, m_hardwareRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle(Point(0,0),Point(5,4)),m_hardwareRobot->getLastAngleToTurnTo());
+}
+
+void RobotTest::update_initialRotationNotReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToTurn()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(1,1),0.5));
+	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
+	m_robot->goTo(m_targets, DriveModeDefault);
+
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setChessMode(true);
+	m_robot->update();
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getQuarterRotation() + Angle::getEighthRotation()));
+	m_robot->update();
+	m_routerMock->setChessMode(false);
+	obstacles.clear();
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_routerMock->setInvalidRoute();
+	m_robot->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, m_hardwareRobot->getCallsToGoToCombined());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToTurn());
+	CPPUNIT_ASSERT_EQUAL(Angle::getQuarterRotation(),m_hardwareRobot->getLastAngleToTurnTo());
+}
