@@ -2,6 +2,8 @@
 #include "common/geometry/circle.h"
 #include <kogmo_rtdb.hxx>
 #include <raw_ball.h>
+#include <assert.h>
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
@@ -19,7 +21,8 @@ BallImpl::~BallImpl()
 void BallImpl::update()
 {
 	m_orientation = Geometry::Angle(m_ball->GetPhi().Rad());
-	m_position = Geometry::Point(m_ball->GetX(),m_ball->GetY());
+	if (fabs(m_ball->GetX())<3 || fabs(m_ball->GetY())<3)
+		m_position = Geometry::Point(m_ball->GetX(),m_ball->GetY());
 	m_velocity = m_ball->GetVelocity()*871.3072;
 }
 
