@@ -93,6 +93,7 @@ namespace Abstraction
 		bool m_turnStarted;
 		double m_distanceForGoTo;
 		const double m_timeWatchDogRestart;
+		Common::Geometry::Pose m_pose;
 	};
 }
 }

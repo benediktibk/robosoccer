@@ -80,9 +80,7 @@ ControllableRobotImpl::~ControllableRobotImpl()
 
 Geometry::Pose ControllableRobotImpl::getPose() const
 {
-	Geometry::Point position = getPosition();
-	Geometry::Angle orientation = getOrientation();
-	return Geometry::Pose(position, orientation);
+	return m_pose;
 }
 
 Geometry::Pose ControllableRobotImpl::getPoseRaw() const
@@ -159,6 +157,11 @@ void ControllableRobotImpl::update()
 	bool watchDogDrivingShortEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingShort;
 	bool watchDogDrivingLongEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingLong;
 	bool watchDogRestart = m_watchDogRestart->getTime() > m_timeWatchDogRestart;
+
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientation();
+	if (fabs(position.getX())<3 || fabs(position.getY())<3)
+		m_pose =  Geometry::Pose(position, orientation);
 
 	switch(m_state)
 	{

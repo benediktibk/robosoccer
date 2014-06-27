@@ -6,7 +6,7 @@
 #include <assert.h>
 #include "common/geometry/angle.h"
 #include "common/geometry/point.h"
-
+#include <math.h>
 
 using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common;
@@ -26,6 +26,7 @@ ReadableRobotImpl::~ReadableRobotImpl()
 
 Geometry::Pose ReadableRobotImpl::getPose() const
 {
+	assert(fabs(m_robot->GetX()) < 5 && fabs(m_robot->GetY()) < 5);
 	return Geometry::Pose(Geometry::Point(m_robot->GetX(),m_robot->GetY()),m_robot->GetPhi().Rad());
 }
 
