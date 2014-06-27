@@ -26,6 +26,7 @@ namespace Autonomous
 		CPPUNIT_TEST(constructor_noRouteAndFirstRouteInvalid_routeCreated);
 		CPPUNIT_TEST(nextState_targetNotReachedButProposalRouteIsMuchBetter_initialRotationWithNewRoute);
 		CPPUNIT_TEST(nextState_targetNotReachedAndProposalRouteIsMuchBetterButInvalid_0);
+		CPPUNIT_TEST(nextState_targetNotReachedAndProposalRouteIsMuchBetterButCurrentRouteIsToShort_0);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -45,6 +46,7 @@ namespace Autonomous
 		void constructor_noRouteAndFirstRouteInvalid_routeCreated();
 		void nextState_targetNotReachedButProposalRouteIsMuchBetter_initialRotationWithNewRoute();
 		void nextState_targetNotReachedAndProposalRouteIsMuchBetterButInvalid_0();
+		void nextState_targetNotReachedAndProposalRouteIsMuchBetterButCurrentRouteIsToShort_0();
 	};
 }
 }
