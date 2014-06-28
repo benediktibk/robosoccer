@@ -52,7 +52,7 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 			m_valid = false;
 	}
 
-	if (!teamColorSet || !clientNumberSet)
+	if (!teamColorSet || !clientNumberSet || (m_disableRouteServer && m_routeServerPortSet))
 		m_valid = false;
 }
 

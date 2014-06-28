@@ -213,7 +213,7 @@ void InputArgumentParserTest::constructor_clientNumberMissing_isInvalid()
 	CPPUNIT_ASSERT(!parser.isValid());
 }
 
-void InputArgumentParserTest::constructor_disableServerPortSet_disableHardwareCheck()
+void InputArgumentParserTest::constructor_disableRouteServerSet_disableHardwareCheck()
 {
 	vector<string> arguments;
 	arguments.push_back("bla");
@@ -233,7 +233,7 @@ void InputArgumentParserTest::constructor_disableServerPortSet_disableHardwareCh
 	CPPUNIT_ASSERT(parser.disableRouteServer());
 }
 
-void InputArgumentParserTest::constructor_disableServerPortTwice_isInvalid()
+void InputArgumentParserTest::constructor_disableRouteServerTwice_isInvalid()
 {
 	vector<string> arguments;
 	arguments.push_back("bla");
@@ -297,6 +297,23 @@ void InputArgumentParserTest::constructor_setRouteServerPortAndNumberOutOfRange_
 	arguments.push_back("14");
 	arguments.push_back("--setOwnTeamColor");
 	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}
+
+void InputArgumentParserTest::constructor_disableRouteServerAndPortSet_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--routeServerPort");
+	arguments.push_back("123456");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+	arguments.push_back("--disableRouteServer");
 
 	InputArgumentParser parser(arguments);
 
