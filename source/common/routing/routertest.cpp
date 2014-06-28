@@ -919,3 +919,22 @@ void RouterTest::getPointsBesideObstacle_realWorldExample_noIntersectPoints()
 	CPPUNIT_ASSERT_EQUAL(PathIntersectPoints::IntersectTypeNoIntersect, currentPath.getIntersectPoints(obstacle).getIntersectTypeFrom());
 	CPPUNIT_ASSERT(pointsBeside.empty());
 }
+
+void RouterTest::calculateRoute_realWorldExample_correct()
+{
+	RouterImpl router(ControllableRobot::getWidth(), *m_field);
+	Point start(-1.3845716094970704,-0.46818915843963627);
+	Point end(-0.13059365530896505,-0.48615772885295067);
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(-0.37330835819244385,-0.52134636878967289),0.19));
+	obstacles.push_back(Circle(Point(-1.3869882202148438,-0.31220374345779422),0.089999999999999997));
+	obstacles.push_back(Circle(Point(-0.5082117891311646,-0.31721130847930912),0.19));
+	obstacles.push_back(Circle(Point(-1.325,0),0.25));
+	obstacles.push_back(Circle(Point(-1.325,0.25),0.25));
+	obstacles.push_back(Circle(Point(-1.325,-0.25),0.25));
+
+	Route route = router.calculateRoute(start,end,obstacles);
+
+	CPPUNIT_ASSERT(route.isValid());
+	CPPUNIT_ASSERT_EQUAL((size_t)4,route.getPointCount());
+}
