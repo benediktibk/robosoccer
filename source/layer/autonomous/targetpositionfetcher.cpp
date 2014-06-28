@@ -260,7 +260,7 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 	double distanceRobotBall = ballPosition.distanceTo(robotPosition);
 	result = ((fabs(deltaAngle.getValueBetweenMinusPiAndPi()) < spanAngle.getValueBetweenMinusPiAndPi()) && (distanceRobotBall < maximumDistance));
 
-	if (!result && (getDistanceToOwnGroundLine(robotPosition) < 0.4) && robotPosition.distanceTo(ballPosition) < maximumDistance)
+	if (!result && (getDistanceToOwnGroundLine(ballPosition) < 0.4) && robotPosition.distanceTo(ballPosition) < maximumDistance)
 	{
 		Point vectorRobotBall = ballPosition - robotPosition;
 		if (robotPosition.getY() > 0)
