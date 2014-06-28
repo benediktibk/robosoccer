@@ -8,6 +8,7 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 	m_disableHardwareCheck(false),
+	m_disableRouteServer(false),
 	m_valid(true),
 	m_routeServerPortSet(false)
 {
@@ -15,6 +16,7 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 	bool teamColorSet = false;
 	bool clientNumberSet = false;
 	bool disableHardwareCheckSet = false;
+	bool disableRouteServerSet = false;
 
 	while (m_valid && !argumentsList.empty())
 	{
@@ -35,6 +37,11 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 		{
 			parseDisableHardwareCheck();
 			disableHardwareCheckSet = true;
+		}
+		else if (argument == "--disableRouteServer" && !disableRouteServerSet)
+		{
+			parseDisableRouteServer();
+			disableRouteServerSet = true;
 		}
 		else if (argument == "--routeServerPort" && !m_routeServerPortSet)
 		{
@@ -77,6 +84,11 @@ unsigned int InputArgumentParser::getRouteServePort() const
 bool InputArgumentParser::routeServerPortSet() const
 {
 	return m_routeServerPortSet;
+}
+
+bool InputArgumentParser::disableRouteServer() const
+{
+	return m_disableRouteServer;
 }
 
 string InputArgumentParser::usage() const
@@ -147,6 +159,11 @@ void InputArgumentParser::parseClientNumber(list<string> &arguments)
 void InputArgumentParser::parseDisableHardwareCheck()
 {
 	m_disableHardwareCheck = true;
+}
+
+void InputArgumentParser::parseDisableRouteServer()
+{
+	m_disableRouteServer = true;
 }
 
 void InputArgumentParser::parseRouteServerPort(list<std::string> &arguments)

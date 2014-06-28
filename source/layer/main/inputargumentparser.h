@@ -24,6 +24,7 @@ namespace Main
 		std::string usage() const;
 		unsigned int getRouteServePort() const;
 		bool routeServerPortSet() const;
+		bool disableRouteServer() const;
 
 		static std::vector<std::string> convertArguments(int argc, char **argv);
 
@@ -31,12 +32,14 @@ namespace Main
 		void parseTeamColor(std::list<std::string> &arguments);
 		void parseClientNumber(std::list<std::string> &arguments);
 		void parseDisableHardwareCheck();
+		void parseDisableRouteServer();
 		void parseRouteServerPort(std::list<std::string> &arguments);
 
 	private:
 		int m_ownClientNumber;
 		Layer::Abstraction::TeamColor m_ownTeamColor;
 		bool m_disableHardwareCheck;
+		bool m_disableRouteServer;
 		bool m_valid;
 		unsigned int m_routeServerPort;
 		bool m_routeServerPortSet;
