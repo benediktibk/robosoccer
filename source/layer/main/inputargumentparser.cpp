@@ -71,7 +71,7 @@ bool InputArgumentParser::disableHardwareCheck() const
 
 unsigned int InputArgumentParser::getRouteServePort() const
 {
-	return m_ownRouteServerPort;
+	return m_routeServerPort;
 }
 
 bool InputArgumentParser::routeServerPortSet() const
@@ -159,9 +159,9 @@ void InputArgumentParser::parseRouteServerPort(list<std::string> &arguments)
 
 	string serverPort = arguments.front();
 	arguments.pop_front();
-	m_ownRouteServerPort = atoi(serverPort.c_str());
+	m_routeServerPort = atoi(serverPort.c_str());
 
-	if ((m_ownRouteServerPort < 1)||(m_ownRouteServerPort > 65536))
+	if ((m_routeServerPort < 1)||(m_routeServerPort > 65536))
 	{
 		m_valid = false;
 		return;

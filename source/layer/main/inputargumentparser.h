@@ -38,7 +38,7 @@ namespace Main
 		Layer::Abstraction::TeamColor m_ownTeamColor;
 		bool m_disableHardwareCheck;
 		bool m_valid;
-		unsigned int m_ownRouteServerPort;
+		unsigned int m_routeServerPort;
 		bool m_routeServerPortSet;
 	};
 }
