@@ -231,3 +231,13 @@ void AngleTest::getHalfRotation_multiplyWith4per5_valueIs4Piper5()
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(4*M_PI/5, angle.getValueBetweenMinusPiAndPi(), 0.00001);
 }
+
+void AngleTest::operatorEqual_piAndPi_true()
+{
+	CPPUNIT_ASSERT_EQUAL(Angle::getHalfRotation(),Angle::getHalfRotation());
+}
+
+void AngleTest::operatorEqual_piAndPiHalf_false()
+{
+	CPPUNIT_ASSERT(!(Angle::getHalfRotation() == Angle::getQuarterRotation()));
+}
