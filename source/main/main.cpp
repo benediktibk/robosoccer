@@ -109,7 +109,7 @@ int main(int argc, char **argv)
 	cout << "##### ---------------------------" << endl;
 
 	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck(),
-								  !parser.disableRouteServer());
+								  !parser.disableRouteServer(), parser.routeServerPortSet(), parser.getRouteServePort());
 
 	sigIntHandler.sa_handler = signalHandler;
 	sigemptyset(&sigIntHandler.sa_mask);

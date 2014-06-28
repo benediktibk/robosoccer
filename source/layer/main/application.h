@@ -44,7 +44,8 @@ namespace Main
 	class Application
 	{
 	public:
-		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck, bool enableRoutteServer);
+		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck,
+					bool enableRoutteServer, bool routeServerPortSet, unsigned int routeServerPort);
 		~Application();
 
 		void run();
