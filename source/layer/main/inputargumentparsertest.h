@@ -28,6 +28,11 @@ namespace Main
 		CPPUNIT_TEST(constructor_disableHardwareCheckTwice_isInvalid);
 		CPPUNIT_TEST(constructor_teamColorMissing_isInvalid);
 		CPPUNIT_TEST(constructor_clientNumberMissing_isInvalid);
+		CPPUNIT_TEST(constructor_disableServerPortSet_disableHardwareCheck);
+		CPPUNIT_TEST(constructor_disableServerPortTwice_isInvalid);
+		CPPUNIT_TEST(constructor_setRouteServerPort_isValid);
+		CPPUNIT_TEST(constructor_setRouteServerPortAndNoNumer_isInvalid);
+		CPPUNIT_TEST(constructor_setRouteServerPortAndNumberOutOfRange_isInvalid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -45,6 +50,11 @@ namespace Main
 		void constructor_disableHardwareCheckTwice_isInvalid();
 		void constructor_teamColorMissing_isInvalid();
 		void constructor_clientNumberMissing_isInvalid();
+		void constructor_disableServerPortSet_disableHardwareCheck();
+		void constructor_disableServerPortTwice_isInvalid();
+		void constructor_setRouteServerPort_isValid();
+		void constructor_setRouteServerPortAndNoNumer_isInvalid();
+		void constructor_setRouteServerPortAndNumberOutOfRange_isInvalid();
 	};
 }
 }
