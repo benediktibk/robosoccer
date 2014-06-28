@@ -262,18 +262,14 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 
 	if (!result && (getDistanceToOwnGroundLine(robotPosition) < 0.4))
 	{
-		Compare angleCompare(0.35);
-		Angle angleRobotBall(robotPosition, ball.getPosition());
-
+		Point vectorRobotBall = ballPosition - robotPosition;
 		if (robotPosition.getY() > 0)
 		{
-			Angle angleAwayFromGoal = Angle::getQuarterRotation();
-			result = result || angleCompare.isFuzzyEqual(angleAwayFromGoal, angleRobotBall);
+			return vectorRobotBall.getY() > 0.05;
 		}
 		else
 		{
-			Angle angleAwayFromGoal = Angle::getQuarterRotation() * 3;
-			result = result || angleCompare.isFuzzyEqual(angleAwayFromGoal, angleRobotBall);
+			return vectorRobotBall.getY() < -0.05;
 		}
 	}
 
