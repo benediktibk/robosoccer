@@ -44,7 +44,7 @@ namespace Main
 	class Application
 	{
 	public:
-		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck);
+		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck, bool enableRoutteServer);
 		~Application();
 
 		void run();
@@ -69,6 +69,7 @@ namespace Main
 		RouteInformationServer *m_routeInformationServer;
 		bool m_stop;
 		bool m_enableHardwareCheck;
+		bool m_enableRouteServer;
 	};
 }
 }

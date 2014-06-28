@@ -31,7 +31,7 @@ using namespace RoboSoccer::Common::Time;
 using namespace RoboSoccer::Common::States;
 using namespace std;
 
-Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck) :
+Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck, bool enableRouteServer) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
 	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
@@ -45,7 +45,8 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 	m_targetPositionFetcher(new TargetPositionFetcher()),
 	m_routeInformationServer(new RouteInformationServer(*m_serverSocket)),
 	m_stop(false),
-	m_enableHardwareCheck(enableHardwareCheck)
+	m_enableHardwareCheck(enableHardwareCheck),
+	m_enableRouteServer(enableRouteServer)
 {
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);
@@ -125,7 +126,9 @@ void Application::run()
 			robot.update();
 		}
 		m_ball->update();
-		m_routeInformationServer->updateClients(
+
+		if(m_enableRouteServer)
+			m_routeInformationServer->updateClients(
 					*m_obstacleFetcher, m_ownTeam->getFirstFieldPlayer(), m_ownTeam->getSecondFieldPlayer(), m_ownTeam->getGoalie());
 
 		double loopTime = stopWatch.getTimeAndRestart();
