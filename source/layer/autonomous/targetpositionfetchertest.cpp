@@ -85,7 +85,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.11, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball).front());
+	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.16, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball).front());
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough()
@@ -117,7 +117,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanc
 	double distanceToBall = targetPosition.distanceTo(ballPosition);
 	double radiusRobot = 0.05;
 	double radiusBall = 0.025;
-	CPPUNIT_ASSERT(distanceToBall <= radiusRobot + radiusBall + 0.05);
+	CPPUNIT_ASSERT(distanceToBall <= radiusRobot + radiusBall + 0.1);
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionGoalie_ballOnTheSide_goaliePositionIsCorrect()
