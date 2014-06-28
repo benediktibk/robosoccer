@@ -98,9 +98,9 @@ string InputArgumentParser::usage() const
 	stream << "usage: " << endl;
 	stream << "\t--setOwnTeamColor {red/blue} [required]" << endl;
 	stream << "\t--setOwnClientNumber {value between 10 and 16} [required]" << endl;
-	stream << "\t--disableHardwareCheck [optional]";
-	stream << "\t--disableRouteServer [optional]";
-	stream << "\t--routeServerPort {value between 1 and 65 536} [optional]";
+	stream << "\t--disableHardwareCheck [optional]" << endl;
+	stream << "\t--disableRouteServer [optional]" << endl;
+	stream << "\t--routeServerPort {value between 1 and 65 536} [optional]" << endl;
 
 	return stream.str();
 }
