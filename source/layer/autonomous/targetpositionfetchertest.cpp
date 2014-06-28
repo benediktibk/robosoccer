@@ -744,3 +744,14 @@ void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAnd
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(!isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAndInfrontOfGoalZoneAndRobotAimsNotToOwnGoal_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1.15,0.001));
+	Point robotPosition(1.14, -0.05);
+	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
+	CPPUNIT_ASSERT(isGoodKickPosition);
+}
