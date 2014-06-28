@@ -45,7 +45,7 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vec
 	for (vector<RoutingResult>::const_iterator i = routingResults.begin(); i != routingResults.end(); ++i)
 		routes.push_back(i->getRoute());
 
-	if (routes.size() == 0)
+	if (routes.empty())
 		return Route();
 	else
 	{
@@ -163,7 +163,7 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeEnd(const Point &st
 	Path directPath(start, end, m_robotWidth);
 	vector<Circle> realObstacles = findRealObstacles(obstacles, directPath);
 
-	if (realObstacles.size() == 0)
+	if (realObstacles.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
 	else
@@ -184,7 +184,7 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point 
 	Path path(start, end, m_robotWidth);
 	vector<Circle> obstaclesTillEnd = findRealObstacles(obstacles, path);
 
-	if (obstaclesTillEnd.size() == 0)
+	if (obstaclesTillEnd.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
 	else
@@ -262,7 +262,7 @@ vector<Circle> RouterImpl::findRealObstacles(const vector<Circle> &obstacles, co
 
 Circle RouterImpl::findClosestObstacle(const vector<Circle> &obstacles, const Point &point) const
 {
-	assert(obstacles.size() > 0);
+	assert(!obstacles.empty());
 
 	double closestDistance = numeric_limits<double>::max();
 	Circle closestObstacle;
@@ -343,7 +343,7 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 
 bool RouterImpl::detectLoopInConsideredObstacles(const list<RoutingObstacle> &obstacles) const
 {
-	if (obstacles.size() == 0)
+	if (obstacles.empty())
 		return false;
 
 	const RoutingObstacle &lastObstacle = obstacles.back();
