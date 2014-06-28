@@ -92,6 +92,11 @@ int main(int argc, char **argv)
 		else
 			cout << "##### Hardware Check Disabled   : " << "FALSE" << endl;
 
+	if (parser.disableRouteServer())
+			cout << "##### Route Server Disabled   : " << "TRUE" << endl;
+		else
+			cout << "##### Route Server Disabled   : " << "FALSE" << endl;
+
 	if (parser.routeServerPortSet())
 			cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
 		else
