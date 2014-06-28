@@ -8,13 +8,13 @@ using namespace std;
 
 InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 	m_disableHardwareCheck(false),
-	m_valid(true)
+	m_valid(true),
+	m_routeServerPortSet(false)
 {
 	list<string> argumentsList(arguments.begin() + 1, arguments.end());
 	bool teamColorSet = false;
 	bool clientNumberSet = false;
 	bool disableHardwareCheckSet = false;
-	bool routeServerPortSet = false;
 
 	while (m_valid && !argumentsList.empty())
 	{
@@ -36,10 +36,10 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 			parseDisableHardwareCheck();
 			disableHardwareCheckSet = true;
 		}
-		else if (argument == "--routeServerPort" && !routeServerPortSet)
+		else if (argument == "--routeServerPort" && !m_routeServerPortSet)
 		{
 			parseRouteServerPort(argumentsList);
-			routeServerPortSet = true;
+			m_routeServerPortSet = true;
 		}
 		else
 			m_valid = false;
@@ -72,6 +72,11 @@ bool InputArgumentParser::disableHardwareCheck() const
 unsigned int InputArgumentParser::getRouteServePort() const
 {
 	return m_ownRouteServerPort;
+}
+
+bool InputArgumentParser::routeServerPortSet() const
+{
+	return m_routeServerPortSet;
 }
 
 string InputArgumentParser::usage() const

@@ -23,6 +23,7 @@ namespace Main
 		bool disableHardwareCheck() const;
 		std::string usage() const;
 		unsigned int getRouteServePort() const;
+		bool routeServerPortSet() const;
 
 		static std::vector<std::string> convertArguments(int argc, char **argv);
 
@@ -38,6 +39,7 @@ namespace Main
 		bool m_disableHardwareCheck;
 		bool m_valid;
 		unsigned int m_ownRouteServerPort;
+		bool m_routeServerPortSet;
 	};
 }
 }
