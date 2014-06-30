@@ -61,7 +61,7 @@ Ball &StorageImpl::getBall()
 	return *m_ball;
 }
 
-ReadableRobot const& StorageImpl::getEnemyRobot(unsigned int number) const
+ReadableRobot &StorageImpl::getEnemyRobot(unsigned int number)
 {
 	assert(number <= 2);
 	return *(m_enemyRobots[number]);

@@ -35,7 +35,7 @@ namespace Abstraction
 		virtual ~StorageImpl();
 
 		virtual Ball& getBall();
-		virtual ReadableRobot const& getEnemyRobot(unsigned int number) const;
+		virtual ReadableRobot & getEnemyRobot(unsigned int number);
 		virtual ControllableRobot& getOwnRobot(unsigned int number);
 		virtual RefereeBase& getReferee();
 
