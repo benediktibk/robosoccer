@@ -112,6 +112,15 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 	return getGoaliePositionUsingEstimatedIntersectPoint(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
+vector<Pose> TargetPositionFetcher::getPenaltyPositionPrepareGoalie() const
+{
+	vector<Pose> penaltyPosition;
+	penaltyPosition.reserve(1);
+	penaltyPosition.push_back(Pose(Point(-1.25, 0), Angle::getQuarterRotation()));
+
+	return penaltyPosition;
+}
+
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsPrepareKicker() const
 {
 	vector<Pose> preparePenaltyPosition;
