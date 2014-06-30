@@ -57,6 +57,8 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vec
 
 vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle &obstacle) const
 {
+	assert(path.intersectsWith(obstacle));
+
 	vector<Point> pointsBesideObstacle;
 	PathIntersectPoints intersectionPoints = path.getIntersectPoints(obstacle);
 	Point shortPointBesideObstacle;
@@ -64,9 +66,9 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 	double offsetDistanceLongPoint = 0.51*sqrt(2)*m_robotWidth + obstacle.getDiameter()/2;
 	Angle offsetAngleShortPoint = path.getAngleBetweenStartAndEnd();
 
+	//! @todo replace intersectsWith with isCircle...
 	if((intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromStart) ||
-		(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromEnd) ||
-		(!path.intersectsWith(obstacle)))
+		(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromEnd))
 		return pointsBesideObstacle;
 
 	if(intersectionPoints.getIntersectTypeFrom() != PathIntersectPoints::IntersectTypeNoIntersect)
@@ -187,19 +189,17 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point 
 	if (obstaclesTillEnd.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
-	else
-	{
-		Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
-		double diameter = obstacle.getDiameter();
-		Point direction = end - start;
-		double directionLength = start.distanceTo(end);
-		double desiredLength = directionLength + 2*diameter;
-		Point directionModified = direction/directionLength*desiredLength;
-		Point extendedEnd = start + directionModified;
-		return calculateRoutesToPointsBesideObstacle(
-					obstacle, start, extendedEnd, obstacles,
-					searchDepth, consideredObstacles, startInsideField);
-	}
+
+	Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
+	double diameter = obstacle.getDiameter();
+	Point direction = end - start;
+	double directionLength = start.distanceTo(end);
+	double desiredLength = directionLength + 2*diameter;
+	Point directionModified = direction/directionLength*desiredLength;
+	Point extendedEnd = start + directionModified;
+	return calculateRoutesToPointsBesideObstacle(
+				obstacle, start, extendedEnd, obstacles,
+				searchDepth, consideredObstacles, startInsideField);
 }
 
 vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeDirectPath(const Point &start, const Point &end,
@@ -288,6 +288,17 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		const list<RoutingObstacle> &consideredObstacles, bool startIsInsideField) const
 {
 	Path path(start, end, m_robotWidth);
+
+	/*!
+	 * This step may produce routes which are detected to have intersections with obstacles. In fact, in these cases
+	 * the intersection occur only at the start or end of a path at the corners, but the real robots are nearly
+	 * perfect circles. Therefore, this is not a real intersection. The actually problem lies within Path::intersectsWith(),
+	 * which does not match the case of the RoboSoccer-Lab.
+	 */
+	if (!path.intersectsWith(obstacle))
+		return calculateStartPartsWithFreeDirectPath(
+					start, end, consideredObstacles);
+
 	vector<Point> pointsBesideObstacle = getPointsBesideObstacle(path, obstacle);
 	vector<RoutingResult> result;
 
