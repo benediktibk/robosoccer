@@ -26,8 +26,8 @@ ReadableRobotImpl::~ReadableRobotImpl()
 
 Geometry::Pose ReadableRobotImpl::getPose() const
 {
-	assert(fabs(m_robot->GetX()) < 5 && fabs(m_robot->GetY()) < 5);
-	return Geometry::Pose(Geometry::Point(m_robot->GetX(),m_robot->GetY()),m_robot->GetPhi().Rad());
+	assert(fabs(m_robot->GetX()) < 5 || fabs(m_robot->GetY()) < 5);
+	return Geometry::Pose(m_pose.getPosition(),m_pose.getOrientation());
 }
 
 Geometry::Circle ReadableRobotImpl::getObstacle() const
@@ -35,3 +35,10 @@ Geometry::Circle ReadableRobotImpl::getObstacle() const
 	return Geometry::Circle(getPose().getPosition(),ReadableRobot::getWidth());
 }
 
+void ReadableRobotImpl::update()
+{
+	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
+	Geometry::Angle orientation(m_robot->GetPhi().Rad());
+	if (fabs(position.getX())<3 || fabs(position.getY())<3)
+		m_pose =  Geometry::Pose(position, orientation);
+}

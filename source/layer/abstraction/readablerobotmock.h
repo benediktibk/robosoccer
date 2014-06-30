@@ -16,7 +16,7 @@ namespace Abstraction
 	public:
 		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
-
+		virtual void update();
 		void setPose(Common::Geometry::Pose const &pose);
 
 	private:
