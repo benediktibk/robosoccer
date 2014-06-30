@@ -234,6 +234,11 @@ void ControllableRobotImpl::updateSensors()
 	setSpeed(translationSpeed, rotationSpeed);
 }
 
+void ControllableRobotImpl::updateActuators()
+{
+
+}
+
 bool ControllableRobotImpl::isMoving() const
 {
 	switch(m_state)

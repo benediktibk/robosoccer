@@ -908,7 +908,7 @@ void RobotTest::update_empty_robotGotCallToUpdate()
 {
 	m_robot->update();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdate());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdateSensors());
 }
 
 void RobotTest::update_goToAndAtTarget_reachedTarget()

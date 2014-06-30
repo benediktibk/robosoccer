@@ -25,6 +25,7 @@ namespace Abstraction
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle);
 		virtual void stop();
 		virtual void updateSensors();
+		virtual void updateActuators();
 		virtual bool isMoving() const;
 
 		unsigned int getCallsToStop() const;
@@ -33,7 +34,8 @@ namespace Abstraction
 		unsigned int getCallsToGoToCombined() const;
 		unsigned int getCallsToTurn() const;
 		unsigned int getCallsToKick() const;
-		unsigned int getCallsToUpdate() const;
+		unsigned int getCallsToUpdateSensors() const;
+		unsigned int getCallsToUpdateActuators() const;
 		Common::Geometry::Angle const& getLastAngleToTurnTo() const;
 		Common::Geometry::Point const& getLastPointToDriveTo() const;
 		void setPose(Common::Geometry::Pose const &pose);
@@ -46,7 +48,8 @@ namespace Abstraction
 		unsigned int m_callsToGoToPositionPrecise;
 		unsigned int m_callsToTurn;
 		unsigned int m_callsToKick;
-		unsigned int m_callsToUpdate;
+		unsigned int m_callsToUpdateSensors;
+		unsigned int m_callsToUpdateActuators;
 		Common::Geometry::Pose m_pose;
 		Common::Geometry::Angle m_lastAngleToTurnTo;
 		Common::Geometry::Point m_lastPointToDriveTo;

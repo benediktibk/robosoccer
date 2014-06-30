@@ -57,6 +57,7 @@ namespace Abstraction
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
 		virtual void updateSensors();
+		virtual void updateActuators();
 		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
