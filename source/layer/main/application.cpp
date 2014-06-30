@@ -177,6 +177,7 @@ bool Application::checkHardware()
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		robot.updateSensors();
 		Angle orientation = robot.getPose().getOrientation();
 
 		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.5)
