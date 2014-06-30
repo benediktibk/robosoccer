@@ -904,9 +904,16 @@ void RobotTest::update_kickAndTurnToReachedTarget_oneCallToKick()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToKick());
 }
 
-void RobotTest::update_empty_robotGotCallToUpdate()
+void RobotTest::updateActuators_empty_robotGotCallToUpdateActuators()
 {
 	m_robot->updateActuators();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdateActuators());
+}
+
+void RobotTest::updateSensors_empty_robotGotCallToUpdateSensors()
+{
+	m_robot->updateSensors();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, m_hardwareRobot->getCallsToUpdateSensors());
 }

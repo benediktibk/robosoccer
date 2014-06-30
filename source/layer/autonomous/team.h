@@ -40,6 +40,8 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer() = 0;
 		virtual Robot& getSecondFieldPlayer() = 0;
 		virtual Robot& getRobotByNumber(unsigned int i) = 0;
+		virtual void updateSensors() = 0;
+		virtual void updateActuators() = 0;
 	};
 }
 }

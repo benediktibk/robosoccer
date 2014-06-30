@@ -109,7 +109,7 @@ void RobotImpl::kick(IntelligentBall const &ball)
 
 void RobotImpl::updateSensors()
 {
-
+	m_robot.updateSensors();
 }
 
 void RobotImpl::updateActuators()
@@ -127,7 +127,7 @@ void RobotImpl::updateActuators()
 	} while(stateChanged);
 
 	m_currentState->update();
-	m_robot.updateSensors();
+	m_robot.updateActuators();
 }
 
 const RobotState &RobotImpl::getCurrentState() const

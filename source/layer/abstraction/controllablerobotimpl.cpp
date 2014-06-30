@@ -147,6 +147,15 @@ void ControllableRobotImpl::stop()
 
 void ControllableRobotImpl::updateSensors()
 {
+	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
+	Geometry::Angle orientation(m_robot->GetPhi().Rad());
+
+	if (fabs(position.getX())<3 || fabs(position.getY())<3)
+		m_pose =  Geometry::Pose(position, orientation);
+}
+
+void ControllableRobotImpl::updateActuators()
+{
 	double translationSpeed = 0;
 	double rotationSpeed = 0;
 	Geometry::Compare orientationCompare(0.1);
@@ -157,11 +166,6 @@ void ControllableRobotImpl::updateSensors()
 	bool watchDogDrivingShortEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingShort;
 	bool watchDogDrivingLongEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingLong;
 	bool watchDogRestart = m_watchDogRestart->getTime() > m_timeWatchDogRestart;
-
-	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
-	Geometry::Angle orientation(m_robot->GetPhi().Rad());
-	if (fabs(position.getX())<3 || fabs(position.getY())<3)
-		m_pose =  Geometry::Pose(position, orientation);
 
 	switch(m_state)
 	{
@@ -232,11 +236,6 @@ void ControllableRobotImpl::updateSensors()
 	}
 
 	setSpeed(translationSpeed, rotationSpeed);
-}
-
-void ControllableRobotImpl::updateActuators()
-{
-
 }
 
 bool ControllableRobotImpl::isMoving() const

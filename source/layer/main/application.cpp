@@ -130,16 +130,13 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
-		m_enemyTeam->update();
+		m_enemyTeam->updateSensors();
+		m_ownTeam->updateSensors();
 		m_ball->update();
 
 		stateMachine.update();
 
-		for (unsigned int i = 0; i < 3; ++i)
-		{
-			Robot &robot = m_ownTeam->getRobotByNumber(i);
-			robot.updateActuators();
-		}
+		m_ownTeam->updateActuators();
 
 		if(m_enableRouteServer)
 			m_routeInformationServer->updateClients(

@@ -67,7 +67,7 @@ void ControllableRobotMock::updateSensors()
 
 void ControllableRobotMock::updateActuators()
 {
-
+	++m_callsToUpdateActuators;
 }
 
 bool ControllableRobotMock::isMoving() const
