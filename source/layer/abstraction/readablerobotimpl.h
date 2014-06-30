@@ -3,6 +3,7 @@
 
 #include "layer/abstraction/readablerobot.h"
 #include "teamcolor.h"
+#include "common/geometry/pose.h"
 
 class RoboControl;
 
@@ -26,9 +27,11 @@ namespace Abstraction
 
 		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
+		virtual void update();
 
 	private:
 		RoboControl *m_robot;
+		Common::Geometry::Pose m_pose;
 	};
 }
 }

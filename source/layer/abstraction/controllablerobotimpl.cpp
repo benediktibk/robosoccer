@@ -158,8 +158,8 @@ void ControllableRobotImpl::update()
 	bool watchDogDrivingLongEnd = m_watchDogEnd->getTime() > m_distanceForGoTo/speedInDrivingLong;
 	bool watchDogRestart = m_watchDogRestart->getTime() > m_timeWatchDogRestart;
 
-	Geometry::Point position = getPosition();
-	Geometry::Angle orientation = getOrientation();
+	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
+	Geometry::Angle orientation(m_robot->GetPhi().Rad());
 	if (fabs(position.getX())<3 || fabs(position.getY())<3)
 		m_pose =  Geometry::Pose(position, orientation);
 
@@ -262,7 +262,7 @@ Geometry::Angle ControllableRobotImpl::getOrientation() const
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return Geometry::Point(m_robot->GetX(), m_robot->GetY());
+	return m_pose.getPosition();
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
@@ -300,7 +300,7 @@ void ControllableRobotImpl::determineIsDrivingForwardForGoTo(const Geometry::Poi
 
 Geometry::Angle ControllableRobotImpl::getOrientationRaw() const
 {
-	return Geometry::Angle(m_robot->GetPhi().Rad());
+	return m_pose.getOrientation();
 }
 
 void ControllableRobotImpl::logState(State state)

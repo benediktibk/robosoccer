@@ -108,9 +108,11 @@ bool Route::intersectsWith(const vector<Circle> &objects) const
 
 	for(list<Point>::const_iterator k = m_points.begin(); k != pointsEnd; ++k)
 	{
-		list<Point>::const_iterator nextElement = k;
-		++nextElement;
-		Path currentPath(*k,*nextElement, m_width);
+		list<Point>::const_iterator kNext = k;
+		++kNext;
+		Point const &currentPoint = *k;
+		Point const &nextPoint = *kNext;
+		Path currentPath(currentPoint, nextPoint, m_width);
 		for(vector<Circle>::const_iterator i = objects.begin(); i != objects.end(); ++i)
 			if(currentPath.intersectsWith(*i))
 				return true;

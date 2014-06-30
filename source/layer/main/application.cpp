@@ -130,6 +130,9 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
+
+		m_enemyTeam->update();
+
 		stateMachine.update();
 
 		for (unsigned int i = 0; i < 3; ++i)

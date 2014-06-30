@@ -47,6 +47,8 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_obstacleIntersectingWithStartPosition_reasonableRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheField_validRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheFieldAndAnObstacleOnTheWay_validRoute);
+		CPPUNIT_TEST(calculateRoute_realWorldExample_correct);
+		CPPUNIT_TEST(calculateRoute_realWorldExampleReduced_correct);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromLeftAndCircleCenterNotOnPath_shortPointIsCorrect);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromLeftAndCircleCenterNotOnPath_longPointIsCorrect);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromRightAndCircleCenterNotOnPath_shortPointIsCorrect);
@@ -84,8 +86,6 @@ namespace Routing
 		CPPUNIT_TEST(detectLoopInConsideredObstacles_triedOnceLeftAndRightBesideSameObstacle_true);
 		CPPUNIT_TEST(getPointsBesideObstacle_obstacleAtStart_resultSizeIs0);
 		CPPUNIT_TEST(getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0);
-		CPPUNIT_TEST(getPointsBesideObstacle_realWorldExample_noIntersectPoints);
-		CPPUNIT_TEST(calculateRoute_realWorldExample_correct);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -158,8 +158,8 @@ namespace Routing
 		void detectLoopInConsideredObstacles_triedOnceLeftAndRightBesideSameObstacle_true();
 		void getPointsBesideObstacle_obstacleAtStart_resultSizeIs0();
 		void getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0();
-		void getPointsBesideObstacle_realWorldExample_noIntersectPoints();
 		void calculateRoute_realWorldExample_correct();
+		void calculateRoute_realWorldExampleReduced_correct();
 
 	private:
 		static bool routeIsInsideField(const Route &route, const FieldPositionChecker &field);

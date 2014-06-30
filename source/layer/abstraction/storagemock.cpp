@@ -29,7 +29,7 @@ Ball &StorageMock::getBall()
 	return m_ball;
 }
 
-ReadableRobot const& StorageMock::getEnemyRobot(unsigned int number) const
+ReadableRobot &StorageMock::getEnemyRobot(unsigned int number)
 {
 	return *m_enemyRobot[number];
 }
