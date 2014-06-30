@@ -21,6 +21,8 @@ TreeNodeResultLeaveGoalZone::TreeNodeResultLeaveGoalZone(RoboSoccer::Common::Log
 
 void TreeNodeResultLeaveGoalZone::execute()
 {
+	m_lastFollowBallRobot = FollowBallRobotNone;
+
 	Pose robot1Pose = m_ownTeam.getFirstFieldPlayer().getCurrentPose();
 	Pose robot2Pose = m_ownTeam.getSecondFieldPlayer().getCurrentPose();
 	FieldPositionCheckerFieldPlayer fieldPositionChecker;

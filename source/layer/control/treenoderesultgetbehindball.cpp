@@ -23,6 +23,8 @@ TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(RoboSoccer::Common::Log
 
 void TreeNodeResultGetBehindBall::execute()
 {
+	m_lastFollowBallRobot = FollowBallRobotNone;
+
 	Robot &robot1 = m_ownTeam.getFirstFieldPlayer();
 	Robot &robot2 = m_ownTeam.getSecondFieldPlayer();
 

@@ -21,6 +21,8 @@ TreeNodeResultShoot::TreeNodeResultShoot(RoboSoccer::Common::Logging::Logger &lo
 
 void TreeNodeResultShoot::execute()
 {
+	m_lastFollowBallRobot = FollowBallRobotNone;
+
 	Robot &robotCloseToBall = m_ownTeam.getPlayerCloserToBall(m_ball);
 	Robot &robotFarFromBall = m_ownTeam.getPlayerFartherAwayFromBall(m_ball);
 
