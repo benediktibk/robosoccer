@@ -48,6 +48,7 @@ namespace Routing
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheField_validRoute);
 		CPPUNIT_TEST(calculateRoute_startIsOutsideTheFieldAndAnObstacleOnTheWay_validRoute);
 		CPPUNIT_TEST(calculateRoute_realWorldExample_correct);
+		CPPUNIT_TEST(calculateRoute_realWorldExampleReduced_correct);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromLeftAndCircleCenterNotOnPath_shortPointIsCorrect);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromLeftAndCircleCenterNotOnPath_longPointIsCorrect);
 		CPPUNIT_TEST(getPointsBesideObstacle_intersectFromRightAndCircleCenterNotOnPath_shortPointIsCorrect);
@@ -160,6 +161,7 @@ namespace Routing
 		void getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0();
 		void getPointsBesideObstacle_realWorldExample_noIntersectPoints();
 		void calculateRoute_realWorldExample_correct();
+		void calculateRoute_realWorldExampleReduced_correct();
 
 	private:
 		static bool routeIsInsideField(const Route &route, const FieldPositionChecker &field);
