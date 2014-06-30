@@ -57,14 +57,14 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vec
 
 vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle &obstacle) const
 {
+	assert(path.intersectsWith(obstacle));
+
 	vector<Point> pointsBesideObstacle;
 	PathIntersectPoints intersectionPoints = path.getIntersectPoints(obstacle);
 	Point shortPointBesideObstacle;
 	Point longPointBesideObstacle;
 	double offsetDistanceLongPoint = 0.51*sqrt(2)*m_robotWidth + obstacle.getDiameter()/2;
 	Angle offsetAngleShortPoint = path.getAngleBetweenStartAndEnd();
-
-	assert(path.intersectsWith(obstacle));
 
 	//! @todo replace intersectsWith with isCircle...
 	if((intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromStart) ||
