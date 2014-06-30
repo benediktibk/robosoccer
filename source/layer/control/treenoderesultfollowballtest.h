@@ -14,6 +14,7 @@ class TreeNodeResultFollowBallTest :
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeResultFollowBallTest);
 		CPPUNIT_TEST(execute_true_bothRobotsGetGoToCalls);
+		CPPUNIT_TEST(execute_noLastRobot_correctRobotIsChoosen);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -21,6 +22,7 @@ class TreeNodeResultFollowBallTest :
 
 	private:
 		void execute_true_bothRobotsGetGoToCalls();
+		void execute_noLastRobot_correctRobotIsChoosen();
 
 	};
 }
