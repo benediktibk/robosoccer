@@ -13,3 +13,8 @@ TreeNode::TreeNode(Common::Logging::Logger &logger, Abstraction::RefereeBase &re
 	m_targetPositionFetcher(targetPositionFetcher),
 	m_lastFollowBallRobot(lastFollowBallRobot)
 { }
+
+TreeNode::FollowBallRobot TreeNode::getLastFollowBallRobot() const
+{
+	return m_lastFollowBallRobot;
+}

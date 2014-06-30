@@ -69,6 +69,7 @@ void Play::updateInternal()
 
 	TreeNodeResult *result = dynamic_cast<TreeNodeResult*>(node);
 	result->execute();
+	m_lastFollowBall = result->getLastFollowBallRobot();
 	delete result;
 	result = 0;
 }
