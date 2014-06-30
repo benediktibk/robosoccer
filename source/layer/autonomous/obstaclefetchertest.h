@@ -41,7 +41,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_firstRobotAndNearlyCloseEnoughToBall_countIs0);
 		CPPUNIT_TEST(getAllObstablesButMeAndBallInRange_goalObstaclesNoChangedSize);
 		CPPUNIT_TEST(getAllObstablesButMeInRange_goalObstaclesNoChangedSize);
-		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_noGoalObstacles);
+		CPPUNIT_TEST(getAllObstaclesButMeAndGoalObstaclesInRange_noGoalObstacles );
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
