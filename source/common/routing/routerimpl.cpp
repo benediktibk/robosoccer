@@ -189,19 +189,17 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point 
 	if (obstaclesTillEnd.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
-	else
-	{
-		Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
-		double diameter = obstacle.getDiameter();
-		Point direction = end - start;
-		double directionLength = start.distanceTo(end);
-		double desiredLength = directionLength + 2*diameter;
-		Point directionModified = direction/directionLength*desiredLength;
-		Point extendedEnd = start + directionModified;
-		return calculateRoutesToPointsBesideObstacle(
-					obstacle, start, extendedEnd, obstacles,
-					searchDepth, consideredObstacles, startInsideField);
-	}
+
+	Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
+	double diameter = obstacle.getDiameter();
+	Point direction = end - start;
+	double directionLength = start.distanceTo(end);
+	double desiredLength = directionLength + 2*diameter;
+	Point directionModified = direction/directionLength*desiredLength;
+	Point extendedEnd = start + directionModified;
+	return calculateRoutesToPointsBesideObstacle(
+				obstacle, start, extendedEnd, obstacles,
+				searchDepth, consideredObstacles, startInsideField);
 }
 
 vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeDirectPath(const Point &start, const Point &end,
@@ -290,6 +288,11 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		const list<RoutingObstacle> &consideredObstacles, bool startIsInsideField) const
 {
 	Path path(start, end, m_robotWidth);
+
+	if (!path.intersectsWith(obstacle))
+		return calculateStartPartsWithFreeDirectPath(
+					start, end, consideredObstacles);
+
 	vector<Point> pointsBesideObstacle = getPointsBesideObstacle(path, obstacle);
 	vector<RoutingResult> result;
 

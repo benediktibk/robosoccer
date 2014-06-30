@@ -911,7 +911,6 @@ void RouterTest::getPointsBesideObstacle_obstacleAtEnd_resultSizeIs0()
 
 void RouterTest::calculateRoute_realWorldExample_correct()
 {
-	CPPUNIT_ASSERT(false);
 	RouterImpl router(ControllableRobot::getWidth(), *m_field);
 	Point start(-1.3845716094970704,-0.46818915843963627);
 	Point end(-0.13059365530896505,-0.48615772885295067);
@@ -926,12 +925,12 @@ void RouterTest::calculateRoute_realWorldExample_correct()
 	Route route = router.calculateRoute(start,end,obstacles);
 
 	CPPUNIT_ASSERT(route.isValid());
+	CPPUNIT_ASSERT(!route.intersectsWith(obstacles));
 	CPPUNIT_ASSERT_EQUAL((size_t)4,route.getPointCount());
 }
 
 void RouterTest::calculateRoute_realWorldExampleReduced_correct()
 {
-	CPPUNIT_ASSERT(false);
 	RouterImpl router(ControllableRobot::getWidth(), *m_field);
 	Point start(-1.3845716094970704, -0.46818915843963627);
 	Point end(-0.13059365530896505, -0.48615772885295067);
@@ -942,5 +941,6 @@ void RouterTest::calculateRoute_realWorldExampleReduced_correct()
 	Route route = router.calculateRoute(start, end, obstacles);
 
 	CPPUNIT_ASSERT(route.isValid());
+	CPPUNIT_ASSERT(!route.intersectsWith(obstacles));
 	CPPUNIT_ASSERT_EQUAL((size_t)4,route.getPointCount());
 }
