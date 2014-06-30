@@ -15,7 +15,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeResultFollowBallTest::createTestNode()
 {
-	return new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 

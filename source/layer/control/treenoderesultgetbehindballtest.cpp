@@ -15,7 +15,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeResultGetBehindBallTest::createTestNode()
 {
-	return new TreeNodeResultGetBehindBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);;
+	return new TreeNodeResultGetBehindBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 void TreeNodeResultGetBehindBallTest::execute_true_bothRobotsGetGoToCalls()

@@ -15,11 +15,10 @@ using namespace RoboSoccer::Common::Other;
 using namespace RoboSoccer::Layer::Control;
 using namespace std;
 
-TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(
-		RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
+TreeNodeResultGetBehindBall::TreeNodeResultGetBehindBall(RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
 		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
-		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
-	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
+		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher, FollowBallRobot lastFollowBallRobot) :
+	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, lastFollowBallRobot)
 { }
 
 void TreeNodeResultGetBehindBall::execute()

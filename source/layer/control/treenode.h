@@ -28,13 +28,22 @@ namespace Control
 class TreeNode
 	{
 	public:
+		enum FollowBallRobot {
+			FollowBallRobotNone,
+			FollowBallRobotOne,
+			FollowBallRobotTwo
+		};
+
 		TreeNode(
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
-				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+				FollowBallRobot lastFollowBallRobot);
 
 		virtual ~TreeNode() { }
 		virtual bool decide() = 0;
+
+		FollowBallRobot getLastFollowBallRobot() const;
 
 	protected:
 		Common::Logging::Logger &m_logger;
@@ -43,6 +52,7 @@ class TreeNode
 		const Autonomous::EnemyTeam &m_enemyTeam;
 		const Autonomous::IntelligentBall &m_ball;
 		const Autonomous::TargetPositionFetcher &m_targetPositionFetcher;
+		FollowBallRobot m_lastFollowBallRobot;
 	};
 }
 }

@@ -58,7 +58,7 @@ void Play::updateInternal()
 		goalie.goTo(targets, DriveModeIgnoreGoalObstacles);
 	}
 
-	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher, m_lastFollowBall);
 	while (node->decide())
 	{
 		TreeNodeDecider *current = dynamic_cast<TreeNodeDecider*>(node);

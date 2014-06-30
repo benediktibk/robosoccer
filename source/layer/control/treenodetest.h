@@ -4,6 +4,7 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include "layer/control/treenode.h"
 
 namespace RoboSoccer
 {
@@ -59,6 +60,7 @@ class TreeNodeTest :
 		Autonomous::IntelligentBallMock *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 		Layer::Abstraction::BallMock *m_ballMock;
+		TreeNode::FollowBallRobot m_lastFollowRobot;
 	};
 }
 }

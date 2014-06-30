@@ -49,7 +49,7 @@ int main(int, char**)
 		team.getSecondFieldPlayer().update();
 		team.getGoalie().update();
 
-		TreeNode *node = new TreeNodeDeciderIsOneRobotInShootingRange(logger, referee, team, enemyTeam, ball, targetPositionFetcher);
+		TreeNode *node = new TreeNodeDeciderIsOneRobotInShootingRange(logger, referee, team, enemyTeam, ball, targetPositionFetcher, TreeNode::FollowBallRobotNone);
 		while (node->decide())
 		{
 			TreeNodeDecider *current = dynamic_cast<TreeNodeDecider*>(node);

@@ -3,11 +3,10 @@
 
 using namespace RoboSoccer::Layer::Control;
 
-TreeNodeDecider::TreeNodeDecider(
-		Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
+TreeNodeDecider::TreeNodeDecider(Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 		Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
-		Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	TreeNode(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher),
+		Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher, FollowBallRobot lastFollowBallRobot) :
+	TreeNode(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, lastFollowBallRobot),
 	m_childYes(0),
 	m_childNo(0)
 { }

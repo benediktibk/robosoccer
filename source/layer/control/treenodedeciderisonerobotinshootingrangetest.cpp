@@ -15,7 +15,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeDeciderIsOneRobotInShootingRangeTest::createTestNode()
 {
-	return new TreeNodeDeciderIsOneRobotInShootingRange(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeDeciderIsOneRobotInShootingRange(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 void TreeNodeDeciderIsOneRobotInShootingRangeTest::decide_robotIsInShootingRange_shoot()
