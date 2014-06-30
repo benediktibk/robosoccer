@@ -196,7 +196,9 @@ void Application::turnAllRobotsTo(const Angle &angle)
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		robot.updateSensors();
 		robot.turn(angle);
+		robot.updateActuators();
 	}
 
 	unsigned int robotsNotMovingCount;
@@ -209,6 +211,7 @@ void Application::turnAllRobotsTo(const Angle &angle)
 			robot.updateSensors();
 			if (!robot.isMoving())
 				++robotsNotMovingCount;
+			robot.updateActuators();
 		}
 	} while (robotsNotMovingCount < 3);
 }
