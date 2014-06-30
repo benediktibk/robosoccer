@@ -121,7 +121,7 @@ int main(int, char**)
 	cout << "driving to start position" << endl;
 	while(!robot.reachedTarget())
 	{
-		robot.update();
+		robot.updateActuators();
 		usleep(10000);
 	}
 
@@ -133,7 +133,7 @@ int main(int, char**)
 		ball.update();
 		Pose targetPose = targetPositionFetcher.getTargetForGoalkeeper(ball);
 		robot.goToDirect(targetPose);
-		robot.update();
+		robot.updateActuators();
 		usleep(10000);
 	}
 

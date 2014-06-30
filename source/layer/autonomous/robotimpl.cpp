@@ -107,7 +107,12 @@ void RobotImpl::kick(IntelligentBall const &ball)
 	switchIntoState(new TurnTo(m_robot, ballPosition, new Kick(m_robot, ball, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
 }
 
-void RobotImpl::update()
+void RobotImpl::updateSensors()
+{
+
+}
+
+void RobotImpl::updateActuators()
 {
 	updateMovementStopped();
 	bool stateChanged;
