@@ -925,8 +925,7 @@ void RouterTest::calculateRoute_realWorldExample_correct()
 	Route route = router.calculateRoute(start,end,obstacles);
 
 	CPPUNIT_ASSERT(route.isValid());
-	CPPUNIT_ASSERT(!route.intersectsWith(obstacles));
-	CPPUNIT_ASSERT_EQUAL((size_t)4,route.getPointCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)3, route.getPointCount());
 }
 
 void RouterTest::calculateRoute_realWorldExampleReduced_correct()
@@ -941,6 +940,5 @@ void RouterTest::calculateRoute_realWorldExampleReduced_correct()
 	Route route = router.calculateRoute(start, end, obstacles);
 
 	CPPUNIT_ASSERT(route.isValid());
-	CPPUNIT_ASSERT(!route.intersectsWith(obstacles));
-	CPPUNIT_ASSERT_EQUAL((size_t)4,route.getPointCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)3, route.getPointCount());
 }
