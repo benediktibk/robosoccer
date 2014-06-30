@@ -353,7 +353,7 @@ void RobotTest::update_goToDirectAndPositionReachedAndMovementStopped_robotGotCa
 
 void RobotTest::update_goToAndInitialRotationNotReached_robotGotCallToTurnTowardsTarget()
 {
-	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle::getHalfRotation()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robot->goTo(m_targets, DriveModeDefault);
 
@@ -367,7 +367,7 @@ void RobotTest::update_goToAndInitialRotationNotReached_robotGotCallToTurnToward
 
 void RobotTest::update_goToAndInitialRotationNotReached_robotGotNoCallToDrive()
 {
-	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle::getHalfRotation()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robot->goTo(m_targets, DriveModeDefault);
 
@@ -379,7 +379,7 @@ void RobotTest::update_goToAndInitialRotationNotReached_robotGotNoCallToDrive()
 
 void RobotTest::update_goToAndInitialRotationNotReachedTwiceCalled_robotGotNoAdditionalCallToTurn()
 {
-	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle::getHalfRotation()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robot->goTo(m_targets, DriveModeDefault);
 
@@ -391,7 +391,7 @@ void RobotTest::update_goToAndInitialRotationNotReachedTwiceCalled_robotGotNoAdd
 
 void RobotTest::update_goToAndInitialRotationNotReachedButMovementStopped_robotGotGallToDriveToTargetImprecise()
 {
-	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle::getHalfRotation()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robot->goTo(m_targets, DriveModeDefault);
 
@@ -516,7 +516,7 @@ void RobotTest::update_goToAndFinalRotationNotReachedButMovementStopped_reachedT
 
 void RobotTest::update_goToAndInitialRotationReachedButRobotStillMoving_robotGotNoAdditionalCallsToMove()
 {
-	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle()));
+	m_hardwareRobot->setPose(Pose(Point(1, 2), Angle::getHalfRotation()));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robot->goTo(m_targets, DriveModeDefault);
 
