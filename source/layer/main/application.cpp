@@ -131,11 +131,7 @@ void Application::run()
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
 
-//		for (unsigned int i = 0; i < 3; ++i)
-//		{
-//			Robot &robot = m_e->getRobotByNumber(i);
-//			robot.update();
-//		}
+		m_enemyTeam->update();
 
 		stateMachine.update();
 

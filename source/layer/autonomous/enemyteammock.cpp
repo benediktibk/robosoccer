@@ -31,6 +31,9 @@ vector<Circle> EnemyTeamMock::getObstacles() const
 	return m_obstacles;
 }
 
+void EnemyTeamMock::update()
+{}
+
 void EnemyTeamMock::setObstacles(const vector<Circle> &obstacles)
 {
 	m_obstacles = obstacles;
