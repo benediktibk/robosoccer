@@ -36,7 +36,13 @@ void TreeNodeResultFollowBallTest::execute_noLastRobot_correctRobotIsChoosen()
 
 	followBall = new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, TreeNode::FollowBallRobotOne);
 	followBall->execute();
+	CPPUNIT_ASSERT(followBall->getLastFollowBallRobot() != TreeNode::FollowBallRobotNone);
 	CPPUNIT_ASSERT_EQUAL(TreeNode::FollowBallRobotOne, followBall->getLastFollowBallRobot());
 
 	delete followBall;
+
+	followBall = new TreeNodeResultFollowBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, TreeNode::FollowBallRobotTwo);
+	followBall->execute();
+	CPPUNIT_ASSERT(followBall->getLastFollowBallRobot() != TreeNode::FollowBallRobotNone);
+	CPPUNIT_ASSERT_EQUAL(TreeNode::FollowBallRobotTwo, followBall->getLastFollowBallRobot());
 }
