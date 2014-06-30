@@ -80,14 +80,14 @@ ControllableRobotImpl::~ControllableRobotImpl()
 
 Geometry::Pose ControllableRobotImpl::getPose() const
 {
-	return m_pose;
+	Geometry::Point position = getPosition();
+	Geometry::Angle orientation = getOrientation();
+	return Geometry::Pose(position, orientation);
 }
 
 Geometry::Pose ControllableRobotImpl::getPoseRaw() const
 {
-	Geometry::Point position = getPosition();
-	Geometry::Angle orientation = getOrientationRaw();
-	return Geometry::Pose(position, orientation);
+	return m_poseRaw;
 }
 
 Geometry::Circle ControllableRobotImpl::getObstacle() const
@@ -151,7 +151,7 @@ void ControllableRobotImpl::updateSensors()
 	Geometry::Angle orientation(m_robot->GetPhi().Rad());
 
 	if (fabs(position.getX())<3 || fabs(position.getY())<3)
-		m_pose =  Geometry::Pose(position, orientation);
+		m_poseRaw =  Geometry::Pose(position, orientation);
 }
 
 void ControllableRobotImpl::updateActuators()
@@ -266,7 +266,7 @@ Geometry::Angle ControllableRobotImpl::getOrientation() const
 
 Geometry::Point ControllableRobotImpl::getPosition() const
 {
-	return m_pose.getPosition();
+	return m_poseRaw.getPosition();
 }
 
 void ControllableRobotImpl::switchInto(ControllableRobotImpl::State state)
@@ -304,7 +304,7 @@ void ControllableRobotImpl::determineIsDrivingForwardForGoTo(const Geometry::Poi
 
 Geometry::Angle ControllableRobotImpl::getOrientationRaw() const
 {
-	return m_pose.getOrientation();
+	return m_poseRaw.getOrientation();
 }
 
 void ControllableRobotImpl::logState(State state)
