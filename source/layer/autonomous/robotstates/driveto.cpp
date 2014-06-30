@@ -25,8 +25,8 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
-	m_precisionOrientationInitial(0.2),
-	m_precisionOrientationFinal(0.1),
+	m_precisionOrientationInitial(0.5),
+	m_precisionOrientationFinal(0.3),
 	m_driveMode(driveMode),
 	m_targets(targets),
 	m_currentTarget(currentTarget),
@@ -53,7 +53,7 @@ bool DriveTo::isEquivalentToDriveTo(const vector<Pose> &targets)
 {
 	Compare comparePosition(m_precisionPosition*4);
 
-	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, 4*m_precisionOrientationFinal))
+	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, m_precisionOrientationFinal))
 	{
 		log("position or orientation is not equal");
 		return false;
