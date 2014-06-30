@@ -755,3 +755,16 @@ void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAnd
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::getPenaltyPositionPrepareGoalie_true_correctStartPosition()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Pose goaliePrepare = targetPositionFetcher.getPenaltyPositionPrepareGoalie().front();
+
+	Common::Other::Compare compare(0.05);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getY(), 0.0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getX(), -1.25));
+}
