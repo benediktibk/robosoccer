@@ -130,8 +130,8 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
-
 		m_enemyTeam->update();
+		m_ball->update();
 
 		stateMachine.update();
 
@@ -140,7 +140,6 @@ void Application::run()
 			Robot &robot = m_ownTeam->getRobotByNumber(i);
 			robot.update();
 		}
-		m_ball->update();
 
 		if(m_enableRouteServer)
 			m_routeInformationServer->updateClients(
@@ -210,7 +209,7 @@ void Application::turnAllRobotsTo(const Angle &angle)
 		for (unsigned int i = 0; i < 3; ++i)
 		{
 			Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
-			robot.update();
+			robot.updateSensors();
 			if (!robot.isMoving())
 				++robotsNotMovingCount;
 		}

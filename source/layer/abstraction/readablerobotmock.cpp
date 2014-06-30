@@ -20,7 +20,5 @@ void ReadableRobotMock::setPose(const Pose &pose)
 	m_pose = pose;
 }
 
-void ReadableRobotMock::update()
-{
-
-}
+void ReadableRobotMock::updateSensors()
+{ }

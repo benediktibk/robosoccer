@@ -59,7 +59,7 @@ void ControllableRobotMock::stop()
 	++m_callsToStop;
 }
 
-void ControllableRobotMock::update()
+void ControllableRobotMock::updateSensors()
 {
 	++m_callsToUpdate;
 }

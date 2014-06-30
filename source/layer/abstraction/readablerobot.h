@@ -22,7 +22,7 @@ namespace Abstraction
 
 		virtual Common::Geometry::Pose getPose() const = 0;
 		virtual Common::Geometry::Circle getObstacle() const = 0;
-		virtual void update() = 0;
+		virtual void updateSensors() = 0;
 
 		static double getWidth();
 

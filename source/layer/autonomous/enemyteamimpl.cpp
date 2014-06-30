@@ -50,8 +50,8 @@ std::vector<Circle> EnemyTeamImpl::getObstacles() const
 
 void EnemyTeamImpl::update()
 {
-	m_robots[0]->update();
-	m_robots[1]->update();
-	m_robots[2]->update();
+	m_robots[0]->updateSensors();
+	m_robots[1]->updateSensors();
+	m_robots[2]->updateSensors();
 }
 

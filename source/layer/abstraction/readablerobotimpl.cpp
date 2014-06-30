@@ -35,7 +35,7 @@ Geometry::Circle ReadableRobotImpl::getObstacle() const
 	return Geometry::Circle(getPose().getPosition(),ReadableRobot::getWidth());
 }
 
-void ReadableRobotImpl::update()
+void ReadableRobotImpl::updateSensors()
 {
 	Geometry::Point position(m_robot->GetX(), m_robot->GetY());
 	Geometry::Angle orientation(m_robot->GetPhi().Rad());

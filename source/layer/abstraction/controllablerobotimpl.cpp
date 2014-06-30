@@ -145,7 +145,7 @@ void ControllableRobotImpl::stop()
 	switchInto(StateStop);
 }
 
-void ControllableRobotImpl::update()
+void ControllableRobotImpl::updateSensors()
 {
 	double translationSpeed = 0;
 	double rotationSpeed = 0;

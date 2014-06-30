@@ -122,7 +122,7 @@ void RobotImpl::update()
 	} while(stateChanged);
 
 	m_currentState->update();
-	m_robot.update();
+	m_robot.updateSensors();
 }
 
 const RobotState &RobotImpl::getCurrentState() const

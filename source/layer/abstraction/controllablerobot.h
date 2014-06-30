@@ -28,7 +28,7 @@ namespace Abstraction
 		virtual void kick(Common::Geometry::Point const &ballPosition) = 0;
 		virtual void turn(Common::Geometry::Angle const &absoluteAngle) = 0;
 		virtual void stop() = 0;
-		virtual void update() = 0;
+		virtual void updateSensors() = 0;
 		virtual bool isMoving() const = 0;
 	};
 }
