@@ -728,14 +728,14 @@ void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMovedALittleBi
 void RobotTest::update_goToAndInitialRotationNotReachedAndObstacleMoved_turningToSecondPointOfNewRoute()
 {
 	vector<Circle> obstacles;
-	obstacles.push_back(Circle(Point(1,1),0.5));
+	obstacles.push_back(Circle(Point(1, 1), 0.5));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robotWithRealRouter->goTo(m_targets, DriveModeDefault);
 
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getHalfRotation()));
 	m_robotWithRealRouter->updateActuators();
-	obstacles.front().setCenter(Point(2,1.5));
+	obstacles.front().setCenter(Point(2, 1.5));
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
 	m_robotWithRealRouter->updateActuators();
 
@@ -749,7 +749,7 @@ void RobotTest::update_goToAndIgnoreBall_routePointsCountIs2()
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robotWithRealRouter->goTo(m_targets, DriveModeIgnoreBall);
 	m_obstacleFetcher->setAllObstaclesButMeAndBallInRange(obstacles);
-	obstacles.push_back(Circle(Point(2.5,2),0.5));
+	obstacles.push_back(Circle(Point(2.5, 2), 0.5));
 	m_obstacleFetcher->setAllObstaclesButMeInRange(obstacles);
 
 	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle::getEighthRotation()));
@@ -761,7 +761,7 @@ void RobotTest::update_goToAndIgnoreBall_routePointsCountIs2()
 
 void RobotTest::update_goToAndCloseToThirdPositionAndDriveSlowlyAtTheEnd_robotGotCallToDriveSlowly()
 {
-	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0,0),Point(5,4))));
+	m_hardwareRobot->setPose(Pose(Point(0, 0), Angle(Point(0, 0),Point(5, 4))));
 	m_targets.push_back(Pose(Point(5, 4), Angle::getQuarterRotation()));
 	m_robotWithRealRouter->goTo(m_targets, DriveModeDriveSlowlyAtTheEnd);
 	m_robotWithRealRouter->updateActuators();
