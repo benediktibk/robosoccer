@@ -26,7 +26,7 @@ ReadableRobotImpl::~ReadableRobotImpl()
 
 Geometry::Pose ReadableRobotImpl::getPose() const
 {
-	assert(fabs(m_robot->GetX()) < 5 || fabs(m_robot->GetY()) < 5);
+	assert(fabs(m_pose.getPosition().getX()) < 5 || fabs(m_pose.getPosition().getY()) < 5);
 	return Geometry::Pose(m_pose.getPosition(),m_pose.getOrientation());
 }
 
