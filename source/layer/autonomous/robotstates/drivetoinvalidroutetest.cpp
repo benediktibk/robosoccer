@@ -106,3 +106,19 @@ void DriveToInvalidRouteTest::reachedTarget_empty_false()
 {
 	CPPUNIT_ASSERT(!m_robotState->reachedTarget());
 }
+
+void DriveToInvalidRouteTest::nextState_noRouteFeasibleForALingTime_initialRotation()
+{
+	m_router->setInvalidRoute();
+	RobotState *nextState;
+
+	for(size_t i=0;i<121;i++)
+	{
+		m_robotState->update();
+		nextState = m_robotState->nextState(false);
+	}
+
+	DriveToInitialRotation *nextStateCasted = dynamic_cast<DriveToInitialRotation*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
+}
