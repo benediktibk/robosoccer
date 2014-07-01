@@ -355,17 +355,20 @@
 \subsection{Collision Avoidance}
 \begin{frame}
 	\frametitle{Collision Avoidance}
-	\begin{block}{Router instead of collision avoidance}
-		\begin{itemize}
-			\item calculates only save routes to target
-			\item gets start point, target point and width of robot
-			\item obstacles are circles
-			\item considers only obstacles closer than 1 meter
-			\item one route consists of one or more paths
-			\item calculates every frame a new route
-			\item takes the new route if its better
-		\end{itemize}
-	\end{block}
+	\textbf{Router:}
+	\begin{itemize}
+		\item gets width of robot
+		\item calculate route
+			\begin{itemize}
+				\item gets start point and target point
+				\item obstacles are circles
+				\item considers only obstacles closer than 1 meter
+				\item only save routes to target
+			\end{itemize}
+		\item one route consists of one or more paths
+		\item calculates every frame a new route
+		\item takes the new route if its better
+	\end{itemize}
 \end{frame}
 
 \begin{frame}
