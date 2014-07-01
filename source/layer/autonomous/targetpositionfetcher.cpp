@@ -286,8 +286,13 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 
 bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, const IntelligentBall &ball) const
 {
+	return isPositionBehindTheBallWithAngle(robotPosition, ball, Angle::getQuarterRotation());
+}
+
+bool TargetPositionFetcher::isPositionBehindTheBallWithAngle(const Point &robotPosition, const IntelligentBall &ball, const Angle &angle) const
+{
 	Point ballPosition = ball.getPosition();
-	Angle angleCircularSector = Angle::getQuarterRotation();
+	Angle angleCircularSector = angle;
 	Angle straight1Direction;
 	Angle straight2Direction;
 
