@@ -113,6 +113,7 @@ string InputArgumentParser::usage() const
 	stream << "\t--disableHardwareCheck [optional]" << endl;
 	stream << "\t--disableRouteServer [optional]" << endl;
 	stream << "\t--routeServerPort {value between 1 and 65 536} [optional]" << endl;
+	stream << "\t--disableLogging [optional]" << endl;
 
 	return stream.str();
 }
