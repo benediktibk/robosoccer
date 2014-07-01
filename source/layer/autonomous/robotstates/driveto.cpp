@@ -24,7 +24,6 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 		Logger &logger, Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
 	RobotState(robot, logger, logFileType),
-	m_driveToInvalidRouteCounter(0),
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.5),
 	m_precisionOrientationFinal(0.3),
@@ -219,19 +218,9 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	bool routeUpdated = updateRouteIfNecessary();
 	Routing::Route const &currentRoute = getCurrentRoute();
 
-	if(m_driveToInvalidRouteCounter > 120)
-	{
-		log("route is invalid and we cant find a route, so we ignore everything");
-		m_driveToInvalidRouteCounter = 0;
-		return new DriveToInitialRotation(
-					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
-					getObstacleFetcher(), getOwnObstacleSource(), DriveModeIgnoreAllObstacles, getFieldPositionChecker());
-	}
-
 	if (!currentRoute.isValid())
 	{
 		log("route is invalid");
-		m_driveToInvalidRouteCounter++;
 		return new DriveToInvalidRoute(
 					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), getFieldPositionChecker());
@@ -240,7 +229,6 @@ RobotState *DriveTo::nextStateWithRouteUpdate()
 	if (routeUpdated)
 	{
 		log("created new route, starting with initial rotation");
-		m_driveToInvalidRouteCounter = 0;
 		return new DriveToInitialRotation(
 					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
 					getObstacleFetcher(), getOwnObstacleSource(), getDriveMode(), currentRoute, getFieldPositionChecker());

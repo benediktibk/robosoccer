@@ -13,13 +13,22 @@ using namespace std;
 DriveToInvalidRoute::DriveToInvalidRoute(ControllableRobot &robot, const std::vector<Pose> &targets, const Pose &currentTarget, const Router &router, Logger &logger,
 		Logger::LogFileType logFileType, ObstacleFetcher const &obstacleFetcher,
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
-	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode, fieldPositionChecker)
+	DriveTo(robot, targets, currentTarget, router, logger, logFileType, obstacleFetcher, ownObstacleSource, driveMode, fieldPositionChecker),
+	m_driveToInvalidRouteCounter(0)
 { }
 
 RobotState *DriveToInvalidRoute::nextState(bool)
 {
 	updateRouteIfNecessary();
 	Route const &currentRoute = getCurrentRoute();
+
+	if(m_driveToInvalidRouteCounter > 120)
+	{
+		log("route is invalid and we cant find a route, so we ignore everything");
+		return new DriveToInitialRotation(
+					getRobot(), getTargets(), getCurrentTarget(), getRouter(), getLogger(), getLogFileType(),
+					getObstacleFetcher(), getOwnObstacleSource(), DriveModeIgnoreAllObstacles, getFieldPositionChecker());
+	}
 
 	if (currentRoute.isValid())
 	{
