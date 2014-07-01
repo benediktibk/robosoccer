@@ -48,5 +48,6 @@ string DriveToInvalidRoute::getName() const
 
 void DriveToInvalidRoute::update()
 {
+	m_driveToInvalidRouteCounter++;
 	getRobot().stop();
 }
