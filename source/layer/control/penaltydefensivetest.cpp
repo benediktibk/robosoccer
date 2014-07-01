@@ -9,10 +9,12 @@
 #include "layer/autonomous/intelligentballmock.h"
 #include "layer/autonomous/robotmock.h"
 #include "common/logging/loggermock.h"
+#include "common/geometry/pose.h"
 
 using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::States;
+using namespace RoboSoccer::Common::Geometry;
 
 RoboSoccerState *PenaltyDefensiveTest::createInstance()
 {
@@ -56,20 +58,22 @@ void PenaltyDefensiveTest::nextState_notExecutePenaltyAndNotContinuePlaying_paus
 void PenaltyDefensiveTest::update_empty_oneRobotGotCallToMove()
 {
 	m_referee->setContinuePlaying(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setCurrentPose(Pose(Point(1.3,0), Angle()));
 
 	m_state->update();
 
-	RobotMock const &robot = m_ownTeam->getRobotMock();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoToDirect());
 }
 
 void PenaltyDefensiveTest::update_twiceCalled_twoCallsToMove()
 {
 	m_referee->setContinuePlaying(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setCurrentPose(Pose(Point(1.3,0), Angle()));
 
 	m_state->update();
 	m_state->update();
 
-	RobotMock const &robot = m_ownTeam->getRobotMock();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, robot.getCallsToGoToDirect());
 }
