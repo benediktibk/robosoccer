@@ -290,14 +290,13 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 	Path path(start, end, m_robotWidth);
 
 	/*!
-	 * This step may produce routes which are detected to have intersections with obstacles. In fact, in these cases
+	 * This step may produce routes which are unnecessary long. In fact, in these cases
 	 * the intersection occur only at the start or end of a path at the corners, but the real robots are nearly
 	 * perfect circles. Therefore, this is not a real intersection. The actually problem lies within Path::intersectsWith(),
 	 * which does not match the case of the RoboSoccer-Lab.
 	 */
 	if (!path.intersectsWith(obstacle))
-		return calculateStartPartsWithFreeDirectPath(
-					start, end, consideredObstacles);
+		return vector<RoutingResult>();
 
 	vector<Point> pointsBesideObstacle = getPointsBesideObstacle(path, obstacle);
 	vector<RoutingResult> result;
