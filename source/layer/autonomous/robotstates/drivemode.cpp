@@ -8,6 +8,8 @@ ostream& operator<<(ostream &stream, const DriveMode &driveMode)
 	stream << "drive Mode: ";
 	switch(driveMode)
 	{
+	case DriveModeIgnoreAllObstacles:
+		stream << "ignore all Obstacles";
 	case DriveModeIgnoreBall:
 		stream << "ignore Ball";
 		break;

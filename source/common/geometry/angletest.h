@@ -42,6 +42,8 @@ namespace Geometry
 		CPPUNIT_TEST(isObtuse_piThreeQuarter_true);
 		CPPUNIT_TEST(isObtuse_minusPiThreeQuarter_true);
 		CPPUNIT_TEST(getHalfRotation_multiplyWith4per5_valueIs4Piper5);
+		CPPUNIT_TEST(operatorEqual_piAndPi_true);
+		CPPUNIT_TEST(operatorEqual_piAndPiHalf_false);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -73,6 +75,8 @@ namespace Geometry
 		void isObtuse_piThreeQuarter_true();
 		void isObtuse_minusPiThreeQuarter_true();
 		void getHalfRotation_multiplyWith4per5_valueIs4Piper5();
+		void operatorEqual_piAndPi_true();
+		void operatorEqual_piAndPiHalf_false();
 	};
 }
 }

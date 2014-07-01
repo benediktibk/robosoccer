@@ -53,7 +53,10 @@ void RobotMock::kick(IntelligentBall const &)
 	++m_callsToKick;
 }
 
-void RobotMock::update()
+void RobotMock::updateSensors()
+{ }
+
+void RobotMock::updateActuators()
 { }
 
 unsigned int RobotMock::getCallsToStop() const

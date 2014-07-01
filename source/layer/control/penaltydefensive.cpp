@@ -5,6 +5,7 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/abstraction/refereebase.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
 #include "common/geometry/pose.h"
 
 using namespace std;
@@ -46,5 +47,10 @@ string PenaltyDefensive::getName()
 void PenaltyDefensive::updateInternal()
 {
 	Robot &goalie = m_ownTeam.getGoalie();
-	goalie.goToDirect(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball).front());
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	if (!fieldPositionChecker.isPointInsideGoalZone(goalie.getCurrentPose()))
+		goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball), DriveModeIgnoreGoalObstacles);
+	else
+		goalie.goToDirect(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball).front());
 }

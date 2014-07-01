@@ -18,7 +18,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeDeciderIsOneRobotInsideGoalZoneTest::createTestNode()
 {
-	return new TreeNodeDeciderIsOneRobotInsideGoalZone(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeDeciderIsOneRobotInsideGoalZone(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 void TreeNodeDeciderIsOneRobotInsideGoalZoneTest::decide_robotsAreInValidPosition_isInShootingRange()

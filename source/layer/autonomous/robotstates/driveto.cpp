@@ -25,8 +25,10 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 		ObstacleSource const &ownObstacleSource, DriveMode driveMode, FieldPositionChecker const &fieldPositionChecker) :
 	RobotState(robot, logger, logFileType),
 	m_precisionPosition(0.02),
-	m_precisionOrientationInitial(0.2),
-	m_precisionOrientationFinal(0.1),
+	m_precisionOrientationInitial(0.5),
+	m_precisionOrientationFinal(0.3),
+	m_obstacleScaleFactorCheck(0.9),
+	m_obstacleScaleFactorCreation(2),
 	m_driveMode(driveMode),
 	m_targets(targets),
 	m_currentTarget(currentTarget),
@@ -53,7 +55,7 @@ bool DriveTo::isEquivalentToDriveTo(const vector<Pose> &targets)
 {
 	Compare comparePosition(m_precisionPosition*4);
 
-	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, 4*m_precisionOrientationFinal))
+	if (!comparePosition.isFuzzyEqualWithCorrectOrder(m_targets, targets, m_precisionOrientationFinal))
 	{
 		log("position or orientation is not equal");
 		return false;
@@ -139,8 +141,10 @@ DriveMode DriveTo::getDriveMode() const
 
 Routing::Route DriveTo::getCurrentRoute() const
 {
-	assert(m_currentRoute != 0);
-	return *m_currentRoute;
+	if (m_currentRoute != 0)
+		return *m_currentRoute;
+	else
+		return Routing::Route(ReadableRobot::getWidth());
 }
 
 vector<Pose> DriveTo::getCurrentTargets() const
@@ -157,13 +161,15 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Pose currentPose = getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
-	DriveMode driveMode = getDriveModeOverriden();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, driveMode, 0.9);
+	vector<Circle> obstacles = getObstaclesForCheck();
 	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
 		m_currentRoute->replaceFirstPoint(currentPosition);
+
+	list<Point> oldRoutePoints;
+	if (m_currentRoute != 0)
+		oldRoutePoints = m_currentRoute->getAllPoints();
 
 	if (isRouteFeasible(filteredObstacles))
 	{
@@ -186,6 +192,18 @@ bool DriveTo::updateRouteIfNecessary()
 		m_currentRoute = new Routing::Route(ReadableRobot::getWidth());
 		calculateNewRoute(*m_currentRoute);
 	}
+
+	list<Point> newRoutePoints;
+	if (m_currentRoute != 0)
+		newRoutePoints = m_currentRoute->getAllPoints();
+
+	Compare compare(0.01);
+	if (compare.isFuzzyEqual(oldRoutePoints, newRoutePoints))
+	{
+		clearRoute();
+		m_currentRoute = new Routing::Route(ControllableRobot::getWidth());
+	}
+
 	return true;
 }
 
@@ -235,20 +253,23 @@ void DriveTo::calculateNewRoute(Routing::Route &route)
 {
 	Pose currentPose = 	getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
-	DriveMode driveMode = getDriveModeOverriden();
+	vector<Circle> obstaclesForCreation = getObstaclesForCreation();
+	vector<Circle> obstaclesForCheck = getObstaclesForCheck();
 
 	for (unsigned int i = 0; i < m_targets.size(); ++i)
 	{
 		Point target = m_targets[i].getPosition();
-		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, driveMode, 2);
 
-		route = m_router.calculateRoute(currentPosition, target, obstacles);
+		route = m_router.calculateRoute(currentPosition, target, obstaclesForCreation);
+
+		if (route.intersectsWith(obstaclesForCheck))
+			route = Routing::Route();
 
 		if (route.isValid())
 			break;
 	}
 
+	DriveMode driveMode = getDriveModeOverriden();
 	if((driveMode == DriveModeDriveSlowlyAtTheEnd || driveMode == DriveModeIgnoreGoalObstacles
 		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && route.isValid())
 		prepareLastRouteSegmentForDrivingSlowly(route);
@@ -296,4 +317,23 @@ void DriveTo::logCurrentPose()
 	stringstream stream;
 	stream << "current pose: " << getRobot().getPose();
 	log(stream.str());
+}
+
+vector<Circle> DriveTo::getObstaclesForCheck() const
+{
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
+	vector<Circle> obstaclesRaw = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+					m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCheck);
+	return m_router.filterObstacles(obstaclesRaw, currentPosition);
+}
+
+vector<Circle> DriveTo::getObstaclesForCreation() const
+{
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
+	return m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+				m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCreation);
 }

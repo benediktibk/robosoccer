@@ -92,10 +92,15 @@ int main(int argc, char **argv)
 		else
 			cout << "##### Hardware Check Disabled   : " << "FALSE" << endl;
 
-	if (true)
+	if (parser.disableRouteServer())
+			cout << "##### Route Server Disabled   : " << "TRUE" << endl;
+		else
+			cout << "##### Route Server Disabled   : " << "FALSE" << endl;
+
+	if (parser.routeServerPortSet())
 			cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
 		else
-			cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
+			cout << "##### Route Server Port   : " << "Defaut Port: 1234" << endl;
 
 	cout << "##### Ip Adresses:" << endl;
 	for (vector<string>::const_iterator i = ipAdresses.begin(); i != ipAdresses.end(); ++i)
@@ -103,7 +108,8 @@ int main(int argc, char **argv)
 
 	cout << "##### ---------------------------" << endl;
 
-	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck());
+	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck(),
+								  !parser.disableRouteServer(), parser.routeServerPortSet(), parser.getRouteServePort());
 
 	sigIntHandler.sa_handler = signalHandler;
 	sigemptyset(&sigIntHandler.sa_mask);

@@ -98,7 +98,8 @@ namespace Autonomous
 		CPPUNIT_TEST(update_goToAndTargetNotInsideField_noCallToDriveAndTurn);
 		CPPUNIT_TEST(update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive);
 		CPPUNIT_TEST(update_kickAndTurnToReachedTarget_oneCallToKick);
-		CPPUNIT_TEST(update_empty_robotGotCallToUpdate);
+		CPPUNIT_TEST(updateActuators_empty_robotGotCallToUpdateActuators);
+		CPPUNIT_TEST(updateSensors_empty_robotGotCallToUpdateSensors);
 		CPPUNIT_TEST(update_goToAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(update_goToDirectAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(update_finalRotationReachedThroughMovementStopped_movementHasNotStopped);
@@ -112,6 +113,10 @@ namespace Autonomous
 		CPPUNIT_TEST(getObstacles_empty_oneWhichIsSameAsFromControllableRobot);
 		CPPUNIT_TEST(update_kickAndRobotInGoalZone_robotGotOneCallToKick);
 		CPPUNIT_TEST(goTo_robotAtSecondTarget_noCallToDrive);
+		CPPUNIT_TEST(update_goToAndInitialRotationReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn);
+		CPPUNIT_TEST(update_goToAndInitialRotationReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToDriveToSecondPoint);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn);
+		CPPUNIT_TEST(update_initialRotationNotReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToTurn);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -176,7 +181,8 @@ namespace Autonomous
 		void update_goToAndTargetNotInsideField_noCallToDriveAndTurn();
 		void update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
 		void update_kickAndTurnToReachedTarget_oneCallToKick();
-		void update_empty_robotGotCallToUpdate();
+		void updateActuators_empty_robotGotCallToUpdateActuators();
+		void updateSensors_empty_robotGotCallToUpdateSensors();
 		void update_goToAndAtTarget_reachedTarget();
 		void update_goToDirectAndAtTarget_reachedTarget();
 		void update_finalRotationReachedThroughMovementStopped_movementHasNotStopped();
@@ -190,6 +196,10 @@ namespace Autonomous
 		void getObstacles_empty_oneWhichIsSameAsFromControllableRobot();
 		void update_kickAndRobotInGoalZone_robotGotOneCallToKick();
 		void goTo_robotAtSecondTarget_noCallToDrive();
+		void update_goToAndInitialRotationReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn();
+		void update_goToAndInitialRotationReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToDriveToSecondPoint();
+		void update_initialRotationNotReachedAndNewRouteIsMuchBetter_robotGotTwoCallsToTurn();
+		void update_initialRotationNotReachedAndNewRouteIsMuchBetterButInvalid_robotGotCallToTurn();
 
 	private:
 		Abstraction::ControllableRobotMock *m_hardwareRobot;

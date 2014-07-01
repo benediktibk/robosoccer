@@ -23,7 +23,8 @@ Play::Play(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher, FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
-		fieldPositionCheckerGoalKeeper, false)
+		fieldPositionCheckerGoalKeeper, false),
+	m_lastFollowBall(TreeNode::FollowBallRobotNone)
 { }
 
 State *Play::nextState()
@@ -58,7 +59,7 @@ void Play::updateInternal()
 		goalie.goTo(targets, DriveModeIgnoreGoalObstacles);
 	}
 
-	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+	TreeNode *node = new TreeNodeDeciderIsOneRobotInsideGoalZone(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher, m_lastFollowBall);
 	while (node->decide())
 	{
 		TreeNodeDecider *current = dynamic_cast<TreeNodeDecider*>(node);
@@ -69,6 +70,7 @@ void Play::updateInternal()
 
 	TreeNodeResult *result = dynamic_cast<TreeNodeResult*>(node);
 	result->execute();
+	m_lastFollowBall = result->getLastFollowBallRobot();
 	delete result;
 	result = 0;
 }

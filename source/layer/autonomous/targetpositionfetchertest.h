@@ -68,6 +68,14 @@ namespace Autonomous
 		CPPUNIT_TEST(isGoodKickPosition_nearEnemyBorderLeftFromGoalAndLeftFromBall_false);
 		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderLeftFromGoalButRobotBehindBall_true);
 		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalButRobotBehindBall_true);
+		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalAndInfrontOfGoalZoneAndRobotAimsToOwnGoal_false);
+		CPPUNIT_TEST(isGoodKickPosition_nearOwnBorderRightFromGoalAndInfrontOfGoalZoneAndRobotAimsNotToOwnGoal_true);
+		CPPUNIT_TEST(getPenaltyPositionPrepareGoalie_true_correctStartPosition);
+		CPPUNIT_TEST(isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true);
+		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false);
+		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true);
+		CPPUNIT_TEST(isPointBehindBall_rightSideAndPointIsNextToBall_false);
+		CPPUNIT_TEST(isPointBehindBall_leftSideAndPointBehindBall_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -123,6 +131,14 @@ namespace Autonomous
 		void isGoodKickPosition_nearEnemyBorderLeftFromGoalAndLeftFromBall_false();
 		void isGoodKickPosition_nearOwnBorderLeftFromGoalButRobotBehindBall_true();
 		void isGoodKickPosition_nearOwnBorderRightFromGoalButRobotBehindBall_true();
+		void isGoodKickPosition_nearOwnBorderRightFromGoalAndInfrontOfGoalZoneAndRobotAimsToOwnGoal_false();
+		void isGoodKickPosition_nearOwnBorderRightFromGoalAndInfrontOfGoalZoneAndRobotAimsNotToOwnGoal_true();
+		void getPenaltyPositionPrepareGoalie_true_correctStartPosition();
+		void isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true();
+		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false();
+		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true();
+		void isPointBehindBall_rightSideAndPointIsNextToBall_false();
+		void isPointBehindBall_leftSideAndPointBehindBall_true();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);

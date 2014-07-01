@@ -84,11 +84,15 @@ namespace Autonomous
 		void logRoute();
 		void logCurrentPose();
 		DriveMode getDriveModeOverriden() const;
+		std::vector<Common::Geometry::Circle> getObstaclesForCheck() const;
+		std::vector<Common::Geometry::Circle> getObstaclesForCreation() const;
 
 	private:
 		const double m_precisionPosition;
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
+		const double m_obstacleScaleFactorCheck;
+		const double m_obstacleScaleFactorCreation;
 		const DriveMode m_driveMode;
 		const std::vector<Common::Geometry::Pose> m_targets;
 		const Common::Geometry::Pose m_currentTarget;

@@ -67,6 +67,7 @@ void DriveToInitialRotationTest::nextState_routeBecomesInvalidAndNewOnePossible_
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(3, 3), 1));
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_router->setChessMode(true);
 
 	RobotState *nextState = m_robotState->nextState(false);
 
@@ -199,4 +200,38 @@ void DriveToInitialRotationTest::nextState_targetNotReachedAndProposalRouteIsMuc
 	RobotState *nextState = state.nextState(false);
 
 	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToInitialRotationTest::nextState_targetNotReachedAndProposalRouteIsMuchBetterButCurrentRouteIsToShort_0()
+{
+	Routing::Route route(0.1);
+	route.addPoint(Point(0, 0));
+	route.addPoint(Point(0, 0.04));
+	route.addPoint(Point(0.05, 0.04));
+	route.addPoint(Point(0.05, 0));
+
+	vector<Pose> targets;
+	targets.push_back(Pose(Point(0.05, 0), Angle::getQuarterRotation()));
+
+	DriveToDriving state(
+				*m_controllableRobot, targets, targets.front(), *m_router, *m_logger, Logger::LogFileTypeAutonomousRobotGoalie,
+				*m_obstacleFetcher,	*m_autonomousRobotMock, DriveModeDefault, route, *m_fieldPositionChecker);
+	m_controllableRobot->setPose(Pose(Point(0, 0.01), Angle(0)));
+
+	RobotState *nextState = state.nextState(false);
+
+	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToInitialRotationTest::nextState_currentRouteNotFeasibleAndNextOneToo_invalidRoute()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(3, 3), 1));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	DriveToInvalidRoute *nextStateCasted = dynamic_cast<DriveToInvalidRoute*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
 }
