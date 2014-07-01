@@ -316,7 +316,7 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 {
 	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
-	int sideFactor = m_fieldSide == FieldSideLeft ? 1 : -1;
+	int sideFactor = m_fieldSide == FieldSideLeft ? -1 : 1;
 	vector<Pose> result;
 	result.reserve(30);
 
