@@ -324,8 +324,9 @@ vector<Circle> DriveTo::getObstaclesForCheck() const
 	Pose currentPose = 	getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
 	DriveMode driveMode = getDriveModeOverriden();
-	return m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+	vector<Circle> obstaclesRaw = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
 					m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCheck);
+	return m_router.filterObstacles(obstaclesRaw, currentPosition);
 }
 
 vector<Circle> DriveTo::getObstaclesForCreation() const
