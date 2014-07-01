@@ -88,6 +88,7 @@ namespace Autonomous
 		std::vector<Common::Geometry::Circle> getObstaclesForCreation() const;
 
 	private:
+		unsigned int m_driveToInvalidRouteCounter;
 		const double m_precisionPosition;
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
