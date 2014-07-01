@@ -55,25 +55,39 @@ void PenaltyDefensiveTest::nextState_notExecutePenaltyAndNotContinuePlaying_paus
 	delete state;
 }
 
-void PenaltyDefensiveTest::update_empty_oneRobotGotCallToMove()
+void PenaltyDefensiveTest::update_robotInsideGoalzone_oneRobotGotCallToGoToDirect()
 {
 	m_referee->setContinuePlaying(true);
 	RobotMock &robot = m_ownTeam->getRobotMock();
-	robot.setCurrentPose(Pose(Point(1.3,0), Angle()));
+	robot.setCurrentPose(Pose(Point(-1.3,0.2), Angle()));
 
 	m_state->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoToDirect());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoTo());
 }
 
-void PenaltyDefensiveTest::update_twiceCalled_twoCallsToMove()
+void PenaltyDefensiveTest::update_robotInsideGoalzoneAndUpdateTwiceCalled_twoCallsToGoToDirect()
 {
 	m_referee->setContinuePlaying(true);
 	RobotMock &robot = m_ownTeam->getRobotMock();
-	robot.setCurrentPose(Pose(Point(1.3,0), Angle()));
+	robot.setCurrentPose(Pose(Point(-1.3,0), Angle()));
 
 	m_state->update();
 	m_state->update();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, robot.getCallsToGoToDirect());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoTo());
+}
+
+void PenaltyDefensiveTest::update_robotNotInsideGoalZone_callToGoTo()
+{
+	m_referee->setContinuePlaying(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+	robot.setCurrentPose(Pose(Point(0.7,0.2), Angle()));
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, robot.getCallsToGoToDirect());
 }

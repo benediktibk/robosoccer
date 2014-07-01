@@ -16,8 +16,9 @@ namespace Control
 		CPPUNIT_TEST(nextState_executePenalty_0);
 		CPPUNIT_TEST(nextState_continuePlaying_play);
 		CPPUNIT_TEST(nextState_notExecutePenaltyAndNotContinuePlaying_pause);
-		CPPUNIT_TEST(update_empty_oneRobotGotCallToMove);
-		CPPUNIT_TEST(update_twiceCalled_twoCallsToMove);
+		CPPUNIT_TEST(update_robotInsideGoalzone_oneRobotGotCallToGoToDirect);
+		CPPUNIT_TEST(update_robotInsideGoalzoneAndUpdateTwiceCalled_twoCallsToGoToDirect);
+		CPPUNIT_TEST(update_robotNotInsideGoalZone_callToGoTo);
 		CPPUNIT_TEST_SUITE_END();
 
 	protected:
@@ -27,8 +28,9 @@ namespace Control
 		void nextState_executePenalty_0();
 		void nextState_continuePlaying_play();
 		void nextState_notExecutePenaltyAndNotContinuePlaying_pause();
-		void update_empty_oneRobotGotCallToMove();
-		void update_twiceCalled_twoCallsToMove();
+		void update_robotInsideGoalzone_oneRobotGotCallToGoToDirect();
+		void update_robotInsideGoalzoneAndUpdateTwiceCalled_twoCallsToGoToDirect();
+		void update_robotNotInsideGoalZone_callToGoTo();
 	};
 }
 }
