@@ -23,7 +23,8 @@ Play::Play(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher, FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
-		fieldPositionCheckerGoalKeeper, false)
+		fieldPositionCheckerGoalKeeper, false),
+	m_lastFollowBall(TreeNode::FollowBallRobotNone)
 { }
 
 State *Play::nextState()
