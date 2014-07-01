@@ -141,8 +141,10 @@ DriveMode DriveTo::getDriveMode() const
 
 Routing::Route DriveTo::getCurrentRoute() const
 {
-	assert(m_currentRoute != 0);
-	return *m_currentRoute;
+	if (m_currentRoute != 0)
+		return *m_currentRoute;
+	else
+		return Routing::Route(ReadableRobot::getWidth());
 }
 
 vector<Pose> DriveTo::getCurrentTargets() const
@@ -165,6 +167,10 @@ bool DriveTo::updateRouteIfNecessary()
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
 		m_currentRoute->replaceFirstPoint(currentPosition);
 
+	list<Point> oldRoutePoints;
+	if (m_currentRoute != 0)
+		oldRoutePoints = m_currentRoute->getAllPoints();
+
 	if (isRouteFeasible(filteredObstacles))
 	{
 		if(m_currentRoute->getLength() < 0.2)
@@ -186,6 +192,18 @@ bool DriveTo::updateRouteIfNecessary()
 		m_currentRoute = new Routing::Route(ReadableRobot::getWidth());
 		calculateNewRoute(*m_currentRoute);
 	}
+
+	list<Point> newRoutePoints;
+	if (m_currentRoute != 0)
+		newRoutePoints = m_currentRoute->getAllPoints();
+
+	Compare compare(0.01);
+	if (compare.isFuzzyEqual(oldRoutePoints, newRoutePoints))
+	{
+		clearRoute();
+		m_currentRoute = new Routing::Route(ControllableRobot::getWidth());
+	}
+
 	return true;
 }
 
@@ -316,5 +334,5 @@ vector<Circle> DriveTo::getObstaclesForCreation() const
 	Point const &currentPosition = currentPose.getPosition();
 	DriveMode driveMode = getDriveModeOverriden();
 	return m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-					m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCreation);
+				m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCreation);
 }
