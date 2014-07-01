@@ -44,7 +44,7 @@ void TreeNodeResultFollowBall::execute()
 	if (m_lastFollowBallRobot == FollowBallRobotOne)
 	{
 		DriveMode driveMode = DriveModeIgnoreBall;
-		if (!m_targetPositionFetcher.isPositionBehindTheBall(robotOne.getCurrentPose(), m_ball))
+		if (!m_targetPositionFetcher.isPositionBehindTheBallWithAngle(robotOne.getCurrentPose(), m_ball, Angle::getHalfRotation()))
 			driveMode = DriveModeDefault;
 
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
@@ -56,7 +56,7 @@ void TreeNodeResultFollowBall::execute()
 	else if (m_lastFollowBallRobot == FollowBallRobotTwo)
 	{
 		DriveMode driveMode = DriveModeIgnoreBall;
-		if (!m_targetPositionFetcher.isPositionBehindTheBall(robotTwo.getCurrentPose(), m_ball))
+		if (!m_targetPositionFetcher.isPositionBehindTheBallWithAngle(robotTwo.getCurrentPose(), m_ball, Angle::getHalfRotation()))
 			driveMode = DriveModeDefault;
 
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
