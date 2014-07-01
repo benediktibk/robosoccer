@@ -768,3 +768,16 @@ void TargetPositionFetcherTest::getPenaltyPositionPrepareGoalie_true_correctStar
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getY(), 0.0));
 	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getX(), -1.25));
 }
+
+void TargetPositionFetcherTest::isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Point point(-0.2, 0.0);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getQuarterRotation()));
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getHalfRotation()));
+}
