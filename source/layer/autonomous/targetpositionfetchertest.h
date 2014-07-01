@@ -73,6 +73,7 @@ namespace Autonomous
 		CPPUNIT_TEST(getPenaltyPositionPrepareGoalie_true_correctStartPosition);
 		CPPUNIT_TEST(isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true);
 		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false);
+		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -133,6 +134,7 @@ namespace Autonomous
 		void getPenaltyPositionPrepareGoalie_true_correctStartPosition();
 		void isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true();
 		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false();
+		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);
