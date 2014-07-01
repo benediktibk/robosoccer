@@ -66,7 +66,6 @@ vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle
 	double offsetDistanceLongPoint = 0.51*sqrt(2)*m_robotWidth + obstacle.getDiameter()/2;
 	Angle offsetAngleShortPoint = path.getAngleBetweenStartAndEnd();
 
-	//! @todo replace intersectsWith with isCircle...
 	if((intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromStart) ||
 		(intersectionPoints.getIntersectTypeFrom() == PathIntersectPoints::IntersectTypeFromEnd))
 		return pointsBesideObstacle;
