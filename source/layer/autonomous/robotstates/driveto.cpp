@@ -27,6 +27,8 @@ DriveTo::DriveTo(ControllableRobot &robot, const vector<Pose> &targets, const Po
 	m_precisionPosition(0.02),
 	m_precisionOrientationInitial(0.5),
 	m_precisionOrientationFinal(0.3),
+	m_obstacleScaleFactorCheck(0.9),
+	m_obstacleScaleFactorCreation(2),
 	m_driveMode(driveMode),
 	m_targets(targets),
 	m_currentTarget(currentTarget),
@@ -157,9 +159,7 @@ bool DriveTo::updateRouteIfNecessary()
 {
 	Pose currentPose = getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
-	DriveMode driveMode = getDriveModeOverriden();
-	vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, driveMode, 0.9);
+	vector<Circle> obstacles = getObstaclesForCheck();
 	vector<Circle> filteredObstacles = m_router.filterObstacles(obstacles, currentPosition);
 
 	if (m_currentRoute != 0 && m_currentRoute->isValid())
@@ -235,20 +235,23 @@ void DriveTo::calculateNewRoute(Routing::Route &route)
 {
 	Pose currentPose = 	getRobot().getPose();
 	Point const &currentPosition = currentPose.getPosition();
-	DriveMode driveMode = getDriveModeOverriden();
+	vector<Circle> obstaclesForCreation = getObstaclesForCreation();
+	vector<Circle> obstaclesForCheck = getObstaclesForCreation();
 
 	for (unsigned int i = 0; i < m_targets.size(); ++i)
 	{
 		Point target = m_targets[i].getPosition();
-		vector<Circle> obstacles = m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
-				m_ownObstacleSource, currentPosition, 1, driveMode, 2);
 
-		route = m_router.calculateRoute(currentPosition, target, obstacles);
+		route = m_router.calculateRoute(currentPosition, target, obstaclesForCreation);
+
+		if (route.intersectsWith(obstaclesForCheck))
+			route = Routing::Route();
 
 		if (route.isValid())
 			break;
 	}
 
+	DriveMode driveMode = getDriveModeOverriden();
 	if((driveMode == DriveModeDriveSlowlyAtTheEnd || driveMode == DriveModeIgnoreGoalObstacles
 		|| driveMode == DriveModeIgnoreBallAndDriveSlowlyAtTheEnd) && route.isValid())
 		prepareLastRouteSegmentForDrivingSlowly(route);
@@ -296,4 +299,22 @@ void DriveTo::logCurrentPose()
 	stringstream stream;
 	stream << "current pose: " << getRobot().getPose();
 	log(stream.str());
+}
+
+vector<Circle> DriveTo::getObstaclesForCheck() const
+{
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
+	return m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+					m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCheck);
+}
+
+vector<Circle> DriveTo::getObstaclesForCreation() const
+{
+	Pose currentPose = 	getRobot().getPose();
+	Point const &currentPosition = currentPose.getPosition();
+	DriveMode driveMode = getDriveModeOverriden();
+	return m_obstacleFetcher.getAllObstaclesButMeInRangeDependentOnDriveMode(
+					m_ownObstacleSource, currentPosition, 1, driveMode, m_obstacleScaleFactorCreation);
 }
