@@ -85,6 +85,7 @@ void DriveToDrivingTest::nextState_routeBecomesInvalidAndNewOnePossible_initialR
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(3, 3), 1));
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_router->setChessMode(true);
 
 	RobotState *nextState = m_robotState->nextState(false);
 
