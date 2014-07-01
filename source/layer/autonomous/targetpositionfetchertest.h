@@ -74,6 +74,8 @@ namespace Autonomous
 		CPPUNIT_TEST(isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true);
 		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false);
 		CPPUNIT_TEST(isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true);
+		CPPUNIT_TEST(isPointBehindBall_rightSideAndPointIsNextToBall_false);
+		CPPUNIT_TEST(isPointBehindBall_leftSideAndPointBehindBall_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -135,6 +137,8 @@ namespace Autonomous
 		void isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true();
 		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false();
 		void isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true();
+		void isPointBehindBall_rightSideAndPointIsNextToBall_false();
+		void isPointBehindBall_leftSideAndPointBehindBall_true();
 
 	private:
 		void isInUsefulRange(Common::Geometry::Pose const &pose, double distanceToGoal, bool left);

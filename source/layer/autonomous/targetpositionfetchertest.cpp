@@ -807,3 +807,27 @@ void TargetPositionFetcherTest::isPointBehindBallWithAngle_halfRotationAndRightS
 	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getQuarterRotation()));
 	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getHalfRotation()));
 }
+
+void TargetPositionFetcherTest::isPointBehindBall_rightSideAndPointIsNextToBall_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	Point point(0.01, 0.05);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBall(point, ball));
+}
+
+void TargetPositionFetcherTest::isPointBehindBall_leftSideAndPointBehindBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Point point(-1.15, 0.15);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1.0, 0.20));
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBall(point, ball));
+}
