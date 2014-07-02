@@ -7,11 +7,10 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 
-RoboSoccerState::RoboSoccerState(
-		Logger &logger, RefereeBase &referee, Team &ownTeam,
+RoboSoccerState::RoboSoccerState(Logger &logger, RefereeBase &referee, Team &ownTeam,
 		EnemyTeam const &enemyTeam, IntelligentBall const &ball,
 		TargetPositionFetcher const &targetPositionFetcher,
-		FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper,
+		FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper,
 		bool callUpdateOnlyOnce) :
 	Common::States::State(logger, callUpdateOnlyOnce),
 	m_referee(referee),

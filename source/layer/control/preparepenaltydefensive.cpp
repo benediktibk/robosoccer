@@ -5,6 +5,7 @@
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/teamimpl.h"
 #include "layer/autonomous/targetpositionfetcher.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "common/geometry/pose.h"
 
 using namespace std;
@@ -14,11 +15,10 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PreparePenaltyDefensive::PreparePenaltyDefensive(
-		Logger &logger, RefereeBase &referee, Team &ownTeam,
+PreparePenaltyDefensive::PreparePenaltyDefensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
 		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher,
-		FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+		FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
 		fieldPositionCheckerGoalKeeper, false),
@@ -49,6 +49,9 @@ void PreparePenaltyDefensive::updateInternal()
 {
 	if (m_movementFinished)
 		return;
+
+	//! Penalty Goal is fixed on the left side.
+	m_fieldPositionCheckerGoalKeeper.setFieldSide(FieldSideLeft);
 
 	Robot &goalie = m_ownTeam.getGoalie();
 	Robot &fieldPlayerOne = m_ownTeam.getFirstFieldPlayer();

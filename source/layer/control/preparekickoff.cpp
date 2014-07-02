@@ -9,10 +9,9 @@ using namespace RoboSoccer::Layer::Abstraction;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PrepareKickOff::PrepareKickOff(
-		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+PrepareKickOff::PrepareKickOff(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
-		Autonomous::TargetPositionFetcher const &targetPositionFetcher, FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher, FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
 		fieldPositionCheckerGoalKeeper, false)
