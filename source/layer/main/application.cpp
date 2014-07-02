@@ -32,7 +32,7 @@ using namespace RoboSoccer::Common::States;
 using namespace std;
 
 Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck, bool enableRouteServer,
-						 bool routeServerPortSet, unsigned int routeServerPort) :
+						 bool routeServerPortSet, unsigned int routeServerPort, bool disableLogging) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
 	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
@@ -56,6 +56,9 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 
 		m_routeInformationServer = new RouteInformationServer(*m_serverSocket);
 	}
+
+	if (disableLogging)
+		m_logger->disableLogWriting();
 
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);

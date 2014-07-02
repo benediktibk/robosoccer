@@ -10,13 +10,15 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 	m_disableHardwareCheck(false),
 	m_disableRouteServer(false),
 	m_valid(true),
-	m_routeServerPortSet(false)
+	m_routeServerPortSet(false),
+	m_disableLogging(false)
 {
 	list<string> argumentsList(arguments.begin() + 1, arguments.end());
 	bool teamColorSet = false;
 	bool clientNumberSet = false;
 	bool disableHardwareCheckSet = false;
 	bool disableRouteServerSet = false;
+	bool disableLoggingSet = false;
 
 	while (m_valid && !argumentsList.empty())
 	{
@@ -47,6 +49,11 @@ InputArgumentParser::InputArgumentParser(vector<string> const &arguments) :
 		{
 			parseRouteServerPort(argumentsList);
 			m_routeServerPortSet = true;
+		}
+		else if (argument == "--disableLogging" && !disableLoggingSet)
+		{
+			parseDisableLogging();
+			disableLoggingSet = true;
 		}
 		else
 			m_valid = false;
@@ -91,6 +98,11 @@ bool InputArgumentParser::disableRouteServer() const
 	return m_disableRouteServer;
 }
 
+bool InputArgumentParser::disableLogging() const
+{
+	return m_disableLogging;
+}
+
 string InputArgumentParser::usage() const
 {
 	stringstream stream;
@@ -101,6 +113,7 @@ string InputArgumentParser::usage() const
 	stream << "\t--disableHardwareCheck [optional]" << endl;
 	stream << "\t--disableRouteServer [optional]" << endl;
 	stream << "\t--routeServerPort {value between 1 and 65 536} [optional]" << endl;
+	stream << "\t--disableLogging [optional]" << endl;
 
 	return stream.str();
 }
@@ -184,5 +197,10 @@ void InputArgumentParser::parseRouteServerPort(list<std::string> &arguments)
 		m_valid = false;
 		return;
 	}
+}
+
+void InputArgumentParser::parseDisableLogging()
+{
+	m_disableLogging = true;
 }
 

@@ -25,6 +25,7 @@ namespace Main
 		unsigned int getRouteServePort() const;
 		bool routeServerPortSet() const;
 		bool disableRouteServer() const;
+		bool disableLogging() const;
 
 		static std::vector<std::string> convertArguments(int argc, char **argv);
 
@@ -34,6 +35,7 @@ namespace Main
 		void parseDisableHardwareCheck();
 		void parseDisableRouteServer();
 		void parseRouteServerPort(std::list<std::string> &arguments);
+		void parseDisableLogging();
 
 	private:
 		int m_ownClientNumber;
@@ -43,6 +45,7 @@ namespace Main
 		bool m_valid;
 		unsigned int m_routeServerPort;
 		bool m_routeServerPortSet;
+		bool m_disableLogging;
 	};
 }
 }
