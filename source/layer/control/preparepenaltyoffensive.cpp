@@ -14,11 +14,10 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Common::Logging;
 using namespace RoboSoccer::Common::States;
 
-PreparePenaltyOffensive::PreparePenaltyOffensive(
-		Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
+PreparePenaltyOffensive::PreparePenaltyOffensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
 		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
 		Autonomous::TargetPositionFetcher const &targetPositionFetcher,
-		FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+		FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
 		fieldPositionCheckerGoalKeeper, false),
