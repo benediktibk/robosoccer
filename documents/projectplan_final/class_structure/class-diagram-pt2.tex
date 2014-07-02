@@ -1,6 +1,6 @@
 %!tikz editor 1.0
 %!tikz source begin
-\begin{tikzpicture}[node distance=4.5cm, scale=0.7, transform shape]
+\begin{tikzpicture}[scale=0.7, transform shape]
 	\font\btt=rm-lmtk10
 	\definecolor{PresiBlue}{RGB}{50,57,171}
 	
@@ -27,7 +27,7 @@
 		+getNextPlayer()
 	};
 	
-	\node (ownteam) [class, right= of enemyteam.north , anchor=north]
+	\node (ownteam) [class, right=4.5cm of enemyteam.north , anchor=north]
 	{
 		{\large \texttt{\textbf{OwnTeam}}}
 		
@@ -41,7 +41,7 @@
 		+getObstacles()
 	};
     
-	\node (intelligentball) [class, right= of ownteam.north, anchor=north]
+	\node (intelligentball) [class, right=4.5cm of ownteam.north, anchor=north]
 	{
 		{\large \texttt{\textbf{IntelligentBall}}}
 		
@@ -54,21 +54,15 @@
 		+isMoving()
 	};
 	
-	\node (game) [class, above= of ownteam, anchor=north]
+	\node (strategy) [class, above=3cm of ownteam, anchor=north]
 	{
-		{\large \texttt{\textbf{Game}}}
-		
-		\nodepart{second}
-		-m\char`_enemyTeam\\
-		-m\char`_ownTeam\\
-		-m\char`_ball\\
+		{\large \texttt{\textbf{Strategy}}}
 		
 		\nodepart{third}
-		+isRunning()\\
-		+getOwnFieldSide()
+		+decideNextStep()
 	};
 	
-	\node (statemachine) [class, left= of game.north, anchor=north]
+	\node (statemachine) [class, above=2.5cm of strategy, anchor=north]
 	{
 		{\large \texttt{\textbf{StateMachine}}}
 		
@@ -76,17 +70,11 @@
 		+executeNextStep()
 	};
 	
-	\node (strategy) [class, right= of game.north, anchor=north]
-	{
-		{\large \texttt{\textbf{Strategy}}}
-		
-		\nodepart{third}
-		+decideNextStep()
-	};
 	% Connections
-	\path [property] (enemyteam.north) -- +(0,1) -| (game.south);
-	\path [property] (ownteam.north) -- +(0,1) -| (game.south);
-	\path [property] (intelligentball.north) -- +(0,1) -| (game.south);
+	\path [property] (enemyteam.north) -- +(0,1) -| (strategy.south);
+	\path [property] (ownteam.north) -- +(0,1) -| (strategy.south);
+	\path [property] (intelligentball.north) -- +(0,1) -| (strategy.south);
+	\path [property] (strategy.north) -- +(0,1) -| (statemachine.south);
 	
 	% Background Box
 	\begin{pgfonlayer}{background}

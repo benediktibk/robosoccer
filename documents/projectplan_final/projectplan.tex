@@ -6,6 +6,7 @@
 \usepackage{tikz}
 \usepackage{tkz-euclide}
 \usepackage[percent]{overpic}
+\usepackage{multimedia}
 \graphicspath{{Pictures/}}
 \usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
 \usetheme{Berlin}
@@ -661,20 +662,26 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Validation GUI}
+    \frametitle{Demo: Video}
 	\centering
-	\Large{\textbf{Video}}
+	\movie[showcontrols]{\includegraphics[height=0.8\textheight]{Pictures/demo-video.png}}{Pictures/roso_screen1.mov}
 \end{frame}
 
 \section{Results}
 \subsection{Time Schedule}
 \begin{frame}
-	MISSING GANTT CHART
+    \frametitle{Gantt Chart}
+	\textit{Insert Gantt Chart}
 \end{frame}
 
 \subsection{Championship}
 \begin{frame}
-	\frametitle{Championship}
+	\frametitle{We won the cup!}
+	\begin{center}
+	    \begin{figure}
+	        \includegraphics[width=0.8\textwidth]{wm}
+	    \end{figure}
+	\end{center}
 \end{frame}
 
 \section{}
@@ -688,10 +695,10 @@
 	\hfill \\
 	\begin{block}{some useless facts}
 		\begin{itemize}
-			\item 23222 lines of code
+			\item 24087 lines of code
 			\item 100 classes
 			\item 1186 commits
-			\item 740 unit tests
+			\item 778 unit tests
 			\item 1.23 MB per minute logging output
 		\end{itemize}
 	\end{block}
