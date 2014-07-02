@@ -85,7 +85,7 @@ void TargetPositionFetcherTest::getPenaltyPositionKicker_ballAtCenter_robotIsCor
 	IntelligentBallMock ball;
 	ball.setPosition(Point(0,0));
 
-	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.16, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball).front());
+	CPPUNIT_ASSERT_EQUAL(Pose(Point(0.12, 0),Angle::getHalfRotation()), targetPositionFetcher.getPenaltyPositionKicker(ball).front());
 }
 
 void TargetPositionFetcherTest::getPenaltyPositionKicker_ballNotAtCenter_distanceToBallIsBigEnough()

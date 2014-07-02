@@ -14,7 +14,7 @@ namespace Control
 	public:
 		Pause(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
 			  Autonomous::Team &ownTeam, const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
-			  const Autonomous::TargetPositionFetcher &targetPositionFetcher, Abstraction::FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper);
+			  const Autonomous::TargetPositionFetcher &targetPositionFetcher, Abstraction::FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();

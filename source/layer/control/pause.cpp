@@ -17,7 +17,7 @@ using namespace RoboSoccer::Common::States;
 Pause::Pause(Logger &logger, RefereeBase &referee,
 			 Team &ownTeam, const EnemyTeam &enemyTeam,
 			 Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
-			 FieldPositionCheckerGoalkeeper const &fieldPositionCheckerGoalKeeper) :
+			 FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
 	RoboSoccerState(
 		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
 		fieldPositionCheckerGoalKeeper, true)
