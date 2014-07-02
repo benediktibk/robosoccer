@@ -16,7 +16,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeDeciderIsOneRobotBehindTheBallTest::createTestNode()
 {
-	return new TreeNodeDeciderIsOneRobotBehindTheBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeDeciderIsOneRobotBehindTheBall(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 void TreeNodeDeciderIsOneRobotBehindTheBallTest::decide_bothRobotsBehindBall_followBall()

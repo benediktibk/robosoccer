@@ -112,6 +112,15 @@ Pose TargetPositionFetcher::getTargetForGoalkeeper(const IntelligentBall &ball) 
 	return getGoaliePositionUsingEstimatedIntersectPoint(m_fieldSide, ball, xPositionGoalKeeperRightSide);
 }
 
+vector<Pose> TargetPositionFetcher::getPenaltyPositionPrepareGoalie() const
+{
+	vector<Pose> penaltyPosition;
+	penaltyPosition.reserve(1);
+	penaltyPosition.push_back(Pose(Point(-1.25, 0), Angle::getQuarterRotation()));
+
+	return penaltyPosition;
+}
+
 vector<Pose> TargetPositionFetcher::getPenaltyPositionsPrepareKicker() const
 {
 	vector<Pose> preparePenaltyPosition;
@@ -133,7 +142,6 @@ vector<Pose> TargetPositionFetcher::getPenaltyPositionKicker(const IntelligentBa
 	penaltyPosition.reserve(1);
 	Line lineToGoal(ball.getPosition(), getEnemyGoalPositions(fieldSide).front());
 
-	//! @todo maybe this value has to be increased/improved
 	double percentOfLineLength = -0.16/lineToGoal.getLength();
 	penaltyPosition.push_back(Pose(lineToGoal.getPointOnDirectionOfLine(percentOfLineLength), Angle::getHalfRotation()));
 
@@ -277,8 +285,13 @@ bool TargetPositionFetcher::isGoodKickPosition(const IntelligentBall &ball, cons
 
 bool TargetPositionFetcher::isPositionBehindTheBall(const Point &robotPosition, const IntelligentBall &ball) const
 {
+	return isPositionBehindTheBallWithAngle(robotPosition, ball, Angle::getQuarterRotation());
+}
+
+bool TargetPositionFetcher::isPositionBehindTheBallWithAngle(const Point &robotPosition, const IntelligentBall &ball, const Angle &angle) const
+{
 	Point ballPosition = ball.getPosition();
-	Angle angleCircularSector = Angle::getQuarterRotation();
+	Angle angleCircularSector = angle;
 	Angle straight1Direction;
 	Angle straight2Direction;
 
@@ -303,7 +316,7 @@ vector<Pose> TargetPositionFetcher::getPositionsToDriveOnBall(const IntelligentB
 {
 	Angle orientation = getOrientationToEnemyGoal();
 	Point ballPosition = ball.getPosition();
-	int sideFactor = m_fieldSide == FieldSideLeft ? 1 : -1;
+	int sideFactor = m_fieldSide == FieldSideLeft ? -1 : 1;
 	vector<Pose> result;
 	result.reserve(30);
 

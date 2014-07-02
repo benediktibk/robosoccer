@@ -67,6 +67,7 @@ void DriveToInitialRotationTest::nextState_routeBecomesInvalidAndNewOnePossible_
 	vector<Circle> obstacles;
 	obstacles.push_back(Circle(Point(3, 3), 1));
 	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+	m_router->setChessMode(true);
 
 	RobotState *nextState = m_robotState->nextState(false);
 
@@ -220,4 +221,17 @@ void DriveToInitialRotationTest::nextState_targetNotReachedAndProposalRouteIsMuc
 	RobotState *nextState = state.nextState(false);
 
 	CPPUNIT_ASSERT(nextState == 0);
+}
+
+void DriveToInitialRotationTest::nextState_currentRouteNotFeasibleAndNextOneToo_invalidRoute()
+{
+	vector<Circle> obstacles;
+	obstacles.push_back(Circle(Point(3, 3), 1));
+	m_obstacleFetcher->setAllObstaclesButMeInRangeDependentOnDriveMode(obstacles);
+
+	RobotState *nextState = m_robotState->nextState(false);
+
+	DriveToInvalidRoute *nextStateCasted = dynamic_cast<DriveToInvalidRoute*>(nextState);
+	CPPUNIT_ASSERT(nextStateCasted != 0);
+	delete nextState;
 }

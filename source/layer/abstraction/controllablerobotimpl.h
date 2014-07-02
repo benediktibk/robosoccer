@@ -56,7 +56,8 @@ namespace Abstraction
 		virtual void kick(Common::Geometry::Point const &ballPosition);
 		virtual void turn(const Common::Geometry::Angle &absoluteAngle);
 		virtual void stop();
-		virtual void update();
+		virtual void updateSensors();
+		virtual void updateActuators();
 		virtual bool isMoving() const;
 
 		Common::Geometry::Angle getOrientation() const;
@@ -93,7 +94,7 @@ namespace Abstraction
 		bool m_turnStarted;
 		double m_distanceForGoTo;
 		const double m_timeWatchDogRestart;
-		Common::Geometry::Pose m_pose;
+		Common::Geometry::Pose m_poseRaw;
 	};
 }
 }

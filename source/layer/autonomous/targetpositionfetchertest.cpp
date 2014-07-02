@@ -755,3 +755,79 @@ void TargetPositionFetcherTest::isGoodKickPosition_nearOwnBorderRightFromGoalAnd
 	bool isGoodKickPosition = targetPositionFetcher.isGoodKickPosition(ball,robotPosition,0.6);
 	CPPUNIT_ASSERT(isGoodKickPosition);
 }
+
+void TargetPositionFetcherTest::getPenaltyPositionPrepareGoalie_true_correctStartPosition()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Pose goaliePrepare = targetPositionFetcher.getPenaltyPositionPrepareGoalie().front();
+
+	Common::Other::Compare compare(0.05);
+
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getY(), 0.0));
+	CPPUNIT_ASSERT(compare.isFuzzyEqual(goaliePrepare.getPosition().getX(), -1.25));
+}
+
+void TargetPositionFetcherTest::isPointBehindBallWithAngle_quarterRotationAndLeftSideAndPointIsDirectlyBehindBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Point point(-0.2, 0.0);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getQuarterRotation()));
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getHalfRotation()));
+}
+
+void TargetPositionFetcherTest::isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsDirectlyOppositeToBall_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	Point point(-0.2, 0.0);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getQuarterRotation()));
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getHalfRotation()));
+}
+
+void TargetPositionFetcherTest::isPointBehindBallWithAngle_halfRotationAndRightSideAndPointIsNextToBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	Point point(0.01, 0.05);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getQuarterRotation()));
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBallWithAngle(point, ball, Angle::getHalfRotation()));
+}
+
+void TargetPositionFetcherTest::isPointBehindBall_rightSideAndPointIsNextToBall_false()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideRight);
+
+	Point point(0.01, 0.05);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(0.0, 0.0));
+
+	CPPUNIT_ASSERT(!targetPositionFetcher.isPositionBehindTheBall(point, ball));
+}
+
+void TargetPositionFetcherTest::isPointBehindBall_leftSideAndPointBehindBall_true()
+{
+	TargetPositionFetcher targetPositionFetcher;
+	targetPositionFetcher.setFieldSide(FieldSideLeft);
+
+	Point point(-1.15, 0.15);
+	IntelligentBallMock ball;
+	ball.setPosition(Point(1.0, 0.20));
+
+	CPPUNIT_ASSERT(targetPositionFetcher.isPositionBehindTheBall(point, ball));
+}

@@ -98,7 +98,8 @@ namespace Autonomous
 		CPPUNIT_TEST(update_goToAndTargetNotInsideField_noCallToDriveAndTurn);
 		CPPUNIT_TEST(update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive);
 		CPPUNIT_TEST(update_kickAndTurnToReachedTarget_oneCallToKick);
-		CPPUNIT_TEST(update_empty_robotGotCallToUpdate);
+		CPPUNIT_TEST(updateActuators_empty_robotGotCallToUpdateActuators);
+		CPPUNIT_TEST(updateSensors_empty_robotGotCallToUpdateSensors);
 		CPPUNIT_TEST(update_goToAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(update_goToDirectAndAtTarget_reachedTarget);
 		CPPUNIT_TEST(update_finalRotationReachedThroughMovementStopped_movementHasNotStopped);
@@ -180,7 +181,8 @@ namespace Autonomous
 		void update_goToAndTargetNotInsideField_noCallToDriveAndTurn();
 		void update_goToAndObstacleOnTargetAndIgnoreObstacle_robotGotCallToDrive();
 		void update_kickAndTurnToReachedTarget_oneCallToKick();
-		void update_empty_robotGotCallToUpdate();
+		void updateActuators_empty_robotGotCallToUpdateActuators();
+		void updateSensors_empty_robotGotCallToUpdateSensors();
 		void update_goToAndAtTarget_reachedTarget();
 		void update_goToDirectAndAtTarget_reachedTarget();
 		void update_finalRotationReachedThroughMovementStopped_movementHasNotStopped();

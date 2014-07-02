@@ -34,6 +34,9 @@ namespace Main
 		CPPUNIT_TEST(constructor_setRouteServerPortAndNoNumer_isInvalid);
 		CPPUNIT_TEST(constructor_setRouteServerPortAndNumberOutOfRange_isInvalid);
 		CPPUNIT_TEST(constructor_disableRouteServerAndPortSet_isInvalid);
+		CPPUNIT_TEST(constructor_disableLoggingSet_disableLogging);
+		CPPUNIT_TEST(constructor_disableLoggingNotSet_enableLogging);
+		CPPUNIT_TEST(constructor_disableLoggingTwiceSet_isInvalid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -57,6 +60,9 @@ namespace Main
 		void constructor_setRouteServerPortAndNoNumer_isInvalid();
 		void constructor_setRouteServerPortAndNumberOutOfRange_isInvalid();
 		void constructor_disableRouteServerAndPortSet_isInvalid();
+		void constructor_disableLoggingSet_disableLogging();
+		void constructor_disableLoggingNotSet_enableLogging();
+		void constructor_disableLoggingTwiceSet_isInvalid();
 	};
 }
 }

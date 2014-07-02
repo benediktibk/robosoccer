@@ -39,8 +39,9 @@ namespace Autonomous
 		double getDistanceToOwnGroundLine(const Common::Geometry::Point &position) const;
 
 		Common::Geometry::Pose getTargetForGoalkeeper(const IntelligentBall &ball) const;
-		std::vector<Common::Geometry::Pose> getPenaltyPositionGoalie(const IntelligentBall &ball) const;
 
+		std::vector<Common::Geometry::Pose> getPenaltyPositionPrepareGoalie() const;
+		std::vector<Common::Geometry::Pose> getPenaltyPositionGoalie(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsPrepareKicker() const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionKicker(const IntelligentBall &ball) const;
 		std::vector<Common::Geometry::Pose> getPenaltyPositionsUnusedPlayerOne() const;
@@ -54,7 +55,8 @@ namespace Autonomous
 		std::vector<Common::Geometry::Pose> getPositionsToGetOutOfGoalZone(const Common::Geometry::Point robotPosition) const;
 
 		bool isGoodKickPosition(const IntelligentBall &ball, const Common::Geometry::Point robotPosition, double maximumDistance) const;
-		bool isPositionBehindTheBall(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball)const;
+		bool isPositionBehindTheBall(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball) const;
+		bool isPositionBehindTheBallWithAngle(const Common::Geometry::Point &robotPosition, const IntelligentBall &ball, const Common::Geometry::Angle &angle) const;
 
 		Common::Geometry::Angle getOrientationToOwnGoal() const;
 		Common::Geometry::Angle getOrientationToEnemyGoal() const;

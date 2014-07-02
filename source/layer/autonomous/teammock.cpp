@@ -41,6 +41,12 @@ Robot &TeamMock::getRobotByNumber(unsigned int /*i*/)
 	return m_robot;
 }
 
+void TeamMock::updateSensors()
+{ }
+
+void TeamMock::updateActuators()
+{ }
+
 const RobotMock &TeamMock::getRobotMock() const
 {
 	return m_robot;

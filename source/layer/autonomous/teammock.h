@@ -23,6 +23,8 @@ namespace Autonomous
 		virtual Robot& getFirstFieldPlayer();
 		virtual Robot& getSecondFieldPlayer();
 		virtual Robot& getRobotByNumber(unsigned int i);
+		virtual void updateSensors();
+		virtual void updateActuators();
 
 		RobotMock const& getRobotMock() const;
 		RobotMock& getRobotMock();

@@ -319,3 +319,50 @@ void InputArgumentParserTest::constructor_disableRouteServerAndPortSet_isInvalid
 
 	CPPUNIT_ASSERT(!parser.isValid());
 }
+
+void InputArgumentParserTest::constructor_disableLoggingSet_disableLogging()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+	arguments.push_back("--disableLogging");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(parser.isValid());
+	CPPUNIT_ASSERT(parser.disableLogging());
+}
+
+void InputArgumentParserTest::constructor_disableLoggingNotSet_enableLogging()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(parser.isValid());
+	CPPUNIT_ASSERT(!parser.disableLogging());
+}
+
+void InputArgumentParserTest::constructor_disableLoggingTwiceSet_isInvalid()
+{
+	vector<string> arguments;
+	arguments.push_back("bla");
+	arguments.push_back("--setOwnClientNumber");
+	arguments.push_back("14");
+	arguments.push_back("--setOwnTeamColor");
+	arguments.push_back("red");
+	arguments.push_back("--disableLogging");
+	arguments.push_back("--disableLogging");
+
+	InputArgumentParser parser(arguments);
+
+	CPPUNIT_ASSERT(!parser.isValid());
+}

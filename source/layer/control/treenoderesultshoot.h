@@ -16,7 +16,8 @@ class TreeNodeResultShoot :
 		TreeNodeResultShoot(
 				Common::Logging::Logger &logger, Abstraction::RefereeBase &referee,
 				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
-				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+				Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+				FollowBallRobot lastFollowBallRobot);
 
 		virtual void execute();
 

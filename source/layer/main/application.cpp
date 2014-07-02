@@ -32,7 +32,7 @@ using namespace RoboSoccer::Common::States;
 using namespace std;
 
 Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck, bool enableRouteServer,
-						 bool routeServerPortSet, unsigned int routeServerPort) :
+						 bool routeServerPortSet, unsigned int routeServerPort, bool disableLogging) :
 	m_logger(new LoggerImpl()),
 	m_watch(new WatchImpl()),
 	m_storage(new StorageImpl(ownClientNumber, ownTeamColor, *m_logger, *m_watch)),
@@ -56,6 +56,9 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 
 		m_routeInformationServer = new RouteInformationServer(*m_serverSocket);
 	}
+
+	if (disableLogging)
+		m_logger->disableLogWriting();
 
 	m_logger->logToConsoleAndGlobalLogFile("initialization finished");
 	m_obstacleFetcher->addSource(*m_enemyTeam);
@@ -130,17 +133,13 @@ void Application::run()
 		FieldSide ownSide = referee.getOwnFieldSide();
 		m_targetPositionFetcher->setFieldSide(ownSide);
 		m_fieldPositionCheckerGoalKeeper->setFieldSide(ownSide);
-
-		m_enemyTeam->update();
+		m_enemyTeam->updateSensors();
+		m_ownTeam->updateSensors();
+		m_ball->update();
 
 		stateMachine.update();
 
-		for (unsigned int i = 0; i < 3; ++i)
-		{
-			Robot &robot = m_ownTeam->getRobotByNumber(i);
-			robot.update();
-		}
-		m_ball->update();
+		m_ownTeam->updateActuators();
 
 		if(m_enableRouteServer)
 			m_routeInformationServer->updateClients(
@@ -181,6 +180,7 @@ bool Application::checkHardware()
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		robot.updateSensors();
 		Angle orientation = robot.getPose().getOrientation();
 
 		if (fabs(orientation.getValueBetweenMinusPiAndPi()) > 0.5)
@@ -200,7 +200,9 @@ void Application::turnAllRobotsTo(const Angle &angle)
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
+		robot.updateSensors();
 		robot.turn(angle);
+		robot.updateActuators();
 	}
 
 	unsigned int robotsNotMovingCount;
@@ -210,9 +212,10 @@ void Application::turnAllRobotsTo(const Angle &angle)
 		for (unsigned int i = 0; i < 3; ++i)
 		{
 			Abstraction::ControllableRobot &robot = m_storage->getOwnRobot(i);
-			robot.update();
+			robot.updateSensors();
 			if (!robot.isMoving())
 				++robotsNotMovingCount;
+			robot.updateActuators();
 		}
 	} while (robotsNotMovingCount < 3);
 }

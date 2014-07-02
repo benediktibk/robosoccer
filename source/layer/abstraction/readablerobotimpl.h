@@ -27,7 +27,7 @@ namespace Abstraction
 
 		virtual Common::Geometry::Pose getPose() const;
 		virtual Common::Geometry::Circle getObstacle() const;
-		virtual void update();
+		virtual void updateSensors();
 
 	private:
 		RoboControl *m_robot;

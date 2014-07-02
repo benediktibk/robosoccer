@@ -2,6 +2,7 @@
 #define ROBOSOCCER_LAYER_CONTROL_PLAY_H
 
 #include "layer/control/robosoccerstate.h"
+#include "layer/control/treenode.h"
 
 namespace RoboSoccer
 {
@@ -22,6 +23,10 @@ namespace Control
 
 	private:
 		virtual void updateInternal();
+
+	private:
+		TreeNode::FollowBallRobot m_lastFollowBall;
+
 	};
 }
 }

@@ -74,7 +74,7 @@ void PauseTest::update_mockRobots_allRobotsGotOneCallToStop()
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Robot &robot = m_ownTeam->getRobotByNumber(i);
-		robot.update();
+		robot.updateActuators();
 	}
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();

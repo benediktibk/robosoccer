@@ -24,6 +24,7 @@ void TreeNodeTest::setUp()
 	m_targetPositionFetcher = new TargetPositionFetcher();
 	m_targetPositionFetcher->setFieldSide(FieldSideLeft);
 	m_node = createTestNode();
+	m_lastFollowRobot = TreeNode::FollowBallRobotNone;
 }
 
 void TreeNodeTest::tearDown()
