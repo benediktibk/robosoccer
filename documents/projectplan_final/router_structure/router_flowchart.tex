@@ -1,0 +1,78 @@
+\begin{tikzpicture}[node distance=4.5cm, scale=0.7, transform shape]
+	\font\btt=rm-lmtk10
+	\definecolor{PresiBlue}{RGB}{50,57,171}
+
+	\tikzstyle{class}=[
+		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=2,
+		fill=PresiBlue!80, font=\tt,
+        text centered, anchor=north, text=white, text width=5cm, thick]
+
+       \tikzstyle{call}=[
+		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=2,
+		fill=green, font=\tt,
+        text centered, anchor=north, text=white, text width=4cm, thick]
+
+	\tikzstyle{decision} = [
+		diamond, draw=black, fill=red, font=\tt,
+        text centered, anchor=north, text=white, text width=3cm, thick]
+
+	\tikzstyle{arrow}=[draw, ->, >=open triangle 60, thick]
+	\tikzstyle{property}=[draw, <-, >=open diamond, thick]
+	\tikzstyle{line}=[-, thick]
+
+	\node (constructor) [class]
+	{
+		{\Large \textsf{\textbf{Router}}}
+
+		\nodepart{second}
+		\begin{tabular}{ll}
+			\textbullet & FieldPositionChecker\\
+			\textbullet & RobotWidth
+		\end{tabular}
+	};
+
+	\node (calculate) [call,below of=constructor]
+	{
+		{\Large \textsf{\textbf{calculateRoute}}}
+
+		\nodepart{second}
+		\begin{tabular}{ll}
+			\textbullet & start point\\
+			\textbullet & target point\\
+			\textbullet & obstacles
+		\end{tabular}
+	};
+
+	\node (intersects) [decision,below of=calculate]
+	{
+		{\Large \textsf{\textbf{intersects?}}}
+	};
+
+	\node (finish) [class, below left of=intersects,text width=4cm]
+	{
+		{\Large \textsf{\textbf{Router Result}}}
+
+		\nodepart{second}
+		\begin{tabular}{ll}
+			\textbullet & save route
+		\end{tabular}
+	};
+
+	\node (beside) [class, below right of=intersects]
+	{
+		{\Large \textsf{\textbf{calculate points beside obstacle}}}
+
+		\nodepart{second}
+		\begin{tabular}{ll}
+			\textbullet & target point left\\
+			\textbullet & target point right
+		\end{tabular}
+	};
+
+	\path[arrow] (constructor) -- (calculate);
+	\path[arrow] (calculate) -- (intersects) node [midway,right] {ROUTE};
+	\path[arrow] (intersects) -| (finish) node [midway,left] {no};
+	\path[arrow] (intersects) -| (beside) node [midway,right] {yes};
+	\path[arrow] (beside.east) -- ++(1,0) |- (calculate) node [pos=0.5, left,align=left] {TARGETS: \\ points beside obstacle};
+
+\end{tikzpicture}
