@@ -366,20 +366,11 @@
 \subsection{Collision Avoidance}
 \begin{frame}
 	\frametitle{Collision Avoidance}
-	\textbf{Router:}
-	\begin{itemize}
-		\item gets width of robot
-		\item calculate route
-			\begin{itemize}
-				\item gets start point and target point
-				\item obstacles are circles
-				\item considers only obstacles closer than 1 meter
-				\item only save routes to target
-			\end{itemize}
-		\item one route consists of one or more paths
-		\item calculates every frame a new route
-		\item takes the new route if its better
-	\end{itemize}
+	\begin{center}
+		\resizebox{!}{0.8\textheight}{
+			\input{router_structure/router_flowchart}
+		}
+	\end{center}
 \end{frame}
 
 \begin{frame}
@@ -557,11 +548,11 @@
 		\item Reach goal precisely.
 		\item Drive towards goal on a straight line.
 	\end{enumerate}
-	
-	\vspace{0.5cm}	
-	
+
+	\vspace{0.5cm}
+
 	\pause
-	
+
 	\begin{figure}
 		\centering
 		\begin{overpic}[width=0.6\textwidth]{roboline.pdf}
