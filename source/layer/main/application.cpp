@@ -43,6 +43,7 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 	m_ownTeam(new TeamImpl(*m_storage, *m_watch, *m_logger, *m_fieldPositionCheckerGoalKeeper, *m_fieldPositionCheckerFieldPlayer, *m_obstacleFetcher)),
 	m_ball(new IntelligentBallImpl(m_storage->getBall())),
 	m_targetPositionFetcher(new TargetPositionFetcher()),
+	m_stateMachine(0),
 	m_stop(false),
 	m_enableHardwareCheck(enableHardwareCheck),
 	m_enableRouteServer(enableRouteServer)
@@ -75,6 +76,8 @@ Application::Application(TeamColor ownTeamColor, int ownClientNumber, bool enabl
 
 Application::~Application()
 {
+	delete m_stateMachine;
+	m_stateMachine = 0;
 	if (m_enableRouteServer)
 	{
 		delete m_routeInformationServer;
@@ -125,7 +128,8 @@ void Application::run()
 
 	RefereeBase &referee = m_storage->getReferee();
 	Pause *initialState = new Pause(*m_logger, referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
-	StateMachine stateMachine(initialState);
+	delete m_stateMachine;
+	m_stateMachine = new StateMachine(initialState);
 
 	while (!m_stop)
 	{
@@ -137,7 +141,7 @@ void Application::run()
 		m_ownTeam->updateSensors();
 		m_ball->update();
 
-		stateMachine.update();
+		m_stateMachine->update();
 
 		m_ownTeam->updateActuators();
 

@@ -221,7 +221,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Classes I}
+	\frametitle{Interface Autonomous - Abstraction}
 	\begin{center}
 		\input{class_structure/class-diagram-pt1}
 	\end{center}
@@ -261,16 +261,43 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Classes II}
+	\frametitle{Interface Control - Autonomous}
 	\center
 	\input{class_structure/class-diagram-pt2}
 \end{frame}
 
-\subsection{State Machine}
 \begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{collaboration_graph_application.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{collaboration_graph_application_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_states.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{State Machine}
 	\fontsize{6pt}{7.2}\selectfont
 	\begin{center}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,semithick]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.8cm,semithick]
 			\tikzstyle{every state}=[draw=none,text=black]
 			\tikzset{elliptic state/.style={draw,ellipse}}
 
@@ -316,6 +343,60 @@
 			        	edge (init);
 		\end{tikzpicture}
 	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DriveTo}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_driveto.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_rest.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Nodes}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_treenode.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Node Deciders}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{inheritance_graph_treenode_deciders.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Node Results}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_treenode_results.png}
+	\end{figure}
 \end{frame}
 
 \subsection{Collision Avoidance}
@@ -672,6 +753,18 @@
 \begin{frame}
     \frametitle{Gantt Chart}
 	\textit{Insert Gantt Chart}
+\end{frame}
+
+\subsection{}
+\begin{frame}
+    \frametitle{Open Source}
+    \textbf{Soon public available:}\\
+    \textit{https://bitbucket.org/robosoccer/robosoccer}
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=0.8\textwidth]{bucket.png}
+        \end{figure}
+    \end{center}
 \end{frame}
 
 \subsection{Championship}
