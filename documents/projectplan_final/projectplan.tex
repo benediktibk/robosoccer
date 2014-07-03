@@ -221,7 +221,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Classes I}
+	\frametitle{Interface Autonomous - Abstraction}
 	\begin{center}
 		\input{class_structure/class-diagram-pt1}
 	\end{center}
@@ -261,16 +261,43 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{Classes II}
+	\frametitle{Interface Control - Autonomous}
 	\center
 	\input{class_structure/class-diagram-pt2}
 \end{frame}
 
-\subsection{State Machine}
 \begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{collaboration_graph_application.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.3\textwidth]{collaboration_graph_application_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_states.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{State Machine}
 	\fontsize{6pt}{7.2}\selectfont
 	\begin{center}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2cm,semithick]
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.8cm,semithick]
 			\tikzstyle{every state}=[draw=none,text=black]
 			\tikzset{elliptic state/.style={draw,ellipse}}
 
@@ -316,6 +343,33 @@
 			        	edge (init);
 		\end{tikzpicture}
 	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{inheritance_graph_robotstates.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DriveTo}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{inheritance_graph_robotstates_driveto.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DriveTo}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{inheritance_graph_robotstates_driveto_zoomed.png}
+	\end{figure}
 \end{frame}
 
 \subsection{Collision Avoidance}
@@ -530,16 +584,16 @@
 	\frametitle{Control II}
 	\begin{figure}
 		\centering
-		\begin{overpic}[width=0.8\textwidth]{control2.pdf}
-			\put(30,29){\textsc{PI}}
-			\put(10.5,29.75){\tiny +}
-			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
-			\put(73,25.5){\tiny Tracker}
-			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
-			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
-			\put(43,29){\scriptsize $>60$}
-			\put(-3,29){\small $0$}
-	   	\end{overpic}
+%		\begin{overpic}[width=0.8\textwidth]{control2.pdf}
+%			\put(30,29){\textsc{PI}}
+%			\put(10.5,29.75){\tiny +}
+%			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
+%			\put(73,25.5){\tiny Tracker}
+%			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
+%			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
+%			\put(43,29){\scriptsize $>60$}
+%			\put(-3,29){\small $0$}
+%	   	\end{overpic}
 	\end{figure}
 \end{frame}
 
