@@ -669,11 +669,11 @@
 			\begin{center}
 				\begin{tikzpicture}
 					\begin{axis}[small, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
-						\addplot [blue,only marks,mark=x] table [col sep=comma] {Data/gotoC.dat};
+						%\addplot [blue,only marks,mark=x] table [col sep=comma] {Data/gotoC_Line.dat};
 						\addlegendentry{goto C}
-						\addplot [red,only marks,mark=x] table [col sep=comma] {Data/goto_ct.dat};
+						\addplot [red,mark=none] table [col sep=comma] {Data/goto_ct_Line.dat};
 						\addlegendentry{cruise to}
-						\addplot [green!70!blue,only marks,mark=x] table [col sep=comma] {Data/goto_gt.dat};
+						\addplot [green!70!blue,mark=noe] table [col sep=comma] {Data/goto_gt_Line.dat};
 						\addlegendentry{goto}
 					\end{axis}
 				\end{tikzpicture}
