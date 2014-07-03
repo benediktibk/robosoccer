@@ -654,13 +654,17 @@
 		\begin{column}{0.5\textwidth}
 			\begin{center}
 				\begin{tikzpicture}
-					\begin{axis}[small, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
+					\begin{axis}[small, axis equal, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
 			   		\addplot [blue,only marks,mark=x] table [col sep=comma] {Data/gotoC.dat};
 						\addlegendentry{goto C}
 						\addplot [red,only marks,mark=x] table [col sep=comma] {Data/goto_ct.dat};
 						\addlegendentry{cruise to}
 						\addplot [green!70!blue,only marks,mark=x] table [col sep=comma] {Data/goto_gt.dat};
 						\addlegendentry{goto}
+						\draw[black,very thick] (axis cs:0.375,-0.025) rectangle (axis cs:0.425,0.025);
+						\draw[black,very thick] (axis cs:-0.025,0.375) rectangle (axis cs:0.025,0.425);
+						\draw[black,very thick] (axis cs:-0.425,-0.025) rectangle (axis cs:-0.375,0.025);
+						\draw[black,very thick] (axis cs:-0.025,-0.425) rectangle (axis cs:0.025,-0.375);
 					\end{axis}
 				\end{tikzpicture}
 			\end{center}
