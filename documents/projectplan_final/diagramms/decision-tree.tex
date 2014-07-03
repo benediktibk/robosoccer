@@ -3,14 +3,15 @@
 \begin{tikzpicture}[scale=0.9, transform shape]
 	\font\btt=rm-lmtk10
 	\definecolor{PresiBlue}{RGB}{50,57,171}
+	\definecolor{callColor}{RGB}{255,140,0}
 	
 	\tikzstyle{class}=[
-		rectangle, draw=black, rounded corners, fill=red!60!white,
-		text centered, anchor=north, text=black, text width=3.5cm, thick]
+		rectangle, draw=black, rounded corners, fill=callColor, text=white, font=\bfseries,
+		text centered, anchor=north, text width=3.5cm, thick]
 
 	\tikzstyle{result}=[
-		rectangle, draw=black, rounded corners, fill=green!60!white,
-		text centered, anchor=north, text=black, text width=3.5cm, thick]
+		rectangle, draw=black, rounded corners, fill=green!75!black,
+		text centered, anchor=north, text=white, text width=3.5cm, thick, font=\bfseries]
 	
 	\tikzstyle{yes}=[<-, very thick, >=latex];
 	\tikzstyle{no} =[<-, very thick, >=latex];
