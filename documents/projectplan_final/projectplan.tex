@@ -41,6 +41,10 @@
 	\draw[fill=red] (#1,#2) circle (0.35);
 	\draw[fill=blue] (#1,#2)++(0.15,0) circle (0.1);
 }
+\def\robotr at (#1,#2) {
+	\draw[fill=red] (#1,#2) circle (0.35);
+	\draw[fill=blue] (#1,#2)++(0,0.15) circle (0.1);
+}
 \def\goal at (#1,#2) {
 	\draw[red,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
 }
