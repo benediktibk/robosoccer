@@ -47,11 +47,16 @@
 \def\goalHelp at (#1,#2) {
 	\draw[green!80!blue,line width=8pt] (#1,#2)+(-.35,-.35)--+(.35,.35) +(-0.35,0.35)--+(.35,-.35);
 }
+\def\ball at (#1,#2) {
+	\draw [thin, fill=white] (#1,#2) circle (0.15);
+	\shade[ball color=blue!10!white,opacity=0.50] (#1,#2) circle (0.15);
+}
 \tikzstyle{edge} = [draw,line width=24pt,-,gray]
 \tikzstyle{selected edge} = [draw,line width=24pt,-,green]
 \tikzstyle{ignored edge} = [draw,line width=24pt,-,red!50!white]
 \tikzstyle{obstacle} = [draw,very thick,circle,minimum size=20pt,shading=radial,outer color=black!80!white,inner color=white]
 \tikzstyle{selected obstacle} = [draw,very thick,circle,fill=blue!20!white,minimum size=20pt]
+\tikzset{cross/.style={cross out, draw=green, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={3pt}}
 
 % Title
 \title{\textsc{RoboSoccer} Project Plan}
@@ -723,10 +728,25 @@
     \textbf{Goalkeeper:}\\
     \begin{itemize}
         \item Calculate target position depending on ball position\\
-        (see previous presentations)
         \item Fixed robot
     \end{itemize}
+   	\begin{columns}[T]
+   		\begin{column}{0.5\textwidth}
+			\begin{center}
+                \input{diagramms/goalie-tactics1}			
+			\end{center}
+		\end{column}
+  		\begin{column}{0.5\textwidth}
+			\begin{center}
+                \input{diagramms/goalie-tactics2}			
+			\end{center}
+		\end{column}
+    \end{columns}
 
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution}
     \textbf{Field players:}\\
     \begin{itemize}
         \item \textbf{One} strategy for both field players
@@ -734,7 +754,6 @@
         \item Recalculated each iteration
         \item Depending on ball and robot positions
     \end{itemize}
-
 \end{frame}
 
 \begin{frame}
