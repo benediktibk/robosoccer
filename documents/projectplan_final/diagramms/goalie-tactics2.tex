@@ -1,0 +1,49 @@
+%!tikz editor 1.0
+%!tikz source begin
+\begin{tikzpicture}
+\def\robot at (#1,#2) {
+	\draw[fill=red] (#1,#2) circle (0.35);
+	\draw[fill=blue] (#1,#2)++(0,0.15) circle (0.1);
+}
+\def\ball at (#1,#2) {
+	\draw [thin, fill=white] (#1,#2) circle (0.15);
+	\shade[ball color=blue!10!white,opacity=0.50] (#1,#2) circle (0.15);
+}
+
+\usetikzlibrary{shapes.misc}
+
+\tikzset{cross/.style={cross out, draw=green, minimum size=2*(#1-\pgflinewidth), inner sep=0pt, outer sep=0pt}, cross/.default={3pt}}
+	
+
+	% Background Box
+	\begin{pgfonlayer}{background}
+		\draw [very thick, color=black!60!white] (0,-3.5) rectangle (2.5, 3.5);
+		\draw [very thick, color=black!60!white] (-1.5,-1.5) rectangle (0,1.5);
+		
+		\draw [very thick, color=black!60!white, rounded corners=1.5cm]  (0,-5) -- (0, 0) -- (0, 5);
+%		\draw [very thick, color=black!60!white, rounded corners=1.5cm] (3,-7) -- (0,-7) -- (0, 0) -- (0, 7) -- (3,7);
+	\end{pgfonlayer}
+	
+	\draw[color=red, line width=.7cm, opacity=.5] (.35, 1.3) -- (.35, -1.3);
+	\draw[dashed, thick, name path=robot] (.35, 1.3) -- (.35, -1.3);
+	
+	
+	\draw[thick, fill=black, name path=ball1] (3.6,-3.2) -- (0,0) circle (0.07);
+	\ball at (3.6,-3.2) {};
+
+	\draw[thick, fill=black, name path=ball2] (2.7,4.3) -- (0,0) circle (0.07);
+	\ball at (2.7,4.3) {};
+
+	
+	\path [name intersections={of=robot and ball1,by=x1}];
+	\path [name intersections={of=robot and ball2,by=x2}];
+
+	\draw (x1) node [cross=4pt, very thick] {};
+	\draw (x2) node [cross=4pt, very thick] {};
+
+	
+	\robot at (.35,1.3) {};
+	\robot at (.35,-1.3) {};
+	
+\end{tikzpicture}
+%!tikz source end
