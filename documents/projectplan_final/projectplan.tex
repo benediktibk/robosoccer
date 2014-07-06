@@ -169,17 +169,17 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]
-			% Layers
+			 Layers
 			\node [block] (control) {\huge \textbf{Control}};
 		    	\node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 
-			% Clouds
+			 Clouds
 			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
 			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
 			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
 
-			% Connections
+			 Connections
 			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
 			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
 
@@ -189,7 +189,7 @@
 			\path [dline] (referee) -- (abstraction);
 			\path [dline] (robots) -- (abstraction);
 
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
 				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
@@ -202,17 +202,17 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]
-		    	% Layers
+		    	 Layers
 			\node [block] (control) {\huge \textbf{Control}};
 		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 
-			% Clouds
+			 Clouds
 			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
 			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
 			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
 
-			% Connections
+			 Connections
 			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
 			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
 
@@ -222,7 +222,7 @@
 			\path [dline] (referee) -- (abstraction);
 			\path [dline] (robots) -- (abstraction);
 
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
 				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
@@ -242,17 +242,17 @@
 	\frametitle{Layers}
 	\begin{center}
 		\begin{tikzpicture}[scale=0.75, transform shape]
-		    	% Layers
+		    	 Layers
 			\node [block-active] (control) {\huge \textbf{Control}};
 		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
 			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
 
-			% Clouds
+			 Clouds
 			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
 			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
 			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
 
-			% Connections
+			 Connections
 			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
 			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
 
@@ -262,7 +262,7 @@
 			\path [dline] (referee) -- (abstraction);
 			\path [dline] (robots) -- (abstraction);
 
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
 				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
@@ -451,11 +451,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 1
+			 Folie 1
 			\robot at (0,0) {};
 			\node[obstacle] at (1.5,-.5) {};
 			\node[obstacle] at (4,-0.1) {};
@@ -468,11 +468,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 2
+			 Folie 2
 			\path[edge] (-0.4,0) -- (6.4,0);
 			\robot at (0,0) {};
 			\node[obstacle] at (1.5,-.5) {};
@@ -486,11 +486,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 3
+			 Folie 3
 			\path[ignored edge] (-0.4,0) -- (6.4,0);
 			\robot at (0,0) {};
 			\node[selected obstacle] at (1.5,-.5) {};
@@ -506,11 +506,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 4
+			 Folie 4
 			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
 			\path[edge] (-0.3,0.3) -- (1.8,-2.1);
 			\path[edge] (1.1,0.6) -- (6.4,-0.05);
@@ -529,11 +529,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 5
+			 Folie 5
 			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
 			\path[edge] (1.1,0.6) -- (6.4,-0.05);
 			\robot at (0,0) {};
@@ -549,11 +549,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 6
+			 Folie 6
 			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
 			\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
 			\robot at (0,0) {};
@@ -571,11 +571,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 7
+			 Folie 7
 			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
 			\path[edge] (1.1,0.7) -- (4.4,-1.3);
 			\path[edge] (1.1,0.4) -- (4.4,1);
@@ -596,11 +596,11 @@
 	\frametitle{Router}
 	\begin{center}
 		\begin{tikzpicture}
-			% Background Box
+			 Background Box
 			\begin{pgfonlayer}{background}
 				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
 			\end{pgfonlayer}
-			% Folie 8
+			 Folie 8
 			\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
 			\path[selected edge] (1.1,0.4) -- (4.4,1);
 			\path[selected edge] (3.8,1) -- (6.4,-0.2);
@@ -767,6 +767,69 @@
     \begin{center}
         \input{diagramms/decision-tree}
     \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tactics}
+    \textbf{Get behind Ball}
+    	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
+				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
+				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1) (0,-2.5);
+			\end{pgfonlayer}
+			
+			\coordinate (ball) at (1,1.6);
+			\coordinate (enemygoal) at (-5.5,0);
+			\coordinate (owngoal) at (5.5,0);
+			
+			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
+			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
+			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
+			
+			\draw[fill=black] (ball) -- (owngoal) circle (0.07);
+			\draw[fill=green] ($(ball)!.5!(owngoal)$) circle (0.2) node {2};
+
+			\ball at (1,1.6) {};
+
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tactics}
+    \textbf{Follow Ball}
+    	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
+				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
+				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1);
+			\end{pgfonlayer}
+			
+			\coordinate (ball) at (-2.8,-1.6);
+			\coordinate (enemygoal) at (-5.5,0);
+			\coordinate (owngoal) at (5.5,0);
+			
+			\draw [dashed, fill=green, fill opacity=0.2] (-4.5, 1.1) rectangle (4.5, -1.1);
+			\draw [<->, >=latex', thick] (1,1.1) -- (1,-1.1);
+			
+			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
+			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
+			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
+			
+			\draw [dashed] (ball) -- ++(0,0.5) (0,-0.9) -- ++(0,-0.5);
+			\draw [<->, >=latex', thick] (0,-1.1) ++(0,-0.2) -- ++(-2.8,0);
+			
+			\draw[fill=green] (0,-0.9) circle (0.2) node {2};
+			
+			\ball at (-2.8,-1.6) {};
+
+		\end{tikzpicture}
+	\end{center}
 \end{frame}
 
 \begin{frame}
