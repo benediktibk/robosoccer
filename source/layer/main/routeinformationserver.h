@@ -40,7 +40,7 @@ namespace Main
 
 	private:
 		void sendObstacles(Autonomous::ObstacleFetcher const &obstacleFetcher, const Autonomous::ObstacleSource &goalkeeper);
-		void sendRoute(std::string const &name, Autonomous::Robot const &robot);
+		void sendRouteAndTargets(std::string const &name, Autonomous::Robot const &robot);
 
 	private:
 		Abstraction::TCPServerSocket &m_socket;

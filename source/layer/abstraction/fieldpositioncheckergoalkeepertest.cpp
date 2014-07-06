@@ -60,3 +60,31 @@ void FieldPositionCheckerGoalkeeperTest::isPointInsideField_changingSidesInGoalZ
 	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideField(Point(-1.3,0.2)));
 	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideField(Point(1.3,-0.2)));
 }
+
+void FieldPositionCheckerGoalkeeperTest::isPointInsideDangerZone_pointCloseToLeftGoal_true()
+{
+	FieldPositionCheckerGoalkeeper fieldPositionChecker;
+	fieldPositionChecker.setFieldSide(FieldSideLeft);
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideDangerZone(Point(-1.43,-0.1)));
+}
+void FieldPositionCheckerGoalkeeperTest::isPointInsideDangerZone_pointNotCloseToRightGoal_false()
+{
+	FieldPositionCheckerGoalkeeper fieldPositionChecker;
+	fieldPositionChecker.setFieldSide(FieldSideRight);
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideDangerZone(Point(-1.43,-0.1)));
+}
+
+void FieldPositionCheckerGoalkeeperTest::isPointInsideDangerZone_pointCloseToRightGoal_true()
+{
+	FieldPositionCheckerGoalkeeper fieldPositionChecker;
+	fieldPositionChecker.setFieldSide(FieldSideRight);
+	CPPUNIT_ASSERT(fieldPositionChecker.isPointInsideDangerZone(Point(1.42,0.15)));
+}
+
+void FieldPositionCheckerGoalkeeperTest::isPointInsideDangerZone_pointNotCloseToLeftGoal_false()
+{
+	FieldPositionCheckerGoalkeeper fieldPositionChecker;
+	fieldPositionChecker.setFieldSide(FieldSideLeft);
+	CPPUNIT_ASSERT(!fieldPositionChecker.isPointInsideDangerZone(Point(1.42,0.15)));
+}
+

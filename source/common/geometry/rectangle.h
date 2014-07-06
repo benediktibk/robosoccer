@@ -18,6 +18,7 @@ namespace Geometry
 	class Rectangle
 	{
 	public:
+		Rectangle();
 		Rectangle(const Point &one, const Point &two);
 
 		const Point &getLeftLower() const;

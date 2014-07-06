@@ -31,7 +31,7 @@ namespace Autonomous
 
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball) = 0;
 		virtual std::vector<Common::Geometry::Circle> getObstacles() const = 0;
-
+		virtual void updateSensors() = 0;
 	};
 }
 }

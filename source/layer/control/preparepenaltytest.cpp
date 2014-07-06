@@ -4,6 +4,7 @@
 #include "layer/control/preparepenaltydefensive.h"
 #include "layer/control/userinputfetchermock.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
@@ -21,7 +22,9 @@ void PreparePenaltyTest::tearDown()
 RoboSoccerState *PreparePenaltyTest::createInstance()
 {
 	m_userInputFetcherMock = new UserInputFetcherMock();
-	return new PreparePenalty(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_userInputFetcherMock);
+	return new PreparePenalty(
+				*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball,
+				*m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper, m_userInputFetcherMock);
 }
 
 void PreparePenaltyTest::nextState_executePenaltyButNoSelection_0()

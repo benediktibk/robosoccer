@@ -23,9 +23,10 @@ namespace Autonomous
 
 		virtual const Abstraction::ReadableRobot& getPlayerNextToBall(const IntelligentBall &ball);
 		virtual std::vector<Common::Geometry::Circle>  getObstacles() const;
+		virtual void updateSensors();
 
 	private:
-		std::vector<const Abstraction::ReadableRobot*> m_robots;
+		std::vector<Abstraction::ReadableRobot*> m_robots;
 	};
 }
 }

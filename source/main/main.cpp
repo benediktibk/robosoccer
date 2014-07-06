@@ -88,22 +88,34 @@ int main(int argc, char **argv)
 	cout << "##### client number     : " << parser.getOwnClientNumber() << endl;
 
 	if (parser.disableHardwareCheck())
-			cout << "##### Hardware Check Disabled   : " << "TRUE" << endl;
-		else
-			cout << "##### Hardware Check Disabled   : " << "FALSE" << endl;
+		cout << "##### Hardware Check   : " << "DISABLED" << endl;
+	else
+		cout << "##### Hardware Check   : " << "ENABLED" << endl;
 
-	if (true)
-			cout << "##### Route Server Port   : " << "!!add correct port" << endl;
-		else
-			cout << "##### Route Server Port   : " << "port" << endl;
+	if (parser.disableRouteServer())
+		cout << "##### Route Server   : " << "DISABLED" << endl;
+	else
+		cout << "##### Route Server   : " << "ENABLED" << endl;
 
-	cout << "##### Ip Adresses:" << endl;
+	if (parser.routeServerPortSet())
+		cout << "##### Route Server Port   : " << parser.getRouteServePort() << endl;
+	else
+		cout << "##### Route Server Port   : " << "Default Port: 1234" << endl;
+
+	if (parser.disableLogging())
+		cout << "##### Logging   : " << "DISABLED" << endl;
+	else
+		cout << "##### Logging   : " << "ENABLED" << endl;
+
+	cout << "##### IP Adresses:" << endl;
 	for (vector<string>::const_iterator i = ipAdresses.begin(); i != ipAdresses.end(); ++i)
 		cout << "##### " << *i << endl;
 
 	cout << "##### ---------------------------" << endl;
 
-	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck());
+	application = new Application(parser.getOwnTeamColor(), parser.getOwnClientNumber(), !parser.disableHardwareCheck(),
+								  !parser.disableRouteServer(), parser.routeServerPortSet(), parser.getRouteServePort(),
+								  parser.disableLogging());
 
 	sigIntHandler.sa_handler = signalHandler;
 	sigemptyset(&sigIntHandler.sa_mask);

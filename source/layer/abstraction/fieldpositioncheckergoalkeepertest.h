@@ -20,6 +20,10 @@ namespace Abstraction
 		CPPUNIT_TEST(isPointInsideField_leftSidePointInOwnGoalZone_true);
 		CPPUNIT_TEST(isPointInsideField_leftSidePointInEnemyGoalZone_false);
 		CPPUNIT_TEST(isPointInsideField_changingSidesInGoalZone_falseThenTrue);
+		CPPUNIT_TEST(isPointInsideDangerZone_pointNotCloseToLeftGoal_false);
+		CPPUNIT_TEST(isPointInsideDangerZone_pointCloseToLeftGoal_true);
+		CPPUNIT_TEST(isPointInsideDangerZone_pointNotCloseToRightGoal_false);
+		CPPUNIT_TEST(isPointInsideDangerZone_pointCloseToRightGoal_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -29,6 +33,10 @@ namespace Abstraction
 		void isPointInsideField_leftSidePointInOwnGoalZone_true();
 		void isPointInsideField_leftSidePointInEnemyGoalZone_false();
 		void isPointInsideField_changingSidesInGoalZone_falseThenTrue();
+		void isPointInsideDangerZone_pointNotCloseToLeftGoal_false();
+		void isPointInsideDangerZone_pointCloseToLeftGoal_true();
+		void isPointInsideDangerZone_pointNotCloseToRightGoal_false();
+		void isPointInsideDangerZone_pointCloseToRightGoal_true();
 
 	};
 }

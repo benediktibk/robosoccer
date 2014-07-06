@@ -8,6 +8,9 @@ using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Common::Other;
 using namespace std;
 
+Rectangle::Rectangle()
+{}
+
 Rectangle::Rectangle(const Point &one, const Point &two) :
 	m_leftLower(min(one.getX(), two.getX()), min(one.getY(), two.getY())),
 	m_rightUpper(max(one.getX(), two.getX()), max(one.getY(), two.getY()))

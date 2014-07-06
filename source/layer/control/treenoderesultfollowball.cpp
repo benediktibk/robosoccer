@@ -5,6 +5,7 @@
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "common/geometry/pose.h"
 #include <iostream>
+#include <assert.h>
 
 using namespace RoboSoccer::Common::Geometry;
 using namespace RoboSoccer::Layer::Abstraction;
@@ -12,32 +13,59 @@ using namespace RoboSoccer::Layer::Autonomous;
 using namespace RoboSoccer::Layer::Control;
 using namespace std;
 
-TreeNodeResultFollowBall::TreeNodeResultFollowBall(
-		RoboSoccer::Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-		RoboSoccer::Layer::Autonomous::Team &ownTeam, const RoboSoccer::Layer::Autonomous::EnemyTeam &enemyTeam,
-		const RoboSoccer::Layer::Autonomous::IntelligentBall &ball, const RoboSoccer::Layer::Autonomous::TargetPositionFetcher &targetPositionFetcher) :
-	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher)
+TreeNodeResultFollowBall::TreeNodeResultFollowBall(Common::Logging::Logger &logger, RefereeBase &referee, Team &ownTeam, const EnemyTeam &enemyTeam,
+		const IntelligentBall &ball, const TargetPositionFetcher &targetPositionFetcher, FollowBallRobot lastFollowBallRobot) :
+	TreeNodeResult(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, lastFollowBallRobot)
 { }
 
 void TreeNodeResultFollowBall::execute()
 {
 	Robot &robotOne = m_ownTeam.getFirstFieldPlayer();
 	Robot &robotTwo = m_ownTeam.getSecondFieldPlayer();
+	Point ballPosition = m_ball.getPosition();
 
-	if (m_targetPositionFetcher.isPositionBehindTheBall(robotOne.getCurrentPose(), m_ball))
+	if (m_lastFollowBallRobot == FollowBallRobotNone)
 	{
+
+		double distanceRobotOneToBall = ballPosition.distanceTo(robotOne.getCurrentPose());
+		double distanceRobotTwoToBall = ballPosition.distanceTo(robotTwo.getCurrentPose());
+
+		if (m_targetPositionFetcher.isPositionBehindTheBall(robotOne.getCurrentPose(), m_ball)
+				&& (!(m_targetPositionFetcher.isPositionBehindTheBall(robotTwo.getCurrentPose(), m_ball)) || distanceRobotOneToBall < distanceRobotTwoToBall))
+		{
+			m_lastFollowBallRobot = FollowBallRobotOne;
+		}
+		else
+		{
+			m_lastFollowBallRobot = FollowBallRobotTwo;
+		}
+	}
+
+	if (m_lastFollowBallRobot == FollowBallRobotOne)
+	{
+		DriveMode driveMode = DriveModeIgnoreBall;
+		if (!m_targetPositionFetcher.isPositionBehindTheBallWithAngle(robotOne.getCurrentPose(), m_ball, Angle::getHalfRotation()))
+			driveMode = DriveModeDefault;
+
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
 		vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(m_ball);
 
-		robotOne.goTo(targetsOnBall, DriveModeIgnoreBall);
+		robotOne.goTo(targetsOnBall, driveMode);
 		robotTwo.goTo(targetsAlternativePlayer, DriveModeDefault);
 	}
-	else
+	else if (m_lastFollowBallRobot == FollowBallRobotTwo)
 	{
+		DriveMode driveMode = DriveModeIgnoreBall;
+		if (!m_targetPositionFetcher.isPositionBehindTheBallWithAngle(robotTwo.getCurrentPose(), m_ball, Angle::getHalfRotation()))
+			driveMode = DriveModeDefault;
+
 		vector<Pose> targetsOnBall = m_targetPositionFetcher.getPositionsToDriveOnBall(m_ball);
 		vector<Pose> targetsAlternativePlayer = m_targetPositionFetcher.getAlternativeRobotPositionsBehindBallAggressiveMode(m_ball);
 
-		robotTwo.goTo(targetsOnBall, DriveModeIgnoreBall);
+		robotTwo.goTo(targetsOnBall, driveMode);
 		robotOne.goTo(targetsAlternativePlayer, DriveModeDefault);
 	}
+	else
+		assert(false);
+
 }

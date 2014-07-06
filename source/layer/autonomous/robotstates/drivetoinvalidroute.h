@@ -25,6 +25,9 @@ namespace Autonomous
 		virtual RobotState* nextState(bool movementStopped);
 		virtual std::string getName() const;
 		virtual void update();
+
+	private:
+		unsigned int m_driveToInvalidRouteCounter;
 	};
 }
 }

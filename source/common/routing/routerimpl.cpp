@@ -45,7 +45,7 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vec
 	for (vector<RoutingResult>::const_iterator i = routingResults.begin(); i != routingResults.end(); ++i)
 		routes.push_back(i->getRoute());
 
-	if (routes.size() == 0)
+	if (routes.empty())
 		return Route();
 	else
 	{
@@ -57,6 +57,8 @@ Route RouterImpl::calculateRoute(const Point &start, const Point &end, const vec
 
 vector<Point> RouterImpl::getPointsBesideObstacle(const Path &path, const Circle &obstacle) const
 {
+	assert(path.intersectsWith(obstacle));
+
 	vector<Point> pointsBesideObstacle;
 	PathIntersectPoints intersectionPoints = path.getIntersectPoints(obstacle);
 	Point shortPointBesideObstacle;
@@ -162,7 +164,7 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeEnd(const Point &st
 	Path directPath(start, end, m_robotWidth);
 	vector<Circle> realObstacles = findRealObstacles(obstacles, directPath);
 
-	if (realObstacles.size() == 0)
+	if (realObstacles.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
 	else
@@ -183,22 +185,20 @@ vector<RoutingResult> RouterImpl::calculateStartPartsWithCoveredEnd(const Point 
 	Path path(start, end, m_robotWidth);
 	vector<Circle> obstaclesTillEnd = findRealObstacles(obstacles, path);
 
-	if (obstaclesTillEnd.size() == 0)
+	if (obstaclesTillEnd.empty())
 		return calculateStartPartsWithFreeDirectPath(
 					start, end, consideredObstacles);
-	else
-	{
-		Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
-		double diameter = obstacle.getDiameter();
-		Point direction = end - start;
-		double directionLength = start.distanceTo(end);
-		double desiredLength = directionLength + 2*diameter;
-		Point directionModified = direction/directionLength*desiredLength;
-		Point extendedEnd = start + directionModified;
-		return calculateRoutesToPointsBesideObstacle(
-					obstacle, start, extendedEnd, obstacles,
-					searchDepth, consideredObstacles, startInsideField);
-	}
+
+	Circle obstacle = findClosestObstacle(obstaclesTillEnd, start);
+	double diameter = obstacle.getDiameter();
+	Point direction = end - start;
+	double directionLength = start.distanceTo(end);
+	double desiredLength = directionLength + 2*diameter;
+	Point directionModified = direction/directionLength*desiredLength;
+	Point extendedEnd = start + directionModified;
+	return calculateRoutesToPointsBesideObstacle(
+				obstacle, start, extendedEnd, obstacles,
+				searchDepth, consideredObstacles, startInsideField);
 }
 
 vector<RoutingResult> RouterImpl::calculateStartPartsWithFreeDirectPath(const Point &start, const Point &end,
@@ -261,7 +261,7 @@ vector<Circle> RouterImpl::findRealObstacles(const vector<Circle> &obstacles, co
 
 Circle RouterImpl::findClosestObstacle(const vector<Circle> &obstacles, const Point &point) const
 {
-	assert(obstacles.size() > 0);
+	assert(!obstacles.empty());
 
 	double closestDistance = numeric_limits<double>::max();
 	Circle closestObstacle;
@@ -287,6 +287,16 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 		const list<RoutingObstacle> &consideredObstacles, bool startIsInsideField) const
 {
 	Path path(start, end, m_robotWidth);
+
+	/*!
+	 * This step may produce routes which are unnecessary long. In fact, in these cases
+	 * the intersection occur only at the start or end of a path at the corners, but the real robots are nearly
+	 * perfect circles. Therefore, this is not a real intersection. The actually problem lies within Path::intersectsWith(),
+	 * which does not match the case of the RoboSoccer-Lab.
+	 */
+	if (!path.intersectsWith(obstacle))
+		return vector<RoutingResult>();
+
 	vector<Point> pointsBesideObstacle = getPointsBesideObstacle(path, obstacle);
 	vector<RoutingResult> result;
 
@@ -342,7 +352,7 @@ vector<RoutingResult> RouterImpl::calculateRoutesToPointsBesideObstacle(
 
 bool RouterImpl::detectLoopInConsideredObstacles(const list<RoutingObstacle> &obstacles) const
 {
-	if (obstacles.size() == 0)
+	if (obstacles.empty())
 		return false;
 
 	const RoutingObstacle &lastObstacle = obstacles.back();

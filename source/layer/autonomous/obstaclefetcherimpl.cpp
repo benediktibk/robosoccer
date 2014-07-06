@@ -140,6 +140,8 @@ vector<Circle> ObstacleFetcherImpl::getAllObstaclesButMeInRangeDependentOnDriveM
 {
 	switch (driveMode)
 	{
+	case DriveModeIgnoreAllObstacles:
+		return vector<Circle>();
 	case DriveModeIgnoreBall:
 	case DriveModeIgnoreBallAndDriveSlowlyAtTheEnd:
 		return getAllObstaclesButMeAndBallInRange(me, ownPosition, distance, growFactor);

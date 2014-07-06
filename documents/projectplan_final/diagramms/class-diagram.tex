@@ -1,0 +1,96 @@
+%!tikz editor 1.0
+%!tikz source begin
+\begin{tikzpicture}[node distance=4.5cm, scale=0.7, transform shape]
+	\font\btt=rm-lmtk10
+	\definecolor{PresiBlue}{RGB}{50,57,171}
+	
+	\tikzstyle{class}=[
+		rectangle, draw=black, rounded corners, rectangle split, rectangle split parts=3, 
+		fill=PresiBlue!80, drop shadow, font=\tt,
+        text centered, anchor=north, text=white, text width=3.5cm, thick]
+		
+	\tikzstyle{inheritance}=[draw, ->, >=open triangle 60, thick]
+	\tikzstyle{property}=[draw, ->, >=open diamond, thick]
+	\tikzstyle{line}=[-, thick]
+   
+   % Classes
+      
+	\node (treenode) [class]
+	{
+		{\large \texttt{\textbf{TreeNode}}}
+		
+		\nodepart{second}
+		
+		\nodepart{third}
+		+decide()
+	};
+	
+	\node (treenodedecider) [class, left =of treenode.south, anchor = north, yshift=-1cm]
+	{
+		{\large \texttt{\textbf{TreeNodeDecider}}}
+		
+		\nodepart{second}
+		-m\char`_childYes\\
+		-m\char`_childNo
+		
+		\nodepart{third}
+		+decide()\\
+		+getChild()
+	} edge [inheritance] (treenode);
+	
+	\node (treenoderesult) [class, right =of treenode.south, anchor = north, yshift=-1cm]
+	{
+		{\large \texttt{\textbf{TreeNodeResult}}}
+		\nodepart{third}
+		+decide()\\
+		+execute()		
+	} edge [inheritance] (treenode);
+
+	\node (ownteam) [class, left = of treenode.north, anchor = south, yshift=1cm]
+	{
+		{\large \texttt{\textbf{OwnTeam}}}
+		
+		\nodepart{second}
+		-m\char`_robots
+		
+		\nodepart{third}
+		+getGoalie()\\
+		+getFirstPlayer()\\
+		+getSecondPlayer()\\
+		+getObstacles()
+		
+	} edge [property] (treenode);
+
+	\node (enemyteam) [class, right = of ownteam.north, anchor = north]
+	{
+		{\large \texttt{\textbf{EnemyTeam}}}
+
+		\nodepart{second}
+		-m\char`_robots
+		
+		\nodepart{third}
+		+getObstacles()\\
+		+getNextPlayer()
+
+	} edge [property] (treenode);
+
+	\node (tactics) [class, right = of enemyteam.north, anchor = north]
+	{
+		{\large \texttt{\textbf{Tactics}}}
+		
+		\nodepart{second}
+		-m\char`_fieldside
+		
+		\nodepart{third}
+		+targetToFollow\\
+		+targetToShoot\\
+		+targetToGetBehind\\
+		+targetForGoalie
+	} edge [property] (treenode);
+
+
+	% Connections
+	
+	
+\end{tikzpicture}
+%!tikz source end

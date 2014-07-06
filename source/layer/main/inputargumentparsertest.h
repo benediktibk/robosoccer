@@ -28,6 +28,15 @@ namespace Main
 		CPPUNIT_TEST(constructor_disableHardwareCheckTwice_isInvalid);
 		CPPUNIT_TEST(constructor_teamColorMissing_isInvalid);
 		CPPUNIT_TEST(constructor_clientNumberMissing_isInvalid);
+		CPPUNIT_TEST(constructor_disableRouteServerSet_disableHardwareCheck);
+		CPPUNIT_TEST(constructor_disableRouteServerTwice_isInvalid);
+		CPPUNIT_TEST(constructor_setRouteServerPort_isValid);
+		CPPUNIT_TEST(constructor_setRouteServerPortAndNoNumer_isInvalid);
+		CPPUNIT_TEST(constructor_setRouteServerPortAndNumberOutOfRange_isInvalid);
+		CPPUNIT_TEST(constructor_disableRouteServerAndPortSet_isInvalid);
+		CPPUNIT_TEST(constructor_disableLoggingSet_disableLogging);
+		CPPUNIT_TEST(constructor_disableLoggingNotSet_enableLogging);
+		CPPUNIT_TEST(constructor_disableLoggingTwiceSet_isInvalid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -45,6 +54,15 @@ namespace Main
 		void constructor_disableHardwareCheckTwice_isInvalid();
 		void constructor_teamColorMissing_isInvalid();
 		void constructor_clientNumberMissing_isInvalid();
+		void constructor_disableRouteServerSet_disableHardwareCheck();
+		void constructor_disableRouteServerTwice_isInvalid();
+		void constructor_setRouteServerPort_isValid();
+		void constructor_setRouteServerPortAndNoNumer_isInvalid();
+		void constructor_setRouteServerPortAndNumberOutOfRange_isInvalid();
+		void constructor_disableRouteServerAndPortSet_isInvalid();
+		void constructor_disableLoggingSet_disableLogging();
+		void constructor_disableLoggingNotSet_enableLogging();
+		void constructor_disableLoggingTwiceSet_isInvalid();
 	};
 }
 }

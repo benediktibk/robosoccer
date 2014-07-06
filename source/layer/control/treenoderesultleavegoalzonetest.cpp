@@ -15,7 +15,7 @@ using namespace RoboSoccer::Layer::Control;
 
 TreeNode *TreeNodeResultLeaveGoalZoneTest::createTestNode()
 {
-	return new TreeNodeResultLeaveGoalZone(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new TreeNodeResultLeaveGoalZone(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher, m_lastFollowRobot);
 }
 
 

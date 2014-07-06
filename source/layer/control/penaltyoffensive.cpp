@@ -16,8 +16,10 @@ using namespace RoboSoccer::Layer::Control;
 
 PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &ownTeam,
 		const EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
-		Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false),
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher, FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
+	RoboSoccerState(
+		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
+		fieldPositionCheckerGoalKeeper, false),
 	m_calledGoTo(false),
 	m_ballKicked(false)
 { }
@@ -25,9 +27,13 @@ PenaltyOffensive::PenaltyOffensive(Logger &logger, RefereeBase &referee, Team &o
 State *PenaltyOffensive::nextState()
 {
 	if (m_referee.getContinuePlaying())
-		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Play(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 	else if (!m_referee.getExecutePenalty())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Pause(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 
 	return 0;
 }
@@ -43,7 +49,7 @@ void PenaltyOffensive::updateInternal()
 
 	if(!m_calledGoTo)
 	{
-		robot.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball), DriveModeDriveSlowlyAtTheEnd);
+		robot.goTo(m_targetPositionFetcher.getPenaltyPositionKicker(m_ball), DriveModeIgnoreBallAndDriveSlowlyAtTheEnd);
 		m_calledGoTo = true;
 	}
 

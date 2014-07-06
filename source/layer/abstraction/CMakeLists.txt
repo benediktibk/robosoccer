@@ -25,6 +25,7 @@ set(COMMON_LAYER_ABSTRACTION_TEST_SRC
 	robotdrivecontroltest.cpp
 	fieldpositioncheckerfieldplayertest.cpp
 	fieldpositioncheckergoalkeepertest.cpp
+	fieldpositioncheckertest.cpp
 )
 
 set(COMPILE_FLAGS_ROSO "-Wno-overflow -Wno-format")

@@ -91,3 +91,17 @@ Robot &TeamImpl::getRobotByNumber(unsigned int i)
 	// avoid errors from the compiler
 	return *m_goalie;
 }
+
+void TeamImpl::updateSensors()
+{
+	m_goalie->updateSensors();
+	m_fieldPlayerOne->updateSensors();
+	m_fieldPlayerTwo->updateSensors();
+}
+
+void TeamImpl::updateActuators()
+{
+	m_goalie->updateActuators();
+	m_fieldPlayerOne->updateActuators();
+	m_fieldPlayerTwo->updateActuators();
+}

@@ -41,6 +41,7 @@ namespace Autonomous
 		virtual std::string getName() const = 0;
 		virtual void update() = 0;
 		virtual Common::Routing::Route getCurrentRoute() const;
+		virtual std::vector<Common::Geometry::Pose> getCurrentTargets() const;
 
 		Abstraction::ControllableRobot& getRobot();
 		Abstraction::ControllableRobot const& getRobot() const;

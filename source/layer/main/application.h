@@ -19,6 +19,10 @@ namespace Geometry
 {
 	class Angle;
 }
+namespace States
+{
+	class StateMachine;
+}
 }
 namespace Layer
 {
@@ -44,7 +48,8 @@ namespace Main
 	class Application
 	{
 	public:
-		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck);
+		Application(Abstraction::TeamColor ownTeamColor, int ownClientNumber, bool enableHardwareCheck,
+					bool enableRoutteServer, bool routeServerPortSet, unsigned int routeServerPort, bool disableLogging);
 		~Application();
 
 		void run();
@@ -67,8 +72,10 @@ namespace Main
 		Autonomous::IntelligentBall *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 		RouteInformationServer *m_routeInformationServer;
+		Common::States::StateMachine *m_stateMachine;
 		bool m_stop;
 		bool m_enableHardwareCheck;
+		bool m_enableRouteServer;
 	};
 }
 }

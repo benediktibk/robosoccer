@@ -3,6 +3,7 @@
 #include "layer/control/preparekickoffoffensive.h"
 #include "layer/control/preparekickoffdefensive.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
@@ -15,7 +16,9 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PrepareKickOffTest::createInstance()
 {
-	return new PrepareKickOff(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new PrepareKickOff(
+				*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball,
+				*m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
 }
 
 void PrepareKickOffTest::nextState_executeKickOff_prepareState()

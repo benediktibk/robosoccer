@@ -1,0 +1,38 @@
+%!tikz editor 1.0
+%!tikz source begin
+\begin{tikzpicture}
+    \begin{scope}[rotate=90]
+	% Background Box
+	\begin{pgfonlayer}{background}
+		\draw [very thick, color=black!60!white] (0,-3.5) rectangle (2.5, 3.5);
+		\draw [very thick, color=black!60!white] (-1,-1.5) rectangle (0,1.5);
+		
+		\draw [very thick, color=black!60!white, rounded corners=1.5cm]  (0,-5) -- (0, 0) -- (0, 5);
+%		\draw [very thick, color=black!60!white, rounded corners=1.5cm] (3,-7) -- (0,-7) -- (0, 0) -- (0, 7) -- (3,7);
+	\end{pgfonlayer}
+	
+	\draw[color=red, line width=.7cm, opacity=.5] (.35, 1.3) -- (.35, -1.3);
+	\draw[dashed, thick] (.35, 1.3) -- (.35, -1.3);
+	
+	
+	\draw[thick] (3.6,0) -- (0,0);
+	\ball at (3.6,0) {};
+	
+	\draw[thick] (3.6,1) -- (0,1);
+	\ball at (3.6,1) {};
+
+	\draw[thick] (3.6,-1) -- (0,-1);
+	\ball at (3.6,-1) {};
+
+	\draw[<->, very thick, >=latex'] (3.3,-1) -- (3.3,0);
+	\draw[<->, very thick, >=latex'] (3.3,1) -- (3.3,0);
+	\draw (.35,0) node [cross=4pt, very thick] {};
+	\draw (.35,1) node [cross=4pt, very thick] {};
+	\draw (.35,-1) node [cross=4pt, very thick] {};
+
+	
+	\robotr at (.35,1.3) {};
+	\robotr at (.35,-1.3) {};
+    \end{scope}
+\end{tikzpicture}
+%!tikz source end

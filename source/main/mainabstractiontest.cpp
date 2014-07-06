@@ -7,6 +7,7 @@
 #include "common/geometry/pose.h"
 #include "common/logging/loggerimpl.h"
 #include "common/time/watchimpl.h"
+#include "common/time/stopwatch.h"
 #include <iostream>
 #include <unistd.h>
 #include <stdio.h>
@@ -23,7 +24,7 @@ int main(int, char**)
 	cout << "creating objects from database" << endl;
 	LoggerImpl logger;
 	WatchImpl watch;
-	StorageImpl storage(14, TeamColorRed, logger, watch);
+	StorageImpl storage(14, TeamColorBlue, logger, watch);
 	Ball const& ball = storage.getBall();
 	ReadableRobot const& enemyRobot = storage.getEnemyRobot(0);
 	ControllableRobot &ownRobot = storage.getOwnRobot(2);
@@ -83,23 +84,41 @@ int main(int, char**)
 //		usleep(10000);
 //	}
 
-	while(true)
-	{
-		for (unsigned int i = 0; i < 200; ++i)
-		{
-			ownRobot.turn(Angle(0));
-			ownRobot.update();
-			usleep(10000);
-		}
-		cout << ownRobot.getPose().getOrientation() << endl;
+//	while(true)
+//	{
+//		for (unsigned int i = 0; i < 200; ++i)
+//		{
+//			ownRobot.turn(Angle(0));
+//			ownRobot.update();
+//			usleep(10000);
+//		}
+//		cout << ownRobot.getPose().getOrientation() << endl;
 
-		for (unsigned int i = 0; i < 200; ++i)
-		{
-			ownRobot.turn(Angle(0.5));
-			ownRobot.update();
-			usleep(10000);
-		}
-		cout << ownRobot.getPose().getOrientation() - Angle(0.5) << endl;
+//		for (unsigned int i = 0; i < 200; ++i)
+//		{
+//			ownRobot.turn(Angle(0.5));
+//			ownRobot.update();
+//			usleep(10000);
+//		}
+//		cout << ownRobot.getPose().getOrientation() - Angle(0.5) << endl;
+//	}
+
+	StopWatch stopWatch(watch);
+	ownRobot.turn(Angle(0));
+	while(ownRobot.isMoving())
+	{
+		ownRobot.updateSensors();
+		usleep(10000);
+	}
+
+	ownRobot.turn(Angle::getQuarterRotation());
+	stopWatch.restart();
+	while(ownRobot.isMoving())
+	{
+		ownRobot.updateSensors();
+		usleep(5000);
+		Angle currentOrientation = ownRobot.getPose().getOrientation();
+		cout << stopWatch.getTime() << " - " << (currentOrientation - Angle::getQuarterRotation()).getValueBetweenMinusPiAndPi() << endl;
 	}
 
 	return 0;

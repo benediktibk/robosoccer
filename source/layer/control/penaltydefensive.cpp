@@ -5,6 +5,8 @@
 #include "layer/autonomous/team.h"
 #include "layer/autonomous/targetpositionfetcher.h"
 #include "layer/abstraction/refereebase.h"
+#include "layer/abstraction/fieldpositioncheckerfieldplayer.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "common/geometry/pose.h"
 
 using namespace std;
@@ -15,16 +17,24 @@ using namespace RoboSoccer::Layer::Control;
 using namespace RoboSoccer::Layer::Autonomous;
 
 PenaltyDefensive::PenaltyDefensive(Logger &logger, RefereeBase &referee, Autonomous::Team &ownTeam,
-		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, false)
+		const Autonomous::EnemyTeam &enemyTeam, const Autonomous::IntelligentBall &ball,
+		Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+		FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
+	RoboSoccerState(
+		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
+		fieldPositionCheckerGoalKeeper, false)
 { }
 
 State *PenaltyDefensive::nextState()
 {
 	if (m_referee.getContinuePlaying())
-		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Play(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 	else if (!m_referee.getExecutePenalty())
-		return new Pause(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Pause(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 
 	return 0;
 }
@@ -36,6 +46,14 @@ string PenaltyDefensive::getName()
 
 void PenaltyDefensive::updateInternal()
 {
+	//! Penalty Goal is fixed on the left side.
+	m_fieldPositionCheckerGoalKeeper.setFieldSide(FieldSideLeft);
+
 	Robot &goalie = m_ownTeam.getGoalie();
-	goalie.goToDirect(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball).front());
+	FieldPositionCheckerFieldPlayer fieldPositionChecker;
+
+	if (!fieldPositionChecker.isPointInsideGoalZone(goalie.getCurrentPose()))
+		goalie.goTo(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball), DriveModeIgnoreGoalObstacles);
+	else
+		goalie.goToDirect(m_targetPositionFetcher.getPenaltyPositionGoalie(m_ball).front());
 }

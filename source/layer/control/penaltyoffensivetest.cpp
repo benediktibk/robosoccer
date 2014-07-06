@@ -3,6 +3,7 @@
 #include "layer/control/play.h"
 #include "layer/control/pause.h"
 #include "layer/abstraction/refereemock.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/enemyteammock.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/intelligentballmock.h"
@@ -15,7 +16,9 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PenaltyOffensiveTest::createInstance()
 {
-	return new PenaltyOffensive(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new PenaltyOffensive(
+				*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball,
+				*m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
 }
 
 void PenaltyOffensiveTest::nextState_executePenalty_0()
@@ -105,4 +108,15 @@ void PenaltyOffensiveTest::update_twiceCalled_firstMoveThenKick()
 	m_state->update();
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToKick());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+}
+
+void PenaltyOffensiveTest::update_onceCalled_callToMoveIsSlowlyAtTheEndAndIgnoringBall()
+{
+	m_referee->setExecutePenalty(true);
+	RobotMock &robot = m_ownTeam->getRobotMock();
+
+	m_state->update();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, robot.getCallsToGoTo());
+	CPPUNIT_ASSERT_EQUAL(DriveModeIgnoreBallAndDriveSlowlyAtTheEnd, robot.getLastGoToDriveMode());
 }

@@ -16,18 +16,27 @@ using namespace RoboSoccer::Common::States;
 
 Pause::Pause(Logger &logger, RefereeBase &referee,
 			 Team &ownTeam, const EnemyTeam &enemyTeam,
-			 Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher) :
-	RoboSoccerState(logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher, true)
+			 Autonomous::IntelligentBall const &ball, Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+			 FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper) :
+	RoboSoccerState(
+		logger, referee, ownTeam, enemyTeam, ball, targetPositionFetcher,
+		fieldPositionCheckerGoalKeeper, true)
 { }
 
 State* Pause::nextState()
 {
 	if (m_referee.getPrepareForKickOff())
-		return new PrepareKickOff(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new PrepareKickOff(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 	else if (m_referee.getPrepareForPenalty())
-		return new PreparePenalty(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher, new UserInputFetcherImpl());
+		return new PreparePenalty(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper, new UserInputFetcherImpl());
 	else if (m_referee.getContinuePlaying())
-		return new Play(m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball, m_targetPositionFetcher);
+		return new Play(
+					m_logger, m_referee, m_ownTeam, m_enemyTeam, m_ball,
+					m_targetPositionFetcher, m_fieldPositionCheckerGoalKeeper);
 
 	return 0;
 }

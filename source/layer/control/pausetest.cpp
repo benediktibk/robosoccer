@@ -5,6 +5,7 @@
 #include "layer/control/play.h"
 #include "layer/abstraction/refereemock.h"
 #include "layer/abstraction/storagemock.h"
+#include "layer/abstraction/fieldpositioncheckergoalkeeper.h"
 #include "layer/autonomous/robot.h"
 #include "layer/autonomous/teammock.h"
 #include "layer/autonomous/enemyteammock.h"
@@ -19,7 +20,9 @@ using namespace RoboSoccer::Common::States;
 
 RoboSoccerState *PauseTest::createInstance()
 {
-	return new Pause(*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball, *m_targetPositionFetcher);
+	return new Pause(
+				*m_logger, *m_referee, *m_ownTeam, *m_enemyTeam, *m_ball,
+				*m_targetPositionFetcher, *m_fieldPositionCheckerGoalKeeper);
 }
 
 void PauseTest::nextState_prepareKickOffSet_prepareKickOff()
@@ -71,7 +74,7 @@ void PauseTest::update_mockRobots_allRobotsGotOneCallToStop()
 	for (unsigned int i = 0; i < 3; ++i)
 	{
 		Robot &robot = m_ownTeam->getRobotByNumber(i);
-		robot.update();
+		robot.updateActuators();
 	}
 
 	RobotMock const &robot = m_ownTeam->getRobotMock();

@@ -13,10 +13,12 @@ namespace Control
 			public RoboSoccerState
 	{
 	public:
-		PreparePenaltyOffensive(Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
-								Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
-								Autonomous::IntelligentBall const &ball,
-								Autonomous::TargetPositionFetcher const &targetPositionFetcher);
+		PreparePenaltyOffensive(
+				Common::Logging::Logger &logger, RoboSoccer::Layer::Abstraction::RefereeBase &referee,
+				Autonomous::Team &ownTeam, Autonomous::EnemyTeam const &enemyTeam,
+				Autonomous::IntelligentBall const &ball,
+				Autonomous::TargetPositionFetcher const &targetPositionFetcher,
+				Abstraction::FieldPositionCheckerGoalkeeper &fieldPositionCheckerGoalKeeper);
 
 		virtual Common::States::State* nextState();
 		virtual std::string getName();
@@ -33,5 +35,3 @@ namespace Control
 }
 
 #endif
-
-

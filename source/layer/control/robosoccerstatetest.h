@@ -23,6 +23,7 @@ namespace Abstraction
 {
 	class RefereeMock;
 	class BallMock;
+	class FieldPositionCheckerGoalkeeper;
 }
 namespace Autonomous
 {
@@ -55,6 +56,7 @@ namespace Control
 		Autonomous::IntelligentBallMock *m_ball;
 		Autonomous::TargetPositionFetcher *m_targetPositionFetcher;
 		Layer::Abstraction::BallMock *m_ballMock;
+		Abstraction::FieldPositionCheckerGoalkeeper *m_fieldPositionCheckerGoalKeeper;
 	};
 }
 }

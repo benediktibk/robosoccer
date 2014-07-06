@@ -107,7 +107,12 @@ void RobotImpl::kick(IntelligentBall const &ball)
 	switchIntoState(new TurnTo(m_robot, ballPosition, new Kick(m_robot, ball, m_watch, m_logger, m_logFileType), m_logger, m_logFileType));
 }
 
-void RobotImpl::update()
+void RobotImpl::updateSensors()
+{
+	m_robot.updateSensors();
+}
+
+void RobotImpl::updateActuators()
 {
 	updateMovementStopped();
 	bool stateChanged;
@@ -122,7 +127,7 @@ void RobotImpl::update()
 	} while(stateChanged);
 
 	m_currentState->update();
-	m_robot.update();
+	m_robot.updateActuators();
 }
 
 const RobotState &RobotImpl::getCurrentState() const
@@ -199,4 +204,9 @@ bool RobotImpl::movementStopped() const
 Route RobotImpl::getCurrentRoute() const
 {
 	return m_currentState->getCurrentRoute();
+}
+
+vector<Pose> RobotImpl::getCurrentTargets() const
+{
+	return m_currentState->getCurrentTargets();
 }

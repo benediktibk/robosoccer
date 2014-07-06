@@ -14,6 +14,7 @@ class TreeNodeResultGetBehindBallTest :
 	{
 		CPPUNIT_TEST_SUITE(TreeNodeResultGetBehindBallTest);
 		CPPUNIT_TEST(execute_true_bothRobotsGetGoToCalls);
+		CPPUNIT_TEST(execute_true_lastFollowBallRobotIsNone);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -21,6 +22,7 @@ class TreeNodeResultGetBehindBallTest :
 
 	private:
 		void execute_true_bothRobotsGetGoToCalls();
+		void execute_true_lastFollowBallRobotIsNone();
 
 	};
 }

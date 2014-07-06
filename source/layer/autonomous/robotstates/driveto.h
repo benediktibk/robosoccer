@@ -54,6 +54,7 @@ namespace Autonomous
 		virtual bool isEquivalentToDriveTo(const std::vector<Common::Geometry::Pose> &targets);
 		virtual bool isEquivalentToDriveToDirect(Common::Geometry::Pose const &target);
 		virtual Common::Routing::Route getCurrentRoute() const;
+		virtual std::vector<Common::Geometry::Pose> getCurrentTargets() const;
 
 		size_t getRoutePointsCount() const;
 		Common::Geometry::Compare getPositionCompare() const;
@@ -73,19 +74,25 @@ namespace Autonomous
 		RobotState* nextStateWithRouteUpdate();
 
 	private:
-		void calculateNewRoute();
+		void calculateNewRoute(Common::Routing::Route &route);
+		bool existsBetterRoute();
 		const Common::Geometry::Point &getNextTargetPoint() const;
 		bool isRouteFeasible(const std::vector<Common::Geometry::Circle> &obstacles) const;
 		void clearRoute();
-		void prepareLastRouteSegmentForDrivingSlowly();
+		void clearProposalRoute();
+		void prepareLastRouteSegmentForDrivingSlowly(Common::Routing::Route &route);
 		void logRoute();
 		void logCurrentPose();
 		DriveMode getDriveModeOverriden() const;
+		std::vector<Common::Geometry::Circle> getObstaclesForCheck() const;
+		std::vector<Common::Geometry::Circle> getObstaclesForCreation() const;
 
 	private:
 		const double m_precisionPosition;
 		const double m_precisionOrientationInitial;
 		const double m_precisionOrientationFinal;
+		const double m_obstacleScaleFactorCheck;
+		const double m_obstacleScaleFactorCreation;
 		const DriveMode m_driveMode;
 		const std::vector<Common::Geometry::Pose> m_targets;
 		const Common::Geometry::Pose m_currentTarget;
@@ -93,6 +100,7 @@ namespace Autonomous
 		ObstacleFetcher const &m_obstacleFetcher;
 		ObstacleSource const &m_ownObstacleSource;
 		Common::Routing::Route *m_currentRoute;
+		Common::Routing::Route *m_proposalRoute;
 		Abstraction::FieldPositionChecker const &m_fieldPositionChecker;
 	};
 }

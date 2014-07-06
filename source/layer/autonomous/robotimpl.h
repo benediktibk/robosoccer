@@ -52,8 +52,10 @@ namespace Autonomous
 		virtual std::vector<Common::Geometry::Circle> getObstacles() const;
 		virtual bool reachedTarget() const;
 		virtual void kick(IntelligentBall const &ball);
-		virtual void update();
+		virtual void updateSensors();
+		virtual void updateActuators();
 		virtual Common::Routing::Route getCurrentRoute() const;
+		virtual std::vector<Common::Geometry::Pose> getCurrentTargets() const;
 
 		RobotState const& getCurrentState() const;
 		bool movementStopped() const;

@@ -17,6 +17,7 @@ namespace Abstraction
 		FieldPositionCheckerGoalkeeper();
 
 		virtual bool isPointInsideField(Common::Geometry::Point const &position) const;
+		bool isPointInsideDangerZone(Common::Geometry::Point const &ballPosition) const;
 
 		void setFieldSide(Abstraction::FieldSide fieldSide);
 
