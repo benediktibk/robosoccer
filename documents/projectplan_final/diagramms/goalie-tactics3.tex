@@ -16,13 +16,13 @@
 
   \coordinate (ballpos1) at (3.6,-2.2);
   \coordinate (direction1) at (-1,0);
-  \draw[ultra thick,->] (ballpos1) -- ($ (ballpos1)!1cm!(direction1) $);
+  \draw[ultra thick,->, >=latex'] (ballpos1) -- ($ (ballpos1)!1cm!(direction1) $);
 	\draw[thick, dashed, name path=ball1] (ballpos1) -- (direction1);
 	\ball at (3.6,-2.2) {};
 
   \coordinate (ballpos2) at (2.7,3);
   \coordinate (direction2) at (-1,-0.8);
-  \draw[ultra thick,->] (ballpos2) -- ($ (ballpos2)!1cm!(direction2) $);
+  \draw[ultra thick,->, >=latex'] (ballpos2) -- ($ (ballpos2)!1cm!(direction2) $);
   \draw[thick, dashed, name path=ball2] (ballpos2) -- (direction2);
   \ball at (2.7,3) {};
 
