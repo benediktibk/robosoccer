@@ -10,7 +10,7 @@
 \usepackage{pgfplots}
 \usepgfplotslibrary{patchplots}
 \graphicspath{{Pictures/}}
-\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
+\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata,patterns}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
 \definecolor{UniWhite}{RGB}{255,255,255}
@@ -731,8 +731,7 @@
 		\frametitle{Solution}
 		\textbf{Goalkeeper:}\\
 		\begin{itemize}
-				\item Calculate target position depending on ball moving direction\\
-				\item Fixed robot
+				\item Calculate target position depending on \textbf{ball moving direction}\\
 		\end{itemize}
 		\begin{center}
 				\input{diagramms/goalie-tactics3}
@@ -743,8 +742,7 @@
     \frametitle{Solution}
     \textbf{Goalkeeper:}\\
     \begin{itemize}
-        \item Calculate target position depending on ball position\\
-        \item Fixed robot
+        \item Calculate target position depending on \textbf{ball position}\\
     \end{itemize}
     \begin{center}
         \input{diagramms/goalie-tactics2}
@@ -756,7 +754,6 @@
 %    \textbf{Goalkeeper:}\\
 %    \begin{itemize}
 %        \item Calculate target position depending on ball position\\
-%        \item Fixed robot
 %    \end{itemize}
 %    \begin{center}
 %        \input{diagramms/goalie-tactics1}
@@ -768,7 +765,6 @@
 		\textbf{Goalkeeper:}\\
 		\begin{itemize}
 				\item Dont move, if ball is to close to own goal\\
-				\item Fixed robot
 		\end{itemize}
 		\begin{center}
 				\input{diagramms/goalie-tactics-dont-move}
@@ -777,6 +773,16 @@
 
 \begin{frame}
     \frametitle{Solution}
+    \textbf{Goalkeeper:}\\
+    \begin{itemize}
+        \item Calculate target position depending on\\
+        \begin{itemize}
+            \item ball moving direction\\
+            \item ball position\\
+        \end{itemize}
+        \item Don't move, if ball is to close to own goal\\
+        \item Fixed robot
+    \end{itemize}
     \textbf{Field players:}\\
     \begin{itemize}
         \item \textbf{One} strategy for both field players

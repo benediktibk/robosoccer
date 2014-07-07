@@ -1,6 +1,38 @@
 %!tikz editor 1.0
 %!tikz source begin
 \begin{tikzpicture}
+\newlength{\hatchspread}
+\newlength{\hatchthickness}
+\newlength{\hatchshift}
+\newcommand{\hatchcolor}{}
+% declaring the keys in tikz
+\tikzset{hatchspread/.code={\setlength{\hatchspread}{#1}},
+         hatchthickness/.code={\setlength{\hatchthickness}{#1}},
+         hatchshift/.code={\setlength{\hatchshift}{#1}},% must be >= 0
+         hatchcolor/.code={\renewcommand{\hatchcolor}{#1}}}
+% setting the default values
+\tikzset{hatchspread=3pt,
+         hatchthickness=0.4pt,
+         hatchshift=0pt,% must be >= 0
+         hatchcolor=black}
+% declaring the pattern
+\pgfdeclarepatternformonly[\hatchspread,\hatchthickness,\hatchshift,\hatchcolor]% variables
+   {custom north west lines}% name
+   {\pgfqpoint{\dimexpr-2\hatchthickness}{\dimexpr-2\hatchthickness}}% lower left corner
+   {\pgfqpoint{\dimexpr\hatchspread+2\hatchthickness}{\dimexpr\hatchspread+2\hatchthickness}}% upper right corner
+   {\pgfqpoint{\dimexpr\hatchspread}{\dimexpr\hatchspread}}% tile size
+   {% shape description
+    \pgfsetlinewidth{\hatchthickness}
+    \pgfpathmoveto{\pgfqpoint{0pt}{\dimexpr\hatchspread+\hatchshift}}
+    \pgfpathlineto{\pgfqpoint{\dimexpr\hatchspread+0.15pt+\hatchshift}{-0.15pt}}
+    \ifdim \hatchshift > 0pt
+      \pgfpathmoveto{\pgfqpoint{0pt}{\hatchshift}}
+      \pgfpathlineto{\pgfqpoint{\dimexpr0.15pt+\hatchshift}{-0.15pt}}
+    \fi
+    \pgfsetstrokecolor{\hatchcolor}
+    \pgfusepath{stroke}
+   }
+
     \begin{scope}[rotate=90]
 	% Background Box
 	\begin{pgfonlayer}{background}
@@ -11,6 +43,9 @@
 %		\draw [very thick, color=black!60!white, rounded corners=1.5cm] (3,-7) -- (0,-7) -- (0, 0) -- (0, 7) -- (3,7);
 	\end{pgfonlayer}
 
+    \draw[pattern=custom north west lines, hatchspread=10pt,hatchthickness=3pt,hatchcolor=red, draw=none, rounded corners=9pt, opacity=.8]
+        (-0.2,-0.4) rectangle (0.6,0.8);
+        
 	\ball at (0.2,0.2) {};
     
     % fake object to enlarge picture
