@@ -792,15 +792,15 @@
 				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
 				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1) (0,-2.5);
 			\end{pgfonlayer}
-			
+
 			\coordinate (ball) at (1,1.6);
 			\coordinate (enemygoal) at (-5.5,0);
 			\coordinate (owngoal) at (5.5,0);
-			
+
 			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
 			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
 			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
-			
+
 			\draw[fill=black] (ball) -- (owngoal) circle (0.07);
 			\draw[fill=green] ($(ball)!.5!(owngoal)$) circle (0.2) node {2};
 
@@ -821,23 +821,23 @@
 				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
 				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1);
 			\end{pgfonlayer}
-			
+
 			\coordinate (ball) at (-2.8,-1.6);
 			\coordinate (enemygoal) at (-5.5,0);
 			\coordinate (owngoal) at (5.5,0);
-			
+
 			\draw [dashed, fill=green, fill opacity=0.2] (-4.5, 1.1) rectangle (4.5, -1.1);
 			\draw [<->, >=latex', thick] (1,1.1) -- (1,-1.1);
-			
+
 			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
 			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
 			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
-			
+
 			\draw [dashed] (ball) -- ++(0,0.5) (0,-0.9) -- ++(0,-0.5);
 			\draw [<->, >=latex', thick] (0,-1.1) ++(0,-0.2) -- ++(-2.8,0);
-			
+
 			\draw[fill=green] (0,-0.9) circle (0.2) node {2};
-			
+
 			\ball at (-2.8,-1.6) {};
 
 		\end{tikzpicture}
@@ -915,17 +915,15 @@
 	\frametitle{Gantt Chart}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{Pictures/ganttfinal1}
+		%\includegraphics[width=\textwidth]{Pictures/ganttfinal1}
 	\end{figure}
 \end{frame}
 
-\section{Results}
-\subsection{Time Schedule}
 \begin{frame}
 	\frametitle{Gantt Chart}
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{Pictures/ganttfinal2}
+		%\includegraphics[width=\textwidth]{Pictures/ganttfinal2}
 	\end{figure}
 \end{frame}
 
