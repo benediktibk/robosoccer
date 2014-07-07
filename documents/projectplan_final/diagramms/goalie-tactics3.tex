@@ -26,6 +26,11 @@
   \draw[thick, dashed, name path=ball2] (ballpos2) -- (direction2);
   \ball at (2.7,3) {};
 
+  \coordinate (ballpos3) at (2.7,4.3);
+  \coordinate (direction3) at (-1,1.8);
+  \draw[ultra thick,->, >=latex', red] (ballpos3) -- ($ (ballpos3)!1cm!(direction3) $);
+  \draw[thick, dashed, name path=ball3, red] (ballpos3) -- (direction3);
+  \ball at (2.7,4.3) {};
 
 	\path [name intersections={of=robot and ball1,by=x1}];
 	\path [name intersections={of=robot and ball2,by=x2}];
