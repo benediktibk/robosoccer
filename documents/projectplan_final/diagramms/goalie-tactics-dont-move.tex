@@ -1,0 +1,19 @@
+%!tikz editor 1.0
+%!tikz source begin
+\begin{tikzpicture}
+    \begin{scope}[rotate=90]
+	% Background Box
+	\begin{pgfonlayer}{background}
+		\draw [very thick, color=black!60!white] (0,-3.5) rectangle (2.5, 3.5);
+		\draw [very thick, color=black!60!white] (-1,-1.5) rectangle (0,1.5);
+
+		\draw [very thick, color=black!60!white, rounded corners=1.5cm]  (0,-5) -- (0, 0) -- (0, 5);
+%		\draw [very thick, color=black!60!white, rounded corners=1.5cm] (3,-7) -- (0,-7) -- (0, 0) -- (0, 7) -- (3,7);
+	\end{pgfonlayer}
+
+	\ball at (0.2,0.2) {};
+
+	\robotr at (.35,-1) {};
+    \end{scope}
+\end{tikzpicture}
+%!tikz source end
