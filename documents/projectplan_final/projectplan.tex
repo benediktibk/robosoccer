@@ -89,905 +89,905 @@
 	\tableofcontents
 \end{frame}
 
-%\section{Organization}
-%\subsection{Tools}
+\section{Organization}
+\subsection{Tools}
+\begin{frame}
+	\frametitle{Software}
+	\begin{itemize}
+		\item  \textbf{Target \& Development-OS}: \textsc{Linux}
+		\item  \textbf{IDE}: \textsc{Qt Creator}
+		\item  \textbf{Version Control}: \textsc{Git} (hosted on \textit{https://bitbucket.org})
+		\item  \textbf{Build System}: \textsc{CMake}
+		\item  \textbf{Test Library}: \textsc{CPP Unit}
+	\end{itemize}
+\end{frame}
+
+\subsection{Resource Plan}
+\begin{frame}
+	\frametitle{Resource Plan I}
+	\begin{columns}[t]
+		\begin{column}{0.50\textwidth}
+			\begin{block}{\textbf{PM} Benedikt Schmidt}
+				\begin{itemize}
+					\item Communication with the contact person and the tutor of the course.
+					\item General team coordination.
+					\item Monitor realization of project plan.
+				\end{itemize}
+			\end{block}
+		\end{column}
+
+		\begin{column}{0.50\textwidth}
+			\begin{block}{\textbf{QM} Florian Wirnshofer}
+				\begin{itemize}
+					\item Ensure sufficient unit tests.
+					\item Continuous testing on hardware.
+					\item Balance quality, aspiration and effort.
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Resource Plan II}
+	\begin{columns}[t]
+		\begin{column}{0.50\textwidth}
+			\begin{block}{\textbf{CM} Kevin Meyer}
+				\begin{itemize}
+					\item Ensure self-explaining and readable code style.
+					\item Supervise the documentation.
+					\item Maintain repository and discussion board.
+				\end{itemize}
+			\end{block}
+		\end{column}
+
+		\begin{column}{0.50\textwidth}
+			\begin{block}{\textbf{SD} Markus Hofbauer \& He Jiang}
+				\begin{itemize}
+					\item Design and verify code structure.
+					\item Ensure building code.
+					\item Choose and connect external libraries.
+				\end{itemize}
+			\end{block}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\subsection{Time Schedule}
+\begin{frame}
+	\frametitle{Gantt Chart}
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.98\textwidth]{gantt_alt.jpg}
+	\end{figure}
+\end{frame}
+
+\section{Implementation}
+\subsection{Class Diagram}
+\begin{frame}
+	\frametitle{Layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]
+			 Layers
+			\node [block] (control) {\huge \textbf{Control}};
+		    	\node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+
+			 Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+
+			 Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]
+		    	 Layers
+			\node [block] (control) {\huge \textbf{Control}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+
+			 Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+
+			 Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Interface Autonomous - Abstraction}
+	\begin{center}
+		\input{class_structure/class-diagram-pt1}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Layers}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.75, transform shape]
+		    	 Layers
+			\node [block-active] (control) {\huge \textbf{Control}};
+		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
+			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
+
+			 Clouds
+			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
+			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
+			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
+
+			 Connections
+			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
+			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
+
+			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
+			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
+
+			\path [dline] (referee) -- (abstraction);
+			\path [dline] (robots) -- (abstraction);
+
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
+				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
+			\end{pgfonlayer}
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Interface Control - Autonomous}
+	\center
+	\input{class_structure/class-diagram-pt2}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{collaboration_graph_application.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Main Application}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{collaboration_graph_application_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_states.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_states_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{State Machine}
+	\fontsize{6pt}{7.2}\selectfont
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.8cm,semithick]
+			\tikzstyle{every state}=[draw=none,text=black]
+			\tikzset{elliptic state/.style={draw,ellipse}}
+
+			\node[initial,elliptic state] (init)                    {Init/Pause};
+			\node[elliptic state]         (prepareKickOff) [above right of=init,text width=0.7cm] {Prepare Kickoff};
+			\node[elliptic state]         (prepareKickOffOffensive) [above right of=prepareKickOff,text width=0.9cm] {Prepare Kickoff Offensive};
+			\node[elliptic state]         (executeKickOffOffensive) [right of=prepareKickOffOffensive,text width=0.9cm] {Execute Kickoff Offensive};
+			\node[elliptic state]         (prepareKickOffDefensive) [right of=prepareKickOff,text width=0.9cm]       {Prepare Kickoff Defensive};
+			\node[elliptic state]         (executeKickOffDefensive) [right of=prepareKickOffDefensive,text width=0.9cm]       {Execute Kickoff Defensive};
+			\node[elliptic state]         (preparePenalty) [below right of=init,text width=0.7cm] {Prepare Penalty};
+			\node[elliptic state]         (preparePenaltyOffensive) [below right of=preparePenalty,text width=0.9cm] {Prepare Penalty Offensive};
+			\node[elliptic state]         (executePenaltyOffensive) [right of=preparePenaltyOffensive,text width=0.9cm] {Execute Penalty Offensive};
+			\node[elliptic state]         (preparePenaltyDefensive) [right of=preparePenalty,text width=0.9cm]       {Prepare Penalty Defensive};
+			\node[elliptic state]         (executePenaltyDefensive) [right of=preparePenaltyDefensive,text width=0.9cm]       {Execute Penalty Defensive};
+			\node[elliptic state]         (play) [below right of=executeKickOffDefensive,text width=0.5cm]       {Play};
+
+			\path (init)
+						edge (prepareKickOff)
+			  			edge (preparePenalty)
+			      (prepareKickOff)
+			        	edge (prepareKickOffOffensive)
+			            edge (prepareKickOffDefensive)
+			      (prepareKickOffOffensive)
+			        	edge (executeKickOffOffensive)
+			      (prepareKickOffDefensive)
+			        	edge (executeKickOffDefensive)
+			      (executeKickOffOffensive)
+				       	edge [bend left] (play)
+			      (executeKickOffDefensive)
+			        	edge (play)
+			      (preparePenalty)
+			        	edge (preparePenaltyOffensive)
+			            edge (preparePenaltyDefensive)
+			      (preparePenaltyOffensive)
+			        	edge (executePenaltyOffensive)
+			      (preparePenaltyDefensive)
+			        	edge (executePenaltyDefensive)
+			      (executePenaltyOffensive)
+			        	edge [bend right] (play)
+			      (executePenaltyDefensive)
+			        	edge (play)
+			      (play)
+			        	edge (init);
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{DriveTo}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_driveto.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Robot States}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_rest.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Nodes}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_treenode.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Nodes}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_treenode_zoomed.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Node Deciders}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = 0.8\textwidth]{inheritance_graph_treenode_deciders.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tree Node Results}
+	\center
+	\begin{figure}
+		\centering
+		\includegraphics[width = \textwidth]{inheritance_graph_treenode_results.png}
+	\end{figure}
+\end{frame}
+
+\subsection{Collision Avoidance}
+\begin{frame}
+	\frametitle{Collision Avoidance}
+	\begin{center}
+		\resizebox{!}{0.8\textheight}{
+			\input{router_structure/router_flowchart}
+		}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 1
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 2
+			\path[edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 3
+			\path[ignored edge] (-0.4,0) -- (6.4,0);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 4
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (-0.3,0.3) -- (1.8,-2.1);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\path[edge] (1.2,-1.9) -- (6.4,0.2);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (1.5,-1.8) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 5
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[selected obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 6
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {};
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 7
+			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[edge] (1.1,0.7) -- (4.4,-1.3);
+			\path[edge] (1.1,0.4) -- (4.4,1);
+			\path[edge] (3.7,-1.3) -- (6.4,0.2);
+			\path[edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {};
+			\node[selected obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+			\goalHelp at (4,-1.1) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Router}
+	\begin{center}
+		\begin{tikzpicture}
+			 Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
+			\end{pgfonlayer}
+			 Folie 8
+			\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
+			\path[selected edge] (1.1,0.4) -- (4.4,1);
+			\path[selected edge] (3.8,1) -- (6.4,-0.2);
+			\robot at (0,0) {};
+			\node[obstacle] at (1.5,-.5) {};
+			\node[obstacle] at (4,-0.1) {};
+			\goal at (6,0) {};
+			\goalHelp at (1.5,.5) {};
+			\goalHelp at (4,.9) {};
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\subsection{Control}
+\begin{frame}
+	\frametitle{Control I}
+	\textbf{Fundamental Requirements :}
+	\begin{enumerate}
+		\item Reach goal precisely.
+		\item Drive towards goal on a straight line.
+	\end{enumerate}
+
+	\vspace{0.5cm}
+
+	\pause
+
+	\begin{figure}
+		\centering
+		\begin{overpic}[width=0.6\textwidth]{roboline.pdf}
+			\put(10,39){\small Start}
+			\put(10,44){\small Goal}
+			\put(15,7){\small \color{blue} d}
+	   	\end{overpic}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Control II}
+	\begin{figure}
+		\centering
+		\begin{overpic}[width=0.8\textwidth]{control2.pdf}
+			\put(30,29){\textsc{PI}}
+			\put(10.5,29.75){\tiny +}
+			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
+			\put(73,25.5){\tiny Tracker}
+			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
+			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
+			\put(43,29){\scriptsize $>60$}
+			\put(-3,29){\small $0$}
+	   	\end{overpic}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Control II}
+	\begin{figure}
+		\centering
+		\begin{overpic}[width=0.8\textwidth]{control.pdf}
+			\put(30,15){\textsc{PI}}
+			\put(30,29){\textsc{PI}}
+			\put(10.5,15.5){\tiny +}
+			\put(10.5,29.75){\tiny +}
+			\put(57.15,29.75){\tiny +}
+			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
+			\put(73,25.5){\tiny Tracker}
+			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
+			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
+			\put(65,1.5){\scriptsize $d$}
+			\put(43,29){\scriptsize $>60$}
+			\put(-3,29){\small $0$}
+			\put(-3,15){\small $0$}
+	   	\end{overpic}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Control III}
+	\begin{columns}[T]
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[small, axis equal, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
+			   		\addplot [blue,only marks,mark=x] table [col sep=comma] {Data/gotoC.dat};
+						\addlegendentry{goto C}
+						\addplot [red,only marks,mark=x] table [col sep=comma] {Data/goto_ct.dat};
+						\addlegendentry{cruise to}
+						\addplot [green!70!blue,only marks,mark=x] table [col sep=comma] {Data/goto_gt.dat};
+						\addlegendentry{goto}
+						\draw[black,very thick] (axis cs:0.375,-0.025) rectangle (axis cs:0.425,0.025);
+						\draw[black,very thick] (axis cs:-0.025,0.375) rectangle (axis cs:0.025,0.425);
+						\draw[black,very thick] (axis cs:-0.425,-0.025) rectangle (axis cs:-0.375,0.025);
+						\draw[black,very thick] (axis cs:-0.025,-0.425) rectangle (axis cs:0.025,-0.375);
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\begin{tikzpicture}
+					\begin{axis}[small, axis equal, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
+						\addplot [red,mark=none] table [col sep=comma] {Data/goto_ct_Line.dat};
+						\addplot [green!70!blue,mark=noe] table [col sep=comma] {Data/goto_gt_Line.dat};
+						\addplot [blue,mark=none] table [col sep=comma] {Data/gotoC_Line.dat};
+					\end{axis}
+				\end{tikzpicture}
+			\end{center}
+		\end{column}
+	\end{columns}
+	\pause
+	\vspace{0.3cm}
+	\textbf{Average distance to desired target}\\
+	\begin{center}
+	goTo: 2.54 cm\hspace{1cm} CruiseTo: 5.49 cm \hspace{1cm} goto C: 0.295 cm
+	\end{center}
+\end{frame}
+
+\subsection{Strategy}
+\begin{frame}
+    \frametitle{Overview}
+    \begin{figure}
+        \includegraphics[width=0.7\textwidth]{Pictures/strategy}
+    \end{figure}
+    \textbf{Strategy:} \textit{What do we want to do?}\\
+    \textbf{Tactics:} \textit{How can we achieve it?}
+\end{frame}
+
+\begin{frame}
+		\frametitle{Goalkeeper Tactics I}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Calculate target position depending on \textbf{ball moving direction}\\
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics3}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Goalkeeper Tactics II}
+    \textbf{Goalkeeper:}\\
+    \begin{itemize}
+        \item Calculate target position depending on \textbf{ball position}\\
+    \end{itemize}
+    \begin{center}
+        \input{diagramms/goalie-tactics2}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+		\frametitle{Goalkeeper Tactics III}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Don't move, if ball is to close to own goal\\
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics-dont-move}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+		\frametitle{Goalkeeper Tactics IV}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Angle Handlings
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics-angle1}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+		\frametitle{Goalkeeper Tactics IV}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Angle Handlings
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics-angle2}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Solution}
+    \textbf{Goalkeeper:}\\
+    \begin{itemize}
+        \item Calculate target position depending on\\
+        \begin{itemize}
+            \item ball moving direction\\
+            \item ball position\\
+        \end{itemize}
+        \item Don't move, if ball is to close to own goal\\
+        \item Fixed robot
+    \end{itemize}
+    \textbf{Field players:}\\
+    \begin{itemize}
+        \item \textbf{One} strategy for both field players
+        \item \textbf{Small} binary decision tree
+        \item Recalculated each iteration
+        \item Depending on ball and robot positions
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Decision Tree}
+    \begin{center}
+        \input{diagramms/decision-tree}
+    \end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tactics}
+    \textbf{Get behind Ball}
+    	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
+				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
+				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1) (0,-2.5);
+			\end{pgfonlayer}
+
+			\coordinate (ball) at (1,1.6);
+			\coordinate (enemygoal) at (-5.5,0);
+			\coordinate (owngoal) at (5.5,0);
+
+			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
+			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
+			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
+
+			\draw[fill=black] (ball) -- (owngoal) circle (0.07);
+			\draw[fill=green] ($(ball)!.5!(owngoal)$) circle (0.2) node {2};
+
+			\ball at (1,1.6) {};
+
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tactics}
+    \textbf{Follow Ball}
+    	\begin{center}
+		\begin{tikzpicture}
+			% Background Box
+			\begin{pgfonlayer}{background}
+				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
+				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
+				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1);
+			\end{pgfonlayer}
+
+			\coordinate (ball) at (-2.8,-1.6);
+			\coordinate (enemygoal) at (-5.5,0);
+			\coordinate (owngoal) at (5.5,0);
+
+			\draw [dashed, fill=green, fill opacity=0.2] (-4.5, 1.1) rectangle (4.5, -1.1);
+			\draw [<->, >=latex', thick] (1,1.1) -- (1,-1.1);
+
+			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
+			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
+			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
+
+			\draw [dashed] (ball) -- ++(0,0.5) (0,-0.9) -- ++(0,-0.5);
+			\draw [<->, >=latex', thick] (0,-1.1) ++(0,-0.2) -- ++(-2.8,0);
+
+			\draw[fill=green] (0,-0.9) circle (0.2) node {2};
+
+			\ball at (-2.8,-1.6) {};
+
+		\end{tikzpicture}
+	\end{center}
+\end{frame}
+
 %\begin{frame}
-%	\frametitle{Software}
-%	\begin{itemize}
-%		\item  \textbf{Target \& Development-OS}: \textsc{Linux}
-%		\item  \textbf{IDE}: \textsc{Qt Creator}
-%		\item  \textbf{Version Control}: \textsc{Git} (hosted on \textit{https://bitbucket.org})
-%		\item  \textbf{Build System}: \textsc{CMake}
-%		\item  \textbf{Test Library}: \textsc{CPP Unit}
-%	\end{itemize}
-%\end{frame}
-%
-%\subsection{Resource Plan}
-%\begin{frame}
-%	\frametitle{Resource Plan I}
-%	\begin{columns}[t]
-%		\begin{column}{0.50\textwidth}
-%			\begin{block}{\textbf{PM} Benedikt Schmidt}
-%				\begin{itemize}
-%					\item Communication with the contact person and the tutor of the course.
-%					\item General team coordination.
-%					\item Monitor realization of project plan.
-%				\end{itemize}
-%			\end{block}
-%		\end{column}
-%
-%		\begin{column}{0.50\textwidth}
-%			\begin{block}{\textbf{QM} Florian Wirnshofer}
-%				\begin{itemize}
-%					\item Ensure sufficient unit tests.
-%					\item Continuous testing on hardware.
-%					\item Balance quality, aspiration and effort.
-%				\end{itemize}
-%			\end{block}
-%		\end{column}
-%	\end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Resource Plan II}
-%	\begin{columns}[t]
-%		\begin{column}{0.50\textwidth}
-%			\begin{block}{\textbf{CM} Kevin Meyer}
-%				\begin{itemize}
-%					\item Ensure self-explaining and readable code style.
-%					\item Supervise the documentation.
-%					\item Maintain repository and discussion board.
-%				\end{itemize}
-%			\end{block}
-%		\end{column}
-%
-%		\begin{column}{0.50\textwidth}
-%			\begin{block}{\textbf{SD} Markus Hofbauer \& He Jiang}
-%				\begin{itemize}
-%					\item Design and verify code structure.
-%					\item Ensure building code.
-%					\item Choose and connect external libraries.
-%				\end{itemize}
-%			\end{block}
-%		\end{column}
-%	\end{columns}
-%\end{frame}
-%
-%\subsection{Time Schedule}
-%\begin{frame}
-%	\frametitle{Gantt Chart}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = 0.98\textwidth]{gantt_alt.jpg}
-%	\end{figure}
-%\end{frame}
-%
-%\section{Implementation}
-%\subsection{Class Diagram}
-%\begin{frame}
-%	\frametitle{Layers}
-%	\begin{center}
-%		\begin{tikzpicture}[scale=0.75, transform shape]
-%			 Layers
-%			\node [block] (control) {\huge \textbf{Control}};
-%		    	\node [block, below of=control] (autonomous) {\huge \textbf{Autonomous}};
-%			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
-%
-%			 Clouds
-%			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
-%			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
-%			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
-%
-%			 Connections
-%			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
-%			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
-%
-%			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
-%			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
-%
-%			\path [dline] (referee) -- (abstraction);
-%			\path [dline] (robots) -- (abstraction);
-%
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
-%				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
-%			\end{pgfonlayer}
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Layers}
-%	\begin{center}
-%		\begin{tikzpicture}[scale=0.75, transform shape]
-%		    	 Layers
-%			\node [block] (control) {\huge \textbf{Control}};
-%		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
-%			\node [block-active, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
-%
-%			 Clouds
-%			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
-%			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
-%			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
-%
-%			 Connections
-%			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
-%			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
-%
-%			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
-%			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
-%
-%			\path [dline] (referee) -- (abstraction);
-%			\path [dline] (robots) -- (abstraction);
-%
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
-%				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
-%			\end{pgfonlayer}
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Interface Autonomous - Abstraction}
-%	\begin{center}
-%		\input{class_structure/class-diagram-pt1}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Layers}
-%	\begin{center}
-%		\begin{tikzpicture}[scale=0.75, transform shape]
-%		    	 Layers
-%			\node [block-active] (control) {\huge \textbf{Control}};
-%		    	\node [block-active, below of=control] (autonomous) {\huge \textbf{Autonomous}};
-%			\node [block, below of=autonomous] (abstraction) {\huge \textbf{Abstraction}};
-%
-%			 Clouds
-%			\node [below of=abstraction, node distance=2cm] (babstraction) {} ;
-%			\node [cloud, right of=babstraction] (robots) {\large \textbf{Robots}};
-%			\node [cloud, left of=babstraction] (referee) {\large \textbf{Referee}};
-%
-%			 Connections
-%			\path [line] ($(control.south) + (1,0)$) -- ($(autonomous.north) + (1,0)$);
-%			\path [line] ($(autonomous.north) + (-1,0)$) -- ($(control.south) + (-1,0)$);
-%
-%			\path [line] ($(autonomous.south) + (1,0)$) -- ($(abstraction.north) + (1,0)$);
-%			\path [line] ($(abstraction.north) + (-1,0)$) -- ($(autonomous.south) + (-1,0)$);
-%
-%			\path [dline] (referee) -- (abstraction);
-%			\path [dline] (robots) -- (abstraction);
-%
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [dashed, very thick, fill=black!10] ($(abstraction) +(5,-1.25)$) rectangle ($(control)+(-5,1.25)$);
-%				\draw ($(abstraction) +(5,-1)$) node [left] {\large \textit{Team C}};
-%			\end{pgfonlayer}
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Interface Control - Autonomous}
-%	\center
-%	\input{class_structure/class-diagram-pt2}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Main Application}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{collaboration_graph_application.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Main Application}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{collaboration_graph_application_zoomed.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{States}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_states.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{States}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_states_zoomed.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{State Machine}
-%	\fontsize{6pt}{7.2}\selectfont
-%	\begin{center}
-%		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=1.8cm,semithick]
-%			\tikzstyle{every state}=[draw=none,text=black]
-%			\tikzset{elliptic state/.style={draw,ellipse}}
-%
-%			\node[initial,elliptic state] (init)                    {Init/Pause};
-%			\node[elliptic state]         (prepareKickOff) [above right of=init,text width=0.7cm] {Prepare Kickoff};
-%			\node[elliptic state]         (prepareKickOffOffensive) [above right of=prepareKickOff,text width=0.9cm] {Prepare Kickoff Offensive};
-%			\node[elliptic state]         (executeKickOffOffensive) [right of=prepareKickOffOffensive,text width=0.9cm] {Execute Kickoff Offensive};
-%			\node[elliptic state]         (prepareKickOffDefensive) [right of=prepareKickOff,text width=0.9cm]       {Prepare Kickoff Defensive};
-%			\node[elliptic state]         (executeKickOffDefensive) [right of=prepareKickOffDefensive,text width=0.9cm]       {Execute Kickoff Defensive};
-%			\node[elliptic state]         (preparePenalty) [below right of=init,text width=0.7cm] {Prepare Penalty};
-%			\node[elliptic state]         (preparePenaltyOffensive) [below right of=preparePenalty,text width=0.9cm] {Prepare Penalty Offensive};
-%			\node[elliptic state]         (executePenaltyOffensive) [right of=preparePenaltyOffensive,text width=0.9cm] {Execute Penalty Offensive};
-%			\node[elliptic state]         (preparePenaltyDefensive) [right of=preparePenalty,text width=0.9cm]       {Prepare Penalty Defensive};
-%			\node[elliptic state]         (executePenaltyDefensive) [right of=preparePenaltyDefensive,text width=0.9cm]       {Execute Penalty Defensive};
-%			\node[elliptic state]         (play) [below right of=executeKickOffDefensive,text width=0.5cm]       {Play};
-%
-%			\path (init)
-%						edge (prepareKickOff)
-%			  			edge (preparePenalty)
-%			      (prepareKickOff)
-%			        	edge (prepareKickOffOffensive)
-%			            edge (prepareKickOffDefensive)
-%			      (prepareKickOffOffensive)
-%			        	edge (executeKickOffOffensive)
-%			      (prepareKickOffDefensive)
-%			        	edge (executeKickOffDefensive)
-%			      (executeKickOffOffensive)
-%				       	edge [bend left] (play)
-%			      (executeKickOffDefensive)
-%			        	edge (play)
-%			      (preparePenalty)
-%			        	edge (preparePenaltyOffensive)
-%			            edge (preparePenaltyDefensive)
-%			      (preparePenaltyOffensive)
-%			        	edge (executePenaltyOffensive)
-%			      (preparePenaltyDefensive)
-%			        	edge (executePenaltyDefensive)
-%			      (executePenaltyOffensive)
-%			        	edge [bend right] (play)
-%			      (executePenaltyDefensive)
-%			        	edge (play)
-%			      (play)
-%			        	edge (init);
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Robot States}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_robotstates.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Robot States}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_zoomed.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{DriveTo}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_driveto.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Robot States}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_robotstates_rest.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Tree Nodes}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_treenode.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Tree Nodes}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_treenode_zoomed.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Tree Node Deciders}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = 0.8\textwidth]{inheritance_graph_treenode_deciders.png}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Tree Node Results}
-%	\center
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width = \textwidth]{inheritance_graph_treenode_results.png}
-%	\end{figure}
-%\end{frame}
-%
-%\subsection{Collision Avoidance}
-%\begin{frame}
-%	\frametitle{Collision Avoidance}
-%	\begin{center}
-%		\resizebox{!}{0.8\textheight}{
-%			\input{router_structure/router_flowchart}
-%		}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 1
-%			\robot at (0,0) {};
-%			\node[obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 2
-%			\path[edge] (-0.4,0) -- (6.4,0);
-%			\robot at (0,0) {};
-%			\node[obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 3
-%			\path[ignored edge] (-0.4,0) -- (6.4,0);
-%			\robot at (0,0) {};
-%			\node[selected obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%			\goalHelp at (1.5,-1.8) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 4
-%			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-%			\path[edge] (-0.3,0.3) -- (1.8,-2.1);
-%			\path[edge] (1.1,0.6) -- (6.4,-0.05);
-%			\path[edge] (1.2,-1.9) -- (6.4,0.2);
-%			\robot at (0,0) {};
-%			\node[selected obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%			\goalHelp at (1.5,-1.8) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 5
-%			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-%			\path[edge] (1.1,0.6) -- (6.4,-0.05);
-%			\robot at (0,0) {};
-%			\node[selected obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 6
-%			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-%			\path[ignored edge] (1.1,0.6) -- (6.4,-0.05);
-%			\robot at (0,0) {};
-%			\node[obstacle] at (1.5,-.5) {};
-%			\node[selected obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%			\goalHelp at (4,.9) {};
-%			\goalHelp at (4,-1.1) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 7
-%			\path[edge] (-0.4,-0.1) -- (1.9,0.6);
-%			\path[edge] (1.1,0.7) -- (4.4,-1.3);
-%			\path[edge] (1.1,0.4) -- (4.4,1);
-%			\path[edge] (3.7,-1.3) -- (6.4,0.2);
-%			\path[edge] (3.8,1) -- (6.4,-0.2);
-%			\robot at (0,0) {};
-%			\node[obstacle] at (1.5,-.5) {};
-%			\node[selected obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%			\goalHelp at (4,.9) {};
-%			\goalHelp at (4,-1.1) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Router}
-%	\begin{center}
-%		\begin{tikzpicture}
-%			 Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=1.5cm, very thick, fill=black!10] (-2.5,-3) rectangle (8.5,2.5);
-%			\end{pgfonlayer}
-%			 Folie 8
-%			\path[selected edge] (-0.4,-0.1) -- (1.9,0.6);
-%			\path[selected edge] (1.1,0.4) -- (4.4,1);
-%			\path[selected edge] (3.8,1) -- (6.4,-0.2);
-%			\robot at (0,0) {};
-%			\node[obstacle] at (1.5,-.5) {};
-%			\node[obstacle] at (4,-0.1) {};
-%			\goal at (6,0) {};
-%			\goalHelp at (1.5,.5) {};
-%			\goalHelp at (4,.9) {};
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\subsection{Control}
-%\begin{frame}
-%	\frametitle{Control I}
-%	\textbf{Fundamental Requirements :}
-%	\begin{enumerate}
-%		\item Reach goal precisely.
-%		\item Drive towards goal on a straight line.
-%	\end{enumerate}
-%
-%	\vspace{0.5cm}
-%
-%	\pause
-%
-%	\begin{figure}
-%		\centering
-%		\begin{overpic}[width=0.6\textwidth]{roboline.pdf}
-%			\put(10,39){\small Start}
-%			\put(10,44){\small Goal}
-%			\put(15,7){\small \color{blue} d}
-%	   	\end{overpic}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Control II}
-%	\begin{figure}
-%		\centering
-%		\begin{overpic}[width=0.8\textwidth]{control2.pdf}
-%			\put(30,29){\textsc{PI}}
-%			\put(10.5,29.75){\tiny +}
-%			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
-%			\put(73,25.5){\tiny Tracker}
-%			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
-%			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
-%			\put(43,29){\scriptsize $>60$}
-%			\put(-3,29){\small $0$}
-%	   	\end{overpic}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Control II}
-%	\begin{figure}
-%		\centering
-%		\begin{overpic}[width=0.8\textwidth]{control.pdf}
-%			\put(30,15){\textsc{PI}}
-%			\put(30,29){\textsc{PI}}
-%			\put(10.5,15.5){\tiny +}
-%			\put(10.5,29.75){\tiny +}
-%			\put(57.15,29.75){\tiny +}
-%			\put(73,28){\includegraphics[scale=0.02]{3pi.pdf}}
-%			\put(73,25.5){\tiny Tracker}
-%			\put(86,32){\tiny $\left[\mathbf{x},\Omega \right]$}
-%			\put(60,43.5){\tiny $\Vert \mathbf{x} - \mathbf{x}_\mathrm{g} \Vert_2$}
-%			\put(65,1.5){\scriptsize $d$}
-%			\put(43,29){\scriptsize $>60$}
-%			\put(-3,29){\small $0$}
-%			\put(-3,15){\small $0$}
-%	   	\end{overpic}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Control III}
-%	\begin{columns}[T]
-%		\begin{column}{0.5\textwidth}
-%			\begin{center}
-%				\begin{tikzpicture}
-%					\begin{axis}[small, axis equal, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
-%			   		\addplot [blue,only marks,mark=x] table [col sep=comma] {Data/gotoC.dat};
-%						\addlegendentry{goto C}
-%						\addplot [red,only marks,mark=x] table [col sep=comma] {Data/goto_ct.dat};
-%						\addlegendentry{cruise to}
-%						\addplot [green!70!blue,only marks,mark=x] table [col sep=comma] {Data/goto_gt.dat};
-%						\addlegendentry{goto}
-%						\draw[black,very thick] (axis cs:0.375,-0.025) rectangle (axis cs:0.425,0.025);
-%						\draw[black,very thick] (axis cs:-0.025,0.375) rectangle (axis cs:0.025,0.425);
-%						\draw[black,very thick] (axis cs:-0.425,-0.025) rectangle (axis cs:-0.375,0.025);
-%						\draw[black,very thick] (axis cs:-0.025,-0.425) rectangle (axis cs:0.025,-0.375);
-%					\end{axis}
-%				\end{tikzpicture}
-%			\end{center}
-%		\end{column}
-%		\begin{column}{0.5\textwidth}
-%			\begin{center}
-%				\begin{tikzpicture}
-%					\begin{axis}[small, axis equal, grid=major, legend style={anchor=north east,font=\tiny,line width=1pt,mark size=3pt}]
-%						\addplot [red,mark=none] table [col sep=comma] {Data/goto_ct_Line.dat};
-%						\addplot [green!70!blue,mark=noe] table [col sep=comma] {Data/goto_gt_Line.dat};
-%						\addplot [blue,mark=none] table [col sep=comma] {Data/gotoC_Line.dat};
-%					\end{axis}
-%				\end{tikzpicture}
-%			\end{center}
-%		\end{column}
-%	\end{columns}
-%	\pause
-%	\vspace{0.3cm}
-%	\textbf{Average distance to desired target}\\
-%	\begin{center}
-%	goTo: 2.54 cm\hspace{1cm} CruiseTo: 5.49 cm \hspace{1cm} goto C: 0.295 cm
-%	\end{center}
-%\end{frame}
-%
-%\subsection{Strategy}
-%\begin{frame}
-%    \frametitle{Overview}
-%    \begin{figure}
-%        \includegraphics[width=0.7\textwidth]{Pictures/strategy}
-%    \end{figure}
-%    \textbf{Strategy:} \textit{What do we want to do?}\\
-%    \textbf{Tactics:} \textit{How can we achieve it?}
-%\end{frame}
-%
-%\begin{frame}
-%		\frametitle{Goalkeeper Tactics I}
-%		\textbf{Goalkeeper:}\\
-%		\begin{itemize}
-%				\item Calculate target position depending on \textbf{ball moving direction}\\
-%		\end{itemize}
-%		\begin{center}
-%				\input{diagramms/goalie-tactics3}
-%		\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Goalkeeper Tactics II}
-%    \textbf{Goalkeeper:}\\
-%    \begin{itemize}
-%        \item Calculate target position depending on \textbf{ball position}\\
-%    \end{itemize}
+%    \frametitle{Class Diagramm}
 %    \begin{center}
-%        \input{diagramms/goalie-tactics2}
+%        \input{diagramms/class-diagram}
 %    \end{center}
 %\end{frame}
-%
-%\begin{frame}
-%		\frametitle{Goalkeeper Tactics III}
-%		\textbf{Goalkeeper:}\\
-%		\begin{itemize}
-%				\item Don't move, if ball is to close to own goal\\
-%		\end{itemize}
-%		\begin{center}
-%				\input{diagramms/goalie-tactics-dont-move}
-%		\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%		\frametitle{Goalkeeper Tactics IV}
-%		\textbf{Goalkeeper:}\\
-%		\begin{itemize}
-%				\item Angle Handlings
-%		\end{itemize}
-%		\begin{center}
-%				\input{diagramms/goalie-tactics-angle1}
-%		\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%		\frametitle{Goalkeeper Tactics IV}
-%		\textbf{Goalkeeper:}\\
-%		\begin{itemize}
-%				\item Angle Handlings
-%		\end{itemize}
-%		\begin{center}
-%				\input{diagramms/goalie-tactics-angle2}
-%		\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Solution}
-%    \textbf{Goalkeeper:}\\
-%    \begin{itemize}
-%        \item Calculate target position depending on\\
-%        \begin{itemize}
-%            \item ball moving direction\\
-%            \item ball position\\
-%        \end{itemize}
-%        \item Don't move, if ball is to close to own goal\\
-%        \item Fixed robot
-%    \end{itemize}
-%    \textbf{Field players:}\\
-%    \begin{itemize}
-%        \item \textbf{One} strategy for both field players
-%        \item \textbf{Small} binary decision tree
-%        \item Recalculated each iteration
-%        \item Depending on ball and robot positions
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Decision Tree}
-%    \begin{center}
-%        \input{diagramms/decision-tree}
-%    \end{center}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Tactics}
-%    \textbf{Get behind Ball}
-%    	\begin{center}
-%		\begin{tikzpicture}
-%			% Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
-%				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
-%				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1) (0,-2.5);
-%			\end{pgfonlayer}
-%
-%			\coordinate (ball) at (1,1.6);
-%			\coordinate (enemygoal) at (-5.5,0);
-%			\coordinate (owngoal) at (5.5,0);
-%
-%			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
-%			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
-%			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
-%
-%			\draw[fill=black] (ball) -- (owngoal) circle (0.07);
-%			\draw[fill=green] ($(ball)!.5!(owngoal)$) circle (0.2) node {2};
-%
-%			\ball at (1,1.6) {};
-%
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Tactics}
-%    \textbf{Follow Ball}
-%    	\begin{center}
-%		\begin{tikzpicture}
-%			% Background Box
-%			\begin{pgfonlayer}{background}
-%				\draw [rounded corners=.8cm, very thick, fill=black!10] (-5.5,-2.5) rectangle (5.5,2.5);
-%				\draw [thick] (-5.5, -1.1) rectangle (-4.5, 1.1);
-%				\draw [thick] (5.5, -1.1) rectangle (4.5, 1.1);
-%			\end{pgfonlayer}
-%
-%			\coordinate (ball) at (-2.8,-1.6);
-%			\coordinate (enemygoal) at (-5.5,0);
-%			\coordinate (owngoal) at (5.5,0);
-%
-%			\draw [dashed, fill=green, fill opacity=0.2] (-4.5, 1.1) rectangle (4.5, -1.1);
-%			\draw [<->, >=latex', thick] (1,1.1) -- (1,-1.1);
-%
-%			\draw[fill=black] (ball) -- (enemygoal) circle (0.07);
-%			\draw[fill=green, dashed] (ball) -- ($(ball)!-1cm!(enemygoal)$);
-%			\draw[fill=green] ($(ball)!-1cm!(enemygoal)$) circle (0.2) node {1};
-%
-%			\draw [dashed] (ball) -- ++(0,0.5) (0,-0.9) -- ++(0,-0.5);
-%			\draw [<->, >=latex', thick] (0,-1.1) ++(0,-0.2) -- ++(-2.8,0);
-%
-%			\draw[fill=green] (0,-0.9) circle (0.2) node {2};
-%
-%			\ball at (-2.8,-1.6) {};
-%
-%		\end{tikzpicture}
-%	\end{center}
-%\end{frame}
-%
-%%\begin{frame}
-%%    \frametitle{Class Diagramm}
-%%    \begin{center}
-%%        \input{diagramms/class-diagram}
-%%    \end{center}
-%%\end{frame}
-%
-%\subsection{GUI Tool}
-%\begin{frame}
-%    \frametitle{Validation GUI}
-%    \begin{figure}
-%        \center
-%        \includegraphics[width=0.95\textwidth]{Pictures/gui-big}
-%    \end{figure}
-%
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Validation GUI}
-%    \begin{columns}[T]
-%        \begin{column}{0.4\textwidth}
-%            \begin{figure}
-%                \center
-%                \includegraphics[width=\textwidth]{Pictures/gui-small}
-%            \end{figure}
-%        \end{column}
-%        \begin{column}{0.6\textwidth}
-%            \textbf{Features:}
-%            \begin{itemize}
-%                \item Connects via \textbf{network}
-%                \item Updates \textbf{live and in realtime}
-%                \item Shows own robots and \textbf{routes}
-%                \item Displays all obstacles
-%                \item Logs positions
-%            \end{itemize}
-%        \end{column}
-%    \end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Validation GUI}
-%    \begin{columns}[T]
-%        \begin{column}{0.4\textwidth}
-%            \begin{figure}
-%                \center
-%                \includegraphics[width=\textwidth]{Pictures/gui-small}
-%            \end{figure}
-%        \end{column}
-%        \begin{column}{0.6\textwidth}
-%            \textbf{Implementation:}
-%            \begin{itemize}
-%                \item Seperate \textsc{Qt 5} project
-%                \item Connection via TCP/IP Socket
-%                \item Drawing on \textsc{QGraphicsView}
-%            \end{itemize}
-%        \end{column}
-%    \end{columns}
-%\end{frame}
-%
-%\begin{frame}
-%    \frametitle{Demo: Video}
-%	\centering
-%	\movie[showcontrols]{\includegraphics[height=0.8\textheight]{Pictures/gui_demo_preview.png}}{Pictures/gui_demo.mov}
-%\end{frame}
-%
-%\section{Results}
-%\subsection{Time Schedule}
-%\begin{frame}
-%	\frametitle{Gantt Chart I}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width=\textwidth]{Pictures/ganttfinal1.jpg}
-%	\end{figure}
-%\end{frame}
-%
-%\begin{frame}
-%	\frametitle{Gantt Chart II}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width=\textwidth]{Pictures/ganttfinal2.jpg}
-%	\end{figure}
-%\end{frame}
-%
-%\subsection{}
-%\begin{frame}
-%    \frametitle{Open Source}
-%    \textbf{Soon public available:}\\
-%    \textit{https://bitbucket.org/robosoccer/robosoccer}
-%    \begin{center}
-%        \begin{figure}
-%            \includegraphics[width=0.8\textwidth]{bucket.png}
-%        \end{figure}
-%    \end{center}
-%\end{frame}
-%
-%\subsection{Championship}
-%\begin{frame}
-%	\frametitle{We won the cup!}
-%	\begin{center}
-%	    \begin{figure}
-%	        \includegraphics[width=0.8\textwidth]{wm}
-%	    \end{figure}
-%	\end{center}
-%\end{frame}
-%
-%\subsection{Conclusion}
-%\begin{frame}
-%	\frametitle{Conclusion}
-%	\textbf{Resume and Proposals:}\\
-%	\begin{itemize}
-%		\item \textbf{Collision Avoidance:} potential controller instead of router
-%		\item \textbf{Strategy:} FSM instead of decision tree
-%		\item \textbf{Penalty:} goalkeeper position dependent of position of ball and kicker, before ball is kicked
-%		\item \textbf{Ball Control:} controller for dribbling skills
-%	\end{itemize}
-%\end{frame}
+
+\subsection{GUI Tool}
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{figure}
+        \center
+        \includegraphics[width=0.95\textwidth]{Pictures/gui-big}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-small}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Features:}
+            \begin{itemize}
+                \item Connects via \textbf{network}
+                \item Updates \textbf{live and in realtime}
+                \item Shows own robots and \textbf{routes}
+                \item Displays all obstacles
+                \item Logs positions
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Validation GUI}
+    \begin{columns}[T]
+        \begin{column}{0.4\textwidth}
+            \begin{figure}
+                \center
+                \includegraphics[width=\textwidth]{Pictures/gui-small}
+            \end{figure}
+        \end{column}
+        \begin{column}{0.6\textwidth}
+            \textbf{Implementation:}
+            \begin{itemize}
+                \item Seperate \textsc{Qt 5} project
+                \item Connection via TCP/IP Socket
+                \item Drawing on \textsc{QGraphicsView}
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Demo: Video}
+	\centering
+	\movie[showcontrols]{\includegraphics[height=0.8\textheight]{Pictures/gui_demo_preview.png}}{Pictures/gui_demo.mov}
+\end{frame}
+
+\section{Results}
+\subsection{Time Schedule}
+\begin{frame}
+	\frametitle{Gantt Chart I}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{Pictures/ganttfinal1.jpg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Gantt Chart II}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{Pictures/ganttfinal2.jpg}
+	\end{figure}
+\end{frame}
+
+\subsection{}
+\begin{frame}
+    \frametitle{Open Source}
+    \textbf{Soon public available:}\\
+    \textit{https://bitbucket.org/robosoccer/robosoccer}
+    \begin{center}
+        \begin{figure}
+            \includegraphics[width=0.8\textwidth]{bucket.png}
+        \end{figure}
+    \end{center}
+\end{frame}
+
+\subsection{Championship}
+\begin{frame}
+	\frametitle{We won the cup!}
+	\begin{center}
+	    \begin{figure}
+	        \includegraphics[width=0.8\textwidth]{wm}
+	    \end{figure}
+	\end{center}
+\end{frame}
+
+\subsection{Conclusion}
+\begin{frame}
+	\frametitle{Conclusion}
+	\textbf{Resume and Proposals:}\\
+	\begin{itemize}
+		\item \textbf{Collision Avoidance:} potential controller instead of router
+		\item \textbf{Strategy:} FSM instead of decision tree
+		\item \textbf{Penalty:} goalkeeper position dependent of position of ball and kicker, before ball is kicked
+		\item \textbf{Ball Control:} controller for dribbling skills
+	\end{itemize}
+\end{frame}
 
 \section{}
 \begin{frame}
