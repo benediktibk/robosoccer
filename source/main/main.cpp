@@ -29,7 +29,7 @@ void signalHandler(int signal)
 		application->stop();
 }
 
-vector<string> getAllIpAdresses()
+vector<string> getAllIpAddresses()
 {
 	vector<string> result;
 	ifaddrs *allAddresses = 0;
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 
-	vector<string> ipAdresses = getAllIpAdresses();
+	vector<string> ipAddresses = getAllIpAddresses();
 
 	cout << "##### ---------------------------\n##### GAME START" << endl;
 	cout << "##### own team color    : " << parser.getOwnTeamColor() << endl;
@@ -108,7 +108,7 @@ int main(int argc, char **argv)
 		cout << "##### Logging   : " << "ENABLED" << endl;
 
 	cout << "##### IP Adresses:" << endl;
-	for (vector<string>::const_iterator i = ipAdresses.begin(); i != ipAdresses.end(); ++i)
+	for (vector<string>::const_iterator i = ipAddresses.begin(); i != ipAddresses.end(); ++i)
 		cout << "##### " << *i << endl;
 
 	cout << "##### ---------------------------" << endl;
