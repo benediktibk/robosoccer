@@ -8,9 +8,10 @@
 \usepackage[percent]{overpic}
 \usepackage{multimedia}
 \usepackage{pgfplots}
+\usepackage{tabularx}
 \usepgfplotslibrary{patchplots}
 \graphicspath{{Pictures/}}
-\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata}
+\usetikzlibrary{arrows,calc,intersections,shapes,backgrounds,shadows,automata,patterns}
 \usetheme{Berlin}
 \definecolor{UniRed}{RGB}{255,0,0}
 \definecolor{UniWhite}{RGB}{255,255,255}
@@ -97,6 +98,8 @@
 		\item  \textbf{IDE}: \textsc{Qt Creator}
 		\item  \textbf{Version Control}: \textsc{Git} (hosted on \textit{https://bitbucket.org})
 		\item  \textbf{Build System}: \textsc{CMake}
+		\item  \textbf{Test Library}: \textsc{CPPUnit}
+		\item  \textbf{Discussion Board}: \textsc{phpBB} 
 	\end{itemize}
 \end{frame}
 
@@ -153,13 +156,10 @@
 
 \subsection{Time Schedule}
 \begin{frame}
+	\frametitle{Gantt Chart}
 	\begin{figure}
 		\centering
-		\includegraphics[width = 0.98\textwidth]{g1.pdf}
-	\end{figure}
-	\begin{figure}
-		\centering
-		\includegraphics[width = 0.98\textwidth]{g2.pdf}
+		\includegraphics[width = 0.98\textwidth]{gantt_alt.jpg}
 	\end{figure}
 \end{frame}
 
@@ -728,11 +728,10 @@
 \end{frame}
 
 \begin{frame}
-		\frametitle{Solution}
+		\frametitle{Goalkeeper Tactics I}
 		\textbf{Goalkeeper:}\\
 		\begin{itemize}
-				\item Calculate target position depending on ball moving direction\\
-				\item Fixed robot
+				\item Calculate target position depending on \textbf{ball moving direction}\\
 		\end{itemize}
 		\begin{center}
 				\input{diagramms/goalie-tactics3}
@@ -740,35 +739,21 @@
 \end{frame}
 
 \begin{frame}
-    \frametitle{Solution}
+    \frametitle{Goalkeeper Tactics II}
     \textbf{Goalkeeper:}\\
     \begin{itemize}
-        \item Calculate target position depending on ball position\\
-        \item Fixed robot
+        \item Calculate target position depending on \textbf{ball position}\\
     \end{itemize}
     \begin{center}
         \input{diagramms/goalie-tactics2}
     \end{center}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Solution}
-%    \textbf{Goalkeeper:}\\
-%    \begin{itemize}
-%        \item Calculate target position depending on ball position\\
-%        \item Fixed robot
-%    \end{itemize}
-%    \begin{center}
-%        \input{diagramms/goalie-tactics1}
-%    \end{center}
-%\end{frame}
-
 \begin{frame}
-		\frametitle{Solution}
+		\frametitle{Goalkeeper Tactics III}
 		\textbf{Goalkeeper:}\\
 		\begin{itemize}
-				\item Dont move, if ball is to close to own goal\\
-				\item Fixed robot
+				\item Don't move, if ball is to close to own goal\\
 		\end{itemize}
 		\begin{center}
 				\input{diagramms/goalie-tactics-dont-move}
@@ -776,7 +761,39 @@
 \end{frame}
 
 \begin{frame}
+		\frametitle{Goalkeeper Tactics IV}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Angle Handlings
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics-angle1}
+		\end{center}
+\end{frame}
+
+\begin{frame}
+		\frametitle{Goalkeeper Tactics IV}
+		\textbf{Goalkeeper:}\\
+		\begin{itemize}
+				\item Angle Handlings
+		\end{itemize}
+		\begin{center}
+				\input{diagramms/goalie-tactics-angle2}
+		\end{center}
+\end{frame}
+
+\begin{frame}
     \frametitle{Solution}
+    \textbf{Goalkeeper:}\\
+    \begin{itemize}
+        \item Calculate target position depending on\\
+        \begin{itemize}
+            \item ball moving direction\\
+            \item ball position\\
+        \end{itemize}
+        \item Don't move, if ball is to close to own goal\\
+        \item Fixed robot
+    \end{itemize}
     \textbf{Field players:}\\
     \begin{itemize}
         \item \textbf{One} strategy for both field players
@@ -856,13 +873,6 @@
 	\end{center}
 \end{frame}
 
-%\begin{frame}
-%    \frametitle{Class Diagramm}
-%    \begin{center}
-%        \input{diagramms/class-diagram}
-%    \end{center}
-%\end{frame}
-
 \subsection{GUI Tool}
 \begin{frame}
     \frametitle{Validation GUI}
@@ -924,18 +934,18 @@
 \section{Results}
 \subsection{Time Schedule}
 \begin{frame}
-	\frametitle{Gantt Chart}
+	\frametitle{Gantt Chart I}
 	\begin{figure}
 		\centering
-		%\includegraphics[width=\textwidth]{Pictures/ganttfinal1}
+		\includegraphics[width=\textwidth]{Pictures/ganttfinal1.jpg}
 	\end{figure}
 \end{frame}
 
 \begin{frame}
-	\frametitle{Gantt Chart}
+	\frametitle{Gantt Chart II}
 	\begin{figure}
 		\centering
-		%\includegraphics[width=\textwidth]{Pictures/ganttfinal2}
+		\includegraphics[width=\textwidth]{Pictures/ganttfinal2.jpg}
 	\end{figure}
 \end{frame}
 
@@ -984,14 +994,20 @@
 	\hfill \\
 	\begin{block}{Some useless Facts}
 		\begin{itemize}
-			\item 24087 lines of code
-			\item 100 classes
-			\item 1375 commits
+			\item 29537 lines of code					% 28207 + 1530 	gui
+			\item 107 classes ($+$ 19 mock classes and 74 test classes)	% 100 	+ 7 	gui
+			\item 1462 commits						% 1394	+ 59	gui
 			\item 778 unit tests
 			\item 118 issues (on \textit{bitbucket.org})
-			\item 1.23 MB per minute logging output
+			\item This presentation has 59 slides (1557 lines of \LaTeX\ Beamer)
 		\end{itemize}
 	\end{block}
+
+	\begin{center}
+		\begin{tabularx}{4.5cm}{m{1.5cm}m{1.5cm}}
+			$\approx 73 \times$ & \includegraphics[scale=0.07]{milchschnitte.png}
+		\end{tabularx}
+	\end{center}
 \end{frame}
 
 \end{document}
